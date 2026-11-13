@@ -9,7 +9,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const requiredProductionVars = [
-  'DATABASE_URL'
+  'DATABASE_URL',
+  'CREDENTIAL_SIGNING_SECRET'
 ];
 
 const requiredClientVars = [
@@ -18,9 +19,15 @@ const requiredClientVars = [
 ];
 
 const optionalRecommendedVars = [
+  'FIREBASE_PROJECT_ID',
+  'PUBLIC_BASE_URL',
   'RESEND_API_KEY',
-  'CREDENTIAL_SIGNING_SECRET',
-  'ADMIN_INBOX_EMAIL'
+  'ADMIN_INBOX_EMAIL',
+  'N8N_WEBHOOK_URL',
+  'N8N_WEBHOOK_SECRET',
+  'E2B_API_KEY',
+  'ALLOWED_ORIGINS',
+  'TRUST_PROXY'
 ];
 
 console.log('--- REDKROSS ACADEMY: PRE-FLIGHT ENVIRONMENT CHECK ---');
@@ -36,6 +43,9 @@ for (const varName of requiredProductionVars) {
     // Security check for deprecated hardcoded credentials
     if (val.includes('***REMOVED-SECRET***')) {
       console.warn(`[SECURITY WARNING] "${varName}" appears to contain deprecated/exposed credential signature. Rotation recommended.`);
+    } else if (varName === 'CREDENTIAL_SIGNING_SECRET' && val.length < 32) {
+      console.error('[CRITICAL] CREDENTIAL_SIGNING_SECRET must be at least 32 characters (openssl rand -hex 32).');
+      hasError = true;
     } else {
       console.log(`[PASS] ${varName} is configured.`);
     }

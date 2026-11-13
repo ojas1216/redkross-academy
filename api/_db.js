@@ -4,16 +4,19 @@ import pg from 'pg';
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
-if (!DATABASE_URL) {
-  throw new Error('[FATAL] DATABASE_URL environment variable is required. Please set DATABASE_URL in your environment or .env file.');
-}
+// Fail on first use rather than at import, so handlers that never touch the database
+// (and unit tests of them) still load; every query fails loudly when unconfigured.
 
 // Detect whether connection string is Neon or standard self-hosted PostgreSQL
-const isNeon = (DATABASE_URL.includes('neon.tech') || process.env.DB_ENGINE === 'neon') && process.env.DB_ENGINE !== 'pg';
+const isNeon = Boolean(DATABASE_URL) && (DATABASE_URL.includes('neon.tech') || process.env.DB_ENGINE === 'neon') && process.env.DB_ENGINE !== 'pg';
 
 let sqlExecutor;
 
-if (isNeon) {
+if (!DATABASE_URL) {
+  sqlExecutor = async () => {
+    throw new Error('[FATAL] DATABASE_URL environment variable is required.');
+  };
+} else if (isNeon) {
   sqlExecutor = neon(DATABASE_URL);
 } else {
   const { Pool } = pg;

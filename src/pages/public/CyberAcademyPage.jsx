@@ -60,16 +60,8 @@ export default function CyberAcademyPage() {
 
   const cyberCoursesList = useMemo(() => {
     // Strictly canonical cybersecurity courses only
-    const ALLOWED_CYBER_IDS = new Set([
-      'crs_cyber_intro_01', 
-      'crs_cyber_net_02', 
-      'crs_cyber_admin_03',
-      'crs_cyber_python_04',
-      'introduction-to-cybersecurity',
-      'computer-networking-for-cybersecurity',
-      'linux-and-windows-system-administration',
-      'python-for-cybersecurity'
-    ]);
+    // Every course in the canonical cyber catalog (01-04 hand-built, 05-22 from the course library)
+    const ALLOWED_CYBER_IDS = new Set(CYBER_COURSES.flatMap((c) => [c.id, c.slug]));
 
     const list = CYBER_COURSES.map((cc) => ({
       ...cc,

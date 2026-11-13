@@ -14,7 +14,7 @@ import { LIBRARY_SPECS, LIBRARY_BANK_LOADERS } from '../_data/library/index.js';
 const LEGACY = {
   crs_cyber_intro_01: { code: 'C01', finalCount: 50 },
   crs_cyber_net_02: { code: 'C02', finalCount: 50 },
-  crs_cyber_admin_03: { code: 'C03', finalCount: 60 },
+  crs_cyber_admin_03: { code: 'C03', finalCount: 50 },
   crs_cyber_python_04: { code: 'C04', finalCount: 60 },
 };
 
@@ -68,7 +68,8 @@ export async function getCourseSpec(courseId) {
           id: fa.id,
           title: fa.title || `${c.title} - Final Assessment`,
           passingScore: fa.passing_score || 80,
-          count: LEGACY[courseId].finalCount,
+          // the published course page states this number; serve exactly that many
+          count: fa.total_questions || LEGACY[courseId].finalCount,
           timeLimitMinutes: fa.time_limit_minutes || 60,
           tokenBounty: 300,
           credentialTitle: fa.credential_title || c.milestone_cert || `Certificate of Completion: ${c.title}`,

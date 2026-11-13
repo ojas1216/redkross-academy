@@ -161,7 +161,8 @@ check(r.body.review.every((x) => x.correct_option_id), 'passed attempt includes 
 // proctoring forfeit uses an attempt
 let st = await call('assessment', { method: 'POST', token: 'alice', body: { action: 'start', course_id: COURSE, quiz_id: 'quiz_c08_m2' } });
 r = await call('assessment', { method: 'POST', token: 'alice', body: { action: 'forfeit', session_id: st.body.session_id, reason: 'TAB_SWITCH' } });
-check(r.body.forfeited && r.body.attempts.used === 1, 'proctoring forfeit consumes an attempt', r.body);
+check(r.body.forfeited && r.body.attempts.locked_until, 'proctoring forfeit (strike 3) locks the assessment for 24h', r.body);
+await sql`UPDATE assessment_windows SET locked_until = NOW() - INTERVAL '1 minute' WHERE user_id = ${aliceId}`;
 
 for (let m = 2; m <= 8; m++) await passQuiz(`quiz_c08_m${m}`);
 r = await call('assessment', { token: 'alice', query: { course_id: COURSE } });

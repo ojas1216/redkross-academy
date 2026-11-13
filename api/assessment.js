@@ -4,7 +4,7 @@
  *   GET  ?course_id=...                         learner's assessment status for a course
  *   POST { action:'start',   course_id, quiz_id } -> session + questions (no answers)
  *   POST { action:'submit',  session_id, answers:{questionId: optionId} } -> graded result
- *   POST { action:'forfeit', session_id, reason }  (proctoring violation; uses an attempt)
+ *   POST { action:'forfeit', session_id, reason }  (proctoring strike 3: attempt void + 24h lock)
  *
  * Policy: 3 attempts per window; the 3rd failure locks the quiz for 24 hours, after
  * which a new window opens. The final assessment unlocks only when every module
@@ -263,7 +263,14 @@ async function forfeit(ctx, body, res) {
     WHERE id = ${session.id} AND status = 'in_progress' RETURNING id
   `;
   if (!closed.length) return json(res, { error: 'SESSION_CLOSED' }, 409);
-  const w = await recordFailure(ctx.user.id, session.course_id, session.quiz_id);
+  // Proctoring policy (strike 3): the attempt is void and the assessment locks for 24 hours
+  const lockAt = new Date(Date.now() + LOCKOUT_HOURS * 3600 * 1000).toISOString();
+  const w = (await sql`
+    INSERT INTO assessment_windows (user_id, course_id, quiz_id, attempts_used, locked_until, updated_at)
+    VALUES (${ctx.user.id}, ${session.course_id}, ${session.quiz_id}, ${MAX_ATTEMPTS}, ${lockAt}, NOW())
+    ON CONFLICT (user_id, course_id, quiz_id) DO UPDATE SET attempts_used = ${MAX_ATTEMPTS}, locked_until = ${lockAt}::timestamptz, updated_at = NOW()
+    RETURNING *
+  `)[0];
   await sql`
     INSERT INTO exam_violation_events (id, attempt_id, enrolment_id, quiz_id, user_id, course_id, strike_count, reason, status, created_at)
     VALUES (${randomId('vio')}, ${session.id}, ${session.course_id}, ${session.quiz_id}, ${ctx.user.id}, ${session.course_id},

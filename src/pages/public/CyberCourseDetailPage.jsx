@@ -261,12 +261,10 @@ export default function CyberCourseDetailPage() {
                       ? '6 Knowledge Checks + Final'
                       : course.id === 'crs_cyber_net_02' || course.slug === 'computer-networking-for-cybersecurity'
                       ? '8 Quizzes + Final'
-                      : `${course.modules?.length || 8} Quizzes + Final`}
+                      : `${(course.modules || []).filter((m) => m.quiz).length || 8} Quizzes + Final`}
                   </div>
                   <div className="text-[10px] text-slate-400">
-                    {course.id === 'crs_cyber_intro_01' || course.slug === 'introduction-to-cybersecurity' || course.id === 'crs_cyber_python_04' || course.slug === 'python-for-cybersecurity'
-                      ? '60-MCQ Proctored Final'
-                      : '50-MCQ Proctored Final'}
+                    {`${course.final_assessment?.total_questions || 50}-MCQ Proctored Final`}
                   </div>
                 </div>
               </div>

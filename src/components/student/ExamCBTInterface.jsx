@@ -20,8 +20,6 @@ import {
   Camera
 } from 'lucide-react';
 import ProctorCameraFeed from './ProctorCameraFeed';
-import { clearQuizSessionQuestions } from '../../services/db/questionBanks/questionBankEngine';
-import { mockEngine } from '../../services/db/mockEngine';
 
 /**
  * RedKross Academy - Enhanced CBT Examination Console
@@ -36,6 +34,8 @@ export default function ExamCBTInterface({
   answers = {},
   onSelectAnswer,
   onSubmitExam,
+  onForfeitExam,
+  isSubmitting = false,
   isSubmitted = false,
   submissionResult = null,
   onRetakeExam,
@@ -217,18 +217,10 @@ export default function ExamCBTInterface({
           reason: 'STRIKE 3 OF 3: Multiple window focus / fullscreen violations detected. Exam session has been forfeited and a mandatory 24-Hour Lockout is enforced.'
         });
         exitFullscreenMode();
-        // Record proctor violation in engine
-        mockEngine.recordProctorViolation({
-          enrolmentId,
-          quizId: quiz?.id || 'exam_violation',
-          cadetId: 'CADET_LOCKOUT',
-          studentName: 'Student Cadet',
-          violationType: 'FULLSCREEN_OR_TAB_SWITCH_3_STRIKES',
-          details: reason || 'Exited fullscreen or switched tabs 3 times.'
-        });
-        // Force submit with 0 score / failed status
+        // Strike 3: the server forfeits the attempt and applies the 24-hour lock
         setTimeout(() => {
-          onSubmitExam();
+          if (onForfeitExam) onForfeitExam(`FULLSCREEN_OR_TAB_SWITCH_3_STRIKES: ${reason || 'focus lost 3 times'}`);
+          else onSubmitExam();
         }, 1500);
       } else {
         setStrikeModal({
@@ -486,7 +478,6 @@ export default function ExamCBTInterface({
       localStorage.removeItem(deadlineKey);
       localStorage.removeItem(bufferKey);
       localStorage.removeItem(`rk_exam_strikes_${enrolmentId || 'cadet'}_${quiz?.id || 'exam'}`);
-      clearQuizSessionQuestions(enrolmentId, quiz?.id);
     } catch {}
     if (onRetakeExam) {
       onRetakeExam();
@@ -596,7 +587,7 @@ export default function ExamCBTInterface({
                 <p className="text-xs font-mono mt-1 opacity-90 leading-relaxed">
                   {isPassed
                     ? 'Congratulations! You have verified operational competence for this curriculum milestone.'
-                    : `Required standard: ${passingScore}% passing score. Review the rationales below and prepare for retake.`}
+                    : `Required standard: ${passingScore}% passing score. Correct answers are shown once you pass - revisit the topics below before your next attempt.`}
                 </p>
               </div>
             </div>
@@ -642,6 +633,17 @@ export default function ExamCBTInterface({
           </div>
         </div>
 
+        {!isPassed && Array.isArray(submissionResult.topicsToReview) && submissionResult.topicsToReview.length > 0 && (
+          <div className="p-5 rounded-xl border border-[#FF7A00]/30 bg-black/50 space-y-2">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFA439]">Topics to revisit</h4>
+            <ul className="list-disc pl-5 text-sm text-slate-200 space-y-1">
+              {submissionResult.topicsToReview.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* Detailed Question Explanations */}
         <div className="space-y-4">
           <h4 className="text-sm font-mono uppercase tracking-wider text-[#A3907C] flex items-center gap-2">
@@ -653,7 +655,10 @@ export default function ExamCBTInterface({
             {questions.map((q, idx) => {
               const selectedOptId = answers[q.id];
               const correctOpt = q.options?.find((opt) => opt.is_correct);
-              const isCorrect = selectedOptId && correctOpt && selectedOptId === correctOpt.id;
+              // server-graded result when available; answers are only revealed after a pass
+              const isCorrect = typeof q.is_answer_correct === 'boolean'
+                ? q.is_answer_correct
+                : Boolean(selectedOptId && correctOpt && selectedOptId === correctOpt.id);
 
               return (
                 <div
@@ -1110,7 +1115,7 @@ export default function ExamCBTInterface({
             className="w-full py-3 rounded-xl bg-[#FF7A00] hover:bg-[#FFA439] text-[#071018] font-bold text-xs font-mono uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(255,122,0,0.3)] flex items-center justify-center gap-2 cursor-pointer"
           >
             <CheckCircle2 className="w-4 h-4" />
-            <span>{isFinalExam ? 'Final Submit & Finish (50 Marks)' : 'Final Submit & Finish Exam'}</span>
+            <span>{isSubmitting ? 'Submitting...' : isFinalExam ? `Final Submit & Finish (${totalQuestions} Marks)` : 'Final Submit & Finish Exam'}</span>
           </button>
         </div>
       </div>
@@ -1165,7 +1170,7 @@ export default function ExamCBTInterface({
               }}
               className="w-full py-3 rounded-xl bg-[#FF7A00] text-[#071018] font-bold text-xs font-mono tracking-wider cursor-pointer"
             >
-              {isFinalExam ? 'Final Submit & Finish (50 Marks)' : 'Final Submit & Finish Exam'}
+              {isSubmitting ? 'Submitting...' : isFinalExam ? `Final Submit & Finish (${totalQuestions} Marks)` : 'Final Submit & Finish Exam'}
             </button>
           </div>
         </div>
@@ -1224,7 +1229,7 @@ export default function ExamCBTInterface({
                 onClick={handleInternalSubmit}
                 className="px-5 py-2.5 rounded-xl bg-[#FF7A00] hover:bg-[#FFA439] text-[#071018] font-bold text-xs font-mono transition-all shadow-[0_0_15px_rgba(255,122,0,0.4)] cursor-pointer"
               >
-                {isFinalExam ? 'Final Submit & Finish (50 Marks)' : 'Final Submit & Finish Exam'}
+                {isSubmitting ? 'Submitting...' : isFinalExam ? `Final Submit & Finish (${totalQuestions} Marks)` : 'Final Submit & Finish Exam'}
               </button>
             </div>
           </div>

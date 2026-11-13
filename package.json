@@ -10,11 +10,15 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "build:curriculum": "node scripts/build_cyber_curriculum.js",
-    "test": "node tests/unit_test_student_features.mjs",
+    "test": "node tests/unit_test_student_features.mjs && node tests/unit_test_cyber_command_vault.mjs && node scripts/check_library_import.mjs",
     "check:env": "node scripts/verify-env.js",
     "db:migrate": "node scripts/runMigrations.js",
     "db:seed": "node scripts/seedDatabase.js",
-    "start:prod": "node server/productionServer.js"
+    "start:prod": "node server/productionServer.js",
+    "test:api": "node tests/api_security_and_assessment.test.mjs",
+    "audit:bundle": "node scripts/audit_client_bundle.mjs",
+    "import:library": "node scripts/import_library_courses.mjs",
+    "check:library": "node scripts/check_library_import.mjs"
   },
   "dependencies": {
     "@blocknote/core": "^0.57.0",

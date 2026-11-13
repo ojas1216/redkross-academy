@@ -5,36 +5,62 @@
  */
 
 import { mockEngine } from './db/mockEngine.js';
+import { auth } from './auth/firebase';
 
 const API_BASE = '/api';
 
 export const apiClient = {
-  getAuthHeader() {
-    let token = localStorage.getItem('redkross_academy_auth_token');
-    if (!token) {
-      if (localStorage.getItem('redkross_academy_dev_admin') === 'true') {
-        token = 'usr_super_admin_dev';
-      } else {
-        const userStr = localStorage.getItem('redkross_academy_active_user');
-        if (userStr) {
-          try {
-            const userObj = JSON.parse(userStr);
-            token = userObj.id || userStr;
-          } catch {
-            token = userStr;
-          }
-        }
-      }
+  /** Fresh Firebase ID token for the signed-in user (the SDK refreshes it automatically). */
+  async authHeaders() {
+    try {
+      const user = auth.currentUser;
+      if (user) return { Authorization: `Bearer ${await user.getIdToken()}` };
+    } catch (err) {
+      console.warn('Could not obtain ID token:', err?.message);
     }
-    return token ? { Authorization: `Bearer ${token}` } : {};
+    return {};
+  },
+
+  /** JSON request helper: never throws for HTTP errors; returns { ok, status, data }. */
+  async request(path, { method = 'GET', body, query } = {}) {
+    const qs = query ? `?${new URLSearchParams(query).toString()}` : '';
+    const res = await fetch(`${API_BASE}${path}${qs}`, {
+      method,
+      headers: { ...(body ? { 'Content-Type': 'application/json' } : {}), ...(await this.authHeaders()) },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const isJson = (res.headers.get('content-type') || '').includes('application/json');
+    const data = isJson ? await res.json().catch(() => ({})) : {};
+    return { ok: res.ok, status: res.status, data };
+  },
+
+  // ---------------- server-authoritative learning records ----------------
+  async getAssessmentStatus(courseId) {
+    return this.request('/assessment', { query: { course_id: courseId } });
+  },
+  async startAssessment(courseId, quizId) {
+    return this.request('/assessment', { method: 'POST', body: { action: 'start', course_id: courseId, quiz_id: quizId } });
+  },
+  async submitAssessment(sessionId, answers) {
+    return this.request('/assessment', { method: 'POST', body: { action: 'submit', session_id: sessionId, answers } });
+  },
+  async forfeitAssessment(sessionId, reason) {
+    return this.request('/assessment', { method: 'POST', body: { action: 'forfeit', session_id: sessionId, reason } });
+  },
+  async getLessonProgress(courseId) {
+    return this.request('/progress', { query: { course_id: courseId } });
+  },
+  async recordLessonProgress(courseId, lessonIds) {
+    const ids = Array.isArray(lessonIds) ? lessonIds : [lessonIds];
+    return this.request('/progress', { method: 'POST', body: { course_id: courseId, lesson_ids: ids } });
   },
 
   async syncUser(userData) {
     try {
       const res = await fetch(`${API_BASE}/auth`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
+        body: JSON.stringify({ full_name: userData.full_name, avatar: userData.avatar })
       });
       if (!res.ok) throw new Error('User sync failed');
       const data = await res.json();
@@ -57,7 +83,7 @@ export const apiClient = {
     try {
       const url = preview ? `${API_BASE}/courses?preview=admin` : `${API_BASE}/courses`;
       const res = await fetch(url, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       const contentType = res.headers.get('content-type') || '';
       if (!res.ok || !contentType.includes('application/json')) {
@@ -121,7 +147,7 @@ export const apiClient = {
   async getCourseById(id) {
     try {
       const res = await fetch(`${API_BASE}/courses?id=${encodeURIComponent(id)}`, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       if (!res.ok) throw new Error('API fetch failed');
       const data = await res.json();
@@ -135,7 +161,7 @@ export const apiClient = {
   async getCourseBySlug(slug) {
     try {
       const res = await fetch(`${API_BASE}/courses?slug=${encodeURIComponent(slug)}`, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       if (!res.ok) throw new Error('API fetch failed');
       const data = await res.json();
@@ -152,7 +178,7 @@ export const apiClient = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...this.getAuthHeader()
+          ...(await this.authHeaders())
         },
         body: JSON.stringify(coursePayload)
       });
@@ -173,7 +199,7 @@ export const apiClient = {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          ...this.getAuthHeader()
+          ...(await this.authHeaders())
         },
         body: JSON.stringify({ id: courseId })
       });
@@ -194,7 +220,7 @@ export const apiClient = {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          ...this.getAuthHeader()
+          ...(await this.authHeaders())
         },
         body: JSON.stringify({ id: courseId, course: coursePayload })
       });
@@ -215,7 +241,7 @@ export const apiClient = {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          ...this.getAuthHeader()
+          ...(await this.authHeaders())
         },
         body: JSON.stringify({
           action: 'TOGGLE_CATALOG_VISIBILITY',
@@ -284,78 +310,10 @@ export const apiClient = {
     const cadetId = userMetadata.cadet_id || localUser?.cadet_id || 'RK-CADET';
 
     try {
-      const res = await fetch(`${API_BASE}/enrol`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...this.getAuthHeader()
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          course_id: courseId,
-          email,
-          full_name: fullName,
-          cadet_id: cadetId
-        })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        serverEnrolment = data.enrolment;
-      }
+      const { ok, data } = await this.request('/enrol', { method: 'POST', body: { course_id: courseId } });
+      if (ok) serverEnrolment = data.enrolment;
     } catch (apiErr) {
-      console.warn('Fallback local enrolment:', apiErr.message);
-    }
-
-    if (email) {
-      try {
-        const course = mockEngine.getCourseById(courseId);
-        const courseTitle = course?.title || 'Defensive Cyber Curriculum';
-        fetch('***REMOVED-SECRET***', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-RedKross-Source': 'academy-client-gateway',
-            'X-RedKross-Sender': 'contact@redkross.org.in',
-            'X-RedKross-Recipient': email.trim().toLowerCase()
-          },
-          body: JSON.stringify({
-            event: 'student.enrolled',
-            from: 'contact@redkross.org.in',
-            fromEmail: 'contact@redkross.org.in',
-            sender: 'contact@redkross.org.in',
-            to: email.trim().toLowerCase(),
-            toEmail: email.trim().toLowerCase(),
-            recipient: email.trim().toLowerCase(),
-            email: email.trim().toLowerCase(),
-            studentEmail: email.trim().toLowerCase(),
-            studentName: fullName,
-            fullName,
-            cadetId,
-            courseTitle,
-            timestamp: new Date().toISOString(),
-            data: {
-              userId,
-              email: email.trim().toLowerCase(),
-              studentEmail: email.trim().toLowerCase(),
-              to: email.trim().toLowerCase(),
-              toEmail: email.trim().toLowerCase(),
-              from: 'contact@redkross.org.in',
-              fromEmail: 'contact@redkross.org.in',
-              sender: 'contact@redkross.org.in',
-              fullName,
-              studentName: fullName,
-              cadetId,
-              courseTitle,
-              enrolledAt: new Date().toISOString(),
-              tokenBalance: 150
-            }
-          })
-        }).catch((webhookErr) => {
-          console.warn('[n8n Webhook Dispatch Warning]:', webhookErr.message);
-        });
-      } catch (hookErr) {
-        console.warn('[Direct Hook Exception]:', hookErr);
-      }
+      console.warn('Enrolment sync deferred:', apiErr.message);
     }
 
     const localEnr = mockEngine.enrolStudent(userId, courseId);
@@ -369,13 +327,9 @@ export const apiClient = {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          ...this.getAuthHeader()
+          ...(await this.authHeaders())
         },
-        body: JSON.stringify({
-          enrolment_id: enrolmentId,
-          user_id: userId,
-          course_id: courseId
-        })
+        body: JSON.stringify({ course_id: courseId })
       });
       if (res.ok) {
         serverSuccess = true;
@@ -389,8 +343,8 @@ export const apiClient = {
 
   async getEnrolments(userId) {
     try {
-      const res = await fetch(`${API_BASE}/enrol?userId=${encodeURIComponent(userId)}`, {
-        headers: { ...this.getAuthHeader() }
+      const res = await fetch(`${API_BASE}/enrol`, {
+        headers: { ...(await this.authHeaders()) }
       });
       if (!res.ok) throw new Error('Get enrolments failed');
       const data = await res.json();
@@ -402,85 +356,29 @@ export const apiClient = {
   },
 
   async completeLesson(enrolmentId, lessonId) {
+    const result = mockEngine.completeLesson(enrolmentId, lessonId);
+    const courseId = mockEngine.getEnrolment(enrolmentId)?.course_id;
+    if (courseId) this.recordLessonProgress(courseId, lessonId).catch(() => {});
+    return result;
+  },
+
+  async getQuiz() {
+    throw new Error('Retired: assessments are served by /api/assessment (apiClient.startAssessment).');
+  },
+
+  async submitQuiz() {
+    throw new Error('Retired: use apiClient.submitAssessment.');
+  },
+
+  async recordViolation({ sessionId, courseId, quizId, strikeCount, reason } = {}) {
     try {
-      const res = await fetch(`${API_BASE}/progress`, {
+      return (await this.request('/violation', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...this.getAuthHeader()
-        },
-        body: JSON.stringify({ enrolment_id: enrolmentId, lesson_id: lessonId })
-      });
-      if (!res.ok) throw new Error('Progress API failed');
-      const data = await res.json();
-      mockEngine.completeLesson(enrolmentId, lessonId);
-      return data;
+        body: { session_id: sessionId, course_id: courseId, quiz_id: quizId, strike_count: strikeCount, reason },
+      })).data;
     } catch (err) {
-      console.warn('Fallback to local engine for completeLesson:', err.message);
-      return mockEngine.completeLesson(enrolmentId, lessonId);
-    }
-  },
-
-  async getQuiz(quizId, enrolmentId) {
-    try {
-      const res = await fetch(`${API_BASE}/quiz?id=${encodeURIComponent(quizId)}&enrolmentId=${encodeURIComponent(enrolmentId || '')}`, {
-        headers: { ...this.getAuthHeader() }
-      });
-      if (!res.ok) throw new Error('Get Quiz API failed');
-      return await res.json();
-    } catch (err) {
-      console.warn('Fallback to local engine for getQuiz:', err.message);
-      return { quiz: mockEngine.getQuizById(quizId) };
-    }
-  },
-
-  async submitQuiz(enrolmentId, quizId, answers, userId) {
-    const res = await fetch(`${API_BASE}/quiz`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...this.getAuthHeader()
-      },
-      body: JSON.stringify({
-        enrolment_id: enrolmentId,
-        quiz_id: quizId,
-        answers,
-        user_id: userId
-      })
-    });
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.error || 'Quiz submission failed');
-    }
-    const data = await res.json();
-    mockEngine.submitQuizAttempt(enrolmentId, quizId, answers);
-    return data;
-  },
-
-  async recordViolation(enrolmentId, quizId, strikeCount, reason, userId, attemptId) {
-    try {
-      const res = await fetch(`${API_BASE}/violation`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...this.getAuthHeader()
-        },
-        body: JSON.stringify({
-          enrolment_id: enrolmentId,
-          quiz_id: quizId,
-          strike_count: strikeCount,
-          reason,
-          user_id: userId,
-          attempt_id: attemptId
-        })
-      });
-      if (!res.ok) throw new Error('Violation API failed');
-      const data = await res.json();
-      mockEngine.recordViolation(enrolmentId, quizId, strikeCount, reason);
-      return data;
-    } catch (err) {
-      console.warn('Fallback to local engine for recordViolation:', err.message);
-      return mockEngine.recordViolation(enrolmentId, quizId, strikeCount, reason);
+      console.warn('Violation telemetry not delivered:', err.message);
+      return null;
     }
   },
 
@@ -493,16 +391,15 @@ export const apiClient = {
       }
       return await res.json();
     } catch (err) {
-      console.warn('Fallback to local engine for verifyCredential:', err.message);
-      const cred = mockEngine.verifyCredential(verificationId);
-      return cred ? { found: true, credential: cred } : { found: false };
+      console.warn('Verification service unreachable:', err.message);
+      return { found: false, unavailable: true, message: 'The verification service is temporarily unavailable. Please try again shortly.' };
     }
   },
 
   async getWallet(userId) {
     try {
-      const res = await fetch(`${API_BASE}/wallet?userId=${encodeURIComponent(userId)}`, {
-        headers: { ...this.getAuthHeader() }
+      const res = await fetch(`${API_BASE}/wallet`, {
+        headers: { ...(await this.authHeaders()) }
       });
       if (!res.ok) throw new Error('Wallet API failed');
       return await res.json();
@@ -521,23 +418,23 @@ export const apiClient = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...this.getAuthHeader()
+          ...(await this.authHeaders())
         },
         body: JSON.stringify(ticketData)
       });
       if (!res.ok) throw new Error('Ticket API failed');
       return await res.json();
     } catch (err) {
-      console.warn('Fallback to local engine for createSupportTicket:', err.message);
-      return { success: true, ticket: { id: `tkt_${Date.now()}`, ...ticketData, status: 'Open', created_at: new Date().toISOString() } };
+      console.warn('Support ticket not delivered:', err.message);
+      return { success: false, error: 'We could not submit your ticket. Please email contact@redkross.org.in.' };
     }
   },
 
   async getSupportTickets(userId) {
     try {
-      const url = userId ? `${API_BASE}/support-tickets?userId=${encodeURIComponent(userId)}` : `${API_BASE}/support-tickets`;
+      const url = `${API_BASE}/support-tickets`;
       const res = await fetch(url, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       if (!res.ok) throw new Error('Get tickets failed');
       const data = await res.json();
@@ -551,7 +448,7 @@ export const apiClient = {
   async getAdminMetrics() {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       if (!res.ok) {
         throw new Error('Serverless admin unavailable');
@@ -581,7 +478,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'REORDER_MODULES', course_id: courseId, modules })
       });
       if (!res.ok) throw new Error('API reorder failed');
@@ -595,7 +492,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'SAVE_LESSON', course_id: courseId, module_id: moduleId, lesson_id: lessonId, updates })
       });
       if (!res.ok) throw new Error('API save lesson failed');
@@ -609,7 +506,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'SAVE_QUIZ', course_id: courseId, module_id: moduleId, quiz_id: quizId, quiz_payload: quizPayload })
       });
       if (!res.ok) throw new Error('API save quiz failed');
@@ -623,7 +520,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'UPLOAD_VIDEO', course_id: courseId, asset: assetPayload })
       });
       if (!res.ok) throw new Error('API upload video failed');
@@ -637,7 +534,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'DELETE_VIDEO', course_id: courseId, asset_id: assetId })
       });
       if (!res.ok) throw new Error('API delete video failed');
@@ -651,7 +548,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'REBIND_VIDEO', course_id: courseId, asset_id: assetId, new_lesson_id: newLessonId })
       });
       if (!res.ok) throw new Error('API rebind video failed');
@@ -665,7 +562,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'PUBLISH_VERSION', course_id: courseId })
       });
       if (!res.ok) throw new Error('API publish version failed');
@@ -679,7 +576,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'RESET_PROGRESS', user_id: userId, course_id: courseId, lesson_id: lessonId, reason })
       });
       if (!res.ok) throw new Error('API reset progress failed');
@@ -693,7 +590,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'ADJUST_TOKENS', user_id: userId, amount, reason })
       });
       if (!res.ok) throw new Error('API token adjustment failed');
@@ -707,7 +604,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'FORCE_ISSUE_CREDENTIAL', user_id: userId, course_id: courseId })
       });
       if (!res.ok) throw new Error('API force issue credential failed');
@@ -744,7 +641,7 @@ export const apiClient = {
   async getStudents() {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       if (!res.ok) throw new Error('API getStudents failed');
       const data = await res.json();
@@ -764,7 +661,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'SET_USER_STATUS', user_id: userId, status, reason })
       });
       mockEngine.setUserAccountStatus(userId, status, reason);
@@ -780,7 +677,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'PERMANENT_DELETE_USER', user_id: userId, email })
       });
       mockEngine.permanentlyDeleteStudent(userId, email);
@@ -800,7 +697,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/progress`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'SUBMIT_ASSIGNMENT', ...submissionPayload })
       });
       const localResult = mockEngine.submitAssignment(submissionPayload);
@@ -815,7 +712,7 @@ export const apiClient = {
   async getAssignments() {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       if (res.ok) {
         const data = await res.json();
@@ -834,7 +731,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'GRADE_ASSIGNMENT', ...gradingPayload })
       });
       const localResult = mockEngine.gradeAssignment(gradingPayload);
@@ -850,7 +747,7 @@ export const apiClient = {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.getAuthHeader() },
+        headers: { 'Content-Type': 'application/json', ...(await this.authHeaders()) },
         body: JSON.stringify({ action: 'DISPATCH_CREDENTIAL', ...certificatePayload })
       });
       if (res.ok) return await res.json();
@@ -872,7 +769,7 @@ export const apiClient = {
   async getCertificateRequests() {
     try {
       const res = await fetch(`${API_BASE}/admin`, {
-        headers: { ...this.getAuthHeader() }
+        headers: { ...(await this.authHeaders()) }
       });
       if (res.ok) {
         const data = await res.json();

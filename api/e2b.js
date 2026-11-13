@@ -1,7 +1,8 @@
 import crypto from 'crypto';
 import { Sandbox } from '@e2b/code-interpreter';
 import { cors } from './_db.js';
-import { requireUser } from './_auth.js';
+import { json } from './_db.js';
+import { verifyRequest, userIdForUid } from './_auth.js';
 
 export const config = {
   maxDuration: 60 // Allow extended duration on supported tiers
@@ -34,8 +35,10 @@ const MAX_STDOUT_BYTES = 100 * 1024; // 100 KB safety cap
 export default async function handler(req, res) {
   if (cors(req, res)) return;
   res.setHeader('Content-Type', 'application/json');
-  const ctx = await requireUser(req, res, { create: false });
-  if (!ctx) return;
+  // a verified Firebase ID token is required; sandboxes are bound to that account
+  const identity = await verifyRequest(req);
+  if (!identity) return json(res, { error: 'Authentication required' }, 401);
+  const ctx = { user: { id: userIdForUid(identity.uid) } };
 
   const startTime = Date.now();
   let body = {};

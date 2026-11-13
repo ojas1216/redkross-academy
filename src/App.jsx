@@ -41,9 +41,9 @@ const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard'));
 const CyberStudentDashboard = lazy(() => import('./pages/student/CyberStudentDashboard'));
 const PsychologyStudentDashboard = lazy(() => import('./pages/student/PsychologyStudentDashboard'));
 const LessonPlayerPage = lazy(() => import('./pages/student/LessonPlayerPage'));
-const QuizAssessmentPage = lazy(() => import('./pages/student/QuizAssessmentPage'));
+const QuizRedirect = lazy(() => import('./pages/student/AssessmentRedirect').then((m) => ({ default: m.QuizRedirect })));
 const TokenWalletPage = lazy(() => import('./pages/student/TokenWalletPage'));
-const FinalCertificationPage = lazy(() => import('./pages/student/FinalCertificationPage'));
+const FinalExamRedirect = lazy(() => import('./pages/student/AssessmentRedirect').then((m) => ({ default: m.FinalExamRedirect })));
 const CourseHomePage = lazy(() => import('./pages/student/CourseHomePage'));
 
 // Admin Pages
@@ -155,7 +155,7 @@ export default function App() {
               path="student/final-exam/:enrolmentId"
               element={
                 <ProtectedRoute>
-                  <FinalCertificationPage />
+                  <FinalExamRedirect />
                 </ProtectedRoute>
               }
             />
@@ -203,7 +203,7 @@ export default function App() {
             path="student/quiz/:enrolmentId/:quizId"
             element={
               <ProtectedRoute>
-                <QuizAssessmentPage />
+                <QuizRedirect />
               </ProtectedRoute>
             }
           />
