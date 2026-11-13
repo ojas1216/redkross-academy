@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* Font Stack for RedKross Academy — Universal Lora Standard */
+
+:root {
+  --font-display: 'Lora', Georgia, serif;
+  --font-sans: 'Lora', Georgia, serif;
+  --font-mono: 'Lora', Georgia, serif;
+}
+
+/* Font Classes for Tailwind — 100% Lora Enforcement */
+
+.font-royal, .font-lora, .font-mono, .mono, .tabular-nums, .font-sans, .font-cinzel, .font-orbitron, .font-plus-jakarta, .royal {
+  font-family: 'Lora', Georgia, serif !important;
+}
+
+/* Font Weights */
+
+.font-thin {
+  font-weight: 300;
+}
+
+.font-light {
+  font-weight: 400;
+}
+
+.font-regular {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Font Sizes */
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+}
+
+.text-7xl {
+  font-size: 4.5rem;
+}
+
+/* Font Families for Specific Use Cases */
+
+.royal {
+  font-family: 'royal', 'Inter', sans-serif !important;
+}
+
+.mono {
+  font-family: 'mono', 'Space Mono', monospace !important;
+}

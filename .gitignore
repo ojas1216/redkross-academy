@@ -1,0 +1,59 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+!.env.example
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.vercel
+*.zip
+*.tar.gz
+scratch/
+graphify-out/
+src/backups/
+src/services/db/course03/modules/backup_*/
+# Course Raw Assets
+RK course notes/
+scripts/*.txt
+scripts/*.json
+
+# Agent, Tool & MCP Configs
+AGENTS.md
+.claude/
+.serena/
+.omc/
+.mcp.json
+claude.json
+AGENTS.md
+
+# Test, Audit & Scratch Reports
+*_output.txt
+test_output.txt
+cyber_vault_output.txt
+question_bank_output.txt
+bug_report.md
+database-security-review.md
+docs/superpowers/
+
+

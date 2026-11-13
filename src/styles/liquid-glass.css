@@ -1,0 +1,346 @@
+/* ==========================================================================
+   RedKross Academy - Liquid Glass 2.0 (Amber + Black Blending Engine)
+   Pervasive Tactile Glassmorphism Token Architecture
+   Complies with Impeccable Design Standards (WCAG AA Contrast >= 4.5:1)
+   Strictly Zero Emerald / Green / Cyan — Pure Amber & Nocturnal Black
+   ========================================================================== */
+
+/* 1. Base Variables & Surface Depth */
+:root {
+  --liquid-glass-bg: rgba(16, 12, 6, 0.58);
+  --liquid-glass-border: rgba(255, 122, 0, 0.25);
+  --liquid-glass-border-hover: rgba(255, 122, 0, 0.55);
+  --liquid-glass-shine: rgba(255, 255, 255, 0.18);
+  --liquid-glass-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75), 0 0 20px -5px rgba(255, 122, 0, 0.15);
+  --liquid-glass-glow: 0 0 28px rgba(255, 122, 0, 0.32);
+}
+
+/* 2. Liquid Glass Navbar */
+.liquid-glass-nav,
+.ultra-glass-nav {
+  background: transparent !important;
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border-bottom: 1px solid rgba(255, 122, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-nav:hover,
+.ultra-glass-nav:hover {
+  border-bottom-color: rgba(255, 122, 0, 0.48);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.8), 0 0 26px rgba(255, 122, 0, 0.22), inset 0 1px 0 0 rgba(255, 255, 255, 0.24);
+}
+
+/* 3. Liquid Glass Panel & Workspace Containers */
+.liquid-glass-panel,
+.ultra-glass-panel {
+  background: linear-gradient(135deg, rgba(16, 12, 6, 0.62) 0%, rgba(8, 6, 4, 0.52) 100%);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 122, 0, 0.24);
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  border-left: 1px solid rgba(255, 122, 0, 0.2);
+  box-shadow: 0 22px 50px -8px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.16);
+  position: relative;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.liquid-glass-panel:hover,
+.ultra-glass-panel:hover {
+  border-top-color: rgba(255, 122, 0, 0.55);
+  border-color: rgba(255, 122, 0, 0.45);
+  box-shadow: 0 26px 60px -6px rgba(0, 0, 0, 0.85), 0 0 32px rgba(255, 122, 0, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+/* 4. Liquid Glass Cards (General UI, not touching course cards) */
+.liquid-glass-card,
+.ultra-glass-card {
+  background: linear-gradient(135deg, rgba(18, 14, 8, 0.58) 0%, rgba(8, 6, 4, 0.48) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 122, 0, 0.24);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 122, 0, 0.18);
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass-card::before,
+.ultra-glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 122, 0, 0.12), transparent);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.liquid-glass-card:hover,
+.ultra-glass-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 122, 0, 0.55);
+  box-shadow: 0 22px 46px -6px rgba(0, 0, 0, 0.85), 0 0 28px rgba(255, 122, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+}
+
+.liquid-glass-card:hover::before,
+.ultra-glass-card:hover::before {
+  left: 100%;
+}
+
+/* 5. Liquid Glass Buttons */
+.liquid-glass-button,
+.ultra-glass-btn {
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.28) 0%, rgba(255, 164, 57, 0.2) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 122, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.38);
+  color: #FFA439;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.28);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.liquid-glass-button:hover:not(:disabled),
+.ultra-glass-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.38) 0%, rgba(255, 164, 57, 0.28) 100%);
+  border-color: #FF7A00;
+  box-shadow: 0 8px 28px rgba(255, 122, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+.liquid-glass-button:active:not(:disabled),
+.ultra-glass-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 122, 0, 0.25);
+}
+
+/* Secondary Neutral Glass Button */
+.liquid-glass-button-secondary,
+.ultra-glass-btn-secondary {
+  background: rgba(16, 12, 8, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 122, 0, 0.24);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  color: #E2E8F0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-button-secondary:hover:not(:disabled),
+.ultra-glass-btn-secondary:hover:not(:disabled) {
+  background: rgba(22, 16, 8, 0.82);
+  border-color: rgba(255, 122, 0, 0.5);
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+/* 6. Liquid Glass Input & Filter Bars */
+.liquid-glass-input,
+.ultra-glass-input {
+  background: rgba(12, 10, 6, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 122, 0, 0.24);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: #F1F5F9;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-input:focus,
+.ultra-glass-input:focus {
+  outline: none;
+  border-color: rgba(255, 122, 0, 0.7);
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.35), inset 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+/* 7. Liquid Glass Badges & Small Pills */
+.liquid-glass-badge,
+.ultra-glass-pill {
+  background: rgba(255, 122, 0, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 122, 0, 0.38);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFA439;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* 8. Liquid Glass Dropdowns & Overlays */
+.liquid-glass-dropdown,
+.ultra-glass-overlay {
+  background: rgba(12, 10, 6, 0.94);
+  backdrop-filter: blur(26px) saturate(200%);
+  -webkit-backdrop-filter: blur(26px) saturate(200%);
+  border: 1px solid rgba(255, 122, 0, 0.32);
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 122, 0, 0.16), inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+}
+
+/* ==========================================================================
+   LEFT-TO-RIGHT KINETIC ANIMATION ENGINE
+   ========================================================================== */
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes sweepLeftToRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes neonGlowLeft {
+  0%, 100% {
+    box-shadow: -4px 0 18px rgba(255, 122, 0, 0.2), 0 16px 40px rgba(0, 0, 0, 0.7);
+  }
+  50% {
+    box-shadow: -6px 0 26px rgba(255, 122, 0, 0.35), 0 16px 40px rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* Primary Left-to-Right Entrance Class */
+.animate-slide-left {
+  animation: slideInFromLeft 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Staggered Delay Utilities */
+.stagger-1 { animation-delay: 0.06s; }
+.stagger-2 { animation-delay: 0.12s; }
+.stagger-3 { animation-delay: 0.18s; }
+.stagger-4 { animation-delay: 0.24s; }
+.stagger-5 { animation-delay: 0.30s; }
+.stagger-6 { animation-delay: 0.36s; }
+.stagger-7 { animation-delay: 0.42s; }
+.stagger-8 { animation-delay: 0.48s; }
+
+/* Continuous Left-to-Right Neon Shimmer Capsule */
+.shimmer-lr {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-lr::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 122, 0, 0.18) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: sweepLeftToRight 3.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* Scroll-Driven Reveal (Modern Web Guidance) with Graceful Fallback */
+@supports (animation-timeline: view()) {
+  .scroll-reveal-left {
+    animation: slideInFromLeft linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .scroll-reveal-left {
+    animation: slideInFromLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+/* Ambient Deep Canvas Subtle Atmosphere (Crisp, zero harsh glow) */
+.ambient-aurora-bg {
+  display: none;
+}
+
+/* =========================================================================
+   RedKross BlockNote Obsidian x Amber Orange Theme Overrides
+   ========================================================================= */
+.blocknote-redkross-theme .bn-container,
+.blocknote-redkross-theme .bn-editor {
+  background: transparent !important;
+  color: #F1F5F9 !important;
+  font-family: 'Lora', Georgia, serif !important;
+}
+
+.blocknote-redkross-theme .bn-block-content h1,
+.blocknote-redkross-theme .bn-block-content h2,
+.blocknote-redkross-theme .bn-block-content h3 {
+  color: #FFFFFF !important;
+  font-family: 'Lora', Georgia, serif !important;
+  font-weight: 700 !important;
+}
+
+.blocknote-redkross-theme .bn-block-content h1 {
+  font-size: 1.75rem !important;
+  color: #FFA439 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.blocknote-redkross-theme .bn-block-content h2 {
+  font-size: 1.35rem !important;
+  color: #FFFFFF !important;
+  border-bottom: 1px solid rgba(255, 122, 0, 0.2) !important;
+  padding-bottom: 0.35rem !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.blocknote-redkross-theme .bn-block-content h3 {
+  font-size: 1.1rem !important;
+  color: #FFA439 !important;
+  margin-top: 1rem !important;
+}
+
+.blocknote-redkross-theme .bn-block-content[data-content-type="codeBlock"] pre {
+  background: rgba(8, 6, 4, 0.95) !important;
+  border: 1px solid rgba(255, 122, 0, 0.3) !important;
+  border-radius: 0.75rem !important;
+  color: #FFA439 !important;
+  padding: 1rem !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+.blocknote-redkross-theme .bn-block-content[data-content-type="quote"] blockquote {
+  border-left: 3px solid #FF7A00 !important;
+  background: rgba(255, 122, 0, 0.08) !important;
+  color: #E2D9CE !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 0 0.5rem 0.5rem 0 !important;
+}
+
+.blocknote-redkross-theme .bn-block-content[data-content-type="checkListItem"] {
+  accent-color: #FF7A00 !important;
+}
+

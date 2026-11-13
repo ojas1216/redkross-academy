@@ -1,0 +1,890 @@
+@import './styles/liquid-glass.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: transparent;
+  --card: rgba(12, 10, 8, 0.55);
+  --surface-2: rgba(18, 14, 10, 0.65);
+  --nav: rgba(8, 8, 8, 0.88);
+  --accent: #FF7A00;
+  --accent-2: #FFA439;
+  --glow: rgba(255, 122, 0, 0.45);
+  --text: #F1F5F9;
+  --text-2: #E2D9CE;
+  --border: rgba(255, 122, 0, 0.22);
+  --muted: #A3907C;
+  --progress: #FF7A00;
+
+  /* RedKross Foundation Amber + Black Blending Tokens */
+  --brand-amber: #FF7A00;
+  --brand-amber-light: #FFA439;
+  --brand-amber-deep: #AD3800;
+  --brand-void: #000000;
+  --brand-glow-amber: rgba(255, 122, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+/* Division Scoped Theme: Cybersecurity - Pure Amber Orange & Nocturnal Black */
+[data-academy-theme="cybersecurity"] {
+  --bg: transparent;
+  --card: rgba(18, 14, 8, 0.65);
+  --surface-2: rgba(26, 19, 10, 0.82);
+  --nav: rgba(10, 8, 5, 0.92);
+  --accent: #FF7A00;
+  --accent-2: #FFA439;
+  --glow: rgba(255, 122, 0, 0.45);
+  --text: #F1F5F9;
+  --text-2: #E2D9CE;
+  --border: rgba(255, 122, 0, 0.28);
+  --muted: #A3907C;
+  --progress: #FF7A00;
+}
+
+/* Division Scoped Theme: Psychology */
+[data-academy-theme="psychology"] {
+  --bg: #0C0F0E;
+  --card: rgba(18, 25, 22, 0.70);
+  --surface-2: rgba(26, 38, 32, 0.82);
+  --nav: rgba(12, 15, 14, 0.92);
+  --accent: #A3C9A8;
+  --accent-2: #E6B87D;
+  --glow: rgba(163, 201, 168, 0.4);
+  --text: #F7F4EE;
+  --text-2: #DCD7CC;
+  --border: rgba(163, 201, 168, 0.22);
+  --muted: #959E97;
+  --progress: #E6B87D;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #000000;
+}
+
+/* Typography Standard — Academic Prose Standard Across All Pages & Divisions */
+html, body {
+  font-family: 'Lora', Georgia, serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, li, blockquote, label, .font-lora, .font-royal, .font-serif, .acad-card__title, .acad-card__desc {
+  font-family: 'Lora', Georgia, serif;
+}
+
+input, textarea, select, button {
+  font-family: 'Lora', Georgia, serif;
+}
+
+/* Monospace & Code Font Preservation */
+code, pre, kbd, samp, .font-mono, .mono, .tabular-nums {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+/* Universal Typography & Word-Wrap Standard for Natural Academic Prose */
+/* Guarantees that words in headings, paragraphs, and list items wrap cleanly without breaking mid-word */
+h1, h2, h3, h4, h5, h6, p, a, li, blockquote, label, .acad-card__title, .acad-card__desc {
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: manual;
+  text-wrap: pretty;
+}
+
+/* Inline code & technical identifiers: wrap gracefully without splitting normal prose */
+code:not(pre code), kbd, samp {
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* Code and Terminal Session Overflow Rules */
+pre {
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: pre;
+}
+
+pre code {
+  white-space: inherit;
+  word-break: normal;
+}
+
+/* ========================================================================= */
+/* KATEX MATHEMATICAL FORMULA PRESERVATION & TYPOGRAPHY SHIELD             */
+/* Preserves native KaTeX font cascade (KaTeX_Main, KaTeX_Math, KaTeX_AMS)  */
+/* Prevents line breaks, word breaking, and vertical metric deformation     */
+/* ========================================================================= */
+.katex,
+.katex * {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: nowrap;
+  text-wrap: nowrap;
+  letter-spacing: normal !important;
+}
+
+/* KaTeX display mode block styling & container overflow management */
+.katex-display {
+  display: block !important;
+  margin: 0.6em 0 !important;
+  text-align: center !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+
+.katex-display > .katex {
+  display: inline-block !important;
+  text-align: initial !important;
+  white-space: nowrap !important;
+}
+
+/* Notebook Alignment for Math Steps Sequential Cards */
+.math-step-formula .katex-display {
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+.math-step-formula .katex-display > .katex {
+  text-align: center !important;
+}
+
+/* Tabular figures for telemetry & numbers */
+.font-mono, .mono, .tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer utilities {
+  .font-royal, .font-lora, .font-serif {
+    font-family: 'Lora', Georgia, serif !important;
+  }
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.01em;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Lora', Georgia, serif !important;
+  background-color: transparent;
+  color: #F1F5F9;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism System for RedKross Academy - Amber + Black Blending Liquid Glass */
+@layer components {
+  .glass-card {
+    background: linear-gradient(135deg, rgba(20, 14, 8, 0.55) 0%, rgba(6, 6, 6, 0.45) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 122, 0, 0.22);
+    border-top: 1px solid rgba(255, 164, 57, 0.32);
+    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .cyber-glass-panel, .glass-panel {
+    background: linear-gradient(135deg, rgba(22, 15, 8, 0.62) 0%, rgba(6, 6, 6, 0.52) 100%);
+    backdrop-filter: blur(24px) saturate(190%);
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    border: 1px solid rgba(255, 122, 0, 0.24);
+    border-top: 1px solid rgba(255, 164, 57, 0.35);
+    box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.82), inset 0 1px 1px 0 rgba(255, 255, 255, 0.14);
+  }
+
+  .cyber-glass-card {
+    background: linear-gradient(135deg, rgba(20, 14, 8, 0.58) 0%, rgba(6, 6, 6, 0.48) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 122, 0, 0.22);
+    border-top: 1px solid rgba(255, 164, 57, 0.28);
+    box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.70), inset 0 1px 0 0 rgba(255, 255, 255, 0.10);
+  }
+
+  .cyber-glass-nav {
+    background: rgba(8, 6, 4, 0.88);
+    backdrop-filter: blur(24px) saturate(190%);
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    border-bottom: 1px solid rgba(255, 122, 0, 0.22);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .cyber-glass-input {
+    background: rgba(16, 12, 8, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(101, 245, 138, 0.22);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    color: #F1F5F9;
+  }
+
+  .glass-card-hover {
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(12, 36, 26, 0.75);
+    border-color: rgba(101, 245, 138, 0.5);
+    box-shadow: 0 16px 40px 0 rgba(0, 255, 163, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .glass-card-mint-hover {
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-mint-hover:hover {
+    background: rgba(12, 36, 26, 0.75);
+    border-color: rgba(53, 230, 181, 0.55);
+    box-shadow: 0 16px 40px 0 rgba(53, 230, 181, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* Backward compatibility for amber-hover mapped to mint */
+  .glass-card-amber-hover {
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-amber-hover:hover {
+    background: rgba(12, 36, 26, 0.75);
+    border-color: rgba(53, 230, 181, 0.55);
+    box-shadow: 0 16px 40px 0 rgba(0, 255, 163, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .glass-panel {
+    background: rgba(7, 22, 16, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(101, 245, 138, 0.24);
+  }
+
+  .glass-nav {
+    background: rgba(6, 18, 14, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(101, 245, 138, 0.24);
+  }
+
+  .glass-pill {
+    background: rgba(255, 122, 0, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 122, 0, 0.32);
+    color: #FFA439;
+  }
+
+  .glass-pill-amber, .glass-pill-mint {
+    background: rgba(255, 122, 0, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 164, 57, 0.35);
+    color: #FFA439;
+  }
+
+  .glass-button-primary {
+    background: linear-gradient(135deg, #FF7A00, #E05300);
+    backdrop-filter: blur(12px);
+    color: #000000;
+    border: 1px solid rgba(255, 164, 57, 0.6);
+    box-shadow: 0 4px 20px 0 rgba(255, 122, 0, 0.35);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-button-primary:hover {
+    background: linear-gradient(135deg, #FFA439, #FF7A00);
+    box-shadow: 0 6px 28px 0 rgba(255, 122, 0, 0.55);
+    transform: translateY(-1px);
+  }
+
+  .glass-button-secondary {
+    background: rgba(18, 14, 10, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 122, 0, 0.28);
+    color: #F1F5F9;
+    transition: all 0.3s ease;
+  }
+
+  .glass-button-secondary:hover {
+    background: rgba(26, 18, 12, 0.88);
+    border-color: rgba(255, 164, 57, 0.6);
+    color: #FFA439;
+    transform: translateY(-1px);
+  }
+
+  /* Shading & Blending for Cinzel Headers */
+  .title-shading-neon {
+    background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 55%, #FFA439 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 14px rgba(255, 122, 0, 0.25));
+  }
+
+  .title-shading-amber, .title-shading-mint {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFE0B2 55%, #FFA439 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 14px rgba(255, 122, 0, 0.25));
+  }
+
+  .title-shading-white {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 70%, #94A3B8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Cyber Cut Chamfered Corners */
+  .cyber-clip-corner-top-left {
+    clip-path: polygon(18px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 18px);
+  }
+
+  .cyber-clip-corner-top-right {
+    clip-path: polygon(0% 0%, calc(100% - 18px) 0%, 100% 18px, 100% 100%, 0% 100%);
+  }
+
+  .cyber-clip-diagonal-both {
+    clip-path: polygon(18px 0%, 100% 0%, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0% 100%, 0% 18px);
+  }
+
+  .cyber-clip-notch-bottom {
+    clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0% calc(100% - 16px));
+  }
+}
+
+/* Custom Themed Scrollbar (Amber Orange + Nocturnal Black Theme) */
+html {
+  scrollbar-color: rgba(255, 122, 0, 0.45) transparent;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 122, 0, 0.40);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 122, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 164, 57, 0.85);
+  box-shadow: 0 0 8px rgba(255, 122, 0, 0.6);
+}
+
+/* Explicit Custom Scrollbar Utility - Ultra-Thin Amber Streamline */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 122, 0, 0.5) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 122, 0, 0.5);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 164, 57, 0.9);
+  box-shadow: 0 0 6px rgba(255, 122, 0, 0.6);
+}
+
+/* Division Scoped Scrollbars: Strictly Amber/Orange Theme (Zero Cyan/Blue) */
+[data-academy-theme="cybersecurity"] {
+  scrollbar-color: rgba(255, 122, 0, 0.5) transparent;
+  scrollbar-width: thin;
+}
+[data-academy-theme="cybersecurity"] ::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+[data-academy-theme="cybersecurity"] ::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+[data-academy-theme="cybersecurity"] ::-webkit-scrollbar-track {
+  background: transparent;
+}
+[data-academy-theme="cybersecurity"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 122, 0, 0.5);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 122, 0, 0.25);
+}
+[data-academy-theme="cybersecurity"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 164, 57, 0.9);
+  box-shadow: 0 0 8px rgba(255, 122, 0, 0.6);
+}
+
+[data-academy-theme="psychology"] {
+  scrollbar-color: rgba(230, 184, 125, 0.45) #0C0F0E;
+}
+[data-academy-theme="psychology"] ::-webkit-scrollbar-thumb {
+  background: rgba(230, 184, 125, 0.40);
+  border: 1px solid rgba(230, 184, 125, 0.15);
+}
+[data-academy-theme="psychology"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(230, 184, 125, 0.80);
+  box-shadow: 0 0 10px rgba(230, 184, 125, 0.5);
+}
+
+/* Accessible Focus Ring */
+:focus-visible {
+  outline: 2px solid #FF7A00;
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Academic Card Design System (from academic-card-kit)
+   ========================================================================== */
+.acad-card {
+  --art: none;
+  --art-pos: 72% 30%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  min-height: 460px;
+  padding: 22px;
+  gap: 14px;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 18px;
+  border: 1px solid rgba(101, 245, 138, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(7, 22, 16, 0.52);
+  backdrop-filter: blur(22px) saturate(190%);
+  -webkit-backdrop-filter: blur(22px) saturate(190%);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s, box-shadow .35s;
+}
+
+/* artwork layer: edge to edge, no image box */
+.acad-card__art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--art);
+  background-size: cover;
+  background-position: var(--art-pos);
+  background-repeat: no-repeat;
+  transform: scale(1.03);
+  transition: transform .7s cubic-bezier(.2,.7,.2,1), background-position .7s cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
+
+/* readability layers: translucent dark emerald on the left fading right */
+.acad-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(0deg, rgba(6,18,14,.92) 0%, rgba(6,18,14,.72) 20%, rgba(6,18,14,0) 46%),
+    linear-gradient(180deg, rgba(6,18,14,.5) 0%, rgba(6,18,14,0) 22%),
+    linear-gradient(90deg, rgba(6,18,14,.94) 0%, rgba(6,18,14,.85) 34%, rgba(6,18,14,.48) 58%, rgba(6,18,14,.06) 100%);
+}
+
+/* neon edge highlight, hidden until hover/focus */
+.acad-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(101,245,138,0), inset 0 0 28px rgba(0,255,163,0);
+  transition: box-shadow .35s;
+}
+
+.acad-card:hover,
+.acad-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(101,245,138,.65);
+  box-shadow: 0 18px 45px rgba(0,0,0,.6), 0 0 24px rgba(101,245,138,.16), inset 0 1px 0 0 rgba(255,255,255,0.22);
+  outline: none;
+}
+
+.acad-card:hover::after,
+.acad-card:focus-visible::after {
+  box-shadow: inset 0 0 0 1px rgba(101,245,138,.35), inset 0 0 28px rgba(0,255,163,.08);
+}
+
+.acad-card:hover .acad-card__art,
+.acad-card:focus-visible .acad-card__art {
+  transform: scale(1.07) translate(-1.2%, -1%);
+}
+
+/* top row */
+.acad-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.acad-badge {
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(101,245,138,.10);
+  border: 1px solid rgba(101,245,138,.35);
+}
+
+.acad-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 8px rgba(7,16,24,.9);
+}
+
+.acad-meta i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--muted);
+  display: inline-block;
+}
+
+/* title + description */
+.acad-card__title {
+  margin: 10px 0 0;
+  max-width: 78%;
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+  color: var(--text);
+}
+
+.acad-card__desc {
+  margin: 0;
+  max-width: 76%;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* skills */
+.acad-skills {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 88%;
+}
+
+.acad-skill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  color: var(--text);
+  background: rgba(9, 28, 20, 0.65);
+  border: 1px solid rgba(101, 245, 138, 0.22);
+  backdrop-filter: blur(6px);
+}
+
+/* bottom row: credential left, arrow right. No CTA button. */
+.acad-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(101, 245, 138, 0.2);
+}
+
+.acad-cred {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.acad-cred svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  color: var(--accent-2);
+}
+
+.acad-cred small {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.acad-cred strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.acad-go {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  background: rgba(11,18,27,.7);
+  transition: transform .3s, border-color .3s, background .3s;
+}
+
+.acad-go svg {
+  width: 16px;
+  height: 16px;
+}
+
+.acad-card:hover .acad-go,
+.acad-card:focus-visible .acad-go {
+  transform: translateX(2px);
+  border-color: rgba(101,245,138,.6);
+  background: rgba(101,245,138,.12);
+}
+
+/* staggered left-to-right entrance, runs on scroll */
+.acad-card.reveal {
+  opacity: 0;
+  transform: translateX(-32px);
+}
+
+.acad-card.reveal.is-in {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity .65s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 160ms), transform .65s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 160ms), border-color .35s, box-shadow .35s;
+}
+
+.acad-card.reveal.is-in:hover,
+.acad-card.reveal.is-in:focus-visible {
+  transform: translateY(-4px);
+  transition-delay: 0s;
+}
+
+@media (max-width: 420px) {
+  .acad-card {
+    min-height: 480px;
+    padding: 18px;
+  }
+  .acad-card__title {
+    font-size: 22px;
+    max-width: 85%;
+  }
+  .acad-card__desc {
+    max-width: 85%;
+  }
+  .acad-skills {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .acad-card, .acad-card__art, .acad-card::after, .acad-go {
+    transition: none !important;
+  }
+  .acad-card.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .acad-card:hover, .acad-card:focus-visible {
+    transform: none !important;
+  }
+}
+
+/* TRUE TRANSPARENT GLASSMORPHISM WITH REDKROSS COLOR BLENDING */
+@layer utilities {
+  .cyber-glass-panel {
+    background: rgba(8, 18, 28, 0.35) !important;
+    backdrop-filter: blur(24px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 16px 45px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22) !important;
+  }
+  .cyber-glass-card {
+    background: rgba(10, 22, 34, 0.32) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.18) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .cyber-glass-card:hover {
+    background: rgba(16, 32, 48, 0.45) !important;
+    border-color: rgba(101, 245, 138, 0.45) !important;
+    box-shadow: 0 16px 45px 0 rgba(0, 0, 0, 0.5), 0 0 30px rgba(101, 245, 138, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-2px);
+  }
+  .cyber-glass-nav {
+    background: rgba(6, 14, 23, 0.45) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.18) !important;
+  }
+  .cyber-glass-input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.2s ease !important;
+  }
+  .cyber-glass-input:focus {
+    background: rgba(255, 255, 255, 0.09) !important;
+    border-color: rgba(101, 245, 138, 0.7) !important;
+    box-shadow: 0 0 25px rgba(101, 245, 138, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+    outline: none !important;
+  }
+  .cyber-glass-pill {
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18) !important;
+  }
+}
+
+/* GitHub-Flavored Markdown Alert / Callout Advisory Panels */
+.rk-callout {
+  margin: 1.125rem 0;
+  padding: 0.9rem 1.05rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(11, 13, 20, 0.88);
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.rk-callout-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.rk-callout-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rk-callout-body {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #E2D9CE;
+}
+
+.rk-callout-body > p {
+  margin: 0.45rem 0;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.rk-callout-body > p:first-child {
+  margin-top: 0;
+}
+
+.rk-callout-body > p:last-child,
+.rk-callout-body > ul:last-child,
+.rk-callout-body > ol:last-child {
+  margin-bottom: 0;
+}
+
+.rk-callout-note {
+  background: rgba(12, 24, 38, 0.65);
+  border-color: rgba(56, 189, 248, 0.34);
+}
+.rk-callout-note .rk-callout-icon,
+.rk-callout-note .rk-callout-badge {
+  color: #7DD3FC;
+}
+
+.rk-callout-tip {
+  background: rgba(9, 26, 20, 0.65);
+  border-color: rgba(101, 245, 138, 0.32);
+}
+.rk-callout-tip .rk-callout-icon,
+.rk-callout-tip .rk-callout-badge {
+  color: #6EE7B7;
+}
+
+.rk-callout-important {
+  background: rgba(22, 16, 38, 0.65);
+  border-color: rgba(167, 139, 250, 0.34);
+}
+.rk-callout-important .rk-callout-icon,
+.rk-callout-important .rk-callout-badge {
+  color: #C4B5FD;
+}
+
+.rk-callout-warning {
+  background: rgba(28, 20, 9, 0.7);
+  border-color: rgba(251, 191, 36, 0.38);
+}
+.rk-callout-warning .rk-callout-icon,
+.rk-callout-warning .rk-callout-badge {
+  color: #FCD34D;
+}
+
+.rk-callout-caution {
+  background: rgba(34, 13, 16, 0.7);
+  border-color: rgba(248, 113, 113, 0.4);
+}
+.rk-callout-caution .rk-callout-icon,
+.rk-callout-caution .rk-callout-badge {
+  color: #FCA5A5;
+}
+
