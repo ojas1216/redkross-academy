@@ -20,7 +20,7 @@ export default function OverviewPage() {
         <Stat label="Active batches" value={c.active_cohorts} to="/admin/batches" />
         <Stat label="Active codes & links" value={c.active_codes} hint={`${c.redemptions} uses · ${c.redemptions_7d} this week`} to="/admin/codes" />
         <Stat label="Name requests" value={c.pending_name_requests} hint="waiting for review" to="/admin/name-requests" />
-        <Stat label="Open tickets" value={c.open_tickets} hint={`${c.locked_assessments} assessments locked now`} to="/admin/tickets" />
+        <Stat label="Open tickets" value={c.open_tickets} hint={`${c.locked_assessments} assessment${c.locked_assessments === 1 ? "" : "s"} locked now`} to="/admin/tickets" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-4">
