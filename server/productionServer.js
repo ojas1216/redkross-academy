@@ -16,12 +16,12 @@
 
 import express from 'express';
 import { createServer } from 'http';
-import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import { sql } from '../api/_db.js';
+import { sql, isOriginAllowed } from '../api/_db.js';
+import { attachSocketHub } from './socketHub.js';
 
 dotenv.config();
 
@@ -32,6 +32,9 @@ const PORT = parseInt(process.env.PORT || '3000', 10);
 const HOST = process.env.HOST || '0.0.0.0';
 
 const app = express();
+// Behind Cloudflare/nginx set TRUST_PROXY (e.g. 1) so req.ip is the real client address.
+// Never trust X-Forwarded-For blindly: it is attacker-controlled and would defeat rate limiting.
+app.set('trust proxy', process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : 'loopback');
 const httpServer = createServer(app);
 
 // -----------------------------------------------------------------------------
@@ -65,26 +68,11 @@ app.use((req, res, next) => {
 // -----------------------------------------------------------------------------
 // 2. CORS RESTRICTION LAYER
 // -----------------------------------------------------------------------------
-const ALLOWED_ORIGINS = [
-  'https://academy.redkross.org.in',
-  'https://redkross-academy.vercel.app',
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'http://localhost:3000',
-  'http://127.0.0.1:3000'
-];
-
-function isOriginAllowed(origin) {
-  if (!origin) return true; // Server-to-server, cURL, or local tools
-  if (ALLOWED_ORIGINS.includes(origin)) return true;
-  if (/^https:\/\/redkross-academy.*\.vercel\.app$/.test(origin)) return true;
-  return false;
-}
-
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (isOriginAllowed(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  if (origin && isOriginAllowed(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
@@ -106,8 +94,8 @@ function createRateLimiter({ windowMs = 60000, max = 120, message = 'Rate limit 
     // Exclude static assets
     if (!req.path.startsWith('/api/')) return next();
 
-    const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress || 'unknown-ip';
-    const key = `${ip}:${req.path.startsWith('/api/auth') || req.path.startsWith('/api/quiz') ? 'strict' : 'general'}`;
+    const ip = req.ip || req.socket.remoteAddress || 'unknown-ip';
+    const key = `${ip}:${max}:${windowMs}`;
     const now = Date.now();
 
     let record = rateLimitBuckets.get(key);
@@ -143,7 +131,7 @@ setInterval(() => {
 app.use('/api', createRateLimiter({ windowMs: 60000, max: 120, message: 'Too many requests. Please slow down.' }));
 
 // Stricter rate limit for authentication & exam evaluation: 30 requests/min
-app.use(['/api/auth', '/api/quiz', '/api/violation'], createRateLimiter({
+app.use(['/api/auth', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'], createRateLimiter({
   windowMs: 60000,
   max: 30,
   message: 'Security threshold exceeded. High-frequency operations rate-limited.'
@@ -156,60 +144,7 @@ app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 // -----------------------------------------------------------------------------
 // 4. HARDENED REAL-TIME SOCKET.IO SERVER (Scoped rooms & CORS protection)
 // -----------------------------------------------------------------------------
-const io = new SocketIOServer(httpServer, {
-  cors: {
-    origin: (origin, callback) => {
-      if (isOriginAllowed(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('CORS blocked: Origin not authorized for WebSocket connection.'));
-      }
-    },
-    methods: ['GET', 'POST'],
-    credentials: true
-  }
-});
-
-io.on('connection', (socket) => {
-  // Secure Room Subscriptions with sanitize check
-  socket.on('join:room', (room) => {
-    if (typeof room === 'string' && /^[a-zA-Z0-9_\-:]+$/.test(room)) {
-      socket.join(room);
-    }
-  });
-
-  // Proctoring telemetry: scope strictly to relevant exam session and proctors
-  socket.on('exam:violation', (data) => {
-    if (data && data.enrolmentId) {
-      io.to(`exam:${data.enrolmentId}`).to('admin:proctoring').emit('exam:violation', data);
-    }
-  });
-
-  // Assignments telemetry: scope to student and admin reviewers
-  socket.on('assignment:submit', (data) => {
-    io.to('admin:assignments').emit('assignment:submit', data);
-  });
-  socket.on('assignment:evaluated', (data) => {
-    if (data && data.userId) {
-      io.to(`user:${data.userId}`).emit('assignment:evaluated', data);
-    }
-  });
-
-  // Certificates telemetry: scope strictly to student and credentials desk
-  socket.on('certificate:request', (data) => {
-    io.to('admin:credentials').emit('certificate:request', data);
-  });
-  socket.on('certificate:dispatch', (data) => {
-    if (data && data.userId) {
-      io.to(`user:${data.userId}`).emit('certificate:dispatch', data);
-    }
-  });
-  socket.on('certificate:revoke', (data) => {
-    if (data && data.userId) {
-      io.to(`user:${data.userId}`).emit('certificate:revoke', data);
-    }
-  });
-});
+const io = attachSocketHub(httpServer);
 
 // -----------------------------------------------------------------------------
 // 5. HEALTH & READINESS PROBES (/healthz, /readyz)
@@ -220,7 +155,8 @@ app.get(['/healthz', '/api/health'], async (req, res) => {
     try {
       await sql`SELECT 1 as ping`;
     } catch (err) {
-      dbStatus = `degraded (${err.message})`;
+      dbStatus = 'degraded';
+      console.error('[healthz] database check failed:', err.message);
     }
 
     res.status(200).json({
@@ -232,7 +168,7 @@ app.get(['/healthz', '/api/health'], async (req, res) => {
       timestamp: new Date().toISOString()
     });
   } catch (error) {
-    res.status(500).json({ status: 'error', message: error.message });
+    res.status(500).json({ status: 'error' });
   }
 });
 
@@ -250,7 +186,6 @@ app.get(['/readyz', '/api/ready'], async (req, res) => {
   } catch (err) {
     res.status(503).json({
       status: 'not_ready',
-      reason: err.message,
       timestamp: new Date().toISOString()
     });
   }
@@ -262,9 +197,10 @@ app.get(['/readyz', '/api/ready'], async (req, res) => {
 const apiDir = path.join(__dirname, '../api');
 const apiRoutes = [
   'admin',
+  'assessment',
   'auth',
   'courses',
-    'e2b',
+  'e2b',
   'enrol',
   'learning-paths',
   'progress',
@@ -289,7 +225,7 @@ for (const route of apiRoutes) {
       } catch (err) {
         console.error(`[API Error] /api/${route}:`, err);
         if (!res.headersSent) {
-          res.status(500).json({ error: 'Internal Server Error', details: err.message });
+          res.status(500).json({ error: 'Internal Server Error' });
         }
       }
     });
@@ -307,7 +243,7 @@ app.all('/api/learning-paths', async (req, res) => {
   } catch (err) {
     console.error('[API Error] /api/learning-paths:', err);
     if (!res.headersSent) {
-      res.status(500).json({ error: 'Internal Server Error', details: err.message });
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   }
 });
