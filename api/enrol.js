@@ -3,6 +3,7 @@ import { requireUser } from './_auth.js';
 import { getCourseSpec } from './_lib/courseRegistry.js';
 import { ensureEnrolment, awardTokens } from './_lib/learning.js';
 import { dispatchWebhook } from './_webhooks.js';
+import { checkCourseAccess } from './_lib/access.js';
 
 /**
  * /api/enrol - the caller's own enrolments only (identity from the ID token).
@@ -32,6 +33,15 @@ export default async function handler(req, res) {
     if (!spec) return json(res, { error: 'Unknown course' }, 404);
 
     if (req.method === 'POST') {
+      const access = await checkCourseAccess(ctx, spec.id);
+      if (!access.allowed) {
+        const messages = {
+          COMING_SOON: 'This course is coming soon.',
+          NOT_AVAILABLE: 'This course is not open for enrolment.',
+          PAYMENT_REQUIRED: 'This course needs an access code or purchase.',
+        };
+        return json(res, { error: messages[access.reason] || 'Enrolment not allowed', reason: access.reason, price_inr: access.setting.price_inr }, 403);
+      }
       const { enrolment, created } = await ensureEnrolment(ctx.user, spec);
       if (created) {
         await awardTokens(userId, 50, 'enrolment_bonus', `Enrolled in ${spec.title}`, `enrol:${userId}:${spec.id}`);
@@ -49,7 +59,7 @@ export default async function handler(req, res) {
 
     if (req.method === 'DELETE') {
       const rows = await sql`
-        SELECT e.id, c.price FROM enrolments e LEFT JOIN courses c ON c.id = e.course_id
+        SELECT e.id, COALESCE(cs.price_inr, 0) AS price FROM enrolments e LEFT JOIN course_settings cs ON cs.course_id = e.course_id
         WHERE e.user_id = ${userId} AND e.course_id = ${courseId} LIMIT 1
       `;
       if (!rows.length) return json(res, { error: 'Enrolment not found' }, 404);

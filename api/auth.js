@@ -46,16 +46,21 @@ export default async function handler(req, res) {
         cadetId: user.cadet_id,
         tokenBalance: 150,
       });
-    } else if (profile.full_name || profile.avatar) {
-      await sql`
+    } else {
+      // The profile page owns name and photo after sign-up: a sign-in only fills gaps
+      // (it must never overwrite a name the student edited, or one an admin approved).
+      const rows = await sql`
         UPDATE users
-        SET full_name = COALESCE(${profile.full_name || null}, full_name),
-            avatar = COALESCE(${profile.avatar || null}, avatar),
-            updated_at = NOW()
+        SET full_name = CASE WHEN COALESCE(TRIM(full_name), '') = '' THEN COALESCE(${profile.full_name || null}, full_name) ELSE full_name END,
+            avatar = COALESCE(avatar, ${profile.avatar || null}),
+            last_seen_at = NOW()
         WHERE id = ${user.id}
+        RETURNING full_name, avatar
       `;
-      user.full_name = profile.full_name || user.full_name;
-      user.avatar = profile.avatar || user.avatar;
+      if (rows[0]) {
+        user.full_name = rows[0].full_name;
+        user.avatar = rows[0].avatar;
+      }
     }
 
     const balanceRows = await sql`SELECT COALESCE(SUM(amount), 0) AS balance FROM reward_ledger WHERE user_id = ${user.id}`;

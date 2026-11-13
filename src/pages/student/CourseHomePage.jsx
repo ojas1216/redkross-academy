@@ -25,6 +25,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { mockEngine } from '../../services/db/mockEngine';
+import { apiClient } from '../../services/apiClient';
 import { useAuth } from '../../services/auth/authContext';
 
 /**
@@ -61,17 +62,31 @@ export default function CourseHomePage() {
 
     let userEnrolments = mockEngine.getEnrolmentsForUser(currentUser.id);
     let enr = userEnrolments.find((e) => e.course_id === c.id);
-    if (!enr) {
-      enr = mockEngine.enrolStudent(currentUser.id, c.id);
-    }
-    setEnrolment(enr);
 
-    const prog = mockEngine.getCourseProgress(enr.id);
-    setProgressData(prog);
+    const finish = (e) => {
+      setEnrolment(e);
+      setProgressData(mockEngine.getCourseProgress(e.id));
+      if (c.modules?.length) setExpandedModules({ 0: true });
+    };
 
-    if (c.modules?.length) {
-      setExpandedModules({ 0: true });
+    if (enr) {
+      finish(enr);
+      return;
     }
+    // Not enrolled yet: the server decides (price, visibility, batch/code unlocks).
+    let cancelled = false;
+    apiClient.enrol(currentUser.id, c.id).then((res) => {
+      if (cancelled) return;
+      if (res?.locked) {
+        navigate(`/academy/${String(c.id).startsWith('crs_psych') ? 'psychology' : 'cybersecurity'}/courses/${c.slug || c.id}`, { replace: true });
+        return;
+      }
+      const local = mockEngine.getEnrolmentsForUser(currentUser.id).find((e) => e.course_id === c.id) || res;
+      if (local) finish(local);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [courseId, currentUser, navigate]);
 
   const handleTabChange = (tab) => {

@@ -238,6 +238,7 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         currentUser,
+        setCurrentUser,
         isSuspended,
         tokenBalance,
         refreshBalance,

@@ -15,7 +15,7 @@
     "db:migrate": "node scripts/runMigrations.js",
     "db:seed": "node scripts/seedDatabase.js",
     "start:prod": "node server/productionServer.js",
-    "test:api": "node tests/api_security_and_assessment.test.mjs",
+    "test:api": "node tests/api_security_and_assessment.test.mjs && node tests/api_admin_cohorts_codes.test.mjs",
     "audit:bundle": "node scripts/audit_client_bundle.mjs",
     "import:library": "node scripts/import_library_courses.mjs",
     "check:library": "node scripts/check_library_import.mjs"

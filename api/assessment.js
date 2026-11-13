@@ -12,6 +12,7 @@
  */
 import { sql, json, cors, serverError } from './_db.js';
 import { requireUser, audit } from './_auth.js';
+import { checkCourseAccess } from './_lib/access.js';
 import {
   getCourseSpec,
   findQuiz,
@@ -120,6 +121,8 @@ async function start(ctx, body, res) {
   const attempts = attemptsView(w);
   if (attempts.locked_until) return json(res, { error: 'LOCKED', attempts }, 423);
 
+  const access = await checkCourseAccess(ctx, spec.id);
+  if (!access.allowed) return json(res, { error: 'COURSE_LOCKED', reason: access.reason }, 403);
   await ensureEnrolment(ctx.user, spec);
 
   // resume an unfinished session instead of re-rolling questions

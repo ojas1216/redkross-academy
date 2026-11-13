@@ -138,7 +138,7 @@ export async function resolveUser(identity, { create = false, profile = {} } = {
 
   rows = await sql`
     INSERT INTO users (id, email, full_name, avatar, headline, role, cadet_id, status, streak_days, token_balance, created_at, updated_at)
-    VALUES (${id}, ${identity.email}, ${fullName}, ${avatar}, 'Cadet Defensive Operator', 'student', ${cadetId}, 'ACTIVE', 1, 0, NOW(), NOW())
+    VALUES (${id}, ${identity.email}, ${fullName}, ${avatar}, NULL, 'student', ${cadetId}, 'ACTIVE', 1, 0, NOW(), NOW())
     ON CONFLICT (id) DO UPDATE SET updated_at = NOW()
     RETURNING *
   `;

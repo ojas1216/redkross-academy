@@ -131,7 +131,7 @@ setInterval(() => {
 app.use('/api', createRateLimiter({ windowMs: 60000, max: 120, message: 'Too many requests. Please slow down.' }));
 
 // Stricter rate limit for authentication & exam evaluation: 30 requests/min
-app.use(['/api/auth', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'], createRateLimiter({
+app.use(['/api/auth', '/api/redeem', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'], createRateLimiter({
   windowMs: 60000,
   max: 30,
   message: 'Security threshold exceeded. High-frequency operations rate-limited.'
@@ -198,6 +198,11 @@ const apiDir = path.join(__dirname, '../api');
 const apiRoutes = [
   'admin',
   'assessment',
+  'avatar',
+  'catalog',
+  'manage',
+  'profile',
+  'redeem',
   'auth',
   'courses',
   'e2b',

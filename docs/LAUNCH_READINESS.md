@@ -78,7 +78,47 @@ configuration that cannot be done in code).
 - Pre-existing failing tests unrelated to this work: `challenger_m*` (hard-coded paths on another machine),
   `unit_test_cockpit_terminal_and_icons` (6), `unit_test_cyber_lab_v3` (1), `test_course04_no_references_policy` (missing lab file).
 
-## 7. How to verify
+## 7. Admin console, batches, access codes and profiles (added 2026-11-14)
+
+**Admin console** (`/admin`, server-backed through `/api/manage`; the old browser-storage admin pages were removed):
+Overview (live counts) · Students (search, progress, unlock/revoke courses, reset assessment locks, suspend,
+add to batch, correct name/college) · Batches · Codes & links · Courses (visibility + price) · Name requests ·
+Certificates (search, revoke) · Support tickets · Audit log · Admins (super admin adds/removes admins).
+Only users with `role` admin/super_admin (or in `ADMIN_EMAILS`) can open it; every write is audited.
+
+**Batches (college cohorts)**: name + college, eligibility (verified email domains such as `srmist.edu.in`,
+including sub-domains, and/or an uploaded email list; both empty = anyone with the link), a free **course bundle**
+(courses added later unlock for existing members; hidden courses act as private college-only courses),
+a **registration link** `/join/<token>` that signs the student in, checks eligibility, adds them to the batch and
+enrols them in the whole bundle, batch-only codes, progress export (CSV), remove member (cannot re-join), archive.
+
+**Access codes**: typed code (custom like `SRM-DEC26` or generated) or many single-use codes at once (with
+prefix, CSV download); free (100%) or percentage discount; all courses / selected courses / batch bundle;
+optional batch restriction; usage limit (enforced atomically), start/expiry dates; on/off switch at any time
+(students who already used it keep access); what a used code grants cannot be changed; used codes cannot be
+deleted. Wrong-code guessing is limited to 10 per hour per account plus the server rate limiter.
+The old hard-coded `GRANT100` / `REDKROSS2026` browser codes are gone.
+
+**Course access rule** (server-enforced on enrol and on starting assessments): admins always; Coming soon = no
+one; unlocked by batch/code/admin = yes; otherwise only Published + free. Enrolled students keep access if a
+course is later priced or hidden. Psychology courses are seeded as Coming soon.
+
+**Payments are not live**: a priced course is locked until a free code, batch or admin unlocks it; percentage codes
+are validated and show the discounted price but cannot be completed until a payment gateway (e.g. Razorpay) is added.
+Note: lesson text for courses 05-22 is served as static files, so pricing gates enrolment, progress and
+certificates, not raw lesson files. Serve content through an authenticated endpoint before charging money.
+
+**Student profile** (`/student/profile`): photo (resized in the browser, type-checked on the server, served from
+`/api/avatar`), name, headline, college, degree, graduation year, city, bio, LinkedIn/GitHub/website (validated).
+The name is free to edit until the first certificate; after that a change is a request an admin approves, with
+optional certificate reissue under the new name. Signing in no longer overwrites an edited name.
+**LinkedIn**: every certificate has "Add to LinkedIn profile" (LinkedIn's official add-certification link, prefilled
+with name, issuer, date, credential ID and verify URL) and "Share on LinkedIn". No LinkedIn developer app needed;
+set `VITE_LINKEDIN_ORG_ID` to show the company logo.
+
+Tests: `tests/api_admin_cohorts_codes.test.mjs` (72 checks, included in `npm run test:api`).
+
+## 8. How to verify
 
 ```bash
 npm ci

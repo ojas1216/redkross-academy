@@ -34,6 +34,72 @@ export const apiClient = {
     return { ok: res.ok, status: res.status, data };
   },
 
+  // ---------------- profile, access codes, catalog availability ----------------
+  getProfile() {
+    return this.request('/profile');
+  },
+  updateProfile(fields) {
+    return this.request('/profile', { method: 'PUT', body: fields });
+  },
+  uploadAvatar(dataUrl) {
+    return this.request('/profile', { method: 'POST', body: { action: 'avatar', data_url: dataUrl } });
+  },
+  removeAvatar() {
+    return this.request('/profile', { method: 'POST', body: { action: 'avatar', remove: true } });
+  },
+  requestNameChange(requestedName, reason) {
+    return this.request('/profile', { method: 'POST', body: { action: 'name_request', requested_name: requestedName, reason } });
+  },
+  withdrawNameChange() {
+    return this.request('/profile', { method: 'DELETE', body: { action: 'name_request' } });
+  },
+  previewCode(code, courseId) {
+    return this.request('/redeem', { query: courseId ? { code, course_id: courseId } : { code } });
+  },
+  redeemCode(code, { courseId, via } = {}) {
+    return this.request('/redeem', { method: 'POST', body: { code, course_id: courseId, via } });
+  },
+  /** Course availability (visibility, price) + the caller's unlocked courses. Cached briefly. */
+  async getCatalogAccess({ fresh = false } = {}) {
+    const now = Date.now();
+    if (!fresh && this._catalogCache && now - this._catalogCache.at < 30000) return this._catalogCache.value;
+    const res = await this.request('/catalog');
+    const value = res.ok
+      ? res.data
+      : { settings: {}, unlocked_course_ids: [], is_admin: false, unavailable: true };
+    this._catalogCache = { at: now, value };
+    return value;
+  },
+  clearCatalogCache() {
+    this._catalogCache = null;
+  },
+
+  // ---------------- admin console (/api/manage) ----------------
+  adminRead(resource, query = {}) {
+    return this.request('/manage', { query: { resource, ...query } });
+  },
+  adminAction(action, payload = {}) {
+    return this.request('/manage', { method: 'POST', body: { action, ...payload } });
+  },
+  /** Downloads an admin CSV export through the authenticated API. */
+  async adminDownload(type, id = '') {
+    const res = await fetch(`${API_BASE}/manage?${new URLSearchParams({ resource: 'export', type, id })}`, {
+      headers: await this.authHeaders(),
+    });
+    if (!res.ok) throw new Error('Export failed');
+    const disposition = res.headers.get('content-disposition') || '';
+    const filename = /filename="([^"]+)"/.exec(disposition)?.[1] || `${type}.csv`;
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  },
+
   // ---------------- server-authoritative learning records ----------------
   async getAssessmentStatus(courseId) {
     return this.request('/assessment', { query: { course_id: courseId } });
@@ -310,14 +376,18 @@ export const apiClient = {
     const cadetId = userMetadata.cadet_id || localUser?.cadet_id || 'RK-CADET';
 
     try {
-      const { ok, data } = await this.request('/enrol', { method: 'POST', body: { course_id: courseId } });
+      const { ok, status, data } = await this.request('/enrol', { method: 'POST', body: { course_id: courseId } });
       if (ok) serverEnrolment = data.enrolment;
+      // The server decides access (price, visibility, batch/code unlocks): never enrol locally past a refusal.
+      if (status === 403 || status === 404) {
+        return { locked: true, reason: data?.reason || 'NOT_AVAILABLE', error: data?.error, price_inr: data?.price_inr || 0 };
+      }
     } catch (apiErr) {
       console.warn('Enrolment sync deferred:', apiErr.message);
     }
 
     const localEnr = mockEngine.enrolStudent(userId, courseId);
-    return serverEnrolment || localEnr;
+    return serverEnrolment ? { ...localEnr, ...serverEnrolment, id: localEnr?.id || serverEnrolment.id } : localEnr;
   },
 
   async cancelEnrolment(enrolmentId, userId, courseId) {
