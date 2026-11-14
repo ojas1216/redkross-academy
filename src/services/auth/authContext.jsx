@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import {
   signInWithPopup,
   signInWithEmailAndPassword,
@@ -164,7 +164,7 @@ export function AuthProvider({ children }) {
         }
       }
 
-      if (event.type === 'USER_UPDATED' || event.type === 'DB_MUTATED') {
+      if (event.type === 'USER_UPDATED' && (!event.payload?.userId || event.payload.userId === currentUser.id)) {
         refreshBalance();
       }
     });
@@ -177,7 +177,7 @@ export function AuthProvider({ children }) {
     };
   }, [currentUser]);
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = useCallback(async () => {
     setAuthError(null);
     setIsLoading(true);
     try {
@@ -190,9 +190,9 @@ export function AuthProvider({ children }) {
       setIsLoading(false);
       throw error;
     }
-  };
+  }, []);
 
-  const loginWithEmail = async (email, password) => {
+  const loginWithEmail = useCallback(async (email, password) => {
     setAuthError(null);
     setIsLoading(true);
     try {
@@ -212,9 +212,9 @@ export function AuthProvider({ children }) {
       setIsLoading(false);
       throw error;
     }
-  };
+  }, []);
 
-  const registerWithEmail = async (email, password, fullName) => {
+  const registerWithEmail = useCallback(async (email, password, fullName) => {
     setAuthError(null);
     setIsLoading(true);
     try {
@@ -238,10 +238,10 @@ export function AuthProvider({ children }) {
       setIsLoading(false);
       throw error;
     }
-  };
+  }, []);
 
   /** Signs in just long enough to ask the server for a fresh confirmation link. */
-  const resendVerification = async (email, password) => {
+  const resendVerification = useCallback(async (email, password) => {
     const result = await signInWithEmailAndPassword(auth, email, password);
     try {
       if (!isUnverifiedPasswordUser(result.user)) return { alreadyVerified: true };
@@ -249,11 +249,11 @@ export function AuthProvider({ children }) {
     } finally {
       await signOut(auth).catch(() => {});
     }
-  };
+  }, []);
 
-  const requestPasswordReset = (email) => accountEmailRequest({ action: 'reset', email });
+  const requestPasswordReset = useCallback((email) => accountEmailRequest({ action: 'reset', email }), []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await signOut(auth);
     } catch (e) {
@@ -266,41 +266,54 @@ export function AuthProvider({ children }) {
       setCurrentUser(null);
       setTokenBalance(0);
     }
-  };
+  }, []);
 
-  const refreshBalance = async () => {
-    if (currentUser) {
+  const refreshBalance = useCallback(async () => {
+    if (currentUser?.id) {
       try {
         const wallet = await apiClient.getWallet(currentUser.id);
         if (wallet && typeof wallet.balance === 'number') {
-          setTokenBalance(wallet.balance);
+          setTokenBalance((prev) => (prev !== wallet.balance ? wallet.balance : prev));
         }
       } catch (e) {
         console.warn('Balance refresh failed:', e);
       }
     }
-  };
+  }, [currentUser?.id]);
 
   const isSuspended = Boolean(currentUser?.is_suspended || currentUser?.status === 'SUSPENDED');
 
+  const contextValue = useMemo(() => ({
+    currentUser,
+    setCurrentUser,
+    isSuspended,
+    tokenBalance,
+    refreshBalance,
+    loginWithGoogle,
+    loginWithEmail,
+    registerWithEmail,
+    resendVerification,
+    requestPasswordReset,
+    logout,
+    isLoading,
+    authError
+  }), [
+    currentUser,
+    isSuspended,
+    tokenBalance,
+    refreshBalance,
+    loginWithGoogle,
+    loginWithEmail,
+    registerWithEmail,
+    resendVerification,
+    requestPasswordReset,
+    logout,
+    isLoading,
+    authError
+  ]);
+
   return (
-    <AuthContext.Provider
-      value={{
-        currentUser,
-        setCurrentUser,
-        isSuspended,
-        tokenBalance,
-        refreshBalance,
-        loginWithGoogle,
-        loginWithEmail,
-        registerWithEmail,
-        resendVerification,
-        requestPasswordReset,
-        logout,
-        isLoading,
-        authError
-      }}
-    >
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );
