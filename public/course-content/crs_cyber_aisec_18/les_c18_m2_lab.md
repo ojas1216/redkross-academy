@@ -21,7 +21,7 @@
 
 1. Run python retrieval_trace.py and compare with L04.
 2. In Python, print system_prompt("C100", retrieve(q, "C100", cfg), cfg) for the P3 question in NAIVE and HARDENED; mark untrusted text.
-3. Change k from 3 to 5 in retrieve(); re-run; note token cost and which extra documents appear.
+3. Change k from 3 to 5 in retrieve; re-run; note token cost and which extra documents appear.
 4. Ask a question as C200 and confirm C100's record never appears with ACLs on.
 
 **Expected observations:** ACL changes which records are retrieved; token cost grows with k.

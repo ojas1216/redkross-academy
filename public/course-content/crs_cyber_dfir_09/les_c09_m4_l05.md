@@ -1,4 +1,4 @@
-Volatility 3 is an open-source framework from the Volatility Foundation that analyses memory images of Windows, Linux and macOS. It uses symbol tables describing OS structures [R2]. The latest release on 2026-11-07 was v2.28.2 (17 September 2026). Windows symbols are fetched and cached automatically, while Linux and macOS symbol tables must be produced for the exact kernel. Commonly used plugins (names confirmed in the source tree on 2026-11-07; Not execution-tested in this module because no authorised sample image was available in the build environment):
+Volatility 3 is an open-source framework from the Volatility Foundation that analyses memory images of Windows, Linux and macOS. It uses symbol tables describing OS structures. The latest release on 2026-11-07 was v2.28.2 (17 September 2026). Windows symbols are fetched and cached automatically, while Linux and macOS symbol tables must be produced for the exact kernel. Commonly used plugins (names confirmed in the source tree on 2026-11-07; Not execution-tested in this module because no authorised sample image was available in the build environment):
 
 | Term | Meaning |
 |---|---|

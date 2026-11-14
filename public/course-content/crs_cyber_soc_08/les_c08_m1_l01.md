@@ -1,4 +1,4 @@
-MITRE's guide "11 Strategies of a World-Class Cybersecurity Operations Center" describes a SOC as a team primarily composed of security analysts organised to detect, analyse, respond to, report on and prevent cybersecurity incidents [R1]. Core functions:
+MITRE's guide "11 Strategies of a World-Class Cybersecurity Operations Center" describes a SOC as a team primarily composed of security analysts organised to detect, analyse, respond to, report on and prevent cybersecurity incidents. Core functions:
 
 - Monitoring and triage of alerts.
 - Incident analysis and coordination of response.

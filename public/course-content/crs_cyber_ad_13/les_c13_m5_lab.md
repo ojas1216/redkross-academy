@@ -18,7 +18,7 @@
 **Step-by-step instructions:**
 
 1. Export user objects to LDIF: docker exec rk-dc sh -c "ldbsearch -H \$(find /var/lib/samba -name sam.ldb|head -1) '(objectClass=user)' sAMAccountName userAccountControl servicePrincipalName pwdLastSet lastLogon" > data/directory_export.ldif
-2. python dir_review.py data/directory_export.ldif ; read every finding.
+2. python dir_review.py data/directory_export.ldif; read every finding.
 3. For the HIGH finding (legacy-svc SPN), write the precondition it represents (which ATT&CK technique) and the two fixes.
 4. Note the exit code and explain how it could gate a change window.
 

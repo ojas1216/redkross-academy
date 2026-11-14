@@ -29,14 +29,3 @@ broad flat trust; unvalidated segmentation; signature-only detection; detection 
 ### Revision questions
 
 ​1. What trust does lateral movement abuse? 2. What does segmentation validation confirm? 3. Give the detection and containment for T1021.
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] MITRE. "ATT&CK - Lateral Movement (TA0008); Remote Services (T1021)". URL: [https://attack.mitre.org/tactics/TA0008/](https://attack.mitre.org/tactics/TA0008/) Accessed: 2026-11-08. Supports: the tactic and techniques and their detection.
-- [R2] MITRE. "ATT&CK - Use Alternate Authentication Material (T1550)". URL: [https://attack.mitre.org/techniques/T1550/](https://attack.mitre.org/techniques/T1550/) Accessed: 2026-11-08. Supports: alternate authentication material and its detection.
-- [R3] NIST. "SP 800-207: Zero Trust Architecture" (segmentation and default- deny). URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-08. Supports: segmentation validation and narrowing trust.
-- [R4] Lab evidence. attackmap.py (Lateral Movement filter) mapping T1021 and T1550 to telemetry, detection and containment (CPython 3.14.4), LAB_ASSETS/C19/data/attackmap_output.txt, 2026-11-08. Supports: the detection- opportunity deep dive.

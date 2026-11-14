@@ -1,6 +1,8 @@
-## Rogue and evil-twin detection as standard practice Context: wireless intrusion detection and the maintenance of an authorised-AP inventory are standard elements of WLAN security programmes, precisely because rogue access points (unauthorised APs on the wired network) and evil twins (SSID impersonators) are common, high-impact threats that configuration hardening alone cannot address. Guidance such as NIST SP 800-153 includes monitoring for unauthorised WLAN devices, and enterprise wireless systems provide rogue-AP detection by comparing observed BSSIDs against a known-good inventory - exactly the comparison the lab performs offline [C16-M03-R1]. Why it matters for this module: hardening secures the APs you know about; detection finds the ones you do not. Both are required. Lessons: maintain an authorised-BSSID inventory; continuously compare observations against it; investigate and remove impostors physically.
+## Rogue and evil-twin detection as standard practice
 
+**Context:** wireless intrusion detection and the maintenance of an authorised-AP inventory are standard elements of WLAN security programmes, precisely because rogue access points (unauthorised APs on the wired network) and evil twins (SSID impersonators) are common, high-impact threats that configuration hardening alone cannot address. Guidance such as NIST SP 800-153 includes monitoring for unauthorised WLAN devices, and enterprise wireless systems provide rogue-AP detection by comparing observed BSSIDs against a known-good inventory - exactly the comparison the lab performs offline. Why it matters for this module: hardening secures the APs you know about; detection finds the ones you do not. Both are required.
 
+**Lessons:** maintain an authorised-BSSID inventory; continuously compare observations against it; investigate and remove impostors physically.
 
 ## (FICTIONAL TEACHING SCENARIO): The open twin at the entrance
 

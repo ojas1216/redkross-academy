@@ -4,8 +4,12 @@ A super-timeline merges host and network sources in one time zone (UTC). LAB_ASS
 ------------------------------------------------------------- BEGIN OUTPUT
 2026-11-07T05:49:12.000Z  auth.log    Accepted publickey for deploy from
                                       172.31.0.20 port 50122 ssh2
-2026-11-07T05:50:03.000Z  auth.log    deploy : TTY=pts/0 ; PWD=/home/deploy
-                                      ; USER=root ; COMMAND=/usr/bin/cp
+2026-11-07T05:50:03.000Z  auth.log    deploy: TTY=pts/0; PWD=/home/deploy
+```
+
+; USER=root; COMMAND=/usr/bin/cp
+
+```text
                                       /var/l...
 2026-11-07T05:51:40.000Z  access.log  GET /backup/customers.csv HTTP/1.1
                                       -> 200

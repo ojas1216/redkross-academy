@@ -21,7 +21,7 @@
 
 1. Find all events for 203.0.113.66 across sources.
 2. Count proxy bytes_out per host; find the largest single upload.
-3. Write a correlation query joining the Sysmon event R1 to proxy events on the same host within 10 minutes before it (use julianday() or string comparison of ISO timestamps).
+3. Write a correlation query joining the Sysmon event R1 to proxy events on the same host within 10 minutes before it (use julianday or string comparison of ISO timestamps).
 4. Add your query as a new rule R7 in minisiem.py and run python minisiem.py rules.
 
 **Expected observations:** step 3 links the invoice.docm download (06:12) to PowerShell under WINWORD (06:14).

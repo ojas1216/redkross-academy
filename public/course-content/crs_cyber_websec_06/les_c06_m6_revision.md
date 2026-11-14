@@ -31,15 +31,3 @@ state change via GET; no CSRF token; blocking only external addresses for SSRF; 
 ### Revision questions
 
 ​1. What two defences stop CSRF? 2. Why must SSRF defence block internal/loopback/link-local addresses? 3. How does canonicalisation stop path traversal?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] OWASP. "OWASP Top 10:2025" (A01 Broken Access Control includes CWE-352 CSRF and CWE-918 SSRF). URL: [https://top10.owasp.org/2025/](https://top10.owasp.org/2025/) Accessed: 2026-11-08. Supports: category mappings for CSRF and SSRF.
-- [R2] OWASP. "Cross-Site Request Forgery Prevention Cheat Sheet" (tokens, SameSite). URL: [https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: CSRF defences.
-- [R3] OWASP. "Server-Side Request Forgery Prevention Cheat Sheet" (allowlists, internal ranges, metadata) and MITRE "CWE-918". URL: [https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: SSRF defences, CS1 metadata.
-- [R4] MITRE. "CWE-22: Improper Limitation of a Pathname to a Restricted Directory (Path Traversal)". URL: [https://cwe.mitre.org/data/definitions/22.html](https://cwe.mitre.org/data/definitions/22.html) Accessed: 2026-11-08. Supports: path traversal and canonicalisation fix.
-- [R5] Lab evidence. findings.py and report.py results for CSRF, SSRF and traversal on ports 8200/8201 (CPython 3.14.4), LAB_ASSETS/C06/data/, 2026-11-08. Supports: the deep-dive proofs, scores and fixes.

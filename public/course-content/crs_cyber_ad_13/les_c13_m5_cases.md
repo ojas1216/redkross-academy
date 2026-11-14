@@ -1,6 +1,8 @@
-## Kerberoasting in ransomware intrusions Context: Kerberoasting (T1558.003) has become a routine step in ransomware and hands-on-keyboard intrusions, because it needs only an ordinary domain account and yields service-account passwords that are often over-privileged. MITRE ATT&CK documents the technique and its mitigations, and CISA's joint advisories on major ransomware operations repeatedly list Kerberoasting and the use of valid accounts among observed techniques [C13-M05-R1]. Why it matters for this module: the attack is cheap and quiet, and it depends entirely on a condition defenders can find and fix in advance - an SPN on an account with a weak password. The lab's review tool flags exactly that condition. Lessons: treat every SPN-bearing account as a target; enforce long random secrets or gMSAs; disable RC4; monitor service-ticket requests; and review regularly, because new SPNs appear as applications are deployed.
+## Kerberoasting in ransomware intrusions
 
+**Context:** Kerberoasting (T1558.003) has become a routine step in ransomware and hands-on-keyboard intrusions, because it needs only an ordinary domain account and yields service-account passwords that are often over-privileged. MITRE ATT&CK documents the technique and its mitigations, and CISA's joint advisories on major ransomware operations repeatedly list Kerberoasting and the use of valid accounts among observed techniques. Why it matters for this module: the attack is cheap and quiet, and it depends entirely on a condition defenders can find and fix in advance - an SPN on an account with a weak password. The lab's review tool flags exactly that condition.
 
+**Lessons:** treat every SPN-bearing account as a target; enforce long random secrets or gMSAs; disable RC4; monitor service-ticket requests; and review regularly, because new SPNs appear as applications are deployed.
 
 ## (FICTIONAL TEACHING SCENARIO): The review that paid for itself
 

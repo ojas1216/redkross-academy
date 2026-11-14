@@ -1,4 +1,4 @@
-Open-source collection often sweeps up personal data: names, e-mail addresses, phone numbers, identity numbers of victims in leaked files. Principles from the Berkeley Protocol include minimising the risk of harm to investigators, their organisations and third parties; protecting the privacy of sources; recognising that public availability does not remove privacy implications; collecting and processing information only when justified for an articulable purpose (data minimisation); and security by design [R1].
+Open-source collection often sweeps up personal data: names, e-mail addresses, phone numbers, identity numbers of victims in leaked files. Principles from the Berkeley Protocol include minimising the risk of harm to investigators, their organisations and third parties; protecting the privacy of sources; recognising that public availability does not remove privacy implications; collecting and processing information only when justified for an articulable purpose (data minimisation); and security by design.
 
 **In practice:**
 

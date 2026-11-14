@@ -4,7 +4,7 @@ Commands used in this module's lab (execution-tested, PowerShell 5.1, read-only)
 Get-WinEvent -ListLog System,Application,Security |
   Select LogName,RecordCount,MaximumSizeInBytes,LogMode
 Get-WinEvent -FilterHashtable @{LogName='System'; Id=6005,6006}
-  -MaxEvents 4 | Select @{n='UTC';e={$_.TimeCreated.ToUniversalTime()}},
+  -MaxEvents 4 | Select @{n='UTC';e={$_.TimeCreated.ToUniversalTime}},
   Id, ProviderName
 Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' |
   Select ProductName, DisplayVersion, CurrentBuild

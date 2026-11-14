@@ -1,4 +1,4 @@
-FIRST's Traffic Light Protocol version 2.0 is authoritative from August 2022 and has four labels [R3]:
+FIRST's Traffic Light Protocol version 2.0 is authoritative from August 2022 and has four labels:
 
 | Term | Meaning |
 |---|---|

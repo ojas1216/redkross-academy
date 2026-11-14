@@ -30,15 +30,3 @@ fast unsalted password hashes; == for MAC comparison; checksums on the same untr
 ### Revision questions
 
 ​1. Why is SHA-256 unsuitable for passwords? 2. List OWASP parameters. 3. Design a replay-resistant webhook signature.
-
-### Further reading
-
-OWASP Password Storage Cheat Sheet [R1]; SHAttered [R2].
-
-## References
-
-- [R1] OWASP. "Password Storage Cheat Sheet". URL: [https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) Accessed: 2026-11-07. Supports: algorithm order and parameters.
-- [R2] Stevens, M., Bursztein, E., Karpman, P., Albertini, A., Markov, Y. "SHAttered", 23 February 2017. URL: [https://shattered.io/](https://shattered.io/) Accessed: 2026-11-07. Supports: collision, hash value, computation scale.
-- [R3] Krawczyk, H., Bellare, M., Canetti, R. RFC 2104, "HMAC: Keyed-Hashing for Message Authentication", February 1997. URL: [https://www.rfc-editor.org/rfc/rfc2104](https://www.rfc-editor.org/rfc/rfc2104) Accessed: 2026-11-07. Supports: HMAC construction.
-- [R4] NIST. "NIST Retires SHA-1 Cryptographic Algorithm", 15 December 2022. URL: [https://www.nist.gov/news-events/news/2022/12/nist-retires-sha-1-cryptographic-algorithm](https://www.nist.gov/news-events/news/2022/12/nist-retires-sha-1-cryptographic-algorithm) Accessed: 2026-11-07. Supports: phase-out by 2030.
-- [R5] Lab evidence. m04_hashing.py and m04_output.txt (CPython 3.14.4), 2026-11-07.

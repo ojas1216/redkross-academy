@@ -2,7 +2,7 @@ A reference architecture arranges the zones and the permitted flows between them
 
 ```text
 internet --(HTTPS 443)--> DMZ (web) --(8080)--> APP --(5432)--> DATABASE
-users --(HTTPS 443)--> DMZ ;  management --(SSH 22)--> APP/DB (controlled)
+users --(HTTPS 443)--> DMZ;  management --(SSH 22)--> APP/DB (controlled)
 DATABASE initiates nothing outbound; DMZ cannot reach DATABASE directly;
 users never reach DATABASE or MANAGEMENT directly.
 ```

@@ -1,5 +1,7 @@
 > [!NOTE] Lab kit
 > Download the course lab kit: [RedKross_C14_Lab_Kit.zip](/downloads/labs/RedKross_C14_Lab_Kit.zip). Extract it anywhere; paths written as `LAB_ASSETS/C14/...` refer to the extracted `C14` folder. Everything runs locally against systems you own.
+>
+> **Before you start:** data/enterprise-attack.json (MITRE ATT&CK Enterprise, STIX 2.1, ~53 MB) is not shipped. Download it from the official MITRE repository and save it as data/enterprise-attack.json: https://github.com/mitre-attack/attack-stix-data/tree/master/enterprise-attack (also in READ_ME_FIRST_DOWNLOAD_NOTES.txt inside the kit)
 
 ## Practical 1: Grade, corroborate and decide
 
@@ -46,7 +48,7 @@
 
 **Step-by-step instructions:**
 
-1. python minimise.py collection/forum_post_raw.txt collection/forum_post_min.txt ; confirm every personal identifier is replaced.
+1. python minimise.py collection/forum_post_raw.txt collection/forum_post_min.txt; confirm every personal identifier is replaced.
 2. Add three new lines to a copy of the raw file with other formats (for example "098765 43210", "9876-543210", an e-mail with a subdomain) and test; extend the patterns until they pass, and record any you choose not to handle.
 3. Log the minimised file and reports.json with collect_log.py, stating requirement IDs and purposes.
 4. Verify the log; then edit one field in a copy and verify again.

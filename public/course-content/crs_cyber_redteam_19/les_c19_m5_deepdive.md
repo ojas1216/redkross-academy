@@ -4,15 +4,15 @@ Running attackmap.py filtered to the Lateral Movement tactic (execution-tested, 
 ATT&CK detection/containment map - tactic: Lateral Movement
 ==========================================================================
 T1021   Remote Services                       [Lateral Movement / TA0008]
-   data source : authentication / network logs
-   detection   : remote service logon between workstations (unusual path)
-   containment : segmentation; block workstation-to-workstation admin
+   data source: authentication / network logs
+   detection: remote service logon between workstations (unusual path)
+   containment: segmentation; block workstation-to-workstation admin
 --------------------------------------------------------------------------
 T1550   Use Alternate Authentication Material  [Lateral Movement / TA0008]
-   data source : authentication logs
-   detection   : logon using non-interactive auth material; no matching
+   data source: authentication logs
+   detection: logon using non-interactive auth material; no matching
                  interactive logon
-   containment : credential hygiene; Protected Users; detection on ticket reuse
+   containment: credential hygiene; Protected Users; detection on ticket reuse
 --------------------------------------------------------------------------
 2 technique(s) mapped to defensive telemetry and containment
 ```

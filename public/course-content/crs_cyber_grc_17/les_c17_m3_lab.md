@@ -40,7 +40,7 @@
 
 **Difficulty:** Professional.
 
-**Required tools:** spreadsheet; the CSF 2.0 publication [R1].
+**Required tools:** spreadsheet; the CSF 2.0 publication.
 
 **Prerequisites:** Lesson L06.
 

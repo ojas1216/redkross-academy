@@ -30,14 +30,3 @@ assuming provider certificates cover customer layers; one account for everything
 ### Revision questions
 
 ​1. Map the five NIST characteristics to security consequences. 2. What remains with the customer in SaaS? 3. Write three threat-model rows for a database.
-
-### Further reading
-
-NIST SP 800-145 [R1]; AWS shared responsibility [R2].
-
-## References
-
-- [R1] NIST. SP 800-145, "The NIST Definition of Cloud Computing", P. Mell and T. Grance, September 2011. URL: [https://csrc.nist.gov/pubs/sp/800/145/final](https://csrc.nist.gov/pubs/sp/800/145/final) Accessed: 2026-11-07.
-- [R2] AWS. "Shared Responsibility Model". URL: [https://aws.amazon.com/compliance/shared-responsibility-model/](https://aws.amazon.com/compliance/shared-responsibility-model/) Accessed: 2026-11-07. Supports: of/in the cloud; EC2 and S3 customer duties.
-- [R3] Wiz. "ChaosDB: How we hacked thousands of Azure customers' databases", 26 August 2021. URL: [https://www.wiz.io/blog/chaosdb-how-we-hacked-thousands-of-azure-customers-databases](https://www.wiz.io/blog/chaosdb-how-we-hacked-thousands-of-azure-customers-databases) Accessed: 2026-11-07. Supports: feature default-on February 2021, primary key exposure, disabled within 48 hours, >30% notified to rotate.
-- [R4] Course 22 Module 7 and Course 12 Module 2 (threat modelling method within this library).

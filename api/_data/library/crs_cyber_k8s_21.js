@@ -40,7 +40,7 @@ export default {
      "21"
     ],
     "correct": 2,
-    "explanation": "CapEff 00000000a80425fb decoded to 14 [R2].",
+    "explanation": "CapEff 00000000a80425fb decoded to 14.",
     "topic": "C21-M01: Container foundations",
     "difficulty": "medium"
    },
@@ -138,7 +138,7 @@ export default {
      "signed images cannot be exploited"
     ],
     "correct": 1,
-    "explanation": "The advisory lists a malicious-image variant [R4].",
+    "explanation": "The advisory lists a malicious-image variant.",
     "topic": "C21-M01: Container foundations",
     "difficulty": "medium"
    }
@@ -238,7 +238,7 @@ export default {
      "RFC 9116"
     ],
     "correct": 2,
-    "explanation": "[R4].",
+    "explanation": ".",
     "topic": "C21-M02: Image security",
     "difficulty": "medium"
    },
@@ -266,7 +266,7 @@ export default {
      "a Python urllib3 flaw"
     ],
     "correct": 0,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C21-M02: Image security",
     "difficulty": "medium"
    },
@@ -310,7 +310,7 @@ export default {
      "webhook"
     ],
     "correct": 1,
-    "explanation": "[R4].",
+    "explanation": ".",
     "topic": "C21-M03: Kubernetes architecture",
     "difficulty": "medium"
    },
@@ -338,7 +338,7 @@ export default {
      "as plain-text representations"
     ],
     "correct": 3,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C21-M03: Kubernetes architecture",
     "difficulty": "medium"
    },
@@ -408,7 +408,7 @@ export default {
      "it deleted logs"
     ],
     "correct": 0,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C21-M03: Kubernetes architecture",
     "difficulty": "medium"
    },
@@ -452,7 +452,7 @@ export default {
      "It disables encryption at rest"
     ],
     "correct": 1,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C21-M04: Cluster access",
     "difficulty": "medium"
    },
@@ -466,7 +466,7 @@ export default {
      "disable admission"
     ],
     "correct": 2,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C21-M04: Cluster access",
     "difficulty": "medium"
    },
@@ -494,7 +494,7 @@ export default {
      "RBAC was removed"
     ],
     "correct": 0,
-    "explanation": "[R2]; m04_bound_token_output.txt.",
+    "explanation": "; m04_bound_token_output.txt.",
     "topic": "C21-M04: Cluster access",
     "difficulty": "medium"
    },
@@ -508,7 +508,7 @@ export default {
      "the token being requested with --duration=8760h"
     ],
     "correct": 1,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C21-M04: Cluster access",
     "difficulty": "medium"
    },
@@ -522,7 +522,7 @@ export default {
      "v1.34"
     ],
     "correct": 2,
-    "explanation": "[R4].",
+    "explanation": ".",
     "topic": "C21-M04: Cluster access",
     "difficulty": "medium"
    },
@@ -580,7 +580,7 @@ export default {
      "The node reboots"
     ],
     "correct": 0,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C21-M05: Network and runtime",
     "difficulty": "medium"
    },
@@ -622,7 +622,7 @@ export default {
      "Baseline"
     ],
     "correct": 3,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C21-M05: Network and runtime",
     "difficulty": "medium"
    },
@@ -664,7 +664,7 @@ export default {
      "The highest level among matching rules"
     ],
     "correct": 2,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C21-M05: Network and runtime",
     "difficulty": "medium"
    },
@@ -692,7 +692,7 @@ export default {
      "patch, code 200"
     ],
     "correct": 0,
-    "explanation": "WebSocket upgrade under KEP-4006 [R5]; lab audit log.",
+    "explanation": "WebSocket upgrade under KEP-4006; lab audit log.",
     "topic": "C21-M05: Network and runtime",
     "difficulty": "medium"
    },
@@ -706,7 +706,7 @@ export default {
      "a leaked cloud key"
     ],
     "correct": 1,
-    "explanation": "[R4].",
+    "explanation": ".",
     "topic": "C21-M05: Network and runtime",
     "difficulty": "medium"
    }
@@ -834,7 +834,7 @@ export default {
      "hire a CISO"
     ],
     "correct": 0,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C21-M06: Infrastructure as code",
     "difficulty": "medium"
    },
@@ -864,7 +864,7 @@ export default {
      "In a browser extension"
     ],
     "correct": 0,
-    "explanation": "[R5].",
+    "explanation": ".",
     "topic": "C21-M07: Supply-chain security",
     "difficulty": "medium"
    },
@@ -878,7 +878,7 @@ export default {
      "no provenance exists"
     ],
     "correct": 1,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C21-M07: Supply-chain security",
     "difficulty": "medium"
    },
@@ -1104,7 +1104,7 @@ export default {
      "access to the pod network"
     ],
     "correct": 3,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C21-M08: Capstone",
     "difficulty": "medium"
    },

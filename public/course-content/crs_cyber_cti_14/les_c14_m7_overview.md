@@ -4,7 +4,7 @@ Indicators expire in weeks; behaviour lasts. MITRE ATT&CK gives defenders a shar
 
 ## Why it matters
 
-A heat map coloured from vendor reports looks like insight but often hides the question that matters: if this behaviour happened in our estate, would we see it? CISA's mapping guidance (version 2.0, January 2023) begins its steps with "Find the behavior" and covers analytical biases and mapping mistakes [R2]. Mapping well is a skill.
+A heat map coloured from vendor reports looks like insight but often hides the question that matters: if this behaviour happened in our estate, would we see it? CISA's mapping guidance (version 2.0, January 2023) begins its steps with "Find the behavior" and covers analytical biases and mapping mistakes. Mapping well is a skill.
 
 ## Where it is used
 

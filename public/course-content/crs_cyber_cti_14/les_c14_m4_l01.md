@@ -2,7 +2,7 @@ Terms (aligned with STIX 2.1, Module 6):
 
 | Term | Meaning |
 |---|---|
-| Threat actor | the people or organisation behind activity, with intent and motivation; STIX notes that a threat actor "is not an Intrusion Set" but may support or be affiliated with several over time [R4] |
+| Threat actor | the people or organisation behind activity, with intent and motivation; STIX notes that a threat actor "is not an Intrusion Set" but may support or be affiliated with several over time |
 | Intrusion set | a grouped set of adversarial behaviours and resources believed to be orchestrated by one organisation, which may be unknown |
 | Campaign | a grouping of adversarial behaviour over a period against a set of targets, often with an objective |
 | Activity cluster | a working grouping an analyst has not yet promoted to an intrusion set (many vendors use labels such as UNC- or DEV- numbers) |

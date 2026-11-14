@@ -30,15 +30,3 @@ ECB; ignoring tags; one key for everything.
 ### Revision questions
 
 ​1. Why does ECB leak? 2. What should go in AAD? 3. Describe envelope encryption.
-
-### Further reading
-
-NIST SP 800-38D [R1]; NIST SP 800-57 [R3].
-
-## References
-
-- [R1] NIST. SP 800-38D, "Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC", November 2007. URL: [https://csrc.nist.gov/pubs/sp/800/38/d/final](https://csrc.nist.gov/pubs/sp/800/38/d/final) Accessed: 2026-11-07. Supports: GCM specification (NIST plans a revision, per 2024 note).
-- [R2] Marczak, B., Scott-Railton, J. "Move Fast and Roll Your Own Crypto: A Quick Look at the Confidentiality of Zoom Meetings", Citizen Lab, 3 April 2020. URL: [https://citizenlab.ca/2020/04/move-fast-roll-your-own-crypto-a-quick-look-at-the-confidentiality-of-zoom-meetings/](https://citizenlab.ca/2020/04/move-fast-roll-your-own-crypto-a-quick-look-at-the-confidentiality-of-zoom-meetings/) Accessed: 2026-11-07. Supports: AES-128 ECB, key distribution findings.
-- [R3] NIST. SP 800-57 Part 1 Rev. 5, "Recommendation for Key Management: Part 1 - General", May 2020. URL: [https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final](https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final) Accessed: 2026-11-07. Supports: key-management lifecycle and cryptoperiods.
-- [R4] pyca/cryptography. "Authenticated encryption" documentation. URL: [https://cryptography.io/en/latest/hazmat/primitives/aead/](https://cryptography.io/en/latest/hazmat/primitives/aead/) Accessed: 2026-11-07. Supports: AESGCM and ChaCha20Poly1305 APIs.
-- [R5] Lab evidence. m02_symmetric.py and m02_output.txt (CPython 3.14.4, cryptography 48.0.0), 2026-11-07.

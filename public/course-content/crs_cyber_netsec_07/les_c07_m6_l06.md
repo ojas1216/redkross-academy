@@ -1,4 +1,4 @@
-Secure WLAN configuration (NIST SP 800-153) combines several controls [R3]:
+Secure WLAN configuration (NIST SP 800-153) combines several controls:
 
 - Use WPA3 (or WPA2-AES minimum); never WEP/WPA.
 - Use Enterprise (802.1X) authentication for corporate access; strong random passphrases for any personal/guest network.

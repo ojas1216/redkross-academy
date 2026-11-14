@@ -4,7 +4,7 @@ A cryptographic hash function maps data of any size to a fixed-size digest. Chan
 MD5 (128-bit) and SHA-1 (160-bit): practical collision attacks exist.
 NIST announced in December 2022 that SHA-1 will be phased out of its
 remaining specified protocols by 31 December 2030, and recommends moving
-to SHA-2 or SHA-3 as soon as possible [R4]. They remain common in
+to SHA-2 or SHA-3 as soon as possible. They remain common in
 legacy tools and hash sets. Use them only alongside SHA-256, never alone
 for integrity of new evidence.
 SHA-256 (SHA-2 family): the current default for evidence integrity.

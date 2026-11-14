@@ -30,15 +30,3 @@ wiping first; unstructured escalations; missing the "noticed" time.
 ### Revision questions
 
 ​1. Write the six escalation parts. 2. Compare isolation and power-off. 3. List four fields of a custody record.
-
-### Further reading
-
-NIST SP 800-61 Rev. 3 [R1]; CERT-In Directions [R2].
-
-## References
-
-- [R1] NIST. SP 800-61 Rev. 3, "Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile", April 2025. URL: [https://csrc.nist.gov/pubs/sp/800/61/r3/final](https://csrc.nist.gov/pubs/sp/800/61/r3/final) Accessed: 2026-11-07. Supports: title, date, supersedes Rev. 2 (2012).
-- [R2] CERT-In. "Directions under sub-section (6) of section 70B of the Information Technology Act, 2000", 28 April 2022. URL: [https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf) Accessed: 2026-11-07. Supports: 6-hour reporting, 180-day logs, NTP.
-- [R3] CISA. "The Attack on Colonial Pipeline: What We've Learned & What We've Done Over the Past Two Years", 2023. URL: [https://www.cisa.gov/news-events/news/attack-colonial-pipeline-what-weve-learned-what-weve-done-over-past-two-years](https://www.cisa.gov/news-events/news/attack-colonial-pipeline-what-weve-learned-what-weve-done-over-past-two-years) Accessed: 2026-11-07. Supports: May 2021 attack and operational halt.
-- [R4] US Department of Justice. "Department of Justice Seizes $2.3 Million in Cryptocurrency Paid to the Ransomware Extortionists Darkside", 7 June 2021. URL: [https://www.justice.gov/archives/opa/pr/department-justice-seizes-23-million-cryptocurrency-paid-ransomware-extortionists-darkside](https://www.justice.gov/archives/opa/pr/department-justice-seizes-23-million-cryptocurrency-paid-ransomware-extortionists-darkside) Accessed: 2026-11-07 (content via web-search cross-check). Supports: 63.7 BTC seized, ~75 BTC paid, thanks for quick FBI notification.
-- [R5] Lab evidence. evidence_export.py, sha256sum verification and tamper test (CPython 3.14.4; Git for Windows bash), 2026-11-07.

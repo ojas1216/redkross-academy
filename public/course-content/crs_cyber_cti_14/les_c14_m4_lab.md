@@ -1,5 +1,7 @@
 > [!NOTE] Lab kit
 > Download the course lab kit: [RedKross_C14_Lab_Kit.zip](/downloads/labs/RedKross_C14_Lab_Kit.zip). Extract it anywhere; paths written as `LAB_ASSETS/C14/...` refer to the extracted `C14` folder. Everything runs locally against systems you own.
+>
+> **Before you start:** data/enterprise-attack.json (MITRE ATT&CK Enterprise, STIX 2.1, ~53 MB) is not shipped. Download it from the official MITRE repository and save it as data/enterprise-attack.json: https://github.com/mitre-attack/attack-stix-data/tree/master/enterprise-attack (also in READ_ME_FIRST_DOWNLOAD_NOTES.txt inside the kit)
 
 ## Practical 1: Model the campaign
 
@@ -47,7 +49,7 @@
 
 **Step-by-step instructions:**
 
-1. python actor_overlap.py ; record the top ten and the counts.
+1. python actor_overlap.py; record the top ten and the counts.
 2. Run it with a rarer, more specific technique set of your choice (pass technique IDs as arguments) and compare the counts.
 3. Write a paragraph explaining why the first result is not attribution, citing the counts.
 4. List three kinds of evidence that would raise an association with a known intrusion set to moderate confidence.

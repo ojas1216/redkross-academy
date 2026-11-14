@@ -1,4 +1,4 @@
-STRIDE, developed at Microsoft, gives six threat categories, each the violation of a security property [R2]:
+STRIDE, developed at Microsoft, gives six threat categories, each the violation of a security property:
 
 ```text
 S  Spoofing                 (authenticity)  pretending to be another

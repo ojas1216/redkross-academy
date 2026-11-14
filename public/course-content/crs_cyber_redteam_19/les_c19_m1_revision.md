@@ -30,14 +30,3 @@ starting without written authorisation; vague scope; no stop conditions; no deco
 ### Revision questions
 
 ​1. What must authorisation specify? 2. Name six required RoE contents. 3. Why are deconfliction and stop conditions mandatory?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment" (planning; rules of engagement). URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: authorisation, planning and rules of engagement.
-- [R2] PTES. "Pre-engagement Interactions" (scope, RoE, authorisation). URL: [https://web.archive.org/web/20230601000000/http://www.pentest-standard.org/index.php/Pre-engagement](https://web.archive.org/web/20230601000000/http://www.pentest-standard.org/index.php/Pre-engagement) Accessed: 2026-11-08. Supports: the rules-of-engagement contents and the pre-engagement gate.
-- [R3] Krebs on Security. "Iowa Prosecutors Drop Charges Against Men Hired To Test Their Security" (Coalfire Iowa engagement). URL: [https://krebsonsecurity.com/2020/01/iowa-prosecutors-drop-charges-against-men-hired-to-test-their-security/](https://krebsonsecurity.com/2020/01/iowa-prosecutors-drop-charges-against-men-hired-to-test-their-security/) Accessed: 2026-11-08. Supports: the authorisation/scope case study.
-- [R4] Lab evidence. roe.py gate over roe_incomplete.json (10 findings, 6 HIGH, FAIL) and roe_complete.json (PASS) (CPython 3.14.4), LAB_ASSETS/C19/data/roe_incomplete_output.txt and roe_complete_output.txt, 2026-11-08. Supports: the RoE-gate deep dive.

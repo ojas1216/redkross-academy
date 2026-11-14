@@ -11,4 +11,4 @@
 ## The seven-step testing workflow
 
 ![A seven-step cycle from authorisation through mapping, classification, verification, scoring, reporting and retesting, with a loop back to mapping.](/assets/courses/cyber-06/C06-M02-F3.svg)
-*Figure C06-M02-F3. The repeatable web security testing workflow the lab tools implement end to end [R1].*
+*Figure C06-M02-F3. The repeatable web security testing workflow the lab tools implement end to end.*

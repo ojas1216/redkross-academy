@@ -12,14 +12,14 @@ semgrep scan --config rules.yml --metrics=off --disable-version-check
    rk-sql-fstring
       SQL built with an f-string; use a parameterised query (? placeholders).
         8| return db.execute(f"SELECT * FROM customers WHERE name =
-           '{name}'").fetchall()
+           '{name}'").fetchall
    rk-subprocess-shell-true
       subprocess with shell=True; pass an argument list without a shell.
        16| subprocess.run(f"tar czf /backups/out.tgz {path}", shell=True,
            check=True)
    rk-weak-hash-md5
       MD5 is unsuitable for passwords or integrity; ...
-       24| return hashlib.md5(pw.encode()).hexdigest()
+       24| return hashlib.md5(pw.encode).hexdigest
 exit=0
 --------------------------------------------------------------- END OUTPUT
 (execution-tested 2026-11-07; box-drawing characters removed, lines wrapped)

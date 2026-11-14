@@ -8,5 +8,5 @@
 **References:**
 
 - ISO 22301, business continuity management systems;
-- NIST SP 800-34 Rev. 1, "Contingency Planning Guide for Federal Information Systems" (May 2010, updated November 2010), which includes a BIA template [R1];
+- NIST SP 800-34 Rev. 1, "Contingency Planning Guide for Federal Information Systems" (May 2010, updated November 2010), which includes a BIA template;
 - CSF 2.0's PR.IR (Technology Infrastructure Resilience) and the Recover function (RC.RP, RC.CO) (Module 3).

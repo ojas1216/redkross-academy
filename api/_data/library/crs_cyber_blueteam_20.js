@@ -154,7 +154,7 @@ export default {
      "Nothing else"
     ],
     "correct": 0,
-    "explanation": "Both settings are off by default [R2].",
+    "explanation": "Both settings are off by default.",
     "topic": "C20-M02: Endpoint detection",
     "difficulty": "medium"
    },
@@ -452,7 +452,7 @@ export default {
      "a regex only"
     ],
     "correct": 1,
-    "explanation": "Two backslashes mean one; four are recommended [R1].",
+    "explanation": "Two backslashes mean one; four are recommended.",
     "topic": "C20-M04: Detection as code",
     "difficulty": "medium"
    },

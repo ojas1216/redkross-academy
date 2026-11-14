@@ -1,7 +1,7 @@
 ## IR lifecycle and CSF 2.0 alignment
 
 ![Four phase boxes from preparation to recovery, labelled with the CSF functions above them, and a loop from recovery through lessons learned back to preparation.](/assets/courses/cyber-09/C09-M07-F1.svg)
-*Figure C09-M07-F1. Classic IR phases mapped to CSF 2.0 functions, with lessons learned feeding preparation [R1].*
+*Figure C09-M07-F1. Classic IR phases mapped to CSF 2.0 functions, with lessons learned feeding preparation.*
 
 ## Iterative scoping
 

@@ -18,7 +18,7 @@
 **Step-by-step instructions:**
 
 1. For each service account run kubectl auth can-i --list -n kestrel --as=system:serviceaccount:kestrel:NAME and summarise.
-2. python rbac_review.py --accept rbac_accepted.txt ; record the exit code and every OPEN item.
+2. python rbac_review.py --accept rbac_accepted.txt; record the exit code and every OPEN item.
 3. For legacy-ops, explain how each K-code could be used to gain more access (one sentence each, defensive framing).
 4. Write a replacement that meets a stated need ("read pods, logs and events in kestrel") and apply it; remove the legacy objects.
 5. Re-run the review and four can-i checks; save both outputs.

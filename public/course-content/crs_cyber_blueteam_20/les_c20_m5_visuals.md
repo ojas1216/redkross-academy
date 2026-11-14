@@ -1,7 +1,7 @@
 ## The PEAK hunting cycle
 
 ![Three boxes in a cycle - Prepare, Execute and Act - with a return arrow labelled knowledge.](/assets/courses/cyber-20/C20-M05-F1.svg)
-*Figure C20-M05-F1. Prepare, Execute and Act, with knowledge throughout [R2].*
+*Figure C20-M05-F1. Prepare, Execute and Act, with knowledge throughout.*
 
 ## Data requirements decide what "nothing found" means
 

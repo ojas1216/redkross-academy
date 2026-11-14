@@ -4,7 +4,7 @@ Once a workload is admitted and running, three questions remain: what can it tal
 
 ## Why it matters
 
-By default every pod can reach every other pod: the Kubernetes documentation states that pods are non-isolated for ingress and egress until a NetworkPolicy selects them [R1]. A single compromised pod can then reach databases, internal APIs and the cluster's own control plane. The Hildegard campaign reported by Unit 42 in February 2021 moved from one exposed kubelet to others on the internal network and hid its processes on the node (case study CS1) - exactly the behaviours segmentation and runtime detection target.
+By default every pod can reach every other pod: the Kubernetes documentation states that pods are non-isolated for ingress and egress until a NetworkPolicy selects them. A single compromised pod can then reach databases, internal APIs and the cluster's own control plane. The Hildegard campaign reported by Unit 42 in February 2021 moved from one exposed kubelet to others on the internal network and hid its processes on the node (case study CS1) - exactly the behaviours segmentation and runtime detection target.
 
 ## Where it is used
 

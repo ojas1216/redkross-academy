@@ -30,16 +30,3 @@ trusting tags; "it is in a container, so root is fine"; privileged mode as a tro
 ### Revision questions
 
 ​1. Name the eight namespaces. 2. Explain why --privileged defeats most other controls. 3. Give two reasons to deploy by digest.
-
-### Further reading
-
-[R1]; [R3].
-
-## References
-
-- [R1] Souppaya, M., Morello, J., Scarfone, K. NIST SP 800-190 "Application Container Security Guide", September 2017. URL: [https://csrc.nist.gov/pubs/sp/800/190/final](https://csrc.nist.gov/pubs/sp/800/190/final) Accessed: 2026-11-07. Supports: five risk areas used in L06.
-- [R2] Docker. "Running containers" (runtime privilege and Linux capabilities), Docker Docs. URL: [https://docs.docker.com/engine/containers/run/](https://docs.docker.com/engine/containers/run/) Accessed: 2026-11-07. Supports: 14 default capabilities, --privileged behaviour.
-- [R3] Open Container Initiative. Runtime and image specifications. URL: [https://opencontainers.org/](https://opencontainers.org/) Accessed: 2026-11-07. Supports: OCI specification roles (L02, L03).
-- [R4] runc maintainers. GHSA-xr7r-f8xq-vfvv "runc container breakout through process.cwd trickery and leaked fds" (CVE-2024-21626), 31 January 2024. URL: [https://github.com/opencontainers/runc/security/advisories/GHSA-xr7r-f8xq-vfvv](https://github.com/opencontainers/runc/security/advisories/GHSA-xr7r-f8xq-vfvv) Accessed: 2026-11-07. Supports: CS1 versions, CVSS, root cause, fixes.
-- [R5] Linux man-pages. namespaces(7) and capabilities(7). URL: [https://man7.org/linux/man-pages/man7/namespaces.7.html](https://man7.org/linux/man-pages/man7/namespaces.7.html) Accessed: 2026-11-07. Supports: namespace types and capability model.
-- [R6] Lab evidence. m01_runtime.py, m01_runtime_output.txt, m01_host_ns_check.txt, m01_p2_output.txt (Docker Engine 29.4.2, CPython 3.14.4), 2026-11-07.

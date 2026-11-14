@@ -30,14 +30,3 @@ MFA gaps on legacy portals; standing admin; shared service credentials.
 ### Revision questions
 
 ​1. Rank MFA methods. 2. Design device trust rules. 3. List break-glass controls.
-
-### Further reading
-
-NIST SP 800-207 [R2]; NIST SP 800-63B-4 [R3].
-
-## References
-
-- [R1] Healthcare Dive. "UnitedHealth's Change cyberattack: tech takeaways" (reporting Andrew Witty's 1 May 2024 testimony). URL: [https://www.healthcaredive.com/news/unitedhealth-change-attack-tech-takeaways/715274/](https://www.healthcaredive.com/news/unitedhealth-change-attack-tech-takeaways/715274/) Accessed: 2026-11-07 (web-search cross-check). Supports: Citrix portal without MFA, dates, ALPHV, ransom.
-- [R2] NIST SP 800-207, "Zero Trust Architecture", August 2020. URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-07. Supports: identity-based access decisions.
-- [R3] NIST. SP 800-63B-4, "Digital Identity Guidelines: Authentication and Authenticator Management". URL: [https://pages.nist.gov/800-63-4/sp800-63b.html](https://pages.nist.gov/800-63-4/sp800-63b.html) Accessed: 2026-11-07. Supports: authentication assurance and phishing resistance concepts.
-- [R4] Lab evidence. zt_pdp.py and zt_pdp_output.txt (CPython 3.14.4), 2026-11-07.

@@ -1,6 +1,8 @@
-## Scope discipline and evidence in professional testing Context: professional testing standards (NIST SP 800-115; penetration-testing methodologies) emphasise that the discovery and validation phases must stay within authorised scope and that findings must be evidenced - recorded, attributed and reproducible - so the organisation can trust and remediate them. Out-of-scope activity and poorly evidenced findings are the two failures that most undermine an engagement's credibility and legality [C19-M03-R1][C19-M03-R2]. Why it matters for this module: it establishes scope enforcement and evidence management as core professional controls, exactly what the lab's scopecheck.py and evidence.py model. Lessons: stay strictly in scope; evidence every finding with attribution and integrity; make findings reproducible.
+## Scope discipline and evidence in professional testing
 
+**Context:** professional testing standards (NIST SP 800-115; penetration-testing methodologies) emphasise that the discovery and validation phases must stay within authorised scope and that findings must be evidenced - recorded, attributed and reproducible - so the organisation can trust and remediate them. Out-of-scope activity and poorly evidenced findings are the two failures that most undermine an engagement's credibility and legality. Why it matters for this module: it establishes scope enforcement and evidence management as core professional controls, exactly what the lab's scopecheck.py and evidence.py model.
 
+**Lessons:** stay strictly in scope; evidence every finding with attribution and integrity; make findings reproducible.
 
 ## (FICTIONAL TEACHING SCENARIO): The out-of-scope near miss and the challenged finding
 

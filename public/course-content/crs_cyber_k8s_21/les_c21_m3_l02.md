@@ -1,7 +1,7 @@
 Every request - from kubectl, a controller, a kubelet or a pod - passes through the same stages:
 
 1. Transport: TLS. The API server presents a certificate; clients verify it with the cluster CA.
-2. Authentication: who is this? Client certificates, bearer tokens (service account tokens, Module 4), OIDC tokens from an identity provider, or webhook authenticators. If none succeeds and anonymous authentication is enabled, the request continues as user system:anonymous in group system:unauthenticated; the upstream kube-apiserver default for --anonymous-auth is true [R4].
+2. Authentication: who is this? Client certificates, bearer tokens (service account tokens, Module 4), OIDC tokens from an identity provider, or webhook authenticators. If none succeeds and anonymous authentication is enabled, the request continues as user system:anonymous in group system:unauthenticated; the upstream kube-apiserver default for --anonymous-auth is true.
 3. Authorisation: may this identity perform this verb on this resource? Usually the Node authoriser (for kubelets) plus RBAC (Module 4).
 4. Admission: mutating admission (defaults, injected sidecars) then validating admission (Pod Security, ValidatingAdmissionPolicy, webhooks). Admission can reject a request that RBAC allowed.
 5. Validation and persistence: schema validation, then write to etcd.

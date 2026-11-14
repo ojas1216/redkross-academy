@@ -1,6 +1,6 @@
 ## Hunting living-off-the-land activity - joint guidance, 2024
 
-**Context:** in February 2024 CISA, the NSA, the FBI, the US Department of Energy, EPA and TSA, Australia's ACSC, Canada's CCCS and the UK and New Zealand NCSCs published "Identifying and Mitigating Living Off the Land Techniques". A revised version is dated March 2025 [R1]. The guidance draws on incident response and red-team assessments. Its detection best practices are:
+**Context:** in February 2024 CISA, the NSA, the FBI, the US Department of Energy, EPA and TSA, Australia's ACSC, Canada's CCCS and the UK and New Zealand NCSCs published "Identifying and Mitigating Living Off the Land Techniques". A revised version is dated March 2025. The guidance draws on incident response and red-team assessments. Its detection best practices are:
 
 1. detailed logging aggregated in an out-of-band, centralised, write-once-read-many location;
 2. established and continuously maintained baselines of network, user, administrative and application activity;

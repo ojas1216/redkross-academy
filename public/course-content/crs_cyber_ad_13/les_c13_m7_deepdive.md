@@ -23,9 +23,9 @@ Tier 0 logons observed from: 172.17.0.2  (confirm source is a PAW)
 Access review (samba-tool group listmembers), execution-tested summary:
 
 ```output
-Domain Admins : t0-admin (+ built-in Administrator)   OK (small, named)
-Server-Admins : t1-srvadm                              OK
-Helpdesk      : t2-help, asha                          review asha's need
+Domain Admins: t0-admin (+ built-in Administrator)   OK (small, named)
+Server-Admins: t1-srvadm                              OK
+Helpdesk: t2-help, asha                          review asha's need
 ```
 
 Drafted remediation plan (the deliverable):

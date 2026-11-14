@@ -224,7 +224,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "The Coalfire / Iowa courthouse case, 2019 Context: in September 2019, two penetration testers from the firm Coalfire were arrested during a physical security test of an Iowa courthouse. They had a contract with the state judicial branch aut",
+      "summary": "The Coalfire / Iowa courthouse case, 2019; (FICTIONAL TEACHING SCENARIO): The helpful out-of-scope probe",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m1_cases.md"
      },
@@ -257,10 +257,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m1_revision.md"
      }
@@ -365,7 +365,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Certificate transparency as a reconnaissance source Context: Certificate Transparency (CT), standardised by the IETF (RFC 6962) and enforced by major browsers, requires that issued TLS certificates be logged in public, append-only logs so t",
+      "summary": "Certificate transparency as a reconnaissance source; (FICTIONAL TEACHING SCENARIO): The helpful robots.txt",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m2_cases.md"
      },
@@ -398,10 +398,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m2_revision.md"
      }
@@ -539,10 +539,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m3_revision.md"
      }
@@ -602,7 +602,7 @@ export const LIBRARY_COURSES = [
       "title": "4.3 CVSS v3.1: scoring severity",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "0 severity.",
+      "summary": "The Common Vulnerability Scoring System (CVSS) v3.1, maintained by FIRST, gives a consistent 0.0-10.0 severity.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m4_l03.md"
      },
@@ -647,7 +647,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "CVSS, EPSS and the limits of a single score Context: organisations have long struggled with the volume of CVEs - tens of thousands published yearly - and the fact that CVSS base score alone does not predict which vulnerabilities attackers a",
+      "summary": "CVSS, EPSS and the limits of a single score; (FICTIONAL TEACHING SCENARIO): The scanner that cried critical",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m4_cases.md"
      },
@@ -680,10 +680,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m4_revision.md"
      }
@@ -788,7 +788,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "When a \"proof of concept\" went too far Context: a recurring theme in security disclosure is the difference between proving a vulnerability and exploiting it. In several well-known episodes, researchers who found a flaw went beyond minimal p",
+      "summary": "When a \"proof of concept\" went too far; (FICTIONAL TEACHING SCENARIO): The careful IDOR proof",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m5_cases.md"
      },
@@ -821,10 +821,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m5_revision.md"
      }
@@ -875,7 +875,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Safe proof-of-concept principles",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "A safe proof-of-concept (PoC) obeys four principles: isolation run anything with real risk against an isolated target you own, not production, unless the RoE explicitly permits and schedules it.",
+      "summary": "A safe proof-of-concept (PoC) obeys four principles: isolation run anything with real risk against an isolated target you own, not production, unless the RoE explicitly permits and schedules it. minimal action take the smallest step that de",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m6_l02.md"
      },
@@ -929,7 +929,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "EternalBlue, WannaCry, and why isolation matters Context: in 2017 the WannaCry ransomware spread worldwide using EternalBlue, an exploit for a vulnerability in Microsoft's SMBv1 (addressed by MS17-010). WannaCry's defining feature was self-",
+      "summary": "EternalBlue, WannaCry, and why isolation matters; (FICTIONAL TEACHING SCENARIO): The chain that changed the client's mind",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m6_cases.md"
      },
@@ -962,10 +962,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m6_revision.md"
      }
@@ -1103,10 +1103,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m7_revision.md"
      }
@@ -1211,7 +1211,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "What distinguishes a good report - industry guidance Context: professional bodies and standards consistently emphasise that the report, not the testing, is what delivers value, and that reports must be clear, risk-ranked, reproducible and a",
+      "summary": "What distinguishes a good report - industry guidance; (FICTIONAL TEACHING SCENARIO): The retest that closed the loop",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m8_cases.md"
      },
@@ -1244,10 +1244,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c05_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_pentest_05/les_c05_m8_revision.md"
      }
@@ -1477,7 +1477,7 @@ export const LIBRARY_COURSES = [
       "title": "1.2 HTTP requests and responses",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "HTTP (Hypertext Transfer Protocol), specified in RFC 9110 for its semantics, is a request-response protocol [C06-M01-R1].",
+      "summary": "HTTP (Hypertext Transfer Protocol), specified in RFC 9110 for its semantics, is a request-response protocol.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m1_l02.md"
      },
@@ -1564,10 +1564,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m1_revision.md"
      }
@@ -1672,7 +1672,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "robots.txt as an information leak Context: robots.txt tells search-engine crawlers which paths NOT to index. Administrators have repeatedly listed sensitive paths there - admin consoles, backup directories, staging endpoints - believing it ",
+      "summary": "robots.txt as an information leak; (FICTIONAL TEACHING SCENARIO): The forgotten staging endpoint",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m2_cases.md"
      },
@@ -1705,10 +1705,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m2_revision.md"
      }
@@ -1717,7 +1717,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c06_3",
     "title": "Module 3: Identity vulnerabilities",
-    "description": "\" and session management keeps answering it across a stateless protocol. Get either wrong and every other control fails, because the application acts on the wrong identity.",
+    "description": "Authentication answers \"who are you?\" and session management keeps answering it across a stateless protocol. Get either wrong and every other control fails, because the application acts on the wrong identity.",
     "order": 3,
     "quiz": {
      "id": "quiz_c06_m3",
@@ -1734,7 +1734,7 @@ export const LIBRARY_COURSES = [
       "title": "3.0 Module overview",
       "duration": "15 mins",
       "is_mandatory": true,
-      "summary": "\" and session management keeps answering it across a stateless protocol.",
+      "summary": "Authentication answers \"who are you?\" and session management keeps answering it across a stateless protocol.",
       "learning_objectives": [
        "Identify common authentication design flaws and their fixes",
        "Explain secure credential storage (hashing with a strong algorithm)",
@@ -1777,7 +1777,7 @@ export const LIBRARY_COURSES = [
       "title": "3.4 Secure session design",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "g.",
+      "summary": "Secure sessions follow a small set of rules: generate the token with a cryptographically secure random generator (e.g.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m3_l04.md"
      },
@@ -1846,10 +1846,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m3_revision.md"
      }
@@ -1858,7 +1858,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c06_4",
     "title": "Module 4: Authorization flaws",
-    "description": "\". Broken access control - failing to enforce what an authenticated user may do or see - is the number one category in the OWASP Top 10:2025, because it is both common and high-impact [C06-M04-R1].",
+    "description": "Authentication answers \"who are you?\"; AUTHORISATION answers \"what are you allowed to do?\". Broken access control - failing to enforce what an authenticated user may do or see - is the number one category in the OWASP Top 10:2025, because it is both common and high-impact.",
     "order": 4,
     "quiz": {
      "id": "quiz_c06_m4",
@@ -1875,7 +1875,7 @@ export const LIBRARY_COURSES = [
       "title": "4.0 Module overview",
       "duration": "15 mins",
       "is_mandatory": true,
-      "summary": "\".",
+      "summary": "Authentication answers \"who are you?\"; AUTHORISATION answers \"what are you allowed to do?\".",
       "learning_objectives": [
        "Explain access-control models (RBAC, ABAC) and least privilege",
        "Define IDOR / broken object-level authorisation and its causes",
@@ -1927,7 +1927,7 @@ export const LIBRARY_COURSES = [
       "title": "4.5 Remediation patterns",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Fixing access control is a matter of consistent, server-side checks: - Decide from the SESSION, not the client: derive the user and role from the server-side session, never from a cookie or field the client sets.",
+      "summary": "Fixing access control is a matter of consistent, server-side checks: - Decide from the SESSION, not the client: derive the user and role from the server-side session, never from a cookie or field the client sets. - Enforce OBJECT ownership ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m4_l05.md"
      },
@@ -1954,7 +1954,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Why Broken Access Control is number one Context: OWASP compiles its Top 10 from large datasets of real applications. Broken Access Control rose to the number one position in the 2021 edition and remains number one in the 2025 edition, becau",
+      "summary": "Why Broken Access Control is number one; (FICTIONAL TEACHING SCENARIO): The incrementing invoice",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m4_cases.md"
      },
@@ -1987,10 +1987,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m4_revision.md"
      }
@@ -2041,7 +2041,7 @@ export const LIBRARY_COURSES = [
       "title": "5.2 SQL injection concepts and impact",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "SQL injection (SQLi, CWE-89) occurs when input is concatenated into a SQL query so the input can alter the query [C06-M05-R2].",
+      "summary": "SQL injection (SQLi, CWE-89) occurs when input is concatenated into a SQL query so the input can alter the query.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m5_l02.md"
      },
@@ -2059,7 +2059,7 @@ export const LIBRARY_COURSES = [
       "title": "5.4 Cross-site scripting: contexts and impact",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Cross-site scripting (XSS, CWE-79) occurs when an application includes untrusted input in a page without proper encoding, so the input is parsed as markup/script in another user's browser [C06-M05-R4].",
+      "summary": "Cross-site scripting (XSS, CWE-79) occurs when an application includes untrusted input in a page without proper encoding, so the input is parsed as markup/script in another user's browser.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m5_l04.md"
      },
@@ -2128,10 +2128,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m5_revision.md"
      }
@@ -2182,7 +2182,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Preventing CSRF: tokens and SameSite",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Two complementary defences prevent CSRF [C06-M06-R2]: Anti-CSRF token the server issues a secret, per-session (or per-request) token, embeds it in forms, and requires it on every state- changing request.",
+      "summary": "Two complementary defences prevent CSRF: Anti-CSRF token the server issues a secret, per-session (or per-request) token, embeds it in forms, and requires it on every state- changing request.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m6_l02.md"
      },
@@ -2200,7 +2200,7 @@ export const LIBRARY_COURSES = [
       "title": "6.4 Preventing SSRF: allowlists and network controls",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "SSRF defence is layered [C06-M06-R3]: Default-deny allowlist only permit outbound requests to a small, explicit list of required destinations; reject everything else.",
+      "summary": "SSRF defence is layered: Default-deny allowlist only permit outbound requests to a small, explicit list of required destinations; reject everything else.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m6_l04.md"
      },
@@ -2209,7 +2209,7 @@ export const LIBRARY_COURSES = [
       "title": "6.5 Path traversal and safe file handling",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "py in the lab) escapes to files outside the intended folder.",
+      "summary": "Path traversal (CWE-22) occurs when user input is used to build a file path without ensuring the result stays inside an intended directory, so input like ../../etc/passwd (or ../app.py in the lab) escapes to files outside the intended folde",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m6_l05.md"
      },
@@ -2236,7 +2236,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "SSRF and cloud metadata Context: cloud platforms expose an instance metadata service at a fixed link- local address (169.254.169.254) that returns configuration and, in some setups, temporary credentials to code running on the instance. SSR",
+      "summary": "SSRF and cloud metadata; (FICTIONAL TEACHING SCENARIO): The avatar fetcher",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m6_cases.md"
      },
@@ -2269,10 +2269,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m6_revision.md"
      }
@@ -2341,7 +2341,7 @@ export const LIBRARY_COURSES = [
       "title": "7.4 Testing for business logic flaws",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "\": what if I repeat this step, skip it, reorder it, send an unexpected value (negative, zero, very large), or call endpoints directly out of sequence?",
+      "summary": "Because business logic flaws are about intended behaviour, finding them requires understanding the workflow and asking \"what if?\": what if I repeat this step, skip it, reorder it, send an unexpected value (negative, zero, very large), or ca",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m7_l04.md"
      },
@@ -2359,7 +2359,7 @@ export const LIBRARY_COURSES = [
       "title": "7.6 Defending APIs and advanced risks",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "The defences across these advanced risks share the course's themes applied rigorously: XXE disable external entities/DTDs; prefer JSON.",
+      "summary": "The defences across these advanced risks share the course's themes applied rigorously: XXE disable external entities/DTDs; prefer JSON. deserialization never deserialize untrusted data with code-capable formats; use JSON; sign and restrict ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m7_l06.md"
      },
@@ -2377,7 +2377,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Insecure deserialization as a path to code execution Context: insecure deserialization has repeatedly led to remote code execution in widely used platforms, because several popular serialization mechanisms (Java native serialization, Python",
+      "summary": "Insecure deserialization as a path to code execution; (FICTIONAL TEACHING SCENARIO): The reusable coupon",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m7_cases.md"
      },
@@ -2410,10 +2410,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m7_revision.md"
      }
@@ -2518,7 +2518,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Why retesting is a distinct, required phase Context: in professional application security, a finding is not considered remediated until a retest confirms it. Standards and methodologies - the OWASP Testing Guide and NIST SP 800-115 - treat ",
+      "summary": "Why retesting is a distinct, required phase; (FICTIONAL TEACHING SCENARIO): The report nobody could act on",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m8_cases.md"
      },
@@ -2551,10 +2551,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c06_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_websec_06/les_c06_m8_revision.md"
      }
@@ -2835,7 +2835,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "The cost of a flat network Context: a recurring lesson from major breaches is that FLAT networks - where most hosts can reach most others - turn a single compromised endpoint into a full compromise. Investigations of large retail and enterp",
+      "summary": "The cost of a flat network; (FICTIONAL TEACHING SCENARIO): The exposed management plane",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m1_cases.md"
      },
@@ -2868,10 +2868,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m1_revision.md"
      }
@@ -2940,7 +2940,7 @@ export const LIBRARY_COURSES = [
       "title": "2.4 Policy weaknesses and linting",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Policies accumulate recurring weaknesses that a LINTER can detect automatically [C07-M02-R1]: No default-deny the policy does not end with \"deny all\", so unmatched traffic may be permitted (a HIGH-severity gap).",
+      "summary": "Policies accumulate recurring weaknesses that a LINTER can detect automatically: No default-deny the policy does not end with \"deny all\", so unmatched traffic may be permitted (a HIGH-severity gap).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m2_l04.md"
      },
@@ -2976,7 +2976,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Firewall misconfiguration as a top risk Context: studies of firewall estates and security incidents consistently find that MISCONFIGURATION - not a flaw in the firewall product - is the dominant cause of firewall-related exposure. Overly pe",
+      "summary": "Firewall misconfiguration as a top risk; (FICTIONAL TEACHING SCENARIO): The troubleshooting rule that stayed",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m2_cases.md"
      },
@@ -3009,10 +3009,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m2_revision.md"
      }
@@ -3117,7 +3117,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Alert fatigue and the missed alarm Context: a repeated finding in post-incident reviews of major breaches is that the detection system DID fire an alert for the malicious activity, but it was lost among thousands of low-value alerts, or rou",
+      "summary": "Alert fatigue and the missed alarm; (FICTIONAL TEACHING SCENARIO): The scanner that alerted on itself",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m3_cases.md"
      },
@@ -3150,10 +3150,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m3_revision.md"
      }
@@ -3204,7 +3204,7 @@ export const LIBRARY_COURSES = [
       "title": "4.2 Zero-trust and micro-segmentation",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "ZERO TRUST (NIST SP 800-207) rejects the idea of a trusted internal network: no flow is trusted because of where it originates; every access must be explicitly authorised [C07-M04-R1].",
+      "summary": "ZERO TRUST (NIST SP 800-207) rejects the idea of a trusted internal network: no flow is trusted because of where it originates; every access must be explicitly authorised.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m4_l02.md"
      },
@@ -3240,7 +3240,7 @@ export const LIBRARY_COURSES = [
       "title": "4.6 Validating the lab's segmentation",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "The lab makes validation concrete.",
+      "summary": "The lab makes validation concrete. segmentation.py loads the allowed-flow matrix and a list of connections and reports each as OK or VIOLATION.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m4_l06.md"
      },
@@ -3258,7 +3258,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Segmentation as the containment control Context: across many large breaches, the decisive factor in how bad the outcome was turned out to be segmentation. Where networks were flat or weakly segmented, attackers who gained a foothold on a pe",
+      "summary": "Segmentation as the containment control; (FICTIONAL TEACHING SCENARIO): The validation that found the gap",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m4_cases.md"
      },
@@ -3291,10 +3291,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m4_revision.md"
      }
@@ -3399,7 +3399,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "The deprecation of TLS 1.0 and 1.1 Context: TLS 1.0 (1999) and 1.1 (2006) accumulated known weaknesses over the years, and the security community moved to retire them. In March 2021 the IETF published RFC 8996, which FORMALLY DEPRECATES TLS",
+      "summary": "The deprecation of TLS 1.0 and 1.1; (FICTIONAL TEACHING SCENARIO): The certificate that expired on a Friday",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m5_cases.md"
      },
@@ -3432,10 +3432,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m5_revision.md"
      }
@@ -3522,7 +3522,7 @@ export const LIBRARY_COURSES = [
       "title": "6.6 Secure wireless configuration and segmentation",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Secure WLAN configuration (NIST SP 800-153) combines several controls [C07-M06-R3]: - Use WPA3 (or WPA2-AES minimum); never WEP/WPA.",
+      "summary": "Secure WLAN configuration (NIST SP 800-153) combines several controls: - Use WPA3 (or WPA2-AES minimum); never WEP/WPA. - Use Enterprise (802.1X) authentication for corporate access; strong random passphrases for any personal/guest network.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m6_l06.md"
      },
@@ -3540,7 +3540,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "From WEP to WPA3 - a lesson in crypto lifecycles Context: early wireless security relied on WEP, which was shown to be badly broken in the early 2000s; its keys could be recovered quickly, and WEP-protected networks were a notorious soft ta",
+      "summary": "From WEP to WPA3 - a lesson in crypto lifecycles; (FICTIONAL TEACHING SCENARIO): The helpful rogue access point",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m6_cases.md"
      },
@@ -3573,10 +3573,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m6_revision.md"
      }
@@ -3618,7 +3618,7 @@ export const LIBRARY_COURSES = [
       "title": "7.1 Packet capture versus flow telemetry",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "g.",
+      "summary": "Two complementary forms of network visibility: PACKET CAPTURE (full packets, e.g.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m7_l01.md"
      },
@@ -3654,7 +3654,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Analysing the lab telemetry",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "py turns 186 flow records into a short list of signals to triage.",
+      "summary": "The lab's flowcheck.py turns 186 flow records into a short list of signals to triage.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m7_l05.md"
      },
@@ -3681,7 +3681,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Flow telemetry and beaconing detection Context: command-and-control beaconing - malware on an internal host contacting its operator's server at regular intervals - is one of the most reliable network indicators of compromise, and flow telem",
+      "summary": "Flow telemetry and beaconing detection; (FICTIONAL TEACHING SCENARIO): The beacon that gave it away",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m7_cases.md"
      },
@@ -3714,10 +3714,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m7_revision.md"
      }
@@ -3726,7 +3726,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c07_8",
     "title": "Module 8: Capstone",
-    "description": "This final module brings the course together into one authorised workflow: take the fictional organisation's network design, firewall policy, segmentation model, TLS configuration and flow telemetry, review each control against defence-in-depth, verify the hardening, and produce a consolidated network security assessment. py - and complete a capstone that moves every control from FAIL to PASS and documents the evidence.",
+    "description": "This final module brings the course together into one authorised workflow: take the fictional organisation's network design, firewall policy, segmentation model, TLS configuration and flow telemetry, review each control against defence-in-depth, verify the hardening, and produce a consolidated network security assessment. You will use the lab's tools end to end - firewall.py, segmentation.py, flowcheck.py, tlscheck.py and review.py - and complete a capstone that moves every control from FAIL to PASS and documents the evidence.",
     "order": 8,
     "quiz": {
      "id": "quiz_c07_m8",
@@ -3768,7 +3768,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 Verifying firewall and segmentation hardening",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "The firewall and segmentation are the enforcing layers, and both can be verified offline.",
+      "summary": "The firewall and segmentation are the enforcing layers, and both can be verified offline. firewall.py lints a policy for the design flaws of Module 2 (no default- deny, any-any rules, shadowed rules, no egress filtering, overly broad ports)",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m8_l02.md"
      },
@@ -3777,7 +3777,7 @@ export const LIBRARY_COURSES = [
       "title": "8.3 Verifying secure connectivity (TLS)",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "1 are deprecated by RFC 8996), no weak ciphers (RC4, 3DES), RSA keys at least 2048 bits, and unexpired certificates.",
+      "summary": "Secure connectivity (Module 5) is verified by reviewing the TLS configuration against current standards: no deprecated protocols (TLS 1.0/1.1 are deprecated by RFC 8996), no weak ciphers (RC4, 3DES), RSA keys at least 2048 bits, and unexpir",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m8_l03.md"
      },
@@ -3786,7 +3786,7 @@ export const LIBRARY_COURSES = [
       "title": "8.4 Telemetry review for residual risk",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "Even with the enforcing controls hardened, the monitoring layer (Module 7) checks for residual risk in actual traffic.",
+      "summary": "Even with the enforcing controls hardened, the monitoring layer (Module 7) checks for residual risk in actual traffic. flowcheck.py reviews the flow telemetry for scans, beaconing and segmentation violations.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m8_l04.md"
      },
@@ -3822,7 +3822,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Verification over assumption in network assurance Context: a recurring lesson across network security assessments and audits is that controls believed to be in place are often misconfigured, shadowed or never verified - the firewall rule th",
+      "summary": "Verification over assumption in network assurance; (FICTIONAL TEACHING SCENARIO): Himalaya Retail's network assurance review",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m8_cases.md"
      },
@@ -3855,10 +3855,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c07_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_netsec_07/les_c07_m8_revision.md"
      }
@@ -4075,7 +4075,7 @@ export const LIBRARY_COURSES = [
       "title": "1.1 What a SOC does",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "MITRE's guide \"11 Strategies of a World-Class Cybersecurity Operations Center\" describes a SOC as a team primarily composed of security analysts organised to detect, analyse, respond to, report on and prevent cybersecurity incidents [C08-M0",
+      "summary": "MITRE's guide \"11 Strategies of a World-Class Cybersecurity Operations Center\" describes a SOC as a team primarily composed of security analysts organised to detect, analyse, respond to, report on and prevent cybersecurity incidents.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l01.md"
      },
@@ -4084,7 +4084,7 @@ export const LIBRARY_COURSES = [
       "title": "1.2 SOC models, tiers and roles",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "1 Delivery models In-house full control and context; costly; hard to staff 24x7.",
+      "summary": "2.2.1 Delivery models In-house full control and context; costly; hard to staff 24x7.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l02.md"
      },
@@ -4102,7 +4102,7 @@ export const LIBRARY_COURSES = [
       "title": "1.4 The analyst workflow and shift handover",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "), threat intelligence updates and change calendars.",
+      "summary": "Start of shift: read the handover; check open cases, SIEM health (are all log sources reporting?), threat intelligence updates and change calendars.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l04.md"
      },
@@ -4138,7 +4138,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Target, 2013 - alerts without effective response ----------------------------------------------------------------------- Context: the US Senate Commerce Committee majority staff analysis of the 2013 Target breach (Course 01 Module 1) report",
+      "summary": "Target, 2013 - alerts without effective response; (FICTIONAL TEACHING SCENARIO): The 2 a.m. handover gap",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_cases.md"
      },
@@ -4171,10 +4171,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_revision.md"
      }
@@ -4216,7 +4216,7 @@ export const LIBRARY_COURSES = [
       "title": "2.1 Endpoint telemetry",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Sources: Windows Security/System logs (Course 03 Module 7), PowerShell logs (4103/4104), Sysmon (process creation event 1 with command line and parent, network connection 3, file creation 11, registry 12-14 and others [C08-M02-R1]), Linux a",
+      "summary": "Sources: Windows Security/System logs (Course 03 Module 7), PowerShell logs (4103/4104), Sysmon (process creation event 1 with command line and parent, network connection 3, file creation 11, registry 12-14 and others), Linux auth logs/jour",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_l01.md"
      },
@@ -4279,7 +4279,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Equifax, 2017 - a telemetry blind spot -------------------------------------------------------------- Context: the US GAO reported that at Equifax a device used to inspect network traffic had a misconfiguration caused by an expired digital ",
+      "summary": "Equifax, 2017 - a telemetry blind spot; (FICTIONAL TEACHING SCENARIO): The one-hour offset",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_cases.md"
      },
@@ -4312,10 +4312,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_revision.md"
      }
@@ -4384,7 +4384,7 @@ export const LIBRARY_COURSES = [
       "title": "3.4 Searching",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": ") Aggregate GROUP BY src_ip, COUNT(DISTINCT user) (SPL: stats dc(user) by src_ip; KQL: summarize dcount(user) by src_ip) Sort/limit ORDER BY n DESC LIMIT 10 Time bucket substr(ts,12,2) for hours (SPL: bin _time span=1h) Join combine related",
+      "summary": "Every SIEM language supports the same operations, shown here in SQL with rough equivalents: Filter WHERE source='vpn' AND outcome='failure' (SPL: source=vpn outcome=failure; KQL: | where ...)",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_l04.md"
      },
@@ -4420,7 +4420,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Customer audit logging in the 2023 Exchange Online intrusion ------------------------------------------------------------------------- Context: the US Cyber Safety Review Board's report on the 2023 Microsoft Exchange Online intrusion by the",
+      "summary": "Customer audit logging in the 2023 Exchange Online intrusion; (FICTIONAL TEACHING SCENARIO): The parser update",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_cases.md"
      },
@@ -4453,10 +4453,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_revision.md"
      }
@@ -4561,7 +4561,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "FireEye, 2020 - following up a \"routine\" alert ---------------------------------------------------------------------- Context: In December 2020 FireEye (now Mandiant) disclosed that it had been breached, and its investigation led to the dis",
+      "summary": "FireEye, 2020 - following up a \"routine\" alert; (FICTIONAL TEACHING SCENARIO): The muted rule",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_cases.md"
      },
@@ -4594,10 +4594,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_revision.md"
      }
@@ -4684,7 +4684,7 @@ export const LIBRARY_COURSES = [
       "title": "5.6 Intelligence limitations",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Indicators are perishable; attackers rotate infrastructure, sometimes per victim.",
+      "summary": "- Indicators are perishable; attackers rotate infrastructure, sometimes per victim. - Shared infrastructure (cloud, CDN, VPN providers, Tor exits) causes collateral matches. - Feeds overlap and repeat each other, making one report look like",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_l06.md"
      },
@@ -4702,7 +4702,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "FireEye red team tool countermeasures, 2020 ------------------------------------------------------------------ Context: when FireEye disclosed in December 2020 that its red team tools had been stolen (the intrusion described in Module 4), i",
+      "summary": "FireEye red team tool countermeasures, 2020; (FICTIONAL TEACHING SCENARIO): The leaked AMBER report",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_cases.md"
      },
@@ -4735,10 +4735,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_revision.md"
      }
@@ -4798,7 +4798,7 @@ export const LIBRARY_COURSES = [
       "title": "6.3 Sigma rules",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Sigma is an open, generic YAML format for describing log-based detections, which tools such as pySigma and sigma-cli convert into SIEM-specific queries [C08-M06-R1].",
+      "summary": "Sigma is an open, generic YAML format for describing log-based detections, which tools such as pySigma and sigma-cli convert into SIEM-specific queries.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l03.md"
      },
@@ -4816,7 +4816,7 @@ export const LIBRARY_COURSES = [
       "title": "6.5 MITRE ATT&CK and mapping",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "MITRE ATT&CK is a knowledge base of adversary tactics (goals) and techniques (how) based on real-world observations [C08-M06-R2].",
+      "summary": "MITRE ATT&CK is a knowledge base of adversary tactics (goals) and techniques (how) based on real-world observations.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l05.md"
      },
@@ -4843,7 +4843,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "ATT&CK's 2026 restructuring - mappings age ------------------------------------------------------------------ Context: MITRE's 2026 ATT&CK releases split the long-standing Defense Evasion tactic into Stealth (TA0005) and Defense Impairment ",
+      "summary": "ATT&CK's 2026 restructuring - mappings age; (FICTIONAL TEACHING SCENARIO): The renamed binary",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_cases.md"
      },
@@ -4876,10 +4876,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_revision.md"
      }
@@ -4939,7 +4939,7 @@ export const LIBRARY_COURSES = [
       "title": "7.3 Communication and reporting obligations",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Communication principles: - Use out-of-band channels if email or chat may be compromised.",
+      "summary": "Communication principles: - Use out-of-band channels if email or chat may be compromised. - Share on a need-to-know basis, and keep a single incident log of decisions and times. - Separate facts from hypotheses. - Coordinate external statem",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l03.md"
      },
@@ -4957,7 +4957,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Evidence preservation",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Evidence must be collected so it can be trusted later: - Order of volatility: memory and network state are lost first, then running processes, then disk, then logs held centrally, which are more durable.",
+      "summary": "Evidence must be collected so it can be trusted later: - Order of volatility: memory and network state are lost first, then running processes, then disk, then logs held centrally, which are more durable. - Integrity: hash every exported fil",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l05.md"
      },
@@ -4984,7 +4984,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Colonial Pipeline, 2021 - containment and early notification ----------------------------------------------------------------------- Context: In May 2021 Colonial Pipeline suffered a ransomware attack (Course 01 Module 2) and halted pipelin",
+      "summary": "Colonial Pipeline, 2021 - containment and early notification; (FICTIONAL TEACHING SCENARIO): The helpful reboot",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_cases.md"
      },
@@ -5017,10 +5017,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_revision.md"
      }
@@ -5071,7 +5071,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 Hypotheses and data requirements",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "\"); and environment changes (new VPN, new cloud service).",
+      "summary": "A good hypothesis is specific, testable and tied to a threat: Weak: \"Look for bad things on endpoints.\"",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_l02.md"
      },
@@ -5125,7 +5125,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Volt Typhoon advisory, 2024 - hunting for living off the land ----------------------------------------------------------------------------- Context: On 7 February 2024 CISA, NSA and FBI, with US and international partners (including the UK ",
+      "summary": "Volt Typhoon advisory, 2024 - hunting for living off the land; (FICTIONAL TEACHING SCENARIO): The negative hunt",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_cases.md"
      },
@@ -5158,10 +5158,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c08_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_revision.md"
      }
@@ -5394,7 +5394,7 @@ export const LIBRARY_COURSES = [
       "title": "1.3 The forensic process",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "NIST SP 800-86, \"Guide to Integrating Forensic Techniques into Incident Response\" (August 2006), describes a four-phase process [C09-M01-R1]: 1.",
+      "summary": "NIST SP 800-86, \"Guide to Integrating Forensic Techniques into Incident Response\" (August 2006), describes a four-phase process: 1.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m1_l03.md"
      },
@@ -5439,7 +5439,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Arjun Panditrao Khotkar (2020) - the certificate as a condition precedent ----------------------------------------------------------------------------- Context: Conflicting Supreme Court decisions on whether a Section 65B(4) certificate was",
+      "summary": "Arjun Panditrao Khotkar (2020) - the certificate as a condition precedent; (FICTIONAL TEACHING SCENARIO): The over-collection",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m1_cases.md"
      },
@@ -5472,10 +5472,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m1_revision.md"
      }
@@ -5526,7 +5526,7 @@ export const LIBRARY_COURSES = [
       "title": "2.2 Image formats",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "001) a bit-for-bit copy with no metadata.",
+      "summary": "Raw (dd, .img, .001) a bit-for-bit copy with no metadata.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m2_l02.md"
      },
@@ -5580,7 +5580,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "NIST CFTT - testing the tools examiners rely on ----------------------------------------------------------------------- Context: NIST's Computer Forensics Tool Testing (CFTT) project establishes a method for testing forensic software and ha",
+      "summary": "NIST CFTT - testing the tools examiners rely on; (FICTIONAL TEACHING SCENARIO): The imaged evidence disk",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m2_cases.md"
      },
@@ -5613,10 +5613,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m2_revision.md"
      }
@@ -5721,7 +5721,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Casey Anthony trial, 2011 - one visit or 84? -------------------------------------------------------------------- Context: In the 2011 Florida murder trial of Casey Anthony, prosecutors presented browser-history evidence suggesting that a f",
+      "summary": "Casey Anthony trial, 2011 - one visit or 84?; (FICTIONAL TEACHING SCENARIO): The copied folder",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m3_cases.md"
      },
@@ -5754,10 +5754,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m3_revision.md"
      }
@@ -5862,7 +5862,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Ivanti Connect Secure exploitation, 2024 - appliances and integrity checks -------------------------------------------------------------------------- Context: On 29 February 2024, CISA, the FBI, MS-ISAC and partner agencies in Australia, th",
+      "summary": "Ivanti Connect Secure exploitation, 2024 - appliances and integrity checks; (FICTIONAL TEACHING SCENARIO): The reboot that erased the evidence",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m4_cases.md"
      },
@@ -5895,10 +5895,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m4_revision.md"
      }
@@ -5940,7 +5940,7 @@ export const LIBRARY_COURSES = [
       "title": "5.1 Windows event logs",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "evtx files in C:\\Windows\\System32\\winevt\\Logs.",
+      "summary": "Event logs are stored as .evtx files in C:\\Windows\\System32\\winevt\\Logs.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m5_l01.md"
      },
@@ -5958,7 +5958,7 @@ export const LIBRARY_COURSES = [
       "title": "5.3 The registry",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "LOG2) may hold changes not yet written to the hive.",
+      "summary": "Hives on disk (offline analysis needs these files from an image): C:\\Windows\\System32\\config\\SAM local accounts C:\\Windows\\System32\\config\\SECURITY security policy, LSA secrets C:\\Windows\\System32\\config\\SOFTWARE installed software, OS info",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m5_l03.md"
      },
@@ -6003,7 +6003,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "BTK, 2005 - document metadata ----------------------------------------------------- Context: In February 2005 the \"BTK\" serial killer in Wichita, Kansas, who had taunted police for decades, sent a floppy disk to a local television station. ",
+      "summary": "BTK, 2005 - document metadata; (FICTIONAL TEACHING SCENARIO): The service at 02:13",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m5_cases.md"
      },
@@ -6036,10 +6036,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m5_revision.md"
      }
@@ -6081,7 +6081,7 @@ export const LIBRARY_COURSES = [
       "title": "6.1 Linux system and authentication logs",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "log (Debian, Ubuntu) or /var/log/secure (RHEL family) sshd logins (Accepted password/publickey, Failed password, Invalid user), sudo commands, su, PAM messages.",
+      "summary": "/var/log/auth.log (Debian, Ubuntu) or /var/log/secure (RHEL family) sshd logins (Accepted password/publickey, Failed password, Invalid user), sudo commands, su, PAM messages. systemd journal binary logs read with journalctl.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m6_l01.md"
      },
@@ -6090,7 +6090,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Linux user and persistence artefacts",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "zsh_history).",
+      "summary": "User activity: - Shell history (~/.bash_history, ~/.zsh_history).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m6_l02.md"
      },
@@ -6108,7 +6108,7 @@ export const LIBRARY_COURSES = [
       "title": "6.4 Extracting and verifying transferred files",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "When traffic is unencrypted, transferred files can be reconstructed from the capture.",
+      "summary": "When traffic is unencrypted, transferred files can be reconstructed from the capture. tshark's --export-objects option (protocols include http, smb, tftp, imf and dicom) writes each object to a folder.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m6_l04.md"
      },
@@ -6144,7 +6144,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "The xz Utils backdoor, 2024 - half a second of evidence ---------------------------------------------------------------------- Context: On 29 March 2024, Andres Freund posted to the oss-security mailing list under the subject \"backdoor in u",
+      "summary": "The xz Utils backdoor, 2024 - half a second of evidence; (FICTIONAL TEACHING SCENARIO): The missing hour",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m6_cases.md"
      },
@@ -6177,10 +6177,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m6_revision.md"
      }
@@ -6258,7 +6258,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Eradication and recovery",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Eradication removes the attacker's access completely: - Remove persistence found in scoping (services, tasks, Run keys, cron, systemd units, authorized_keys, web shells, new accounts).",
+      "summary": "Eradication removes the attacker's access completely: - Remove persistence found in scoping (services, tasks, Run keys, cron, systemd units, authorized_keys, web shells, new accounts). - Rebuild rather than clean compromised hosts when feas",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m7_l05.md"
      },
@@ -6285,7 +6285,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Maersk and NotPetya, 2017 - recovery at scale --------------------------------------------------------------------- Context: In June 2017 the NotPetya malware spread worldwide from a compromised Ukrainian accounting software update and dest",
+      "summary": "Maersk and NotPetya, 2017 - recovery at scale; (FICTIONAL TEACHING SCENARIO): The restored backdoor",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m7_cases.md"
      },
@@ -6318,10 +6318,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m7_revision.md"
      }
@@ -6426,7 +6426,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Bates v Post Office (Horizon Issues), 2019 ------------------------------------------------------------------ Context: In group litigation brought by sub-postmasters against Post Office Limited, the High Court (Fraser J) handed down Judgmen",
+      "summary": "Bates v Post Office (Horizon Issues), 2019; (FICTIONAL TEACHING SCENARIO): The draft that said \"proves\"",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m8_cases.md"
      },
@@ -6459,10 +6459,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c09_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_dfir_09/les_c09_m8_revision.md"
      }
@@ -6690,7 +6690,7 @@ export const LIBRARY_COURSES = [
       "title": "1.2 The delivery-and-execution lifecycle",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Malware follows a lifecycle from arrival to objective, and analysis is partly about locating a sample within it: 1.",
+      "summary": "Malware follows a lifecycle from arrival to objective, and analysis is partly about locating a sample within it: 1. delivery how it arrives: phishing attachment or link, drive-by download, malicious installer, removable media, supply chain.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m1_l02.md"
      },
@@ -6708,7 +6708,7 @@ export const LIBRARY_COURSES = [
       "title": "1.4 Safe handling principles",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Because a real sample is live and dangerous, handling discipline is non-negotiable (NIST SP 800-83 and standard practice) [C10-M01-R1]: isolate analyse only in a dedicated environment - an isolated/snapshotted VM, never your normal workstat",
+      "summary": "Because a real sample is live and dangerous, handling discipline is non-negotiable (NIST SP 800-83 and standard practice): isolate analyse only in a dedicated environment - an isolated/snapshotted VM, never your normal workstation or anythi",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m1_l04.md"
      },
@@ -6744,7 +6744,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Modular malware and the dropper/loader pattern Context: modern commodity and targeted malware is overwhelmingly MODULAR - a small first-stage dropper or downloader establishes a foothold and pulls in later stages (a loader, then a RAT or ra",
+      "summary": "Modular malware and the dropper/loader pattern; (FICTIONAL TEACHING SCENARIO): The unknown attachment at Sahyadri Logistics",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m1_cases.md"
      },
@@ -6777,10 +6777,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m1_revision.md"
      }
@@ -6858,7 +6858,7 @@ export const LIBRARY_COURSES = [
       "title": "2.5 Building and recording the lab specimen",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "py (Module 1 introduced it).",
+      "summary": "To have something to analyse, you author the inert specimen with make_specimen.py (Module 1 introduced it).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m2_l05.md"
      },
@@ -6885,7 +6885,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Why file hashes alone miss variants Context: file hashes are the backbone of sample identification and sharing, but they identify EXACT files only. Attackers routinely recompile, repack or lightly modify malware so that every file hash diff",
+      "summary": "Why file hashes alone miss variants; (FICTIONAL TEACHING SCENARIO): The snapshot that saved the investigation",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m2_cases.md"
      },
@@ -6918,10 +6918,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m2_revision.md"
      }
@@ -6963,7 +6963,7 @@ export const LIBRARY_COURSES = [
       "title": "3.1 File identification and entropy",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "\".",
+      "summary": "The first static questions are \"what is this file?\" and \"does it look packed?\".",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m3_l01.md"
      },
@@ -6990,7 +6990,7 @@ export const LIBRARY_COURSES = [
       "title": "3.4 The import table as capability",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "g.",
+      "summary": "The IMPORT TABLE lists the external functions a PE uses, grouped by the DLL that provides them (e.g.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m3_l04.md"
      },
@@ -6999,7 +6999,7 @@ export const LIBRARY_COURSES = [
       "title": "3.5 Reading the specimen statically",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "rdata data) and the import table across KERNEL32/ADVAPI32/WS2_32, flagging CreateMutexA, VirtualAlloc, RegSetValueExA, WSAStartup, connect and send.",
+      "summary": "Putting it together on the specimen: triage.py gives the type (PE, from the MZ magic), the hashes (its first IOCs) and the entropy (low - unpacked); strx.py lists the embedded strings - the version banner, a C2 URL, a host:port, a mutex nam",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m3_l05.md"
      },
@@ -7026,7 +7026,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Imports and strings as the analyst's first map Context: across malware analysis practice, the import table and embedded strings are the two indicators analysts reach for first, because they are fast to obtain (no execution) and frequently d",
+      "summary": "Imports and strings as the analyst's first map; (FICTIONAL TEACHING SCENARIO): The packed sample that told on itself",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m3_cases.md"
      },
@@ -7059,10 +7059,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m3_revision.md"
      }
@@ -7131,7 +7131,7 @@ export const LIBRARY_COURSES = [
       "title": "4.4 The safe dynamic harness",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "py models a safe detonation end to end: 1.",
+      "summary": "The lab's behaviour.py models a safe detonation end to end: 1. it creates a THROWAWAY SANDBOX directory - the only place the simulator may write (standing in for the isolated VM's filesystem); 2. it binds a LOOPBACK SINK on 127.0.0.1 - the ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m4_l04.md"
      },
@@ -7140,7 +7140,7 @@ export const LIBRARY_COURSES = [
       "title": "4.5 Behavioural IOCs",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "A dynamic run yields BEHAVIOURAL indicators of compromise that complement the static ones: host the dropped file path and name; the created registry key/value; the mutex name; created services or scheduled tasks; spawned processes.",
+      "summary": "A dynamic run yields BEHAVIOURAL indicators of compromise that complement the static ones: host the dropped file path and name; the created registry key/value; the mutex name; created services or scheduled tasks; spawned processes. network ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m4_l05.md"
      },
@@ -7167,7 +7167,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Why sandboxes simulate the internet Context: automated malware sandboxes - the detonation engines behind much of modern triage - run samples in instrumented, isolated environments and almost universally SIMULATE the internet (fake DNS and c",
+      "summary": "Why sandboxes simulate the internet; (FICTIONAL TEACHING SCENARIO): The beacon caught on loopback",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m4_cases.md"
      },
@@ -7200,10 +7200,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m4_revision.md"
      }
@@ -7281,7 +7281,7 @@ export const LIBRARY_COURSES = [
       "title": "5.5 Extracting IOCs from the specimen",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "py gathers indicators from both the static file and the dynamic behaviour log into one defensive list: the file hashes; network indicators (the C2 URL and host:port); the dropped file path; the registry key; and the mutex.",
+      "summary": "ioc.py gathers indicators from both the static file and the dynamic behaviour log into one defensive list: the file hashes; network indicators (the C2 URL and host:port); the dropped file path; the registry key; and the mutex.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m5_l05.md"
      },
@@ -7308,7 +7308,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "YARA and the durability of content-based detection Context: YARA became the industry standard for malware detection and classification precisely because content-based rules generalise across a family in a way file hashes cannot: a well-writ",
+      "summary": "YARA and the durability of content-based detection; (FICTIONAL TEACHING SCENARIO): The rule that cried wolf",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m5_cases.md"
      },
@@ -7341,10 +7341,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m5_revision.md"
      }
@@ -7404,7 +7404,7 @@ export const LIBRARY_COURSES = [
       "title": "6.3 Common instructions",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "A small set of x86-64 instructions covers most code a reverse engineer reads: mov dst, src move data (register, memory or immediate).",
+      "summary": "A small set of x86-64 instructions covers most code a reverse engineer reads: mov dst, src move data (register, memory or immediate). lea dst, [addr] load an effective address (compute a pointer). push/pop reg push/pop a register on the sta",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m6_l03.md"
      },
@@ -7413,7 +7413,7 @@ export const LIBRARY_COURSES = [
       "title": "6.4 Control flow",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "Programs are not straight lines; CONTROL FLOW is how execution branches and repeats, and following it is the core of reverse engineering: sequence instructions execute in order until a branch.",
+      "summary": "Programs are not straight lines; CONTROL FLOW is how execution branches and repeats, and following it is the core of reverse engineering: sequence instructions execute in order until a branch. branch a conditional jump (jz/jnz/...) after a ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m6_l04.md"
      },
@@ -7431,7 +7431,7 @@ export const LIBRARY_COURSES = [
       "title": "6.6 From bytes to understanding",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "The fundamentals connect into a method for making sense of compiled code: 1.",
+      "summary": "The fundamentals connect into a method for making sense of compiled code: 1. use the FORMAT (PE/ELF) to locate the code (executable section/segment) and the entry point, and to know how addresses map to memory; 2.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m6_l06.md"
      },
@@ -7449,7 +7449,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Why format and assembly literacy is non-negotiable Context: every deep malware analysis eventually reaches code that automation cannot interpret - a custom string/config decryptor, a domain-generation algorithm, an environmental trigger, a ",
+      "summary": "Why format and assembly literacy is non-negotiable; (FICTIONAL TEACHING SCENARIO): Following the entry stub",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m6_cases.md"
      },
@@ -7482,10 +7482,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m6_revision.md"
      }
@@ -7563,7 +7563,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Applying the method to the specimens",
       "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "py give the entry point and imports; the imports (CreateMutex, RegSetValueEx, connect/send) and strings (C2 URL, mutex, path) predict persistence, C2 and a drop.",
+      "summary": "Scaled down to the specimens, the RE method runs end to end: - orient: peinfo.py/elfinfo.py give the entry point and imports; the imports (CreateMutex, RegSetValueEx, connect/send) and strings (C2 URL, mutex, path) predict persistence, C2 a",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m7_l05.md"
      },
@@ -7572,7 +7572,7 @@ export const LIBRARY_COURSES = [
       "title": "7.6 From reverse engineering to detection",
       "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "RE is not an end in itself; its outputs harden defences: - config/key extraction yields the real C2 and settings, which become IOCs and the basis of a config extractor that scales across samples.",
+      "summary": "RE is not an end in itself; its outputs harden defences: - config/key extraction yields the real C2 and settings, which become IOCs and the basis of a config extractor that scales across samples. - understanding the decryption or algorithm ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m7_l06.md"
      },
@@ -7590,7 +7590,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Config extraction through reverse engineering Context: a staple output of malware reverse engineering is CONFIGURATION EXTRACTION - reversing a sample's string/config decryption routine to recover its real C2 servers, keys and settings, the",
+      "summary": "Config extraction through reverse engineering; (FICTIONAL TEACHING SCENARIO): Finding the decryptor",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m7_cases.md"
      },
@@ -7623,10 +7623,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m7_revision.md"
      }
@@ -7677,7 +7677,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 Classification, confidence and limitations",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "g.",
+      "summary": "The heart of the report is an honest classification: CLASSIFICATION what the sample is and does - its category/family (if known) and behaviour (e.g. \"a dropper that persists and beacons\").",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m8_l02.md"
      },
@@ -7704,7 +7704,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Assembling the report",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "py demonstrates assembling the full report from the analysis artefacts: it runs the static and IOC tooling over the specimen, reads the behaviour log, and emits a structured report - subject/provenance, classification with confidence and li",
+      "summary": "report.py demonstrates assembling the full report from the analysis artefacts: it runs the static and IOC tooling over the specimen, reads the behaviour log, and emits a structured report - subject/provenance, classification with confidence",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m8_l05.md"
      },
@@ -7731,7 +7731,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Confidence, limitations and the cost of overstating Context: incident-handling and intelligence practice stresses that analytic reporting must convey CONFIDENCE and LIMITATIONS, not just conclusions - a lesson reflected in structured-analys",
+      "summary": "Confidence, limitations and the cost of overstating; (FICTIONAL TEACHING SCENARIO): The report that drove the response",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m8_cases.md"
      },
@@ -7764,10 +7764,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c10_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_malware_10/les_c10_m8_revision.md"
      }
@@ -7986,7 +7986,7 @@ export const LIBRARY_COURSES = [
       "title": "1.1 What cloud computing is",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "NIST SP 800-145 (September 2011, Mell and Grance) defines cloud computing by five essential characteristics, three service models and four deployment models [C11-M01-R1]: Characteristics on-demand self-service; broad network access; resourc",
+      "summary": "NIST SP 800-145 (September 2011, Mell and Grance) defines cloud computing by five essential characteristics, three service models and four deployment models: Characteristics on-demand self-service; broad network access; resource pooling; ra",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m1_l01.md"
      },
@@ -8049,7 +8049,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "ChaosDB, August 2021 - when the provider's layer fails ---------------------------------------------------------------------- Context: On 26 August 2021 Wiz published its research on a vulnerability in Azure Cosmos DB's Jupyter Notebook fea",
+      "summary": "ChaosDB, August 2021 - when the provider's layer fails; (FICTIONAL TEACHING SCENARIO): \"The provider is secure, so we are\"",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m1_cases.md"
      },
@@ -8082,10 +8082,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m1_revision.md"
      }
@@ -8190,7 +8190,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Midnight Blizzard, 2023-24 - a test account without MFA ------------------------------------------------------------------------ Context: In guidance for responders published on 25 January 2024, Microsoft stated that it detected an attack b",
+      "summary": "Midnight Blizzard, 2023-24 - a test account without MFA; (FICTIONAL TEACHING SCENARIO): The deploy role that could become anything",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m2_cases.md"
      },
@@ -8223,10 +8223,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m2_revision.md"
      }
@@ -8331,7 +8331,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Capital One, 2019 - a misconfigured WAF and the credentials behind it ------------------------------------------------------------------------ Context: The US Department of Justice's case page for United States v. Paige Thompson describes t",
+      "summary": "Capital One, 2019 - a misconfigured WAF and the credentials behind it; (FICTIONAL TEACHING SCENARIO): The temporary rule",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m3_cases.md"
      },
@@ -8364,10 +8364,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m3_revision.md"
      }
@@ -8454,7 +8454,7 @@ export const LIBRARY_COURSES = [
       "title": "4.6 Auditing storage",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "5): ------------------------------------------------------------- BEGIN OUTPUT == audit (before) tl-public-assets {'block_public': 'not set', 'public_policy': False, 'encryption': 'none reported', 'versioning': 'Disabled'} tl-customer-expor",
+      "summary": "Execution-tested (sh run_lab.sh data_lab.py, boto3 1.43.126, moto 5.2.5): ------------------------------------------------------------- BEGIN OUTPUT == audit (before) tl-public-assets {'block_public': 'not set', 'public_policy': False, 'enc",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m4_l06.md"
      },
@@ -8472,7 +8472,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Toyota Connected, 2023 - a decade of exposure from one setting ------------------------------------------------------------------------ Context: In 2023 Toyota disclosed that a misconfigured cloud environment had exposed vehicle location da",
+      "summary": "Toyota Connected, 2023 - a decade of exposure from one setting; (FICTIONAL TEACHING SCENARIO): The SAS link in the ticket",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m4_cases.md"
      },
@@ -8505,10 +8505,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m4_revision.md"
      }
@@ -8559,7 +8559,7 @@ export const LIBRARY_COURSES = [
       "title": "5.2 Centralising and protecting logs",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "- Organisation trail in AWS (all accounts, all regions) delivered to a log-archive account bucket with Object Lock or restricted delete, SSE-KMS and log file validation.",
+      "summary": "- Organisation trail in AWS (all accounts, all regions) delivered to a log-archive account bucket with Object Lock or restricted delete, SSE-KMS and log file validation. - Azure: diagnostic settings at management-group/subscription scope vi",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m5_l02.md"
      },
@@ -8568,7 +8568,7 @@ export const LIBRARY_COURSES = [
       "title": "5.3 Reading CloudTrail records",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "com) eventName the API action (PutBucketPolicy, CreateAccessKey) userIdentity who: type (IAMUser, AssumedRole, Root), ARN, accountId, session context (MFA, source identity) sourceIPAddress caller's IP (or the AWS service name) userAgent cli",
+      "summary": "Key fields in a CloudTrail record: eventTime UTC time of the request eventSource the service (s3.amazonaws.com, iam.amazonaws.com) eventName the API action (PutBucketPolicy, CreateAccessKey) userIdentity who: type (IAMUser, AssumedRole, Roo",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m5_l03.md"
      },
@@ -8577,7 +8577,7 @@ export const LIBRARY_COURSES = [
       "title": "5.4 High-value detections",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Events that should always alert (with owner and runbook): - Root user activity; console login without MFA.",
+      "summary": "Events that should always alert (with owner and runbook): - Root user activity; console login without MFA. - Logging changes: StopLogging, DeleteTrail, UpdateTrail, PutEventSelectors; Azure diagnostic setting deletion. - Identity changes: C",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m5_l04.md"
      },
@@ -8595,7 +8595,7 @@ export const LIBRARY_COURSES = [
       "title": "5.6 Logs that must be switched on",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Some valuable logs are not on by default, cost money, or depend on licence: - CloudTrail data events (S3 object reads, Lambda invocations) - enable for restricted buckets at least.",
+      "summary": "Some valuable logs are not on by default, cost money, or depend on licence: - CloudTrail data events (S3 object reads, Lambda invocations) - enable for restricted buckets at least. - S3 server access logs and Azure Storage diagnostic logs (",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m5_l06.md"
      },
@@ -8613,7 +8613,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Storm-0558 and expanded cloud logs, 2023-2026 -------------------------------------------------------------------- Context: CISA's playbook (version 1.0 January 2025, version 1.1 May 2026) states that it was developed following the summer 2",
+      "summary": "Storm-0558 and expanded cloud logs, 2023-2026; (FICTIONAL TEACHING SCENARIO): The trail that only covered one region",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m5_cases.md"
      },
@@ -8646,10 +8646,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m5_revision.md"
      }
@@ -8691,7 +8691,7 @@ export const LIBRARY_COURSES = [
       "title": "6.1 Misconfiguration patterns",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "0/0, anonymous access to application data (Power Apps).",
+      "summary": "Patterns that recur across providers and incidents: Exposure public storage, public databases, admin ports from 0.0.0.0/0, anonymous access to application data (Power Apps).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m6_l01.md"
      },
@@ -8700,7 +8700,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Posture assessment of live environments",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "CSPM tools read configuration through provider APIs and compare it with rules (CIS Benchmarks, provider best practice, internal standards): - AWS: AWS Config rules and conformance packs, Security Hub standards.",
+      "summary": "CSPM tools read configuration through provider APIs and compare it with rules (CIS Benchmarks, provider best practice, internal standards): - AWS: AWS Config rules and conformance packs, Security Hub standards. - Azure: Azure Policy complia",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m6_l02.md"
      },
@@ -8754,7 +8754,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Microsoft Power Apps portals, 2021 - an insecure default ------------------------------------------------------------------------ Context: On 23 August 2021 UpGuard published research titled \"By Design: How Default Permissions on Microsoft ",
+      "summary": "Microsoft Power Apps portals, 2021 - an insecure default; (FICTIONAL TEACHING SCENARIO): The exception that never expired",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m6_cases.md"
      },
@@ -8787,10 +8787,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m6_revision.md"
      }
@@ -8832,7 +8832,7 @@ export const LIBRARY_COURSES = [
       "title": "7.1 Container images",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "- Minimal bases (slim, distroless) reduce packages and vulnerabilities.",
+      "summary": "- Minimal bases (slim, distroless) reduce packages and vulnerabilities. - Pin base images by digest; rebuild regularly to pick up fixes. - Run as a non-root USER; drop capabilities; read-only root filesystem where possible (Course 21). - No",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m7_l01.md"
      },
@@ -8841,7 +8841,7 @@ export const LIBRARY_COURSES = [
       "title": "7.2 Serverless functions",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "The provider runs the servers; the customer owns the code, its dependencies, its configuration, its triggers and its permissions.",
+      "summary": "The provider runs the servers; the customer owns the code, its dependencies, its configuration, its triggers and its permissions. - One execution role (Lambda) or managed identity (Azure Functions) per function, with only the actions and re",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m7_l02.md"
      },
@@ -8859,7 +8859,7 @@ export const LIBRARY_COURSES = [
       "title": "7.4 Workload identity and CI/CD federation",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "The best secret is the one that does not exist: - EC2 instance profiles, ECS task roles, EKS IRSA/Pod Identity, Lambda execution roles give AWS workloads short-lived credentials.",
+      "summary": "The best secret is the one that does not exist: - EC2 instance profiles, ECS task roles, EKS IRSA/Pod Identity, Lambda execution roles give AWS workloads short-lived credentials. - Azure managed identities give VMs, App Service, Functions a",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m7_l04.md"
      },
@@ -8868,7 +8868,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Scanning: what was found and what was not",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "py contains AWS's published documentation example key pair (AKIAIOSFODNN7EXAMPLE) and a literal password.",
+      "summary": "The lab ran trivy's secret scanner over two folders: - workload_repo/app_config.py contains AWS's published documentation example key pair (AKIAIOSFODNN7EXAMPLE) and a literal password.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m7_l05.md"
      },
@@ -8877,7 +8877,7 @@ export const LIBRARY_COURSES = [
       "title": "7.6 Runtime controls",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "- Least-privilege roles limit what a compromised workload can do.",
+      "summary": "- Least-privilege roles limit what a compromised workload can do. - Network controls: private subnets, egress allowlists (Module 3). - Runtime protection: provider services (GuardDuty runtime monitoring, Defender for Containers/Servers) or ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m7_l06.md"
      },
@@ -8895,7 +8895,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "CircleCI, December 2022 - secrets stored in a platform -------------------------------------------------------------------- Context: CircleCI's incident report on the security incident it announced on 4 January 2023 stated that on 16 Decemb",
+      "summary": "CircleCI, December 2022 - secrets stored in a platform; (FICTIONAL TEACHING SCENARIO): The function that could read every bucket",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m7_cases.md"
      },
@@ -8928,10 +8928,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m7_revision.md"
      }
@@ -9009,7 +9009,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Eradication, recovery and lessons learned",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Eradicate: remove all persistence found in analysis (keys, users, roles, policies, OAuth apps, scheduled functions, modified images); rotate every secret the identity could read.",
+      "summary": "- Eradicate: remove all persistence found in analysis (keys, users, roles, policies, OAuth apps, scheduled functions, modified images); rotate every secret the identity could read. - Recover: rebuild workloads from known-good IaC and images",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m8_l05.md"
      },
@@ -9036,7 +9036,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Code Spaces, June 2014 - recovery that lived in the same account ------------------------------------------------------------------------ Context: As reported by The Register on 18 June 2014, Code Spaces said an intruder had gained access t",
+      "summary": "Code Spaces, June 2014 - recovery that lived in the same account; (FICTIONAL TEACHING SCENARIO): Terminate first, ask later",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m8_cases.md"
      },
@@ -9069,10 +9069,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c11_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cloud_11/les_c11_m8_revision.md"
      }
@@ -9296,7 +9296,7 @@ export const LIBRARY_COURSES = [
       "title": "1.2 NIST SSDF",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "1: Recommendations for Mitigating the Risk of Software Vulnerabilities\", was published in February 2022 [C12-M01-R1].",
+      "summary": "NIST SP 800-218, \"Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities\", was published in February 2022.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m1_l02.md"
      },
@@ -9332,7 +9332,7 @@ export const LIBRARY_COURSES = [
       "title": "1.6 Measuring and improving",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Useful metrics: - Mean time to remediate vulnerabilities, by severity, compared with the service-level objectives.",
+      "summary": "Useful metrics: - Mean time to remediate vulnerabilities, by severity, compared with the service-level objectives. - Percentage of repositories with SAST, dependency and secret scanning enabled. - Number of security findings introduced per ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m1_l06.md"
      },
@@ -9350,7 +9350,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "CrowdStrike Channel File 291, 2024 - validation and staged rollout --------------------------------------------------------------------------- Context: On 19 July 2024 a CrowdStrike Falcon content update (Channel File 291) caused Windows sy",
+      "summary": "CrowdStrike Channel File 291, 2024 - validation and staged rollout; (FICTIONAL TEACHING SCENARIO): The gate that never failed",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m1_cases.md"
      },
@@ -9383,10 +9383,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m1_revision.md"
      }
@@ -9428,7 +9428,7 @@ export const LIBRARY_COURSES = [
       "title": "2.1 The four questions",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "The Threat Modeling Manifesto and much of the industry frame the practice around four questions, attributed to Adam Shostack's \"4 Question Frame\" [C12-M02-R1]: 1.",
+      "summary": "The Threat Modeling Manifesto and much of the industry frame the practice around four questions, attributed to Adam Shostack's \"4 Question Frame\": 1.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m2_l01.md"
      },
@@ -9455,7 +9455,7 @@ export const LIBRARY_COURSES = [
       "title": "2.4 STRIDE",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "STRIDE, developed at Microsoft, gives six threat categories, each the violation of a security property [C12-M02-R2]: S Spoofing (authenticity) pretending to be another user or service T Tampering (integrity) modifying data or code R Repudia",
+      "summary": "STRIDE, developed at Microsoft, gives six threat categories, each the violation of a security property: S Spoofing (authenticity) pretending to be another user or service T Tampering (integrity) modifying data or code R Repudiation (non-rep",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m2_l04.md"
      },
@@ -9491,7 +9491,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "PyTorch nightly dependency, December 2022 - the forgotten trust boundary ------------------------------------------------------------------------ Context: PyTorch reported that Linux users who installed PyTorch-nightly with pip between 25 a",
+      "summary": "PyTorch nightly dependency, December 2022 - the forgotten trust boundary; (FICTIONAL TEACHING SCENARIO): The support shortcut",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m2_cases.md"
      },
@@ -9524,10 +9524,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m2_revision.md"
      }
@@ -9632,7 +9632,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "MOVEit Transfer, 2023 - one injection flaw, many victims ------------------------------------------------------------------------ Context: On 7 June 2023, CISA and the FBI published advisory AA23-158A on the CL0P ransomware gang (also known",
+      "summary": "MOVEit Transfer, 2023 - one injection flaw, many victims; (FICTIONAL TEACHING SCENARIO): The \"admin\" flag",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m3_cases.md"
      },
@@ -9665,10 +9665,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m3_revision.md"
      }
@@ -9719,7 +9719,7 @@ export const LIBRARY_COURSES = [
       "title": "4.2 Semgrep rule anatomy",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Semgrep is an open-source, multi-language static analysis tool whose rules look like the code they match [C12-M04-R1].",
+      "summary": "Semgrep is an open-source, multi-language static analysis tool whose rules look like the code they match.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m4_l02.md"
      },
@@ -9728,7 +9728,7 @@ export const LIBRARY_COURSES = [
       "title": "4.3 Running Semgrep and gating",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "py rk-sql-fstring SQL built with an f-string; use a parameterised query (?",
+      "summary": "Execution-tested (semgrep 1.184.0 in python:3.12-slim; LAB_ASSETS/C12/sast): semgrep scan --config rules.yml --metrics=off --disable-version-check --quiet --text legacy_reports.py ------------------------------------------------------------",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m4_l03.md"
      },
@@ -9773,7 +9773,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Apple \"goto fail\", 2014 - a warning that was off by default ------------------------------------------------------------------------ Context: In February 2014 Apple fixed CVE-2014-1266 in iOS 7.0.6 and 6.1.6, and soon after in OS X 10.9.2. ",
+      "summary": "Apple \"goto fail\", 2014 - a warning that was off by default; (FICTIONAL TEACHING SCENARIO): Death by noise",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m4_cases.md"
      },
@@ -9806,10 +9806,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m4_revision.md"
      }
@@ -9851,7 +9851,7 @@ export const LIBRARY_COURSES = [
       "title": "5.1 The software supply chain",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "json).",
+      "summary": "Dependency types: Direct packages you declare (requirements.txt, package.json).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m5_l01.md"
      },
@@ -9887,7 +9887,7 @@ export const LIBRARY_COURSES = [
       "title": "5.5 Controlling dependency sources",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "json).",
+      "summary": "- Pin exact versions in lock files for reproducible builds (requirements.txt generated with pip-compile, poetry.lock, package-lock.json). - Verify hashes. pip's hash-checking mode refuses packages whose hash is missing or different. - Use o",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m5_l05.md"
      },
@@ -9914,7 +9914,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Log4Shell, December 2021 - the inventory problem ------------------------------------------------------------------------ Context: CVE-2021-44228 in Apache Log4j 2 allowed remote code execution through the library's JNDI lookup feature. Aff",
+      "summary": "Log4Shell, December 2021 - the inventory problem; (FICTIONAL TEACHING SCENARIO): The clean manifest",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m5_cases.md"
      },
@@ -9947,10 +9947,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m5_revision.md"
      }
@@ -10001,7 +10001,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Secret storage and delivery",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "env files; - container images (layers keep earlier files); - CI logs; - tickets or chat; - client-side code.",
+      "summary": "Never store secrets in: - source code; - committed .env files; - container images (layers keep earlier files); - CI logs; - tickets or chat; - client-side code.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m6_l02.md"
      },
@@ -10055,7 +10055,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Uber, 2016 - an access key on a code-sharing site ------------------------------------------------------------------------- Context: The US Federal Trade Commission's April 2018 expanded settlement with Uber describes a 2016 breach. Intrude",
+      "summary": "Uber, 2016 - an access key on a code-sharing site; (FICTIONAL TEACHING SCENARIO): The debug page",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m6_cases.md"
      },
@@ -10088,10 +10088,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m6_revision.md"
      }
@@ -10151,7 +10151,7 @@ export const LIBRARY_COURSES = [
       "title": "7.3 Protecting definitions, runners and inputs",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "- Branch protection: required reviews and status checks (the Module 1 gates) before merging to main.",
+      "summary": "- Branch protection: required reviews and status checks (the Module 1 gates) before merging to main. - CODEOWNERS for pipeline files, so changes to .github/workflows or equivalents need platform or security approval. - Untrusted contributio",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m7_l03.md"
      },
@@ -10196,7 +10196,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Codecov Bash Uploader, 2021 - a modified CI tool ------------------------------------------------------------------------ Context: Codecov reported that from 31 January 2021, an attacker periodically altered its Bash Uploader script, adding",
+      "summary": "Codecov Bash Uploader, 2021 - a modified CI tool; (FICTIONAL TEACHING SCENARIO): The self-hosted runner",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m7_cases.md"
      },
@@ -10229,10 +10229,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m7_revision.md"
      }
@@ -10283,7 +10283,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 Running the release pipeline",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "0); chardet (LGPL) DECISION: RELEASE BLOCKED Reading the results: - The decision followed the gates mechanically.",
+      "summary": "Execution-tested (sh run_release.sh with the upgraded pins requests==2.33.0 and PyYAML==6.0.3): ------------------------------------------------------------- BEGIN OUTPUT RELEASE SECURITY REPORT - shipments 1.0.0 (Tamarind Logistics, FICTIO",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m8_l02.md"
      },
@@ -10310,7 +10310,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Release verification and source integrity",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Consumers and your own deployment should verify the following: - The signature on the artefact, against the expected key or identity (Module 7).",
+      "summary": "Consumers and your own deployment should verify the following: - The signature on the artefact, against the expected key or identity (Module 7). - Provenance.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m8_l05.md"
      },
@@ -10337,7 +10337,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "xz Utils, 2024 - when release artefacts differ from reviewed source --------------------------------------------------------------------------- Context: On 29 March 2024, Andres Freund reported to the oss-security list that the xz 5.6.0 and",
+      "summary": "xz Utils, 2024 - when release artefacts differ from reviewed source; (FICTIONAL TEACHING SCENARIO): The green report",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m8_cases.md"
      },
@@ -10370,10 +10370,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c12_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_devsecops_12/les_c12_m8_revision.md"
      }
@@ -10551,7 +10551,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c13_1",
     "title": "Module 1: Directory foundations",
-    "description": "\". This module builds the vocabulary and the mental model used in every later module.",
+    "description": "Before you can secure Active Directory you must know what it actually is: a distributed, replicated database of objects (users, computers, groups and more) that answers two questions billions of times a day - \"who are you?\" and \"what may you reach?\". This module builds the vocabulary and the mental model used in every later module.",
     "order": 1,
     "quiz": {
      "id": "quiz_c13_m1",
@@ -10577,7 +10577,7 @@ export const LIBRARY_COURSES = [
       "title": "1.0 Module overview",
       "duration": "15 mins",
       "is_mandatory": true,
-      "summary": "\".",
+      "summary": "Before you can secure Active Directory you must know what it actually is: a distributed, replicated database of objects (users, computers, groups and more) that answers two questions billions of times a day - \"who are you?\" and \"what may you reach?\".",
       "learning_objectives": [
        "Define a directory service and name the standards Active Directory is built on (LDAP, Kerberos, DNS)",
        "Explain domains, trees, forests, trusts and why the forest is the security boundary",
@@ -10602,7 +10602,7 @@ export const LIBRARY_COURSES = [
       "title": "1.2 Domains, trees, forests and trusts",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "example) forest one or more trees sharing a schema, configuration and global catalogue, joined by automatic two-way transitive trusts trust a relationship that lets users in one domain be authenticated by another; within a forest trusts are",
+      "summary": "domain a partition of the directory with its own security policy and its own set of domain controllers; identified by a DNS name (ad.sahyadri.example) and a NetBIOS name (SAHYADRI) tree one or more domains sharing a contiguous DNS namespace",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m1_l02.md"
      },
@@ -10689,10 +10689,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m1_revision.md"
      }
@@ -10734,7 +10734,7 @@ export const LIBRARY_COURSES = [
       "title": "2.1 The Kerberos three-party model",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Kerberos (RFC 4120) solves a hard problem: how to prove who you are to many services without sending your password to any of them [C13-M02-R1].",
+      "summary": "Kerberos (RFC 4120) solves a hard problem: how to prove who you are to many services without sending your password to any of them.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m2_l01.md"
      },
@@ -10761,7 +10761,7 @@ export const LIBRARY_COURSES = [
       "title": "2.4 LDAP: bind and search",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "LDAP (RFC 4511) is how clients read and search the directory [C13-M02-R2].",
+      "summary": "LDAP (RFC 4511) is how clients read and search the directory.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m2_l04.md"
      },
@@ -10797,7 +10797,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "The MS14-068 Kerberos vulnerability, 2014 Context: in November 2014 Microsoft fixed MS14-068 (CVE-2014-6324), a flaw in the Windows Kerberos KDC. The KDC failed to validate the signature on the Privilege Attribute Certificate (PAC) - the pa",
+      "summary": "The MS14-068 Kerberos vulnerability, 2014; (FICTIONAL TEACHING SCENARIO): The app that forced RC4",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m2_cases.md"
      },
@@ -10830,10 +10830,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m2_revision.md"
      }
@@ -10938,7 +10938,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Group Policy as a weak link - guidance and the SYSVOL password problem; (FICTIONAL TEACHING SCENARIO): The group that grew Context: Sahyadri Logistics (fictional) has a group \"Finance-Share-Full\" that was created years ago to grant full con",
+      "summary": "Group Policy as a weak link - guidance and the SYSVOL password problem; (FICTIONAL TEACHING SCENARIO): The group that grew",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m3_cases.md"
      },
@@ -10971,10 +10971,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m3_revision.md"
      }
@@ -11025,7 +11025,7 @@ export const LIBRARY_COURSES = [
       "title": "4.2 The Active Directory tier model",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "g.",
+      "summary": "The tier model (the \"legacy tier model\" in current Microsoft terms, still widely deployed) divides administration into three tiers by the value of what is administered: Tier 0 identities and systems with control of the directory itself: dom",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m4_l02.md"
      },
@@ -11034,7 +11034,7 @@ export const LIBRARY_COURSES = [
       "title": "4.3 The Enterprise Access Model",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Microsoft's current guidance presents the Enterprise Access Model, which \"builds on\" the AD tier model and extends it for cloud and modern access [C13-M04-R1].",
+      "summary": "Microsoft's current guidance presents the Enterprise Access Model, which \"builds on\" the AD tier model and extends it for cloud and modern access.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m4_l03.md"
      },
@@ -11079,7 +11079,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "NotPetya and the cost of flat administration, 2017 Context: the NotPetya malware of June 2017 spread destructively through many enterprises. Although its initial spread used specific techniques, a major reason it reached entire estates so f",
+      "summary": "NotPetya and the cost of flat administration, 2017; (FICTIONAL TEACHING SCENARIO): The admin who browsed",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m4_cases.md"
      },
@@ -11112,10 +11112,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m4_revision.md"
      }
@@ -11175,7 +11175,7 @@ export const LIBRARY_COURSES = [
       "title": "5.3 Golden and silver tickets, and krbtgt",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "001): an attacker who has stolen the krbtgt account's key can FORGE a TGT for any user with any group membership, because the TGT is encrypted with the krbtgt key (Module 2).",
+      "summary": "Golden ticket (T1558.001): an attacker who has stolen the krbtgt account's key can FORGE a TGT for any user with any group membership, because the TGT is encrypted with the krbtgt key (Module 2).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m5_l03.md"
      },
@@ -11220,7 +11220,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Kerberoasting in ransomware intrusions Context: Kerberoasting (T1558.003) has become a routine step in ransomware and hands-on-keyboard intrusions, because it needs only an ordinary domain account and yields service-account passwords that a",
+      "summary": "Kerberoasting in ransomware intrusions; (FICTIONAL TEACHING SCENARIO): The review that paid for itself",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m5_cases.md"
      },
@@ -11253,10 +11253,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m5_revision.md"
      }
@@ -11361,7 +11361,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Clearing the logs - why forwarding matters Context: across many intrusions documented by incident responders and in MITRE ATT&CK (Indicator Removal: Clear Windows Event Logs, T1070.001), attackers who reach a domain controller attempt to cl",
+      "summary": "Clearing the logs - why forwarding matters; (FICTIONAL TEACHING SCENARIO): The 3 a.m. burst",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m6_cases.md"
      },
@@ -11394,10 +11394,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m6_revision.md"
      }
@@ -11406,7 +11406,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c13_7",
     "title": "Module 7: Assessment",
-    "description": "This module brings the course together into a repeatable assessment: a structured review of a directory's configuration and access, producing a prioritised, evidence-backed remediation plan. py for activity - with a review method and a scoring approach, and produce the kind of findings register and remediation plan that an audit (Module 8's capstone) delivers.",
+    "description": "This module brings the course together into a repeatable assessment: a structured review of a directory's configuration and access, producing a prioritised, evidence-backed remediation plan. You will combine the two lab tools - dir_review.py for configuration and hygiene, auth_monitor.py for activity - with a review method and a scoring approach, and produce the kind of findings register and remediation plan that an audit (Module 8's capstone) delivers.",
     "order": 7,
     "quiz": {
      "id": "quiz_c13_m7",
@@ -11457,7 +11457,7 @@ export const LIBRARY_COURSES = [
       "title": "7.3 Access review",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "\".",
+      "summary": "An access review answers \"who can do what, and should they?\".",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m7_l03.md"
      },
@@ -11502,7 +11502,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Why self-assessment tools became standard Context: through the late 2010s and into the 2020s, free and commercial Active Directory assessment tools (for example PingCastle and Microsoft's own guidance on AD security assessments) became a ne",
+      "summary": "Why self-assessment tools became standard; (FICTIONAL TEACHING SCENARIO): The audit that found a plan, not a pile",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m7_cases.md"
      },
@@ -11535,10 +11535,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m7_revision.md"
      }
@@ -11643,7 +11643,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "65 mins",
       "is_mandatory": true,
-      "summary": "AD recovery planning as the ultimate capstone Context: after major identity compromises (the NotPetya-class events of Module 4 and numerous ransomware intrusions), organisations and Microsoft developed detailed Active Directory forest recov",
+      "summary": "AD recovery planning as the ultimate capstone; (FICTIONAL TEACHING SCENARIO): The ninety-day report",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m8_cases.md"
      },
@@ -11676,10 +11676,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c13_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_ad_13/les_c13_m8_revision.md"
      }
@@ -11899,7 +11899,7 @@ export const LIBRARY_COURSES = [
       "title": "1.1 What intelligence is, and for whom",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "77\" Intelligence information analysed and evaluated against a question: \"the domain is very likely part of a phishing campaign aimed at our customers; block it now\" Intelligence is produced for a consumer and a decision.",
+      "summary": "Data raw observations: a log line, a domain registration Information data organised and in context: \"this domain was registered yesterday and resolves to 198.51.100.77\" Intelligence information analysed and evaluated against a question: \"th",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m1_l01.md"
      },
@@ -11962,7 +11962,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Log4Shell and requirements under pressure, 2021 Context: CVE-2021-44228 (\"Log4Shell\"), disclosed in December 2021, allowed remote code execution through JNDI lookups in Apache Log4j versions 2.0-beta9 to 2.14.1. CISA published guidance reco",
+      "summary": "Log4Shell and requirements under pressure, 2021; (FICTIONAL TEACHING SCENARIO): The feed nobody read",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m1_cases.md"
      },
@@ -11995,10 +11995,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m1_revision.md"
      }
@@ -12049,7 +12049,7 @@ export const LIBRARY_COURSES = [
       "title": "2.2 Planning and running an inquiry",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "The Berkeley Protocol describes preparation and an investigation process [C14-M02-R1]: Preparation: digital threat and risk assessment; digital landscape assessment; an online investigation plan; resilience and self-care; data policies and ",
+      "summary": "The Berkeley Protocol describes preparation and an investigation process: Preparation: digital threat and risk assessment; digital landscape assessment; an online investigation plan; resilience and self-care; data policies and tools.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m2_l02.md"
      },
@@ -12085,7 +12085,7 @@ export const LIBRARY_COURSES = [
       "title": "2.6 Legal boundaries in India",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "This lesson is an orientation, not legal advice.",
+      "summary": "This lesson is an orientation, not legal advice. - Information Technology Act, 2000: section 43 covers acts such as accessing a computer system without permission of its owner; section 66 makes such acts an offence when done dishonestly or ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m2_l06.md"
      },
@@ -12103,7 +12103,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "The Berkeley Protocol, 2020 Context: on 1 December 2020 the Human Rights Center at UC Berkeley and the UN Office of the High Commissioner for Human Rights launched the Berkeley Protocol on Digital Open Source Investigations, \"a practical gu",
+      "summary": "The Berkeley Protocol, 2020; (FICTIONAL TEACHING SCENARIO): The leak-site download",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m2_cases.md"
      },
@@ -12136,10 +12136,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m2_revision.md"
      }
@@ -12208,7 +12208,7 @@ export const LIBRARY_COURSES = [
       "title": "3.4 Certificates and certificate transparency",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Public TLS certificates are logged in certificate transparency (CT) logs, public append-only logs defined originally in RFC 6962, so that mis-issuance can be detected [C14-M03-R2].",
+      "summary": "Public TLS certificates are logged in certificate transparency (CT) logs, public append-only logs defined originally in RFC 6962, so that mis-issuance can be detected.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m3_l04.md"
      },
@@ -12244,7 +12244,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "SUNBURST's DNS infrastructure, 2020 Context: on 13 December 2020 FireEye (now part of Google Cloud's Mandiant) published its analysis of the SUNBURST backdoor delivered through SolarWinds Orion updates [C14-M03-R3]. What the infrastructure ",
+      "summary": "SUNBURST's DNS infrastructure, 2020; (FICTIONAL TEACHING SCENARIO): The address that hosted a partner",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m3_cases.md"
      },
@@ -12277,10 +12277,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m3_revision.md"
      }
@@ -12289,7 +12289,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c14_4",
     "title": "Module 4: Threat actor analysis",
-    "description": "Consumers love names. \" is usually the first question after an incident, and the hardest to answer honestly.",
+    "description": "Consumers love names. \"Who is behind it?\" is usually the first question after an incident, and the hardest to answer honestly.",
     "order": 4,
     "quiz": {
      "id": "quiz_c14_m4",
@@ -12322,7 +12322,7 @@ export const LIBRARY_COURSES = [
       "title": "4.1 Actors, intrusion sets, campaigns and names",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "1, Module 6): Threat actor the people or organisation behind activity, with intent and motivation; STIX notes that a threat actor \"is not an Intrusion Set\" but may support or be affiliated with several over time [C14-M04-R4] Intrusion set a",
+      "summary": "Terms (aligned with STIX 2.1, Module 6): Threat actor the people or organisation behind activity, with intent and motivation; STIX notes that a threat actor \"is not an Intrusion Set\" but may support or be affiliated with several over time I",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m4_l01.md"
      },
@@ -12358,7 +12358,7 @@ export const LIBRARY_COURSES = [
       "title": "4.5 The limits of attribution",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Attribution has levels: 1.",
+      "summary": "Attribution has levels: 1. technical clustering: these events belong together; 2. association with a known intrusion set; 3. identification of the organisation or individuals; 4. state or sponsor responsibility.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m4_l05.md"
      },
@@ -12367,7 +12367,7 @@ export const LIBRARY_COURSES = [
       "title": "4.6 Communicating about actors",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Say which level you are claiming (\"we assess these events form one campaign\" is not \"we assess actor X is responsible\").",
+      "summary": "- Say which level you are claiming (\"we assess these events form one campaign\" is not \"we assess actor X is responsible\"). - Give likelihood and, separately, confidence, and list alternative hypotheses with the evidence that would change yo",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m4_l06.md"
      },
@@ -12385,7 +12385,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Olympic Destroyer's false flag, 2018 Context: on 8 March 2018 Kaspersky's GReAT published \"The devil's in the Rich header\" about Olympic Destroyer, malware used in the attack on the PyeongChang 2018 Winter Olympics; its wiper component remo",
+      "summary": "Olympic Destroyer's false flag, 2018; (FICTIONAL TEACHING SCENARIO): The headline that named a state",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m4_cases.md"
      },
@@ -12418,10 +12418,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m4_revision.md"
      }
@@ -12481,7 +12481,7 @@ export const LIBRARY_COURSES = [
       "title": "5.3 Feed quality problems",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "200 \"botnet\" last seen a year ago: stale.",
+      "summary": "The lab's free feed contains typical defects (deliberately): - 8.8.8.8 \"seen in malware sandbox\": a public DNS resolver contacted by many programs, malicious or not; - update.microsoft.com \"contacted by sample\": malware often checks connect",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m5_l03.md"
      },
@@ -12526,7 +12526,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "GRIZZLY STEPPE and indicator caveats, 2016 Context: on 29 December 2016 DHS and the FBI published Joint Analysis Report JAR-16-20296A, \"GRIZZLY STEPPE - Russian Malicious Cyber Activity\" [C14-M05-R2]. Its indicators of compromise were provi",
+      "summary": "GRIZZLY STEPPE and indicator caveats, 2016; (FICTIONAL TEACHING SCENARIO): The update service outage",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m5_cases.md"
      },
@@ -12559,10 +12559,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m5_revision.md"
      }
@@ -12604,7 +12604,7 @@ export const LIBRARY_COURSES = [
       "title": "6.1 Why structure, and the STIX 2.1 model",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "1 Errata 01\", an OASIS Standard dated 2 April 2025 [C14-M06-R1].",
+      "summary": "STIX 2.1 is an OASIS standard; the current text is \"STIX Version 2.1 Errata 01\", an OASIS Standard dated 2 April 2025.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m6_l01.md"
      },
@@ -12613,7 +12613,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Modelling a campaign in STIX",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "77: count 6, first and last seen on 28 October, where_sighted_refs Nilgiri; marked TLP:RED Report the flash report, referencing all other objects Choices to notice: the sighting is the most sensitive object (it reveals that Nilgiri was hit)",
+      "summary": "MONSOON LANTERN in STIX (stix_build.py): Identity Nilgiri Mutual CTI (fictional), the producer Campaign MONSOON LANTERN, first_seen 2026-10-02, confidence 70, described as not attributed - deliberately NOT an Intrusion Set or Threat Actor (",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m6_l02.md"
      },
@@ -12622,7 +12622,7 @@ export const LIBRARY_COURSES = [
       "title": "6.3 Patterns, validity and validation",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "'] Patterns can combine observations with AND, OR and FOLLOWEDBY and time qualifiers, but most shared indicators are single comparisons.",
+      "summary": "STIX patterns describe what to look for in observable data, for example: [ipv4-addr:value = '198.51.100.77'] [domain-name:value = 'portal-nilgiri-claims.example'] [url:value = 'https://nm-invoice-share.example/inv/2026-10.iso'] [file:hashes",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m6_l03.md"
      },
@@ -12631,7 +12631,7 @@ export const LIBRARY_COURSES = [
       "title": "6.4 TAXII 2.1",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "1 (OASIS Standard, 10 June 2021) is a RESTful HTTPS protocol for exchanging STIX [C14-M06-R2].",
+      "summary": "TAXII 2.1 (OASIS Standard, 10 June 2021) is a RESTful HTTPS protocol for exchanging STIX.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m6_l04.md"
      },
@@ -12640,7 +12640,7 @@ export const LIBRARY_COURSES = [
       "title": "6.5 TLP 2.0 and markings",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "0 was deprecated in August 2022 (its TLP:WHITE label was succeeded by TLP:CLEAR).",
+      "summary": "FIRST's Traffic Light Protocol version 2.0 is authoritative from August 2022 and has four labels: TLP:RED for the eyes and ears of individual recipients only, no further disclosure TLP:AMBER limited disclosure: recipients may share on a nee",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m6_l05.md"
      },
@@ -12649,7 +12649,7 @@ export const LIBRARY_COURSES = [
       "title": "6.6 Sharing governance",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Agreements: membership terms of ISACs and communities define what may be shared, re-shared and attributed to whom.",
+      "summary": "- Agreements: membership terms of ISACs and communities define what may be shared, re-shared and attributed to whom. - Minimisation: share indicators and behaviour, not victims' personal data (Module 2); sightings may reveal your own compro",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m6_l06.md"
      },
@@ -12700,10 +12700,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m6_revision.md"
      }
@@ -12754,7 +12754,7 @@ export const LIBRARY_COURSES = [
       "title": "7.2 Mapping behaviour carefully",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "CISA's guidance gives a process that starts with finding the behaviour (not indicators) and researching it, then identifying the tactic and the technique and sub-technique [C14-M07-R2].",
+      "summary": "CISA's guidance gives a process that starts with finding the behaviour (not indicators) and researching it, then identifying the tactic and the technique and sub-technique.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m7_l02.md"
      },
@@ -12763,7 +12763,7 @@ export const LIBRARY_COURSES = [
       "title": "7.3 From reports to an evidence-backed technique list",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "004 Digital Certificates RPT-005 (C3) Note the evidence quality: only the initial-access and infrastructure techniques rest on A-graded reporting; post-compromise techniques come from vendor and community reporting about the campaign elsewh",
+      "summary": "MONSOON LANTERN's techniques with their evidence (data/reports.json): T1566.001 Spearphishing Attachment RPT-001 (B2) T1204.002 Malicious File RPT-001 (B2) T1059.001 PowerShell RPT-001 (B2) T1053.005 Scheduled Task RPT-002 (B3) T1560.001 Ar",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m7_l03.md"
      },
@@ -12772,7 +12772,7 @@ export const LIBRARY_COURSES = [
       "title": "7.4 Visibility and gap analysis",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "For each technique, ask whether the organisation collects the data that the detection strategies' analytics need.",
+      "summary": "For each technique, ask whether the organisation collects the data that the detection strategies' analytics need. attack_map.py does this against data/log_inventory.json, which lists six data components Nilgiri collects centrally (Process C",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m7_l04.md"
      },
@@ -12781,7 +12781,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Defensive use cases",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "002 and T1041, network traffic content (for example proxy logs with full URLs - Module 5 showed the cost of host-only logs).",
+      "summary": "Turn each gap into a use case with an owner: - Collection gaps: for T1053.005, collect scheduled job creation and modification events; for T1059.001 and T1560.001, module load and process metadata; for T1566.002 and T1041, network traffic c",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m7_l05.md"
      },
@@ -12790,7 +12790,7 @@ export const LIBRARY_COURSES = [
       "title": "7.6 Layers, communication and limits",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "The ATT&CK Navigator displays layers - JSON files that assign scores, colours and comments to techniques.",
+      "summary": "The ATT&CK Navigator displays layers - JSON files that assign scores, colours and comments to techniques. attack_map.py writes navigator/monsoon_lantern_layer.json (layer format 4.5) with score 3 for covered, 2 partial, 1 blind and the evid",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m7_l06.md"
      },
@@ -12808,7 +12808,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Volt Typhoon and behaviour-based defence, 2024 Context: on 7 February 2024 CISA, the NSA, the FBI and partners published AA24-038A on PRC state-sponsored actors (Volt Typhoon) compromising US critical infrastructure, assessing with high con",
+      "summary": "Volt Typhoon and behaviour-based defence, 2024; (FICTIONAL TEACHING SCENARIO): The 90 per cent heat map",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m7_cases.md"
      },
@@ -12841,10 +12841,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m7_revision.md"
      }
@@ -12904,7 +12904,7 @@ export const LIBRARY_COURSES = [
       "title": "8.3 Citing sources",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "ICD 203's first analytic tradecraft standard asks products to properly describe the quality and credibility of underlying sources, data and methodologies [C14-M08-R1].",
+      "summary": "ICD 203's first analytic tradecraft standard asks products to properly describe the quality and credibility of underlying sources, data and methodologies.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m8_l03.md"
      },
@@ -12922,7 +12922,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Quality control",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "0 label (CLEAR, GREEN, AMBER, AMBER+STRICT, RED) B2 every judgment has a likelihood term, a confidence level and sources B3 every cited source exists in the report register B4 no judgment rests only on E/F-graded or credibility-5+ sources B",
+      "summary": "brief_builder.py automates six checks: B1 a valid TLP 2.0 label (CLEAR, GREEN, AMBER, AMBER+STRICT, RED) B2 every judgment has a likelihood term, a confidence level and sources B3 every cited source exists in the report register B4 no judgm",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m8_l05.md"
      },
@@ -12931,7 +12931,7 @@ export const LIBRARY_COURSES = [
       "title": "8.6 Dissemination and feedback",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "- Send each product through the channel its marking allows, to named recipients; record who received what.",
+      "summary": "- Send each product through the channel its marking allows, to named recipients; record who received what. - Publish updates as new versions that state what changed. - Ask a small number of feedback questions: was it timely, relevant, actio",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m8_l06.md"
      },
@@ -12982,10 +12982,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c14_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_cti_14/les_c14_m8_revision.md"
      }
@@ -13234,7 +13234,7 @@ export const LIBRARY_COURSES = [
       "title": "1.5 Threat models for cryptography",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Before choosing primitives, state: - Assets: what is protected (data at rest, in transit, keys themselves).",
+      "summary": "Before choosing primitives, state: - Assets: what is protected (data at rest, in transit, keys themselves). - Adversaries and capabilities: passive eavesdropper; active network attacker who can modify traffic; attacker with stolen backups o",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m1_l05.md"
      },
@@ -13243,7 +13243,7 @@ export const LIBRARY_COURSES = [
       "title": "1.6 Standards, agility and the quantum transition",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "3 is now specified by RFC 9846, which obsoletes RFC 8446; Module 6); - national guidance, including India's CERT-In advisories and sector regulators for regulated entities.",
+      "summary": "Rely on standards and widely reviewed specifications: - NIST FIPS and SP 800 publications (AES in FIPS 197, signatures in FIPS 186-5, approved on 3 February 2023, and SP 800-38D for GCM); - IETF RFCs (TLS 1.3 is now specified by RFC 9846, w",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m1_l06.md"
      },
@@ -13261,7 +13261,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Debian OpenSSL, 2008 - a predictable generator ---------------------------------------------------------------------- Context: Debian Security Advisory DSA-1571-1 (13 May 2008, CVE-2008-0166) announced that its OpenSSL package's random numb",
+      "summary": "Debian OpenSSL, 2008 - a predictable generator; (FICTIONAL TEACHING SCENARIO): The predictable reset link",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m1_cases.md"
      },
@@ -13294,10 +13294,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m1_revision.md"
      }
@@ -13402,7 +13402,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Zoom meetings, 2020 - AES-128 in ECB mode ----------------------------------------------------------------- Context: On 3 April 2020, Citizen Lab researchers Bill Marczak and John Scott-Railton reported that Zoom, whose documentation descri",
+      "summary": "Zoom meetings, 2020 - AES-128 in ECB mode; (FICTIONAL TEACHING SCENARIO): The swapped salary",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m2_cases.md"
      },
@@ -13435,10 +13435,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m2_revision.md"
      }
@@ -13543,7 +13543,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "ROCA, 2017 - flawed RSA key generation in hardware -------------------------------------------------------------------------- Context: In October 2017, researchers from Masaryk University (CRoCS), with Enigma Bridge and Ca' Foscari Universi",
+      "summary": "ROCA, 2017 - flawed RSA key generation in hardware; (FICTIONAL TEACHING SCENARIO): The unauthenticated exchange",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m3_cases.md"
      },
@@ -13576,10 +13576,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m3_revision.md"
      }
@@ -13684,7 +13684,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "SHAttered, 2017 - the first public SHA-1 collision -------------------------------------------------------------------------- Context: On 23 February 2017, researchers from CWI Amsterdam (Marc Stevens, Pierre Karpman) and Google (Elie Bursz",
+      "summary": "SHAttered, 2017 - the first public SHA-1 collision; (FICTIONAL TEACHING SCENARIO): The fast hash table",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m4_cases.md"
      },
@@ -13717,10 +13717,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m4_revision.md"
      }
@@ -13789,7 +13789,7 @@ export const LIBRARY_COURSES = [
       "title": "5.4 Certificate validation",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "A client validating a server certificate checks: 1.",
+      "summary": "A client validating a server certificate checks: 1. path building: a chain from leaf to a trusted root exists; 2. a valid signature on each certificate by its issuer; 3. the validity period at the current time; 4. basic constraints, path le",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m5_l04.md"
      },
@@ -13825,7 +13825,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "DigiNotar, 2011 - when a certificate authority falls ---------------------------------------------------------------------------- Context: In 2011 an intruder compromised the Dutch certificate authority DigiNotar. A rogue wildcard certifica",
+      "summary": "DigiNotar, 2011 - when a certificate authority falls; (FICTIONAL TEACHING SCENARIO): verify=False in production",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m5_cases.md"
      },
@@ -13858,10 +13858,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m5_revision.md"
      }
@@ -13921,7 +13921,7 @@ export const LIBRARY_COURSES = [
       "title": "6.3 Secure configuration",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "2 where clients need it.",
+      "summary": "Server checklist: - Protocols: TLS 1.3, plus TLS 1.2 where clients need it.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m6_l03.md"
      },
@@ -13930,7 +13930,7 @@ export const LIBRARY_COURSES = [
       "title": "6.4 Testing and troubleshooting",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "19; server presents the Module 5 leaf and intermediate): ------------------------------------------------------------- BEGIN OUTPUT 1.",
+      "summary": "Execution-tested localhost lab (LAB_ASSETS/C15/m06_tls.py; Python ssl linked to OpenSSL 3.0.19; server presents the Module 5 leaf and intermediate): ------------------------------------------------------------- BEGIN OUTPUT 1.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m6_l04.md"
      },
@@ -13966,7 +13966,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "CA/Browser Forum SC-081v3, 2025 - 47-day certificates ---------------------------------------------------------------- Context: On 11 April 2025, the CA/Browser Forum's Server Certificate Working Group passed ballot SC-081v3, \"Introduce Sch",
+      "summary": "CA/Browser Forum SC-081v3, 2025 - 47-day certificates; (FICTIONAL TEACHING SCENARIO): The forgotten load balancer",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m6_cases.md"
      },
@@ -13999,10 +13999,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m6_revision.md"
      }
@@ -14107,7 +14107,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "PlayStation 3 ECDSA, 2010 - one constant nonce ---------------------------------------------------------------------- Context: At the 27th Chaos Communication Congress in Berlin in December 2010, the group fail0verflow presented their analy",
+      "summary": "PlayStation 3 ECDSA, 2010 - one constant nonce; (FICTIONAL TEACHING SCENARIO): The restored counter",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m7_cases.md"
      },
@@ -14140,10 +14140,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m7_revision.md"
      }
@@ -14203,7 +14203,7 @@ export const LIBRARY_COURSES = [
       "title": "8.3 Implementation walkthrough",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": ", n=2**log2n, r=r, p=p, maxmem=2**30, dklen=32).",
+      "summary": "Key functions in rkcrypt.py: derive_key(passphrase, salt, log2n, r, p) hashlib.scrypt(..., n=2**log2n, r=r, p=p, maxmem=2**30, dklen=32).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m8_l03.md"
      },
@@ -14212,7 +14212,7 @@ export const LIBRARY_COURSES = [
       "title": "8.4 Testing cryptographic code",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Test categories and the rkcrypt tests that cover them (execution-tested): ------------------------------------------------------------- BEGIN OUTPUT test_cli_encrypt_decrypt_and_exit_codes ...",
+      "summary": "Test categories and the rkcrypt tests that cover them (execution-tested): ------------------------------------------------------------- BEGIN OUTPUT test_cli_encrypt_decrypt_and_exit_codes ... ok test_kdf_parameters_bounded ... ok test_modi",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m8_l04.md"
      },
@@ -14230,7 +14230,7 @@ export const LIBRARY_COURSES = [
       "title": "8.6 Operating the tool: keys, passphrases and recovery",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "- Passphrase quality determines real-world security.",
+      "summary": "- Passphrase quality determines real-world security. scrypt slows guessing (Module 4) but cannot rescue \"Tamarind2026\". - Sharing: send the file and the passphrase through different channels, for example the file by email and the passphrase",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m8_l06.md"
      },
@@ -14248,7 +14248,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Storm-0558, 2023 - key management at scale ------------------------------------------------------------------ Context: The US Cyber Safety Review Board's report on the 2023 Microsoft Exchange Online intrusion, released on 2 April 2024, foun",
+      "summary": "Storm-0558, 2023 - key management at scale; (FICTIONAL TEACHING SCENARIO): The tool without a version byte",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m8_cases.md"
      },
@@ -14281,10 +14281,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c15_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_crypto_15/les_c15_m8_revision.md"
      }
@@ -14502,7 +14502,7 @@ export const LIBRARY_COURSES = [
       "title": "1.1 Radio and WLAN basics",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "11) is a set of standards for wireless local-area networking over radio.",
+      "summary": "Wi-Fi (IEEE 802.11) is a set of standards for wireless local-area networking over radio.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m1_l01.md"
      },
@@ -14520,7 +14520,7 @@ export const LIBRARY_COURSES = [
       "title": "1.3 Wi-Fi frames and association",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Wi-Fi traffic is carried in FRAMES of three types: data frames carry the actual network traffic (encrypted under WPA2/WPA3).",
+      "summary": "Wi-Fi traffic is carried in FRAMES of three types: data frames carry the actual network traffic (encrypted under WPA2/WPA3). control frames manage medium access (acknowledgements, request/clear to send). management frames establish and main",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m1_l03.md"
      },
@@ -14538,7 +14538,7 @@ export const LIBRARY_COURSES = [
       "title": "1.5 The Wi-Fi threat surface",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "The concrete Wi-Fi threats a defender must address: eavesdropping capturing traffic over the air; defeated by strong encryption (WPA2-AES/WPA3).",
+      "summary": "The concrete Wi-Fi threats a defender must address: eavesdropping capturing traffic over the air; defeated by strong encryption (WPA2-AES/WPA3). weak/legacy crypto WEP and WPA-TKIP are broken; traffic under them is recoverable.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m1_l05.md"
      },
@@ -14565,7 +14565,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Why the shared medium forces protocol-level defence Context: the defining lesson of wireless security history is that physical control of the medium is impossible, so security must live in the protocol. The collapse of WEP (its encryption w",
+      "summary": "Why the shared medium forces protocol-level defence; (FICTIONAL TEACHING SCENARIO): The SSID anyone can wear",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m1_cases.md"
      },
@@ -14598,10 +14598,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m1_revision.md"
      }
@@ -14610,7 +14610,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c16_2",
     "title": "Module 2: Wi-Fi protection",
-    "description": "This module turns the threat model into protection: WPA2 and WPA3, the Personal and Enterprise authentication modes, and the configuration choices of a secure deployment. py, watching a weak configuration fail every control and a hardened one pass - the defender's core wireless skill.",
+    "description": "This module turns the threat model into protection: WPA2 and WPA3, the Personal and Enterprise authentication modes, and the configuration choices of a secure deployment. You will review the lab's Wi-Fi configuration against current guidance with wifireview.py, watching a weak configuration fail every control and a hardened one pass - the defender's core wireless skill.",
     "order": 2,
     "quiz": {
      "id": "quiz_c16_m2",
@@ -14643,7 +14643,7 @@ export const LIBRARY_COURSES = [
       "title": "2.1 WPA2 and WPA3",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "11i) the long-standing standard.",
+      "summary": "Wi-Fi Protected Access is the family of security certifications for Wi-Fi: WPA2 (2004, 802.11i) the long-standing standard.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m2_l01.md"
      },
@@ -14661,7 +14661,7 @@ export const LIBRARY_COURSES = [
       "title": "2.3 Protected Management Frames",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "11w) cryptographically protect certain management frames - crucially the DEAUTHENTICATION and disassociation frames - so they cannot be forged.",
+      "summary": "Protected Management Frames (PMF, IEEE 802.11w) cryptographically protect certain management frames - crucially the DEAUTHENTICATION and disassociation frames - so they cannot be forged.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m2_l03.md"
      },
@@ -14670,7 +14670,7 @@ export const LIBRARY_COURSES = [
       "title": "2.4 Secure deployment settings",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Beyond the encryption and auth mode, a secure WLAN deployment requires: disable WPS the Wi-Fi Protected Setup PIN is brute-forceable; turn WPS off entirely.",
+      "summary": "Beyond the encryption and auth mode, a secure WLAN deployment requires: disable WPS the Wi-Fi Protected Setup PIN is brute-forceable; turn WPS off entirely. harden the AP replace default admin credentials with a unique user and a long rando",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m2_l04.md"
      },
@@ -14706,7 +14706,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "WPA3, SAE and PMF as the modern baseline Context: the Wi-Fi industry's response to the weaknesses of earlier protections is codified in WPA3 and the mandatory use of Protected Management Frames. The Wi-Fi Alliance makes WPA3 mandatory for n",
+      "summary": "WPA3, SAE and PMF as the modern baseline; (FICTIONAL TEACHING SCENARIO): The configuration that failed every control",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m2_cases.md"
      },
@@ -14739,10 +14739,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m2_revision.md"
      }
@@ -14751,7 +14751,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c16_3",
     "title": "Module 3: Wireless assessment",
-    "description": "Wireless assessment is how a defender checks that a WLAN is actually secure: reviewing configurations against the controls of Module 2, detecting rogue and evil-twin access points, and doing it all within a controlled, authorised and - in this course - offline process. py to find impostor access points, and tie it to the configuration review, producing the evidence an audit needs.",
+    "description": "Wireless assessment is how a defender checks that a WLAN is actually secure: reviewing configurations against the controls of Module 2, detecting rogue and evil-twin access points, and doing it all within a controlled, authorised and - in this course - offline process. You will analyse a provided site-survey scan with roguescan.py to find impostor access points, and tie it to the configuration review, producing the evidence an audit needs.",
     "order": 3,
     "quiz": {
      "id": "quiz_c16_m3",
@@ -14811,7 +14811,7 @@ export const LIBRARY_COURSES = [
       "title": "3.4 Detecting impostor APs",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Detection compares an OBSERVED set of access points (from an authorised site survey or a wireless IDS) against the authorised-BSSID inventory and classifies each: authorised BSSID is in the inventory for the SSID it advertises - expected.",
+      "summary": "Detection compares an OBSERVED set of access points (from an authorised site survey or a wireless IDS) against the authorised-BSSID inventory and classifies each: authorised BSSID is in the inventory for the SSID it advertises - expected. e",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m3_l04.md"
      },
@@ -14847,7 +14847,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Rogue and evil-twin detection as standard practice Context: wireless intrusion detection and the maintenance of an authorised-AP inventory are standard elements of WLAN security programmes, precisely because rogue access points (unauthorise",
+      "summary": "Rogue and evil-twin detection as standard practice; (FICTIONAL TEACHING SCENARIO): The open twin at the entrance",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m3_cases.md"
      },
@@ -14880,10 +14880,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m3_revision.md"
      }
@@ -14892,7 +14892,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c16_4",
     "title": "Module 4: Bluetooth security",
-    "description": "Bluetooth and Bluetooth Low Energy (BLE) connect phones, peripherals, wearables and IoT devices over short-range radio - and each connection is a security decision. 2 (Guide to Bluetooth Security).",
+    "description": "Bluetooth and Bluetooth Low Energy (BLE) connect phones, peripherals, wearables and IoT devices over short-range radio - and each connection is a security decision. This module covers Bluetooth pairing and trust, BLE architecture, and device hardening, grounded in NIST SP 800-121 Rev.2 (Guide to Bluetooth Security).",
     "order": 4,
     "quiz": {
      "id": "quiz_c16_m4",
@@ -14961,7 +14961,7 @@ export const LIBRARY_COURSES = [
       "title": "4.5 Reviewing a Bluetooth configuration",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "2 guidance, each with a severity: association model (authenticated vs Just Works), LE Secure Connections (vs legacy), discoverability (on-demand vs always), default PIN, minimum encryption key size, and bonded-device review.",
+      "summary": "A Bluetooth configuration review reads a device's pairing and security settings and flags weaknesses against NIST SP 800-121 Rev.2 guidance, each with a severity: association model (authenticated vs Just Works), LE Secure Connections (vs le",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m4_l05.md"
      },
@@ -15021,10 +15021,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m4_revision.md"
      }
@@ -15129,7 +15129,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Insecure data storage as a leading mobile weakness Context: across mobile security assessments, INSECURE DATA STORAGE is one of the most common and impactful weakness classes - apps placing sensitive data (tokens, credentials, personal data",
+      "summary": "Insecure data storage as a leading mobile weakness; (FICTIONAL TEACHING SCENARIO): The app that gave its data away",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m5_cases.md"
      },
@@ -15162,10 +15162,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m5_revision.md"
      }
@@ -15234,7 +15234,7 @@ export const LIBRARY_COURSES = [
       "title": "6.4 Reviewing the demo app",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "py puts static inspection into practice.",
+      "summary": "Reviewing the demo app with mobilecheck.py puts static inspection into practice.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m6_l04.md"
      },
@@ -15270,7 +15270,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "The MASVS/MASTG as the mobile testing standard Context: the OWASP Mobile Application Security Verification Standard (MASVS) and Testing Guide (MASTG) are the de facto standard for mobile app security: the MASVS defines WHAT to verify across",
+      "summary": "The MASVS/MASTG as the mobile testing standard; (FICTIONAL TEACHING SCENARIO): The static review that caught it all",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m6_cases.md"
      },
@@ -15303,10 +15303,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m6_revision.md"
      }
@@ -15384,7 +15384,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 The OWASP API Security Top 10 in the mobile context",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "The OWASP API Security Top 10 catalogues the main API risks, which apply directly to mobile backends [C16-M07-R2]: broken object-level authorisation accessing another user's object by id - the top risk; enforce per-object authorisation.",
+      "summary": "The OWASP API Security Top 10 catalogues the main API risks, which apply directly to mobile backends: broken object-level authorisation accessing another user's object by id - the top risk; enforce per-object authorisation. broken authentic",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m7_l05.md"
      },
@@ -15411,7 +15411,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Broken object-level authorisation as the defining API risk Context: the OWASP API Security Top 10 ranks broken object-level authorisation (BOLA) as the number one API risk: an API returns or modifies an object based on an id in the request ",
+      "summary": "Broken object-level authorisation as the defining API risk; (FICTIONAL TEACHING SCENARIO): The API that trusted the app",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m7_cases.md"
      },
@@ -15444,10 +15444,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m7_revision.md"
      }
@@ -15497,7 +15497,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 The consolidated review",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "py runs the whole assessment in one pass: enforcing controls it re-runs the three configuration reviews - Wi-Fi (wifireview), Bluetooth (btreview) and API (apicheck) - over their insecure and hardened inputs, confirming each moves from FAIL",
+      "summary": "The lab's review.py runs the whole assessment in one pass: enforcing controls it re-runs the three configuration reviews - Wi-Fi (wifireview), Bluetooth (btreview) and API (apicheck) - over their insecure and hardened inputs, confirming eac",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m8_l02.md"
      },
@@ -15515,7 +15515,7 @@ export const LIBRARY_COURSES = [
       "title": "8.4 Scope, authorisation and ethics",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "The course's scope rules apply throughout and are part of the capstone: authorised test only your own or authorised networks, devices, apps and APIs, under written scope.",
+      "summary": "The course's scope rules apply throughout and are part of the capstone: authorised test only your own or authorised networks, devices, apps and APIs, under written scope. offline/own all lab work is offline, against your own configurations,",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m8_l04.md"
      },
@@ -15533,7 +15533,7 @@ export const LIBRARY_COURSES = [
       "title": "8.6 The capstone deliverable",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "The capstone deliverable is a complete wireless-and-mobile assessment: 1.",
+      "summary": "The capstone deliverable is a complete wireless-and-mobile assessment: 1. scope and authorisation (authorised, offline, do-no-harm); 2. method and tools (the lab reviewers); 3. findings by area - Wi-Fi, Bluetooth, mobile app, mobile API, ro",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m8_l06.md"
      },
@@ -15551,7 +15551,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Defence-in-depth across the wireless-and-mobile surface Context: real organisations secure the wireless-and-mobile surface in layers, because no single control covers it: harden Wi-Fi and detect rogue APs at the radio edge, secure Bluetooth",
+      "summary": "Defence-in-depth across the wireless-and-mobile surface; (FICTIONAL TEACHING SCENARIO): The full assessment",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m8_cases.md"
      },
@@ -15584,10 +15584,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c16_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_wireless_16/les_c16_m8_revision.md"
      }
@@ -15676,7 +15676,7 @@ export const LIBRARY_COURSES = [
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
-  "short_desc": "Governance, risk and compliance (GRC) is how organisations decide what security they need, who is accountable, how risks are measured and treated, and how they prove to boards, customers, auditors and regulators that controls work. 0, ISO/IEC 27001:2022) and control mapping; - writing policies, standards and procedures, with exception handling; - business resilience through impact analysis, continuity and disaster recovery; - audit and assurance, including evidence, control testing and findings; - third-party risk management.",
+  "short_desc": "Governance, risk and compliance (GRC) is how organisations decide what security they need, who is accountable, how risks are measured and treated, and how they prove to boards, customers, auditors and regulators that controls work. This course covers: - security governance structures, roles and policy hierarchies; - risk management from asset inventory to risk acceptance; - the main frameworks and standards (NIST CSF 2.0, ISO/IEC 27001:2022) and control mapping; - writing policies, standards and procedures, with exception handling; - business resilience through impact analysis, continuity and disaster recovery; - audit and assurance, including evidence, control testing and findings; - third-party risk management.",
   "lead_author": {
    "name": "RedKross Academy Faculty",
    "title": "Governance, Risk & Compliance",
@@ -15845,7 +15845,7 @@ export const LIBRARY_COURSES = [
       "title": "1.6 Board reporting and regulatory expectations",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Boards need decision-useful information, not technical dashboards: - Top risks against appetite: trend, owner, treatment status and dates.",
+      "summary": "Boards need decision-useful information, not technical dashboards: - Top risks against appetite: trend, owner, treatment status and dates. - Material incidents and near misses: impact, lessons and regulatory notifications made (CERT-In, DPD",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m1_l06.md"
      },
@@ -15863,7 +15863,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Uber, 2016 breach - conviction for concealment (2022) ----------------------------------------------------------------------- Context: In October 2022 a US federal jury in San Francisco convicted Uber's former chief security officer, Joseph",
+      "summary": "Uber, 2016 breach - conviction for concealment (2022); (FICTIONAL TEACHING SCENARIO): Everyone and no one",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m1_cases.md"
      },
@@ -15896,10 +15896,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m1_revision.md"
      }
@@ -15959,7 +15959,7 @@ export const LIBRARY_COURSES = [
       "title": "2.3 Identifying risk scenarios",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "\" Sources of scenarios: - threat intelligence (Courses 08, 14); - incidents and near misses (yours and your sector's); - audit findings (Module 6); - vulnerability data; - threat models of new systems (Course 12 Module 2); - business change",
+      "summary": "A good risk statement links cause, event and consequence for a specific asset: \"Because partner logins accept passwords only (vulnerability), credential stuffing (threat event) could let attackers access partner shipment data (asset), causi",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m2_l03.md"
      },
@@ -16004,7 +16004,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Capital One and the OCC, 2020 - risk assessment before change ------------------------------------------------------------------------ Context: On 6 August 2020 the US Office of the Comptroller of the Currency assessed an USD 80 million civ",
+      "summary": "Capital One and the OCC, 2020 - risk assessment before change; (FICTIONAL TEACHING SCENARIO): The optimistic control",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m2_cases.md"
      },
@@ -16037,10 +16037,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m2_revision.md"
      }
@@ -16091,7 +16091,7 @@ export const LIBRARY_COURSES = [
       "title": "3.2 NIST CSF 2.0",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "CO Incident Recovery Communication Profiles Current Profile (where you are) and Target Profile (where you need to be), defined per organisation, sector or use case.",
+      "summary": "The NIST Cybersecurity Framework 2.0 (CSWP 29, 26 February 2024) has three parts: Core six Functions divided into 22 Categories, then Subcategories (outcomes): GV Govern GV.OC Organizational Context; GV.RM Risk Management Strategy; GV.RR Ro",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m3_l02.md"
      },
@@ -16145,7 +16145,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "SEBI CSCRF, 2024 - consolidating cyber obligations -------------------------------------------------------------------------- Context: On 20 August 2024, the Securities and Exchange Board of India issued the Cybersecurity and Cyber Resilien",
+      "summary": "SEBI CSCRF, 2024 - consolidating cyber obligations; (FICTIONAL TEACHING SCENARIO): Five audits, one control",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m3_cases.md"
      },
@@ -16178,10 +16178,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m3_revision.md"
      }
@@ -16286,7 +16286,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "British Library, 2023 - the MFA scope decision ---------------------------------------------------------------------- Context: The British Library's review \"Learning lessons from the cyber-attack\" (8 March 2024) describes the ransomware att",
+      "summary": "British Library, 2023 - the MFA scope decision; (FICTIONAL TEACHING SCENARIO): The policy nobody could follow",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m4_cases.md"
      },
@@ -16319,10 +16319,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m4_revision.md"
      }
@@ -16427,7 +16427,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "CrowdStrike content update outage, July 2024 -------------------------------------------------------------------- Context: On 19 July 2024 a faulty CrowdStrike Falcon content update caused Windows systems to crash. Microsoft estimated that ",
+      "summary": "CrowdStrike content update outage, July 2024; (FICTIONAL TEACHING SCENARIO): The untested restore",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m5_cases.md"
      },
@@ -16460,10 +16460,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m5_revision.md"
      }
@@ -16514,7 +16514,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Planning an audit",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "\" Scope systems, locations, period (for example 1 April - 30 September 2026), and exclusions.",
+      "summary": "Objective for example, \"Assess whether access to critical systems is limited to authorised users and promptly removed for leavers.\"",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m6_l02.md"
      },
@@ -16568,7 +16568,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Equifax, 2017 - a detective control that silently failed ------------------------------------------------------------------------- Context: The US Government Accountability Office's report GAO-18-559 (August 2018) on the 2017 Equifax breach",
+      "summary": "Equifax, 2017 - a detective control that silently failed; (FICTIONAL TEACHING SCENARIO): The attestation that was not evidence",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m6_cases.md"
      },
@@ -16601,10 +16601,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m6_revision.md"
      }
@@ -16682,7 +16682,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Ongoing monitoring and vendor incidents",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Periodic reassessment by tier, plus triggers: a contract renewal, a scope change, a vendor breach, an acquisition, or a new regulation.",
+      "summary": "- Periodic reassessment by tier, plus triggers: a contract renewal, a scope change, a vendor breach, an acquisition, or a new regulation. - Continuous signals: advisories affecting vendor products (CISA KEV, CERT-In advisories), vendor stat",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m7_l05.md"
      },
@@ -16709,7 +16709,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "MOVEit Transfer, 2023 - one product, many victims ------------------------------------------------------------------------- Context: CISA and FBI advisory AA23-158A (7 June 2023) reported that the CL0P ransomware gang (also known as TA505) ",
+      "summary": "MOVEit Transfer, 2023 - one product, many victims; (FICTIONAL TEACHING SCENARIO): The label printer vendor",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m7_cases.md"
      },
@@ -16742,10 +16742,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m7_revision.md"
      }
@@ -16787,7 +16787,7 @@ export const LIBRARY_COURSES = [
       "title": "8.1 Assembling the risk register",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Inputs, and how each feeds the register: - Asset inventory and BIA (Modules 2, 5): which assets and processes matter, and their impact criteria.",
+      "summary": "Inputs, and how each feeds the register: - Asset inventory and BIA (Modules 2, 5): which assets and processes matter, and their impact criteria. - Threat and incident information (Courses 08, 14): likelihood. - Control set and test results ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m8_l01.md"
      },
@@ -16805,7 +16805,7 @@ export const LIBRARY_COURSES = [
       "title": "8.3 The management review",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "3).",
+      "summary": "ISO/IEC 27001 requires top management to review the ISMS at planned intervals (clause 9.3).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m8_l03.md"
      },
@@ -16823,7 +16823,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Executive communication",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Principles: - Lead with the decision needed and its business impact.",
+      "summary": "Principles: - Lead with the decision needed and its business impact. - Use few numbers, with trend and target.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m8_l05.md"
      },
@@ -16850,7 +16850,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Cyber Safety Review Board, 2024 - governance lessons from Storm-0558 -------------------------------------------------------------------- Context: On 2 April 2024 the US Department of Homeland Security announced the Cyber Safety Review Boar",
+      "summary": "Cyber Safety Review Board, 2024 - governance lessons from Storm-0558; (FICTIONAL TEACHING SCENARIO): The review that only \"noted\"",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m8_cases.md"
      },
@@ -16883,10 +16883,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c17_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_grc_17/les_c17_m8_revision.md"
      }
@@ -17112,7 +17112,7 @@ export const LIBRARY_COURSES = [
       "title": "1.2 The AI system lifecycle",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "0, released on 26 January 2023, organises AI risk work into the functions Govern, Map, Measure and Manage [C18-M01-R3]; NIST AI 600-1, its Generative AI Profile, was released on 26 July 2024 [C18-M01-R3].",
+      "summary": "Stage Security activities Plan and design use-case risk assessment; data classification; threat model; decide what the model may do Data collection and provenance, consent and lawful basis; quality; preparation minimisation; poisoning check",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m1_l02.md"
      },
@@ -17139,7 +17139,7 @@ export const LIBRARY_COURSES = [
       "title": "1.5 Frameworks for AI risk",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "OWASP Top 10 for LLM Applications 2025 [C18-M01-R1]: LLM01 Prompt Injection LLM06 Excessive Agency LLM02 Sensitive Information LLM07 System Prompt Leakage Disclosure LLM08 Vector and Embedding Weaknesses LLM03 Supply Chain LLM09 Misinformat",
+      "summary": "OWASP Top 10 for LLM Applications 2025: LLM01 Prompt Injection LLM06 Excessive Agency LLM02 Sensitive Information LLM07 System Prompt Leakage Disclosure LLM08 Vector and Embedding Weaknesses LLM03 Supply Chain LLM09 Misinformation LLM04 Dat",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m1_l05.md"
      },
@@ -17166,7 +17166,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Chatbot data exposure, March 2023 - classic bugs in an AI service ------------------------------------------------------------------------ Context: Help Net Security reported on 27 March 2023 that OpenAI had confirmed a vulnerability in the",
+      "summary": "Chatbot data exposure, March 2023 - classic bugs in an AI service; (FICTIONAL TEACHING SCENARIO): The demo that went to production",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m1_cases.md"
      },
@@ -17199,10 +17199,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m1_revision.md"
      }
@@ -17307,7 +17307,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Indirect prompt injection described, February 2023 ------------------------------------------------------------------------- Context: \"Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt I",
+      "summary": "Indirect prompt injection described, February 2023; (FICTIONAL TEACHING SCENARIO): The shared index",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m2_cases.md"
      },
@@ -17340,10 +17340,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m2_revision.md"
      }
@@ -17403,7 +17403,7 @@ export const LIBRARY_COURSES = [
       "title": "3.3 Controlling untrusted content",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "- Inventory sources and label trust: internal reviewed, internal unreviewed, external imported, user-supplied.",
+      "summary": "- Inventory sources and label trust: internal reviewed, internal unreviewed, external imported, user-supplied. - Ingestion audit: scan imported content for text addressed to AI systems and for injection phrases; route hits to human review r",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m3_l03.md"
      },
@@ -17421,7 +17421,7 @@ export const LIBRARY_COURSES = [
       "title": "3.5 Measuring mitigations",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "7, seeds 1-5; failures out of five runs): ------------------------------------------------------------- BEGIN OUTPUT probe naive prompt_only hardened P1 3/5 4/5 3/5 P2 3/5 3/5 0/5 P3 1/5 2/5 0/5 P4 5/5 5/5 0/5 P5 5/5 2/5 0/5 P6 3/5 2/5 0/5 ",
+      "summary": "Execution-tested results (python probes.py 5, then python summarise.py; qwen3:4b, temperature 0.7, seeds 1-5; failures out of five runs): ------------------------------------------------------------- BEGIN OUTPUT probe naive prompt_only har",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m3_l05.md"
      },
@@ -17430,7 +17430,7 @@ export const LIBRARY_COURSES = [
       "title": "3.6 Detection and response",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "- Log for each request: retrieved document IDs, input-filter hits, tool proposals and decisions, output-filter hits (BanyanBot returns all of these).",
+      "summary": "- Log for each request: retrieved document IDs, input-filter hits, tool proposals and decisions, output-filter hits (BanyanBot returns all of these). - Alert on: canary or secret patterns in output (should be zero), tool denials for cross-c",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m3_l06.md"
      },
@@ -17448,7 +17448,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Slack AI and indirect prompt injection, August 2024 -------------------------------------------------------------------------- Context: PromptArmor published \"Data Exfiltration from Slack AI via Indirect Prompt Injection\", with a disclosure",
+      "summary": "Slack AI and indirect prompt injection, August 2024; (FICTIONAL TEACHING SCENARIO): The supplier catalogue",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m3_cases.md"
      },
@@ -17481,10 +17481,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m3_revision.md"
      }
@@ -17535,7 +17535,7 @@ export const LIBRARY_COURSES = [
       "title": "4.2 Training and fine-tuning data",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Minimise: do not train or fine-tune on personal or confidential data unless the purpose requires it; prefer retrieval for facts that change or that need access control (training has no per-user ACL).",
+      "summary": "- Minimise: do not train or fine-tune on personal or confidential data unless the purpose requires it; prefer retrieval for facts that change or that need access control (training has no per-user ACL). - Lawful basis and purpose: personal d",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m4_l02.md"
      },
@@ -17553,7 +17553,7 @@ export const LIBRARY_COURSES = [
       "title": "4.4 Conversations, logs and vendors",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Prompts and outputs are personal data when they relate to identifiable people; classify conversation logs accordingly.",
+      "summary": "- Prompts and outputs are personal data when they relate to identifiable people; classify conversation logs accordingly. - Retain only as long as needed (abuse investigation, quality) and restrict access; redact or tokenise identifiers in a",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m4_l04.md"
      },
@@ -17562,7 +17562,7 @@ export const LIBRARY_COURSES = [
       "title": "4.5 Data governance for AI",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Inventory: datasets, indexes, logs and models with owners and classification (Module 1 asset inventory).",
+      "summary": "- Inventory: datasets, indexes, logs and models with owners and classification (Module 1 asset inventory). - Data lineage: which data trained or feeds which model and index. - Quality and provenance: source, licence, consent, review status ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m4_l05.md"
      },
@@ -17589,7 +17589,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Italy's Garante and ChatGPT, March-April 2023 ------------------------------------------------------------------- Context: Fortune, reporting with the Associated Press on 28 April 2023, stated that the previous month the Italian watchdog kn",
+      "summary": "Italy's Garante and ChatGPT, March-April 2023; (FICTIONAL TEACHING SCENARIO): The fine-tuned support model",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m4_cases.md"
      },
@@ -17622,10 +17622,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m4_revision.md"
      }
@@ -17694,7 +17694,7 @@ export const LIBRARY_COURSES = [
       "title": "5.4 Tool permission boundaries",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Design each tool as a narrow, policy-checked operation: - Identity: derive the customer from the authenticated session, never from model arguments.",
+      "summary": "Design each tool as a narrow, policy-checked operation: - Identity: derive the customer from the authenticated session, never from model arguments. - Ownership: the object (order, account) must belong to the session user. - Business rules: ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m5_l04.md"
      },
@@ -17730,7 +17730,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Air Canada's chatbot, February 2024 - owning what the AI says ------------------------------------------------------------------------ Context: CTV News reported on 14 February 2024 that \"a B.C. tribunal found the airline was responsible fo",
+      "summary": "Air Canada's chatbot, February 2024 - owning what the AI says; (FICTIONAL TEACHING SCENARIO): The SQL assistant",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m5_cases.md"
      },
@@ -17763,10 +17763,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m5_revision.md"
      }
@@ -17835,7 +17835,7 @@ export const LIBRARY_COURSES = [
       "title": "6.4 Dependencies and inference stacks",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Pin Python and system packages by version and hash; generate SBOMs; scan for known vulnerabilities (Course 12).",
+      "summary": "- Pin Python and system packages by version and hash; generate SBOMs; scan for known vulnerabilities (Course 12). - Keep inference servers patched; bind them to localhost or private networks with authentication - an inference API reachable ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m6_l04.md"
      },
@@ -17853,7 +17853,7 @@ export const LIBRARY_COURSES = [
       "title": "6.6 Approval, pinning and verification",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "md c9d9c5fae188 OK ...",
+      "summary": "Execution-tested (python supply_check.py; approved_models.json lists only qwen3:4b with its digest; kb_manifest.json from kb_audit.py --write-manifest): ------------------------------------------------------------- BEGIN OUTPUT == models qw",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m6_l06.md"
      },
@@ -17871,7 +17871,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Malicious models on a public hub, February 2024 ---------------------------------------------------------------------- Context: In \"Data Scientists Targeted by Malicious Hugging Face ML Models with Silent Backdoor\" (27 February 2024), JFrog",
+      "summary": "Malicious models on a public hub, February 2024; (FICTIONAL TEACHING SCENARIO): The helpful adapter",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m6_cases.md"
      },
@@ -17904,10 +17904,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m6_revision.md"
      }
@@ -17967,7 +17967,7 @@ export const LIBRARY_COURSES = [
       "title": "7.3 Safe probe design",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "); - a benign mechanism: a canary value that must not appear, a simulated tool whose ledger shows whether an action would have happened, a fictional record whose disclosure is harmless; - an objective check in code (string present?",
+      "summary": "A good probe has: - a clear objective tied to a category (LLM07, LLM01, ...); - a benign mechanism: a canary value that must not appear, a simulated tool whose ledger shows whether an action would have happened, a fictional record whose dis",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m7_l03.md"
      },
@@ -17985,7 +17985,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Regression and continuous evaluation",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Every finding becomes a regression probe.",
+      "summary": "- Every finding becomes a regression probe. - Re-run the suite on every change of model, model version, prompt, retrieval content, tools or defences (Module 6 release gate). - Record model digest, prompt version, sampling settings, seeds an",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m7_l05.md"
      },
@@ -18012,7 +18012,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Lessons from red teaming 100 generative AI products, January 2025 ------------------------------------------------------------------------ Context: \"Lessons From Red Teaming 100 Generative AI Products\" by B. Bullwinkel, A. Minnich, S. Chawl",
+      "summary": "Lessons from red teaming 100 generative AI products, January 2025; (FICTIONAL TEACHING SCENARIO): \"We tested it once\"",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m7_cases.md"
      },
@@ -18045,10 +18045,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m7_revision.md"
      }
@@ -18090,7 +18090,7 @@ export const LIBRARY_COURSES = [
       "title": "8.1 Scoping the assessment",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "py at a recorded commit), configuration hardened, model qwen3:4b with digest recorded.",
+      "summary": "System BanyanBot (bot.py at a recorded commit), configuration hardened, model qwen3:4b with digest recorded.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m8_l01.md"
      },
@@ -18099,7 +18099,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 Evidence collection",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "py intervals.",
+      "summary": "Behaviour probes.py (P1-P6, three configurations, seeds) -> probe_results.json; summarise.py; report.py intervals.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m8_l02.md"
      },
@@ -18135,7 +18135,7 @@ export const LIBRARY_COURSES = [
       "title": "8.6 Handover to governance",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Release gate (Module 6) adopted in CI.",
+      "summary": "- Release gate (Module 6) adopted in CI. - Production monitoring of canary hits, blocked tool calls and filter hits, with owners and runbooks. - Incident response: what to do if a failure path is seen in production (quarantine content, disa",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m8_l06.md"
      },
@@ -18153,7 +18153,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "The EU Artificial Intelligence Act, 2024 - assessment becomes an expectation ------------------------------------------------------------------ Context: EUR-Lex publishes Regulation (EU) 2024/1689 of the European Parliament and of the Counc",
+      "summary": "The EU Artificial Intelligence Act, 2024 - assessment becomes an expectation; (FICTIONAL TEACHING SCENARIO): The approval board",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m8_cases.md"
      },
@@ -18186,10 +18186,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c18_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_aisec_18/les_c18_m8_revision.md"
      }
@@ -18469,7 +18469,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Authorisation confusion and the Coalfire courthouse arrest Context: in 2019, two penetration testers from the firm Coalfire were arrested during a physical-security engagement for an Iowa judicial body in the United States. They carried a s",
+      "summary": "Authorisation confusion and the Coalfire courthouse arrest; (FICTIONAL TEACHING SCENARIO): The RoE that stopped a disaster",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m1_cases.md"
      },
@@ -18502,10 +18502,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m1_revision.md"
      }
@@ -18556,7 +18556,7 @@ export const LIBRARY_COURSES = [
       "title": "2.2 Threat-informed planning",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Threat-informed planning chooses WHAT to emulate from an understanding of the threats the organisation faces: threat profile which adversaries or threat types are relevant (by sector, geography, technology, and threat intelligence).",
+      "summary": "Threat-informed planning chooses WHAT to emulate from an understanding of the threats the organisation faces: threat profile which adversaries or threat types are relevant (by sector, geography, technology, and threat intelligence). behavio",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m2_l02.md"
      },
@@ -18574,7 +18574,7 @@ export const LIBRARY_COURSES = [
       "title": "2.4 Technique selection",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Technique selection chooses the specific ATT&CK techniques to emulate: relevance pick techniques the profiled adversary actually uses.",
+      "summary": "Technique selection chooses the specific ATT&CK techniques to emulate: relevance pick techniques the profiled adversary actually uses. coverage span the tactics that matter (initial access through impact) rather than clustering in one. dete",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m2_l04.md"
      },
@@ -18583,7 +18583,7 @@ export const LIBRARY_COURSES = [
       "title": "2.5 Simulation boundaries",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Simulation boundaries are the safety limits on HOW a technique is emulated: isolation run inside the isolated range, not production.",
+      "summary": "Simulation boundaries are the safety limits on HOW a technique is emulated: isolation run inside the isolated range, not production. lab assets use lab accounts and synthetic data, never real credentials or user data. non-destructive emulat",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m2_l05.md"
      },
@@ -18610,7 +18610,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "ATT&CK and published adversary-emulation plans Context: MITRE ATT&CK has become the common language for describing adversary behaviour, and MITRE's Center for Threat-Informed Defense and the ATT&CK team publish ADVERSARY EMULATION PLANS - s",
+      "summary": "ATT&CK and published adversary-emulation plans; (FICTIONAL TEACHING SCENARIO): Emulating the right adversary",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m2_cases.md"
      },
@@ -18643,10 +18643,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m2_revision.md"
      }
@@ -18688,7 +18688,7 @@ export const LIBRARY_COURSES = [
       "title": "3.1 Asset and identity mapping",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Asset and identity mapping builds an inventory of what is in scope: assets hosts, services and applications within the authorised scope - their addresses, roles and relationships.",
+      "summary": "Asset and identity mapping builds an inventory of what is in scope: assets hosts, services and applications within the authorised scope - their addresses, roles and relationships. identities the accounts and privilege relationships relevant",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m3_l01.md"
      },
@@ -18706,7 +18706,7 @@ export const LIBRARY_COURSES = [
       "title": "3.3 Controlled validation",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "g.",
+      "summary": "Controlled validation confirms a finding with the MINIMUM necessary action and no collateral damage: minimal proof demonstrate a weakness exists with the least intrusive evidence (e.g. show that access is possible, not ransack the system). ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m3_l03.md"
      },
@@ -18715,7 +18715,7 @@ export const LIBRARY_COURSES = [
       "title": "3.4 Evidence management",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Evidence management makes findings trustworthy and defensible: what to record for each finding/action: what was done, against which in-scope asset, by which operator, at what time, and the proof.",
+      "summary": "Evidence management makes findings trustworthy and defensible: what to record for each finding/action: what was done, against which in-scope asset, by which operator, at what time, and the proof. integrity the record must be tamper-evident,",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m3_l04.md"
      },
@@ -18751,7 +18751,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Scope discipline and evidence in professional testing Context: professional testing standards (NIST SP 800-115; penetration-testing methodologies) emphasise that the discovery and validation phases must stay within authorised scope and that",
+      "summary": "Scope discipline and evidence in professional testing; (FICTIONAL TEACHING SCENARIO): The out-of-scope near miss and the challenged finding",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m3_cases.md"
      },
@@ -18784,10 +18784,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m3_revision.md"
      }
@@ -18838,7 +18838,7 @@ export const LIBRARY_COURSES = [
       "title": "4.2 Credential exposure",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Credential exposure is any way a secret becomes available to an attacker: at rest credentials in files, scripts, configuration, source or shares.",
+      "summary": "Credential exposure is any way a secret becomes available to an attacker: at rest credentials in files, scripts, configuration, source or shares. in memory/cache cached credentials, tokens or tickets on an endpoint. in transit credentials s",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m4_l02.md"
      },
@@ -18856,7 +18856,7 @@ export const LIBRARY_COURSES = [
       "title": "4.4 Defensive telemetry and detection",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Defensive telemetry is the data that makes endpoint and identity abuse visible: authentication logs logons (type, source, time, account) - the primary identity telemetry; anomalies flag Valid Accounts abuse.",
+      "summary": "Defensive telemetry is the data that makes endpoint and identity abuse visible: authentication logs logons (type, source, time, account) - the primary identity telemetry; anomalies flag Valid Accounts abuse. directory/process account/group ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m4_l04.md"
      },
@@ -18865,7 +18865,7 @@ export const LIBRARY_COURSES = [
       "title": "4.5 Containment for identity threats",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Containment limits what identity abuse can achieve: MFA defeats stolen-password reuse for interactive access.",
+      "summary": "Containment limits what identity abuse can achieve: MFA defeats stolen-password reuse for interactive access. tiered admin keeps Tier 0 credentials off lower-trust hosts (Course 13). logon restrictions restrict where privileged accounts can",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m4_l05.md"
      },
@@ -18874,7 +18874,7 @@ export const LIBRARY_COURSES = [
       "title": "4.6 Safe, authorised endpoint/identity testing",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Endpoint and identity testing must be authorised and safe: authorised/in scope only in-scope hosts and lab accounts; never harvest real users' credentials.",
+      "summary": "Endpoint and identity testing must be authorised and safe: authorised/in scope only in-scope hosts and lab accounts; never harvest real users' credentials. non-destructive read privilege and exposure state; do not lock out accounts or disru",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m4_l06.md"
      },
@@ -18892,7 +18892,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Valid Accounts and the limits of signature detection Context: ATT&CK documents Valid Accounts (T1078) as a technique that spans Initial Access, Persistence, Privilege Escalation and more, precisely because using legitimate credentials is ha",
+      "summary": "Valid Accounts and the limits of signature detection; (FICTIONAL TEACHING SCENARIO): The quiet service account",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m4_cases.md"
      },
@@ -18925,10 +18925,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m4_revision.md"
      }
@@ -18979,7 +18979,7 @@ export const LIBRARY_COURSES = [
       "title": "5.2 Trust relationships",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Trust relationships are the pre-existing accesses that lateral movement abuses: account trust an account valid on many hosts (shared local admin, a widely- privileged service account) lets one credential open many doors.",
+      "summary": "Trust relationships are the pre-existing accesses that lateral movement abuses: account trust an account valid on many hosts (shared local admin, a widely- privileged service account) lets one credential open many doors. host/service trust ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m5_l02.md"
      },
@@ -19015,7 +19015,7 @@ export const LIBRARY_COURSES = [
       "title": "5.6 Safe, conceptual treatment",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "This module is deliberately CONCEPTUAL and defensive: no how-to it does not provide procedures or tooling for moving through a network; it explains the trust abused and the detection/containment.",
+      "summary": "This module is deliberately CONCEPTUAL and defensive: no how-to it does not provide procedures or tooling for moving through a network; it explains the trust abused and the detection/containment. isolated any emulation of these techniques h",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m5_l06.md"
      },
@@ -19033,7 +19033,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Flat trust and the spread of intrusions Context: post-incident analyses and defensive frameworks consistently find that broad, flat trust - reused local administrator passwords, over-privileged service accounts, and unsegmented networks - i",
+      "summary": "Flat trust and the spread of intrusions; (FICTIONAL TEACHING SCENARIO): The hop that should have been blocked",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m5_cases.md"
      },
@@ -19066,10 +19066,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m5_revision.md"
      }
@@ -19120,7 +19120,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 C2 architecture theory",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "At a conceptual level, C2 architectures share common ideas (described here to inform DETECTION, not construction): beaconing the implant checks in on an interval to receive commands, producing periodic outbound connections.",
+      "summary": "At a conceptual level, C2 architectures share common ideas (described here to inform DETECTION, not construction): beaconing the implant checks in on an interval to receive commands, producing periodic outbound connections. common protocols",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m6_l02.md"
      },
@@ -19129,7 +19129,7 @@ export const LIBRARY_COURSES = [
       "title": "6.3 Network indicators",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "C2 produces network indicators defenders can detect: periodicity regular, machine-like check-ins (beaconing) to one destination - unlike human browsing - often the strongest signal.",
+      "summary": "C2 produces network indicators defenders can detect: periodicity regular, machine-like check-ins (beaconing) to one destination - unlike human browsing - often the strongest signal. destination connections to a single, rarely-seen, or newly",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m6_l03.md"
      },
@@ -19156,7 +19156,7 @@ export const LIBRARY_COURSES = [
       "title": "6.6 Safe emulation to a lab sink",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Emulating C2 safely means producing its INDICATORS without any real adversary channel: lab sink the emulated beacon connects to a sink inside the isolated range (loopback/lab host), never to a real external server - no real egress.",
+      "summary": "Emulating C2 safely means producing its INDICATORS without any real adversary channel: lab sink the emulated beacon connects to a sink inside the isolated range (loopback/lab host), never to a real external server - no real egress. indicato",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m6_l06.md"
      },
@@ -19174,7 +19174,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Beaconing as a detection anchor Context: network defenders and ATT&CK (T1071 Application Layer Protocol) note that C2 over common protocols is designed to blend in, but that its BEACONING - regular, machine-like check-ins to a destination -",
+      "summary": "Beaconing as a detection anchor; (FICTIONAL TEACHING SCENARIO): The beacon to the sink",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m6_cases.md"
      },
@@ -19207,10 +19207,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m6_revision.md"
      }
@@ -19261,7 +19261,7 @@ export const LIBRARY_COURSES = [
       "title": "7.2 Red/blue collaboration",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Purple teaming depends on red and blue collaborating openly: shared plan both sides know the ATT&CK techniques being emulated (from Module 2) and the detections each should trigger.",
+      "summary": "Purple teaming depends on red and blue collaborating openly: shared plan both sides know the ATT&CK techniques being emulated (from Module 2) and the detections each should trigger. shared telemetry the blue team reports what they saw for e",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m7_l02.md"
      },
@@ -19288,7 +19288,7 @@ export const LIBRARY_COURSES = [
       "title": "7.5 Retesting",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Retesting closes the loop: engineer build the missing telemetry/detection for each gap.",
+      "summary": "Retesting closes the loop: engineer build the missing telemetry/detection for each gap. re-emulate run the SAME technique again in the isolated range. confirm verify the detection now fires; if not, re-tune and repeat.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m7_l05.md"
      },
@@ -19297,7 +19297,7 @@ export const LIBRARY_COURSES = [
       "title": "7.6 Continuous validation",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "Purple teaming is most valuable as a CONTINUOUS practice, not a one-off: detections drift environments change, rules break, telemetry gaps open; a detection that worked once may silently stop.",
+      "summary": "Purple teaming is most valuable as a CONTINUOUS practice, not a one-off: detections drift environments change, rules break, telemetry gaps open; a detection that worked once may silently stop. continuous checks regularly re-emulate key tech",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m7_l06.md"
      },
@@ -19315,7 +19315,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Purple teaming and ATT&CK-based coverage measurement Context: organisations increasingly run purple-team exercises and continuous security validation to measure detection coverage against MITRE ATT&CK: red emulates techniques, blue measures",
+      "summary": "Purple teaming and ATT&CK-based coverage measurement; (FICTIONAL TEACHING SCENARIO): The 4-of-7 that became 7-of-7",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m7_cases.md"
      },
@@ -19348,10 +19348,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m7_revision.md"
      }
@@ -19393,7 +19393,7 @@ export const LIBRARY_COURSES = [
       "title": "8.1 Integrating the engagement",
       "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "The capstone integrates every stage into one isolated exercise: gate the RoE gate passes (Module 1) - authorised, scoped, safety-bounded.",
+      "summary": "The capstone integrates every stage into one isolated exercise: gate the RoE gate passes (Module 1) - authorised, scoped, safety-bounded. plan a threat-informed, ATT&CK-mapped emulation plan is validated (Module 2), in scope (Module 3). run",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m8_l01.md"
      },
@@ -19420,7 +19420,7 @@ export const LIBRARY_COURSES = [
       "title": "8.4 Evidence and traceability",
       "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Every statement in both reports traces to engagement evidence: findings each detection/gap traces to the emulation plan (what was done) and the telemetry (what was seen).",
+      "summary": "Every statement in both reports traces to engagement evidence: findings each detection/gap traces to the emulation plan (what was done) and the telemetry (what was seen). integrity the evidence log's chain of custody (Module 3) backs the re",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m8_l04.md"
      },
@@ -19429,7 +19429,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Scope, isolation and ethics in delivery",
       "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Even in delivery, the course's rules hold: isolation the exercise ran in a fully isolated range, on lab accounts and synthetic data; the report says so.",
+      "summary": "Even in delivery, the course's rules hold: isolation the exercise ran in a fully isolated range, on lab accounts and synthetic data; the report says so. scope only authorised, in-scope systems were involved; the report records the scope and",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m8_l05.md"
      },
@@ -19438,7 +19438,7 @@ export const LIBRARY_COURSES = [
       "title": "8.6 The capstone deliverable",
       "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "The capstone deliverable is a complete, isolated engagement with both reports: 1.",
+      "summary": "The capstone deliverable is a complete, isolated engagement with both reports: 1. scope and authorisation (RoE gate passed; isolated; simulation-only); 2. the validated, in-scope, threat-informed emulation plan; 3. the emulation run with ev",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m8_l06.md"
      },
@@ -19456,7 +19456,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Reporting as the deliverable that drives change Context: across testing standards (NIST SP 800-115) and professional practice, the REPORT is the engagement's product: an executive summary that leaders can act on and a technical section that",
+      "summary": "Reporting as the deliverable that drives change; (FICTIONAL TEACHING SCENARIO): The report that changed the roadmap",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m8_cases.md"
      },
@@ -19489,10 +19489,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c19_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_redteam_19/les_c19_m8_revision.md"
      }
@@ -19775,7 +19775,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Detecting Storm-0558 through an audit log, 2023 Context: in July 2023 CISA and the FBI published advisory AA23-193A, \"Enhanced Monitoring to Detect APT Activity Targeting Outlook Online\" [C20-M01-R3]. In mid-June 2023 a US federal civilian ",
+      "summary": "Detecting Storm-0558 through an audit log, 2023; (FICTIONAL TEACHING SCENARIO): The 79% dashboard",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m1_cases.md"
      },
@@ -19808,10 +19808,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m1_revision.md"
      }
@@ -19916,7 +19916,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Volt Typhoon and living off the land, 2024 Context: on 7 February 2024 CISA, the NSA, the FBI and partners published AA24-038A, \"PRC State-Sponsored Actors Compromise and Maintain Persistent Access to U.S. Critical Infrastructure\" [C20-M02-",
+      "summary": "Volt Typhoon and living off the land, 2024; (FICTIONAL TEACHING SCENARIO): The exclude that hid everything",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m2_cases.md"
      },
@@ -19949,10 +19949,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m2_revision.md"
      }
@@ -20021,7 +20021,7 @@ export const LIBRARY_COURSES = [
       "title": "3.4 IDS signatures with Suricata",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "A Suricata rule has three parts: the action, the header (protocol, addresses, ports and direction) and the options in parentheses [C20-M03-R2].",
+      "summary": "A Suricata rule has three parts: the action, the header (protocol, addresses, ports and direction) and the options in parentheses.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m3_l04.md"
      },
@@ -20030,7 +20030,7 @@ export const LIBRARY_COURSES = [
       "title": "3.5 EVE JSON and packet-based investigation",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "json: http, dns, tls, fileinfo, flow and more.",
+      "summary": "Suricata writes alerts and protocol records to eve.json: http, dns, tls, fileinfo, flow and more.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m3_l05.md"
      },
@@ -20057,7 +20057,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "SUNBURST and DNS, 2020 Context: on 13 December 2020 FireEye (now Mandiant, part of Google Cloud) described the SUNBURST backdoor delivered through trojanised SolarWinds Orion updates [C20-M03-R3]. After a dormant period of up to two weeks, ",
+      "summary": "SUNBURST and DNS, 2020; (FICTIONAL TEACHING SCENARIO): The clockwork printer",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m3_cases.md"
      },
@@ -20090,10 +20090,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m3_revision.md"
      }
@@ -20198,7 +20198,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "CrowdStrike Channel File 291, July 2024 Context: on 19 July 2024 CrowdStrike delivered two new IPC Template Instances to Windows sensors as Rapid Response Content in Channel File 291 [C20-M04-R2]. The IPC Template Type defined 21 input para",
+      "summary": "CrowdStrike Channel File 291, July 2024; (FICTIONAL TEACHING SCENARIO): The two-backslash bug",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m4_cases.md"
      },
@@ -20231,10 +20231,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m4_revision.md"
      }
@@ -20372,10 +20372,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m5_revision.md"
      }
@@ -20480,7 +20480,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "The Amazon S3 disruption, 28 February 2017 Context: AWS's summary states that an authorised S3 team member, \"using an established playbook\", executed a command intended to remove a small number of servers for one S3 subsystem. One input was",
+      "summary": "The Amazon S3 disruption, 28 February 2017; (FICTIONAL TEACHING SCENARIO): The playbook that isolated the printers",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m6_cases.md"
      },
@@ -20513,10 +20513,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m6_revision.md"
      }
@@ -20621,7 +20621,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "CISA red team assessment AA24-326A, 2024 Context: on 21 November 2024 CISA published \"Enhancing Cyber Resilience: Insights from CISA Red Team Assessment of a US Critical Infrastructure Sector Organization\" [C20-M07-R1]. Detection-related fi",
+      "summary": "CISA red team assessment AA24-326A, 2024; (FICTIONAL TEACHING SCENARIO): The rule that only knew one spelling",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m7_cases.md"
      },
@@ -20654,10 +20654,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m7_revision.md"
      }
@@ -20795,10 +20795,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c20_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_blueteam_20/les_c20_m8_revision.md"
      }
@@ -21046,7 +21046,7 @@ export const LIBRARY_COURSES = [
       "title": "1.4 Namespaces and cgroups",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "txt) compared the namespace identifiers of a default container with those of the host's PID 1 inside the Docker Desktop virtual machine.",
+      "summary": "Linux namespaces and what each isolates: mnt the mount table - the container's own root filesystem view pid process IDs - the container's first process is PID 1 inside net interfaces, routes, ports, firewall rules uts hostname and domain na",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m1_l04.md"
      },
@@ -21064,7 +21064,7 @@ export const LIBRARY_COURSES = [
       "title": "1.6 The container threat model",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "NIST SP 800-190, the Application Container Security Guide (September 2017) [C21-M01-R1], groups risks into five areas.",
+      "summary": "NIST SP 800-190, the Application Container Security Guide (September 2017), groups risks into five areas.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m1_l06.md"
      },
@@ -21082,7 +21082,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "runc \"Leaky Vessels\", CVE-2024-21626, 2024 Context: on 31 January 2024 the runc maintainers published advisory GHSA-xr7r-f8xq-vfvv for CVE-2024-21626, affecting runc 1.0.0-rc93 to 1.1.11 and fixed in 1.1.12, rated CVSS 3.1 8.6 (High) [C21-M",
+      "summary": "runc \"Leaky Vessels\", CVE-2024-21626, 2024; (FICTIONAL TEACHING SCENARIO): The build agent that owned its host",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m1_cases.md"
      },
@@ -21115,10 +21115,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m1_revision.md"
      }
@@ -21169,7 +21169,7 @@ export const LIBRARY_COURSES = [
       "title": "2.2 Dockerfile hygiene",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "py rule where one exists: - Pin the base by digest (RK-D01): FROM image:tag@sha256:...",
+      "summary": "Practices, each mapped to the lab's dockerfile_lint.py rule where one exists: - Pin the base by digest (RK-D01): FROM image:tag@sha256:... makes builds repeatable and reviewable; update the pin deliberately (L04). - Never put secrets in ENV",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m2_l02.md"
      },
@@ -21196,7 +21196,7 @@ export const LIBRARY_COURSES = [
       "title": "2.5 Software bills of materials",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "4).",
+      "summary": "An SBOM is a machine-readable inventory of the components in a piece of software, with versions and identifiers (package URLs, for example pkg:pypi/urllib3@1.26.4).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m2_l05.md"
      },
@@ -21223,7 +21223,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "The Alpine NULL root password, CVE-2019-5021 Context: the CVE record published on 8 May 2019 states that versions of the official Alpine Linux Docker images since v3.3 contained a NULL password for the root user, and that systems using affe",
+      "summary": "The Alpine NULL root password, CVE-2019-5021; (FICTIONAL TEACHING SCENARIO): The key in layer 3",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m2_cases.md"
      },
@@ -21256,10 +21256,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m2_revision.md"
      }
@@ -21364,7 +21364,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "API server proxy escalation, CVE-2018-1002105 Context: Kubernetes issue 71411 (26 November 2018) disclosed CVE-2018-1002105, scored CVSS 3.0 9.8, in the API server's proxy request handling [C21-M03-R2]. What happened: after an upgraded conn",
+      "summary": "API server proxy escalation, CVE-2018-1002105; (FICTIONAL TEACHING SCENARIO): The backup that held every secret",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m3_cases.md"
      },
@@ -21397,10 +21397,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m3_revision.md"
      }
@@ -21460,7 +21460,7 @@ export const LIBRARY_COURSES = [
       "title": "4.3 High-risk permissions and RBAC review",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "The RBAC good-practice guide lists permissions that allow escalation [C21-M04-R1].",
+      "summary": "The RBAC good-practice guide lists permissions that allow escalation.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m4_l03.md"
      },
@@ -21478,7 +21478,7 @@ export const LIBRARY_COURSES = [
       "title": "4.5 Handling secrets",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "Kubernetes Secrets protect data only as well as their surroundings: - RBAC: restrict get, list and watch on secrets to the workloads that use them and to a small operations group; remember that workload creators can mount them (K04).",
+      "summary": "Kubernetes Secrets protect data only as well as their surroundings: - RBAC: restrict get, list and watch on secrets to the workloads that use them and to a small operations group; remember that workload creators can mount them (K04). - Encr",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m4_l05.md"
      },
@@ -21538,10 +21538,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m4_revision.md"
      }
@@ -21592,7 +21592,7 @@ export const LIBRARY_COURSES = [
       "title": "5.2 Designing and testing NetworkPolicy",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "A namespace baseline: 1.",
+      "summary": "A namespace baseline: 1. default-deny-all: podSelector {} with policyTypes [Ingress, Egress] and no rules - every pod isolated both ways.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m5_l02.md"
      },
@@ -21601,7 +21601,7 @@ export const LIBRARY_COURSES = [
       "title": "5.3 Pod Security Standards and admission",
       "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "34|latest> pin the rule version Safe rollout: test a label with a server-side dry run first.",
+      "summary": "The Pod Security Standards define three levels: Privileged unrestricted; allows known privilege escalations Baseline prevents known privilege escalations while allowing the default pod configuration; for example it forbids hostPath volumes,",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m5_l03.md"
      },
@@ -21646,7 +21646,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Hildegard, 2021 Context: on 3 February 2021 Unit 42 (Palo Alto Networks) reported Hildegard, malware attributed to the TeamTNT group and targeting Kubernetes [C21-M05-R4]. What happened: the report states the attackers gained initial access",
+      "summary": "Hildegard, 2021; (FICTIONAL TEACHING SCENARIO): The policies that did nothing",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m5_cases.md"
      },
@@ -21679,10 +21679,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m5_revision.md"
      }
@@ -21724,7 +21724,7 @@ export const LIBRARY_COURSES = [
       "title": "6.1 The IaC lifecycle and its artefacts",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "hcl) -> plan (compare configuration with recorded state and the real infrastructure, propose changes) -> apply (make the changes, update state).",
+      "summary": "Terraform's cycle: write configuration (.tf files) -> init (download providers and modules, recorded in .terraform.lock.hcl) -> plan (compare configuration with recorded state and the real infrastructure, propose changes) -> apply (make the",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m6_l01.md"
      },
@@ -21733,7 +21733,7 @@ export const LIBRARY_COURSES = [
       "title": "6.2 Configuration risks in Terraform",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "tf contains four deliberately weak resources for a fictional \"Kestrel Pay\" AWS account (documentation account 111122223333).",
+      "summary": "The lab's terraform/bad/main.tf contains four deliberately weak resources for a fictional \"Kestrel Pay\" AWS account (documentation account 111122223333).",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m6_l02.md"
      },
@@ -21787,7 +21787,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "Capital One and cloud governance, OCC 2020 Context: on 6 August 2020 the US Office of the Comptroller of the Currency announced an USD 80 million civil money penalty against Capital One, N.A. and Capital One Bank (USA), N.A. [C21-M06-R1]. W",
+      "summary": "Capital One and cloud governance, OCC 2020; (FICTIONAL TEACHING SCENARIO): The hotfix that stayed",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m6_cases.md"
      },
@@ -21820,10 +21820,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m6_revision.md"
      }
@@ -21874,7 +21874,7 @@ export const LIBRARY_COURSES = [
       "title": "7.2 Build integrity and provenance",
       "duration": "50 mins",
       "is_mandatory": true,
-      "summary": "2, the current version, adds a Source track [C21-M07-R3].",
+      "summary": "SLSA (Supply-chain Levels for Software Artifacts) defines a Build track: Build L0 no guarantees Build L1 provenance exists: the package has provenance showing how it was built, which prevents mistakes but is trivial to bypass or forge; prov",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m7_l02.md"
      },
@@ -21928,7 +21928,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "40 mins",
       "is_mandatory": true,
-      "summary": "The xz Utils backdoor, CVE-2024-3094, 2024 Context: on 29 March 2024 CISA published an alert about a reported supply chain compromise affecting XZ Utils, stating that malicious code was embedded in versions 5.6.0 and 5.6.1, and advising use",
+      "summary": "The xz Utils backdoor, CVE-2024-3094, 2024; (FICTIONAL TEACHING SCENARIO): The tag that moved",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m7_cases.md"
      },
@@ -21961,10 +21961,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m7_revision.md"
      }
@@ -22015,7 +22015,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 A control catalogue with tests",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "py exit code 0 C08 admission policies bound image and digest policies bound C09 live workloads pass policy rk_policy DENY rules on live Deployments and standalone Pods C10 first-party images by digest running kestrel-api pods use @sha256 No",
+      "summary": "The lab's capstone/evidence.py implements ten controls, each with a test that observes behaviour wherever possible: C01 API rejects anonymous requests unauthenticated GET -> expect 401 C02 secrets encrypted at rest node reports encryption e",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m8_l02.md"
      },
@@ -22033,7 +22033,7 @@ export const LIBRARY_COURSES = [
       "title": "8.4 Evidence engineering",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "py writes the report and a JSON record containing the report's SHA-256; store both in a write-once location or sign them; - honest about limits: what the test cannot see, and what was assumed.",
+      "summary": "Good evidence is: - reproducible: produced by a versioned script that anyone with access can run again (the lab's evidence.py); - specific: each result states what was tested and what was observed (\"unauthenticated GET /api/v1/namespaces ->",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m8_l04.md"
      },
@@ -22042,7 +22042,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Reporting results and residual risk",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Two audiences: - Technical: control-by-control results with evidence lines, changes made, remaining failures with owners and dates, how to reproduce.",
+      "summary": "Two audiences: - Technical: control-by-control results with evidence lines, changes made, remaining failures with owners and dates, how to reproduce. - Management: a one-page summary - score before and after, the three most important risks ",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m8_l05.md"
      },
@@ -22051,7 +22051,7 @@ export const LIBRARY_COURSES = [
       "title": "8.6 Keeping a cluster hardened",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Schedule evidence collection (daily or on every change) and alert on any regression.",
+      "summary": "- Schedule evidence collection (daily or on every change) and alert on any regression. - Run drift detection continuously; prefer GitOps reconciliation. - Track Kubernetes, runtime and add-on versions against advisories; subscribe to the Ku",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m8_l06.md"
      },
@@ -22069,7 +22069,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "ingress-nginx admission controller, CVE-2025-1974 Context: Kubernetes issue 131009, opened on 23 March 2025, disclosed CVE-2025-1974 in the ingress-nginx controller, scored CVSS 3.1 9.8 [C21-M08-R1]. What happened: the advisory states that ",
+      "summary": "ingress-nginx admission controller, CVE-2025-1974; (FICTIONAL TEACHING SCENARIO): Audit week",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m8_cases.md"
      },
@@ -22102,10 +22102,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c21_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_k8s_21/les_c21_m8_revision.md"
      }
@@ -22389,7 +22389,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "30 mins",
       "is_mandatory": true,
-      "summary": "British Library, 2023 - legacy architecture and blast radius ----------------------------------------------------------------------- Context: The British Library's review \"Learning lessons from the cyber-attack\" (8 March 2024) describes the",
+      "summary": "British Library, 2023 - legacy architecture and blast radius; (FICTIONAL TEACHING SCENARIO): The diagram from 2019",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m1_cases.md"
      },
@@ -22422,10 +22422,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m1_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "20 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m1_revision.md"
      }
@@ -22530,7 +22530,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Change Healthcare, 2024 - a portal without MFA ---------------------------------------------------------------------- Context: In written and oral testimony to US congressional committees on 1 May 2024, UnitedHealth Group CEO Andrew Witty s",
+      "summary": "Change Healthcare, 2024 - a portal without MFA; (FICTIONAL TEACHING SCENARIO): The standing admin",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m2_cases.md"
      },
@@ -22563,10 +22563,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m2_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m2_revision.md"
      }
@@ -22618,7 +22618,7 @@ export const LIBRARY_COURSES = [
       "title": "3.2 The seven tenets",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "0 (April 2023) as [C22-M03-R1] [C22-M03-R2]: 1.",
+      "summary": "NIST SP 800-207 (Rose, Borchert, Mitchell, Connelly; August 2020) sets out tenets of zero trust, restated in CISA's Zero Trust Maturity Model v2.0 (April 2023) as: 1.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m3_l02.md"
      },
@@ -22627,7 +22627,7 @@ export const LIBRARY_COURSES = [
       "title": "3.3 Logical components: PE, PA, PEP",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "From NIST SP 800-207 [C22-M03-R1]: Policy engine (PE) \"responsible for the ultimate decision to grant access to a resource for a given subject\", using enterprise policy and external inputs (for example CDM systems and threat intelligence) i",
+      "summary": "From NIST SP 800-207: Policy engine (PE) \"responsible for the ultimate decision to grant access to a resource for a given subject\", using enterprise policy and external inputs (for example CDM systems and threat intelligence) in a trust alg",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m3_l03.md"
      },
@@ -22645,7 +22645,7 @@ export const LIBRARY_COURSES = [
       "title": "3.5 CISA Zero Trust Maturity Model",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "0 (April 2023) organises zero trust into five pillars - Identity; Devices; Networks; Applications and Workloads; Data - with three cross-cutting capabilities: Visibility and Analytics; Automation and Orchestration; Governance.",
+      "summary": "CISA ZTMM v2.0 (April 2023) organises zero trust into five pillars - Identity; Devices; Networks; Applications and Workloads; Data - with three cross-cutting capabilities: Visibility and Analytics; Automation and Orchestration; Governance.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m3_l05.md"
      },
@@ -22672,7 +22672,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Midnight Blizzard, 2023-24 - implicit trust in legacy test assets ---------------------------------------------------------------------- Context: Microsoft's guidance for responders (25 January 2024) states that Microsoft detected on 12 Jan",
+      "summary": "Midnight Blizzard, 2023-24 - implicit trust in legacy test assets; (FICTIONAL TEACHING SCENARIO): The trusted VPN subnet",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m3_cases.md"
      },
@@ -22705,10 +22705,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m3_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m3_revision.md"
      }
@@ -22777,7 +22777,7 @@ export const LIBRARY_COURSES = [
       "title": "4.4 Encrypted connectivity",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "3 for all external traffic and, per tenet 2, internal traffic as well (Course 15 M06).",
+      "summary": "- TLS 1.2+/1.3 for all external traffic and, per tenet 2, internal traffic as well (Course 15 M06). - mTLS for service-to-service identity (service mesh or platform certificates with short lifetimes, automated rotation). - Private connectiv",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m4_l04.md"
      },
@@ -22813,7 +22813,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Ivanti Connect Secure, 2024 - when the gateway is the target ----------------------------------------------------------------------------- Context: CISA, the FBI, MS-ISAC and partners in Australia, the UK, Canada and New Zealand published a",
+      "summary": "Ivanti Connect Secure, 2024 - when the gateway is the target; (FICTIONAL TEACHING SCENARIO): The flat depot network",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m4_cases.md"
      },
@@ -22846,10 +22846,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m4_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m4_revision.md"
      }
@@ -22891,7 +22891,7 @@ export const LIBRARY_COURSES = [
       "title": "5.1 Secure service design patterns",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "- Authenticate every request (OIDC access tokens for users; mTLS or workload tokens between services); validate token issuer, audience, expiry and signature with keys scoped to that issuer (the Storm-0558 lesson).",
+      "summary": "- Authenticate every request (OIDC access tokens for users; mTLS or workload tokens between services); validate token issuer, audience, expiry and signature with keys scoped to that issuer (the Storm-0558 lesson). - Authorise at the service",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m5_l01.md"
      },
@@ -22954,7 +22954,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Storm-0558, 2023 - signing key custody and token validation ------------------------------------------------------------------------ Context: The US Cyber Safety Review Board's report on the summer 2023 Microsoft Exchange Online intrusion (",
+      "summary": "Storm-0558, 2023 - signing key custody and token validation; (FICTIONAL TEACHING SCENARIO): The tenant ID in the URL",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m5_cases.md"
      },
@@ -22987,10 +22987,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m5_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m5_revision.md"
      }
@@ -23077,7 +23077,7 @@ export const LIBRARY_COURSES = [
       "title": "6.6 Reviewing monitoring and resilience designs",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "Two execution-tested tools (LAB_ASSETS/C22) review Tamarind's design from files only.",
+      "summary": "Two execution-tested tools (LAB_ASSETS/C22) review Tamarind's design from files only. resilience_review.py reads telemetry_arch.json: ------------------------------------------------------------- BEGIN OUTPUT review of telemetry_arch.json (",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m6_l06.md"
      },
@@ -23095,7 +23095,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "CrowdStrike Channel File 291, July 2024 - the failure mode of a trusted component ------------------------------------------------------------------------ Context: CrowdStrike's preliminary post-incident review (24 July 2024) states that on",
+      "summary": "CrowdStrike Channel File 291, July 2024 - the failure mode of a trusted component; (FICTIONAL TEACHING SCENARIO): The PDP that failed open",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m6_cases.md"
      },
@@ -23128,10 +23128,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m6_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m6_revision.md"
      }
@@ -23236,7 +23236,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Equifax, 2017 - controls that were not validated ------------------------------------------------------------------------ Context: GAO report GAO-18-559 (published 30 August 2018, publicly released 7 September 2018) describes the 2017 breac",
+      "summary": "Equifax, 2017 - controls that were not validated; (FICTIONAL TEACHING SCENARIO): The green dashboard",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m7_cases.md"
      },
@@ -23269,10 +23269,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m7_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m7_revision.md"
      }
@@ -23323,7 +23323,7 @@ export const LIBRARY_COURSES = [
       "title": "8.2 Assessing current maturity",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "0 (April 2023) has five pillars - Identity, Devices, Networks, Applications and Workloads, Data - and three cross-cutting capabilities - Visibility and Analytics, Automation and Orchestration, Governance - each progressing through Tradition",
+      "summary": "The CISA Zero Trust Maturity Model v2.0 (April 2023) has five pillars - Identity, Devices, Networks, Applications and Workloads, Data - and three cross-cutting capabilities - Visibility and Analytics, Automation and Orchestration, Governanc",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m8_l02.md"
      },
@@ -23350,7 +23350,7 @@ export const LIBRARY_COURSES = [
       "title": "8.5 Checking the roadmap",
       "duration": "45 mins",
       "is_mandatory": true,
-      "summary": "json.",
+      "summary": "The execution-tested roadmap_check.py (LAB_ASSETS/C22) reads roadmap.json and the Module 7 requirements.json.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m8_l05.md"
      },
@@ -23377,7 +23377,7 @@ export const LIBRARY_COURSES = [
       "title": "Real-world case studies",
       "duration": "35 mins",
       "is_mandatory": true,
-      "summary": "Google BeyondCorp, 2014 - a published migration to zero trust ------------------------------------------------------------------------- Context: In \"BeyondCorp: A New Approach to Enterprise Security\" (R. Ward and B. Beyer, ;login:, Vol. 39,",
+      "summary": "Google BeyondCorp, 2014 - a published migration to zero trust; (FICTIONAL TEACHING SCENARIO): The roadmap of products",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m8_cases.md"
      },
@@ -23410,10 +23410,10 @@ export const LIBRARY_COURSES = [
      },
      {
       "id": "les_c22_m8_revision",
-      "title": "Revision and references",
+      "title": "Revision",
       "duration": "25 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary, common mistakes and the module references.",
+      "summary": "Summary, key concepts, glossary and common mistakes.",
       "learning_objectives": [],
       "content_url": "/course-content/crs_cyber_zta_22/les_c22_m8_revision.md"
      }

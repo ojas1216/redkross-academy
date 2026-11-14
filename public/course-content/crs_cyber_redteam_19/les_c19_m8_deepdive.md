@@ -4,10 +4,10 @@ Running report.py over the RoE, plan and telemetry (execution-tested, CPython 3.
 ADVERSARY-EMULATION ENGAGEMENT REPORT (isolated range)
 
 EXECUTIVE SUMMARY
-  Engagement : RedKross isolated range emulation
-  Authorised : RedKross Academy Lab Owner (signed authorisation ref RK-AUTH-2026-019)
-  Scope      : 10.70.0.0/24 (isolated lab range; simulation-only)
-  Outcome    : emulated 7 ATT&CK techniques; detection stack caught 4/7.
+  Engagement: RedKross isolated range emulation
+  Authorised: RedKross Academy Lab Owner (signed authorisation ref RK-AUTH-2026-019)
+  Scope: 10.70.0.0/24 (isolated lab range; simulation-only)
+  Outcome: emulated 7 ATT&CK techniques; detection stack caught 4/7.
                Detection coverage 57%. 3 gap(s) identified for improvement.
   Top recommendations:
     - Build detection for Account Discovery (T1087) on directory/process logs.

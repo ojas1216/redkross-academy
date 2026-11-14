@@ -30,14 +30,3 @@ flat networks; trusting the internal network; designing segmentation but not val
 ### Revision questions
 
 ​1. What does zero-trust segmentation deny by default? 2. How does segmentation limit blast radius? 3. Why validate segmentation against reality?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] NIST. "SP 800-207: Zero Trust Architecture" (assume breach, deny by default, explicit per-flow authorisation, micro-segmentation). URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-08. Supports: zero trust, allowed-flow policy, validation.
-- [R2] NIST. "SP 800-41 Rev. 1: Guidelines on Firewalls and Firewall Policy" (segmentation and inter-zone control). URL: [https://csrc.nist.gov/pubs/sp/800/41/r1/final](https://csrc.nist.gov/pubs/sp/800/41/r1/final) Accessed: 2026-11-08. Supports: boundary enforcement, lateral-movement containment, CS1.
-- [R3] MITRE. "ATT&CK: Lateral Movement (TA0008)". URL: [https://attack.mitre.org/tactics/TA0008/](https://attack.mitre.org/tactics/TA0008/) Accessed: 2026-11-08. Supports: lateral movement that segmentation limits.
-- [R4] Lab evidence. segmentation.py validation output (3 of 7 connections violate the matrix) (CPython 3.14.4), LAB_ASSETS/C07/data/segmentation_output.txt, 2026-11-08. Supports: the deep-dive validation and violations.

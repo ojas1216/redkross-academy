@@ -29,14 +29,3 @@ deploying IPS blocking broadly on day one; relying on signatures alone; ignoring
 ### Revision questions
 
 ​1. Why must IPS rules be high-confidence? 2. How do signature and anomaly detection differ and complement each other? 3. Why is tuning essential given the base-rate problem?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] NIST. "SP 800-94: Guide to Intrusion Detection and Prevention Systems (IDPS)" (detection methods, signatures vs anomalies, tuning, placement). URL: [https://csrc.nist.gov/pubs/sp/800/94/final](https://csrc.nist.gov/pubs/sp/800/94/final) Accessed: 2026-11-08. Supports: IDS/IPS concepts, detection approaches, tuning, CS1.
-- [R2] MITRE. "ATT&CK: Network Service Discovery (T1046)" and "Application Layer Protocol / C2 beaconing" concepts. URL: [https://attack.mitre.org/techniques/T1046/](https://attack.mitre.org/techniques/T1046/) Accessed: 2026-11-08. Supports: scan and beaconing patterns to detect.
-- [R3] NIST. "SP 800-94" (false positives/negatives, alert management). URL: [https://csrc.nist.gov/pubs/sp/800/94/final](https://csrc.nist.gov/pubs/sp/800/94/final) Accessed: 2026-11-08. Supports: error types, base rate, alert fatigue.
-- [R4] Lab evidence. flowcheck.py scan and beacon detection output and the tuned thresholds (CPython 3.14.4), LAB_ASSETS/C07/data/flowcheck_output.txt, 2026-11-08. Supports: the deep-dive detections and threshold tuning.

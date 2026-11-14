@@ -1,4 +1,4 @@
-Sigma is an open, generic YAML format for describing log-based detections, which tools such as pySigma and sigma-cli convert into SIEM-specific queries [R1]. Main fields: title, id (UUID), status, description, references, author, date, tags (ATT&CK), logsource (category/product/service), detection (named selections and a condition), falsepositives, level. Course rule 1 (LAB_ASSETS/C08/rk_office_spawns_shell.yml):
+Sigma is an open, generic YAML format for describing log-based detections, which tools such as pySigma and sigma-cli convert into SIEM-specific queries. Main fields: title, id (UUID), status, description, references, author, date, tags (ATT&CK), logsource (category/product/service), detection (named selections and a condition), falsepositives, level. Course rule 1 (LAB_ASSETS/C08/rk_office_spawns_shell.yml):
 
 ```text
 ---------------------------------------------------------------- BEGIN CODE

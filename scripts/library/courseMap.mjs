@@ -37,5 +37,6 @@ export const LAB_KIT_EXCLUDES = [
 
 export const LAB_KIT_NOTES = {
   10: 'The inert teaching specimens (rkspecimen.exe / rkspecimen.elf) are not shipped in the download.\nRebuild them locally, offline, with: python make_specimen.py\n',
+  15: 'Private keys (*.key) are never shipped in the download. Before the Module 6 TLS lab, run the\nModule 5 PKI lab once to generate the lab CA, intermediate and server keys in pki/:\n  sh m05_pki_lab.sh        (Linux/macOS, or Git Bash on Windows; needs OpenSSL 3)\nThen: python m06_tls.py\n',
   14: 'data/enterprise-attack.json (MITRE ATT&CK Enterprise, STIX 2.1, ~53 MB) is not shipped.\nDownload it from the official MITRE repository and save it as data/enterprise-attack.json:\nhttps://github.com/mitre-attack/attack-stix-data/tree/master/enterprise-attack\n',
 };

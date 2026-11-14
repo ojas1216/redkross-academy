@@ -1,4 +1,4 @@
-NIST SP 800-61 Rev. 3 (April 2025) places incident response within cybersecurity risk management as a CSF 2.0 community profile [R1]; preparation corresponds to the Govern, Identify and Protect functions.
+NIST SP 800-61 Rev. 3 (April 2025) places incident response within cybersecurity risk management as a CSF 2.0 community profile; preparation corresponds to the Govern, Identify and Protect functions.
 
 **Cloud preparation checklist:**
 

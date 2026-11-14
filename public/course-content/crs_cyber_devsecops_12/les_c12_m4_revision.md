@@ -31,14 +31,3 @@ gates that exit 0; bare suppressions; enabling huge rule packs at once.
 ### Revision questions
 
 ​1. Write a rule for yaml.load without SafeLoader. 2. Explain taint analysis. 3. What makes a good suppression?
-
-### Further reading
-
-Semgrep documentation [R1]; Langley on goto fail [R2].
-
-## References
-
-- [R1] Semgrep. "Semgrep documentation - Writing rules". URL: [https://semgrep.dev/docs/writing-rules/overview](https://semgrep.dev/docs/writing-rules/overview) Accessed: 2026-11-07. Supports: rule syntax, operators, testing annotations.
-- [R2] Langley, A. "Apple's SSL/TLS bug", ImperialViolet, 22 February 2014. URL: [https://www.imperialviolet.org/2014/02/22/applebug.html](https://www.imperialviolet.org/2014/02/22/applebug.html) Accessed: 2026-11-07. Supports: duplicate goto, skipped check, -Wall versus -Wunreachable-code, testing difficulty.
-- [R3] Apple. "About the security content of iOS 7.0.6" (HT6147), February 2014. URL: [https://support.apple.com/kb/HT6147](https://support.apple.com/kb/HT6147) Accessed: 2026-11-07 (web-search cross-check). Supports: CVE-2014-1266 fix.
-- [R4] Lab evidence. sast/rules.yml, sast/legacy_reports.py, semgrep_output.txt, semgrep_gate_output.txt (semgrep 1.184.0), 2026-11-07.

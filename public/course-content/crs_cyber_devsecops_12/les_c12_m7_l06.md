@@ -1,4 +1,4 @@
-Provenance is a signed statement describing how an artefact was built: which source revision, which build platform, which parameters and which dependencies. SLSA (Supply-chain Levels for Software Artifacts) defines the Build track levels in specification version 1.2 [R3]:
+Provenance is a signed statement describing how an artefact was built: which source revision, which build platform, which parameters and which dependencies. SLSA (Supply-chain Levels for Software Artifacts) defines the Build track levels in specification version 1.2:
 
 | Term | Meaning |
 |---|---|

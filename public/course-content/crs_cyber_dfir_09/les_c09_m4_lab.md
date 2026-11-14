@@ -50,7 +50,7 @@ MSYS_NO_PATHCONV=1 docker run --rm -v "$(pwd):/host" python:3.12-slim \
 
 **Prerequisites:** Lesson L05.
 
-**Environment setup:** if you have an authorised training image, create a Python venv and install Volatility 3 from its official repository [R2].
+**Environment setup:** if you have an authorised training image, create a Python venv and install Volatility 3 from its official repository.
 
 **Explicit authorised scope:** training images whose licence allows analysis. Never analyse memory from systems you are not authorised to examine.
 

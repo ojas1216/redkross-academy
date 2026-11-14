@@ -1,6 +1,6 @@
 Kubernetes requires a flat network: every pod gets an address and can reach every other pod without NAT. Services give stable virtual addresses and DNS names (api.kestrel resolved in the lab). This makes service-to-service communication simple and lateral movement equally simple.
 
-NetworkPolicy is the built-in segmentation API. Its semantics, from the documentation [R1]:
+NetworkPolicy is the built-in segmentation API. Its semantics, from the documentation:
 
 - It is implemented by the network plugin. Creating a NetworkPolicy without a controller that implements it has no effect.
 - Pods are non-isolated by default for both ingress and egress.

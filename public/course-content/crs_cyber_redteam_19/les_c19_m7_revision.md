@@ -29,14 +29,3 @@ adversarial scoring instead of collaboration; emulating more instead of closing 
 ### Revision questions
 
 ​1. What is the purple-team cycle? 2. What does gap analysis output? 3. When is a gap closed?
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] MITRE Engenuity. "Center for Threat-Informed Defense" (purple teaming, threat-informed defense, detection coverage). URL: [https://ctid.mitre.org/](https://ctid.mitre.org/) Accessed: 2026-11-08. Supports: collaborative, coverage-based validation.
-- [R2] MITRE. "ATT&CK" (as the shared language for coverage and gaps). URL: [https://attack.mitre.org/](https://attack.mitre.org/) Accessed: 2026-11-08. Supports: ATT&CK-mapped coverage and gap analysis.
-- [R3] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment" (testing and remediation/retest cycle). URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: the test-fix-retest discipline.
-- [R4] Lab evidence. purple.py gap analysis (4/7 coverage; gaps T1087/T1550/ T1005; retest list) (CPython 3.14.4), LAB_ASSETS/C19/data/purple_output.txt, 2026-11-08. Supports: the detection-gap and retest deep dive.

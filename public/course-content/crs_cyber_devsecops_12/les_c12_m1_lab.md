@@ -9,7 +9,7 @@
 
 **Difficulty:** Advanced.
 
-**Required tools:** text editor; the OWASP ASVS 5.0 document [R2]; LAB_ASSETS/C12/app.
+**Required tools:** text editor; the OWASP ASVS 5.0 document; LAB_ASSETS/C12/app.
 
 **Prerequisites:** Lesson L03.
 

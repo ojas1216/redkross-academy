@@ -1,7 +1,7 @@
 ## Advanced risks and their defences
 
 ![A table of advanced risks (XXE, insecure deserialization, business logic, API object access, API data exposure) with each cause and defence.](/assets/courses/cyber-06/C06-M07-F1.svg)
-*Figure C06-M07-F1. Each advanced risk, its cause, and its defence [R1][R5].*
+*Figure C06-M07-F1. Each advanced risk, its cause, and its defence.*
 
 ## Business logic flaw - client-trusted price
 

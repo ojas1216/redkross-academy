@@ -6,7 +6,7 @@
 ## From the tier model to the Enterprise Access Model
 
 ![A mapping from the three legacy tiers to the control, management, data/workload, user-access and app-access planes.](/assets/courses/cyber-13/C13-M04-F2.svg)
-*Figure C13-M04-F2. The access model keeps the tier discipline and names cloud and on-premises assets more precisely [R1].*
+*Figure C13-M04-F2. The access model keeps the tier discipline and names cloud and on-premises assets more precisely.*
 
 ## Clean source - manage only from something cleaner
 

@@ -1,11 +1,11 @@
-A Suricata rule has three parts: the action, the header (protocol, addresses, ports and direction) and the options in parentheses [R2]. Actions include alert, pass, drop and reject (drop and reject need inline IPS mode). The lab rule:
+A Suricata rule has three parts: the action, the header (protocol, addresses, ports and direction) and the options in parentheses. Actions include alert, pass, drop and reject (drop and reject need inline IPS mode). The lab rule:
 
 ```text
 BEGIN CODE
 alert http any any -> any any (msg:"RK-LAB backup directory download
   over HTTP"; flow:established,to_server; http.method; content:"GET";
   http.uri; content:"/backup/"; startswith; classtype:policy-violation;
-  sid:9200001; rev:1;)
+  sid:9200001; rev:1)
 END CODE
 ```
 

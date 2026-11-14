@@ -29,16 +29,3 @@ treating base64 as encryption; enabling encryption without rewriting; exposing t
 ### Revision questions
 
 ​1. Walk a "create pod" request through the path. 2. Explain 401 versus 403. 3. List four kubelet protections.
-
-### Further reading
-
-[R1]; [R5].
-
-## References
-
-- [R1] Kubernetes. "Kubernetes Components", Kubernetes Documentation. URL: [https://kubernetes.io/docs/concepts/overview/components/](https://kubernetes.io/docs/concepts/overview/components/) Accessed: 2026-11-07. Supports: component roles (L01).
-- [R2] Kubernetes. Issue 71411 "CVE-2018-1002105: proxy request handling in kube-apiserver can leave vulnerable TCP connections", 26 November 2018. URL: [https://github.com/kubernetes/kubernetes/issues/71411](https://github.com/kubernetes/kubernetes/issues/71411) Accessed: 2026-11-07. Supports: CS1 mechanism, versions, detection note.
-- [R3] Kubernetes. "Encrypting Confidential Data at Rest". URL: [https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) Accessed: 2026-11-07. Supports: plain-text default, providers, rewrite requirement.
-- [R4] Kubernetes. "kube-apiserver" command-line reference. URL: [https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/) Accessed: 2026-11-07. Supports: --anonymous-auth default true and system:anonymous behaviour.
-- [R5] NSA and CISA. "Kubernetes Hardening Guidance", version 1.2, August 2022. URL: [https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF](https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF) Accessed: 2026-11-07 (PDF refused automated fetch; version and date confirmed from the official change history via search). Supports: review checklist (L06).
-- [R6] Lab evidence. m03_explore.sh, m03_explore_output.txt, hardened_checks_output.txt (k3s v1.34.1+k3s1), 2026-11-07.

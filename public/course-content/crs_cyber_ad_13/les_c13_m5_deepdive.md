@@ -1,7 +1,7 @@
 dir_review.py parses data/directory_export.ldif (a read-only snapshot taken with ldbsearch, Module 2) and reports hygiene findings with severity and fix. Execution-tested output (Samba 4.22.11, CPython 3.14, 2026-11-08):
 
 ```output
-$ python dir_review.py data/directory_export.ldif ; echo exit=$?
+$ python dir_review.py data/directory_export.ldif; echo exit=$?
 ======================================================================
 AD HYGIENE REVIEW  (user objects: 10, findings: 5)
 ======================================================================

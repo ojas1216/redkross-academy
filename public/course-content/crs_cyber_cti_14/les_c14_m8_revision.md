@@ -28,14 +28,3 @@ burying conclusions; unsourced judgments; unowned actions; silent edits.
 ### Revision questions
 
 ​1. List the brief sections. 2. Name the six checks. 3. Write a recommendation that meets all criteria.
-
-### Further reading
-
-[R1]; [R2].
-
-## References
-
-- [R1] Office of the Director of National Intelligence. ICD 203 "Analytic Standards" (signed 2 January 2015, with technical amendment). URL: [https://archive.dni.gov/files/documents/ICD/ICD-203.pdf](https://archive.dni.gov/files/documents/ICD/ICD-203.pdf) Accessed: 2026-11-07. Supports: source description standard, separate confidence.
-- [R2] CISA and FBI. AA23-193A "Enhanced Monitoring to Detect APT Activity Targeting Outlook Online", 12 July 2023. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-193a](https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-193a) Accessed: 2026-11-07 (verified in Course 20). Supports: CS1.
-- [R3] FIRST. "Traffic Light Protocol (TLP)" version 2.0. URL: [https://www.first.org/tlp/](https://www.first.org/tlp/) Accessed: 2026-11-07. Supports: labels used by check B1.
-- [R4] Lab evidence. brief_builder.py, briefs/brief_bad.yaml, briefs/brief_model.yaml, m08_brief_output.txt, 2026-11-07.

@@ -1,6 +1,8 @@
-## Insecure data storage as a leading mobile weakness Context: across mobile security assessments, INSECURE DATA STORAGE is one of the most common and impactful weakness classes - apps placing sensitive data (tokens, credentials, personal data) in world-readable external storage, in logs, in unprotected databases, or behind hardcoded keys, instead of in the private, encrypted sandbox the platform provides. The OWASP MASVS dedicates a whole control group (MASVS-STORAGE) to it, and mobile security guidance repeatedly identifies it because the platform ALREADY provides a safe place - the app's failure is in not using it [C16-M05-R2]. Why it matters for this module: the sandbox protects app-private data for free; most storage vulnerabilities are apps voluntarily taking data out of that protection. Lessons: keep sensitive data in private, encrypted storage; keys in the keystore; never in shared storage or logs.
+## Insecure data storage as a leading mobile weakness
 
+**Context:** across mobile security assessments, INSECURE DATA STORAGE is one of the most common and impactful weakness classes - apps placing sensitive data (tokens, credentials, personal data) in world-readable external storage, in logs, in unprotected databases, or behind hardcoded keys, instead of in the private, encrypted sandbox the platform provides. The OWASP MASVS dedicates a whole control group (MASVS-STORAGE) to it, and mobile security guidance repeatedly identifies it because the platform ALREADY provides a safe place - the app's failure is in not using it. Why it matters for this module: the sandbox protects app-private data for free; most storage vulnerabilities are apps voluntarily taking data out of that protection.
 
+**Lessons:** keep sensitive data in private, encrypted storage; keys in the keystore; never in shared storage or logs.
 
 ## (FICTIONAL TEACHING SCENARIO): The app that gave its data away
 

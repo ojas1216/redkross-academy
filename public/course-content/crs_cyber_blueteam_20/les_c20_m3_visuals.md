@@ -11,4 +11,4 @@
 ## Anatomy of a Suricata rule
 
 ![The lab rule annotated in three parts: the action, the header with protocol, addresses, ports and direction, and the options with buffers, content and metadata.](/assets/courses/cyber-20/C20-M03-F3.svg)
-*Figure C20-M03-F3. Action, header and options [R2].*
+*Figure C20-M03-F3. Action, header and options.*

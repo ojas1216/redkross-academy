@@ -1,6 +1,6 @@
 ## About this module
 
-Authentication answers "who are you?"; AUTHORISATION answers "what are you allowed to do?". Broken access control - failing to enforce what an authenticated user may do or see - is the number one category in the OWASP Top 10:2025, because it is both common and high-impact [R1]. This module covers access-control models; the two most common web authorisation flaws - insecure direct object references (IDOR) and missing function-level access control; and the remediation patterns that fix them. You will confirm both flaws on the lab target you own and see the hardened checks that close them.
+Authentication answers "who are you?"; AUTHORISATION answers "what are you allowed to do?". Broken access control - failing to enforce what an authenticated user may do or see - is the number one category in the OWASP Top 10:2025, because it is both common and high-impact. This module covers access-control models; the two most common web authorisation flaws - insecure direct object references (IDOR) and missing function-level access control; and the remediation patterns that fix them. You will confirm both flaws on the lab target you own and see the hardened checks that close them.
 
 ## Why it matters
 

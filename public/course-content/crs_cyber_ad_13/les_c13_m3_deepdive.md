@@ -32,8 +32,8 @@ $ samba-tool gpo create "RK Workstation Baseline" -U Administrator ...
 GPO 'RK Workstation Baseline' created as
     {15A8E34D-080F-4CDA-B382-C2E0621A9E13}
 $ samba-tool gpo listall
-display name : RK Workstation Baseline
-display name : Default Domain Policy
+display name: RK Workstation Baseline
+display name: Default Domain Policy
 ```
 
 **Interpretation:**

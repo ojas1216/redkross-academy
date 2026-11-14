@@ -9,4 +9,4 @@ Once a user logs in, the session token IS their identity for the rest of the vis
 
 The lab confirms a predictable, unprotected token: findings.py shows
 
-**Set-Cookie:** session=YXNoYQ== with no attributes, and the value decodes to the username. CVSS for the weak-session finding is 5.3 (Medium) in the lab's context [R1].
+**Set-Cookie:** session=YXNoYQ== with no attributes, and the value decodes to the username. CVSS for the weak-session finding is 5.3 (Medium) in the lab's context.

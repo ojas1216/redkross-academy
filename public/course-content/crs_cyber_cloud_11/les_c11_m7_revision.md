@@ -29,14 +29,3 @@ secrets in ENV; tutorial roles with `"*";` trusting a clean secret scan; CI plat
 ### Revision questions
 
 ​1. Why do image layers keep deleted secrets? 2. Design OIDC trust conditions. 3. What did the lab's scanner miss?
-
-### Further reading
-
-CircleCI incident report [R1]; trivy documentation [R2].
-
-## References
-
-- [R1] CircleCI. "CircleCI incident report for January 4, 2023 security incident". URL: [https://circleci.com/blog/jan-4-2023-incident-report/](https://circleci.com/blog/jan-4-2023-incident-report/) Accessed: 2026-11-07. Supports: malware 16 December 2022, AV missed, 2FA-backed SSO cookie, exfiltration 22 December, keys from running process, rotate, OIDC.
-- [R2] Aqua Security. "Trivy documentation". URL: [https://trivy.dev/](https://trivy.dev/) Accessed: 2026-11-07. Version used: 0.76.2.
-- [R3] Lab evidence. workload_repo, workload_repo2, trivy_fs_output.txt, trivy_secret_output.txt, trivy_image_output.txt (trivy 0.76.2), 2026-11-07.
-- [R4] Course 21 Modules 1-2 and 7 (container hardening, image security and supply chain within this library).

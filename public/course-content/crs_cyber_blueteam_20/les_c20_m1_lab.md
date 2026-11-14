@@ -39,7 +39,7 @@
 
 **Required tools:** text editor.
 
-**Prerequisites:** Lesson L03; reference [R2].
+**Prerequisites:** Lesson L03; reference.
 
 **Environment setup:** none.
 

@@ -26,7 +26,7 @@ export default {
      "Excessive Agency"
     ],
     "correct": 1,
-    "explanation": "OWASP LLM Top 10 2025 [R1].",
+    "explanation": "OWASP LLM Top 10 2025.",
     "topic": "C18-M01: AI security foundations",
     "difficulty": "medium"
    },
@@ -54,7 +54,7 @@ export default {
      "a bug in the redis-py library"
     ],
     "correct": 3,
-    "explanation": "Help Net Security, 27 March 2023 [R2].",
+    "explanation": "Help Net Security, 27 March 2023.",
     "topic": "C18-M01: AI security foundations",
     "difficulty": "medium"
    },
@@ -238,7 +238,7 @@ export default {
      "only on images"
     ],
     "correct": 2,
-    "explanation": "arXiv 2302.12173 [R1].",
+    "explanation": "arXiv 2302.12173.",
     "topic": "C18-M02: LLM architecture",
     "difficulty": "medium"
    },
@@ -394,7 +394,7 @@ export default {
      "indirect prompt injection in Slack AI"
     ],
     "correct": 3,
-    "explanation": "PromptArmor report [R1].",
+    "explanation": "PromptArmor report.",
     "topic": "C18-M03: Prompt injection",
     "difficulty": "medium"
    },
@@ -480,7 +480,7 @@ export default {
      "training-data information, an EU objection form and age verification"
     ],
     "correct": 3,
-    "explanation": "Fortune/AP, 28 April 2023 [R1].",
+    "explanation": "Fortune/AP, 28 April 2023.",
     "topic": "C18-M04: Data and privacy",
     "difficulty": "medium"
    },
@@ -678,7 +678,7 @@ export default {
      "the airline was responsible for its chatbot's inaccurate information"
     ],
     "correct": 3,
-    "explanation": "CTV News, 14 February 2024 [R1].",
+    "explanation": "CTV News, 14 February 2024.",
     "topic": "C18-M05: Output and tool risks",
     "difficulty": "medium"
    },
@@ -736,7 +736,7 @@ export default {
      "none"
     ],
     "correct": 1,
-    "explanation": "JFrog, 27 February 2024 [R1].",
+    "explanation": "JFrog, 27 February 2024.",
     "topic": "C18-M06: Model supply chain",
     "difficulty": "medium"
    },
@@ -934,7 +934,7 @@ export default {
      "\"Gradients are mandatory\""
     ],
     "correct": 1,
-    "explanation": "arXiv 2501.07238 [R1].",
+    "explanation": "arXiv 2501.07238.",
     "topic": "C18-M07: AI red teaming",
     "difficulty": "medium"
    },
@@ -1090,7 +1090,7 @@ export default {
      "26 July 2024"
     ],
     "correct": 2,
-    "explanation": "EUR-Lex [R1].",
+    "explanation": "EUR-Lex.",
     "topic": "C18-M08: Capstone",
     "difficulty": "medium"
    },

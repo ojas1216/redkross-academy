@@ -6,7 +6,7 @@
 ## SLSA Build levels (v1.2)
 
 ![A list of four SLSA Build levels from no provenance to a hardened platform, marking the lab example at level 1.](/assets/courses/cyber-12/C12-M07-F2.svg)
-*Figure C12-M07-F2. SLSA Build track levels, with the lab's teaching provenance at the L1 style [R3].*
+*Figure C12-M07-F2. SLSA Build track levels, with the lab's teaching provenance at the L1 style.*
 
 ## Verification outcomes
 

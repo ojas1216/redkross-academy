@@ -28,14 +28,3 @@ trusting a system prompt; testing once; ignoring utility; indexing imported cont
 ### Revision questions
 
 ​1. Explain the P3 results. 2. Which layers are deterministic? 3. Design detection for injection.
-
-### Further reading
-
-PromptArmor [R1]; OWASP LLM01 [R2]; Greshake et al. (Module 2).
-
-## References
-
-- [R1] PromptArmor. "Data Exfiltration from Slack AI via Indirect Prompt Injection" (disclosure 14 August, Slack response 19 August 2024). URL: [https://www.promptarmor.com/resources/data-exfiltration-from-slack-ai-via-indirect-prompt-injection](https://www.promptarmor.com/resources/data-exfiltration-from-slack-ai-via-indirect-prompt-injection) Accessed: 2026-11-08.
-- [R2] OWASP Gen AI Security Project. "2025 Top 10 Risk & Mitigations for LLMs and Gen AI Apps" (LLM01 Prompt Injection). URL: [https://genai.owasp.org/llm-top-10/](https://genai.owasp.org/llm-top-10/) Accessed: 2026-11-08.
-- [R3] NIST. AI 100-2 E2025, March 2025. URL: [https://csrc.nist.gov/pubs/ai/100/2/e2025/final](https://csrc.nist.gov/pubs/ai/100/2/e2025/final) Accessed: 2026-11-08.
-- [R4] Lab evidence. probes.py, summarise.py, probe_results.json, probes_output.txt and summary_output.txt (qwen3:4b, seeds 1-5), 2026-11-08.

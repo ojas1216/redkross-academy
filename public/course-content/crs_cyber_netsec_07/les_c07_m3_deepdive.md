@@ -2,9 +2,9 @@ The lab's flow telemetry (186 synthetic NetFlow/IPFIX-style records) contains no
 
 ```output
 Port scans (>= 20 ports to one host within 120s):
-  SCAN 203.0.113.50 -> 10.1.0.10 : 60 ports in 59s
+  SCAN 203.0.113.50 -> 10.1.0.10: 60 ports in 59s
 Beaconing (>= 8 contacts at near-constant interval):
-  BEACON 10.4.0.21 -> 203.0.113.50 : 15 contacts, ~60.0s interval
+  BEACON 10.4.0.21 -> 203.0.113.50: 15 contacts, ~60.0s interval
 ```
 
 Why these fire and normal traffic does not (the tuning point):

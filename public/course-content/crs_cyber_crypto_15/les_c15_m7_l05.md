@@ -2,7 +2,7 @@ Prefer, in order:
 
 1. Protocols and services: TLS for transport, cloud KMS or HSM for key operations, platform credential stores. Do not reimplement them.
 2. High-level, misuse-resistant libraries: libsodium and its bindings (for example PyNaCl), Google Tink, and in Python, pyca/cryptography's high-level recipes (Fernet) and AEAD classes. These choose safe defaults and make dangerous options hard to reach.
-3. Lower-level primitives ("hazmat" layers) only when necessary, with expert review. pyca/cryptography names this layer "hazmat" for a reason [R3].
+3. Lower-level primitives ("hazmat" layers) only when necessary, with expert review. pyca/cryptography names this layer "hazmat" for a reason.
 
 **Selection criteria:**
 

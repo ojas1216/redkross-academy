@@ -1,4 +1,4 @@
-ICD 203's first analytic tradecraft standard asks products to properly describe the quality and credibility of underlying sources, data and methodologies [R1]. In practice:
+ICD 203's first analytic tradecraft standard asks products to properly describe the quality and credibility of underlying sources, data and methodologies. In practice:
 
 - every judgment cites the reports it rests on ([RPT-004]);
 - the sources section gives each report's source, grade (Module 2) and date;

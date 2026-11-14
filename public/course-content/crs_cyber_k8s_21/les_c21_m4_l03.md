@@ -1,4 +1,4 @@
-The RBAC good-practice guide lists permissions that allow escalation [R1]. The lab tool rbac_review.py checks for each:
+The RBAC good-practice guide lists permissions that allow escalation. The lab tool rbac_review.py checks for each:
 
 ```text
 K01 wildcards in verbs or resources;

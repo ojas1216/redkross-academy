@@ -1,5 +1,7 @@
 > [!NOTE] Lab kit
 > Download the course lab kit: [RedKross_C14_Lab_Kit.zip](/downloads/labs/RedKross_C14_Lab_Kit.zip). Extract it anywhere; paths written as `LAB_ASSETS/C14/...` refer to the extracted `C14` folder. Everything runs locally against systems you own.
+>
+> **Before you start:** data/enterprise-attack.json (MITRE ATT&CK Enterprise, STIX 2.1, ~53 MB) is not shipped. Download it from the official MITRE repository and save it as data/enterprise-attack.json: https://github.com/mitre-attack/attack-stix-data/tree/master/enterprise-attack (also in READ_ME_FIRST_DOWNLOAD_NOTES.txt inside the kit)
 
 ​## Task C14-CT1 Using the managed IOC pipeline (as of 2026-10-28), write a script that produces a per-user, per-source-address contact timeline: number of matched events, first and last contact, total bytes sent (POST) and received (GET), and each event with its indicator. Run it on the reference dataset and write the incident lead you would give to the IR lead, separating observation from inference.
 

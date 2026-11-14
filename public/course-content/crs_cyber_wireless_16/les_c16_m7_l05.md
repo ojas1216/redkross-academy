@@ -1,4 +1,4 @@
-The OWASP API Security Top 10 catalogues the main API risks, which apply directly to mobile backends [R2]:
+The OWASP API Security Top 10 catalogues the main API risks, which apply directly to mobile backends:
 
 ```text
 broken object-level authorisation  accessing another user's object by id - the

@@ -24,4 +24,4 @@ Asset, system and data owners  accountable for their assets' risks;
 All staff           follow policy and report incidents.
 ```
 
-Indian regulated sectors add specific expectations. For example, RBI's Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices (7 November 2023, effective 1 April 2024) consolidates expectations including a board-level IT strategy committee and senior management responsibility for IT risk management, according to published summaries [R3]. Confirm applicability and current text with compliance.
+Indian regulated sectors add specific expectations. For example, RBI's Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices (7 November 2023, effective 1 April 2024) consolidates expectations including a board-level IT strategy committee and senior management responsibility for IT risk management, according to published summaries. Confirm applicability and current text with compliance.

@@ -1,4 +1,4 @@
-SSRF defence is layered [R3]:
+**SSRF defence is layered:**
 
 | Term | Meaning |
 |---|---|

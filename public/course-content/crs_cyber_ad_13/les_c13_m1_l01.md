@@ -2,7 +2,7 @@ A directory service is a database optimised for reading, organised as a tree of 
 
 | Term | Meaning |
 |---|---|
-| LDAP | Lightweight Directory Access Protocol (RFC 4511): how clients search and read the directory, over TCP 389 (or 636 for LDAPS) [R1] |
+| LDAP | Lightweight Directory Access Protocol (RFC 4511): how clients search and read the directory, over TCP 389 (or 636 for LDAPS) |
 | Kerberos | the authentication protocol (RFC 4120, Module 2): how a user proves who they are and gets tickets for services, over 88 |
 | DNS | the name service: how clients FIND domain controllers, through SRV records such as _ldap._tcp.<domain> |
 

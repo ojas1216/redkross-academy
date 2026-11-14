@@ -30,15 +30,3 @@ legacy versions enabled; manual renewals; disabled client verification.
 ### Revision questions
 
 ​1. Walk through the TLS 1.3 handshake. 2. What does RFC 9846 change? 3. Interpret four TLS errors.
-
-### Further reading
-
-RFC 9846 [R1]; NIST SP 800-52 Rev. 2 [R2].
-
-## References
-
-- [R1] Rescorla, E. RFC 9846, "The Transport Layer Security (TLS) Protocol Version 1.3" (obsoletes RFC 8446). URL: [https://www.rfc-editor.org/rfc/rfc9846](https://www.rfc-editor.org/rfc/rfc9846) Accessed: 2026-11-07. Supports: current TLS 1.3 specification; forbids TLS 1.0/1.1; RFC 8446 status.
-- [R2] NIST. SP 800-52 Rev. 2, "Guidelines for the Selection, Configuration, and Use of TLS Implementations", August 2019. URL: [https://csrc.nist.gov/pubs/sp/800/52/r2/final](https://csrc.nist.gov/pubs/sp/800/52/r2/final) Accessed: 2026-11-07. Supports: TLS 1.2 requirement; TLS 1.3 by 1 January 2024; under review.
-- [R3] CA/Browser Forum. "Ballot SC081v3: Introduce Schedule of Reducing Validity and Data Reuse Periods", 11 April 2025. URL: [https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/](https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/) Accessed: 2026-11-07. Supports: result, 398 to 47 days, March 2026-2029.
-- [R4] Rescorla, E. RFC 8446, "The Transport Layer Security (TLS) Protocol Version 1.3", August 2018. URL: [https://www.rfc-editor.org/rfc/rfc8446](https://www.rfc-editor.org/rfc/rfc8446) Accessed: 2026-11-07. Supports: removal of static RSA/DH; historical reference (now obsolete).
-- [R5] Lab evidence. m06_tls.py and m06_output.txt (CPython 3.14.4, OpenSSL 3.0.19), 2026-11-07.

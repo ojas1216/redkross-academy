@@ -6,7 +6,7 @@
 ## The gate decision
 
 ![A decision chain: idempotency check, dry-run check, approval check, rate-limit check, then execution and audit.](/assets/courses/cyber-20/C20-M06-F2.svg)
-*Figure C20-M06-F2. The order of checks in soar.py's decide().*
+*Figure C20-M06-F2. The order of checks in soar.py's decide.*
 
 ## Entity resolution merges cases
 

@@ -31,15 +31,3 @@ looking up objects by id without ownership checks; trusting client cookies/field
 ### Revision questions
 
 ​1. Differentiate object- and function-level authorisation. 2. What single check fixes the lab's IDOR? 3. Why is "not linking the admin page" not access control?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] OWASP. "A01:2025 - Broken Access Control" (OWASP Top 10:2025). URL: [https://top10.owasp.org/2025/](https://top10.owasp.org/2025/) Accessed: 2026-11-08. Supports: A01 category, IDOR, function-level control, CWE mappings including CWE-918.
-- [R2] MITRE. "CWE-639: Authorization Bypass Through User-Controlled Key". URL: [https://cwe.mitre.org/data/definitions/639.html](https://cwe.mitre.org/data/definitions/639.html) Accessed: 2026-11-08. Supports: IDOR classification and causes.
-- [R3] OWASP. "Authorization Cheat Sheet" (server-side enforcement, deny by default, object/function checks). URL: [https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: remediation patterns.
-- [R4] MITRE. "CWE-284: Improper Access Control". URL: [https://cwe.mitre.org/data/definitions/284.html](https://cwe.mitre.org/data/definitions/284.html) Accessed: 2026-11-08. Supports: function-level access control flaw.
-- [R5] Lab evidence. findings.py and report.py results for IDOR and /admin on ports 8200/8201 (CPython 3.14.4), LAB_ASSETS/C06/data/, 2026-11-08. Supports: the deep-dive proofs, scores and fixes.

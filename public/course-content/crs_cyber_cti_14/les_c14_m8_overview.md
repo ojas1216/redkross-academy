@@ -4,7 +4,7 @@ Everything in this course ends in a product someone reads and acts on. This modu
 
 ## Why it matters
 
-Consumers judge intelligence teams by their products. A brief that buries the conclusion, overstates attribution or gives no actions wastes the analysis behind it. Good advisories show the alternative: CISA's July 2023 advisory on the Microsoft cloud intrusion (AA23-193A) told defenders which log events to look for and what baseline to compare against (case study CS1) [R2].
+Consumers judge intelligence teams by their products. A brief that buries the conclusion, overstates attribution or gives no actions wastes the analysis behind it. Good advisories show the alternative: CISA's July 2023 advisory on the Microsoft cloud intrusion (AA23-193A) told defenders which log events to look for and what baseline to compare against (case study CS1).
 
 ## Where it is used
 

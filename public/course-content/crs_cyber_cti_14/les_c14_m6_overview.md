@@ -4,7 +4,7 @@ Intelligence that only exists in prose cannot be loaded into a firewall, merged 
 
 ## Why it matters
 
-Government advisories, ISAC feeds and threat intelligence platforms exchange STIX: CISA's May 2023 joint advisory on Volt Typhoon offered its indicators as STIX XML and STIX JSON downloads (case study CS1) [R4]. Structure also enforces discipline: a STIX Indicator needs a pattern, a validity period and, ideally, a confidence; a Campaign is distinct from a Threat Actor. Modelling exposes vague thinking.
+Government advisories, ISAC feeds and threat intelligence platforms exchange STIX: CISA's May 2023 joint advisory on Volt Typhoon offered its indicators as STIX XML and STIX JSON downloads (case study CS1). Structure also enforces discipline: a STIX Indicator needs a pattern, a validity period and, ideally, a confidence; a Campaign is distinct from a Threat Actor. Modelling exposes vague thinking.
 
 ## Where it is used
 

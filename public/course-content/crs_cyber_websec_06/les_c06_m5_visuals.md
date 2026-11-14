@@ -6,9 +6,9 @@
 ## SQL injection auth bypass in the lab
 
 ![A worked example of a SQL injection authentication bypass in the vulnerable login query and the parameterised version that stops it.](/assets/courses/cyber-06/C06-M05-F2.svg)
-*Figure C06-M05-F2. Concatenated SQL lets admin'-- bypass the password; parameterisation prevents it [R2].*
+*Figure C06-M05-F2. Concatenated SQL lets admin'-- bypass the password; parameterisation prevents it.*
 
 ## XSS contexts and the encoding fix
 
 ![A diagram of reflected, stored and DOM XSS contexts with the shared fix of contextual output encoding, CSP and HttpOnly cookies.](/assets/courses/cyber-06/C06-M05-F3.svg)
-*Figure C06-M05-F3. The three XSS contexts and the output-encoding (plus CSP) defence [R4].*
+*Figure C06-M05-F3. The three XSS contexts and the output-encoding (plus CSP) defence.*

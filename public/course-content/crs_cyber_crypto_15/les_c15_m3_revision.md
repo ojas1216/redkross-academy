@@ -30,15 +30,3 @@ RSA for bulk data; raw DH output as a key; unauthenticated exchanges.
 ### Revision questions
 
 ​1. Compute the OAEP limit for RSA-4096. 2. Why include public keys in HKDF info? 3. List three PQC migration steps.
-
-### Further reading
-
-NIST PQC [R1]; SP 800-57 [R2].
-
-## References
-
-- [R1] NIST. Announcement of FIPS 203, 204 and 205, 13 August 2024. URL: [https://csrc.nist.gov/news/2024/postquantum-cryptography-fips-approved](https://csrc.nist.gov/news/2024/postquantum-cryptography-fips-approved) Accessed: 2026-11-07. Supports: standards, names, purposes.
-- [R2] NIST. SP 800-57 Part 1 Rev. 5, May 2020. URL: [https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final](https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final) Accessed: 2026-11-07. Supports: comparable security strengths table.
-- [R3] CRoCS, Masaryk University. "ROCA: Vulnerable RSA generation (CVE-2017-15361)". URL: [https://crocs.fi.muni.cz/papers/rsa_ccs17](https://crocs.fi.muni.cz/papers/rsa_ccs17) Accessed: 2026-11-07 (web-search cross-check; site unreachable directly). Supports: flaw, affected key lengths, Infineon statement, Estonia scale.
-- [R4] Krawczyk, H., Eronen, P. RFC 5869, "HMAC-based Extract-and-Expand Key Derivation Function (HKDF)", May 2010. URL: [https://www.rfc-editor.org/rfc/rfc5869](https://www.rfc-editor.org/rfc/rfc5869) Accessed: 2026-11-07. Supports: HKDF.
-- [R5] Lab evidence. m03_public_key.py and m03_output.txt (CPython 3.14.4, cryptography 48.0.0), 2026-11-07.

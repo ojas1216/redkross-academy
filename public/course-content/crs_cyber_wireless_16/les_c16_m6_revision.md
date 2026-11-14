@@ -29,14 +29,3 @@ skipping static inspection; testing unauthorised apps; ignoring insecure data ha
 ### Revision questions
 
 ​1. What does static inspection read and reveal? 2. Name four forms of insecure data handling and their MASVS categories. 3. What makes mobile testing authorised and safe?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] OWASP. "Mobile Application Security Verification Standard (MASVS)" (STORAGE, CRYPTO, NETWORK, PLATFORM categories). URL: [https://mas.owasp.org/MASVS/](https://mas.owasp.org/MASVS/) Accessed: 2026-11-08. Supports: insecure data handling and finding categories.
-- [R2] OWASP. "Mobile Application Security Testing Guide (MASTG)" (static and dynamic testing procedures). URL: [https://mas.owasp.org/MASTG/](https://mas.owasp.org/MASTG/) Accessed: 2026-11-08. Supports: static inspection and dynamic testing methodology.
-- [R3] NIST. "SP 800-163 Rev.1: Vetting the Security of Mobile Applications". URL: [https://csrc.nist.gov/pubs/sp/800/163/r1/final](https://csrc.nist.gov/pubs/sp/800/163/r1/final) Accessed: 2026-11-08. Supports: mobile app vetting and authorised testing context.
-- [R4] Lab evidence. mobilecheck.py static review of the demo app (16 findings, 9 HIGH) mapped to MASVS (CPython 3.14.4), LAB_ASSETS/C16/data/ mobilecheck_output.txt, 2026-11-08. Supports: the deep-dive static review.

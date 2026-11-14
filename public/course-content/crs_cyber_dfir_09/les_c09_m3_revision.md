@@ -32,15 +32,3 @@ ignoring FAT local time; trusting one tool; claiming ext4 recovery is routine.
 ### Revision questions
 
 ​1. Describe FAT deletion. 2. Compare SI and FN timestamps. 3. Explain why the lab's ext4 result is not representative.
-
-### Further reading
-
-TSK documentation [R2]; Microsoft MFT documentation [R1].
-
-## References
-
-- [R1] Microsoft Learn. "Master File Table (Local File Systems)". URL: [https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table](https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table) Accessed: 2026-11-07. Supports: MFT role in NTFS.
-- [R2] The Sleuth Kit. "The Sleuth Kit (TSK) and Autopsy". URL: [https://www.sleuthkit.org/](https://www.sleuthkit.org/) Accessed: 2026-11-07. Supports: TSK tools and layers; version 4.12.1 used in lab.
-- [R3] NBC News (Associated Press/New York Times reporting). "Was Casey Anthony prosecuted with inaccurate data?", July 2011. URL: [https://www.nbcnews.com/id/wbna43807133](https://www.nbcnews.com/id/wbna43807133) Accessed: 2026-11-07 (web-search cross-check). Supports: 84 versus 1 visits; CacheBack and NetAnalysis discrepancy.
-- [R4] MITRE ATT&CK. "Indicator Removal: Timestomp, T1070.006". URL: [https://attack.mitre.org/techniques/T1070/006/](https://attack.mitre.org/techniques/T1070/006/) Accessed: 2026-11-07. Supports: timestomping technique ID (listed under T1070 on 2026-11-07).
-- [R5] Lab evidence. rk_c09_fs_lab.sh and rk_c09_fs_lab_output.txt (TSK 4.12.1, e2fsprogs 1.47.2, mtools 4.0.48), run 2026-11-07.

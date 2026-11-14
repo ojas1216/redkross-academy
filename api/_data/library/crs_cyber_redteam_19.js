@@ -196,7 +196,7 @@ export default {
      "Command and Control (TA0011)"
     ],
     "correct": 3,
-    "explanation": "T1071 is a Command and Control technique (TA0011), verified at source 2026-11-08 [R1].",
+    "explanation": "T1071 is a Command and Control technique (TA0011), verified at source 2026-11-08.",
     "topic": "C19-M02: Adversary emulation",
     "difficulty": "medium"
    },

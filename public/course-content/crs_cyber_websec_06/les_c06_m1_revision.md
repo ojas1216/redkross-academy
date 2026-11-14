@@ -32,15 +32,3 @@ trusting client-side validation; using sequential or reversible session ids; omi
 ### Revision questions
 
 ​1. Why is the client untrusted and what follows? 2. Name three cookie security attributes and the attack each prevents. 3. Why must session identifiers be random?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] IETF. "RFC 9110: HTTP Semantics" (methods, status codes, headers, safe/idempotent methods). URL: [https://www.rfc-editor.org/rfc/rfc9110.html](https://www.rfc-editor.org/rfc/rfc9110.html) Accessed: 2026-11-08. Supports: HTTP structure, methods, status codes, safe methods.
-- [R2] IETF. "RFC 6265: HTTP State Management Mechanism" (cookies, Set-Cookie, attributes). URL: [https://www.rfc-editor.org/rfc/rfc6265.html](https://www.rfc-editor.org/rfc/rfc6265.html) Accessed: 2026-11-08. Supports: cookies, HttpOnly/Secure, session state.
-- [R3] OWASP. "OWASP API Security Project / API Security Top 10". URL: [https://owasp.org/www-project-api-security/](https://owasp.org/www-project-api-security/) Accessed: 2026-11-08. Supports: API attack surface, object-level authorisation, data exposure.
-- [R4] OWASP. "Cross-Site Request Forgery Prevention Cheat Sheet" (SameSite, tokens). URL: [https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: CS1, SameSite default behaviour, CSRF defence in depth.
-- [R5] Lab evidence. map.py output against the loopback target (CPython 3.14.4), LAB_ASSETS/C06/data/map_output.txt, 2026-11-08. Supports: the deep-dive request/response map and the missing security headers.

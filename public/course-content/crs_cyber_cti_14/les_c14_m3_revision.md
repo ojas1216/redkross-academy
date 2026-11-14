@@ -29,15 +29,3 @@ blocking CDN or shared addresses; pivoting on redacted fields; trusting first_se
 ### Revision questions
 
 ​1. Rank five pivot attributes by strength. 2. Explain what passive DNS cannot show. 3. Describe the address-blocking decision path.
-
-### Further reading
-
-[R2]; [R3].
-
-## References
-
-- [R1] IANA. "Example Domains". URL: [https://www.iana.org/help/example-domains](https://www.iana.org/help/example-domains) Accessed: 2026-11-07. Supports: example.com reserved for documentation.
-- [R2] Laurie, B., Langley, A., Kasper, E. RFC 6962 "Certificate Transparency", June 2013. URL: [https://www.rfc-editor.org/rfc/rfc6962](https://www.rfc-editor.org/rfc/rfc6962) Accessed: 2026-11-07. Supports: public append-only certificate logs.
-- [R3] FireEye / Mandiant (Google Cloud). "Highly Evasive Attacker Leverages SolarWinds Supply Chain to Compromise Multiple Global Victims With SUNBURST Backdoor", 13 December 2020 (updated May 2022). URL: [https://cloud.google.com/blog/topics/threat-intelligence/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor](https://cloud.google.com/blog/topics/threat-intelligence/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor) Accessed: 2026-11-07 (verified in Course 20). Supports: CS1.
-- [R4] RFC 7482 / RFC 9082 "Registration Data Access Protocol (RDAP) Query Format". URL: [https://www.rfc-editor.org/rfc/rfc9082](https://www.rfc-editor.org/rfc/rfc9082) Accessed: 2026-11-07. Supports: RDAP as the registration query protocol.
-- [R5] Lab evidence. infra_pivot.py, live_context.py, m03_pivot_output.txt, m03_live_output.txt, data/pdns.jsonl, certs.json, whois.json, 2026-11-07.

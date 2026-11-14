@@ -4,7 +4,7 @@ Endpoints are where users open documents, where malware runs and where credentia
 
 ## Why it matters
 
-Attackers increasingly "live off the land", using built-in tools such as PowerShell, wmic and netsh so that their activity blends with administration. CISA's advisory AA24-038A on Volt Typhoon describes exactly this [R1]. A single process event rarely proves anything; the relationships between processes, users and logons do.
+Attackers increasingly "live off the land", using built-in tools such as PowerShell, wmic and netsh so that their activity blends with administration. CISA's advisory AA24-038A on Volt Typhoon describes exactly this. A single process event rarely proves anything; the relationships between processes, users and logons do.
 
 ## Where it is used
 

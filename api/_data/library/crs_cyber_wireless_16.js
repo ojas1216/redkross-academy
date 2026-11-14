@@ -40,7 +40,7 @@ export default {
      "it has no frames"
     ],
     "correct": 2,
-    "explanation": "radio is broadcast, so proximity alone enables eavesdropping and transmission [R1].",
+    "explanation": "radio is broadcast, so proximity alone enables eavesdropping and transmission.",
     "topic": "C16-M01: Wireless foundations",
     "difficulty": "medium"
    },
@@ -182,7 +182,7 @@ export default {
      "a hidden SSID"
     ],
     "correct": 2,
-    "explanation": "WPA3 requires Protected Management Frames [R1].",
+    "explanation": "WPA3 requires Protected Management Frames.",
     "topic": "C16-M02: Wi-Fi protection",
     "difficulty": "medium"
    },
@@ -324,7 +324,7 @@ export default {
      "the channel number alone"
     ],
     "correct": 2,
-    "explanation": "an evil twin is a managed SSID on a BSSID not in the authorised inventory [R1].",
+    "explanation": "an evil twin is a managed SSID on a BSSID not in the authorised inventory.",
     "topic": "C16-M03: Wireless assessment",
     "difficulty": "medium"
    },
@@ -466,7 +466,7 @@ export default {
      "a default PIN"
     ],
     "correct": 2,
-    "explanation": "Numeric Comparison, Passkey Entry and OOB provide MITM protection; Just Works does not [R1].",
+    "explanation": "Numeric Comparison, Passkey Entry and OOB provide MITM protection; Just Works does not.",
     "topic": "C16-M04: Bluetooth security",
     "difficulty": "medium"
    },
@@ -608,7 +608,7 @@ export default {
      "the app's source code"
     ],
     "correct": 2,
-    "explanation": "private, encrypted internal storage keeps sensitive data in the sandbox [R2].",
+    "explanation": "private, encrypted internal storage keeps sensitive data in the sandbox.",
     "topic": "C16-M05: Mobile architecture",
     "difficulty": "medium"
    },
@@ -750,7 +750,7 @@ export default {
      "too many screens"
     ],
     "correct": 2,
-    "explanation": "insecure data handling is the leading mobile weakness class [R1].",
+    "explanation": "insecure data handling is the leading mobile weakness class.",
     "topic": "C16-M06: Mobile app testing",
     "difficulty": "medium"
    },
@@ -892,7 +892,7 @@ export default {
      "too many endpoints"
     ],
     "correct": 2,
-    "explanation": "broken object-level authorisation is the top OWASP API risk [R2].",
+    "explanation": "broken object-level authorisation is the top OWASP API risk.",
     "topic": "C16-M07: Mobile API security",
     "difficulty": "medium"
    },

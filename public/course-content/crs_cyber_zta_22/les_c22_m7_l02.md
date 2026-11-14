@@ -1,4 +1,4 @@
-Architecture threat modelling asks what can go wrong at each trust boundary in the data-flow view (Module 1) and which control answers it. A widely used prompt list is STRIDE, as described by Microsoft [R2]:
+Architecture threat modelling asks what can go wrong at each trust boundary in the data-flow view (Module 1) and which control answers it. A widely used prompt list is STRIDE, as described by Microsoft:
 
 | Term | Meaning |
 |---|---|

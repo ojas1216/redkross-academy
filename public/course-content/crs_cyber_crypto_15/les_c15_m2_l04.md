@@ -2,7 +2,7 @@ AEAD algorithms encrypt and authenticate in one operation and also authenticate 
 
 | Term | Meaning |
 |---|---|
-| AES-GCM | 96-bit nonce recommended, 128-bit tag. Very fast with hardware AES. Specified in NIST SP 800-38D [R1]. |
+| AES-GCM | 96-bit nonce recommended, 128-bit tag. Very fast with hardware AES. Specified in NIST SP 800-38D. |
 | ChaCha20-Poly1305 | 96-bit nonce, 128-bit tag. Fast everywhere (RFC 8439). |
 
 Execution-tested (cryptography 48.0.0):

@@ -29,14 +29,3 @@ running WEP/WPA; shared passphrases for corporate Wi-Fi; flat internal access fo
 ### Revision questions
 
 ​1. Why prefer WPA3 over WPA2-Personal? 2. Why use Enterprise 802.1X for corporate Wi-Fi? 3. How is a rogue AP detected?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] Wi-Fi Alliance. "Security (WPA3, WPA2) / Discover Wi-Fi Security". URL: [https://www.wi-fi.org/discover-wi-fi/security](https://www.wi-fi.org/discover-wi-fi/security) Accessed: 2026-11-08. Supports: Wi-Fi security modes, WPA2/WPA3, SAE, CS1.
-- [R2] MITRE. "CWE-326: Inadequate Encryption Strength" and the WPA2 key-reinstallation (KRACK) research background. URL: [https://cwe.mitre.org/data/definitions/326.html](https://cwe.mitre.org/data/definitions/326.html) Accessed: 2026-11-08. Supports: weak wireless crypto, WPA2 handshake weakness, CS1.
-- [R3] NIST. "SP 800-153: Guidelines for Securing Wireless Local Area Networks (WLANs)". URL: [https://csrc.nist.gov/pubs/sp/800/153/final](https://csrc.nist.gov/pubs/sp/800/153/final) Accessed: 2026-11-08. Supports: secure WLAN configuration, enterprise auth, segmentation, rogue-AP management.
-- [R4] NIST. "SP 800-207: Zero Trust Architecture" (wireless as a zone; least-privilege access). URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-08. Supports: segmenting wireless, no flat access.

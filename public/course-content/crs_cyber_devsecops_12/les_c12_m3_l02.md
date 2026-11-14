@@ -2,7 +2,7 @@ Injection happens when data is concatenated into something that is interpreted: 
 
 ```text
 SQL       parameterised queries:
-            db.execute("SELECT ... WHERE tracking = ?", (tracking,))
+            db.execute("SELECT ... WHERE tracking = ?", (tracking))
           never f-strings or concatenation. ORMs parameterise by default,
           but raw-query escape hatches need the same care.
 Commands  pass an argument list without a shell:

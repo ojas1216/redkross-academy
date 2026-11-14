@@ -1,4 +1,4 @@
-The Diamond Model of Intrusion Analysis (Caltagirone, Pendergast and Betz, 2013) describes every event with four core features - adversary, capability, infrastructure and victim - and meta-features: timestamp (start and end), phase, result, direction, methodology and resources [R1]. Edges between the features invite pivots ("which other victims did this infrastructure touch?"), and events linked in sequence form activity threads.
+The Diamond Model of Intrusion Analysis (Caltagirone, Pendergast and Betz, 2013) describes every event with four core features - adversary, capability, infrastructure and victim - and meta-features: timestamp (start and end), phase, result, direction, methodology and resources. Edges between the features invite pivots ("which other victims did this infrastructure touch?"), and events linked in sequence form activity threads.
 
 MONSOON LANTERN as Diamond events (from the lab data):
 

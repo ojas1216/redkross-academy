@@ -29,15 +29,3 @@ testing only the author's example; ignoring ATT&CK changes; tuning without a reg
 ### Revision questions
 
 ​1. Compare the three validation methods. 2. Explain PT-06's miss. 3. Describe the five-step tuning routine.
-
-### Further reading
-
-[R1]; [R3].
-
-## References
-
-- [R1] CISA. AA24-326A "Enhancing Cyber Resilience: Insights from CISA Red Team Assessment of a US Critical Infrastructure Sector Organization", 21 November 2024. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-326a](https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-326a) Accessed: 2026-11-07. Supports: EDR over-reliance, IDS gap, LDAP, alerts not reviewed, legacy hosts.
-- [R2] MITRE. Enterprise ATT&CK 20.1 STIX data (revoked-by relationships) and tactics list. URL: [https://github.com/mitre-attack/attack-stix-data](https://github.com/mitre-attack/attack-stix-data) Accessed: 2026-11-07. Supports: T1070.001 -> T1685.005; T1562.001 -> T1685; T1562.002 -> T1685.001; TA0005 Stealth; TA0112 Defense Impairment.
-- [R3] Microsoft. "about_Pwsh" (PowerShell 7.6). URL: [https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pwsh](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pwsh) Accessed: 2026-11-07. Supports: -EncodedCommand | -e | -ec; case-insensitive parameters.
-- [R4] Microsoft. "about_PowerShell_exe" (Windows PowerShell 5.1). URL: [https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1) Accessed: 2026-11-07. Supports: parameter list without short aliases.
-- [R5] Lab evidence. purple.py, purple_output.txt, sigma_cli_tuned_output.txt, 2026-11-07.

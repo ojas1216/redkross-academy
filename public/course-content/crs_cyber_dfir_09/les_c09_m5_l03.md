@@ -18,9 +18,9 @@ Transaction logs (.LOG1/.LOG2) may hold changes not yet written to the hive. Pro
 
 ```text
 ------------------------------------------------------------- BEGIN OUTPUT
-ProductName    : Windows 10 Home Single Language
-DisplayVersion : 25H2
-CurrentBuild   : 26200
+ProductName: Windows 10 Home Single Language
+DisplayVersion: 25H2
+CurrentBuild: 26200
 --------------------------------------------------------------- END OUTPUT
 (execution-tested; HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion)
 ```

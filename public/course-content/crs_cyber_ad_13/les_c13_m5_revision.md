@@ -29,15 +29,3 @@ SPNs on privileged user accounts; disabling pre-auth; unconstrained delegation o
 ### Revision questions
 
 ​1. State the precondition and fix for Kerberoasting. 2. Why is krbtgt the crown jewel? 3. Why is unconstrained delegation off a DC dangerous?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] MITRE ATT&CK. "Steal or Forge Kerberos Tickets: Kerberoasting", T1558.003. URL: [https://attack.mitre.org/techniques/T1558/003/](https://attack.mitre.org/techniques/T1558/003/) Accessed: 2026-11-08. Supports: Kerberoasting definition, preconditions, mitigations.
-- [R2] MITRE ATT&CK. "Steal or Forge Kerberos Tickets: AS-REP Roasting", T1558.004. URL: [https://attack.mitre.org/techniques/T1558/004/](https://attack.mitre.org/techniques/T1558/004/) Accessed: 2026-11-08. Supports: AS-REP roasting and the pre-auth precondition.
-- [R3] MITRE ATT&CK. "Steal or Forge Kerberos Tickets", T1558 (parent; Golden Ticket .001, Silver Ticket .002, Ccache .005). URL: [https://attack.mitre.org/techniques/T1558/](https://attack.mitre.org/techniques/T1558/) Accessed: 2026-11-08. Supports: golden/silver tickets, krbtgt.
-- [R4] Microsoft. "Protected Users security group". URL: [https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group) Accessed: 2026-11-08. Supports: blocking NTLM/delegation, short TGT as credential-theft defences.
-- [R5] Lab evidence. dir_review.py output and directory_export.ldif (Samba 4.22.11, CPython 3.14), 2026-11-08.

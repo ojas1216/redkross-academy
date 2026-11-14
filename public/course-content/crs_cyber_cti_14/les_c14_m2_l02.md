@@ -1,4 +1,4 @@
-The Berkeley Protocol describes preparation and an investigation process [R1]:
+The Berkeley Protocol describes preparation and an investigation process:
 
 ```text
 Preparation: digital threat and risk assessment; digital landscape

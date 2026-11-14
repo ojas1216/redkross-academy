@@ -4,7 +4,7 @@ Module 3 showed that every request to a cluster is authenticated, authorised and
 
 ## Why it matters
 
-Access mistakes are the most common route to cluster compromise. The Kubernetes RBAC good-practice guide warns that list and watch on secrets reveal their contents, and that permission to create workloads implicitly grants access to the secrets and service accounts of that namespace [R1]. Microsoft reported in 2020 that exposed Kubeflow dashboards allowed anyone to deploy containers, which were used for cryptomining (case study CS1).
+Access mistakes are the most common route to cluster compromise. The Kubernetes RBAC good-practice guide warns that list and watch on secrets reveal their contents, and that permission to create workloads implicitly grants access to the secrets and service accounts of that namespace. Microsoft reported in 2020 that exposed Kubeflow dashboards allowed anyone to deploy containers, which were used for cryptomining (case study CS1).
 
 ## Where it is used
 

@@ -1,4 +1,4 @@
-NIST SP 800-190, the Application Container Security Guide (September 2017) [R1], groups risks into five areas. Use them as the skeleton for any container threat model:
+NIST SP 800-190, the Application Container Security Guide (September 2017), groups risks into five areas. Use them as the skeleton for any container threat model:
 
 1. Image risks: vulnerabilities in packages, configuration defects (running as root), embedded secrets, malware, untrusted sources.
 2. Registry risks: insecure connections, stale images, weak authentication and authorisation for push and pull.

@@ -1,7 +1,7 @@
 | Term | Meaning |
 |---|---|
-| AWS CloudTrail | control-plane (management) events by default; data events (for example S3 object-level, Lambda invoke) must be selected. AWS documents that event history shows 90 days of management events; a trail or event data store is needed for ongoing retention [R1]. |
-| Azure Activity log | control-plane operations on Azure resources; Microsoft documents a 90-day retention, with diagnostic settings to send it to Log Analytics, Event Hubs or Storage for longer [R2]. |
+| AWS CloudTrail | control-plane (management) events by default; data events (for example S3 object-level, Lambda invoke) must be selected. AWS documents that event history shows 90 days of management events; a trail or event data store is needed for ongoing retention. |
+| Azure Activity log | control-plane operations on Azure resources; Microsoft documents a 90-day retention, with diagnostic settings to send it to Log Analytics, Event Hubs or Storage for longer. |
 | Entra ID logs | sign-in logs (interactive, non-interactive, service principal, managed identity) and audit logs (directory changes, app consents). |
 | Microsoft 365 audit | user and admin activity in Exchange, SharePoint, Teams (Purview Audit). |
 | Data-plane logs | S3 server access logs, CloudTrail data events, Azure Storage diagnostic logs, database audit logs. |

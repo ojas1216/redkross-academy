@@ -30,15 +30,3 @@ concatenating input into SQL; encoding input instead of output; encoding for the
 ### Revision questions
 
 ​1. What is the one root cause of injection and its two cures? 2. How does admin'-- bypass the lab's login? 3. Why encode at output rather than only validating input?
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] OWASP. "A05:2025 - Injection" (OWASP Top 10:2025). URL: [https://top10.owasp.org/2025/](https://top10.owasp.org/2025/) Accessed: 2026-11-08. Supports: injection category, SQLi and XSS as injection.
-- [R2] MITRE. "CWE-89: Improper Neutralization of Special Elements used in an SQL Command (SQL Injection)". URL: [https://cwe.mitre.org/data/definitions/89.html](https://cwe.mitre.org/data/definitions/89.html) Accessed: 2026-11-08. Supports: SQL injection definition and impact.
-- [R3] OWASP. "SQL Injection Prevention Cheat Sheet" (parameterised queries, least privilege). URL: [https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: parameterisation and supporting controls.
-- [R4] OWASP. "Cross Site Scripting Prevention Cheat Sheet" (contextual output encoding, CSP) and MITRE "CWE-79". URL: [https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: XSS contexts and output-encoding defence.
-- [R5] Lab evidence. findings.py and report.py results for SQLi and XSS on ports 8200/8201 (CPython 3.14.4), LAB_ASSETS/C06/data/, 2026-11-08. Supports: the deep-dive proofs, scores and fixes.

@@ -1,12 +1,12 @@
 ## IDS versus IPS
 
 ![A comparison of an out-of-line IDS that only alerts and an in-line IPS that can block, with the cost of false positives for each.](/assets/courses/cyber-07/C07-M03-F1.svg)
-*Figure C07-M03-F1. IDS alerts; IPS can block but a false positive harms availability, so IPS rules must be high-confidence [R1].*
+*Figure C07-M03-F1. IDS alerts; IPS can block but a false positive harms availability, so IPS rules must be high-confidence.*
 
 ## Signatures versus anomalies
 
 ![A contrast of signature-based detection (precise, misses novel) and anomaly-based detection (catches novel, more false positives), recommending both.](/assets/courses/cyber-07/C07-M03-F2.svg)
-*Figure C07-M03-F2. The two detection approaches are complementary [R1].*
+*Figure C07-M03-F2. The two detection approaches are complementary.*
 
 ## Tuning separates signal from noise
 

@@ -1,4 +1,4 @@
-NIST SP 800-207 (Rose, Borchert, Mitchell, Connelly; August 2020) sets out tenets of zero trust, restated in CISA's Zero Trust Maturity Model v2.0 (April 2023) as [R1] [R2]:
+NIST SP 800-207 (Rose, Borchert, Mitchell, Connelly; August 2020) sets out tenets of zero trust, restated in CISA's Zero Trust Maturity Model v2.0 (April 2023) as:
 
 1. All data sources and computing services are considered resources.
 2. All communication is secured regardless of network location.

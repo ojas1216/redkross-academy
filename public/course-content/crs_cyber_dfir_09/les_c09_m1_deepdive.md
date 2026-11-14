@@ -26,4 +26,4 @@ Each line names who collects and where the item is stored. The plan is revised a
 - collecting only the "interesting" host, when the attacker came from another;
 - forgetting cloud audit logs with short default retention;
 - not recording time zones and clock offsets (Course 08 Module 2);
-- copying files with tools that change timestamps. RFC 3227 warns against tools that alter access times on all files [R2].
+- copying files with tools that change timestamps. RFC 3227 warns against tools that alter access times on all files.

@@ -1,6 +1,6 @@
 ## Exposed Kubeflow dashboards used for cryptomining, 2020
 
-**Context:** on 10 June 2020 Microsoft reported a campaign, first seen in April, that deployed cryptomining containers on tens of Kubernetes clusters, many running the Kubeflow machine-learning toolkit [R5].
+**Context:** on 10 June 2020 Microsoft reported a campaign, first seen in April, that deployed cryptomining containers on tens of Kubernetes clusters, many running the Kubeflow machine-learning toolkit.
 
 **What happened:** the Kubeflow dashboard is served through the Istio ingress gateway, internal by default. Some users changed the istio-ingressgateway Service to type LoadBalancer for convenience, exposing the dashboard to the internet; Microsoft wrote that this allowed anyone to perform operations in Kubeflow. Attackers deployed an image running the XMRig miner. Microsoft described how a container could be started through the dashboard, including from a notebook using its default service account to create pods in its namespace.
 

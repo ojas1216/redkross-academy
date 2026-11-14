@@ -4,7 +4,7 @@ A container is not a small virtual machine. It is an ordinary Linux process that
 
 ## Why it matters
 
-Most container security failures come from options that remove isolation (privileged mode, host namespaces, mounting the Docker socket) or from bugs in the small amount of code that sets isolation up. In January 2024 the runc maintainers disclosed CVE-2024-21626, a runtime flaw that could give a container process a working directory on the host filesystem [R4]. You cannot reason about either kind of risk without knowing what a container actually is.
+Most container security failures come from options that remove isolation (privileged mode, host namespaces, mounting the Docker socket) or from bugs in the small amount of code that sets isolation up. In January 2024 the runc maintainers disclosed CVE-2024-21626, a runtime flaw that could give a container process a working directory on the host filesystem. You cannot reason about either kind of risk without knowing what a container actually is.
 
 ## Where it is used
 

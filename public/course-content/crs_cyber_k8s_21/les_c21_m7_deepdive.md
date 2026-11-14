@@ -13,7 +13,7 @@ exit=0
 
 ### 2. Verify the same digest with a different public key (expected:
 failure)
-exit=1 : Error: no matching attestations: failed to verify signature:
+exit=1: Error: no matching attestations: failed to verify signature:
 could not verify envelope: accepted signatures do not match threshold,
 Found: 0, Expected 1
 
@@ -22,15 +22,15 @@ tag 1.0.0 now resolves to sha256:a58cda37...6919ef
 signed digest was           sha256:07dcdcda...bfa77
 
 ### 4. Verify by tag again (expected: failure - the new digest is unsigned)
-exit=10 : Error: no signatures found
+exit=10: Error: no signatures found
 
 ### 5. Verify the original digest (expected: success)
 exit=0
 
 ### 6. Attach the SBOM as a signed attestation and verify it
 attestation predicateType: https://cyclonedx.org/bom
-subject digest           : {'sha256': '07dcdcda...bfa77'}
-components in SBOM        : 39
+subject digest: {'sha256': '07dcdcda...bfa77'}
+components in SBOM: 39
 exit=0
 ```
 

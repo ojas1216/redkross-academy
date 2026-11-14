@@ -6,7 +6,7 @@
 ## Sigma escaping for backslashes
 
 ![A table of four YAML values with their Sigma meaning and examples of what each matches.](/assets/courses/cyber-20/C20-M04-F2.svg)
-*Figure C20-M04-F2. Two backslashes mean one; write four to match a UNC prefix [R1].*
+*Figure C20-M04-F2. Two backslashes mean one; write four to match a UNC prefix.*
 
 ## A test file's three kinds of cases
 

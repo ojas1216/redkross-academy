@@ -1,4 +1,4 @@
-Azure RBAC assigns a role to a security principal at a scope (management group, subscription, resource group or resource); assignments inherit downwards. Key built-in roles [R3]:
+Azure RBAC assigns a role to a security principal at a scope (management group, subscription, resource group or resource); assignments inherit downwards. Key built-in roles:
 
 ```text
 Owner                     full access including assigning roles

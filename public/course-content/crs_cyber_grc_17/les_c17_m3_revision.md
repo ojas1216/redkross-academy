@@ -29,15 +29,3 @@ treating certification as security; mapping without rationale; parallel complian
 ### Revision questions
 
 ​1. List the 22 CSF categories. 2. Describe ISO 27001 clauses 4-10. 3. Why is coverage not effectiveness?
-
-### Further reading
-
-NIST CSF 2.0 [R1]; SEBI CSCRF [R3].
-
-## References
-
-- [R1] NIST. "The NIST Cybersecurity Framework (CSF) 2.0", CSWP 29, 26 February 2024. URL: [https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf](https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf) Accessed: 2026-11-07. Supports: Functions, Categories (names and IDs extracted from text), Profiles, Tiers.
-- [R2] ISACA Journal. "Navigating the ISO/IEC 27001:2022 Transition: A 90-Day Challenge", 2024, and certification-body summaries. URL: [https://www.isaca.org/resources/isaca-journal/issues/2024/volume-3/navigating-the-iso-iec-27001-2022-transition-a-90-day-challenge](https://www.isaca.org/resources/isaca-journal/issues/2024/volume-3/navigating-the-iso-iec-27001-2022-transition-a-90-day-challenge) Accessed: 2026-11-07 (web-search cross-check; SME review). Supports: 93 controls in four themes, transition end 31 October 2025.
-- [R3] SEBI. "Cybersecurity and Cyber Resilience Framework (CSCRF) for SEBI Regulated Entities", circular SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113, 20 August 2024 (as summarised by legal advisories). URL: [https://www.sebi.gov.in/](https://www.sebi.gov.in/) Accessed: 2026-11-07 (web-search cross-check; SME review). Supports: date, consolidation, categories.
-- [R4] CERT-In. "Directions under section 70B(6)", 28 April 2022. URL: [https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf) Accessed: 2026-11-07. Supports: 6-hour reporting, 180-day logs.
-- [R5] Lab evidence. grc_toolkit.py csf output, 2026-11-07.

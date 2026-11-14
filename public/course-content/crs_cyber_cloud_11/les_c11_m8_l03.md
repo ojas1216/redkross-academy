@@ -1,6 +1,6 @@
 AWS IAM user access key: deactivate it (do not delete it yet - you need it for correlation), then find any keys or identities it created.
 
-**Active role sessions:** temporary credentials remain valid until they expire. AWS documents revoking them by attaching a policy that denies all actions for sessions issued before a time, using the aws:TokenIssueTime condition with DateLessThan (the managed AWSRevokeOlderSessions pattern); it does not affect long-term user credentials [R3].
+**Active role sessions:** temporary credentials remain valid until they expire. AWS documents revoking them by attaching a policy that denies all actions for sessions issued before a time, using the aws:TokenIssueTime condition with DateLessThan (the managed AWSRevokeOlderSessions pattern); it does not affect long-term user credentials.
 
 **Other actions:** remove malicious trust-policy changes; detach added policies; reset the console password and require MFA re-registration; apply an SCP to quarantine an account if needed.
 

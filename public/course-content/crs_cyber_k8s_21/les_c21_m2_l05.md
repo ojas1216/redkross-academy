@@ -1,4 +1,4 @@
-An SBOM is a machine-readable inventory of the components in a piece of software, with versions and identifiers (package URLs, for example pkg:pypi/urllib3@1.26.4). The two common formats are CycloneDX (version 1.7, released 21 October 2025, standardised by Ecma International as ECMA-424) [R4] and SPDX. Trivy wrote CycloneDX 1.7 documents in the lab.
+An SBOM is a machine-readable inventory of the components in a piece of software, with versions and identifiers (package URLs, for example pkg:pypi/urllib3@1.26.4). The two common formats are CycloneDX (version 1.7, released 21 October 2025, standardised by Ecma International as ECMA-424) and SPDX. Trivy wrote CycloneDX 1.7 documents in the lab.
 
 **Uses:**
 

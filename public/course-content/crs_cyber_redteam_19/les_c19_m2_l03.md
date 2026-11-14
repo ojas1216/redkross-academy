@@ -1,4 +1,4 @@
-MITRE ATT&CK is a curated knowledge base of adversary behaviour, organised as TACTICS (the adversary's goals - why) and TECHNIQUES (how they achieve them). It is the shared language of emulation and detection [R1].
+MITRE ATT&CK is a curated knowledge base of adversary behaviour, organised as TACTICS (the adversary's goals - why) and TECHNIQUES (how they achieve them). It is the shared language of emulation and detection.
 
 | Term | Meaning |
 |---|---|

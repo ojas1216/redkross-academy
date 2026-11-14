@@ -4,7 +4,7 @@ Coverage matrices and unit tests show that detections exist and that their logic
 
 ## Why it matters
 
-CISA's red-team assessment AA24-326A (November 2024) found that the assessed organisation's activity generated security alerts that network defenders did not review, that there were no detections for anomalous LDAP traffic, and that legacy hosts without EDR let the red team persist for months [R1]. Validation finds such gaps before an adversary does.
+CISA's red-team assessment AA24-326A (November 2024) found that the assessed organisation's activity generated security alerts that network defenders did not review, that there were no detections for anomalous LDAP traffic, and that legacy hosts without EDR let the red team persist for months. Validation finds such gaps before an adversary does.
 
 ## Where it is used
 

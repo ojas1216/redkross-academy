@@ -1,6 +1,6 @@
 ## About this module
 
-This module covers three weaknesses that turn the request itself, or the server's handling of it, against the application: Cross-Site Request Forgery (CSRF), where a user's browser is tricked into making a state-changing request the user did not intend; Server-Side Request Forgery (SSRF), where the server is tricked into making a request to a location the attacker chooses; and path traversal and unsafe file handling, where input reaches the file system. You will confirm all three on the lab target you own and apply the standard mitigations. These map to OWASP A01:2025 Broken Access Control (CSRF, path traversal, and SSRF via CWE-918) and to A02 Security Misconfiguration for related file-handling hardening [R1].
+This module covers three weaknesses that turn the request itself, or the server's handling of it, against the application: Cross-Site Request Forgery (CSRF), where a user's browser is tricked into making a state-changing request the user did not intend; Server-Side Request Forgery (SSRF), where the server is tricked into making a request to a location the attacker chooses; and path traversal and unsafe file handling, where input reaches the file system. You will confirm all three on the lab target you own and apply the standard mitigations. These map to OWASP A01:2025 Broken Access Control (CSRF, path traversal, and SSRF via CWE-918) and to A02 Security Misconfiguration for related file-handling hardening.
 
 ## Why it matters
 

@@ -29,14 +29,3 @@ reports without digests; SBOMs of the CI image; treating "approved" as "secure".
 ### Revision questions
 
 ​1. List the nine report sections. 2. Why separate tooling from product? 3. How do you verify a release?
-
-### Further reading
-
-xz report [R1]; SLSA [M07-R3].
-
-## References
-
-- [R1] Freund, A. "backdoor in upstream xz/liblzma leading to ssh server compromise", oss-security, 29 March 2024. URL: [https://www.openwall.com/lists/oss-security/2024/03/29/4](https://www.openwall.com/lists/oss-security/2024/03/29/4) Accessed: 2026-11-07. Supports: tarballs 5.6.0/5.6.1; test files in repository.
-- [R2] CISA. "Reported Supply Chain Compromise Affecting XZ Utils Data Compression Library, CVE-2024-3094", 29 March 2024. URL: [https://www.cisa.gov/news-events/alerts/2024/03/29/reported-supply-chain-compromise-affecting-xz-utils-data-compression-library-cve-2024-3094](https://www.cisa.gov/news-events/alerts/2024/03/29/reported-supply-chain-compromise-affecting-xz-utils-data-compression-library-cve-2024-3094) Accessed: 2026-11-07. Supports: CVE, downgrade advice.
-- [R3] NTIA. "The Minimum Elements For a Software Bill of Materials", 12 July 2021. URL: [https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom](https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom) Accessed: 2026-11-07. Supports: SBOM content expectations.
-- [R4] Lab evidence. release/run_release.sh, pipeline_in_container.sh, release_report.py, release_report_output.txt, release_blocked_output.txt (semgrep 1.184.0, pip-audit 2.10.1, gitleaks v8.30.1, cosign v3.1.4), 2026-11-07.

@@ -28,15 +28,3 @@ mapping IOCs; over-specific mapping; heat maps from marketing; ignoring versions
 ### Revision questions
 
 ​1. Describe the detection model chain. 2. Explain COVERED versus tested. 3. List three use-case types.
-
-### Further reading
-
-[R1]; [R2].
-
-## References
-
-- [R1] MITRE. ATT&CK STIX data, Enterprise ATT&CK 20.1. URL: [https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json](https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json) Accessed: 2026-11-07. Supports: version, object counts, detection model.
-- [R2] CISA. "Best Practices for MITRE ATT&CK Mapping", version 2.0, January 2023 (version 1.0 June 2021). URL: [https://www.cisa.gov/sites/default/files/2023-01/Best%20Practices%20for%20MITRE%20ATTCK%20Mapping.pdf](https://www.cisa.gov/sites/default/files/2023-01/Best%20Practices%20for%20MITRE%20ATTCK%20Mapping.pdf) Accessed: 2026-11-07 (text extracted from the PDF). Supports: mapping steps and scope.
-- [R3] CISA, NSA, FBI et al. AA24-038A "PRC State-Sponsored Actors Compromise and Maintain Persistent Access to U.S. Critical Infrastructure", 7 February 2024. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-038a](https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-038a) Accessed: 2026-11-07 (verified in Courses 08 and 20). Supports: CS1.
-- [R4] MITRE. ATT&CK Navigator. URL: [https://mitre-attack.github.io/attack-navigator/](https://mitre-attack.github.io/attack-navigator/) Accessed: 2026-11-07. Supports: layers (L06).
-- [R5] Lab evidence. attack_map.py, data/log_inventory.json, navigator/monsoon_lantern_layer.json, m07_attack_map_output.txt, 2026-11-07.

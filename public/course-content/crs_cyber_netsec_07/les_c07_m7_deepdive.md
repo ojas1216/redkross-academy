@@ -9,13 +9,13 @@ Top talkers (by bytes):
   10.4.0.21         15 flows      7680 bytes  (user)
   203.0.113.50      60 flows      2400 bytes  (internet)
 Port scans (>= 20 ports to one host within 120s):
-  SCAN 203.0.113.50 -> 10.1.0.10 : 60 ports in 59s
+  SCAN 203.0.113.50 -> 10.1.0.10: 60 ports in 59s
 Beaconing (>= 8 contacts at near-constant interval):
-  BEACON 10.4.0.21 -> 203.0.113.50 : 15 contacts, ~60.0s interval
+  BEACON 10.4.0.21 -> 203.0.113.50: 15 contacts, ~60.0s interval
 Segmentation violations in telemetry (aggregated per host-pair):
-  VIOLATION 10.4.0.20(user) -> 10.3.0.10(db) : 5432
-  VIOLATION 10.4.0.21(user) -> 203.0.113.50(internet) : 443
-  VIOLATION 203.0.113.50(internet) -> 10.1.0.10(dmz) : 60 ports incl 20,21..
+  VIOLATION 10.4.0.20(user) -> 10.3.0.10(db): 5432
+  VIOLATION 10.4.0.21(user) -> 203.0.113.50(internet): 443
+  VIOLATION 203.0.113.50(internet) -> 10.1.0.10(dmz): 60 ports incl 20,21..
 5 defensive signal(s) to triage (1 scan, 1 beacon, 3 segmentation).
 ```
 

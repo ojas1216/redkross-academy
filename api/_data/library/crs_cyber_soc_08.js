@@ -96,7 +96,7 @@ export default {
      "1 week"
     ],
     "correct": 2,
-    "explanation": "Course 01 Module 7 [R3].",
+    "explanation": "Course 01 Module 7.",
     "topic": "C08-M01: SOC operations",
     "difficulty": "medium"
    },
@@ -138,7 +138,7 @@ export default {
      "Backups"
     ],
     "correct": 1,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C08-M01: SOC operations",
     "difficulty": "medium"
    }
@@ -154,7 +154,7 @@ export default {
      "22"
     ],
     "correct": 0,
-    "explanation": "Sysmon event 1 [R1].",
+    "explanation": "Sysmon event 1.",
     "topic": "C08-M02: Telemetry foundations",
     "difficulty": "medium"
    },
@@ -280,7 +280,7 @@ export default {
      "A DDoS"
     ],
     "correct": 1,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C08-M02: Telemetry foundations",
     "difficulty": "medium"
    }

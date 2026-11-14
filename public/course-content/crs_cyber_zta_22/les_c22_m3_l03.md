@@ -1,4 +1,4 @@
-From NIST SP 800-207 [R1]:
+**From NIST SP 800-207:**
 
 | Term | Meaning |
 |---|---|

@@ -28,14 +28,3 @@ deleting evidence; IR access through the compromised IdP; backups in the same ac
 ### Revision questions
 
 ​1. Revoke sessions for a role. 2. Order isolation, snapshot and termination. 3. Outline the reference architecture.
-
-### Further reading
-
-SP 800-61 Rev. 3 [R1]; AWS revoke sessions [R3].
-
-## References
-
-- [R1] NIST. SP 800-61 Rev. 3, "Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile", April 2025. URL: [https://csrc.nist.gov/pubs/sp/800/61/r3/final](https://csrc.nist.gov/pubs/sp/800/61/r3/final) Accessed: 2026-11-08.
-- [R2] The Register. Report on the Code Spaces attack, 18 June 2014. URL: [https://www.theregister.com/2014/06/18/code_spaces_destroyed/](https://www.theregister.com/2014/06/18/code_spaces_destroyed/) Accessed: 2026-11-07. Supports: control panel access, extortion, deletion of data and backups, company closure.
-- [R3] AWS. "Revoking IAM role temporary security credentials". URL: [https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_revoke-sessions.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_revoke-sessions.html) Accessed: 2026-11-07. Supports: AWSRevokeOlderSessions, aws:TokenIssueTime DateLessThan, no effect on long-term user credentials.
-- [R4] Lab evidence. response_lab.py and response_lab_output.txt (boto3 1.43.126, moto 5.2.5), 2026-11-07.

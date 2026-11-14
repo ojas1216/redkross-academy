@@ -10,7 +10,7 @@ clients can build the path (Module 5, case 2).
 Client:
   ctx = ssl.create_default_context(cafile="pki/root.crt")
   with ctx.wrap_socket(sock, server_hostname="track.tamarind.example") as s:
-      s.version(), s.cipher()
+      s.version, s.cipher
 create_default_context enables certificate verification and hostname
 checking (CERT_REQUIRED, check_hostname=True). server_hostname sets SNI
 and the name to verify.

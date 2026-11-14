@@ -6,7 +6,7 @@ Semgrep honours inline comments of the form "# nosemgrep: <rule-id>".
 ---------------------------------------------------------------- BEGIN CODE
 def file_checksum(data: bytes) -> str:
     # MD5 used only to match a legacy partner's non-security checksum format
-    return hashlib.md5(data).hexdigest()  # nosemgrep: rk-weak-hash-md5
+    return hashlib.md5(data).hexdigest  # nosemgrep: rk-weak-hash-md5
 ------------------------------------------------------------------ END CODE
 ```
 

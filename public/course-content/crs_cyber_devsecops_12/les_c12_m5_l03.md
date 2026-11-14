@@ -38,5 +38,5 @@ audit_exit=1
 
 - "32 known vulnerabilities in 3 packages" counts table rows, which included repeats. There were 17 unique advisory IDs. Deduplicate before reporting numbers.
 - The three affected packages were requests, urllib3 and the transitive idna, not PyYAML. pip-audit resolves dependencies, unlike the manifest-only SBOM.
-- One example: CVE-2023-32681 (GHSA-j8r2-6x86-q33q) means requests versions 2.3.0 up to, but not including, 2.31.0 could send a Proxy-Authorization header to destination servers when redirected to HTTPS. The advisory rates it Moderate, CVSS 3.1 score 6.1 [R3].
+- One example: CVE-2023-32681 (GHSA-j8r2-6x86-q33q) means requests versions 2.3.0 up to, but not including, 2.31.0 could send a Proxy-Authorization header to destination servers when redirected to HTTPS. The advisory rates it Moderate, CVSS 3.1 score 6.1.
 - The exit code was 1 when vulnerabilities were found, so pip-audit can serve as a gate directly.

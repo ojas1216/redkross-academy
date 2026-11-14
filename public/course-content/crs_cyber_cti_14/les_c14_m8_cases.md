@@ -1,6 +1,6 @@
 ## AA23-193A - an advisory that told defenders where to look, 2023
 
-**Context:** on 12 July 2023 CISA and the FBI published AA23-193A about malicious activity in Microsoft cloud environments, later associated with the actor Microsoft calls Storm-0558 [R2].
+**Context:** on 12 July 2023 CISA and the FBI published AA23-193A about malicious activity in Microsoft cloud environments, later associated with the actor Microsoft calls Storm-0558.
 
 **What made it actionable:** the advisory described how a US government agency detected the activity in mid-June 2023 from MailItemsAccessed events with an unexpected application identifier, compared against an established baseline, and it discussed the logging licence levels needed for such events. Readers learned which log, which field and which comparison to use - not just that an incident occurred.
 

@@ -7,4 +7,4 @@
 | Connector | the integration that performs a step on another system, holding credentials that must be protected like administrator credentials. |
 | Case | the record that groups alerts, evidence, decisions and actions. |
 
-NIST SP 800-61 Rev. 3 (April 2025) places incident response within CSF 2.0 risk management [R2]. Automation serves that process; it does not replace the decisions the process assigns to people.
+NIST SP 800-61 Rev. 3 (April 2025) places incident response within CSF 2.0 risk management. Automation serves that process; it does not replace the decisions the process assigns to people.

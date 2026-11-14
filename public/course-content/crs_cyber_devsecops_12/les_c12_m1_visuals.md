@@ -6,7 +6,7 @@
 ## NIST SSDF practice groups
 
 ![Four boxes in a grid naming the SSDF groups PO, PS, PW and RV.](/assets/courses/cyber-12/C12-M01-F2.svg)
-*Figure C12-M01-F2. The four practice groups of NIST SSDF v1.1 [R1].*
+*Figure C12-M01-F2. The four practice groups of NIST SSDF v1.1.*
 
 ## Gate decision
 

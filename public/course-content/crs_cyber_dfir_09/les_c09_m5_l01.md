@@ -34,4 +34,4 @@ lines)
 
 - The System and Application logs were capped at 20 MB in circular mode, so on a busy machine, history may cover only days or weeks. Check retention before saying "no event exists". Remember the CERT-In 180-day log requirement (Course 08 Module 7) and forward logs centrally.
 - Reading the Security log needed administrator rights. Its absence from the listing reflects permissions, not a missing log. In a forensic image, the .evtx files are read offline, without this restriction.
-- The 6005/6006 pairs bracket boot sessions. Times are stored in UTC and were converted explicitly with ToUniversalTime().
+- The 6005/6006 pairs bracket boot sessions. Times are stored in UTC and were converted explicitly with ToUniversalTime.

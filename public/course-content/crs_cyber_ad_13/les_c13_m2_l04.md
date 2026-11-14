@@ -1,4 +1,4 @@
-LDAP (RFC 4511) is how clients read and search the directory [R2].
+LDAP (RFC 4511) is how clients read and search the directory.
 
 **Two operations dominate:**
 

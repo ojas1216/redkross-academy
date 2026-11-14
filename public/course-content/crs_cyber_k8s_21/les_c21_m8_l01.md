@@ -6,4 +6,4 @@
 6. Re-run the full evidence collection; investigate every remaining failure; fix or accept with an owner and expiry.
 7. Report and schedule the next run.
 
-Standards such as the CIS Kubernetes Benchmark and the NSA/CISA Kubernetes Hardening Guidance [R2] supply checklists; this method turns them into evidence.
+Standards such as the CIS Kubernetes Benchmark and the NSA/CISA Kubernetes Hardening Guidance supply checklists; this method turns them into evidence.

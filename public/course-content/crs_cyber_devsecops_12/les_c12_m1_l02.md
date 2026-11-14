@@ -1,4 +1,4 @@
-NIST SP 800-218, "Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities", was published in February 2022 [R1]. It groups practices into four families:
+NIST SP 800-218, "Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities", was published in February 2022. It groups practices into four families:
 
 | Term | Meaning |
 |---|---|

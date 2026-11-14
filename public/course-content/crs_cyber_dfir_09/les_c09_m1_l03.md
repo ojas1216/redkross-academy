@@ -1,4 +1,4 @@
-NIST SP 800-86, "Guide to Integrating Forensic Techniques into Incident Response" (August 2006), describes a four-phase process [R1]:
+NIST SP 800-86, "Guide to Integrating Forensic Techniques into Incident Response" (August 2006), describes a four-phase process:
 
 | Term | Meaning |
 |---|---|

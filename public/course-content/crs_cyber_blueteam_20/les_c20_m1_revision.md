@@ -29,15 +29,3 @@ counting rules instead of reporting hosts; heat maps without definitions; retent
 ### Revision questions
 
 ​1. Define the four coverage scores. 2. List the six telemetry questions. 3. Explain why T1070.001 no longer appears in ATT&CK 20.1.
-
-### Further reading
-
-[R2]; ATT&CK detection strategies [R1].
-
-## References
-
-- [R1] MITRE. Enterprise ATT&CK 20.1, STIX 2.1 data (collection modified 2026-11-05) and tactics list. URL: [https://github.com/mitre-attack/attack-stix-data](https://github.com/mitre-attack/attack-stix-data) and [https://attack.mitre.org/tactics/enterprise/](https://attack.mitre.org/tactics/enterprise/) Accessed: 2026-11-07. Supports: object counts, tactic names, revocation of T1070.001 by T1685.005.
-- [R2] ASD's ACSC, CISA, FBI, NSA et al. "Best Practices for Event Logging and Threat Detection", 21 August 2024. URL: [https://www.cisa.gov/resources-tools/resources/best-practices-event-logging-and-threat-detection](https://www.cisa.gov/resources-tools/resources/best-practices-event-logging-and-threat-detection) Accessed: 2026-11-07. Supports: logging baseline guidance.
-- [R3] CISA and FBI. AA23-193A "Enhanced Monitoring to Detect APT Activity Targeting Outlook Online", 12 July 2023. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-193a](https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-193a) Accessed: 2026-11-07. Supports: MailItemsAccessed detection, baseline, G5/E5 licensing note.
-- [R4] Secondary: Industrial Cyber, "CSRB reports Microsoft Exchange breach by Storm-0558...", April 2024. URL: [https://industrialcyber.co/reports/csrb-reports-microsoft-exchange-breach-by-storm-0558-urges-security-reforms-following-espionage-incident/](https://industrialcyber.co/reports/csrb-reports-microsoft-exchange-breach-by-storm-0558-urges-security-reforms-following-espionage-incident/) Accessed: 2026-11-07. Supports: 16 June 2023 State Department alert; custom MailItemsAccessed rule (verify against the CSRB report itself).
-- [R5] Lab evidence. coverage.py, coverage_output.txt (CPython 3.14.4), 2026-11-07.

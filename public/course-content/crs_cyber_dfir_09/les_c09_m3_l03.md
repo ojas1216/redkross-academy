@@ -1,4 +1,4 @@
-NTFS, the Windows default, stores everything as files described in the Master File Table (MFT). Each file has at least one MFT record (typically 1,024 bytes) containing attributes [R1]:
+NTFS, the Windows default, stores everything as files described in the Master File Table (MFT). Each file has at least one MFT record (typically 1,024 bytes) containing attributes:
 
 | Term | Meaning |
 |---|---|

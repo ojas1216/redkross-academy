@@ -1,5 +1,7 @@
 > [!NOTE] Lab kit
 > Download the course lab kit: [RedKross_C15_Lab_Kit.zip](/downloads/labs/RedKross_C15_Lab_Kit.zip). Extract it anywhere; paths written as `LAB_ASSETS/C15/...` refer to the extracted `C15` folder. Everything runs locally against systems you own.
+>
+> **Before you start:** Private keys (*.key) are never shipped in the download. Before the Module 6 TLS lab, run the Module 5 PKI lab once to generate the lab CA, intermediate and server keys in pki/: sh m05_pki_lab.sh        (Linux/macOS, or Git Bash on Windows; needs OpenSSL 3) Then: python m06_tls.py (also in READ_ME_FIRST_DOWNLOAD_NOTES.txt inside the kit)
 
 ## Practical 1: Randomness and entropy
 
@@ -21,7 +23,7 @@
 
 1. Run python m01_randomness.py and confirm that tokens A and B match.
 2. Change the seed to the current Unix time and run it twice within the same second. Explain the result.
-3. Write a function new_reset_token() using secrets, and a test that 1,000 generated tokens are unique and 43 characters long.
+3. Write a function new_reset_token using secrets, and a test that 1,000 generated tokens are unique and 43 characters long.
 4. Calculate the entropy of a 10-character password from a 62-character alphabet, assuming random choice, and say why a human-chosen 10-character password has far less.
 
 **Expected observations:** identical tokens with identical seeds; about 59.5 bits for step 4.

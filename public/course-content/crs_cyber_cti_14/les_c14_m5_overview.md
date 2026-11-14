@@ -4,7 +4,7 @@ Indicators of compromise (IOCs) are the most operational form of threat intellig
 
 ## Why it matters
 
-Even official reports warn about this. The US joint analysis report GRIZZLY STEPPE (December 2016) told administrators that traffic from its listed addresses "may correspond to malicious activity, and some may correspond to legitimate activity" [R2]. An indicator without context and ageing is a guess that never expires.
+Even official reports warn about this. The US joint analysis report GRIZZLY STEPPE (December 2016) told administrators that traffic from its listed addresses "may correspond to malicious activity, and some may correspond to legitimate activity". An indicator without context and ageing is a guess that never expires.
 
 ## Where it is used
 

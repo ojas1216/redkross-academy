@@ -29,14 +29,3 @@ trusting the VPN subnet; untested rules; open egress.
 ### Revision questions
 
 ​1. Write a flow matrix for three tiers. 2. Why did the lab test IPs? 3. Compare VPN and ZTNA.
-
-### Further reading
-
-CISA AA24-060B [R1]; NIST SP 800-207 [R2].
-
-## References
-
-- [R1] CISA, FBI, MS-ISAC et al. "Threat Actors Exploit Multiple Vulnerabilities in Ivanti Connect Secure and Policy Secure Gateways", AA24-060B, 29 February 2024. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060b](https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060b) Accessed: 2026-11-07 (verified for Course 09). Supports: CVEs, ICT failure, persistence through resets, collection limits.
-- [R2] NIST SP 800-207, "Zero Trust Architecture", August 2020. URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-07. Supports: micro-segmentation and gateway deployment models.
-- [R3] British Library. "Learning lessons from the cyber-attack", 8 March 2024. URL: [https://www.bl.uk/home/british-library-cyber-incident-review-8-march-2024.pdf](https://www.bl.uk/home/british-library-cyber-incident-review-8-march-2024.pdf) Accessed: 2026-11-07. Supports: network design and lateral reach.
-- [R4] Lab evidence. segmentation_lab.sh and segmentation_lab_output.txt (Docker 29.4.2, alpine:3.20), 2026-11-07.

@@ -29,14 +29,3 @@ one-size questionnaires; trusting answers without evidence; no exit plans.
 ### Revision questions
 
 ​1. Define three vendor tiers. 2. List seven contract clauses. 3. How do you respond to a vendor product advisory?
-
-### Further reading
-
-CISA AA23-158A [R1]; NIST CSF GV.SC [R2].
-
-## References
-
-- [R1] CISA and FBI. "#StopRansomware: CL0P Ransomware Gang Exploits CVE-2023-34362 MOVEit Vulnerability", AA23-158A, 7 June 2023. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a](https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a) Accessed: 2026-11-07 (verified for Course 12). Supports: actor, CVE, dates, web shell.
-- [R2] NIST. CSF 2.0, CSWP 29, 26 February 2024. URL: [https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf](https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf) Accessed: 2026-11-07. Supports: GV.SC category.
-- [R3] Reserve Bank of India. Master Direction on IT Governance, Risk, Controls and Assurance Practices, 7 November 2023. URL: [https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=12562](https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=12562) Accessed: 2026-11-07 (web-search cross-check; SME review). Supports: vendor risk expectations.
-- [R4] Lab evidence. grc_toolkit.py vendor output, 2026-11-07.

@@ -4,7 +4,7 @@ Everything so far assumed that the image you deploy is the image you reviewed an
 
 ## Why it matters
 
-The xz Utils backdoor (CVE-2024-3094, disclosed 29 March 2024) was hidden in the upstream release tarballs rather than in the visible source repository, and was activated by the build process [R1]. A reviewer reading the Git history would not have seen it. Build integrity and provenance exist precisely to connect what was reviewed to what was shipped.
+The xz Utils backdoor (CVE-2024-3094, disclosed 29 March 2024) was hidden in the upstream release tarballs rather than in the visible source repository, and was activated by the build process. A reviewer reading the Git history would not have seen it. Build integrity and provenance exist precisely to connect what was reviewed to what was shipped.
 
 ## Where it is used
 

@@ -17,7 +17,7 @@
 
 **Step-by-step instructions:**
 
-1. In images/: docker build -f Dockerfile.bad -t kestrel-api:bad . (and the same for good and good13).
+1. In images/: docker build -f Dockerfile.bad -t kestrel-api:bad. (and the same for good and good13).
 2. python dockerfile_lint.py Dockerfile.bad Dockerfile.good Dockerfile.good13
 3. docker save kestrel-api:bad -o bad.tar (and good, good13).
 4. docker volume create rk-trivy-cache, then for each archive: docker run --rm -v rk-trivy-cache:/root/.cache -v "$PWD:/work" aquasec/trivy:latest image --quiet --input /work/bad.tar --scanners vuln,secret --format json -o /work/trivy_bad.json

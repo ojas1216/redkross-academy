@@ -1,5 +1,7 @@
 > [!NOTE] Lab kit
 > Download the course lab kit: [RedKross_C14_Lab_Kit.zip](/downloads/labs/RedKross_C14_Lab_Kit.zip). Extract it anywhere; paths written as `LAB_ASSETS/C14/...` refer to the extracted `C14` folder. Everything runs locally against systems you own.
+>
+> **Before you start:** data/enterprise-attack.json (MITRE ATT&CK Enterprise, STIX 2.1, ~53 MB) is not shipped. Download it from the official MITRE repository and save it as data/enterprise-attack.json: https://github.com/mitre-attack/attack-stix-data/tree/master/enterprise-attack (also in READ_ME_FIRST_DOWNLOAD_NOTES.txt inside the kit)
 
 ## Practical 1: Map and grade
 
@@ -18,7 +20,7 @@
 **Step-by-step instructions:**
 
 1. Read reports.json and map each claim yourself before looking at the supplied techniques; compare and explain differences.
-2. python attack_map.py ; record the summary.
+2. python attack_map.py; record the summary.
 3. Add "Module Load" and "Network Traffic Content" to the inventory and re-run; how many techniques improve?
 4. For each BLIND technique, describe the external intelligence that provides visibility.
 5. Load navigator/monsoon_lantern_layer.json into the ATT&CK Navigator (optional) and write the legend that states what a score means.

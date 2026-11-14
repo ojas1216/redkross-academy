@@ -31,16 +31,3 @@ tag-pinned actions; secrets in fork workflows; deploying without verification.
 ### Revision questions
 
 ​1. List five pipeline hardening controls. 2. Explain SLSA L1-L3. 3. What does a deploy gate verify?
-
-### Further reading
-
-GitHub Actions hardening [R1]; SLSA [R3]; Sigstore [R2].
-
-## References
-
-- [R1] GitHub Docs. "Security hardening for GitHub Actions". URL: [https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions) Accessed: 2026-11-07. Supports: SHA pinning, GITHUB_TOKEN least privilege, OIDC, pull_request_target and script-injection guidance.
-- [R2] Sigstore. "Cosign documentation". URL: [https://docs.sigstore.dev/cosign/signing/overview/](https://docs.sigstore.dev/cosign/signing/overview/) Accessed: 2026-11-07. Supports: key-based and keyless signing, bundles, transparency log.
-- [R3] SLSA. "Build track basics", SLSA specification v1.2. URL: [https://slsa.dev/spec/v1.2/build-track-basics](https://slsa.dev/spec/v1.2/build-track-basics) Accessed: 2026-11-07. Supports: Build L0-L3 definitions; Source track in 1.2.
-- [R4] NIST. SP 800-218 SSDF v1.1, February 2022. URL: [https://csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final) Accessed: 2026-11-07. Supports: PS practice group.
-- [R5] Codecov. "Bash Uploader Security Update". URL: [https://about.codecov.io/security-update/](https://about.codecov.io/security-update/) Accessed: 2026-11-07. Supports: dates, change made, root cause, checksum detection, recommendations.
-- [R6] Lab evidence. signing_lab.sh, signing_lab_output.txt, provenance_lab.sh, check_provenance.py, provenance_lab_output.txt (cosign v3.1.4, CPython 3.14.4), 2026-11-07.

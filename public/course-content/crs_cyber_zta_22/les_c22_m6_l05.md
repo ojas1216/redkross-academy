@@ -1,4 +1,4 @@
-Design now for the day you respond (Course 08 Module 6; NIST SP 800-61 Rev. 3, April 2025, which aligns incident response with CSF 2.0 [R6]):
+Design now for the day you respond (Course 08 Module 6; NIST SP 800-61 Rev. 3, April 2025, which aligns incident response with CSF 2.0):
 
 - Out-of-band administration and communications: responders can meet, talk and reach consoles if e-mail, chat or the corporate IdP is unavailable or untrusted.
 - Responder identities separate from production identity, with phishing-resistant MFA and pre-approved emergency roles.

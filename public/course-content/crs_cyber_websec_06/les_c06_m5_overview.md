@@ -1,6 +1,6 @@
 ## About this module
 
-Injection flaws arise when untrusted input is mixed with code or markup so that the input changes the meaning of what runs. The two most important web forms are SQL injection (input changes a database query) and cross-site scripting (input becomes script in another user's browser). Both come from the same root cause - mixing data with code - and both have the same kind of fix: keep data as data. This module covers SQL injection concepts, XSS contexts, and the two defences that prevent them: parameterisation (for queries) and contextual output encoding (for markup). You will confirm SQL injection and both reflected and stored XSS on the lab target, and see the fixes close them. These map to OWASP A05:2025 Injection [R1].
+Injection flaws arise when untrusted input is mixed with code or markup so that the input changes the meaning of what runs. The two most important web forms are SQL injection (input changes a database query) and cross-site scripting (input becomes script in another user's browser). Both come from the same root cause - mixing data with code - and both have the same kind of fix: keep data as data. This module covers SQL injection concepts, XSS contexts, and the two defences that prevent them: parameterisation (for queries) and contextual output encoding (for markup). You will confirm SQL injection and both reflected and stored XSS on the lab target, and see the fixes close them. These map to OWASP A05:2025 Injection.
 
 ## Why it matters
 

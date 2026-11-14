@@ -4,7 +4,7 @@ A SOC that handles every alert by hand is slow and inconsistent, and its analyst
 
 ## Why it matters
 
-In February 2017, a mistyped input to an established operational playbook removed far more servers than intended and disrupted Amazon S3 in the US-EAST-1 region. AWS responded by making the tool remove capacity more slowly and by adding safeguards against going below minimum capacity [R1]. Security playbooks touch production systems too, so the same lessons apply.
+In February 2017, a mistyped input to an established operational playbook removed far more servers than intended and disrupted Amazon S3 in the US-EAST-1 region. AWS responded by making the tool remove capacity more slowly and by adding safeguards against going below minimum capacity. Security playbooks touch production systems too, so the same lessons apply.
 
 ## Where it is used
 

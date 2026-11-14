@@ -1,4 +1,4 @@
-The Pod Security Standards define three levels [R2]:
+The Pod Security Standards define three levels:
 
 | Term | Meaning |
 |---|---|

@@ -1,4 +1,4 @@
-LAB_ASSETS/C06/map.py enumerates a known set of endpoints on the loopback target and records method, status and content type. It is scoped by code: require_loopback() in labutil.py raises and exits if the host is not 127.0.0.1/localhost. Execution-tested (CPython 3.14.4, 2026-11-08):
+LAB_ASSETS/C06/map.py enumerates a known set of endpoints on the loopback target and records method, status and content type. It is scoped by code: require_loopback in labutil.py raises and exits if the host is not 127.0.0.1/localhost. Execution-tested (CPython 3.14.4, 2026-11-08):
 
 ```output
 Application map for http://127.0.0.1:8200 (loopback lab)

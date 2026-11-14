@@ -4,7 +4,7 @@ Detections wait for known patterns; hunters go looking for the unknown. Threat h
 
 ## Why it matters
 
-Joint guidance on living-off-the-land (LOTL) techniques from CISA, the NSA, the FBI and partners notes that many organisations lack established baselines. That makes it hard to tell legitimate behaviour from malicious behaviour and to "conduct behavioral analytics, anomaly detection, and proactive hunting" [R1]. Hunting builds those baselines, and finds what rules miss in the meantime.
+Joint guidance on living-off-the-land (LOTL) techniques from CISA, the NSA, the FBI and partners notes that many organisations lack established baselines. That makes it hard to tell legitimate behaviour from malicious behaviour and to "conduct behavioral analytics, anomaly detection, and proactive hunting". Hunting builds those baselines, and finds what rules miss in the meantime.
 
 ## Where it is used
 

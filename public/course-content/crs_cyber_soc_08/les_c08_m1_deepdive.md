@@ -15,8 +15,8 @@ CASES = [  # (created, acknowledged, resolved, disposition) - synthetic
     ("2026-11-03T10:00", "2026-11-03T10:04", "2026-11-03T10:20", "BTP"),
 ]
 p = lambda s: datetime.fromisoformat(s)
-ack = [(p(a) - p(c)).total_seconds() / 60 for c, a, r, d in CASES]
-res = [(p(r) - p(c)).total_seconds() / 60 for c, a, r, d in CASES]
+ack = [(p(a) - p(c)).total_seconds / 60 for c, a, r, d in CASES]
+res = [(p(r) - p(c)).total_seconds / 60 for c, a, r, d in CASES]
 print(f"MTTA mean {mean(ack):.1f} min, median {median(ack):.1f} min")
 print(f"MTTR mean {mean(res):.1f} min, median {median(res):.1f} min")
 fp = sum(1 for *_, d in CASES if d == "FP") / len(CASES)

@@ -30,14 +30,3 @@ assessing only one layer; no enforcing evidence; not building a baseline; poor p
 ### Revision questions
 
 ​1. What areas does a complete wireless-and-mobile assessment cover? 2. What is the difference between enforcing evidence and a detective finding? 3. What scope rules govern the capstone?
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] NIST. "SP 800-153: Guidelines for Securing Wireless Local Area Networks (WLANs)". URL: [https://csrc.nist.gov/pubs/sp/800/153/final](https://csrc.nist.gov/pubs/sp/800/153/final) Accessed: 2026-11-08. Supports: the Wi-Fi/WLAN layer of the assessment.
-- [R2] NIST. "SP 800-121 Rev.2: Guide to Bluetooth Security". URL: [https://csrc.nist.gov/pubs/sp/800/121/r2/final](https://csrc.nist.gov/pubs/sp/800/121/r2/final) Accessed: 2026-11-08. Supports: the Bluetooth layer.
-- [R3] OWASP. "MASVS and API Security Top 10". URL: [https://mas.owasp.org/](https://mas.owasp.org/) Accessed: 2026-11-08. Supports: the mobile app and API layers.
-- [R4] Lab evidence. review.py consolidated review - 3/3 control domains FAIL->PASS, 16 app findings, 2 evil-twin APs (CPython 3.14.4), LAB_ASSETS/C16/ data/review_output.txt, 2026-11-08. Supports: the consolidated-review deep dive.

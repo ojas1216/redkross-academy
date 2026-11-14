@@ -4,7 +4,7 @@ Endpoints can be blinded, and some devices (printers, appliances, legacy systems
 
 ## Why it matters
 
-CISA's red-team assessment AA24-326A found an organisation that relied too heavily on endpoint detection and had never properly implemented IDS or IPS for its DMZ [R1]. Network telemetry is the independent witness that catches what endpoint sensors miss.
+CISA's red-team assessment AA24-326A found an organisation that relied too heavily on endpoint detection and had never properly implemented IDS or IPS for its DMZ. Network telemetry is the independent witness that catches what endpoint sensors miss.
 
 ## Where it is used
 

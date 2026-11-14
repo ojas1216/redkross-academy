@@ -1,4 +1,4 @@
-A sufficiently large quantum computer running Shor's algorithm would break RSA and elliptic-curve cryptography. NIST's first post-quantum standards, approved on 13 August 2024, are [R1]:
+A sufficiently large quantum computer running Shor's algorithm would break RSA and elliptic-curve cryptography. NIST's first post-quantum standards, approved on 13 August 2024, are:
 
 | Term | Meaning |
 |---|---|

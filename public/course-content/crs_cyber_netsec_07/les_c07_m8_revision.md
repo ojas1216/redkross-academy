@@ -29,14 +29,3 @@ accepting attestation; verifying against the wrong artefact; reviewing only one 
 ### Revision questions
 
 ​1. What does a network security assessment review and report per layer? 2. What does it mean to verify a control, and why re-run the check? 3. Why report telemetry signals even when all enforcing controls PASS?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] CIS. "CIS Critical Security Controls" (network-relevant controls and the emphasis on verification and continuous assurance). URL: [https://www.cisecurity.org/controls](https://www.cisecurity.org/controls) Accessed: 2026-11-08. Supports: verify-do- not-assume, evidence over attestation, CS1.
-- [R2] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment". URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: assessment methodology, verification and evidence.
-- [R3] NIST. "Cybersecurity Framework (CSF) 2.0" (Identify/Protect/Detect functions across network controls). URL: [https://www.nist.gov/cyberframework](https://www.nist.gov/cyberframework) Accessed: 2026-11-08. Supports: defence-in- depth review across layers.
-- [R4] Lab evidence. review.py consolidated control summary (firewall 4->0, segmentation 3->0, TLS 6->0, telemetry 1 scan/1 beacon/3 violations) (CPython 3.14.4), LAB_ASSETS/C07/data/review_output.txt, 2026-11-08. Supports: the deep- dive control summary and capstone evidence.

@@ -32,14 +32,3 @@ IAM users for people; `"*"` actions; Bool MFA conditions; permanent Owner assign
 ### Revision questions
 
 ​1. Walk through evaluation of a request with Allow and Deny. 2. Why can access keys bypass a Bool MFA deny? 3. Design vendor access.
-
-### Further reading
-
-AWS condition keys [R1]; Microsoft responder guidance [R2]; Azure built-in roles [R3].
-
-## References
-
-- [R1] AWS. "AWS global condition context keys" (IAM User Guide). URL: [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) Accessed: 2026-11-07. Supports: aws:MultiFactorAuthPresent absent with long-term keys; BoolIfExists.
-- [R2] Microsoft Threat Intelligence. "Midnight Blizzard: Guidance for responders on nation-state attack", 25 January 2024. URL: [https://www.microsoft.com/en-us/security/blog/2024/01/25/midnight-blizzard-guidance-for-responders-on-nation-state-attack/](https://www.microsoft.com/en-us/security/blog/2024/01/25/midnight-blizzard-guidance-for-responders-on-nation-state-attack/) Accessed: 2026-11-07.
-- [R3] Microsoft. "Azure built-in roles". URL: [https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles) Accessed: 2026-11-07.
-- [R4] Lab evidence. iam_lab.py and iam_lab_output.txt (boto3 1.43.126, moto 5.2.5, python:3.12-slim), 2026-11-07.

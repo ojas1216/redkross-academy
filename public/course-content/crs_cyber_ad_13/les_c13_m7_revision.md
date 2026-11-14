@@ -29,14 +29,3 @@ assessing without authorised scope; delivering tool dumps instead of a scored pl
 ### Revision questions
 
 ​1. What must a remediation item contain? 2. How do you prove a finding is closed? 3. What three reviews feed the register?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] Microsoft. "Best Practices for Securing Active Directory". URL: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory) Accessed: 2026-11-08. Supports: review of privileged groups, delegation, accounts; the recurring misconfigurations.
-- [R2] Microsoft. "Audit policy recommendations" and AD security assessment guidance. URL: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations) Accessed: 2026-11-08. Supports: CS1, standard review items and evidence.
-- [R3] CIS. "CIS Controls v8" (Control 5 Account Management, Control 6 Access Control Management). URL: [https://www.cisecurity.org/controls/v8](https://www.cisecurity.org/controls/v8) Accessed: 2026-11-08. Supports: access review and account-management control framing.
-- [R4] Lab evidence. dir_review.py, auth_monitor.py and group enumeration output combined into the register in section 3 (Samba 4.22.11), 2026-11-08.

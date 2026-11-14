@@ -1,4 +1,4 @@
-Event 4624 records a successful logon on the machine accessed. Microsoft's documentation lists these logon types [R1]:
+Event 4624 records a successful logon on the machine accessed. Microsoft's documentation lists these logon types:
 
 ```text
 0 System; 2 Interactive (local console); 3 Network (e.g. SMB share
@@ -8,7 +8,7 @@ RemoteInteractive (RDP); 11 CachedInteractive; 12
 CachedRemoteInteractive; 13 CachedUnlock.
 ```
 
-**Key fields:** TargetUserName and TargetDomainName; TargetLogonId (to correlate with 4672, 4688 and 4634 events from the same session); LogonType; IpAddress and WorkstationName (the source); AuthenticationPackageName (Kerberos, NTLM or Negotiate); and ElevatedToken (Version 2, Windows 10 and later). Microsoft notes that network logons using Kerberos may lack workstation information, while NTLM logons lack TCP/IP details [R1], so missing fields are normal.
+**Key fields:** TargetUserName and TargetDomainName; TargetLogonId (to correlate with 4672, 4688 and 4634 events from the same session); LogonType; IpAddress and WorkstationName (the source); AuthenticationPackageName (Kerberos, NTLM or Negotiate); and ElevatedToken (Version 2, Windows 10 and later). Microsoft notes that network logons using Kerberos may lack workstation information, while NTLM logons lack TCP/IP details, so missing fields are normal.
 
 **Patterns:**
 

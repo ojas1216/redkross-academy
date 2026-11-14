@@ -1,4 +1,4 @@
-No team can detect everything. ATT&CK 20.1 lists 227 techniques and 479 sub-techniques in the Enterprise domain (counted from MITRE's STIX data on 2026-11-07) [R1]. Priorities should come from a threat model (Course 22 Module 2): which adversaries target your sector, which assets matter, which techniques appear in incidents similar to yours, and which techniques your existing controls already prevent.
+No team can detect everything. ATT&CK 20.1 lists 227 techniques and 479 sub-techniques in the Enterprise domain (counted from MITRE's STIX data on 2026-11-07). Priorities should come from a threat model (Course 22 Module 2): which adversaries target your sector, which assets matter, which techniques appear in incidents similar to yours, and which techniques your existing controls already prevent.
 
 **A practical method:**
 

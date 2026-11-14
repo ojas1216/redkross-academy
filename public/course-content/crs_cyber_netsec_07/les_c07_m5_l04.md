@@ -12,4 +12,4 @@ Weak certificate keys RSA keys under 2048 bits are too weak; use >= 2048 or
 Expired/expiring certs break trust or force users past warnings.
 ```
 
-Each of these can leave traffic interceptable or tamperable while the connection still "works", which is why they must be found by configuration review. NIST SP 800-52r2 gives the authoritative guidance on selecting and configuring TLS [R3].
+Each of these can leave traffic interceptable or tamperable while the connection still "works", which is why they must be found by configuration review. NIST SP 800-52r2 gives the authoritative guidance on selecting and configuring TLS.

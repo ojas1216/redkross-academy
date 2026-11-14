@@ -31,14 +31,3 @@ enabling TLS 1.0/1.1; weak ciphers (RC4/3DES); weak or expiring certificates; fl
 ### Revision questions
 
 ​1. Which TLS versions must be disabled and why? 2. What does a certificate chain of trust establish? 3. Why is flat access after a VPN a problem?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] IETF. "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3" (TLS protections and handshake; defined TLS 1.3). URL: [https://www.rfc-editor.org/rfc/rfc8446](https://www.rfc-editor.org/rfc/rfc8446) Accessed: 2026-11-08. Supports: TLS confidentiality/integrity/authentication, current version.
-- [R2] IETF. "RFC 8996 (BCP 195): Deprecating TLS 1.0 and TLS 1.1". URL: [https://www.rfc-editor.org/rfc/rfc8996](https://www.rfc-editor.org/rfc/rfc8996) Accessed: 2026-11-08. Supports: TLS 1.0/1.1 deprecation, CS1.
-- [R3] NIST. "SP 800-52 Rev. 2: Guidelines for the Selection, Configuration, and Use of Transport Layer Security (TLS) Implementations". URL: [https://csrc.nist.gov/pubs/sp/800/52/r2/final](https://csrc.nist.gov/pubs/sp/800/52/r2/final) Accessed: 2026-11-08. Supports: protocol/cipher selection, certificate and key guidance.
-- [R4] Lab evidence. tlscheck.py review output for the pre- and post-hardening TLS configurations (5 HIGH -> 0) (CPython 3.14.4), LAB_ASSETS/C07/data/tlscheck_output.txt, tlscheck_fixed_output.txt, 2026-11-08. Supports: the deep-dive review and hardening.

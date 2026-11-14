@@ -43,14 +43,3 @@ reviews that only note; disconnected artefacts; metrics without targets.
 ### Revision questions
 
 ​1. List the management review agenda items. 2. How does an audit finding change the register? 3. Draft a one-page executive summary.
-
-### Further reading
-
-CSRB announcement [R1]; NIST CSF 2.0 [R2].
-
-## References
-
-- [R1] US Department of Homeland Security. "Cyber Safety Review Board Releases Report on Microsoft Online Exchange Incident from Summer 2023", 2 April 2024. URL: [https://www.dhs.gov/news/2024/04/02/cyber-safety-review-board-releases-report-microsoft-online-exchange-incident-summer](https://www.dhs.gov/news/2024/04/02/cyber-safety-review-board-releases-report-microsoft-online-exchange-incident-summer) Accessed: 2026-11-07 (verified for Course 01). Supports: preventable, cascade of failures, 2016 key, scale, recommendations.
-- [R2] NIST. CSF 2.0, CSWP 29, 26 February 2024. URL: [https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf](https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf) Accessed: 2026-11-07. Supports: Profiles for improvement planning.
-- [R3] British Library. "Learning lessons from the cyber-attack", 8 March 2024. URL: [https://www.bl.uk/home/british-library-cyber-incident-review-8-march-2024.pdf](https://www.bl.uk/home/british-library-cyber-incident-review-8-march-2024.pdf) Accessed: 2026-11-07. Supports: exception lessons referenced in the review example.
-- [R4] Lab evidence. grc_toolkit.py and grc_toolkit_output.txt (all six commands), 2026-11-07.

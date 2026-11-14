@@ -30,14 +30,3 @@ capturing full packets everywhere; ignoring flow/DNS telemetry; not correlating 
 ### Revision questions
 
 ​1. How do packet capture and flow telemetry differ and when use each? 2. How does beaconing appear in flow data? 3. What are three network-layer containment actions?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] IETF. "RFC 7011 (STD 77): Specification of the IP Flow Information Export (IPFIX) Protocol for the Exchange of Flow Information". URL: [https://www.rfc-editor.org/rfc/rfc7011](https://www.rfc-editor.org/rfc/rfc7011) Accessed: 2026-11-08. Supports: flow telemetry concept and fields.
-- [R2] MITRE. "ATT&CK: Command and Control (TA0011)" and "Application Layer Protocol (T1071)" (beaconing/C2). URL: [https://attack.mitre.org/tactics/TA0011/](https://attack.mitre.org/tactics/TA0011/) Accessed: 2026-11-08. Supports: beaconing and C2 patterns, CS1.
-- [R3] NIST. "SP 800-94: Guide to Intrusion Detection and Prevention Systems (IDPS)" (network monitoring and response). URL: [https://csrc.nist.gov/pubs/sp/800/94/final](https://csrc.nist.gov/pubs/sp/800/94/final) Accessed: 2026-11-08. Supports: monitoring, detection and containment concepts.
-- [R4] Lab evidence. flowcheck.py analysis output (top talkers, scan, beacon, segmentation violations over 186 records) (CPython 3.14.4), LAB_ASSETS/C07/data/flowcheck_output.txt, 2026-11-08. Supports: the deep-dive analysis and containment reasoning.

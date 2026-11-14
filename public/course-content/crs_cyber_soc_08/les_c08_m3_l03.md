@@ -1,4 +1,4 @@
-Normalisation maps source-specific names to a common schema so one search covers all sources. The demo used Elastic Common Schema-style names [R1]:
+Normalisation maps source-specific names to a common schema so one search covers all sources. The demo used Elastic Common Schema-style names:
 
 ```text
 ------------------------------------------------------------- BEGIN OUTPUT

@@ -11,13 +11,13 @@ After "docker run ... rk-dc" and a short wait, the DC describes itself (executio
 
 ```output
 $ docker exec rk-dc samba-tool domain info 127.0.0.1
-Forest           : ad.sahyadri.example
-Domain           : ad.sahyadri.example
-Netbios domain   : SAHYADRI
-DC name          : dc1.ad.sahyadri.example
-DC netbios name  : DC1
-Server site      : Default-First-Site-Name
-Client site      : Default-First-Site-Name
+Forest: ad.sahyadri.example
+Domain: ad.sahyadri.example
+Netbios domain: SAHYADRI
+DC name: dc1.ad.sahyadri.example
+DC netbios name: DC1
+Server site: Default-First-Site-Name
+Client site: Default-First-Site-Name
 ```
 
 DNS is what makes it findable. Pointing the resolver at the DC's own internal DNS and asking for the LDAP SRV record returns the DC:

@@ -1,4 +1,4 @@
-NIST SP 800-145 (September 2011, Mell and Grance) defines cloud computing by five essential characteristics, three service models and four deployment models [R1]:
+NIST SP 800-145 (September 2011, Mell and Grance) defines cloud computing by five essential characteristics, three service models and four deployment models:
 
 | Term | Meaning |
 |---|---|

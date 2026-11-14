@@ -1,4 +1,4 @@
-The Sleuth Kit (TSK) organises its tools by layer [R2]:
+The Sleuth Kit (TSK) organises its tools by layer:
 
 ```text
 Volume (mm*)        mmls   partition layout and gaps
@@ -21,8 +21,8 @@ mmls disk.img                 -> find the partition offset (sectors)
 fsstat -o <offset> disk.img   -> file system type and parameters
 fls -r -o <offset> disk.img   -> walk names; note the * entries
 istat -o <offset> disk.img N  -> metadata and block list
-icat -o <offset> disk.img N > recovered.bin ; sha256sum recovered.bin
-fls -r -m / -o <offset> disk.img > body.txt ; mactime -b body.txt -d -z <TZ>
+icat -o <offset> disk.img N > recovered.bin; sha256sum recovered.bin
+fls -r -m / -o <offset> disk.img > body.txt; mactime -b body.txt -d -z <TZ>
 ```
 
 In the lab the script found the deleted entry's address automatically with fls -d (deleted only) and sed, then passed it to istat and icat. Autopsy is a graphical front end over TSK.

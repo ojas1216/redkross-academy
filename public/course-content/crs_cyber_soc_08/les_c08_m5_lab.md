@@ -52,11 +52,11 @@
 
 1. Create a JSON object with type "indicator", spec_version "2.1", an id of the form indicator--<UUID>, created/modified timestamps, name, pattern "[domain-name:value = 'cdn-telemetry-sync.example']", pattern_type "stix", valid_from, valid_until and confidence.
 2. Validate the JSON syntax with python -m json.tool file.json.
-3. Compare your property names against the STIX 2.1 specification section on Indicator [R3].
+3. Compare your property names against the STIX 2.1 specification section on Indicator.
 
 **Expected observations:** json.tool prints the object; property names match the specification. (Full STIX validation needs a dedicated validator - Not execution-tested here.)
 
-**Troubleshooting:** generate a UUID with python -c "import uuid; print(uuid.uuid4())".
+**Troubleshooting:** generate a UUID with python -c "import uuid; print(uuid.uuid4)".
 
 **Cleanup:** none.
 

@@ -20,8 +20,8 @@ R04         9        9  accept     Ops head  unsupported OS exploited
 R05         8        6  transfer   COO       provider outage halts dispatch
 R06         6        2  mitigate   IT lead   guest network reaches internal hosts
 residual heat map (rows = impact 5..1, cols = likelihood 1..5)
-  I3 | .           | R01,R03,R05 | R04         | .           | .
-  I2 | R06         | R02         | .           | .           | .
+  I3 |.           | R01,R03,R05 | R04         |.           |.
+  I2 | R06         | R02         |.           |.           |.
 --------------------------------------------------------------- END OUTPUT
 (execution-tested 2026-11-07; empty rows and long lines trimmed)
 ```

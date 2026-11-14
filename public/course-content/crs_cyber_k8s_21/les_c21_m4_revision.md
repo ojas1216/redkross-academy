@@ -28,16 +28,3 @@ wildcards; binding the default service account; static shared CI tokens; enforci
 ### Revision questions
 
 ​1. Name five escalation permissions. 2. Explain warnafter. 3. Contrast ValidatingAdmissionPolicy and webhooks.
-
-### Further reading
-
-[R1]; [R4].
-
-## References
-
-- [R1] Kubernetes. "Role Based Access Control Good Practices". URL: [https://kubernetes.io/docs/concepts/security/rbac-good-practices/](https://kubernetes.io/docs/concepts/security/rbac-good-practices/) Accessed: 2026-11-07. Supports: list/watch secrets, workload creation, escalation routes.
-- [R2] Kubernetes. "Managing Service Accounts". URL: [https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/) Accessed: 2026-11-07. Supports: bound tokens fail when the object is gone or its uid differs.
-- [R3] Kubernetes. "kube-apiserver" command-line reference. URL: [https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/) Accessed: 2026-11-07. Supports: --service-account-extend-token-expiration (default true, up to one year).
-- [R4] Kubernetes. "Validating Admission Policy". URL: [https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/) Accessed: 2026-11-07. Supports: stable since v1.30; Deny, Warn, Audit; Deny and Warn not combined.
-- [R5] Microsoft Security Blog. "Misconfigured Kubeflow workloads are a security risk", 10 June 2020. URL: [https://www.microsoft.com/en-us/security/blog/2020/06/10/misconfigured-kubeflow-workloads-are-a-security-risk/](https://www.microsoft.com/en-us/security/blog/2020/06/10/misconfigured-kubeflow-workloads-are-a-security-risk/) Accessed: 2026-11-07. Supports: CS1.
-- [R6] Lab evidence. rbac-lab.yaml, rbac_review.py and outputs, m04_can_i_output.txt, m04_tokens_output.txt, m04_bound_token_output.txt, admission_output.txt (k3s v1.34.1+k3s1), 2026-11-07.

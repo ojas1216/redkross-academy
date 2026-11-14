@@ -21,9 +21,9 @@
 1. docker run -d --name rk-dc --privileged -h dc1 \
      -e ADMIN_PASS='Lab-Only-Adm1n!' -p 127.0.0.1:1389:389 rk-dc
 2. Wait about 20 seconds, then: docker exec rk-dc samba-tool domain info
-   127.0.0.1 ; confirm the Forest, Domain and DC name.
+   127.0.0.1; confirm the Forest, Domain and DC name.
 3. docker exec rk-dc sh -c "printf 'nameserver 127.0.0.1\n' >
-   /etc/resolv.conf; host -t SRV _ldap._tcp.ad.sahyadri.example" ; confirm
+   /etc/resolv.conf; host -t SRV _ldap._tcp.ad.sahyadri.example"; confirm
    the SRV record points at dc1.
 4. Record the domain, forest, NetBIOS name and DC host name.
 ```
@@ -52,7 +52,7 @@ Expected observations (execution-tested, Samba 4.22.11): the domain info and SRV
 
 **Step-by-step instructions:**
 
-1. docker exec rk-dc sh -c "ldbsearch -H /var/lib/samba/private/sam.ldb -b 'DC=ad,DC=sahyadri,DC=example' '(objectClass=domainDNS)' objectSid" ; record the domain SID.
+1. docker exec rk-dc sh -c "ldbsearch -H /var/lib/samba/private/sam.ldb -b 'DC=ad,DC=sahyadri,DC=example' '(objectClass=domainDNS)' objectSid"; record the domain SID.
 2. List the naming contexts: ldbsearch against the rootDSE for namingContexts; identify the domain, configuration and schema NCs.
 3. Find the global-catalogue port and the FSMO role holders with samba-tool fsmo show.
 4. Write one sentence each explaining what the configuration NC and the schema NC are for, and why they are forest-wide.

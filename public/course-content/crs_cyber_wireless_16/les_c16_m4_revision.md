@@ -31,14 +31,3 @@ Just Works for sensitive devices; LE legacy pairing; always-discoverable; defaul
 ### Revision questions
 
 ​1. Which association models provide MITM protection? 2. Why require LE Secure Connections? 3. Name three Bluetooth hardening settings.
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] NIST. "SP 800-121 Rev.2: Guide to Bluetooth Security". URL: [https://csrc.nist.gov/pubs/sp/800/121/r2/upd1/final](https://csrc.nist.gov/pubs/sp/800/121/r2/upd1/final) Accessed: 2026-11-08. Supports: Bluetooth/BLE architecture, pairing, association models and hardening.
-- [R2] NIST. "SP 800-121 Rev.2: Guide to Bluetooth Security" (device hardening recommendations). URL: [https://csrc.nist.gov/pubs/sp/800/121/r2/upd1/final](https://csrc.nist.gov/pubs/sp/800/121/r2/upd1/final) Accessed: 2026-11-08. Supports: the hardening checklist.
-- [R3] NIST. "SP 800-183: Networks of 'Things'" (IoT device context for BLE peripherals). URL: [https://csrc.nist.gov/pubs/sp/800/183/final](https://csrc.nist.gov/pubs/sp/800/183/final) Accessed: 2026-11-08. Supports: the IoT/BLE device context.
-- [R4] Lab evidence. btreview.py output on the weak and hardened Bluetooth configurations (CPython 3.14.4), LAB_ASSETS/C16/data/ (btreview_weak_output.txt, btreview_fixed_output.txt), 2026-11-08. Supports: the deep-dive configuration review.

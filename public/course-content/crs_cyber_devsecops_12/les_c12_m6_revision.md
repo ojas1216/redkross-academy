@@ -30,15 +30,3 @@ deleting the secret but not revoking it; secrets in images; blanket allowlists.
 ### Revision questions
 
 ​1. Order the leak-response steps. 2. Why do history scans matter? 3. Name three configuration settings to enforce in production.
-
-### Further reading
-
-FTC Uber settlement [R1]; gitleaks documentation [R2].
-
-## References
-
-- [R1] US Federal Trade Commission. "Uber Agrees to Expanded Settlement with FTC Related to Privacy, Security Claims", 12 April 2018. URL: [https://www.ftc.gov/news-events/news/press-releases/2018/04/uber-agrees-expanded-settlement-ftc-related-privacy-security-claims](https://www.ftc.gov/news-events/news/press-releases/2018/04/uber-agrees-expanded-settlement-ftc-related-privacy-security-claims) Accessed: 2026-11-07. Supports: access key posted on code-sharing site; data volumes; USD 100,000; disclosure in November 2017.
-- [R2] Gitleaks project. "gitleaks" (GitHub). URL: [https://github.com/gitleaks/gitleaks](https://github.com/gitleaks/gitleaks) Accessed: 2026-11-07. Supports: detect modes, redaction, pre-commit hook.
-- [R3] OWASP. "Secrets Management Cheat Sheet". URL: [https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) Accessed: 2026-11-07. Supports: storage, rotation, lifecycle guidance.
-- [R4] Lab evidence. secrets_lab.sh, secrets_lab_output.txt (gitleaks v8.30.1), config_check.py, config_check_output.txt (CPython 3.14.4), 2026-11-07.
-- [R5] CircleCI. "CircleCI incident report for January 4, 2023 security incident", 12 January 2023. URL: [https://circleci.com/blog/jan-4-2023-incident-report/](https://circleci.com/blog/jan-4-2023-incident-report/) Accessed: 2026-11-07. Supports: recommendation to adopt OIDC tokens and reduce stored credentials.

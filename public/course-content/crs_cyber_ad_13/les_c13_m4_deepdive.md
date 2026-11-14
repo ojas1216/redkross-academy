@@ -3,14 +3,14 @@ The lab's structure (Module 3) is a working, if small, tier model. Reading it ba
 Tiered accounts and their intended systems:
 
 ```output
-Tier 0 : t0-admin   (member of Domain Admins)   -> DCs only
-Tier 1 : t1-srvadm  (member of Server-Admins)   -> servers (OU=Servers)
-Tier 2 : t2-help    (member of Helpdesk)        -> workstations, help desk
+Tier 0: t0-admin   (member of Domain Admins)   -> DCs only
+Tier 1: t1-srvadm  (member of Server-Admins)   -> servers (OU=Servers)
+Tier 2: t2-help    (member of Helpdesk)        -> workstations, help desk
          asha, rohan (ordinary staff)
 Service: legacy-svc (OU=ServiceAccounts, SPN, PSO)
 ```
 
-Where Protected Users would apply (a design decision, demonstrated in the capstone): t0-admin and t1-srvadm are candidates - adding them forces AES-only Kerberos, blocks NTLM and delegation, and caps their TGT at four hours. legacy-svc must NOT be added: it is a service account, and Protected Users can break service logons [R2].
+Where Protected Users would apply (a design decision, demonstrated in the capstone): t0-admin and t1-srvadm are candidates - adding them forces AES-only Kerberos, blocks NTLM and delegation, and caps their TGT at four hours. legacy-svc must NOT be added: it is a service account, and Protected Users can break service logons.
 
 The "clean source" check on the lab: with one host, the DC, the admin tooling and the "workstation" are the same machine - which VIOLATES the model (you are administering Tier 0 from the same box you run everything on). The deep-dive lesson is to NAME the violation: in production, Tier 0 administration happens from a PAW, never from a general workstation. The lab teaches the rules and the review; it cannot physically separate tiers on one container.
 

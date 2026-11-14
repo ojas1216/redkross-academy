@@ -4,7 +4,7 @@ This module brings the course together into one engineering task: take a cluster
 
 ## Why it matters
 
-Security that cannot be shown is hard to fund, audit or maintain. Hardening also decays: add-ons are installed, defaults change between versions, and emergency changes accumulate. In March 2025 the Kubernetes project disclosed CVE-2025-1974, a critical flaw in the ingress-nginx admission controller that, under certain conditions, gave an unauthenticated attacker with access to the pod network code execution and access to Secrets the controller could read (case study CS1) [R1]. Organisations that knew which add-ons they ran, could test exposure and had evidence routines responded in hours.
+Security that cannot be shown is hard to fund, audit or maintain. Hardening also decays: add-ons are installed, defaults change between versions, and emergency changes accumulate. In March 2025 the Kubernetes project disclosed CVE-2025-1974, a critical flaw in the ingress-nginx admission controller that, under certain conditions, gave an unauthenticated attacker with access to the pod network code execution and access to Secrets the controller could read (case study CS1). Organisations that knew which add-ons they ran, could test exposure and had evidence routines responded in hours.
 
 ## Where it is used
 

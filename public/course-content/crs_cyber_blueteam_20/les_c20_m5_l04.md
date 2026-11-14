@@ -7,7 +7,7 @@ Baselining  learn normal values per user, host or role (which accounts
           log on to FS-01, which admins run PowerShell, at what hours)
           and look for departures. The joint LOTL guidance recommends
           baselining the normal command lines and users of LOLBins,
-          and alerting on use outside the baseline [R1].
+          and alerting on use outside the baseline.
 Time-window correlation  join events from different sources within a
           short window on the same entity (DNS query then connection;
           failures then success).

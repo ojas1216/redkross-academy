@@ -12,4 +12,4 @@
 | Operation and monitoring | usage and abuse monitoring; drift; incident response; user feedback |
 | Retirement | data and model deletion; key and credential revocation |
 
-NIST's AI Risk Management Framework 1.0, released on 26 January 2023, organises AI risk work into the functions Govern, Map, Measure and Manage [R3]; NIST AI 600-1, its Generative AI Profile, was released on 26 July 2024 [R3].
+NIST's AI Risk Management Framework 1.0, released on 26 January 2023, organises AI risk work into the functions Govern, Map, Measure and Manage; NIST AI 600-1, its Generative AI Profile, was released on 26 July 2024.

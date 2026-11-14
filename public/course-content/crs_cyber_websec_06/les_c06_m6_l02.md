@@ -1,4 +1,4 @@
-Two complementary defences prevent CSRF [R2]:
+Two complementary defences prevent CSRF:
 
 ```text
 Anti-CSRF token  the server issues a secret, per-session (or per-request)

@@ -1,4 +1,4 @@
-A software bill of materials is a machine-readable inventory of components in a piece of software. NTIA's "The Minimum Elements For a Software Bill of Materials" (12 July 2021) lists the minimum data fields [R2]:
+A software bill of materials is a machine-readable inventory of components in a piece of software. NTIA's "The Minimum Elements For a Software Bill of Materials" (12 July 2021) lists the minimum data fields:
 
 ```text
 supplier name, component name, version, other unique identifiers (such

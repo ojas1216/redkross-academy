@@ -142,8 +142,16 @@ function parseModule(code, num, title, moduleText) {
     const bodyLines = b.body.split('\n');
     let titleTail = b.match[2];
     let k = 0;
+    // ...but never into the body: stop at a "Label:" line (Context:, What happened:)
+    // and drop a dashed underline under the title.
     while (k < bodyLines.length && bodyLines[k].trim()) {
-      titleTail += ` ${bodyLines[k].trim()}`;
+      const t = bodyLines[k].trim();
+      if (/^[-=]{3,}$/.test(t)) {
+        k++;
+        break;
+      }
+      if (/^[A-Z][A-Za-z ()/-]{0,40}:/.test(t) || /^This scenario is fictional/.test(t)) break;
+      titleTail += ` ${t}`;
       k++;
     }
     const cleanTitle = titleTail.replace(/^[\s:]+/, '').trim();

@@ -40,7 +40,7 @@
 
 **Difficulty:** Advanced.
 
-**Required tools:** text editor; GitHub hardening guide [R1].
+**Required tools:** text editor; GitHub hardening guide.
 
 **Prerequisites:** Lessons L02-L04; Technical deep dive.
 

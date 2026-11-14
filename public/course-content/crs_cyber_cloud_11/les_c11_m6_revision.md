@@ -29,14 +29,3 @@ endless finding lists without prevention; permanent "temporary" exceptions; trus
 ### Revision questions
 
 ​1. Name six misconfiguration patterns. 2. Why verify by effect? 3. Design an exception process.
-
-### Further reading
-
-UpGuard Power Apps report [R1]; checkov documentation [R2].
-
-## References
-
-- [R1] UpGuard. "By Design: How Default Permissions on Microsoft Power Apps Exposed Millions", 23 August 2021. URL: [https://www.upguard.com/breaches/power-apps](https://www.upguard.com/breaches/power-apps) Accessed: 2026-11-08. Supports: 38 million records, 47 entities notified, table permissions disabled by default, OData anonymous access, new default for newly created portals, Portal Checker.
-- [R2] Bridgecrew/Prisma Cloud. "checkov" (project documentation). URL: [https://www.checkov.io/](https://www.checkov.io/) Accessed: 2026-11-07. Version used: 3.4.3.
-- [R3] Lab evidence. iac/main.tf, iac_fixed/main.tf, checkov_output.txt and checkov_verify_output.txt (checkov 3.4.3), 2026-11-07.
-- [R4] Lab evidence. trivy 0.76.2 Dockerfile scan (DS-0031 password in ENV), trivy_fs_output.txt, 2026-11-07.

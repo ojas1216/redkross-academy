@@ -1,4 +1,4 @@
-Sigma is an open, vendor-neutral YAML format for log detections. The specification is maintained by SigmaHQ; version 2.1.0 of the rules specification was released on 2025-08-02 [R1]. It defines three mandatory sections: title, logsource and detection (with a condition inside detection). Recommended metadata: id (a UUID that never changes), status, description, author, date and modified, tags (ATT&CK tactics and techniques), falsepositives and level. The Tamarind archive rule:
+Sigma is an open, vendor-neutral YAML format for log detections. The specification is maintained by SigmaHQ; version 2.1.0 of the rules specification was released on 2025-08-02. It defines three mandatory sections: title, logsource and detection (with a condition inside detection). Recommended metadata: id (a UUID that never changes), status, description, author, date and modified, tags (ATT&CK tactics and techniques), falsepositives and level. The Tamarind archive rule:
 
 ```text
 BEGIN CODE

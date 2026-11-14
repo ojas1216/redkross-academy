@@ -30,15 +30,3 @@ random for tokens; secret algorithms; shared template keys.
 ### Revision questions
 
 ​1. Map five goals to primitives. 2. Why is Python's random unsafe for tokens? 3. Compute entropy for 6 diceware words.
-
-### Further reading
-
-Debian DSA-1571 [R1]; NIST PQC announcement [R3].
-
-## References
-
-- [R1] Debian. "DSA-1571-1 openssl - predictable random number generator", 13 May 2008. URL: [https://lists.debian.org/debian-security-announce/2008/msg00152.html](https://lists.debian.org/debian-security-announce/2008/msg00152.html) Accessed: 2026-11-07. Supports: CVE, cause, affected versions, key regeneration advice.
-- [R2] Python Software Foundation. "secrets - Generate secure random numbers for managing secrets". URL: [https://docs.python.org/3/library/secrets.html](https://docs.python.org/3/library/secrets.html) Accessed: 2026-11-07. Supports: secrets module API and purpose.
-- [R3] NIST. "NIST Releases First 3 Finalized Post-Quantum Encryption Standards" (FIPS 203, 204, 205 approved 13 August 2024). URL: [https://csrc.nist.gov/news/2024/postquantum-cryptography-fips-approved](https://csrc.nist.gov/news/2024/postquantum-cryptography-fips-approved) Accessed: 2026-11-07. Supports: dates and purposes.
-- [R4] NIST. FIPS 186-5, "Digital Signature Standard", 3 February 2023. URL: [https://csrc.nist.gov/pubs/fips/186-5/final](https://csrc.nist.gov/pubs/fips/186-5/final) Accessed: 2026-11-07. Supports: date.
-- [R5] Lab evidence. m01_randomness.py and m01_output.txt (CPython 3.14.4), 2026-11-07.

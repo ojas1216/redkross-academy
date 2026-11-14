@@ -40,7 +40,7 @@
 
 **Difficulty:** Specialization.
 
-**Required tools:** CISA ZTMM v2.0 [R2]; spreadsheet.
+**Required tools:** CISA ZTMM v2.0; spreadsheet.
 
 **Prerequisites:** Lesson L05.
 

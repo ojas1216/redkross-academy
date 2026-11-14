@@ -4,9 +4,9 @@ Running attackmap.py filtered to the Command and Control tactic (execution-teste
 ATT&CK detection/containment map - tactic: Command and Control
 ==========================================================================
 T1071   Application Layer Protocol            [Command and Control / TA0011]
-   data source : network flow / proxy logs
-   detection   : regular beacon to a single external-looking destination
-   containment : egress filtering; proxy inspection; block the indicator
+   data source: network flow / proxy logs
+   detection: regular beacon to a single external-looking destination
+   containment: egress filtering; proxy inspection; block the indicator
 --------------------------------------------------------------------------
 1 technique(s) mapped to defensive telemetry and containment
 ```

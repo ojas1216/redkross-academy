@@ -18,7 +18,7 @@
 **Step-by-step instructions:**
 
 1. Generate a few successful logons and a short burst of failures for one lab account (wrong password for asha, several times), as the lab setup does; then snapshot docker logs rk-dc to data/auth_audit.jsonl (one JSON object per line).
-2. python auth_monitor.py data/auth_audit.jsonl ; read the summary table and findings.
+2. python auth_monitor.py data/auth_audit.jsonl; read the summary table and findings.
 3. Re-run with --fail-threshold 4 and observe the burst finding appear.
 4. Record the status breakdown (how many NT_STATUS_OK versus NT_STATUS_WRONG_PASSWORD) and which encryption type every event used.
 

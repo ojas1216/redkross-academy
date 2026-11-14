@@ -56,7 +56,7 @@ MSYS_NO_PATHCONV=1 docker run --rm -v "$(pwd):/host" debian:stable-slim \
 
 **Step-by-step instructions:**
 
-1. Add: fls -r -m / fat.img > fatbody.txt ; mactime -b fatbody.txt -d -z UTC.
+1. Add: fls -r -m / fat.img > fatbody.txt; mactime -b fatbody.txt -d -z UTC.
 2. Add "sleep 3" before the mcopy of one file and rerun. Check that the timeline shows the gap, and note FAT's 2-second write resolution.
 3. Rerun mactime with -z Asia/Kolkata and explain how the displayed times change for FAT and for ext4.
 

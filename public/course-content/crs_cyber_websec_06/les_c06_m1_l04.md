@@ -1,4 +1,4 @@
-**HTTP is STATELESS:** each request is independent and the server does not inherently know that two requests came from the same user. Cookies, specified in RFC 6265, solve this: the server returns Set-Cookie, the browser stores it, and it sends the cookie back on every subsequent request to that site [R2]. This is how a site "remembers" you are logged in. Cookie security attributes are therefore critical:
+**HTTP is STATELESS:** each request is independent and the server does not inherently know that two requests came from the same user. Cookies, specified in RFC 6265, solve this: the server returns Set-Cookie, the browser stores it, and it sends the cookie back on every subsequent request to that site. This is how a site "remembers" you are logged in. Cookie security attributes are therefore critical:
 
 | Term | Meaning |
 |---|---|

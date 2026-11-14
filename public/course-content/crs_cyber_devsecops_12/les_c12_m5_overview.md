@@ -4,7 +4,7 @@ Modern applications are mostly other people's code: open-source libraries, their
 
 ## Why it matters
 
-When the Log4Shell vulnerability (CVE-2021-44228) was disclosed in December 2021, organisations without an inventory spent weeks just finding where Log4j was used. CISA's guidance urged inventories that included internally developed software and SaaS [R1]. Teams with SBOMs could answer in minutes.
+When the Log4Shell vulnerability (CVE-2021-44228) was disclosed in December 2021, organisations without an inventory spent weeks just finding where Log4j was used. CISA's guidance urged inventories that included internally developed software and SaaS. Teams with SBOMs could answer in minutes.
 
 ## Where it is used
 

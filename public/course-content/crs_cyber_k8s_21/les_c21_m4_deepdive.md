@@ -45,7 +45,7 @@ pods "t-latest" is forbidden: ValidatingAdmissionPolicy 'rk-image-policy'
 pod/t-ok created (server dry run)
 deployments.apps "t-busybox" is forbidden: ... image not from an approved
   repository: docker.io/library/busybox:1.37
-The pods "t-hostnet" is invalid: : ValidatingAdmissionPolicy ...
+The pods "t-hostnet" is invalid:: ValidatingAdmissionPolicy ...
   denied request: hostNetwork is not allowed
 ```
 

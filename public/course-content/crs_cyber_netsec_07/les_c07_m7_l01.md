@@ -9,7 +9,7 @@ FLOW TELEMETRY (NetFlow/IPFIX)  records metadata ABOUT each conversation -
   source, destination, ports, protocol, byte/packet counts, timing - not the
   content. It is compact, scalable to a whole network, privacy-preserving
   (no payload), and ideal for spotting patterns: scans, beaconing,
-  exfiltration volumes, and policy violations [R1].
+  exfiltration volumes, and policy violations.
 ```
 
 Most network security monitoring runs on flow telemetry for breadth, with packet capture reserved for deep dives. The lab works with flow telemetry, because that is where behavioural patterns show up at scale.

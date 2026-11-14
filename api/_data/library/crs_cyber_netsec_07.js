@@ -26,7 +26,7 @@ export default {
      "the user zone"
     ],
     "correct": 1,
-    "explanation": "the database is reachable only from the app tier and controlled management; no user/internet path [R2].",
+    "explanation": "the database is reachable only from the app tier and controlled management; no user/internet path.",
     "topic": "C07-M01: Network defence architecture",
     "difficulty": "medium"
    },
@@ -168,7 +168,7 @@ export default {
      "a comment"
     ],
     "correct": 1,
-    "explanation": "end the policy with an explicit default-deny [R1].",
+    "explanation": "end the policy with an explicit default-deny.",
     "topic": "C07-M02: Firewall engineering",
     "difficulty": "medium"
    },
@@ -310,7 +310,7 @@ export default {
      "it is impossible"
     ],
     "correct": 1,
-    "explanation": "an in-line IPS false positive blocks legitimate traffic, so IPS rules must be high-confidence [R1].",
+    "explanation": "an in-line IPS false positive blocks legitimate traffic, so IPS rules must be high-confidence.",
     "topic": "C07-M03: IDS and IPS",
     "difficulty": "medium"
    },
@@ -452,7 +452,7 @@ export default {
      "only the perimeter is controlled"
     ],
     "correct": 1,
-    "explanation": "zero trust denies by default and permits only explicit flows [R1].",
+    "explanation": "zero trust denies by default and permits only explicit flows.",
     "topic": "C07-M04: Segmentation",
     "difficulty": "medium"
    },
@@ -594,7 +594,7 @@ export default {
      "server authentication"
     ],
     "correct": 1,
-    "explanation": "TLS protects traffic in transit; it does not provide physical security of the server [R1].",
+    "explanation": "TLS protects traffic in transit; it does not provide physical security of the server.",
     "topic": "C07-M05: Secure connectivity",
     "difficulty": "medium"
    },
@@ -608,7 +608,7 @@ export default {
      "none"
     ],
     "correct": 2,
-    "explanation": "RFC 8996 formally deprecates TLS 1.0 and 1.1 [R2].",
+    "explanation": "RFC 8996 formally deprecates TLS 1.0 and 1.1.",
     "topic": "C07-M05: Secure connectivity",
     "difficulty": "medium"
    },
@@ -736,7 +736,7 @@ export default {
      "disabling authentication"
     ],
     "correct": 1,
-    "explanation": "WPA3-Personal uses SAE, resisting offline dictionary attacks [R2].",
+    "explanation": "WPA3-Personal uses SAE, resisting offline dictionary attacks.",
     "topic": "C07-M06: Wireless defence",
     "difficulty": "medium"
    },
@@ -878,7 +878,7 @@ export default {
      "only for wireless"
     ],
     "correct": 1,
-    "explanation": "flow telemetry is compact, network-wide and payload-free [R1].",
+    "explanation": "flow telemetry is compact, network-wide and payload-free.",
     "topic": "C07-M07: Monitoring and response",
     "difficulty": "medium"
    },
@@ -1020,7 +1020,7 @@ export default {
      "deleting it"
     ],
     "correct": 1,
-    "explanation": "verification is a repeatable check producing evidence, not an assumption [R1].",
+    "explanation": "verification is a repeatable check producing evidence, not an assumption.",
     "topic": "C07-M08: Capstone",
     "difficulty": "medium"
    },

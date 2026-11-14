@@ -30,14 +30,3 @@ secrets in external storage or logs; hardcoded keys; over-requesting permissions
 ### Revision questions
 
 ​1. What does the app sandbox protect, and against whom? 2. Where should sensitive data and keys be stored? 3. How can an app weaken the platform defaults?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] Google. "Android Security Model / Application Sandbox" (developer and platform security documentation). URL: [https://source.android.com/docs/security/app-sandbox](https://source.android.com/docs/security/app-sandbox) Accessed: 2026-11-08. Supports: the app sandbox and process isolation.
-- [R2] OWASP. "Mobile Application Security Verification Standard (MASVS)" (STORAGE, CRYPTO, AUTH, NETWORK, PLATFORM, CODE, RESILIENCE, PRIVACY). URL: [https://mas.owasp.org/MASVS/](https://mas.owasp.org/MASVS/) Accessed: 2026-11-08. Supports: storage, crypto, platform categories and the model-to-MASVS mapping.
-- [R3] OWASP. "Mobile Application Security Testing Guide (MASTG)" (platform interaction, storage and permission testing). URL: [https://mas.owasp.org/MASTG/](https://mas.owasp.org/MASTG/) Accessed: 2026-11-08. Supports: how the model's concerns are tested.
-- [R4] Lab evidence. mobilecheck.py static review of the demo app mapped to MASVS categories (CPython 3.14.4), LAB_ASSETS/C16/data/mobilecheck_output.txt, 2026-11-08. Supports: the deep-dive demo-app-against-the-model walkthrough.

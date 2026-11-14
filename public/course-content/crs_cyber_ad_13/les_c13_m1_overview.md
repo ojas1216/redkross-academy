@@ -4,7 +4,7 @@ Before you can secure Active Directory you must know what it actually is: a dist
 
 ## Why it matters
 
-Almost every enterprise attack that reaches "domain admin" travels through Active Directory, because AD is where privilege lives. You cannot defend a structure you cannot describe. Knowing that the forest, not the domain, is the security boundary; that a read-only domain controller holds no secrets it is not told to; and that the schema is forest-wide and hard to undo - these facts drive real security decisions. Microsoft's own guidance treats the forest as the unit of trust and isolation [R2].
+Almost every enterprise attack that reaches "domain admin" travels through Active Directory, because AD is where privilege lives. You cannot defend a structure you cannot describe. Knowing that the forest, not the domain, is the security boundary; that a read-only domain controller holds no secrets it is not told to; and that the schema is forest-wide and hard to undo - these facts drive real security decisions. Microsoft's own guidance treats the forest as the unit of trust and isolation.
 
 ## Where it is used
 

@@ -30,14 +30,3 @@ describe_route_tables and describe_security_groups audits; aws:SourceVpce; HttpT
 ### Revision questions
 
 ​1. Why classify subnets by route? 2. Explain IMDSv2's three protections. 3. Design private access to a key vault.
-
-### Further reading
-
-AWS IMDS documentation [R2]; DOJ case page [R1].
-
-## References
-
-- [R1] US Department of Justice, Western District of Washington. "United States v. Paige Thompson". URL: [https://www.justice.gov/usao-wdwa/united-states-v-paige-thompson](https://www.justice.gov/usao-wdwa/united-states-v-paige-thompson) Accessed: 2026-11-07. Supports: misconfigured WAF; conviction June 2022.
-- [R2] AWS. "Configure the instance metadata service options" (EC2 User Guide). URL: [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html) Accessed: 2026-11-07. Supports: PUT token up to 6 h, 401, X-Forwarded-For rejection, hop limit 1.
-- [R3] OCC. "OCC Assesses $80 Million Civil Money Penalty Against Capital One", 6 August 2020. URL: [https://www.occ.gov/news-issuances/news-releases/2020/nr-occ-2020-101.html](https://www.occ.gov/news-issuances/news-releases/2020/nr-occ-2020-101.html) Accessed: 2026-11-07 (verified for Course 21).
-- [R4] Lab evidence. network_lab.py and network_lab_output.txt (boto3 1.43.126, moto 5.2.5), 2026-11-07.

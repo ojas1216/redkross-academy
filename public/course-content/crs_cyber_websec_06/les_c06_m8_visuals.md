@@ -1,7 +1,7 @@
 ## The end-to-end workflow and the lab tools
 
 ![A pipeline from authorisation through mapping, verification, scoring, reporting, remediation and retesting, with code review alongside, ending in proven closure.](/assets/courses/cyber-06/C06-M08-F1.svg)
-*Figure C06-M08-F1. The OWASP-aligned workflow mapped to the lab tools, ending in retest-proven closure [R1].*
+*Figure C06-M08-F1. The OWASP-aligned workflow mapped to the lab tools, ending in retest-proven closure.*
 
 ## Findings ranked by risk
 

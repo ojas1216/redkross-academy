@@ -28,14 +28,3 @@ fine-tuning on personal data for facts; indexing with service accounts; unlimite
 ### Revision questions
 
 ​1. Compare training and retrieval data risks. 2. Why did prompt_only fail P4? 3. List vendor questions.
-
-### Further reading
-
-Fortune/AP [R1]; OWASP LLM02 [R2].
-
-## References
-
-- [R1] Fortune (K. Chan, Associated Press). "ChatGPT is back in Italy after OpenAI met regulators' privacy demands before a big deadline", 28 April 2023. URL: [https://fortune.com/2023/04/28/chatgpt-back-italy-met-regulator-demands-openai/](https://fortune.com/2023/04/28/chatgpt-back-italy-met-regulator-demands-openai/) Accessed: 2026-11-08.
-- [R2] OWASP Gen AI Security Project. "2025 Top 10 Risk & Mitigations for LLMs and Gen AI Apps" (LLM02). URL: [https://genai.owasp.org/llm-top-10/](https://genai.owasp.org/llm-top-10/) Accessed: 2026-11-08.
-- [R3] EUR-Lex. Regulation (EU) 2024/1689 (Artificial Intelligence Act), 13 June 2024. URL: [https://eur-lex.europa.eu/eli/reg/2024/1689/oj](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) Accessed: 2026-11-08.
-- [R4] Lab evidence. kb_audit.py, kb_audit_output.txt and probe results P4 (qwen3:4b), 2026-11-08.

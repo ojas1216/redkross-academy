@@ -1,4 +1,4 @@
-TAXII 2.1 (OASIS Standard, 10 June 2021) is a RESTful HTTPS protocol for exchanging STIX [R2]. Its resources:
+TAXII 2.1 (OASIS Standard, 10 June 2021) is a RESTful HTTPS protocol for exchanging STIX. Its resources:
 
 | Term | Meaning |
 |---|---|

@@ -22,7 +22,7 @@
 1. Run the three commands in the deep dive.
 2. Record log sizes and modes, and estimate how many days the System log covers (oldest event date).
 3. Compare ProductName with CurrentBuild and explain any mismatch.
-4. As administrator, count today's 4624 events by logon type: Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624; StartTime=(Get-Date).Date} | ForEach-Object { ([xml]$_.ToXml()).Event. EventData.Data | Where-Object Name -eq 'LogonType' } | Group-Object '#text' | Select Name,Count
+4. As administrator, count today's 4624 events by logon type: Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624; StartTime=(Get-Date).Date} | ForEach-Object { ([xml]$_.ToXml).Event. EventData.Data | Where-Object Name -eq 'LogonType' } | Group-Object '#text' | Select Name,Count
 5. Explain each logon type you see, using Lesson L02.
 
 **Expected observations:** the System log is circular; types 2, 5 and 7 are common on personal machines. (Step 4 is Not execution-tested in this module's build, which lacked admin rights. Verify the command on your machine.)

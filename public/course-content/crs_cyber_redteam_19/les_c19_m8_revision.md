@@ -30,14 +30,3 @@ one report for all audiences; unevidenced claims; overstating success; hiding ga
 ### Revision questions
 
 ​1. What does each report contain and for whom? 2. What does traceability require? 3. How is partial coverage reported honestly?
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment" (reporting). URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: executive and technical reporting.
-- [R2] PTES. "Reporting". URL: [https://web.archive.org/web/20230601000000/http://www.pentest-standard.org/index.php/Reporting](https://web.archive.org/web/20230601000000/http://www.pentest-standard.org/index.php/Reporting) Accessed: 2026-11-08. Supports: two-audience, evidenced reporting.
-- [R3] NIST. "SP 800-86: Guide to Integrating Forensic Techniques into Incident Response" (evidence and traceability). URL: [https://csrc.nist.gov/pubs/sp/800/86/final](https://csrc.nist.gov/pubs/sp/800/86/final) Accessed: 2026-11-08. Supports: evidence traceability in reports.
-- [R4] Lab evidence. report.py assembling the executive (coverage 4/7) and technical reports with the retest list (CPython 3.14.4), LAB_ASSETS/C19/data/report_output.txt, 2026-11-08. Supports: the report-assembly deep dive.

@@ -1,6 +1,8 @@
-## Reporting as the deliverable that drives change Context: across testing standards (NIST SP 800-115) and professional practice, the REPORT is the engagement's product: an executive summary that leaders can act on and a technical section that engineers can remediate from, every finding evidenced and prioritised. Engagements that find much but report poorly change little; engagements that report clearly - with coverage, prioritised gaps and a retest path - drive real improvement [C19-M08-R1][C19-M08-R2]. Why it matters for this module: it confirms that delivering clear, honest, two-audience, evidence-traced reports is the point of the engagement - exactly what the capstone produces. Lessons: write for both audiences; evidence and prioritise everything; give a retest path; be honest about coverage and limitations.
+## Reporting as the deliverable that drives change
 
+**Context:** across testing standards (NIST SP 800-115) and professional practice, the REPORT is the engagement's product: an executive summary that leaders can act on and a technical section that engineers can remediate from, every finding evidenced and prioritised. Engagements that find much but report poorly change little; engagements that report clearly - with coverage, prioritised gaps and a retest path - drive real improvement. Why it matters for this module: it confirms that delivering clear, honest, two-audience, evidence-traced reports is the point of the engagement - exactly what the capstone produces.
 
+**Lessons:** write for both audiences; evidence and prioritise everything; give a retest path; be honest about coverage and limitations.
 
 ## (FICTIONAL TEACHING SCENARIO): The report that changed the roadmap
 

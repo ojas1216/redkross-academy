@@ -8,7 +8,7 @@ General-purpose PRNG  for example Python's random (Mersenne Twister).
 CSPRNG          cryptographically secure. It is seeded from operating
                 system entropy (hardware events, CPU instructions) and
                 designed so outputs cannot be predicted even when many
-                are observed. Use the OS interfaces: getrandom() and
+                are observed. Use the OS interfaces: getrandom and
                 /dev/urandom on Linux, BCryptGenRandom on Windows. In
                 Python these are reached through os.urandom and the
                 secrets module.

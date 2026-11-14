@@ -29,15 +29,3 @@ treating configuration as proof; one-off validation; threat models that never li
 ### Revision questions
 
 ​1. Rank five kinds of evidence. 2. Apply STRIDE to one trust boundary. 3. What triggers re-validation?
-
-### Further reading
-
-GAO-18-559 [R1]; SP 800-53A [R3].
-
-## References
-
-- [R1] US GAO. "Data Protection: Actions Taken by Equifax and Federal Agencies in Response to the 2017 Breach", GAO-18-559, published 30 August 2018, publicly released 7 September 2018. URL: [https://www.gao.gov/products/gao-18-559](https://www.gao.gov/products/gao-18-559) Accessed: 2026-11-08 (report PDF text extracted). Supports: 145.5 million, four factors, out-of-date recipient list, scan missed the vulnerability, certificate expired about 10 months before the breach, no database segmentation, unencrypted credentials.
-- [R2] Microsoft. "Threats - Microsoft Threat Modeling Tool". URL: [https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats) Accessed: 2026-11-08. Supports: STRIDE category descriptions.
-- [R3] NIST. SP 800-53A Rev. 5, "Assessing Security and Privacy Controls in Information Systems and Organizations", January 2022. URL: [https://csrc.nist.gov/pubs/sp/800/53/a/r5/final](https://csrc.nist.gov/pubs/sp/800/53/a/r5/final) Accessed: 2026-11-08.
-- [R4] MITRE. ATT&CK Enterprise tactics (v20.1). URL: [https://attack.mitre.org/tactics/enterprise/](https://attack.mitre.org/tactics/enterprise/) Accessed: 2026-11-08.
-- [R5] Lab evidence. control_matrix.py, requirements.json and control_matrix_output.txt (CPython 3.14.4), 2026-11-08.

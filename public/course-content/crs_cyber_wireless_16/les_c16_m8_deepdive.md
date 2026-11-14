@@ -4,18 +4,18 @@ Running review.py (execution-tested, CPython 3.14.4, 2026-11-08; abridged):
 == Wireless and mobile consolidated review ==
 
 [enforcing controls - FAIL (insecure) -> PASS (hardened)]
-  Wi-Fi      (wifireview): insecure 10 findings, 6 HIGH -> FAIL ;
+  Wi-Fi      (wifireview): insecure 10 findings, 6 HIGH -> FAIL;
                            hardened 0 -> PASS
-  Bluetooth  (btreview)  : insecure  6 findings, 3 HIGH -> FAIL ;
+  Bluetooth  (btreview): insecure  6 findings, 3 HIGH -> FAIL;
                            hardened 0 -> PASS
-  API        (apicheck)  : insecure  7 findings, 5 HIGH -> FAIL ;
+  API        (apicheck): insecure  7 findings, 5 HIGH -> FAIL;
                            hardened 0 -> PASS
   => 3/3 control domains enforced FAIL -> PASS
 
 [assessment findings - to remediate]
   Mobile app (mobilecheck): 16 findings, 9 HIGH (STORAGE/CRYPTO/NETWORK/
                             PLATFORM/CODE)
-  Rogue APs  (roguescan)  : 2 evil-twin AP(s) on SSID HimalayaCorp
+  Rogue APs  (roguescan): 2 evil-twin AP(s) on SSID HimalayaCorp
                             (unknown BSSIDs; one OPEN, one WPA2)
 
 SUMMARY: 3/3 enforcing control domains PASS after hardening;

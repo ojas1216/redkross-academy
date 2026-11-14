@@ -1,4 +1,4 @@
-Virtual machines can query a link-local metadata service for configuration and - critically - temporary credentials for the attached role. If an application on the instance can be tricked into making requests on an outsider's behalf (server-side request forgery, Course 06), those credentials may be exposed. AWS's IMDSv2 adds session-oriented protection [R2]:
+Virtual machines can query a link-local metadata service for configuration and - critically - temporary credentials for the attached role. If an application on the instance can be tricked into making requests on an outsider's behalf (server-side request forgery, Course 06), those credentials may be exposed. AWS's IMDSv2 adds session-oriented protection:
 
 - a client must first obtain a session token with a PUT request (token lifetime up to six hours) and send it with each metadata request;
 - when IMDSv2 is required, requests without a valid token receive HTTP 401;

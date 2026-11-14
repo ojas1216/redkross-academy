@@ -28,15 +28,3 @@ product-led roadmaps; Optimal targets everywhere; initiatives without owners or 
 ### Revision questions
 
 ​1. List the sections of a reference architecture. 2. Why must device inventory precede posture-based policy? 3. What should an executive summary ask for?
-
-### Further reading
-
-BeyondCorp [R1]; CISA ZTMM [R2]; SP 1800-35 [R4].
-
-## References
-
-- [R1] R. Ward and B. Beyer. "BeyondCorp: A New Approach to Enterprise Security", ;login:, Vol. 39, No. 6, 2014, pp. 6-11. URL: [https://research.google/pubs/beyondcorp-a-new-approach-to-enterprise-security/](https://research.google/pubs/beyondcorp-a-new-approach-to-enterprise-security/) Accessed: 2026-11-08. Supports: authors, venue, year, abstract quote.
-- [R2] CISA. Zero Trust Maturity Model Version 2.0, April 2023. URL: [https://www.cisa.gov/sites/default/files/2023-04/zero_trust_maturity_model_v2_508.pdf](https://www.cisa.gov/sites/default/files/2023-04/zero_trust_maturity_model_v2_508.pdf) Accessed: 2026-11-07. Supports: pillars, cross-cutting capabilities, stages.
-- [R3] NIST. SP 800-207, "Zero Trust Architecture", August 2020. URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-07.
-- [R4] NIST NCCoE. SP 1800-35, "Implementing a Zero Trust Architecture", final June 2025. URL: [https://csrc.nist.gov/pubs/sp/1800/35/final](https://csrc.nist.gov/pubs/sp/1800/35/final) Accessed: 2026-11-07.
-- [R5] Lab evidence. roadmap_check.py, roadmap.json, roadmap_fixed.json and roadmap_check_output.txt (CPython 3.14.4), 2026-11-08.

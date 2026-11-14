@@ -7,7 +7,7 @@
 - Renew: before expiry.
 - Revoke: on compromise or decommissioning.
 
-Public TLS certificate lifetimes are shrinking. CA/Browser Forum ballot SC-081v3 passed on 11 April 2025, with 25 certificate issuers in favour, 0 against and 5 abstaining, and all 4 certificate consumers (browser programmes) in favour. It reduces maximum validity from 398 days to 47 days in stages from March 2026 to March 2029 [R3]. Reporting of the schedule gives:
+Public TLS certificate lifetimes are shrinking. CA/Browser Forum ballot SC-081v3 passed on 11 April 2025, with 25 certificate issuers in favour, 0 against and 5 abstaining, and all 4 certificate consumers (browser programmes) in favour. It reduces maximum validity from 398 days to 47 days in stages from March 2026 to March 2029. Reporting of the schedule gives:
 
 - 200 days from 15 March 2026 (already in effect at this course's research date);
 - 100 days from 15 March 2027;

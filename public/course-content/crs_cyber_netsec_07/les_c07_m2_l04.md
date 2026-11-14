@@ -1,4 +1,4 @@
-Policies accumulate recurring weaknesses that a LINTER can detect automatically [R1]:
+Policies accumulate recurring weaknesses that a LINTER can detect automatically:
 
 | Term | Meaning |
 |---|---|

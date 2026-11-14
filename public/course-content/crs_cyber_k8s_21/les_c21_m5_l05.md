@@ -1,4 +1,4 @@
-The API audit log records who did what through the API. An audit policy is a list of rules; the first matching rule sets the level of an event [R3]. Levels: None, Metadata (user, time, resource, verb - no bodies), Request (adds the request body) and RequestResponse (adds the response body). Stages: RequestReceived, ResponseStarted (long-running requests), ResponseComplete and Panic.
+The API audit log records who did what through the API. An audit policy is a list of rules; the first matching rule sets the level of an event. Levels: None, Metadata (user, time, resource, verb - no bodies), Request (adds the request body) and RequestResponse (adds the response body). Stages: RequestReceived, ResponseStarted (long-running requests), ResponseComplete and Panic.
 
 The lab policy (hardened/audit-policy.yaml), in order:
 
@@ -23,4 +23,4 @@ AD5 token requests by non-system users;
 AD6 other authorisation denials for service accounts.
 ```
 
-Two lessons came from real data. First, current kubectl recorded exec as verb "get" with response code 101 (a WebSocket upgrade), not "create", because kubectl's streaming moved from SPDY to WebSockets under KEP-4006 [R5]; a rule written for verb create on pods/exec would have missed it, so AD1 matches the subresource whatever the verb. Second, exec produces two records (ResponseStarted and ResponseComplete) with the same auditID; the detector de-duplicates on auditID.
+Two lessons came from real data. First, current kubectl recorded exec as verb "get" with response code 101 (a WebSocket upgrade), not "create", because kubectl's streaming moved from SPDY to WebSockets under KEP-4006; a rule written for verb create on pods/exec would have missed it, so AD1 matches the subresource whatever the verb. Second, exec produces two records (ResponseStarted and ResponseComplete) with the same auditID; the detector de-duplicates on auditID.

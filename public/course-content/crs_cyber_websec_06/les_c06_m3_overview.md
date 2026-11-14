@@ -1,6 +1,6 @@
 ## About this module
 
-Authentication answers "who are you?" and session management keeps answering it across a stateless protocol. Get either wrong and every other control fails, because the application acts on the wrong identity. This module covers authentication design flaws (weak credentials, bad storage, flawed login), session-management weaknesses (predictable or unprotected tokens, poor lifecycle), and the frequently-overlooked weak points of multi-factor authentication (MFA) and account recovery. You will confirm the lab's weak session token on a target you own, and see the hardened design that fixes it. These map to OWASP A07:2025 Authentication Failures [R1].
+Authentication answers "who are you?" and session management keeps answering it across a stateless protocol. Get either wrong and every other control fails, because the application acts on the wrong identity. This module covers authentication design flaws (weak credentials, bad storage, flawed login), session-management weaknesses (predictable or unprotected tokens, poor lifecycle), and the frequently-overlooked weak points of multi-factor authentication (MFA) and account recovery. You will confirm the lab's weak session token on a target you own, and see the hardened design that fixes it. These map to OWASP A07:2025 Authentication Failures.
 
 ## Why it matters
 

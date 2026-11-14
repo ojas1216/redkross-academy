@@ -31,14 +31,3 @@ trying to block C2 by protocol; ignoring beaconing; permissive egress; standing 
 ### Revision questions
 
 ​1. Why is the network boundary the place to detect C2? 2. Name three C2 network indicators. 3. How is C2 emulated safely in the lab?
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] MITRE. "ATT&CK - Command and Control (TA0011); Application Layer Protocol (T1071)". URL: [https://attack.mitre.org/techniques/T1071/](https://attack.mitre.org/techniques/T1071/) Accessed: 2026-11-08. Supports: C2 technique, indicators and detection.
-- [R2] NIST. "SP 800-94: Guide to Intrusion Detection and Prevention Systems (IDPS)" (network-based detection). URL: [https://csrc.nist.gov/pubs/sp/800/94/final](https://csrc.nist.gov/pubs/sp/800/94/final) Accessed: 2026-11-08. Supports: network detection of C2 indicators.
-- [R3] NIST. "SP 800-41 Rev.1: Guidelines on Firewalls and Firewall Policy" (egress filtering / default-deny). URL: [https://csrc.nist.gov/pubs/sp/800/41/r1/final](https://csrc.nist.gov/pubs/sp/800/41/r1/final) Accessed: 2026-11-08. Supports: egress containment of C2.
-- [R4] Lab evidence. attackmap.py (Command and Control filter) mapping T1071 to telemetry, beacon detection and egress/proxy containment (CPython 3.14.4), LAB_ASSETS/C19/data/attackmap_output.txt, 2026-11-08. Supports: the C2-indicator deep dive.

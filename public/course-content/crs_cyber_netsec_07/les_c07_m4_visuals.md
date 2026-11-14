@@ -1,12 +1,12 @@
 ## Zero-trust allowed-flow matrix
 
 ![The lab's allowed-flow matrix with the six permitted flows and the forbidden flows that are denied by default.](/assets/courses/cyber-07/C07-M04-F1.svg)
-*Figure C07-M04-F1. A zero-trust segmentation policy lists only permitted flows; everything else is denied [R1].*
+*Figure C07-M04-F1. A zero-trust segmentation policy lists only permitted flows; everything else is denied.*
 
 ## Segmentation limits lateral movement
 
 ![A contrast between a flat network where an entry host reaches the database directly and a segmented network where that path is denied.](/assets/courses/cyber-07/C07-M04-F2.svg)
-*Figure C07-M04-F2. Segmentation forces an attacker across controlled boundaries, limiting blast radius [R2].*
+*Figure C07-M04-F2. Segmentation forces an attacker across controlled boundaries, limiting blast radius.*
 
 ## Design, enforce, validate
 

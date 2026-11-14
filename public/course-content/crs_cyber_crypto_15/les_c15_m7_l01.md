@@ -13,7 +13,7 @@ Random 96-bit nonces  simple, with collision risk growing with message
                  count. NIST SP 800-38D limits the total invocations of
                  GCM with randomly generated IVs to 2^32 per key (stated
                  from the publication's requirements; NIST has announced
-                 a revision of SP 800-38D) [R1]. Rotate keys well
+                 a revision of SP 800-38D). Rotate keys well
                  before that.
 Counter nonces   a strictly increasing counter per key. No collision
                  risk, but the state must never reset or be duplicated

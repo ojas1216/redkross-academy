@@ -11,4 +11,4 @@
 ## ATT&CK 20.1 tactic change
 
 ![The former Defense Evasion tactic splitting into Stealth and Defense Impairment, with two examples of revoked techniques and their replacements.](/assets/courses/cyber-20/C20-M07-F3.svg)
-*Figure C20-M07-F3. Tags must follow revocations [R2].*
+*Figure C20-M07-F3. Tags must follow revocations.*

@@ -29,15 +29,3 @@ sending simple binds in the clear; leaving RC4 enabled; widening clock skew to m
 ### Revision questions
 
 ​1. Which key encrypts the TGT, and which a service ticket? 2. Why is RC4 a downgrade target? 3. Name the preferred LDAP bind and why.
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] Neuman, C., Yu, T., Hartman, S., Raeburn, K. "The Kerberos Network Authentication Service (V5)", RFC 4120, IETF, July 2005. URL: [https://www.rfc-editor.org/rfc/rfc4120](https://www.rfc-editor.org/rfc/rfc4120) Accessed: 2026-11-08. Supports: KDC, AS/TGS, TGT and service tickets, timestamps.
-- [R2] Sermersheim, J. (ed.). "Lightweight Directory Access Protocol (LDAP): The Protocol", RFC 4511, IETF, June 2006. URL: [https://www.rfc-editor.org/rfc/rfc4511](https://www.rfc-editor.org/rfc/rfc4511) Accessed: 2026-11-08. Supports: bind, search, scopes and filters.
-- [R3] Microsoft. "Protected Users security group". URL: [https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group) Accessed: 2026-11-08. Supports: AES-only Kerberos, blocking NTLM, DES and RC4 for members.
-- [R4] Microsoft. "MS14-068: Vulnerability in Kerberos could allow elevation of privilege" (CVE-2014-6324). URL: [https://learn.microsoft.com/en-us/security-updates/securitybulletins/2014/ms14-068](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2014/ms14-068) Accessed: 2026-11-08. Supports: CS1, PAC signature validation.
-- [R5] Lab evidence. kinit/klist/ldapwhoami output and data/auth_audit.jsonl (Samba 4.22.11), 2026-11-08.

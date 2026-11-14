@@ -1,4 +1,4 @@
-Kerberos (RFC 4120) solves a hard problem: how to prove who you are to many services without sending your password to any of them [R1]. It uses a trusted third party, the Key Distribution Centre (KDC), which on a domain controller has two logical parts:
+Kerberos (RFC 4120) solves a hard problem: how to prove who you are to many services without sending your password to any of them. It uses a trusted third party, the Key Distribution Centre (KDC), which on a domain controller has two logical parts:
 
 | Term | Meaning |
 |---|---|

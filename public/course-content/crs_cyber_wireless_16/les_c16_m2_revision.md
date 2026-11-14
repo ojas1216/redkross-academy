@@ -30,14 +30,3 @@ TKIP/WEP; PMF off; WPS on; weak/shared passphrase; default admin creds; stale fi
 ### Revision questions
 
 ​1. How does WPA3-Personal improve on WPA2-Personal? 2. When use Enterprise vs Personal? 3. Why is PMF required and what does it protect?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] Wi-Fi Alliance. "Security" (WPA3 mandatory for new certified devices; WPA3-Personal password-guess protection; PMF required). URL: [https://www.wi-fi.org/discover-wi-fi/security](https://www.wi-fi.org/discover-wi-fi/security) Accessed: 2026-11-08. Supports: WPA3, SAE and PMF.
-- [R2] NIST. "SP 800-153: Guidelines for Securing Wireless Local Area Networks (WLANs)". URL: [https://csrc.nist.gov/pubs/sp/800/153/final](https://csrc.nist.gov/pubs/sp/800/153/final) Accessed: 2026-11-08. Supports: secure WLAN deployment and configuration.
-- [R3] NIST. "SP 800-153: Guidelines for Securing WLANs" (deployment settings: management, segmentation). URL: [https://csrc.nist.gov/pubs/sp/800/153/final](https://csrc.nist.gov/pubs/sp/800/153/final) Accessed: 2026-11-08. Supports: the secure-deployment checklist.
-- [R4] Lab evidence. wifireview.py output on the weak and hardened configurations (CPython 3.14.4), LAB_ASSETS/C16/data/ (wifireview_weak_output. txt, wifireview_fixed_output.txt), 2026-11-08. Supports: the deep-dive configuration review.

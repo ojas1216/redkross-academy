@@ -29,14 +29,3 @@ trusting the client; no/weak authentication; non-expiring tokens; cleartext; mis
 ### Revision questions
 
 ​1. Why is the API the security boundary? 2. What is BOLA and how is it fixed? 3. Name the three pillars of mobile API security.
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] OWASP. "Mobile Application Security Verification Standard (MASVS)" (MASVS-AUTH, MASVS-NETWORK). URL: [https://mas.owasp.org/MASVS/](https://mas.owasp.org/MASVS/) Accessed: 2026-11-08. Supports: API authentication and transport controls.
-- [R2] OWASP. "API Security Top 10". URL: [https://owasp.org/API-Security/](https://owasp.org/API-Security/) Accessed: 2026-11-08. Supports: the API risks, BOLA, and the mobile-context mapping.
-- [R3] NIST. "SP 800-204: Security Strategies for Microservices-based Application Systems". URL: [https://csrc.nist.gov/pubs/sp/800/204/final](https://csrc.nist.gov/pubs/sp/800/204/final) Accessed: 2026-11-08. Supports: backend/API hardening (authentication, authorisation, TLS).
-- [R4] Lab evidence. apicheck.py review of api_config.json (7 findings, 5 HIGH, FAIL) and api_config_fixed.json (PASS) (CPython 3.14.4), LAB_ASSETS/C16/ data/apicheck_output.txt, 2026-11-08. Supports: the FAIL-to-PASS deep dive.

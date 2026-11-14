@@ -1,4 +1,4 @@
-The NIST Cybersecurity Framework 2.0 (CSWP 29, 26 February 2024) has three parts [R1]:
+The NIST Cybersecurity Framework 2.0 (CSWP 29, 26 February 2024) has three parts:
 
 ```text
 Core      six Functions divided into 22 Categories, then Subcategories

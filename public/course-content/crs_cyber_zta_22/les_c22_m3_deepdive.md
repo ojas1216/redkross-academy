@@ -1,4 +1,4 @@
-zt_pdp.py mirrors the PE/PEP split: decide() is the policy engine; enforce() plays the PEP/PA role and writes a decision log. Production systems add:
+zt_pdp.py mirrors the PE/PEP split: decide is the policy engine; enforce plays the PEP/PA role and writes a decision log. Production systems add:
 
 ```text
 Policy as code   policies in a declarative language (for example Open

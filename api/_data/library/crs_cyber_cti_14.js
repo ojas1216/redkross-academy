@@ -68,7 +68,7 @@ export default {
      "20-45%"
     ],
     "correct": 0,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C14-M01: Intelligence foundations",
     "difficulty": "medium"
    },
@@ -82,7 +82,7 @@ export default {
      "are optional"
     ],
     "correct": 1,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C14-M01: Intelligence foundations",
     "difficulty": "medium"
    },
@@ -210,7 +210,7 @@ export default {
      "Takedown"
     ],
     "correct": 0,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C14-M02: OSINT methodology",
     "difficulty": "medium"
    },
@@ -238,7 +238,7 @@ export default {
      "encrypted"
     ],
     "correct": 2,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M02: OSINT methodology",
     "difficulty": "medium"
    },
@@ -252,7 +252,7 @@ export default {
      "6 hours"
     ],
     "correct": 3,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C14-M02: OSINT methodology",
     "difficulty": "medium"
    },
@@ -266,7 +266,7 @@ export default {
      "required for good intelligence"
     ],
     "correct": 0,
-    "explanation": "[R4].",
+    "explanation": ".",
     "topic": "C14-M02: OSINT methodology",
     "difficulty": "medium"
    },
@@ -366,7 +366,7 @@ export default {
      "store private keys"
     ],
     "correct": 1,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M03: Infrastructure intelligence",
     "difficulty": "medium"
    },
@@ -408,7 +408,7 @@ export default {
      "block antivirus updates"
     ],
     "correct": 0,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C14-M03: Infrastructure intelligence",
     "difficulty": "medium"
    },
@@ -438,7 +438,7 @@ export default {
      "must always be named"
     ],
     "correct": 0,
-    "explanation": "[R4].",
+    "explanation": ".",
     "topic": "C14-M04: Threat actor analysis",
     "difficulty": "medium"
    },
@@ -452,7 +452,7 @@ export default {
      "identify, protect, detect, respond"
     ],
     "correct": 1,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C14-M04: Threat actor analysis",
     "difficulty": "medium"
    },
@@ -508,7 +508,7 @@ export default {
      "A vendor told them"
     ],
     "correct": 1,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M04: Threat actor analysis",
     "difficulty": "medium"
    },
@@ -580,7 +580,7 @@ export default {
      "domain names"
     ],
     "correct": 0,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C14-M05: IOC operations",
     "difficulty": "medium"
    },
@@ -678,7 +678,7 @@ export default {
      "may be malicious or legitimate"
     ],
     "correct": 3,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M05: IOC operations",
     "difficulty": "medium"
    },
@@ -736,7 +736,7 @@ export default {
      "Note and Opinion"
     ],
     "correct": 1,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C14-M06: Structured intelligence",
     "difficulty": "medium"
    },
@@ -778,7 +778,7 @@ export default {
      "/discovery.xml"
     ],
     "correct": 0,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M06: Structured intelligence",
     "difficulty": "medium"
    },
@@ -792,7 +792,7 @@ export default {
      "500"
     ],
     "correct": 1,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M06: Structured intelligence",
     "difficulty": "medium"
    },
@@ -806,7 +806,7 @@ export default {
      "Six"
     ],
     "correct": 2,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C14-M06: Structured intelligence",
     "difficulty": "medium"
    },
@@ -848,7 +848,7 @@ export default {
      "were only for Linux"
     ],
     "correct": 1,
-    "explanation": "[R4].",
+    "explanation": ".",
     "topic": "C14-M06: Structured intelligence",
     "difficulty": "medium"
    }
@@ -906,7 +906,7 @@ export default {
      "\"Find the behavior\""
     ],
     "correct": 3,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M07: Framework mapping",
     "difficulty": "medium"
    },
@@ -976,7 +976,7 @@ export default {
      "using no built-in tools"
     ],
     "correct": 0,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C14-M07: Framework mapping",
     "difficulty": "medium"
    },
@@ -1076,7 +1076,7 @@ export default {
      "As a percentage"
     ],
     "correct": 1,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C14-M08: Capstone",
     "difficulty": "medium"
    },
@@ -1090,7 +1090,7 @@ export default {
      "YELLOW"
     ],
     "correct": 2,
-    "explanation": "[R3].",
+    "explanation": ".",
     "topic": "C14-M08: Capstone",
     "difficulty": "medium"
    },
@@ -1104,7 +1104,7 @@ export default {
      "named the specific log event, field and baseline comparison that revealed the activity"
     ],
     "correct": 3,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C14-M08: Capstone",
     "difficulty": "medium"
    },

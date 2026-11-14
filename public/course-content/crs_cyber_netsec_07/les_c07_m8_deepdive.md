@@ -5,13 +5,13 @@ Network security assessment: control summary
 --------------------------------------------------
 Firewall policy
   before: 4 finding(s) (1 HIGH)            FAIL
-  after : 0 finding(s)                     PASS
+  after: 0 finding(s)                     PASS
 Segmentation (zero-trust flows)
   before: 3 violation(s)                   FAIL
-  after : 0 violation(s)                   PASS
+  after: 0 violation(s)                   PASS
 TLS configuration
   before: 6 finding(s) (5 HIGH, 1 MEDIUM)  FAIL
-  after : 0 finding(s)                     PASS
+  after: 0 finding(s)                     PASS
 Monitoring (flow telemetry)
   signals: 1 scan, 1 beacon, 3 seg-violations -> investigate/contain
 --------------------------------------------------

@@ -46,8 +46,10 @@ const write = (file, data) => {
 
 function sentences(text, max = 2) {
   const flat = text.replace(/\s+/g, ' ').trim();
-  const parts = flat.match(/[^.!?]+[.!?]+(\s|$)/g) || [flat];
-  return parts.slice(0, max).join('').trim();
+  // Split after . ! ? (optionally closed by a quote/bracket) only where a new sentence
+  // starts, so 'answers "who are you?" and ...' stays one sentence.
+  const parts = flat.split(/(?<=[.!?]["'”’)\]]?)\s+(?=["'“‘(]?[A-Z0-9])/);
+  return shortenRefs(parts.slice(0, max).join(' ').trim());
 }
 
 function flat(text) {
@@ -93,12 +95,20 @@ function learningOutcomes(a11) {
   return items;
 }
 
-/** [C05-M03-R4] -> [R4] inside module 3, [M03-R4] elsewhere */
-function shortenRefs(text, code, moduleNum) {
-  return text.replace(/\[(C\d\d)-M(\d\d)-R(\d+)\]/g, (m, c, mod, r) => {
-    if (c !== code) return m;
-    return Number(mod) === moduleNum ? `[R${r}]` : `[M${mod}-R${r}]`;
-  });
+/**
+ * The academy does not display the library's reference lists, so citation markers
+ * such as [C05-M03-R4], [R4] or [C22-M06-R3, R4] are removed from all text.
+ * (The unused code/moduleNum parameters keep the call sites unchanged.)
+ */
+// A marker may start a wrapped line ("details\n[R1], so"), so one preceding newline goes too.
+const CITATION = /[ \t]*\n?[ \t]*\[(?:C\d\d-)?(?:M\d\d-)?R\d+(?:\s*[,;]\s*(?:C\d\d-)?(?:M\d\d-)?R\d+)*\](?=[ \t]*[.,;:)]|[ \t]*$)|[ \t]*\[(?:C\d\d-)?(?:M\d\d-)?R\d+(?:\s*[,;]\s*(?:C\d\d-)?(?:M\d\d-)?R\d+)*\]/gm;
+function shortenRefs(text) {
+  return String(text ?? '')
+    .replace(CITATION, '')
+    .replace(/\(\s*\)/g, '')
+    .replace(/[,;][ \t]*\)/g, ')')
+    // only a space left directly before sentence punctuation; never touches "../path" or ".5"
+    .replace(/[ \t]+([.,;:])(?=\s|$)/gm, '$1');
 }
 
 function minutes(n) {
@@ -135,7 +145,10 @@ function buildCourse(num, raw) {
   const labCallout = callout(
     'NOTE',
     'Lab kit',
-    `Download the course lab kit: [RedKross_${code}_Lab_Kit.zip](${labKitUrl}). Extract it anywhere; paths written as \`LAB_ASSETS/${code}/...\` refer to the extracted \`${code}\` folder. Everything runs locally against systems you own.`
+    `Download the course lab kit: [RedKross_${code}_Lab_Kit.zip](${labKitUrl}). Extract it anywhere; paths written as \`LAB_ASSETS/${code}/...\` refer to the extracted \`${code}\` folder. Everything runs locally against systems you own.` +
+      (LAB_KIT_NOTES[num]
+        ? `\n\n**Before you start:** ${LAB_KIT_NOTES[num].trim().replace(/\s*\n\s*/g, ' ')} (also in READ_ME_FIRST_DOWNLOAD_NOTES.txt inside the kit)`
+        : '')
   );
 
   for (const mod of c.modules) {
@@ -153,7 +166,7 @@ function buildCourse(num, raw) {
         title,
         duration: typeof share === 'string' ? share : minutes(budget * share),
         is_mandatory: true,
-        summary: extra.summary || '',
+        summary: shortenRefs(extra.summary || ''),
         learning_objectives: extra.objectives || [],
         content_url: `/course-content/${courseId}/${id}.md`,
       });
@@ -201,7 +214,7 @@ function buildCourse(num, raw) {
     add(
       'cases',
       'Real-world case studies',
-      mod.cases.map((cs) => `## ${inline(cs.title)}\n\n${md(cs.body, m)}`).join('\n\n'),
+      mod.cases.map((cs) => `## ${inline(shortenRefs(cs.title))}\n\n${md(cs.body, m)}`).join('\n\n'),
       0.07,
       { summary: mod.cases.map((cs) => cs.title).join('; ').slice(0, 240) }
     );
@@ -251,15 +264,13 @@ function buildCourse(num, raw) {
       .map((part) => {
         const hm = part.match(/^8\.\d ([A-Z][A-Za-z ]+?)(?::\s*|\s*\n|$)([\s\S]*)$/);
         if (!hm) return md(part, m);
+        if (/^(further reading|references|sources)$/i.test(hm[1].trim())) return '';
         return `### ${hm[1].trim()}\n\n${md(hm[2], m)}`;
       })
+      .filter(Boolean)
       .join('\n\n');
-    const refs = mod.references
-      .split(/\n(?=\[C\d\d-M\d\d-R\d+\])/)
-      .map((r) => `- ${inline(flat(shortenRefs(r, code, m)))}`)
-      .join('\n');
-    add('revision', 'Revision and references', `## Revision\n\n${revision}\n\n## References\n\n${refs}`, 0.05, {
-      summary: 'Summary, key concepts, glossary, common mistakes and the module references.',
+    add('revision', 'Revision', `## Revision\n\n${revision}`, 0.05, {
+      summary: 'Summary, key concepts, glossary and common mistakes.',
     });
 
     const quizId = `quiz_${lc}_m${m}`;

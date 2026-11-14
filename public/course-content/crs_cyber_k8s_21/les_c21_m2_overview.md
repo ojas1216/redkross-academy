@@ -4,7 +4,7 @@ The image is the unit of deployment, so its contents become your attack surface 
 
 ## Why it matters
 
-Image defects are copied at scale. In May 2019 CVE-2019-5021 recorded that the official Alpine Linux Docker images, since v3.3, shipped with a NULL password for the root account (CVSS 9.8) [R3]; every derived image inherited it. Secrets baked into layers are readable by anyone who can pull the image. And scanners report hundreds of findings for an ordinary image, so teams that cannot triage either block everything or ignore everything.
+Image defects are copied at scale. In May 2019 CVE-2019-5021 recorded that the official Alpine Linux Docker images, since v3.3, shipped with a NULL password for the root account (CVSS 9.8); every derived image inherited it. Secrets baked into layers are readable by anyone who can pull the image. And scanners report hundreds of findings for an ordinary image, so teams that cannot triage either block everything or ignore everything.
 
 ## Where it is used
 

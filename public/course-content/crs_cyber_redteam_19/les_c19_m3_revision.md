@@ -29,14 +29,3 @@ acting out of scope; destructive "proof"; unrecorded or unattributed findings; n
 ### Revision questions
 
 ​1. State the fail-safe scope rule. 2. What does controlled validation require? 3. How does a hash chain make evidence tamper-evident?
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment" (discovery/validation within scope; evidence). URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: scope discipline and evidence in assessment.
-- [R2] PTES. "Technical Guidelines" (validation and reporting discipline). URL: [https://web.archive.org/web/20230601000000/http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines](https://web.archive.org/web/20230601000000/http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines) Accessed: 2026-11-08. Supports: controlled validation and evidence.
-- [R3] NIST. "SP 800-86: Guide to Integrating Forensic Techniques into Incident Response" (evidence integrity and chain of custody). URL: [https://csrc.nist.gov/pubs/sp/800/86/final](https://csrc.nist.gov/pubs/sp/800/86/final) Accessed: 2026-11-08. Supports: chain of custody and integrity.
-- [R4] Lab evidence. scopecheck.py (8.8.8.8 OUT-OF-SCOPE, refused) and evidence.py (chain intact -> OK; one-char edit -> BROKEN) (CPython 3.14.4), LAB_ASSETS/C19/data/scopecheck_output.txt and evidence_output.txt, 2026-11-08. Supports: the scope-enforcement and evidence-chain deep dive.

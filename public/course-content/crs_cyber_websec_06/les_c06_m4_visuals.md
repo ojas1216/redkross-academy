@@ -6,7 +6,7 @@
 ## IDOR in the lab
 
 ![A flow showing a user changing an order id to read another user's order in the vulnerable app, and the ownership check that returns 403 in the hardened app.](/assets/courses/cyber-06/C06-M04-F2.svg)
-*Figure C06-M04-F2. IDOR: lookup by client id with no ownership check exposes another user's object; the fix enforces ownership [R2].*
+*Figure C06-M04-F2. IDOR: lookup by client id with no ownership check exposes another user's object; the fix enforces ownership.*
 
 ## Broken function-level control in the lab
 

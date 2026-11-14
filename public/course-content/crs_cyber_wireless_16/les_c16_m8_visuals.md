@@ -6,7 +6,7 @@
 ## The consolidated review
 
 ![Three enforced control domains and two sets of detective findings.](/assets/courses/cyber-16/C16-M08-F2.svg)
-*Figure C16-M08-F2. The consolidated review: enforcing evidence plus detective findings [R4].*
+*Figure C16-M08-F2. The consolidated review: enforcing evidence plus detective findings.*
 
 ## The capstone deliverable
 

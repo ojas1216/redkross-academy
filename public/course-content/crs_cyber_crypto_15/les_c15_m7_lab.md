@@ -1,5 +1,7 @@
 > [!NOTE] Lab kit
 > Download the course lab kit: [RedKross_C15_Lab_Kit.zip](/downloads/labs/RedKross_C15_Lab_Kit.zip). Extract it anywhere; paths written as `LAB_ASSETS/C15/...` refer to the extracted `C15` folder. Everything runs locally against systems you own.
+>
+> **Before you start:** Private keys (*.key) are never shipped in the download. Before the Module 6 TLS lab, run the Module 5 PKI lab once to generate the lab CA, intermediate and server keys in pki/: sh m05_pki_lab.sh        (Linux/macOS, or Git Bash on Windows; needs OpenSSL 3) Then: python m06_tls.py (also in READ_ME_FIRST_DOWNLOAD_NOTES.txt inside the kit)
 
 ## Practical 1: See and prevent nonce reuse
 
@@ -53,10 +55,10 @@
 ```text
 1. Review this fictional function:
      def protect(data, password):
-         key = hashlib.sha256(password.encode()).digest()
+         key = hashlib.sha256(password.encode).digest
          iv = b"\x00" * 16
-         c = Cipher(algorithms.AES(key), modes.CBC(iv)).encryptor()
-         return c.update(pad(data)) + c.finalize()
+         c = Cipher(algorithms.AES(key), modes.CBC(iv)).encryptor
+         return c.update(pad(data)) + c.finalize
 2. List every finding with a checklist reference.
 3. Rewrite it using scrypt with a salt, AES-GCM with a random nonce, a
    version byte and a header as AAD (you may adapt rkcrypt from Module

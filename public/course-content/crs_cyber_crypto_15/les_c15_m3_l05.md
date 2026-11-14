@@ -1,4 +1,4 @@
-Approximate equivalent strengths (NIST SP 800-57 Part 1 Rev. 5, [R2]):
+Approximate equivalent strengths (NIST SP 800-57 Part 1 Rev. 5):
 
 | Term | Meaning |
 |---|---|

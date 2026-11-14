@@ -12,4 +12,4 @@ sigma check rk_office_spawns_shell.yml
 sigma convert -t splunk --without-pipeline rk_office_spawns_shell.yml
 ```
 
-**Escaping note:** in the Splunk output the backslash appears doubled (`"*\\WINWORD.EXE"`) because SPL string escaping requires it; this is correct, not a bug. Logic translated to minisiem SQL (R1) uses lower() and LIKE because SQLite string comparison is case-sensitive by default while Windows paths are not - an example of why a rule's semantics must be checked after translation.
+**Escaping note:** in the Splunk output the backslash appears doubled (`"*\\WINWORD.EXE"`) because SPL string escaping requires it; this is correct, not a bug. Logic translated to minisiem SQL (R1) uses lower and LIKE because SQLite string comparison is case-sensitive by default while Windows paths are not - an example of why a rule's semantics must be checked after translation.

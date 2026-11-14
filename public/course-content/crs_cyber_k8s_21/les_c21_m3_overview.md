@@ -4,7 +4,7 @@ Kubernetes is a set of cooperating programs around one API. Users and controller
 
 ## Why it matters
 
-The API server is the front door to everything, and the datastore behind it holds every secret. The Kubernetes documentation states that by default the API server stores plain-text representations of resources in etcd, with no at-rest encryption [R3]; the lab shows a secret value appearing verbatim in the datastore file. Architecture flaws are rare but severe: CVE-2018-1002105 let some users escalate through the API server's handling of upgraded connections (case study CS1).
+The API server is the front door to everything, and the datastore behind it holds every secret. The Kubernetes documentation states that by default the API server stores plain-text representations of resources in etcd, with no at-rest encryption; the lab shows a secret value appearing verbatim in the datastore file. Architecture flaws are rare but severe: CVE-2018-1002105 let some users escalate through the API server's handling of upgraded connections (case study CS1).
 
 ## Where it is used
 

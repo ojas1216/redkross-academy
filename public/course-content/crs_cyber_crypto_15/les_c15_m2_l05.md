@@ -9,4 +9,4 @@
 | Revoke/destroy | disable first, keep long enough to decrypt what must be retained, then destroy. Destroying the key renders data unreadable ("crypto-shredding"), useful for deletion obligations under privacy laws such as the DPDP Act. |
 | Back up | a key you cannot recover means data you cannot recover. Escrow and backup procedures need the same protection as the keys. |
 
-NIST SP 800-57 Part 1 is the standard reference for key-management recommendations, including cryptoperiods [R3].
+NIST SP 800-57 Part 1 is the standard reference for key-management recommendations, including cryptoperiods.

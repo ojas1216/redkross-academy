@@ -31,15 +31,3 @@ counter state restored from backup; record IDs as nonces; custom ciphers.
 ### Revision questions
 
 ​1. Why does CTR nonce reuse leak plaintext? 2. Give four nonce strategies. 3. List ten checklist items.
-
-### Further reading
-
-NIST SP 800-38D [R1]; pyca/cryptography docs [R3].
-
-## References
-
-- [R1] NIST. SP 800-38D, GCM and GMAC, November 2007 (revision announced 2024). URL: [https://csrc.nist.gov/pubs/sp/800/38/d/final](https://csrc.nist.gov/pubs/sp/800/38/d/final) Accessed: 2026-11-07. Supports: nonce uniqueness and invocation limits (limit stated from the document's requirements).
-- [R2] LWN.net / contemporaneous reporting of fail0verflow's 27C3 presentation on PS3 security, December 2010-January 2011. URL: [https://lwn.net/Articles/421285/](https://lwn.net/Articles/421285/) Accessed: 2026-11-07 (web-search cross-check). Supports: constant ECDSA nonce, private key computed.
-- [R3] pyca/cryptography. "Welcome to pyca/cryptography" (recipes versus hazardous materials layers). URL: [https://cryptography.io/en/latest/](https://cryptography.io/en/latest/) Accessed: 2026-11-07. Supports: library layering and safe recipes.
-- [R4] Pornin, T. RFC 6979, "Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA)", August 2013. URL: [https://www.rfc-editor.org/rfc/rfc6979](https://www.rfc-editor.org/rfc/rfc6979) Accessed: 2026-11-07. Supports: deterministic nonces.
-- [R5] Lab evidence. m07_misuse.py and m07_output.txt (CPython 3.14.4, cryptography 48.0.0), 2026-11-07.

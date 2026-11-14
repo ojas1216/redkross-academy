@@ -28,14 +28,3 @@ unauthenticated headers; no versioning; lowering parameters for tests in product
 ### Revision questions
 
 ​1. Draw the file format. 2. List six test categories. 3. Name five limitations of rkcrypt.
-
-### Further reading
-
-OWASP Password Storage [M04-R1]; CSRB report [R1].
-
-## References
-
-- [R1] US Department of Homeland Security. "Cyber Safety Review Board Releases Report on Microsoft Online Exchange Incident from Summer 2023", 2 April 2024. URL: [https://www.dhs.gov/news/2024/04/02/cyber-safety-review-board-releases-report-microsoft-online-exchange-incident-summer](https://www.dhs.gov/news/2024/04/02/cyber-safety-review-board-releases-report-microsoft-online-exchange-incident-summer) Accessed: 2026-11-07 (verified for Course 01). Supports: preventable, cascade of failures, 2016 MSA key, theft method undetermined, scale.
-- [R2] OWASP. "Password Storage Cheat Sheet". URL: [https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) Accessed: 2026-11-07. Supports: scrypt parameters.
-- [R3] pyca/cryptography. "AEAD (AESGCM)" documentation. URL: [https://cryptography.io/en/latest/hazmat/primitives/aead/](https://cryptography.io/en/latest/hazmat/primitives/aead/) Accessed: 2026-11-07. Supports: AESGCM API and associated data.
-- [R4] Lab evidence. rkcrypt/rkcrypt.py, rkcrypt/test_rkcrypt.py, m08_tests_output.txt, m08_cli_output.txt (CPython 3.14.4, cryptography 48.0.0), 2026-11-07.

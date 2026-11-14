@@ -13,11 +13,11 @@ Running apicheck.py over the insecure then the hardened backend configuration (e
 
 == api_config_fixed.json (hardened) ==
   authentication: required (token validated, expiry set)    OK
-  transport     : TLS enforced, no cleartext                OK
-  authorisation : enforced per request (object-level)       OK
-  rate limiting : configured                                OK
+  transport: TLS enforced, no cleartext                OK
+  authorisation: enforced per request (object-level)       OK
+  rate limiting: configured                                OK
   error handling: generic errors                            OK
-  data exposure : minimal fields                            OK
+  data exposure: minimal fields                            OK
   ... 0 finding(s) -> PASS
 ```
 

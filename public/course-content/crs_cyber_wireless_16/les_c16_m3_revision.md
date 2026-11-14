@@ -29,14 +29,3 @@ no BSSID inventory; relying on config review alone (misses impostors); attacking
 ### Revision questions
 
 ​1. What are the two pillars of wireless assessment? 2. How is an evil twin detected? 3. Why keep assessment offline/non-disruptive here?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] NIST. "SP 800-153: Guidelines for Securing Wireless Local Area Networks (WLANs)" (configuration, monitoring for unauthorised devices). URL: [https://csrc.nist.gov/pubs/sp/800/153/final](https://csrc.nist.gov/pubs/sp/800/153/final) Accessed: 2026-11-08. Supports: assessment process, configuration review and rogue detection.
-- [R2] Wi-Fi Alliance. "Security" (PMF/WPA3 that limit evil-twin impact). URL: [https://www.wi-fi.org/discover-wi-fi/security](https://www.wi-fi.org/discover-wi-fi/security) Accessed: 2026-11-08. Supports: why PMF/strong auth complement detection.
-- [R3] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment" (authorised, controlled assessment and evidence). URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: controlled/authorised assessment and reporting.
-- [R4] Lab evidence. roguescan.py analysis of the provided scan against the authorised inventory (CPython 3.14.4), LAB_ASSETS/C16/data/roguescan_output.txt, 2026-11-08. Supports: the deep-dive impostor detection.

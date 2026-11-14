@@ -4,7 +4,7 @@ Detections find what someone anticipated; threat hunting looks for what they did
 
 ## Why it matters
 
-Some adversaries stay hidden for years. In its February 2024 advisory on the PRC state-sponsored group known as Volt Typhoon, CISA, NSA and FBI reported footholds maintained in some victim IT environments for at least five years, using "living off the land" techniques that blend in with administration [R1]. Alerts alone do not find that; deliberate hunting with good data can.
+Some adversaries stay hidden for years. In its February 2024 advisory on the PRC state-sponsored group known as Volt Typhoon, CISA, NSA and FBI reported footholds maintained in some victim IT environments for at least five years, using "living off the land" techniques that blend in with administration. Alerts alone do not find that; deliberate hunting with good data can.
 
 ## Where it is used
 

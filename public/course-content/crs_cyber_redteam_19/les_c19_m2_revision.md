@@ -29,14 +29,3 @@ arbitrary attacks instead of relevant emulation; no ATT&CK mapping; no detection
 ### Revision questions
 
 ​1. How does emulation differ from arbitrary testing? 2. What are ATT&CK tactics and techniques? 3. Name three simulation boundaries.
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] MITRE. "ATT&CK" (Enterprise matrix, tactics and techniques; v20.1). URL: [https://attack.mitre.org/](https://attack.mitre.org/) Accessed: 2026-11-08. Supports: the framework, tactic/technique IDs and detection mapping.
-- [R2] MITRE. "Adversary Emulation Plans". URL: [https://attack.mitre.org/resources/adversary-emulation-plans/](https://attack.mitre.org/resources/adversary-emulation-plans/) Accessed: 2026-11-08. Supports: emulation as a threat-informed, ATT&CK-based practice.
-- [R3] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment" (planning and technique selection). URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: disciplined test planning.
-- [R4] Lab evidence. emulation_plan.py validation of the 7-step plan (all in scope, safety-bounded, detection-mapped, PASS) (CPython 3.14.4), LAB_ASSETS/C19/data/emulation_plan_output.txt, 2026-11-08. Supports: the plan- validation deep dive.

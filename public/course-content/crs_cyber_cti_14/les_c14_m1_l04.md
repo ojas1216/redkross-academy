@@ -5,7 +5,7 @@
 | Likelihood | how probable is the event or development? |
 | Confidence | how sound is the basis for that judgment (sources, logic, gaps)? |
 
-ICD 203 gives a fixed scale of likelihood terms with probability bands [R1]:
+ICD 203 gives a fixed scale of likelihood terms with probability bands:
 
 ```text
 almost no chance  01-05%       likely                55-80%

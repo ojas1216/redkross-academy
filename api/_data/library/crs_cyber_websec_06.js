@@ -12,7 +12,7 @@ export default {
      "cookies cannot be modified by users"
     ],
     "correct": 0,
-    "explanation": "the client runs on a machine the user/attacker controls, so the server must enforce all security [R1].",
+    "explanation": "the client runs on a machine the user/attacker controls, so the server must enforce all security.",
     "topic": "C06-M01: Web foundations",
     "difficulty": "medium"
    },
@@ -40,7 +40,7 @@ export default {
      "OPTIONS, because it is metadata"
     ],
     "correct": 2,
-    "explanation": "GET is triggered by links, images and prefetch and should be safe; state change via GET enables CSRF [R1].",
+    "explanation": "GET is triggered by links, images and prefetch and should be safe; state change via GET enables CSRF.",
     "topic": "C06-M01: Web foundations",
     "difficulty": "medium"
    },
@@ -82,7 +82,7 @@ export default {
      "weak passwords"
     ],
     "correct": 1,
-    "explanation": "SameSite withholds the cookie on cross-site requests, a primary CSRF defence [R2].",
+    "explanation": "SameSite withholds the cookie on cross-site requests, a primary CSRF defence.",
     "topic": "C06-M01: Web foundations",
     "difficulty": "medium"
    },
@@ -196,7 +196,7 @@ export default {
      "advertises it, because robots.txt is public and widely read"
     ],
     "correct": 3,
-    "explanation": "robots.txt is public; a Disallow entry advertises the path [R2].",
+    "explanation": "robots.txt is public; a Disallow entry advertises the path.",
     "topic": "C06-M02: Application mapping",
     "difficulty": "medium"
    },
@@ -310,7 +310,7 @@ export default {
      "reversible encryption"
     ],
     "correct": 1,
-    "explanation": "use a slow, salted, purpose-built hash such as Argon2id [R2].",
+    "explanation": "use a slow, salted, purpose-built hash such as Argon2id.",
     "topic": "C06-M03: Identity vulnerabilities",
     "difficulty": "medium"
    },
@@ -366,7 +366,7 @@ export default {
      "a security question"
     ],
     "correct": 1,
-    "explanation": "WebAuthn/FIDO2 binds authentication to the real origin and resists real-time phishing [R3].",
+    "explanation": "WebAuthn/FIDO2 binds authentication to the real origin and resists real-time phishing.",
     "topic": "C06-M03: Identity vulnerabilities",
     "difficulty": "medium"
    },
@@ -438,7 +438,7 @@ export default {
      "number five"
     ],
     "correct": 0,
-    "explanation": "Broken Access Control is A01 in the OWASP Top 10:2025 [R1].",
+    "explanation": "Broken Access Control is A01 in the OWASP Top 10:2025.",
     "topic": "C06-M04: Authorization flaws",
     "difficulty": "medium"
    },
@@ -466,7 +466,7 @@ export default {
      "CWE-22"
     ],
     "correct": 2,
-    "explanation": "IDOR is CWE-639 and maps to A01 [R2].",
+    "explanation": "IDOR is CWE-639 and maps to A01.",
     "topic": "C06-M04: Authorization flaws",
     "difficulty": "medium"
    },
@@ -594,7 +594,7 @@ export default {
      "CWE-22"
     ],
     "correct": 1,
-    "explanation": "SQL injection is CWE-89 [R2].",
+    "explanation": "SQL injection is CWE-89.",
     "topic": "C06-M05: Injection and output handling",
     "difficulty": "medium"
    },
@@ -650,7 +650,7 @@ export default {
      "a longer session timeout"
     ],
     "correct": 1,
-    "explanation": "contextual output encoding renders input as text, not markup [R4].",
+    "explanation": "contextual output encoding renders input as text, not markup.",
     "topic": "C06-M05: Injection and output handling",
     "difficulty": "medium"
    },
@@ -736,7 +736,7 @@ export default {
      "a CAPTCHA on login"
     ],
     "correct": 1,
-    "explanation": "a per-session anti-CSRF token the cross-site attacker cannot read defeats CSRF [R2].",
+    "explanation": "a per-session anti-CSRF token the cross-site attacker cannot read defeats CSRF.",
     "topic": "C06-M06: Request and server-side flaws",
     "difficulty": "medium"
    },
@@ -778,7 +778,7 @@ export default {
      "CWE-352"
     ],
     "correct": 0,
-    "explanation": "SSRF is CWE-918 [R1].",
+    "explanation": "SSRF is CWE-918.",
     "topic": "C06-M06: Request and server-side flaws",
     "difficulty": "medium"
    },
@@ -864,7 +864,7 @@ export default {
      "encoding output"
     ],
     "correct": 0,
-    "explanation": "disabling external entities/DTDs prevents XXE [R2].",
+    "explanation": "disabling external entities/DTDs prevents XXE.",
     "topic": "C06-M07: Advanced application risks",
     "difficulty": "medium"
    },
@@ -962,7 +962,7 @@ export default {
      "A08 Software or Data Integrity Failures"
     ],
     "correct": 3,
-    "explanation": "insecure deserialization maps to A08:2025 Software or Data Integrity Failures [R3].",
+    "explanation": "insecure deserialization maps to A08:2025 Software or Data Integrity Failures.",
     "topic": "C06-M07: Advanced application risks",
     "difficulty": "medium"
    },
@@ -1006,7 +1006,7 @@ export default {
      "the scanner is re-run once"
     ],
     "correct": 0,
-    "explanation": "closure requires a retest proving the weakness is gone [R1].",
+    "explanation": "closure requires a retest proving the weakness is gone.",
     "topic": "C06-M08: Verification and capstone",
     "difficulty": "medium"
    },

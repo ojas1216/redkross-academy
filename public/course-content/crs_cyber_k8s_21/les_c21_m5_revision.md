@@ -28,16 +28,3 @@ policies without an enforcing plugin; forgetting DNS; trusting "kubectl get netw
 ### Revision questions
 
 ​1. Write a default-deny policy from memory. 2. List the Restricted controls. 3. Explain why rule order matters.
-
-### Further reading
-
-[R1]; [R3].
-
-## References
-
-- [R1] Kubernetes. "Network Policies". URL: [https://kubernetes.io/docs/concepts/services-networking/network-policies/](https://kubernetes.io/docs/concepts/services-networking/network-policies/) Accessed: 2026-11-07. Supports: plugin dependence, default non-isolation, additive semantics.
-- [R2] Kubernetes. "Pod Security Standards". URL: [https://kubernetes.io/docs/concepts/security/pod-security-standards/](https://kubernetes.io/docs/concepts/security/pod-security-standards/) Accessed: 2026-11-07. Supports: level definitions and baseline controls (Restricted controls also confirmed by the lab's PodSecurity messages).
-- [R3] Kubernetes. "Auditing". URL: [https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/) Accessed: 2026-11-07. Supports: stages, levels, first-match rule.
-- [R4] Unit 42, Palo Alto Networks. "Hildegard: New TeamTNT Cryptojacking Malware Targeting Kubernetes", 3 February 2021. URL: [https://unit42.paloaltonetworks.com/hildegard-malware-teamtnt/](https://unit42.paloaltonetworks.com/hildegard-malware-teamtnt/) Accessed: 2026-11-07. Supports: CS1.
-- [R5] Kubernetes. "KEP-4006: Transition from SPDY to WebSockets". URL: [https://www.kubernetes.dev/resources/keps/4006/](https://www.kubernetes.dev/resources/keps/4006/) Accessed: 2026-11-07 (search summary of the KEP page). Supports: kubectl streaming over WebSockets (alpha 1.29, beta 1.31).
-- [R6] Lab evidence. netpol/, netpol_test.sh, netpol_output.txt, psa_output.txt, hardened/audit-policy.yaml, m05_activity_output.txt, audit_detect.py, audit_detect_output.txt, hardened_checks_output.txt (k3s v1.34.1+k3s1), 2026-11-07.

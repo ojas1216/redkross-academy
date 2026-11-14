@@ -1,4 +1,4 @@
-The classic lifecycle in NIST SP 800-61 Rev. 2 (2012) has four phases: preparation; detection and analysis; containment, eradication and recovery; and post-incident activity. Rev. 3 (April 2025) replaces this with a CSF 2.0 Community Profile that places incident response inside organisation-wide risk management [R1]:
+The classic lifecycle in NIST SP 800-61 Rev. 2 (2012) has four phases: preparation; detection and analysis; containment, eradication and recovery; and post-incident activity. Rev. 3 (April 2025) replaces this with a CSF 2.0 Community Profile that places incident response inside organisation-wide risk management:
 
 - Govern, Identify and Protect support preparation.
 - Detect covers finding and analysing incidents.

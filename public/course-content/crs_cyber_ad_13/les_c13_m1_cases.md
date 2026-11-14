@@ -1,6 +1,6 @@
 ## Why the forest is the boundary - guidance after real forest compromises
 
-**Context:** across many incident-response engagements through the late 2010s and early 2020s, attackers who gained control of one domain controller were repeatedly able to reach the entire forest, because trusts inside a forest are automatic, transitive and backed by a shared schema and configuration. Microsoft's security documentation responded by stating plainly that the forest, not the domain, is the security boundary, and that organisations needing genuine administrative isolation must use separate forests (the approach taken by its Enhanced Security Admin Environment / "Red Forest" and later the Enterprise Access Model) [R2].
+**Context:** across many incident-response engagements through the late 2010s and early 2020s, attackers who gained control of one domain controller were repeatedly able to reach the entire forest, because trusts inside a forest are automatic, transitive and backed by a shared schema and configuration. Microsoft's security documentation responded by stating plainly that the forest, not the domain, is the security boundary, and that organisations needing genuine administrative isolation must use separate forests (the approach taken by its Enhanced Security Admin Environment / "Red Forest" and later the Enterprise Access Model).
 
 **What defenders learned:**
 

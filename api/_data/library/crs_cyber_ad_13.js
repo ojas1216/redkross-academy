@@ -26,7 +26,7 @@ export default {
      "site"
     ],
     "correct": 1,
-    "explanation": "the forest shares schema, configuration and trusts [R2].",
+    "explanation": "the forest shares schema, configuration and trusts.",
     "topic": "C13-M01: Directory foundations",
     "difficulty": "medium"
    },
@@ -408,7 +408,7 @@ export default {
      "Group Policy does not replicate"
     ],
     "correct": 0,
-    "explanation": "SYSVOL is world-readable to authenticated users [R4].",
+    "explanation": "SYSVOL is world-readable to authenticated users.",
     "topic": "C13-M03: Policy and administration",
     "difficulty": "medium"
    },
@@ -480,7 +480,7 @@ export default {
      "control plane"
     ],
     "correct": 3,
-    "explanation": "former Tier 0 expands to the control plane [R1].",
+    "explanation": "former Tier 0 expands to the control plane.",
     "topic": "C13-M04: Enterprise security",
     "difficulty": "medium"
    },
@@ -522,7 +522,7 @@ export default {
      "are exempt from password policy"
     ],
     "correct": 2,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C13-M04: Enterprise security",
     "difficulty": "medium"
    },
@@ -594,7 +594,7 @@ export default {
      "a disabled pre-authentication flag"
     ],
     "correct": 1,
-    "explanation": "[R1].",
+    "explanation": ".",
     "topic": "C13-M05: Attack-path awareness",
     "difficulty": "medium"
    },
@@ -608,7 +608,7 @@ export default {
      "have no SPN"
     ],
     "correct": 2,
-    "explanation": "[R2].",
+    "explanation": ".",
     "topic": "C13-M05: Attack-path awareness",
     "difficulty": "medium"
    },
@@ -764,7 +764,7 @@ export default {
      "so an attacker who clears the local log cannot destroy the telemetry"
     ],
     "correct": 3,
-    "explanation": "attackers clear local logs (T1070.001) [R2].",
+    "explanation": "attackers clear local logs (T1070.001).",
     "topic": "C13-M06: Monitoring",
     "difficulty": "medium"
    },

@@ -30,14 +30,3 @@ treating the SSID as a boundary; hiding the SSID as "security"; no BSSID invento
 ### Revision questions
 
 ​1. Why is the SSID not a security boundary? 2. How does the shared medium change the threat model? 3. Name three Wi-Fi threats and their controls.
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] NIST. "SP 800-153: Guidelines for Securing Wireless Local Area Networks (WLANs)". URL: [https://csrc.nist.gov/pubs/sp/800/153/final](https://csrc.nist.gov/pubs/sp/800/153/final) Accessed: 2026-11-08. Supports: WLAN concepts, architecture and threat model.
-- [R2] Wi-Fi Alliance. "Security" (WPA3, Protected Management Frames). URL: [https://www.wi-fi.org/discover-wi-fi/security](https://www.wi-fi.org/discover-wi-fi/security) Accessed: 2026-11-08. Supports: management-frame protection and the move to WPA3.
-- [R3] NIST. "SP 800-153: Guidelines for Securing WLANs" (threat-to-control mapping). URL: [https://csrc.nist.gov/pubs/sp/800/153/final](https://csrc.nist.gov/pubs/sp/800/153/final) Accessed: 2026-11-08. Supports: the threat-surface-to-control mapping.
-- [R4] Lab evidence. roguescan.py analysis of the provided scan against the authorised-AP inventory (CPython 3.14.4), LAB_ASSETS/C16/data/ roguescan_output.txt, 2026-11-08. Supports: the deep-dive wireless model.

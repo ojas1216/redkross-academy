@@ -29,15 +29,3 @@ testing without mapping; missing non-form inputs (headers/cookies); treating hyp
 ### Revision questions
 
 ​1. What is the difference between attack surface and trust boundary? 2. Classify /download?file= and /fetch?url= by weakness class. 3. List the seven workflow steps.
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] OWASP. "Web Security Testing Guide (WSTG)" (testing framework and workflow). URL: [https://owasp.org/www-project-web-security-testing-guide/](https://owasp.org/www-project-web-security-testing-guide/) Accessed: 2026-11-08. Supports: the phased testing workflow.
-- [R2] OWASP. "Web Security Testing Guide - Review Webserver Metafiles (robots.txt) for Information Leakage". URL: [https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/) Accessed: 2026-11-08. Supports: CS1, robots.txt information leakage.
-- [R3] MITRE. "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor". URL: [https://cwe.mitre.org/data/definitions/200.html](https://cwe.mitre.org/data/definitions/200.html) Accessed: 2026-11-08. Supports: information disclosure, banner and path leaks.
-- [R4] NIST. "SP 800-115: Technical Guide to Information Security Testing and Assessment" (planning, discovery). URL: [https://csrc.nist.gov/pubs/sp/800/115/final](https://csrc.nist.gov/pubs/sp/800/115/final) Accessed: 2026-11-08. Supports: the discovery phase and scoped testing method.
-- [R5] Lab evidence. map.py output and attack-surface table (CPython 3.14.4), LAB_ASSETS/C06/data/map_output.txt, 2026-11-08. Supports: the deep-dive map and classification.

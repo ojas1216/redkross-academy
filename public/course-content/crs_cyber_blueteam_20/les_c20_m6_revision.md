@@ -28,14 +28,3 @@ auto-containment from noisy rules; shell strings built from alerts; approvals wi
 ### Revision questions
 
 ​1. Place five steps on the ladder. 2. List six safety patterns. 3. Explain time-aware entity resolution.
-
-### Further reading
-
-[R1]; [R2].
-
-## References
-
-- [R1] Amazon Web Services. "Summary of the Amazon S3 Service Disruption in the Northern Virginia (US-EAST-1) Region" (event of 28 February 2017). URL: [https://aws.amazon.com/message/41926/](https://aws.amazon.com/message/41926/) Accessed: 2026-11-07. Supports: playbook, incorrect input, slower removal, minimum-capacity safeguards.
-- [R2] NIST. SP 800-61 Rev. 3, "Incident Response Recommendations and Considerations for Cybersecurity Risk Management", April 2025. URL: [https://csrc.nist.gov/pubs/sp/800/61/r3/final](https://csrc.nist.gov/pubs/sp/800/61/r3/final) Accessed: 2026-11-07. Supports: incident response within CSF 2.0.
-- [R3] Lab evidence. soar.py, soar_output.txt (CPython 3.14.4), 2026-11-07.
-- [R4] MITRE. Enterprise ATT&CK 20.1 STIX data (for rule tags used in case grouping). URL: [https://github.com/mitre-attack/attack-stix-data](https://github.com/mitre-attack/attack-stix-data) Accessed: 2026-11-07. Supports: technique IDs on alerts.

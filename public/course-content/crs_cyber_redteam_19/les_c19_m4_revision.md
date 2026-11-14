@@ -30,14 +30,3 @@ chasing access instead of detection; signature-only detection; harvesting real c
 ### Revision questions
 
 ​1. Why is Valid Accounts hard to detect by signature? 2. Name the primary identity telemetry and three behavioural detections. 3. Pair a detection with a containment for T1078.
-
-### Further reading
-
-[R1]; [R2]; [R4].
-
-## References
-
-- [R1] MITRE. "ATT&CK - Valid Accounts (T1078)" (and Account Discovery T1087). URL: [https://attack.mitre.org/techniques/T1078/](https://attack.mitre.org/techniques/T1078/) Accessed: 2026-11-08. Supports: identity techniques and behavioural detection/containment.
-- [R2] Microsoft. "Securing privileged access / Enterprise Access Model" (privilege tiering). URL: [https://learn.microsoft.com/security/privileged-access-workstations/privileged-access-access-model](https://learn.microsoft.com/security/privileged-access-workstations/privileged-access-access-model) Accessed: 2026-11-08. Supports: privilege boundaries and tiering.
-- [R3] NIST. "SP 800-63B: Digital Identity Guidelines - Authentication" (credential and authentication guidance). URL: [https://pages.nist.gov/800-63-3/sp800-63b.html](https://pages.nist.gov/800-63-3/sp800-63b.html) Accessed: 2026-11-08. Supports: credential exposure and authentication containment.
-- [R4] Lab evidence. attackmap.py mapping of the identity techniques (T1078/ T1087/T1550) to telemetry, detection and containment (CPython 3.14.4), LAB_ASSETS/C19/data/attackmap_output.txt, 2026-11-08. Supports: the telemetry- mapping deep dive.

@@ -30,14 +30,3 @@ denylists; client-side authorisation; fast password hashes.
 ### Revision questions
 
 ​1. Rewrite an f-string query safely. 2. Explain the "same error" rule. 3. List four session security settings.
-
-### Further reading
-
-CISA AA23-158A [R1]; OWASP Cheat Sheet Series [R2].
-
-## References
-
-- [R1] CISA and FBI. "#StopRansomware: CL0P Ransomware Gang Exploits CVE-2023-34362 MOVEit Vulnerability", AA23-158A, 7 June 2023. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a](https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a) Accessed: 2026-11-07. Supports: actor, CVE, SQL injection, LEMURLOOT, start date.
-- [R2] OWASP. "OWASP Cheat Sheet Series". URL: [https://cheatsheetseries.owasp.org/](https://cheatsheetseries.owasp.org/) Accessed: 2026-11-07. Supports: validation, injection prevention, password storage and authorisation guidance.
-- [R3] Python Software Foundation. "hashlib - Secure hashes and message digests" (scrypt). URL: [https://docs.python.org/3/library/hashlib.html](https://docs.python.org/3/library/hashlib.html) Accessed: 2026-11-07. Supports: hashlib.scrypt API.
-- [R4] Lab evidence. app/shipments.py, app/test_shipments.py and unittest_output.txt (CPython 3.14.4), 2026-11-07.

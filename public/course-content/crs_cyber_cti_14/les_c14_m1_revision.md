@@ -29,14 +29,3 @@ topic lists instead of requirements; "may/could"; confidence and likelihood in o
 ### Revision questions
 
 ​1. Name the six lifecycle phases. 2. Give the seven likelihood terms. 3. Explain likelihood versus confidence.
-
-### Further reading
-
-[R1]; [R2].
-
-## References
-
-- [R1] Office of the Director of National Intelligence. Intelligence Community Directive 203 "Analytic Standards" (signed 2 January 2015, with technical amendment). URL: [https://archive.dni.gov/files/documents/ICD/ICD-203.pdf](https://archive.dni.gov/files/documents/ICD/ICD-203.pdf) Accessed: 2026-11-07 (text extracted from the PDF). Supports: likelihood scale, separation of confidence and likelihood, sourcing standards.
-- [R2] Caltagirone, S., Pendergast, A., Betz, C. "The Diamond Model of Intrusion Analysis", 2013. URL: [https://www.activeresponse.org/wp-content/uploads/2013/07/diamond.pdf](https://www.activeresponse.org/wp-content/uploads/2013/07/diamond.pdf) Accessed: 2026-11-07. Supports: analytic modelling (used in Module 4).
-- [R3] CISA. "Apache Log4j Vulnerability Guidance". URL: [https://www.cisa.gov/news-events/news/apache-log4j-vulnerability-guidance](https://www.cisa.gov/news-events/news/apache-log4j-vulnerability-guidance) Accessed: 2026-11-07 (verified in an earlier library course). Supports: CS1 versions, upgrades, ED 22-02 date.
-- [R4] Lab evidence. make_ti_data.py, requirements_view.py, estimative_lint.py, briefs/, m01_output.txt (CPython 3.14.4), 2026-11-07.

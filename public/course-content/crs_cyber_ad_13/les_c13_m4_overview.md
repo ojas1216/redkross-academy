@@ -4,7 +4,7 @@ This module turns the administrative structures of Module 3 into a deliberate se
 
 ## Why it matters
 
-The reason a single phishing email can end in domain-wide ransomware is almost always a missing containment boundary: a domain admin logged on to an ordinary workstation, so their credentials were exposed there; or a server admin account could also administer the domain. The tier model exists precisely to stop credential exposure from cascading upward. Microsoft developed it after repeated real compromises and now frames it as the Enterprise Access Model [R1].
+The reason a single phishing email can end in domain-wide ransomware is almost always a missing containment boundary: a domain admin logged on to an ordinary workstation, so their credentials were exposed there; or a server admin account could also administer the domain. The tier model exists precisely to stop credential exposure from cascading upward. Microsoft developed it after repeated real compromises and now frames it as the Enterprise Access Model.
 
 ## Where it is used
 

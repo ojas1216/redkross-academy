@@ -27,14 +27,3 @@ gates on lab data only; permanent exceptions; executive pages full of technique 
 ### Revision questions
 
 ​1. List the four gates. 2. What must an exception include? 3. Name four health checks for monitoring infrastructure.
-
-### Further reading
-
-[R1]; Part C capstone brief.
-
-## References
-
-- [R1] US Government Accountability Office. GAO-18-559 "Data Protection: Actions Taken by Equifax and Federal Agencies in Response to the 2017 Breach", August 2018 (released 7 September 2018). URL: [https://www.gao.gov/products/gao-18-559](https://www.gao.gov/products/gao-18-559) Accessed: 2026-11-07. Supports: 13 May and 29 July 2017 dates, about 76 days, 145.5 million individuals, certificate expired about 10 months, detection after renewal.
-- [R2] MITRE. Enterprise ATT&CK 20.1 STIX data. URL: [https://github.com/mitre-attack/attack-stix-data](https://github.com/mitre-attack/attack-stix-data) Accessed: 2026-11-07. Supports: technique tags in the manifest.
-- [R3] SigmaHQ. "Sigma Rules Specification" 2.1.0 (2025-08-02). URL: [https://github.com/SigmaHQ/sigma-specification](https://github.com/SigmaHQ/sigma-specification) Accessed: 2026-11-07. Supports: rule status and metadata.
-- [R4] Lab evidence. build_pack.py, build_pack_output.txt, pack/ (CPython 3.14.4), 2026-11-07.

@@ -6,7 +6,7 @@ Passwords are low-entropy (Module 1), so stored password hashes must be delibera
   tables are useless.
 - Work factor: a time and memory cost large enough to slow guessing,
   tuned to your servers.
-- Algorithm, in OWASP's order of preference [R1]:
+- Algorithm, in OWASP's order of preference:
     Argon2id      m=19456 (19 MiB), t=2, p=1 (preferred)
     scrypt        N=2^17 (128 MiB), r=8, p=1; or equivalent trade-offs
                   such as N=2^14, r=8, p=5

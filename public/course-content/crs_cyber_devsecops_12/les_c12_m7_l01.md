@@ -16,4 +16,4 @@ Model them as part of the system (Module 2, boundary B4). Integrity properties t
 - artefacts cannot be swapped after the build;
 - deployments accept only verified artefacts.
 
-SSDF practice group PS (Protect the Software) covers much of this, including protecting code from unauthorised changes and providing a mechanism for verifying release integrity [R4].
+SSDF practice group PS (Protect the Software) covers much of this, including protecting code from unauthorised changes and providing a mechanism for verifying release integrity.

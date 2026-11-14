@@ -1,4 +1,4 @@
-ATT&CK Enterprise organises behaviour into tactics (the adversary's goal), techniques and sub-techniques (how), with procedure examples, groups, software, campaigns and mitigations. Version 20.1 (MITRE's STIX data, collection modified 5 November 2026) has 15 tactics and, in this course's lab copy, 706 detection strategies, 1,773 analytics and 106 data components [R1]. The detection model links them:
+ATT&CK Enterprise organises behaviour into tactics (the adversary's goal), techniques and sub-techniques (how), with procedure examples, groups, software, campaigns and mitigations. Version 20.1 (MITRE's STIX data, collection modified 5 November 2026) has 15 tactics and, in this course's lab copy, 706 detection strategies, 1,773 analytics and 106 data components. The detection model links them:
 
 ```text
 technique  <-- detects --  detection strategy

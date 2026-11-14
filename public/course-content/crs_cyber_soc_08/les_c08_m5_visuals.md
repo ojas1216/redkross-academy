@@ -1,7 +1,7 @@
 ## The Pyramid of Pain
 
 ![A six-level pyramid with hash values at the base, then IP addresses, domain names, network and host artifacts, tools, and TTPs at the top, with difficulty for the adversary rising from trivial to tough.](/assets/courses/cyber-08/C08-M05-F1.svg)
-*Figure C08-M05-F1. Bianco's Pyramid of Pain: indicators higher up cost the adversary more to change [R1].*
+*Figure C08-M05-F1. Bianco's Pyramid of Pain: indicators higher up cost the adversary more to change.*
 
 ## Intelligence enrichment workflow
 

@@ -29,14 +29,3 @@ flat networks; direct user/internet-to-database paths; exposed management plane;
 ### Revision questions
 
 ​1. What should be the only paths to the database? 2. What does default-deny mean at the network layer? 3. Why isolate the management plane?
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] NIST. "SP 800-41 Rev. 1: Guidelines on Firewalls and Firewall Policy" (network architecture, defence in depth, policy). URL: [https://csrc.nist.gov/pubs/sp/800/41/r1/final](https://csrc.nist.gov/pubs/sp/800/41/r1/final) Accessed: 2026-11-08. Supports: defence in depth, zones, default-deny.
-- [R2] NIST. "SP 800-207: Zero Trust Architecture" (assume breach, least privilege, segmentation). URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-08. Supports: zones, least privilege, CS1 containment.
-- [R3] NIST. "SP 800-41 Rev. 1" (default-deny firewall policy). URL: [https://csrc.nist.gov/pubs/sp/800/41/r1/final](https://csrc.nist.gov/pubs/sp/800/41/r1/final) Accessed: 2026-11-08. Supports: default-deny and least privilege at the network layer.
-- [R4] Lab evidence. rk_segmentation.json zone model and the segmentation.py validation of observed connections (CPython 3.14.4), LAB_ASSETS/C07/data/, 2026-11-08. Supports: the deep-dive model and the three forbidden crossings.

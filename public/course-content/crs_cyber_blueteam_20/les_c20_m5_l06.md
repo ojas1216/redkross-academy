@@ -6,4 +6,4 @@ Every hunt should produce at least one of:
 - a baseline or allowlist that makes future hunts faster;
 - a hunt report stored in a library, so the hunt can be repeated.
 
-PEAK's "Act with Knowledge" phase captures this: document, automate and communicate [R2]. Track hunt metrics that reward learning rather than only "findings": hunts completed, detections created, gaps closed, and time to repeat a hunt.
+PEAK's "Act with Knowledge" phase captures this: document, automate and communicate. Track hunt metrics that reward learning rather than only "findings": hunts completed, detections created, gaps closed, and time to repeat a hunt.

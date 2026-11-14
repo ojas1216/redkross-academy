@@ -1,4 +1,4 @@
-The Threat Modeling Manifesto and much of the industry frame the practice around four questions, attributed to Adam Shostack's "4 Question Frame" [R1]:
+The Threat Modeling Manifesto and much of the industry frame the practice around four questions, attributed to Adam Shostack's "4 Question Frame":
 
 1. What are we working on?           (model the system)
 2. What can go wrong?                (identify threats)

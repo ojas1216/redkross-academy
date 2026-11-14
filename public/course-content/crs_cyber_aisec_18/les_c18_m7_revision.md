@@ -28,14 +28,3 @@ single runs; unqualified "secure" claims; real data in probes; testing systems w
 ### Revision questions
 
 ​1. Write an RoE for an AI test. 2. Interpret 0/5. 3. Structure an AI risk report.
-
-### Further reading
-
-Microsoft lessons [R1]; NIST AI 100-2 [R2]; NIST AI RMF and AI 600-1 [R3].
-
-## References
-
-- [R1] B. Bullwinkel, A. Minnich, S. Chawla et al. "Lessons From Red Teaming 100 Generative AI Products", arXiv 2501.07238, submitted 13 January 2025. URL: [https://arxiv.org/abs/2501.07238](https://arxiv.org/abs/2501.07238) Accessed: 2026-11-08.
-- [R2] NIST. AI 100-2 E2025, March 2025. URL: [https://csrc.nist.gov/pubs/ai/100/2/e2025/final](https://csrc.nist.gov/pubs/ai/100/2/e2025/final) Accessed: 2026-11-08.
-- [R3] NIST. "AI Risk Management Framework" (AI RMF 1.0, 26 January 2023; AI 600-1, 26 July 2024). URL: [https://www.nist.gov/itl/ai-risk-management-framework](https://www.nist.gov/itl/ai-risk-management-framework) Accessed: 2026-11-08.
-- [R4] Lab evidence. report.py and report_output.txt (CPython 3.14.4), 2026-11-08.

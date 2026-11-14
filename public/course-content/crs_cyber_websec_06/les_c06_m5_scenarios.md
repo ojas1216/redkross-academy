@@ -7,7 +7,7 @@ Work through each scenario on your own first, then compare your reasoning with t
 **Task:** Name the flaw and give the corrected line.
 
 > [!TIP] Model answer
-> This is SQL injection (CWE-89): input is concatenated into the query, so input can alter it. Corrected line uses a parameterised query: db.execute("SELECT `*` FROM t WHERE name=?", (name,)) - the ? marker binds name as data the database never interprets as SQL. Add least-privilege DB accounts and input validation as supporting controls.
+> This is SQL injection (CWE-89): input is concatenated into the query, so input can alter it. Corrected line uses a parameterised query: db.execute("SELECT `*` FROM t WHERE name=?", (name)) - the ? marker binds name as data the database never interprets as SQL. Add least-privilege DB accounts and input validation as supporting controls.
 >
 > **Lesson:** never concatenate input into SQL; parameterise.
 

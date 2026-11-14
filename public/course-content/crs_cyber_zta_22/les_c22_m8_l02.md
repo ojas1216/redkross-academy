@@ -1,4 +1,4 @@
-The CISA Zero Trust Maturity Model v2.0 (April 2023) has five pillars - Identity, Devices, Networks, Applications and Workloads, Data - and three cross-cutting capabilities - Visibility and Analytics, Automation and Orchestration, Governance - each progressing through Traditional, Initial, Advanced and Optimal stages [R2].
+The CISA Zero Trust Maturity Model v2.0 (April 2023) has five pillars - Identity, Devices, Networks, Applications and Workloads, Data - and three cross-cutting capabilities - Visibility and Analytics, Automation and Orchestration, Governance - each progressing through Traditional, Initial, Advanced and Optimal stages.
 
 **Assessment method:**
 

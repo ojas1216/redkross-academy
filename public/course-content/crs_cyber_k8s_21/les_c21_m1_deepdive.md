@@ -4,24 +4,24 @@ LAB_ASSETS/C21/m01_runtime.py (execution-tested, CPython 3.14.4, Docker Engine 2
 Image: nginx:alpine
 
 [default] docker run (no options)
-  uid inside container : 0
-  CapEff               : 00000000a80425fb (14 capabilities)
-  capabilities         : chown, dac_override, fowner, fsetid, kill,
+  uid inside container: 0
+  CapEff: 00000000a80425fb (14 capabilities)
+  capabilities: chown, dac_override, fowner, fsetid, kill,
                          setgid, setuid, setpcap, net_bind_service,
                          net_raw, sys_chroot, mknod, audit_write, setfcap
-  NoNewPrivs           : 0
-  Seccomp mode         : 2 (2 = filter active)
-  root mount option    : rw (rw = writable, ro = read-only)
+  NoNewPrivs: 0
+  Seccomp mode: 2 (2 = filter active)
+  root mount option: rw (rw = writable, ro = read-only)
 
 [hardened] docker run --read-only --tmpfs /tmp --cap-drop ALL
            --security-opt no-new-privileges --user 101:101
            --pids-limit 64 --memory 128m
-  uid inside container : 101
-  CapEff               : 0000000000000000 (0 capabilities)
-  capabilities         : (none)
-  NoNewPrivs           : 1
-  Seccomp mode         : 2 (2 = filter active)
-  root mount option    : ro (rw = writable, ro = read-only)
+  uid inside container: 101
+  CapEff: 0000000000000000 (0 capabilities)
+  capabilities: (none)
+  NoNewPrivs: 1
+  Seccomp mode: 2 (2 = filter active)
+  root mount option: ro (rw = writable, ro = read-only)
 
 Namespaces seen by the container (inode numbers differ per container):
    cgroup cgroup:[4026532627]

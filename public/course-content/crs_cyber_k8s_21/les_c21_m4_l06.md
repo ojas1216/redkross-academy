@@ -1,10 +1,10 @@
 RBAC answers "may this identity do this verb on this resource"; it cannot say "only images from our registry" or "never hostNetwork". Admission control can. Options:
 
 - Built-in plugins (PodSecurity in Module 5, NodeRestriction, ResourceQuota, LimitRanger).
-- ValidatingAdmissionPolicy: policies in the CEL expression language, evaluated inside the API server. Stable since Kubernetes v1.30 [R4]. No extra service to run or secure.
+- ValidatingAdmissionPolicy: policies in the CEL expression language, evaluated inside the API server. Stable since Kubernetes v1.30. No extra service to run or secure.
 - Admission webhooks: external services (for example OPA Gatekeeper or Kyverno) for logic CEL cannot express, such as signature verification (Module 7). Webhooks add availability and security concerns: a failing webhook with failurePolicy Fail blocks deployments; one with Ignore is silently bypassed; the webhook service itself becomes a target (Module 8, CS1).
 
-A policy is bound with a ValidatingAdmissionPolicyBinding that sets scope (for example a namespace label) and validationActions: Deny rejects the request, Warn returns a warning to the client and Audit records the failure in the audit event. Deny and Warn may not be combined [R4]. Roll out new policies with Warn and Audit, review what would have failed, fix workloads, then switch to Deny.
+A policy is bound with a ValidatingAdmissionPolicyBinding that sets scope (for example a namespace label) and validationActions: Deny rejects the request, Warn returns a warning to the client and Audit records the failure in the audit event. Deny and Warn may not be combined. Roll out new policies with Warn and Audit, review what would have failed, fix workloads, then switch to Deny.
 
 Two operational facts from the lab:
 

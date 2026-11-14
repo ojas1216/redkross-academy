@@ -1,4 +1,4 @@
-Hashes prove that two files are identical. Signatures prove who produced a file and that it has not changed since. Sigstore's cosign signs and verifies artefacts and container images. It supports key pairs, including keys held in a cloud KMS, and "keyless" signing with short-lived certificates tied to an OIDC identity and recorded in a transparency log [R2]. Execution-tested (LAB_ASSETS/C12/signing_lab.sh, cosign v3.1.4, local key pair; no transparency log upload, for an offline lab):
+Hashes prove that two files are identical. Signatures prove who produced a file and that it has not changed since. Sigstore's cosign signs and verifies artefacts and container images. It supports key pairs, including keys held in a cloud KMS, and "keyless" signing with short-lived certificates tied to an OIDC identity and recorded in a transparency log. Execution-tested (LAB_ASSETS/C12/signing_lab.sh, cosign v3.1.4, local key pair; no transparency log upload, for an offline lab):
 
 ```text
 ------------------------------------------------------------- BEGIN OUTPUT

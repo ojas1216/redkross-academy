@@ -1,6 +1,6 @@
 ## AA23-144A, structured indicators for living off the land, 2023
 
-**Context:** on 24 May 2023 the NSA, CISA, FBI and partner agencies in Australia, Canada, New Zealand and the United Kingdom published advisory AA23-144A, "People's Republic of China State-Sponsored Cyber Actor Living off the Land to Evade Detection", about the actor also known as Volt Typhoon [R4].
+**Context:** on 24 May 2023 the NSA, CISA, FBI and partner agencies in Australia, Canada, New Zealand and the United Kingdom published advisory AA23-144A, "People's Republic of China State-Sponsored Cyber Actor Living off the Land to Evade Detection", about the actor also known as Volt Typhoon.
 
 **Structured content:** the advisory provided indicators and offered STIX XML and STIX JSON downloads; it mapped behaviour to MITRE ATT&CK (version 13) and included command lines, file names and paths.
 

@@ -29,14 +29,3 @@ connecting the lab to production; asserting fixes without evidence; hiding resid
 ### Revision questions
 
 ​1. Name the six report sections. 2. What evidence proves a finding is closed? 3. Why state residual risk, and give two lab residual items.
-
-### Further reading
-
-[R1]; [R2]; [R3].
-
-## References
-
-- [R1] Microsoft. "Best Practices for Securing Active Directory". URL: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory) Accessed: 2026-11-08. Supports: the hardening checklist and review items.
-- [R2] Microsoft. "Active Directory Forest Recovery Guide". URL: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/ad-forest-recovery-guide](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/ad-forest-recovery-guide) Accessed: 2026-11-08. Supports: CS1, krbtgt rotation and DC rebuild in recovery.
-- [R3] Microsoft. "Protected Users security group". URL: [https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group) Accessed: 2026-11-08. Supports: Protected Users as a hardening control for admin accounts.
-- [R4] Lab evidence. Before/after dir_review.py and auth_monitor.py output and exit codes (Samba 4.22.11, CPython 3.14), 2026-11-08.

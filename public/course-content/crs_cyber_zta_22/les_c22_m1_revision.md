@@ -29,14 +29,3 @@ product-first design; stale diagrams; undocumented legacy exceptions.
 ### Revision questions
 
 ​1. Write five architecture requirements. 2. Name six views. 3. Explain fail safe with an example.
-
-### Further reading
-
-British Library review [R1]; NIST SP 800-207 [R2].
-
-## References
-
-- [R1] British Library. "Learning lessons from the cyber-attack: British Library cyber incident review", 8 March 2024. URL: [https://www.bl.uk/home/british-library-cyber-incident-review-8-march-2024.pdf](https://www.bl.uk/home/british-library-cyber-incident-review-8-march-2024.pdf) Accessed: 2026-11-07. Supports: legacy estate, network design, data copies, impact.
-- [R2] Rose, S., Borchert, O., Mitchell, S., Connelly, S. NIST SP 800-207, "Zero Trust Architecture", August 2020. URL: [https://csrc.nist.gov/pubs/sp/800/207/final](https://csrc.nist.gov/pubs/sp/800/207/final) Accessed: 2026-11-07. Supports: zero trust framing referenced in this module.
-- [R3] CERT-In. "Directions under section 70B(6)", 28 April 2022. URL: [https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf) Accessed: 2026-11-07. Supports: 180-day log retention requirement.
-- [R4] Course 17 (this library). Supports: risk register, exceptions and framework mapping referenced.

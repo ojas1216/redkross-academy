@@ -30,15 +30,3 @@ parsing untrusted XML with external entities enabled; unpickling untrusted data;
 ### Revision questions
 
 ​1. How is XXE prevented? 2. Why is unpickling untrusted data dangerous and what do you use instead? 3. What single principle unifies all these risks?
-
-### Further reading
-
-[R1]; [R3]; [R5].
-
-## References
-
-- [R1] OWASP. "OWASP Top 10:2025" (A05 Injection incl. XXE; A08 Software or Data Integrity Failures; A04 Insecure Design). URL: [https://top10.owasp.org/2025/](https://top10.owasp.org/2025/) Accessed: 2026-11-08. Supports: category mappings for the advanced risks.
-- [R2] OWASP. "XML External Entity Prevention Cheat Sheet" and MITRE "CWE-611". URL: [https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: XXE and the disable-external-entities fix.
-- [R3] OWASP. "Deserialization Cheat Sheet" and MITRE "CWE-502: Deserialization of Untrusted Data". URL: [https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html) Accessed: 2026-11-08. Supports: insecure deserialization, CS1, safe formats.
-- [R4] OWASP. "Business Logic Vulnerability" (testing and prevention). URL: [https://owasp.org/www-community/vulnerabilities/Business_logic_vulnerability](https://owasp.org/www-community/vulnerabilities/Business_logic_vulnerability) Accessed: 2026-11-08. Supports: business logic flaws and testing.
-- [R5] OWASP. "OWASP API Security Project / API Security Top 10" (object-level authorisation, data exposure, mass assignment, rate limits). URL: [https://owasp.org/www-project-api-security/](https://owasp.org/www-project-api-security/) Accessed: 2026-11-08. Supports: API security risks and defences.

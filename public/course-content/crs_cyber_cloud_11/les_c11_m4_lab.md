@@ -20,7 +20,7 @@
 **Step-by-step instructions:**
 
 1. Run sh run_lab.sh data_lab.py and compare with L06.
-2. Extend audit() to report a bucket policy statement that denies requests without aws:SecureTransport; add such a statement in remediation.
+2. Extend audit to report a bucket policy statement that denies requests without aws:SecureTransport; add such a statement in remediation.
 3. Add a lifecycle rule that expires export objects after 30 days and audit for it.
 4. Delete an object twice (two versions) and restore the older version.
 

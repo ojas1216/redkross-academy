@@ -30,13 +30,3 @@ hypothesis-free browsing; discarding negatives; narrative case notes without tim
 ### Revision questions
 
 ​1. Write two hunt hypotheses from AA24-038A. 2. Explain CV and its weakness. 3. List the shift report sections.
-
-### Further reading
-
-CISA AA24-038A [R1].
-
-## References
-
-- [R1] CISA, NSA, FBI et al. "PRC State-Sponsored Actors Compromise and Maintain Persistent Access to U.S. Critical Infrastructure", Advisory AA24-038A, 7 February 2024. URL: [https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-038a](https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-038a) Accessed: 2026-11-07. Supports: pre-positioning assessment, LOTL, five-year footholds, hunting guidance (ESENT events, VPN review, directories).
-- [R2] MITRE ATT&CK. Enterprise matrix, content v20.1. URL: [https://attack.mitre.org/](https://attack.mitre.org/) Accessed: 2026-11-07. Supports: hypothesis sources from technique coverage.
-- [R3] Lab evidence. hunt.py, hunt_output.txt, interval-CV comparison (CPython 3.14.4), 2026-11-07.

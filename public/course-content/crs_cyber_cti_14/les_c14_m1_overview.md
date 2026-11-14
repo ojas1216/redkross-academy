@@ -4,7 +4,7 @@ Threat intelligence is not a feed of bad addresses. It is analysed, evaluated in
 
 ## Why it matters
 
-Without requirements, intelligence teams collect what is easy rather than what is needed, and consumers stop reading. Without calibrated language, "may" and "could" leave the reader to guess. The US Intelligence Community's analytic standard ICD 203 prescribes a fixed likelihood scale and requires that confidence in a judgment be expressed separately from its likelihood [R1]. Those two disciplines - requirements and calibration - separate intelligence from noise.
+Without requirements, intelligence teams collect what is easy rather than what is needed, and consumers stop reading. Without calibrated language, "may" and "could" leave the reader to guess. The US Intelligence Community's analytic standard ICD 203 prescribes a fixed likelihood scale and requires that confidence in a judgment be expressed separately from its likelihood. Those two disciplines - requirements and calibration - separate intelligence from noise.
 
 ## Where it is used
 

@@ -15,4 +15,4 @@ For each, record:
 - criticality to business processes (links to the BIA, Module 5);
 - dependencies and interfaces.
 
-Keep inventories current through automation: CMDB synchronisation, cloud APIs, EDR and network discovery, and SaaS discovery. CSF 2.0's ID.AM category covers asset management [R2].
+Keep inventories current through automation: CMDB synchronisation, cloud APIs, EDR and network discovery, and SaaS discovery. CSF 2.0's ID.AM category covers asset management.

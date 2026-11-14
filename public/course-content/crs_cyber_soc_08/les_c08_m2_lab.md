@@ -26,7 +26,7 @@
 
 **Expected observations:** a look-alike domain download, a regular "telemetry" domain and a large upload stand out after filtering.
 
-**Troubleshooting:** SQLite string comparison is case-sensitive; use lower().
+**Troubleshooting:** SQLite string comparison is case-sensitive; use lower.
 
 **Cleanup:** none.
 

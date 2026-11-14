@@ -1,4 +1,4 @@
-Cross-site scripting (XSS, CWE-79) occurs when an application includes untrusted input in a page without proper encoding, so the input is parsed as markup/script in another user's browser [R4]. Three contexts:
+Cross-site scripting (XSS, CWE-79) occurs when an application includes untrusted input in a page without proper encoding, so the input is parsed as markup/script in another user's browser. Three contexts:
 
 | Term | Meaning |
 |---|---|

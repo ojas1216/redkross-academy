@@ -30,14 +30,3 @@ unmonitored parsers; case-sensitive searches; dashboards as detection.
 ### Revision questions
 
 ​1. Write a sequence rule in SQL. 2. Why normalise time zones at ingestion? 3. List five SIEM health metrics.
-
-### Further reading
-
-ECS reference [R1]; CSRB report [R2].
-
-## References
-
-- [R1] Elastic. "Elastic Common Schema (ECS) Reference". URL: [https://www.elastic.co/guide/en/ecs/current/index.html](https://www.elastic.co/guide/en/ecs/current/index.html) Accessed: 2026-11-07. Supports: field naming conventions.
-- [R2] US Department of Homeland Security. "Cyber Safety Review Board Releases Report on Microsoft Online Exchange Incident from Summer 2023", 2 April 2024. URL: [https://www.dhs.gov/news/2024/04/02/cyber-safety-review-board-releases-report-microsoft-online-exchange-incident-summer](https://www.dhs.gov/news/2024/04/02/cyber-safety-review-board-releases-report-microsoft-online-exchange-incident-summer) Accessed: 2026-11-07. Supports: report existence and findings summary (customer detection detail from public reporting - SME review).
-- [R3] OCSF project. "Open Cybersecurity Schema Framework". URL: [https://schema.ocsf.io/](https://schema.ocsf.io/) Accessed: 2026-11-07. Supports: alternative schema.
-- [R4] Lab evidence. minisiem.py, normalise_demo.py (CPython 3.14.4), 2026-11-07.

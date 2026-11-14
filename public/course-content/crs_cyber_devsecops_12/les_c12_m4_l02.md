@@ -1,4 +1,4 @@
-Semgrep is an open-source, multi-language static analysis tool whose rules look like the code they match [R1]. The course rule set (LAB_ASSETS/C12/sast/rules.yml):
+Semgrep is an open-source, multi-language static analysis tool whose rules look like the code they match. The course rule set (LAB_ASSETS/C12/sast/rules.yml):
 
 ```text
 ---------------------------------------------------------------- BEGIN CODE

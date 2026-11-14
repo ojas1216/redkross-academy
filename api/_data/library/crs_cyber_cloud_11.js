@@ -26,7 +26,7 @@ export default {
      "nobody"
     ],
     "correct": 1,
-    "explanation": "AWS shared responsibility page [R2].",
+    "explanation": "AWS shared responsibility page.",
     "topic": "C11-M01: Cloud architecture",
     "difficulty": "medium"
    },
@@ -82,7 +82,7 @@ export default {
      "moved Cosmos DB to AWS"
     ],
     "correct": 1,
-    "explanation": "Wiz ChaosDB report [R3].",
+    "explanation": "Wiz ChaosDB report.",
     "topic": "C11-M01: Cloud architecture",
     "difficulty": "medium"
    },
@@ -182,7 +182,7 @@ export default {
      "MFA was used"
     ],
     "correct": 2,
-    "explanation": "Execution-tested; AWS documents the key's absence with long-term keys [R1].",
+    "explanation": "Execution-tested; AWS documents the key's absence with long-term keys.",
     "topic": "C11-M02: Identity and access",
     "difficulty": "medium"
    },
@@ -338,7 +338,7 @@ export default {
      "HTTP 401"
     ],
     "correct": 3,
-    "explanation": "AWS IMDS documentation [R2].",
+    "explanation": "AWS IMDS documentation.",
     "topic": "C11-M03: Network security",
     "difficulty": "medium"
    },
@@ -394,7 +394,7 @@ export default {
      "a misconfigured web application firewall"
     ],
     "correct": 3,
-    "explanation": "DOJ case page [R1].",
+    "explanation": "DOJ case page.",
     "topic": "C11-M03: Network security",
     "difficulty": "medium"
    },
@@ -452,7 +452,7 @@ export default {
      "SSE-C only"
     ],
     "correct": 1,
-    "explanation": "AWS default encryption FAQ [R1].",
+    "explanation": "AWS default encryption FAQ.",
     "topic": "C11-M04: Data protection",
     "difficulty": "medium"
    },
@@ -580,7 +580,7 @@ export default {
      "forever"
     ],
     "correct": 0,
-    "explanation": "AWS CloudTrail documentation [R1].",
+    "explanation": "AWS CloudTrail documentation.",
     "topic": "C11-M05: Cloud visibility",
     "difficulty": "medium"
    },
@@ -792,7 +792,7 @@ export default {
      "3.8 billion"
     ],
     "correct": 1,
-    "explanation": "UpGuard, 23 August 2021 [R1].",
+    "explanation": "UpGuard, 23 August 2021.",
     "topic": "C11-M06: Configuration security",
     "difficulty": "medium"
    },
@@ -934,7 +934,7 @@ export default {
      "SQL injection"
     ],
     "correct": 1,
-    "explanation": "CircleCI incident report [R1].",
+    "explanation": "CircleCI incident report.",
     "topic": "C11-M07: Workload security",
     "difficulty": "medium"
    },
@@ -1020,7 +1020,7 @@ export default {
      "changing the region"
     ],
     "correct": 1,
-    "explanation": "AWS revoke-sessions documentation [R3].",
+    "explanation": "AWS revoke-sessions documentation.",
     "topic": "C11-M08: Response and capstone",
     "difficulty": "medium"
    },
@@ -1076,7 +1076,7 @@ export default {
      "DNS records only"
     ],
     "correct": 1,
-    "explanation": "The Register, 18 June 2014 [R2].",
+    "explanation": "The Register, 18 June 2014.",
     "topic": "C11-M08: Response and capstone",
     "difficulty": "medium"
    },
