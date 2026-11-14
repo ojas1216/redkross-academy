@@ -23,8 +23,7 @@ export function setTokenVerifier(fn) {
   injectedVerifier = fn;
 }
 
-async function getFirebaseVerifier() {
-  if (firebaseVerify) return firebaseVerify;
+async function firebaseAdmin() {
   const { initializeApp, getApps, cert } = await import('firebase-admin/app');
   const { getAuth } = await import('firebase-admin/auth');
   const projectId =
@@ -33,9 +32,41 @@ async function getFirebaseVerifier() {
   if (!getApps().length) {
     initializeApp(saJson ? { credential: cert(JSON.parse(saJson)), projectId } : { projectId });
   }
-  const checkRevoked = Boolean(saJson);
-  firebaseVerify = (token) => getAuth().verifyIdToken(token, checkRevoked);
+  return { auth: getAuth(), hasServiceAccount: Boolean(saJson) };
+}
+
+async function getFirebaseVerifier() {
+  if (firebaseVerify) return firebaseVerify;
+  const { auth, hasServiceAccount } = await firebaseAdmin();
+  firebaseVerify = (token) => auth.verifyIdToken(token, hasServiceAccount);
   return firebaseVerify;
+}
+
+let injectedLinkGenerator = null;
+/** Test hook: replace Firebase action-link generation with a stub. */
+export function setActionLinkGenerator(fn) {
+  injectedLinkGenerator = fn;
+}
+
+/**
+ * Creates a Firebase out-of-band action code ('VERIFY_EMAIL' | 'PASSWORD_RESET') for
+ * an email and returns just the oobCode, so the link can point at the academy's own
+ * /auth/action page instead of the default firebaseapp.com handler.
+ * Needs FIREBASE_SERVICE_ACCOUNT_JSON (the Admin SDK must be able to sign requests).
+ */
+export async function createActionCode(kind, email) {
+  if (injectedLinkGenerator) return injectedLinkGenerator(kind, email);
+  if (!process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+    const err = new Error('FIREBASE_SERVICE_ACCOUNT_JSON is not set');
+    err.code = 'NO_SERVICE_ACCOUNT';
+    throw err;
+  }
+  const { auth } = await firebaseAdmin();
+  const link =
+    kind === 'VERIFY_EMAIL' ? await auth.generateEmailVerificationLink(email) : await auth.generatePasswordResetLink(email);
+  const code = new URL(link).searchParams.get('oobCode');
+  if (!code) throw new Error('Firebase returned a link without an oobCode');
+  return code;
 }
 
 function bearerToken(req) {
@@ -60,6 +91,7 @@ export async function verifyRequest(req) {
       uid: decoded.uid,
       email: (decoded.email || '').trim().toLowerCase(),
       emailVerified: Boolean(decoded.email_verified),
+      provider: decoded.firebase?.sign_in_provider || null,
       name: decoded.name || null,
       picture: decoded.picture || null,
     };
@@ -108,6 +140,13 @@ async function isBanned(email) {
  * unverified email/password login with their address.
  */
 export async function resolveUser(identity, { create = false, profile = {} } = {}) {
+  // Email + password accounts get no access at all until the address is confirmed via
+  // the link mailed by /api/account-email (Google accounts arrive already verified).
+  if (identity.provider === 'password' && !identity.emailVerified) {
+    const err = new Error('EMAIL_NOT_VERIFIED');
+    err.status = 403;
+    throw err;
+  }
   const id = userIdForUid(identity.uid);
   let rows = await sql`SELECT * FROM users WHERE id = ${id} LIMIT 1`;
   if (rows.length) return rows[0];

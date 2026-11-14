@@ -94,7 +94,7 @@ app.use((req, res, next) => {
 // rejected (401) tokens are blocked. Load-tested: 500 students, one IP, one exam.
 app.use('/api', createRateLimiter({ name: 'api', perUser: 180, perAnonIp: 300, perIp: 30000, perIpRejected: 120 }));
 app.use(
-  ['/api/auth', '/api/redeem', '/api/proctor', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'],
+  ['/api/auth', '/api/account-email', '/api/redeem', '/api/proctor', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'],
   createRateLimiter({
     name: 'strict',
     perUser: 40,
@@ -194,6 +194,7 @@ const apiRoutes = [
   'profile',
   'redeem',
   'auth',
+  'account-email',
   'courses',
   'e2b',
   'enrol',

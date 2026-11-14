@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Loader2, Ticket, CheckCircle2, AlertTriangle, UsersRound, BookOpen } from 'lucide-react';
 import { apiClient } from '../../services/apiClient';
 import { useAuth } from '../../services/auth/authContext';
+import EmailAuthPanel from '../public/EmailAuthPanel';
 
 /**
  * /join/:code - batch registration links; /join - enter an access code.
@@ -121,7 +122,7 @@ export default function JoinPage() {
         {!currentUser ? (
           <div className="space-y-3">
             <p className="text-sm text-slate-300 text-center">
-              Sign in first. {isLink && 'If your batch is for a college, use your college Google account.'}
+              Sign in first. {isLink && 'If your batch is for a college, use your college email (Google or email sign-up).'}
             </p>
             <button
               type="button"
@@ -131,6 +132,10 @@ export default function JoinPage() {
             >
               {signingIn && <Loader2 className="w-4 h-4 animate-spin" />} Continue with Google
             </button>
+            <div className="flex items-center gap-3 text-[10px] uppercase tracking-wider text-slate-500">
+              <span className="flex-1 h-px bg-slate-700" /> or use email <span className="flex-1 h-px bg-slate-700" />
+            </div>
+            <EmailAuthPanel />
           </div>
         ) : (
           <>

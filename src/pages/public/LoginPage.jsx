@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Shield, Lock, CheckCircle2, AlertCircle, Sparkles, KeyRound, Cpu, ShieldCheck, Zap } from 'lucide-react';
 import { useAuth } from '../../services/auth/authContext';
+import EmailAuthPanel from './EmailAuthPanel';
 
 /**
  * RedKross Academy — Hardened Google Authentication Gateway (Phase 2 & Phase 1.1)
@@ -64,7 +65,7 @@ export default function LoginPage() {
             Operator Sign-In
           </h1>
           <p className="text-xs sm:text-sm text-[#94A3B8] max-w-sm mx-auto leading-relaxed">
-            Verify your authorized institutional identity using single-sign-on Google OAuth 2.0 to access proctored courses and defensive certifications.
+            Sign in with Google, or with your email and password, to access proctored courses and defensive certifications.
           </p>
         </div>
 
@@ -128,6 +129,14 @@ export default function LoginPage() {
               Opens the official Google verification window. Select your authorized Google account to sign in.
             </p>
           </div>
+
+          <div className="flex items-center gap-3 text-[10px] font-mono uppercase tracking-wider text-[#64748B]">
+            <span className="flex-1 h-px bg-[#263440]" />
+            or use email
+            <span className="flex-1 h-px bg-[#263440]" />
+          </div>
+
+          <EmailAuthPanel onSignedIn={() => navigate(safeDestination, { replace: true })} />
 
           {/* Hardened Security Verification Matrix */}
           <div className="pt-4 border-t border-[#263440]/80 space-y-2.5">

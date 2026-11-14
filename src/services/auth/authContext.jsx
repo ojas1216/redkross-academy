@@ -8,6 +8,24 @@ import {
   updateProfile
 } from 'firebase/auth';
 import { auth, googleProvider } from './firebase';
+
+/** An email+password account whose address has not been confirmed yet. */
+const isUnverifiedPasswordUser = (u) =>
+  Boolean(u && !u.emailVerified && u.providerData?.length && u.providerData.every((p) => p.providerId === 'password'));
+
+/** POST /api/account-email. With a user, authenticates as that user. */
+async function accountEmailRequest(payload, user) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (user) headers.Authorization = `Bearer ${await user.getIdToken(true)}`;
+  const res = await fetch('/api/account-email', { method: 'POST', headers, body: JSON.stringify(payload) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.error || 'Could not send the email. Please try again.');
+    err.code = data.code || `http-${res.status}`;
+    throw err;
+  }
+  return data;
+}
 import { apiClient } from '../apiClient';
 import { socketClient } from '../socket/socketClient';
 import { mockEngine } from '../db/mockEngine';
@@ -21,6 +39,9 @@ export function AuthProvider({ children }) {
   const [authError, setAuthError] = useState(null);
 
   const syncFirebaseUser = async (firebaseUser) => {
+    // Unconfirmed email sign-ups are not signed in to the academy: no profile sync,
+    // no local cadet record. The login page tells them to use the emailed link.
+    if (isUnverifiedPasswordUser(firebaseUser)) firebaseUser = null;
     if (!firebaseUser) {
       setCurrentUser(null);
       setTokenBalance(0);
@@ -176,6 +197,13 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
+      if (isUnverifiedPasswordUser(result.user)) {
+        await signOut(auth).catch(() => {});
+        setIsLoading(false);
+        const err = new Error('Please confirm your email address first. Use the link we sent you, or send a new one.');
+        err.code = 'auth/email-not-verified';
+        throw err;
+      }
       await syncFirebaseUser(result.user);
       return result.user;
     } catch (error) {
@@ -194,8 +222,16 @@ export function AuthProvider({ children }) {
       if (fullName) {
         await updateProfile(result.user, { displayName: fullName });
       }
-      await syncFirebaseUser(result.user);
-      return result.user;
+      // The account stays inactive until the emailed link is clicked.
+      let mailError = null;
+      try {
+        await accountEmailRequest({ action: 'verify' }, result.user);
+      } catch (e) {
+        mailError = e;
+      }
+      await signOut(auth).catch(() => {});
+      setIsLoading(false);
+      return { email: result.user.email, mailError };
     } catch (error) {
       console.error('Registration failed:', error);
       setAuthError(error.message);
@@ -203,6 +239,19 @@ export function AuthProvider({ children }) {
       throw error;
     }
   };
+
+  /** Signs in just long enough to ask the server for a fresh confirmation link. */
+  const resendVerification = async (email, password) => {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    try {
+      if (!isUnverifiedPasswordUser(result.user)) return { alreadyVerified: true };
+      return await accountEmailRequest({ action: 'verify' }, result.user);
+    } finally {
+      await signOut(auth).catch(() => {});
+    }
+  };
+
+  const requestPasswordReset = (email) => accountEmailRequest({ action: 'reset', email });
 
   const logout = async () => {
     try {
@@ -245,6 +294,8 @@ export function AuthProvider({ children }) {
         loginWithGoogle,
         loginWithEmail,
         registerWithEmail,
+        resendVerification,
+        requestPasswordReset,
         logout,
         isLoading,
         authError

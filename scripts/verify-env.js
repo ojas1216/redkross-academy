@@ -22,6 +22,11 @@ const requiredClientVars = [
 const optionalRecommendedVars = [
   'FIREBASE_PROJECT_ID',
   'PUBLIC_BASE_URL',
+  'FIREBASE_SERVICE_ACCOUNT_JSON',
+  'SMTP_HOST',
+  'SMTP_USER',
+  'SMTP_PASS',
+  'MAIL_FROM',
   'RESEND_API_KEY',
   'ADMIN_INBOX_EMAIL',
   'N8N_WEBHOOK_URL',

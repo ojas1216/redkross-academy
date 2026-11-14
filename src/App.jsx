@@ -35,6 +35,7 @@ const CourseCatalogPage = lazy(() => import('./pages/public/CourseCatalogPage'))
 const CourseDetailPage = lazy(() => import('./pages/public/CourseDetailPage'));
 const VerifyCredentialPage = lazy(() => import('./pages/public/VerifyCredentialPage'));
 const LoginPage = lazy(() => import('./pages/public/LoginPage'));
+const AuthActionPage = lazy(() => import('./pages/public/AuthActionPage'));
 
 // Student Pages
 const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard'));
@@ -132,6 +133,7 @@ export default function App() {
             <Route path="verify" element={<VerifyCredentialPage />} />
             <Route path="verify/:id" element={<VerifyCredentialPage />} />
             <Route path="login" element={<LoginPage />} />
+            <Route path="auth/action" element={<AuthActionPage />} />
 
             {/* Student Portal Routes */}
             <Route
