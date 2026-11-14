@@ -30,7 +30,12 @@ export default function StudentDashboard() {
         ? mockEngine.getEnrolmentsForUser(currentUser.id)
         : [];
       const crss = Array.isArray(mockEngine.getCourses()) ? mockEngine.getCourses() : [];
-      const primaryEnr = enrs[0] || null;
+      const sortedEnrs = enrs.slice().sort((a, b) => {
+        const timeA = new Date(a.last_accessed_at || a.updated_at || a.enrolled_at || 0).getTime();
+        const timeB = new Date(b.last_accessed_at || b.updated_at || b.enrolled_at || 0).getTime();
+        return timeB - timeA;
+      });
+      const primaryEnr = sortedEnrs[0] || null;
       const primaryCrs = primaryEnr ? mockEngine.getCourseById(primaryEnr.course_id) : null;
       const primaryProg = primaryEnr
         ? mockEngine.getCourseProgress(primaryEnr.id)

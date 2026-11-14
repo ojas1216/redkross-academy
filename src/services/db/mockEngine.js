@@ -691,20 +691,55 @@ class MockEngine {
     return paths.filter((p) => (p.division || 'cybersecurity') === division);
   }
 
-  getCourseBySlug(slug) {
-    let course = (INITIAL_COURSES || []).find((c) => c.slug === slug);
-    if (!course && (slug === 'full-stack-web-development-fundamentals-to-deployment' || slug === 'full-stack-web-development-career-path' || slug === 'introduction-to-cybersecurity')) {
-      course = (INITIAL_COURSES || []).find((c) => c.id === 'crs_cyber_intro_01') || INITIAL_COURSES[0];
+  _findCourse(identifier) {
+    if (!identifier || typeof identifier !== 'string') return null;
+    const clean = identifier.trim().toLowerCase();
+    const normalizedTarget = clean.replace(/^crs_/, '').replace(/_/g, '-');
+
+    // 1. Exact match on id or slug
+    let course = (INITIAL_COURSES || []).find((c) => 
+      c.id.toLowerCase() === clean || 
+      (c.slug && c.slug.toLowerCase() === clean)
+    );
+    if (course) return course;
+
+    // 2. Normalized slug match (e.g. cyber-net-02 <-> crs_cyber_net_02, cyber-python-04, etc.)
+    course = (INITIAL_COURSES || []).find((c) => {
+      const cNorm = c.id.toLowerCase().replace(/^crs_/, '').replace(/_/g, '-');
+      const slugNorm = c.slug ? c.slug.toLowerCase().replace(/^crs_/, '').replace(/_/g, '-') : '';
+      return cNorm === normalizedTarget || slugNorm === normalizedTarget;
+    });
+    if (course) return course;
+
+    // 3. Number/code shorthand (e.g. c02, c2, course-02, course-2)
+    const codeMatch = clean.match(/^(?:crs_?|c|course_?-?)(\d{1,2})$/i);
+    if (codeMatch) {
+      const num = parseInt(codeMatch[1], 10);
+      const paddedNum = String(num).padStart(2, '0');
+      course = (INITIAL_COURSES || []).find((c) => {
+        return c.id.endsWith(`_${paddedNum}`) || c.id.endsWith(`_${num}`);
+      });
+      if (course) return course;
     }
-    return this._normalizeCourse(course);
+
+    // 4. Fallback legacy aliases
+    if (clean === 'full-stack-web-development-fundamentals-to-deployment' || clean === 'full-stack-web-development-career-path' || clean === 'introduction-to-cybersecurity') {
+      return (INITIAL_COURSES || []).find((c) => c.id === 'crs_cyber_intro_01') || null;
+    }
+
+    return null;
+  }
+
+  getCourseBySlug(slug) {
+    if (!slug) return null;
+    const course = this._findCourse(slug);
+    return course ? this._normalizeCourse(course) : null;
   }
 
   getCourseById(id) {
-    let course = (INITIAL_COURSES || []).find((c) => c.id === id);
-    if (!course) {
-      course = (INITIAL_COURSES || []).find((c) => c.id === 'crs_cyber_intro_01') || INITIAL_COURSES[0];
-    }
-    return this._normalizeCourse(course);
+    if (!id) return null;
+    const course = this._findCourse(id);
+    return course ? this._normalizeCourse(course) : null;
   }
 
   /**
@@ -1216,25 +1251,41 @@ class MockEngine {
     if (!enrolmentId) return null;
     const db = this.getDb();
     let found = (db.enrolments || []).find((e) => e.id === enrolmentId);
-    if (!found && (enrolmentId === 'crs_cyber_net_02' || enrolmentId === 'computer-networking-for-cybersecurity' || enrolmentId === 'enr_student_net_02')) {
-      found = (db.enrolments || []).find((e) => e.course_id === 'crs_cyber_net_02');
+    if (found) return found;
+
+    // Resolve if enrolmentId was passed as a courseId or slug for any registered course
+    const matchedCourse = this._findCourse(enrolmentId);
+    if (matchedCourse) {
+      const currentUser = typeof this.getCurrentUser === 'function' ? this.getCurrentUser() : null;
+      const targetUserId = currentUser?.id || 'usr_student_01';
+      found = (db.enrolments || []).find((e) => e.course_id === matchedCourse.id && (!currentUser || e.user_id === targetUserId)) ||
+              (db.enrolments || []).find((e) => e.course_id === matchedCourse.id);
       if (!found) {
-        return this.enrolStudent('usr_student_01', 'crs_cyber_net_02');
+        return this.enrolStudent(targetUserId, matchedCourse.id);
+      }
+      return found;
+    }
+
+    // Support legacy seed aliases like enr_student_net_02, enr_student_admin_03, enr_student_python_04, enr_student_soc
+    if (typeof enrolmentId === 'string' && enrolmentId.startsWith('enr_student_')) {
+      const suffix = enrolmentId.replace('enr_student_', '');
+      const legacyMap = {
+        soc: 'crs_cyber_intro_01',
+        net_02: 'crs_cyber_net_02',
+        admin_03: 'crs_cyber_admin_03',
+        python_04: 'crs_cyber_python_04'
+      };
+      const mappedId = legacyMap[suffix];
+      if (mappedId) {
+        found = (db.enrolments || []).find((e) => e.course_id === mappedId);
+        if (!found) {
+          return this.enrolStudent('usr_student_01', mappedId);
+        }
+        return found;
       }
     }
-    if (!found && (enrolmentId === 'crs_cyber_admin_03' || enrolmentId === 'linux-and-windows-system-administration' || enrolmentId === 'enr_student_admin_03')) {
-      found = (db.enrolments || []).find((e) => e.course_id === 'crs_cyber_admin_03');
-      if (!found) {
-        return this.enrolStudent('usr_student_01', 'crs_cyber_admin_03');
-      }
-    }
-    if (!found && (enrolmentId === 'crs_cyber_python_04' || enrolmentId === 'python-for-cybersecurity' || enrolmentId === 'enr_student_python_04')) {
-      found = (db.enrolments || []).find((e) => e.course_id === 'crs_cyber_python_04');
-      if (!found) {
-        return this.enrolStudent('usr_student_01', 'crs_cyber_python_04');
-      }
-    }
-    return found;
+
+    return null;
   }
 
   enrolStudent(userId, courseId) {

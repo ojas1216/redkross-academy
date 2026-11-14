@@ -21,12 +21,12 @@ export const getEcosystemLinks = () => {
     cybersecurityLocal: 'http://localhost:5174',
 
     foundation: import.meta.env.VITE_FOUNDATION_URL || 'https://redkross.org.in',
-    foundationLocal: 'http://localhost:3000',
+    foundationLocal: 'https://redkross.org.in',
 
     psychology: import.meta.env.VITE_PSYCHOLOGY_URL || 'https://psychology.redkross.org.in',
-    psychologyLocal: 'http://localhost:5175',
+    psychologyLocal: 'http://127.0.0.1:5175',
 
-    academy: isLocal ? 'http://localhost:5173' : 'https://redkross-academy.vercel.app',
+    academy: isLocal ? 'http://127.0.0.1:5173' : 'https://redkross-academy.vercel.app',
 
     instagram: 'https://www.instagram.com/redkross_research_foundation?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==',
     whatsapp: 'https://whatsapp.com/channel/0029VbBbRCn7tkj2M1Sj7f3Z',

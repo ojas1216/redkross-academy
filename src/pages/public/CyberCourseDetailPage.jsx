@@ -69,7 +69,7 @@ export default function CyberCourseDetailPage() {
       mockEngine.getCourseBySlug(slug) ||
       mockEngine.getCourseById(slug) ||
       CYBER_COURSES.find((c) => c.slug === slug || c.id === slug) ||
-      CYBER_COURSES[0]
+      null
     );
   });
 
@@ -84,18 +84,16 @@ export default function CyberCourseDetailPage() {
             const local =
               mockEngine.getCourseBySlug(slug) ||
               mockEngine.getCourseById(slug) ||
-              CYBER_COURSES.find((item) => item.slug === slug || item.id === slug) ||
-              CYBER_COURSES[0];
-            if (local) setCourse(local);
+              CYBER_COURSES.find((item) => item.slug === slug || item.id === slug);
+            setCourse(local || null);
           }
         })
         .catch(() => {
           const local =
             mockEngine.getCourseBySlug(slug) ||
             mockEngine.getCourseById(slug) ||
-            CYBER_COURSES.find((c) => c.slug === slug || c.id === slug) ||
-            CYBER_COURSES[0];
-          if (local) setCourse(local);
+            CYBER_COURSES.find((c) => c.slug === slug || c.id === slug);
+          setCourse(local || null);
         });
     }
   }, [slug]);
@@ -170,6 +168,22 @@ export default function CyberCourseDetailPage() {
     if (!course?.modules) return 78;
     return course.modules.reduce((acc, m) => acc + (m.lessons?.length || 0), 0);
   }, [course]);
+
+  if (!course) {
+    return (
+      <div data-academy-theme="cybersecurity" className="min-h-screen relative bg-[#030508] text-slate-100 flex flex-col font-sans py-24 text-center items-center justify-center">
+        <CyberCloudsBackground />
+        <CyberShaderBackground />
+        <div className="relative z-10 max-w-md p-8 rounded-2xl bg-black/60 border border-[#FF7A00]/30 space-y-4">
+          <h2 className="font-royal text-2xl font-bold text-white mb-2">Course Not Found</h2>
+          <p className="text-[#E2D9CE] text-sm mb-6 font-mono">The requested cybersecurity course does not exist in our catalog.</p>
+          <Link to="/academy/cybersecurity" className="px-5 py-2.5 bg-gradient-to-r from-[#FF7A00] to-[#E56A00] text-black font-royal font-bold text-xs rounded-xl inline-flex items-center gap-2">
+            <span>Return to Cyber Academy</span>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

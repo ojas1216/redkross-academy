@@ -220,7 +220,7 @@ async function main() {
     ...process.env,
   };
 
-  viteChild = spawn('node', [viteBin, '--port', String(VITE_PORT), '--host', '127.0.0.1'], {
+  viteChild = spawn('node', [viteBin, '--port', String(VITE_PORT), '--host', 'localhost'], {
     cwd: rootDir,
     env: viteEnv,
     stdio: ['inherit', 'pipe', 'pipe'],

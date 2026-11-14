@@ -65,25 +65,26 @@ export default function LessonPlayerPage() {
   const navigate = useNavigate();
   const { refreshBalance, currentUser } = useAuth();
 
-  const [currentEnrolment, setCurrentEnrolment] = useState(() => {
-    let enr = mockEngine.getEnrolment(enrolmentId);
-    if (!enr) {
-      const user = currentUser || (typeof mockEngine.getCurrentUser === 'function' ? mockEngine.getCurrentUser() : null);
-      const userEnrolments = user ? mockEngine.getEnrolmentsForUser(user.id, 'cybersecurity') : [];
-      const dbEnrolments = mockEngine.getDb()?.enrolments || [];
-      enr = userEnrolments[0] || dbEnrolments.find(e => e.course_id === 'crs_cyber_intro_01') || dbEnrolments[0];
+  const enrolment = React.useMemo(() => {
+    if (!enrolmentId) return null;
+    return mockEngine.getEnrolment(enrolmentId);
+  }, [enrolmentId, currentUser]);
+
+  const [currentEnrolment, setCurrentEnrolment] = useState(enrolment);
+
+  useEffect(() => {
+    setCurrentEnrolment(enrolment);
+  }, [enrolment]);
+
+  const course = React.useMemo(() => {
+    if (enrolment?.course_id) {
+      return mockEngine.getCourseById(enrolment.course_id) || mockEngine.getCourseBySlug(enrolment.course_id);
     }
-    return enr;
-  });
-
-  const enrolment = currentEnrolment || mockEngine.getEnrolment(enrolmentId) || (() => {
-    const user = currentUser || (typeof mockEngine.getCurrentUser === 'function' ? mockEngine.getCurrentUser() : null);
-    const userEnrolments = user ? mockEngine.getEnrolmentsForUser(user.id, 'cybersecurity') : [];
-    const dbEnrolments = mockEngine.getDb()?.enrolments || [];
-    return userEnrolments[0] || dbEnrolments.find(e => e.course_id === 'crs_cyber_intro_01') || dbEnrolments[0];
-  })();
-
-  const course = enrolment ? mockEngine.getCourseById(enrolment.course_id) : mockEngine.getCourseById('crs_cyber_intro_01');
+    if (enrolmentId) {
+      return mockEngine.getCourseById(enrolmentId) || mockEngine.getCourseBySlug(enrolmentId);
+    }
+    return null;
+  }, [enrolment, enrolmentId]);
   const isPsychology = (course?.division || '').toLowerCase() === 'psychology';
 
   const allUnits = React.useMemo(() => {

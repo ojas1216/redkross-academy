@@ -195,7 +195,7 @@ export function getOrGenerateQuizQuestions(enrolmentId, quizId, moduleNum = 1, i
     } else {
       questions = getRandomModuleQuestionsC2(moduleNum, 20);
     }
-  } else {
+  } else if (courseId === 'crs_cyber_intro_01' || !courseId || (typeof quizId === 'string' && (quizId.includes('c1') || quizId.includes('intro_final') || quizId.includes('c01')))) {
     if (isFinalExam || (typeof quizId === 'string' && (quizId.includes('final') || quizId.includes('exam_cyber')))) {
       questions = getRandomFinalExamQuestions(50);
     } else {

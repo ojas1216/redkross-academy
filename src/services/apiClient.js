@@ -224,17 +224,13 @@ export const apiClient = {
       let courses = (data.courses || []).filter(
         (c) => c.id !== 'crs_full_stack_web_dev' && !c.slug?.includes('web-dev') && !c.title?.toLowerCase().includes('web development')
       );
-      if (!courses.some((c) => c.id === 'crs_cyber_net_02' || c.slug === 'computer-networking-for-cybersecurity')) {
-        const net02 = mockEngine.getCourseSummary('crs_cyber_net_02') || mockEngine.getCourseById('crs_cyber_net_02');
-        if (net02) courses.push(net02);
-      }
-      if (!courses.some((c) => c.id === 'crs_cyber_admin_03' || c.slug === 'linux-and-windows-system-administration')) {
-        const admin03 = mockEngine.getCourseSummary('crs_cyber_admin_03') || mockEngine.getCourseById('crs_cyber_admin_03');
-        if (admin03) courses.push(admin03);
-      }
-      if (!courses.some((c) => c.id === 'crs_cyber_python_04' || c.slug === 'python-for-cybersecurity')) {
-        const python04 = mockEngine.getCourseSummary('crs_cyber_python_04') || mockEngine.getCourseById('crs_cyber_python_04');
-        if (python04) courses.push(python04);
+      // Retain all canonical courses so full catalog is always preserved
+      const localCourses = mockEngine.getCourses() || [];
+      for (const localC of localCourses) {
+        if (!courses.some((c) => c.id === localC.id || c.slug === localC.slug)) {
+          const summary = mockEngine.getCourseSummary(localC.id) || localC;
+          if (summary) courses.push(summary);
+        }
       }
       const result = {
         courses,
@@ -277,6 +273,20 @@ export const apiClient = {
     return {
       learning_paths: allPaths.filter((p) => (p.division || 'cybersecurity') === division)
     };
+  },
+
+  async getCourse(idOrSlug) {
+    if (!idOrSlug) return null;
+    const local = mockEngine.getCourseBySlug(idOrSlug) || mockEngine.getCourseById(idOrSlug);
+    try {
+      const bySlug = await this.getCourseBySlug(idOrSlug);
+      if (bySlug) return bySlug;
+      const byId = await this.getCourseById(idOrSlug);
+      if (byId) return byId;
+      return local;
+    } catch {
+      return local;
+    }
   },
 
   async getCourseById(id) {
