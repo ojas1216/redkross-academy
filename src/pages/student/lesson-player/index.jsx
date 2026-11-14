@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ChevronLeft,
-  Bookmark
+  Bookmark,
+  AlertTriangle
 } from 'lucide-react';
 import { mockEngine } from '../../../services/db/mockEngine';
 import { apiClient } from '../../../services/apiClient';
@@ -189,6 +190,8 @@ export default function LessonPlayerPage() {
   const [certCadetNotes, setCertCadetNotes] = useState('');
   const [hasAcknowledgedExamRules, setHasAcknowledgedExamRules] = useState({});
   const [onScreenAlert, setOnScreenAlert] = useState(null); // { title: string, message: string, type?: 'warning' | 'error' | 'info' }
+
+  const submitLockRef = useRef(null); // session id currently being / already submitted
 
   const showCustomAlert = (title, message, type = 'warning') => {
     setOnScreenAlert({ title, message, type });
@@ -405,7 +408,10 @@ export default function LessonPlayerPage() {
   const isExamUnit = (activeUnit?.type === 'quiz' || activeUnit?.type === 'final_exam') && !!activeQuiz;
   const isExamRulesAcknowledged = activeQuiz ? !!hasAcknowledgedExamRules[activeQuiz.id] : false;
   const showExamRulesGate = isExamUnit && !isQuizPassed && !quizSubmitted && !isLockoutActive && !isExamRulesAcknowledged;
-  const isExamActive = isExamUnit && !isQuizPassed && !quizSubmitted;
+  // Lockdown (no navigation) only while an attempt is actually running: not before it
+  // starts, not on the results screen, not after a forfeit or during a cooldown.
+  const isExamActive =
+    isExamUnit && !!assessment && assessment.quizId === activeQuiz?.id && !quizSubmitted && !isLockoutActive && isExamRulesAcknowledged;
 
   const [assessmentStartNonce, setAssessmentStartNonce] = useState(0);
   useEffect(() => {
@@ -600,10 +606,18 @@ export default function LessonPlayerPage() {
   const handleForfeitExam = async (reason = 'PROCTOR_VIOLATION') => {
     const quizId = activeQuiz?.id;
     if (!assessment || assessment.quizId !== quizId) return;
+    // A strike that lands after the answers were submitted (e.g. leaving fullscreen
+    // on the results screen) must not wipe the graded result.
+    if (quizSubmitted || submitLockRef.current === assessment.sessionId) return;
     let result = { ok: false, data: {} };
     try {
       result = await apiClient.forfeitAssessment(assessment.sessionId, reason);
     } catch {}
+    if (!result.ok && result.status === 409) {
+      // the attempt was already closed (submitted or expired): just refresh
+      await syncServerStatus();
+      return;
+    }
     setAssessment(null);
     setQuizAnswers({});
     setQuizResult(null);
@@ -617,9 +631,15 @@ export default function LessonPlayerPage() {
         setLockoutCountdown(countdownFrom(result.data.attempts.locked_until));
       }
     }
+    const reasons = String(reason || '')
+      .replace(/^THREE_STRIKES:\s*/, '')
+      .split(' | ')
+      .map((x) => x.trim())
+      .filter(Boolean);
     showCustomAlert(
-      'PROCTORING VIOLATION - ATTEMPT FORFEITED',
-      'Repeated tab switches or leaving fullscreen ended this attempt. A 24-hour cooldown now applies to this assessment.',
+      'Attempt ended: 3 proctoring strikes',
+      (reasons.length ? reasons.map((x) => '- ' + x).join('\n') + '\n\n' : '') +
+        'A 24-hour cooldown now applies to this assessment.',
       'error'
     );
   };
@@ -868,6 +888,8 @@ export default function LessonPlayerPage() {
     e?.preventDefault();
     if (isSubmittingAssessment || quizSubmitted) return;
     if (!activeQuiz || !assessment || assessment.quizId !== activeQuiz.id) return;
+    if (submitLockRef.current === assessment.sessionId) return;
+    submitLockRef.current = assessment.sessionId;
 
     setIsSubmittingAssessment(true);
     let result = { ok: false, status: 0, data: {} };
@@ -877,6 +899,7 @@ export default function LessonPlayerPage() {
     setIsSubmittingAssessment(false);
 
     if (!result.ok) {
+      if (result.status !== 409) submitLockRef.current = null; // allow a retry after a network error
       if (result.status === 409) {
         setAssessment(null);
         await syncServerStatus();

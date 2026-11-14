@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { loadVisionProctor } from '../../../../components/student/proctor/visionProctor';
 import {
   ShieldAlert,
   Shield,
@@ -69,6 +70,11 @@ export default function PreFlightExamModal({
   };
 
   // Attempt initial camera permission on modal open
+  // Warm up the on-device proctoring models while the student does the camera check
+  useEffect(() => {
+    loadVisionProctor().catch(() => {});
+  }, []);
+
   useEffect(() => {
     if (isOpen) {
       requestCameraAccess();

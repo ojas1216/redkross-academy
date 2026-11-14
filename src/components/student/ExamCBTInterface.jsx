@@ -17,7 +17,8 @@ import {
   Wifi,
   WifiOff,
   ShieldAlert,
-  Camera
+  Camera,
+  CameraOff
 } from 'lucide-react';
 import ProctorCameraFeed from './ProctorCameraFeed';
 import ExamWatermark from './proctor/ExamWatermark';
@@ -216,10 +217,12 @@ export default function ExamCBTInterface({
   );
 
   // ----------------- PROCTOR FOCUS & VIOLATION DETECTION -----------------
+  const strikeReasonsRef = useRef([]);
   const triggerFocusViolation = useCallback((reason, { report = true } = {}) => {
     if (isSubmitted || isLockoutActive) return;
     playWarningBeep();
     if (report) reportProctor('focus', reason);
+    strikeReasonsRef.current = [...strikeReasonsRef.current, reason || 'Proctoring rule broken'];
 
     setFocusStrikes((prev) => {
       const nextStrike = prev + 1;
@@ -232,20 +235,20 @@ export default function ExamCBTInterface({
         // Strike 3: Terminate immediately with 24-hour lockout
         setStrikeModal({
           strikeNumber: 3,
-          reason: 'STRIKE 3 OF 3: Multiple window focus / fullscreen violations detected. Exam session has been forfeited and a mandatory 24-Hour Lockout is enforced.'
+          reason: `STRIKE 3 OF 3: ${reason || 'Proctoring rule broken.'} The attempt has been forfeited and a 24-hour lockout applies.`
         });
         exitFullscreenMode();
         // Strike 3: the server forfeits the attempt and applies the 24-hour lock
         setTimeout(() => {
-          if (onForfeitExam) onForfeitExam(`FULLSCREEN_OR_TAB_SWITCH_3_STRIKES: ${reason || 'focus lost 3 times'}`);
+          if (onForfeitExam) onForfeitExam(`THREE_STRIKES: ${strikeReasonsRef.current.slice(-3).join(' | ')}`);
           else onSubmitExam();
         }, 1500);
       } else {
         setStrikeModal({
           strikeNumber: nextStrike,
           reason: nextStrike === 1
-            ? 'STRIKE 1 OF 3: Window focus lost or fullscreen exited. You must remain in fullscreen mode throughout the exam.'
-            : 'STRIKE 2 OF 3: FINAL WARNING! One more tab switch or fullscreen exit will forfeit your exam and lock you out for 24 hours.'
+            ? `STRIKE 1 OF 3: ${reason || 'Proctoring rule broken.'}`
+            : `STRIKE 2 OF 3 - FINAL WARNING: ${reason || 'Proctoring rule broken.'} One more strike forfeits this attempt and locks the exam for 24 hours.`
         });
       }
 

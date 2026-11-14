@@ -94,6 +94,15 @@ export default function CourseHomePage() {
     setSearchParams({ tab });
   };
 
+  // The classroom opens in its own tab (one per course, reused), so this course page
+  // stays open behind it and the exam lockdown never traps the student.
+  const classroomTab = enrolment ? `rk-classroom-${enrolment.id}` : undefined;
+  const openClassroom = (query = '') => {
+    if (!enrolment) return;
+    const w = window.open(`/student/learn/${enrolment.id}${query}`, classroomTab);
+    if (!w) navigate(`/student/learn/${enrolment.id}${query}`); // pop-up blocked: same tab
+  };
+
   const toggleModule = (idx) => {
     setExpandedModules((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
@@ -154,6 +163,7 @@ export default function CourseHomePage() {
             <div className="flex items-center gap-3">
               <Link
                 to={`/student/learn/${enrolment.id}`}
+                target={classroomTab}
                 className="px-4 py-2 rounded-xl bg-[#FF7A00] hover:bg-[#FFA439] text-[#071018] font-royal font-bold text-xs tracking-wider flex items-center gap-2 shadow-[0_0_15px_rgba(255,122,0,0.35)] transition-all cursor-pointer"
               >
                 <Play className="w-3.5 h-3.5 fill-current" />
@@ -222,6 +232,7 @@ export default function CourseHomePage() {
 
               <Link
                 to={`/student/learn/${enrolment.id}${nextLesson ? `?lessonId=${nextLesson.id}` : ''}`}
+                target={classroomTab}
                 className="px-6 py-3.5 rounded-xl bg-[#FF7A00] hover:bg-[#FFA439] active:scale-[0.99] text-[#071018] font-royal font-extrabold text-xs tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,122,0,0.4)] transition-all cursor-pointer flex-shrink-0"
               >
                 <Play className="w-4 h-4 fill-current" />
@@ -304,6 +315,7 @@ export default function CourseHomePage() {
                                 <Link
                                   key={les.id || lIdx}
                                   to={`/student/learn/${enrolment.id}?lessonId=${les.id}`}
+                                  target={classroomTab}
                                   className={`p-3 rounded-lg border flex items-center justify-between text-xs transition-all group ${
                                     isDone
                                       ? 'bg-[#120E09]/60 border-[#FF7A00]/20 hover:border-[#FF7A00]/50'
@@ -366,7 +378,7 @@ export default function CourseHomePage() {
                   <div className="space-y-2 text-xs font-mono">
                     <button
                       type="button"
-                      onClick={() => navigate(`/student/learn/${enrolment.id}`)}
+                      onClick={() => openClassroom()}
                       className="w-full p-2.5 rounded-xl bg-[#1A1208]/40 border border-[#FF7A00]/20 hover:border-[#FF7A00]/50 flex items-center justify-between text-[#E2D9CE] transition-colors cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
@@ -378,7 +390,7 @@ export default function CourseHomePage() {
 
                     <button
                       type="button"
-                      onClick={() => navigate(`/student/learn/${enrolment.id}`)}
+                      onClick={() => openClassroom()}
                       className="w-full p-2.5 rounded-xl bg-[#1A1208]/40 border border-[#FF7A00]/20 hover:border-[#FF7A00]/50 flex items-center justify-between text-[#E2D9CE] transition-colors cursor-pointer"
                     >
                       <span className="flex items-center gap-2">

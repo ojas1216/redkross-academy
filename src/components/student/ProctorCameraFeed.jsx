@@ -23,8 +23,8 @@ const LOOK_AWAY_YAW = 35; // degrees left/right
 const LOOK_AWAY_PITCH = 30; // degrees up/down
 const LOOK_AWAY_SECONDS = 6;
 const PHONE_SCORE = 0.3; // webcam frames score lower than clean photos (angle, glare, motion)
-const PHONE_EVERY_TICKS = 3; // ~80 ms per run on CPU: about once a second
-const PHONE_WINDOW = PHONE_TILES.length + 1; // look back over one full scan of all tiles
+const PHONE_EVERY_TICKS = 2; // every ~0.7 s (runs in idle time)
+const PHONE_WINDOW = PHONE_TILES.length; // one full rotation of the tiles
 const PHONE_HITS_NEEDED = 2; // two hits in that window = phone (filters one-frame false alarms)
 
 // ?proctorDebug=1 shows live model scores under the camera (for tuning; harmless to students)
@@ -529,6 +529,14 @@ export default function ProctorCameraFeed({
                 </span>
               </>
             )}
+          </div>
+        )}
+
+        {phoneVisible && cameraState === 'active' && (
+          <div className="absolute inset-0 pointer-events-none ring-4 ring-inset ring-rose-500 bg-rose-600/25 flex items-start justify-center pt-1.5">
+            <span className="px-2 py-0.5 rounded bg-rose-600 text-white text-[9px] font-mono font-bold tracking-wider flex items-center gap-1">
+              <Smartphone className="w-3 h-3" /> PHONE DETECTED
+            </span>
           </div>
         )}
 
