@@ -37,6 +37,9 @@ export function attachSocketHub(httpServer) {
       credentials: true,
     },
     maxHttpBufferSize: 64 * 1024,
+    // WebSocket only: no HTTP long-polling, so no sticky sessions are needed if the
+    // API ever runs as several processes (with the Redis adapter).
+    transports: ['websocket'],
   });
 
   io.use(async (socket, next) => {
