@@ -6,7 +6,7 @@ import assert from 'assert';
 import nodemailer from 'nodemailer';
 import { setTokenVerifier, setActionLinkGenerator, resolveUser } from '../api/_auth.js';
 import { setMailTransport } from '../api/_mail.js';
-import handler, { resetMailThrottle } from '../api/account-email.js';
+import handler, { resetMailThrottle } from '../api/_account-email.js';
 
 process.env.PUBLIC_BASE_URL = 'https://academy.example.test';
 process.env.MAIL_FROM = 'RedKross Academy <security@redkross.org.in>';

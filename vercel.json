@@ -29,6 +29,10 @@
       "destination": "/api/assessment.js?route=quiz"
     },
     {
+      "source": "/api/account-email",
+      "destination": "/api/auth.js?route=account-email"
+    },
+    {
       "source": "/api/admin",
       "destination": "/api/manage.js?route=admin"
     },

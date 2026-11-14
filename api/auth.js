@@ -1,6 +1,7 @@
 ﻿import { sql, json, cors, serverError } from './_db.js';
 import { verifyRequest, resolveUser, isAdminUser, audit } from './_auth.js';
 import { dispatchWebhook } from './_webhooks.js';
+import accountEmailHandler from './_account-email.js';
 
 /**
  * POST /api/auth - session sync.
@@ -8,6 +9,10 @@ import { dispatchWebhook } from './_webhooks.js';
  * carry display fields (full_name, avatar) and nothing else is honoured.
  */
 export default async function handler(req, res) {
+  // /api/account-email shares this serverless function (Vercel Hobby limit: 12)
+  if (req.query?.route === 'account-email' || (req.url && req.url.includes('/api/account-email'))) {
+    return accountEmailHandler(req, res);
+  }
   if (cors(req, res)) return;
   if (req.method !== 'POST') return json(res, { error: 'Method not allowed' }, 405);
 
