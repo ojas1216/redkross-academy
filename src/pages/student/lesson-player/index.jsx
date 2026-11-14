@@ -313,7 +313,8 @@ export default function LessonPlayerPage() {
       ...baseQuiz,
       passing_score: session?.meta?.passing_score ?? baseQuiz.passing_score,
       total_questions: session ? session.questions.length : baseQuiz.total_questions,
-      questions: session ? session.questions : []
+      questions: session ? session.questions : [],
+      session_id: session?.sessionId || null
     };
   }, [baseQuiz?.id, assessment, quizSessionNonce]);
 

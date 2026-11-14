@@ -112,9 +112,18 @@ function fromLibrary(q) {
   };
 }
 
-/** Legacy engine question ({options:[{id,text,is_correct}]}) -> session question. */
+// Options whose meaning depends on their position must keep the original order.
+const ORDER_DEPENDENT = /\b(all|none|both) of the above\b|^both [a-d] and [a-d]\b|\b(options?|answers?) [a-d]\b|^\(?[a-d]\)? (and|&) \(?[a-d]\)?/i;
+
+/**
+ * Legacy engine question ({options:[{id,text,is_correct}]}) -> session question.
+ * Options are shuffled per session with opaque ids (like library questions), so a
+ * photo of one student's screen does not line up with anyone else's.
+ */
 function fromLegacy(q) {
-  const options = (q.options || []).map((o, i) => ({ id: String(o.id || `${q.id}_opt_${i}`), text: o.text, ok: Boolean(o.is_correct) }));
+  const raw = (q.options || []).map((o) => ({ text: o.text, ok: Boolean(o.is_correct) }));
+  const ordered = raw.some((o) => ORDER_DEPENDENT.test(String(o.text))) ? raw : shuffle(raw);
+  const options = ordered.map((o, pos) => ({ id: `${q.id}-o${pos}`, text: o.text, ok: o.ok }));
   const correct = options.find((o) => o.ok);
   return {
     id: String(q.id),

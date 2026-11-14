@@ -107,7 +107,10 @@ const READS = {
         (SELECT COUNT(*)::int FROM access_code_redemptions WHERE redeemed_at > NOW() - INTERVAL '7 days') AS redemptions_7d,
         (SELECT COUNT(*)::int FROM name_change_requests WHERE status = 'PENDING') AS pending_name_requests,
         (SELECT COUNT(*)::int FROM support_tickets WHERE status IN ('Open', 'In Progress')) AS open_tickets,
-        (SELECT COUNT(*)::int FROM assessment_windows WHERE locked_until > NOW()) AS locked_assessments
+        (SELECT COUNT(*)::int FROM assessment_windows WHERE locked_until > NOW()) AS locked_assessments,
+        (SELECT COUNT(DISTINCT e.session_id)::int FROM proctor_events e
+           JOIN assessment_sessions s ON s.id = e.session_id
+          WHERE e.severity = 'high' AND s.review_status IS NULL) AS proctor_flags
     `;
     const recentStudents = await sql`
       SELECT id, full_name, email, college, avatar, created_at FROM users
@@ -363,6 +366,61 @@ const READS = {
     return { entries: rows.map(({ total, ...r }) => r), total: rows[0]?.total || 0, page: p, page_size: PAGE };
   },
 
+  /** Exam sessions with proctoring flags, most serious first. */
+  async proctor_sessions(ctx, q) {
+    const { limit, offset, page: p } = page(q);
+    const filter = str(q.filter, 20) || 'flagged'; // flagged | all | reviewed
+    const term = like(q.q);
+    const rows = await sql`
+      SELECT s.id, s.user_id, s.course_id, s.quiz_id, s.kind, s.status, s.score_percentage, s.is_passed,
+             s.started_at, s.submitted_at, s.review_status,
+             u.full_name, u.email, u.avatar,
+             COUNT(e.id) FILTER (WHERE e.kind = 'phone')::int AS phone,
+             COUNT(e.id) FILTER (WHERE e.kind = 'multiple_faces')::int AS multiple_faces,
+             COUNT(e.id) FILTER (WHERE e.kind = 'looking_away')::int AS looking_away,
+             COUNT(e.id) FILTER (WHERE e.kind = 'face_absent')::int AS face_absent,
+             COUNT(e.id) FILTER (WHERE e.kind = 'focus')::int AS focus,
+             COUNT(e.id) FILTER (WHERE e.severity = 'high')::int AS high,
+             COUNT(*) OVER()::int AS total
+      FROM assessment_sessions s
+      JOIN users u ON u.id = s.user_id
+      LEFT JOIN proctor_events e ON e.session_id = s.id
+      WHERE (${term} = '' OR u.email ILIKE ${term} OR u.full_name ILIKE ${term} OR s.id ILIKE ${term})
+      GROUP BY s.id, u.id
+      HAVING (${filter} = 'all')
+          OR (${filter} = 'reviewed' AND s.review_status IS NOT NULL)
+          OR (${filter} = 'flagged' AND s.review_status IS NULL
+              AND COUNT(e.id) FILTER (WHERE e.severity IN ('high', 'medium')) > 0)
+      ORDER BY COUNT(e.id) FILTER (WHERE e.severity = 'high') DESC, s.started_at DESC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+    const titles = await titleMap();
+    return {
+      sessions: rows.map(({ total, ...r }) => ({ ...r, course_title: titles[r.course_id] || r.course_id })),
+      total: rows[0]?.total || 0,
+      page: p,
+      page_size: PAGE,
+    };
+  },
+
+  /** One session: evidence timeline with snapshots. */
+  async proctor_session(ctx, q) {
+    const id = str(q.id, 64);
+    const [s] = await sql`
+      SELECT s.id, s.user_id, s.course_id, s.quiz_id, s.kind, s.status, s.score_percentage, s.is_passed,
+             s.started_at, s.submitted_at, s.review_status, s.review_note, s.reviewed_at,
+             u.full_name, u.email, u.avatar, u.cadet_id
+      FROM assessment_sessions s JOIN users u ON u.id = s.user_id WHERE s.id = ${id} LIMIT 1
+    `;
+    if (!s) return { __status: 404, error: 'Session not found' };
+    const events = await sql`
+      SELECT id, kind, severity, detail, snapshot, created_at FROM proctor_events
+      WHERE session_id = ${id} ORDER BY created_at ASC
+    `;
+    const titles = await titleMap();
+    return { session: { ...s, course_title: titles[s.course_id] || s.course_id }, events };
+  },
+
   async admins() {
     const rows = await sql`
       SELECT id, full_name, email, role, avatar, last_seen_at FROM users
@@ -525,6 +583,46 @@ async function insertCode(code, kind, s, adminId) {
 }
 
 const ACTIONS = {
+  /**
+   * Proctoring review. CLEARED keeps the result. VOIDED cancels the attempt: a pass
+   * from this session is removed and, for a final exam, the certificate is revoked.
+   */
+  async proctor_review(ctx, b) {
+    const id = str(b.session_id, 64);
+    const decision = str(b.decision, 10).toUpperCase();
+    if (!['CLEARED', 'VOIDED'].includes(decision)) return { __status: 400, error: 'Choose clear or void' };
+    const note = str(b.note, 500) || null;
+    const [s] = await sql`SELECT * FROM assessment_sessions WHERE id = ${id} LIMIT 1`;
+    if (!s) return { __status: 404, error: 'Session not found' };
+    let revoked = null;
+    if (decision === 'VOIDED') {
+      await sql`
+        DELETE FROM assessment_passes
+        WHERE user_id = ${s.user_id} AND course_id = ${s.course_id} AND quiz_id = ${s.quiz_id} AND session_id = ${s.id}
+      `;
+      if (s.kind === 'final') {
+        const rows = await sql`
+          UPDATE credentials SET status = 'Revoked'
+          WHERE user_id = ${s.user_id} AND course_id = ${s.course_id} AND status = 'Active'
+          RETURNING verification_id
+        `;
+        revoked = rows.map((r) => r.verification_id);
+      }
+    }
+    await sql`
+      UPDATE assessment_sessions SET review_status = ${decision}, reviewed_by = ${ctx.user.id}, reviewed_at = NOW(), review_note = ${note}
+      WHERE id = ${id}
+    `;
+    await audit(ctx.user.id, decision === 'VOIDED' ? 'EXAM_ATTEMPT_VOIDED' : 'EXAM_ATTEMPT_CLEARED', 'assessment_sessions', id, {
+      user_id: s.user_id,
+      course_id: s.course_id,
+      quiz_id: s.quiz_id,
+      revoked_credentials: revoked,
+      note,
+    });
+    return { success: true, revoked_credentials: revoked || [] };
+  },
+
   // ---------------------------------------------------------------- courses
   async course_update(ctx, b) {
     const courseId = str(b.course_id, 100);

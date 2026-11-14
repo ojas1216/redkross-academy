@@ -94,7 +94,7 @@ app.use((req, res, next) => {
 // rejected (401) tokens are blocked. Load-tested: 500 students, one IP, one exam.
 app.use('/api', createRateLimiter({ name: 'api', perUser: 180, perAnonIp: 300, perIp: 30000, perIpRejected: 120 }));
 app.use(
-  ['/api/auth', '/api/redeem', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'],
+  ['/api/auth', '/api/redeem', '/api/proctor', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'],
   createRateLimiter({
     name: 'strict',
     perUser: 40,
@@ -125,6 +125,15 @@ app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 // 4. HARDENED REAL-TIME SOCKET.IO SERVER (Scoped rooms & CORS protection)
 // -----------------------------------------------------------------------------
 const io = attachSocketHub(httpServer);
+
+// Proctoring snapshot retention (default 90 days): purge daily
+const purgeProctorSnapshots = () =>
+  import('../api/proctor.js')
+    .then((m) => m.purgeOldSnapshots())
+    .then((n) => n && console.log(`[proctor] cleared ${n} expired snapshots`))
+    .catch((e) => console.warn('[proctor] snapshot purge skipped:', e.message));
+setTimeout(purgeProctorSnapshots, 60 * 1000).unref();
+setInterval(purgeProctorSnapshots, 24 * 60 * 60 * 1000).unref();
 
 // -----------------------------------------------------------------------------
 // 5. HEALTH & READINESS PROBES (/healthz, /readyz)
@@ -181,6 +190,7 @@ const apiRoutes = [
   'avatar',
   'catalog',
   'manage',
+  'proctor',
   'profile',
   'redeem',
   'auth',

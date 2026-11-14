@@ -57,3 +57,6 @@ database-security-review.md
 docs/superpowers/
 
 
+
+# MediaPipe wasm runtime is copied from node_modules at build time
+public/vendor/mediapipe/wasm/

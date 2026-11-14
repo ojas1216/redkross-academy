@@ -20,6 +20,9 @@ import {
   Camera
 } from 'lucide-react';
 import ProctorCameraFeed from './ProctorCameraFeed';
+import ExamWatermark from './proctor/ExamWatermark';
+import { useAuth } from '../../services/auth/authContext';
+import { apiClient } from '../../services/apiClient';
 
 /**
  * RedKross Academy - Enhanced CBT Examination Console
@@ -198,10 +201,25 @@ export default function ExamCBTInterface({
     // Muted: User explicitly requested no beep-beep sound; visual on-screen modal warning used instead
   }, []);
 
+  // ----------------- PROCTORING EVIDENCE (server) -----------------
+  const { currentUser } = useAuth();
+  const [phoneVisible, setPhoneVisible] = useState(false);
+  const [proctorNotice, setProctorNotice] = useState(null);
+  const reportProctor = useCallback(
+    (kind, detail, snapshot) => {
+      if (!quiz?.session_id) return;
+      apiClient
+        .request('/proctor', { method: 'POST', body: { session_id: quiz.session_id, kind, detail, snapshot } })
+        .catch(() => {});
+    },
+    [quiz?.session_id]
+  );
+
   // ----------------- PROCTOR FOCUS & VIOLATION DETECTION -----------------
-  const triggerFocusViolation = useCallback((reason) => {
+  const triggerFocusViolation = useCallback((reason, { report = true } = {}) => {
     if (isSubmitted || isLockoutActive) return;
     playWarningBeep();
+    if (report) reportProctor('focus', reason);
 
     setFocusStrikes((prev) => {
       const nextStrike = prev + 1;
@@ -233,7 +251,24 @@ export default function ExamCBTInterface({
 
       return nextStrike;
     });
-  }, [isSubmitted, isLockoutActive, enrolmentId, quiz?.id, onSubmitExam, playWarningBeep]);
+  }, [isSubmitted, isLockoutActive, enrolmentId, quiz?.id, onSubmitExam, playWarningBeep, reportProctor]);
+
+  // On-device detections from the camera feed
+  const handleProctorSignal = useCallback(
+    (kind, { detail, snapshot } = {}) => {
+      if (isSubmitted || isLockoutActive) return;
+      reportProctor(kind, detail, snapshot);
+      if (kind === 'phone') {
+        triggerFocusViolation('A mobile phone was detected in the camera view. Phones are not allowed during the exam.', { report: false });
+      } else if (kind === 'multiple_faces') {
+        triggerFocusViolation('Another person was detected in the camera view. The exam must be taken alone.', { report: false });
+      } else if (kind === 'looking_away') {
+        setProctorNotice('Keep your eyes on the exam screen. Looking away repeatedly is flagged for review.');
+        setTimeout(() => setProctorNotice(null), 6000);
+      }
+    },
+    [isSubmitted, isLockoutActive, reportProctor, triggerFocusViolation]
+  );
 
   // ----------------- FACE PRESENCE TELEMETRY & WARNINGS -----------------
   const [faceStatus, setFaceStatus] = useState({
@@ -943,6 +978,8 @@ export default function ExamCBTInterface({
           <ProctorCameraFeed
             isActive={!isSubmitted && !isLockoutActive}
             onFaceStatusChange={handleFaceStatusChange}
+            onSignal={handleProctorSignal}
+            onPhoneVisibleChange={setPhoneVisible}
             onFaceAbsentWarning={(duration) => {
               if (duration >= 8.0) {
                 triggerFocusViolation('Candidate face absent from camera frame for over 8 seconds.');
@@ -956,7 +993,22 @@ export default function ExamCBTInterface({
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left 8 Cols: Question Prompt & Option Cards */}
         <div className="lg:col-span-8 space-y-5">
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#0E0C09] border border-[#FF7A00]/20 space-y-6 shadow-xl">
+          <div className="relative p-6 sm:p-8 rounded-2xl bg-[#0E0C09] border border-[#FF7A00]/20 space-y-6 shadow-xl">
+            <ExamWatermark name={currentUser?.full_name} cadetId={currentUser?.cadet_id} sessionId={quiz?.session_id} />
+            {phoneVisible && !isSubmitted && (
+              <div className="absolute inset-0 z-20 rounded-2xl bg-black/70 backdrop-blur-xl flex items-center justify-center p-6 text-center">
+                <div className="space-y-2">
+                  <ShieldAlert className="w-8 h-8 text-rose-400 mx-auto" />
+                  <p className="text-sm font-semibold text-rose-200">Phone detected</p>
+                  <p className="text-xs text-slate-300">Questions are hidden while a phone is in view. Put it away to continue.</p>
+                </div>
+              </div>
+            )}
+            {proctorNotice && (
+              <div className="relative z-30 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+                {proctorNotice}
+              </div>
+            )}
             {/* Question Index & Category */}
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <span className="text-xs font-mono text-[#A3907C]">

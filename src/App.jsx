@@ -54,6 +54,7 @@ const StudentDetailPage = lazy(() => import('./pages/admin/console/StudentDetail
 const BatchesPage = lazy(() => import('./pages/admin/console/BatchesPage'));
 const BatchDetailPage = lazy(() => import('./pages/admin/console/BatchDetailPage'));
 const CodesPage = lazy(() => import('./pages/admin/console/CodesPage'));
+const ProctoringPage = lazy(() => import('./pages/admin/console/ProctoringPage'));
 const consolePage = (name) => lazy(() => import('./pages/admin/console/ManagePages').then((m) => ({ default: m[name] })));
 const AdminCoursesPage = consolePage('CoursesPage');
 const NameRequestsPage = consolePage('NameRequestsPage');
@@ -193,6 +194,7 @@ export default function App() {
             <Route path="batches/:id" element={<BatchDetailPage />} />
             <Route path="codes" element={<CodesPage />} />
             <Route path="courses" element={<AdminCoursesPage />} />
+            <Route path="proctoring" element={<ProctoringPage />} />
             <Route path="name-requests" element={<NameRequestsPage />} />
             <Route path="certificates" element={<CertificatesPage />} />
             <Route path="tickets" element={<TicketsPage />} />

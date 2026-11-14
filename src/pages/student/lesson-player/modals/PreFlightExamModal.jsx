@@ -171,6 +171,17 @@ export default function PreFlightExamModal({
           </div>
         </div>
 
+        {/* What is monitored (informed consent) */}
+        <div className="p-3 rounded-xl bg-[#0F141C] border border-white/10 text-xs text-slate-300 space-y-1.5">
+          <div className="font-semibold text-white">How this exam is proctored</div>
+          <ul className="list-disc pl-4 space-y-1">
+            <li>Camera checks run on your device: a phone in view or another person counts as a strike; looking away for long is flagged for review.</li>
+            <li>Questions are watermarked with your name and a session code, so photos of the screen can be traced.</li>
+            <li>Only short snapshots of rule breaks (and a few routine ones) are uploaded for review by academy staff, and deleted after 90 days. Video is never recorded.</li>
+            <li>Leaving fullscreen or switching tabs counts as a strike. Three strikes end the attempt with a 24-hour lock.</li>
+          </ul>
+        </div>
+
         {/* Mandatory Camera Self-Verification Viewport Card */}
         <div className="p-4 sm:p-5 rounded-2xl bg-[#07090E] border border-[#FF7A00]/35 space-y-3.5 shadow-inner">
           <div className="flex items-center justify-between">

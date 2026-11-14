@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Camera, CameraOff, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Camera, CameraOff, ShieldCheck, AlertTriangle, Smartphone } from 'lucide-react';
+import { loadVisionProctor, detectFaces, detectPhone } from './proctor/visionProctor';
 
 /**
  * ProctorCameraFeed
@@ -11,12 +12,26 @@ import { Camera, CameraOff, ShieldCheck, AlertTriangle } from 'lucide-react';
  * - High-precision YCbCr Chrominance & Central Reticle Spatial Density Analyzer
  * - Identity continuity and absence tracking with sub-second responsiveness
  * - Real-time onFaceStatusChange & onFaceAbsentWarning telemetry callbacks
- * - Zero external API keys or heavy WASM dependencies
+ * - On-device MediaPipe models (self-hosted): phone in view, several faces, head
+ *   turned away. Signals are reported through onSignal(kind, { detail, snapshot }),
+ *   with a small JPEG snapshot as evidence. The skin-tone analyzer below remains the
+ *   fallback when the models cannot load (old browser, no WebGL/WASM).
  */
+
+// Thresholds (tuned to avoid flagging normal reading / thinking)
+const LOOK_AWAY_YAW = 35; // degrees left/right
+const LOOK_AWAY_PITCH = 30; // degrees up/down
+const LOOK_AWAY_SECONDS = 6;
+const PHONE_SCORE = 0.45;
+const PHONE_EVERY_TICKS = 4; // object model is ~80 ms on CPU: run it about every 1.4 s
+const COOLDOWN_MS = { phone: 20000, multiple_faces: 20000, looking_away: 45000, face_absent: 30000 };
+const PERIODIC_SNAPSHOT_MS = 4 * 60 * 1000;
 export default function ProctorCameraFeed({
   isActive = true,
   onFaceAbsentWarning,
   onFaceStatusChange,
+  onSignal,
+  onPhoneVisibleChange,
   className = ''
 }) {
   const videoRef = useRef(null);
@@ -33,6 +48,58 @@ export default function ProctorCameraFeed({
   const baselineProfileRef = useRef(null); // { skinRatio, avgCb, avgCr }
   const frameCounterRef = useRef(0);
   const prevFrameDataRef = useRef(null);
+
+  // On-device vision models + signal state
+  const visionRef = useRef(null);
+  const [visionState, setVisionState] = useState('loading'); // loading | ready | unavailable
+  const [phoneVisible, setPhoneVisible] = useState(false);
+  const sigRef = useRef({ multi: 0, lookAwaySince: 0, phoneHits: [], tick: 0, last: {}, lastPeriodic: 0 });
+  const onSignalRef = useRef(onSignal);
+  const onPhoneRef = useRef(onPhoneVisibleChange);
+  onSignalRef.current = onSignal;
+  onPhoneRef.current = onPhoneVisibleChange;
+
+  /** Small JPEG of the current frame (evidence for admin review). */
+  const captureSnapshot = () => {
+    try {
+      const v = videoRef.current;
+      if (!v || v.readyState < 2) return null;
+      const c = document.createElement('canvas');
+      c.width = 320;
+      c.height = 240;
+      c.getContext('2d').drawImage(v, 0, 0, 320, 240);
+      return c.toDataURL('image/jpeg', 0.6);
+    } catch {
+      return null;
+    }
+  };
+
+  const emit = (kind, detail) => {
+    const st = sigRef.current;
+    const now = Date.now();
+    if (kind !== 'periodic' && now - (st.last[kind] || 0) < (COOLDOWN_MS[kind] || 20000)) return;
+    st.last[kind] = now;
+    if (onSignalRef.current) onSignalRef.current(kind, { detail, snapshot: captureSnapshot() });
+  };
+
+  // Load the vision models once the camera is live
+  useEffect(() => {
+    if (cameraState !== 'active' || visionRef.current) return undefined;
+    let alive = true;
+    loadVisionProctor()
+      .then((models) => {
+        if (!alive) return;
+        visionRef.current = models;
+        setVisionState('ready');
+      })
+      .catch((err) => {
+        console.warn('[ProctorCamera] vision models unavailable, using fallback analyzer:', err && err.message);
+        if (alive) setVisionState('unavailable');
+      });
+    return () => {
+      alive = false;
+    };
+  }, [cameraState]);
 
   // Initialize native Chromium FaceDetector if enabled
   useEffect(() => {
@@ -128,8 +195,57 @@ export default function ProctorCameraFeed({
       let confidence = 'absent';
       let nativeDetected = false;
 
+      // 0. On-device vision models (preferred)
+      if (visionRef.current) {
+        const st = sigRef.current;
+        const ts = performance.now();
+        try {
+          const { count, pose } = detectFaces(visionRef.current, videoRef.current, ts);
+          nativeDetected = count > 0;
+          detected = nativeDetected;
+          confidence = detected ? 'high' : 'absent';
+
+          // several people in front of the camera (sustained ~1 s)
+          st.multi = count >= 2 ? st.multi + 1 : 0;
+          if (st.multi === 3) emit('multiple_faces', count + ' faces in view');
+
+          // head turned away for a sustained period (reading a phone or notes off-camera)
+          const away = pose && (Math.abs(pose.yaw) > LOOK_AWAY_YAW || Math.abs(pose.pitch) > LOOK_AWAY_PITCH);
+          if (away) {
+            if (!st.lookAwaySince) st.lookAwaySince = Date.now();
+            else if (Date.now() - st.lookAwaySince > LOOK_AWAY_SECONDS * 1000) {
+              emit('looking_away', 'head turned ' + Math.round(pose.yaw) + ' deg / ' + Math.round(pose.pitch) + ' deg for over ' + LOOK_AWAY_SECONDS + 's');
+              st.lookAwaySince = Date.now();
+            }
+          } else st.lookAwaySince = 0;
+
+          // phone in view: object model every few ticks, 2 hits in the last 3 runs
+          st.tick += 1;
+          if (st.tick % PHONE_EVERY_TICKS === 0) {
+            const score = detectPhone(visionRef.current, videoRef.current, ts + 1);
+            st.phoneHits = [...st.phoneHits.slice(-2), score >= PHONE_SCORE ? score : 0];
+            const visible = st.phoneHits.filter(Boolean).length >= 2;
+            setPhoneVisible((prev) => {
+              if (prev !== visible && onPhoneRef.current) onPhoneRef.current(visible);
+              return visible;
+            });
+            if (visible) emit('phone', 'phone detected (confidence ' + Math.round(Math.max(...st.phoneHits) * 100) + '%)');
+          }
+
+          // periodic identity snapshot (soon after start, then every few minutes)
+          if (st.tick > 8 && (!st.lastPeriodic || Date.now() - st.lastPeriodic > PERIODIC_SNAPSHOT_MS)) {
+            st.lastPeriodic = Date.now();
+            emit('periodic', count ? 'routine check' : 'routine check (no face)');
+          }
+        } catch {
+          // a failed frame keeps the previous state
+          detected = faceDetected;
+          nativeDetected = true;
+        }
+      }
+
       // 1. Native Chromium FaceDetector API (when supported)
-      if (faceDetectorRef.current) {
+      if (!visionRef.current && faceDetectorRef.current) {
         try {
           const faces = await faceDetectorRef.current.detect(videoRef.current);
           if (faces && faces.length > 0) {
@@ -158,8 +274,8 @@ export default function ProctorCameraFeed({
         }
       }
 
-      // 2. High-Precision Optical YCbCr Chrominance + Reticle Density Analyzer
-      if (canvasRef.current) {
+      // 2. Fallback: optical YCbCr chrominance + reticle density analyzer
+      if (!visionRef.current && canvasRef.current) {
         try {
           const canvas = canvasRef.current;
           const ctx = canvas.getContext('2d', { willReadFrequently: true });
@@ -300,6 +416,7 @@ export default function ProctorCameraFeed({
           if (currentAbsence >= 1.5 && onFaceAbsentWarning) {
             onFaceAbsentWarning(currentAbsence);
           }
+          if (currentAbsence >= 8) emit('face_absent', 'no face for ' + Math.round(currentAbsence) + 's');
         }
       }
     };
@@ -414,6 +531,18 @@ export default function ProctorCameraFeed({
           </div>
         </div>
       </div>
+
+      {phoneVisible && cameraState === 'active' && (
+        <div className="mt-1 px-2.5 py-1 rounded bg-rose-950/95 border border-rose-500 text-rose-200 text-[10px] font-mono text-center font-bold shadow-lg animate-pulse flex items-center gap-1.5">
+          <Smartphone className="w-3 h-3 text-rose-400 flex-shrink-0" />
+          <span>Phone detected - put it away</span>
+        </div>
+      )}
+      {cameraState === 'active' && (
+        <div className="mt-1 text-[9px] font-mono text-slate-500" title="Checks run on this device; only rule-break snapshots are uploaded">
+          {visionState === 'ready' ? 'AI proctoring active' : visionState === 'loading' ? 'Loading AI proctoring...' : 'Basic proctoring'}
+        </div>
+      )}
 
       {/* Floating Alert Banner if Face is Absent */}
       {!faceDetected && cameraState === 'active' && (

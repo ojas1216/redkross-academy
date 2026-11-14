@@ -19,7 +19,7 @@ export default function OverviewPage() {
         <Stat label="Certificates issued" value={c.certificates} to="/admin/certificates" />
         <Stat label="Active batches" value={c.active_cohorts} to="/admin/batches" />
         <Stat label="Active codes & links" value={c.active_codes} hint={`${c.redemptions} uses · ${c.redemptions_7d} this week`} to="/admin/codes" />
-        <Stat label="Name requests" value={c.pending_name_requests} hint="waiting for review" to="/admin/name-requests" />
+        <Stat label="Exams flagged" value={c.proctor_flags} hint={`${c.pending_name_requests} name request${c.pending_name_requests === 1 ? '' : 's'} waiting`} to="/admin/proctoring" />
         <Stat label="Open tickets" value={c.open_tickets} hint={`${c.locked_assessments} assessment${c.locked_assessments === 1 ? "" : "s"} locked now`} to="/admin/tickets" />
       </div>
 
