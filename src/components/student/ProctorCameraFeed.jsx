@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Camera, CameraOff, ShieldCheck, AlertTriangle, Smartphone } from 'lucide-react';
-import { loadVisionProctor, detectFaces, detectPhone } from './proctor/visionProctor';
+import { loadVisionProctor, detectFaces, detectPhoneInTile, PHONE_TILES } from './proctor/visionProctor';
 
 /**
  * ProctorCameraFeed
@@ -22,8 +22,13 @@ import { loadVisionProctor, detectFaces, detectPhone } from './proctor/visionPro
 const LOOK_AWAY_YAW = 35; // degrees left/right
 const LOOK_AWAY_PITCH = 30; // degrees up/down
 const LOOK_AWAY_SECONDS = 6;
-const PHONE_SCORE = 0.45;
-const PHONE_EVERY_TICKS = 4; // object model is ~80 ms on CPU: run it about every 1.4 s
+const PHONE_SCORE = 0.3; // webcam frames score lower than clean photos (angle, glare, motion)
+const PHONE_EVERY_TICKS = 3; // ~80 ms per run on CPU: about once a second
+const PHONE_WINDOW = PHONE_TILES.length + 1; // look back over one full scan of all tiles
+const PHONE_HITS_NEEDED = 2; // two hits in that window = phone (filters one-frame false alarms)
+
+// ?proctorDebug=1 shows live model scores under the camera (for tuning; harmless to students)
+const DEBUG = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('proctorDebug');
 const COOLDOWN_MS = { phone: 20000, multiple_faces: 20000, looking_away: 45000, face_absent: 30000 };
 const PERIODIC_SNAPSHOT_MS = 4 * 60 * 1000;
 export default function ProctorCameraFeed({
@@ -53,7 +58,8 @@ export default function ProctorCameraFeed({
   const visionRef = useRef(null);
   const [visionState, setVisionState] = useState('loading'); // loading | ready | unavailable
   const [phoneVisible, setPhoneVisible] = useState(false);
-  const sigRef = useRef({ multi: 0, lookAwaySince: 0, phoneHits: [], tick: 0, last: {}, lastPeriodic: 0 });
+  const sigRef = useRef({ multi: 0, lookAwaySince: 0, phoneHits: [], tick: 0, tile: 0, last: {}, lastPeriodic: 0 });
+  const [debugInfo, setDebugInfo] = useState(null);
   const onSignalRef = useRef(onSignal);
   const onPhoneRef = useRef(onPhoneVisibleChange);
   onSignalRef.current = onSignal;
@@ -127,8 +133,9 @@ export default function ProctorCameraFeed({
         setCameraState('initializing');
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
-            width: { ideal: 320, max: 640 },
-            height: { ideal: 240, max: 480 },
+            // 640x480 so a phone anywhere in view has enough pixels for the detector
+            width: { ideal: 640, max: 1280 },
+            height: { ideal: 480, max: 720 },
             facingMode: 'user'
           },
           audio: false
@@ -219,17 +226,45 @@ export default function ProctorCameraFeed({
             }
           } else st.lookAwaySince = 0;
 
-          // phone in view: object model every few ticks, 2 hits in the last 3 runs
+          // phone anywhere in view: rotate full frame / left / right zoomed tiles.
+          // The object model is heavy (~80-200 ms), so it runs when the browser is idle
+          // and never delays the student's clicks.
           st.tick += 1;
-          if (st.tick % PHONE_EVERY_TICKS === 0) {
-            const score = detectPhone(visionRef.current, videoRef.current, ts + 1);
-            st.phoneHits = [...st.phoneHits.slice(-2), score >= PHONE_SCORE ? score : 0];
-            const visible = st.phoneHits.filter(Boolean).length >= 2;
-            setPhoneVisible((prev) => {
-              if (prev !== visible && onPhoneRef.current) onPhoneRef.current(visible);
-              return visible;
-            });
-            if (visible) emit('phone', 'phone detected (confidence ' + Math.round(Math.max(...st.phoneHits) * 100) + '%)');
+          if (st.tick % PHONE_EVERY_TICKS === 0 && !st.phoneBusy) {
+            st.phoneBusy = true;
+            const faceInfo = { count, pose };
+            const runScan = () => {
+              try {
+                if (!visionRef.current || !videoRef.current || videoRef.current.readyState < 2) return;
+                const tile = PHONE_TILES[st.tile % PHONE_TILES.length];
+                st.tile += 1;
+                const score = detectPhoneInTile(visionRef.current, videoRef.current, performance.now(), tile);
+                st.phoneHits = [...st.phoneHits.slice(-(PHONE_WINDOW - 1)), score >= PHONE_SCORE ? score : 0];
+                const visible = st.phoneHits.filter(Boolean).length >= PHONE_HITS_NEEDED;
+                if (DEBUG) {
+                  setDebugInfo({
+                    faces: faceInfo.count,
+                    yaw: faceInfo.pose ? Math.round(faceInfo.pose.yaw) : null,
+                    pitch: faceInfo.pose ? Math.round(faceInfo.pose.pitch) : null,
+                    phone: Math.round(score * 100),
+                    tile: st.tile % PHONE_TILES.length,
+                    hits: st.phoneHits.filter(Boolean).length,
+                    res: (videoRef.current.videoWidth || 0) + 'x' + (videoRef.current.videoHeight || 0),
+                  });
+                }
+                setPhoneVisible((prev) => {
+                  if (prev !== visible && onPhoneRef.current) onPhoneRef.current(visible);
+                  return visible;
+                });
+                if (visible) emit('phone', 'phone detected (confidence ' + Math.round(Math.max(...st.phoneHits) * 100) + '%)');
+              } catch {
+                // skip this scan
+              } finally {
+                st.phoneBusy = false;
+              }
+            };
+            if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(runScan, { timeout: 1500 });
+            else setTimeout(runScan, 0);
           }
 
           // periodic identity snapshot (soon after start, then every few minutes)
@@ -541,6 +576,11 @@ export default function ProctorCameraFeed({
       {cameraState === 'active' && (
         <div className="mt-1 text-[9px] font-mono text-slate-500" title="Checks run on this device; only rule-break snapshots are uploaded">
           {visionState === 'ready' ? 'AI proctoring active' : visionState === 'loading' ? 'Loading AI proctoring...' : 'Basic proctoring'}
+        </div>
+      )}
+      {DEBUG && debugInfo && (
+        <div className="mt-1 text-[9px] font-mono text-sky-300 bg-black/80 rounded px-1.5 py-0.5">
+          faces {debugInfo.faces} · yaw {debugInfo.yaw} · pitch {debugInfo.pitch} · phone {debugInfo.phone}% (tile {debugInfo.tile}, hits {debugInfo.hits}/{PHONE_HITS_NEEDED}) · {debugInfo.res}
         </div>
       )}
 

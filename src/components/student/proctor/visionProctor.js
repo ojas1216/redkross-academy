@@ -39,7 +39,7 @@ export function loadVisionProctor() {
       const objects = await ObjectDetector.createFromOptions(fileset, {
         baseOptions: { modelAssetPath: `${BASE}/efficientdet_lite0.tflite`, delegate: 'CPU' },
         runningMode: 'VIDEO',
-        scoreThreshold: 0.35,
+        scoreThreshold: 0.2, // the component applies its own threshold + persistence
         maxResults: 5,
         categoryAllowlist: ['cell phone'],
       });
@@ -85,4 +85,36 @@ export function detectPhone(models, video, ts) {
     }
   }
   return best;
+}
+
+/**
+ * Regions scanned for phones, in rotation: the whole frame, then the left and right
+ * 60% zoomed in. A phone near the edge of the frame is small at 320 px model input;
+ * the zoomed tiles make it ~1.7x larger, so phones anywhere in view are found, not
+ * just ones in front of the face.
+ */
+export const PHONE_TILES = [
+  { x: 0, y: 0, w: 1, h: 1 },
+  { x: 0, y: 0, w: 0.6, h: 1 },
+  { x: 0.4, y: 0, w: 0.6, h: 1 },
+];
+
+let tileCanvas = null;
+const MODEL_INPUT = 320; // EfficientDet-Lite0 works on 320x320; larger input only adds conversion cost
+
+/** Best "cell phone" score inside one tile of the current frame (pre-scaled to the model size). */
+export function detectPhoneInTile(models, video, ts, tile) {
+  const vw = video.videoWidth || video.width;
+  const vh = video.videoHeight || video.height;
+  if (!vw || !vh) return 0;
+  const sx = Math.round(vw * tile.x);
+  const sy = Math.round(vh * tile.y);
+  const sw = Math.round(vw * tile.w);
+  const sh = Math.round(vh * tile.h);
+  const scale = Math.min(1, MODEL_INPUT / Math.max(sw, sh));
+  if (!tileCanvas) tileCanvas = document.createElement('canvas');
+  tileCanvas.width = Math.round(sw * scale);
+  tileCanvas.height = Math.round(sh * scale);
+  tileCanvas.getContext('2d').drawImage(video, sx, sy, sw, sh, 0, 0, tileCanvas.width, tileCanvas.height);
+  return detectPhone(models, tileCanvas, ts);
 }
