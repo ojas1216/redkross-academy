@@ -6,6 +6,7 @@
  */
 
 import dotenv from 'dotenv';
+import crypto from 'crypto';
 dotenv.config();
 
 const requiredProductionVars = [
@@ -33,6 +34,14 @@ const optionalRecommendedVars = [
 console.log('--- REDKROSS ACADEMY: PRE-FLIGHT ENVIRONMENT CHECK ---');
 let hasError = false;
 
+// The Neon password that was hard-coded in the original repository (rotated / to be
+// rotated). Only its SHA-256 is kept here, so this check never re-publishes it.
+const LEAKED_NEON_PASSWORD_SHA256 = 'd93a41d05b70f98edd5800611e6cdce0db994b677df511bb828afd96f1a1fd71';
+function containsLeakedPassword(value) {
+  const m = /:\/\/[^:/]+:([^@]+)@/.exec(String(value));
+  return Boolean(m) && crypto.createHash('sha256').update(m[1]).digest('hex') === LEAKED_NEON_PASSWORD_SHA256;
+}
+
 // Check Server Required Variables
 for (const varName of requiredProductionVars) {
   const val = process.env[varName];
@@ -41,7 +50,7 @@ for (const varName of requiredProductionVars) {
     hasError = true;
   } else {
     // Security check for deprecated hardcoded credentials
-    if (val.includes('***REMOVED-SECRET***')) {
+    if (containsLeakedPassword(val)) {
       console.warn(`[SECURITY WARNING] "${varName}" appears to contain deprecated/exposed credential signature. Rotation recommended.`);
     } else if (varName === 'CREDENTIAL_SIGNING_SECRET' && val.length < 32) {
       console.error('[CRITICAL] CREDENTIAL_SIGNING_SECRET must be at least 32 characters (openssl rand -hex 32).');
