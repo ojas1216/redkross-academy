@@ -1,0 +1,177 @@
+{
+  "course": 7,
+  "code": "C07",
+  "title": "Network Security",
+  "level": "Intermediate | Paid advanced labs, free foundations | 12 modules, 96 lessons | Prerequisite: Courses 02, 03.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M8 \"Wireless defence\" has 7 lessons in the PDF (kept exactly as printed, not padded): WPA2, WPA3, enterprise 802.1X; RADIUS; Rogue AP detection; Guest networks; Wireless IDS; Secure config; Wireless lab. M12 capstone row (\"Design, build and test a secure network with IDS, firewall, segmentation and monitoring; present evidence\") is 2 semicolon items covering design, build, test, present; expanded to 8 lessons: design / build split by the four listed components (IDS, firewall, segmentation, monitoring, in printed order) / test / \"present evidence\" split into evidence pack and presentation.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Defence architecture",
+      "lessons": [
+        "Threat models",
+        "Zones",
+        "Trust boundaries",
+        "Defence in depth",
+        "Reference designs",
+        "DMZ",
+        "Secure design review",
+        "Architecture lab"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Firewalls",
+      "lessons": [
+        "Rule design",
+        "Stateful inspection",
+        "NAT policy",
+        "Next-gen features",
+        "Change control",
+        "Rule review",
+        "Logging",
+        "Firewall lab (OPNsense)"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "IDS and IPS",
+      "lessons": [
+        "Detection concepts",
+        "Signature vs anomaly",
+        "Suricata setup",
+        "Rule syntax",
+        "Tuning",
+        "False positives",
+        "IPS mode",
+        "IDS lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Network monitoring",
+      "lessons": [
+        "NetFlow and IPFIX",
+        "Zeek logs",
+        "Full packet capture",
+        "Arkime",
+        "Baselining",
+        "DNS monitoring",
+        "Dashboards",
+        "Monitoring lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Segmentation and zero trust",
+      "lessons": [
+        "VLAN design",
+        "Micro-segmentation",
+        "Zero-trust network access",
+        "Access policy",
+        "Policy validation",
+        "East-west traffic",
+        "NAC",
+        "Segmentation lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "VPN and remote access",
+      "lessons": [
+        "IPsec",
+        "WireGuard",
+        "OpenVPN",
+        "Site-to-site",
+        "Remote access",
+        "MFA for VPN",
+        "Split tunnel risks",
+        "VPN lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "TLS and PKI operations",
+      "lessons": [
+        "TLS handshake",
+        "Cipher suites",
+        "Certificate lifecycle",
+        "Internal CA",
+        "Revocation",
+        "HSTS",
+        "Testing TLS config",
+        "PKI lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Wireless defence",
+      "lessons": [
+        "WPA2, WPA3, enterprise 802.1X",
+        "RADIUS",
+        "Rogue AP detection",
+        "Guest networks",
+        "Wireless IDS",
+        "Secure config",
+        "Wireless lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "DNS, email and DDoS",
+      "lessons": [
+        "DNSSEC",
+        "DNS filtering",
+        "SPF, DKIM, DMARC",
+        "Email gateways",
+        "DDoS types",
+        "Rate limiting",
+        "Scrubbing concepts",
+        "Lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Threat detection and response",
+      "lessons": [
+        "Network indicators",
+        "Beaconing detection",
+        "Lateral movement signals",
+        "Containment",
+        "Blocklists",
+        "Playbooks",
+        "Evidence",
+        "Response lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Secure operations",
+      "lessons": [
+        "Config baselines",
+        "Ansible for network devices",
+        "NetBox inventory",
+        "Backups",
+        "Monitoring",
+        "Patching",
+        "Compliance checks",
+        "Automation lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: secure network design",
+        "Capstone: build IDS",
+        "Capstone: build firewall",
+        "Capstone: build segmentation",
+        "Capstone: build monitoring",
+        "Capstone: test the network",
+        "Capstone: evidence pack",
+        "Capstone: present evidence"
+      ]
+    }
+  ]
+}

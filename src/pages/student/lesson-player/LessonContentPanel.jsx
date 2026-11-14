@@ -24,7 +24,7 @@ function ensureMermaidInitialized(mermaid) {
     theme: 'dark',
     themeVariables: {
       darkMode: true,
-      background: '#070A0F',
+      background: '#050505',
       primaryColor: '#1A1208',
       primaryBorderColor: '#FF7A00',
       primaryTextColor: '#E2D9CE',
@@ -205,7 +205,7 @@ function LessonContentPanel({
                       });
                     }
                   }}
-                  className="bg-[#0B0D14]/95 p-6 sm:p-10 rounded-2xl border border-[#FF7A00]/25 shadow-2xl min-h-[400px] overflow-visible prose prose-invert prose-sm sm:prose-base max-w-none cursor-default prose-table:border-collapse prose-pre:p-0 prose-pre:m-0 prose-pre:bg-transparent prose-pre:border-none prose-code:before:content-none prose-code:after:content-none prose-img:m-0 prose-figure:m-0 prose-headings:font-lora"
+                  className="bg-[#050505] text-[#E2E8F0] p-6 sm:p-10 rounded-2xl border border-[#FF7A00]/25 shadow-2xl min-h-[400px] overflow-visible prose prose-invert prose-sm sm:prose-base max-w-none cursor-default prose-table:border-collapse prose-pre:p-0 prose-pre:m-0 prose-pre:bg-transparent prose-pre:border-none prose-code:before:content-none prose-code:after:content-none prose-img:m-0 prose-figure:m-0 prose-headings:font-lora"
                 >
                   <div
                     dangerouslySetInnerHTML={{

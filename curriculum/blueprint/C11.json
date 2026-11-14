@@ -1,0 +1,178 @@
+{
+  "course": 11,
+  "code": "C11",
+  "title": "Cloud Security (AWS, Azure, GCP overview)",
+  "level": "Advanced | Prerequisite: Courses 02, 03, 07.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Secure reference architecture, build in free tier or emulator, scan, fix, incident drill, report\") lists 6 stages; expanded to 8 lessons by adding briefing and scope (split from the architecture stage) and debrief and review (split from the report stage).",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Cloud foundations",
+      "lessons": [
+        "Cloud models",
+        "IaaS, PaaS, SaaS",
+        "Regions and zones",
+        "Virtualization",
+        "Pricing and free tier",
+        "Account setup",
+        "Console and CLI",
+        "Cost guardrails"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Shared responsibility and threat modelling",
+      "lessons": [
+        "Shared responsibility",
+        "Cloud attack surface",
+        "Threat modelling",
+        "Cloud incidents case studies",
+        "Landing zone",
+        "Account structure",
+        "Guardrails",
+        "Design lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "AWS IAM",
+      "lessons": [
+        "Users, roles, policies",
+        "Least privilege",
+        "STS",
+        "Policy evaluation",
+        "Permission boundaries",
+        "SCPs",
+        "Access analyzer",
+        "IAM lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Azure identity",
+      "lessons": [
+        "Entra ID",
+        "RBAC",
+        "Conditional Access",
+        "PIM",
+        "Managed identities",
+        "App registrations",
+        "MFA",
+        "Identity lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Cloud networking",
+      "lessons": [
+        "VPC and VNet",
+        "Subnets",
+        "Security groups",
+        "NACLs",
+        "Private endpoints",
+        "WAF",
+        "Peering",
+        "Network lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Data protection",
+      "lessons": [
+        "S3 and Blob security",
+        "Encryption",
+        "KMS and Key Vault",
+        "Secrets managers",
+        "Backup",
+        "Retention",
+        "DLP",
+        "Data lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Logging and detection",
+      "lessons": [
+        "CloudTrail",
+        "CloudWatch",
+        "GuardDuty",
+        "Defender for Cloud",
+        "Sentinel",
+        "Log analytics",
+        "Alerting",
+        "Detection lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Misconfiguration and CSPM",
+      "lessons": [
+        "Common misconfigurations",
+        "Posture scanning",
+        "Prowler",
+        "ScoutSuite",
+        "Benchmarks",
+        "Remediation",
+        "Drift",
+        "CSPM lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Workload security",
+      "lessons": [
+        "VMs",
+        "Containers",
+        "Serverless",
+        "Image scanning",
+        "Runtime protection",
+        "Workload identity",
+        "Patching",
+        "Workload lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "IaC security",
+      "lessons": [
+        "Terraform basics",
+        "CloudFormation",
+        "Bicep",
+        "Checkov",
+        "Policy as code",
+        "Pipelines",
+        "Drift detection",
+        "IaC lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Multi-cloud and compliance",
+      "lessons": [
+        "GCP overview",
+        "CIS cloud benchmarks",
+        "Multi-cloud identity",
+        "Compliance mapping",
+        "Cost security",
+        "Governance",
+        "Audit evidence",
+        "Lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: briefing and scope",
+        "Capstone: secure reference architecture",
+        "Capstone: build in free tier or emulator",
+        "Capstone: scan",
+        "Capstone: fix",
+        "Capstone: incident drill",
+        "Capstone: report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

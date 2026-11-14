@@ -336,6 +336,37 @@ function buildCourse(num, raw) {
     });
   }
 
+  // v2 curriculum (blueprint structure, scripts/curriculum/build.mjs): when a complete
+  // build exists it replaces the library modules, lessons and module quiz banks. Course
+  // metadata, the lab kit and the course-level final-exam pool still come from the library.
+  const v2File = path.join(ROOT, 'curriculum', 'build', `${code}.json`);
+  if (fs.existsSync(v2File)) {
+    const v2 = JSON.parse(fs.readFileSync(v2File, 'utf8'));
+    modules.length = 0;
+    lessonFiles.length = 0;
+    serverBank.modules = {};
+    for (const vm of v2.modules) {
+      serverBank.modules[vm.n] = v2.bank[vm.n];
+      modules.push({
+        id: `mod_${lc}_${vm.n}`,
+        title: `Module ${vm.n}: ${vm.title}`,
+        description: vm.description,
+        order: vm.n,
+        quiz: {
+          id: `quiz_${lc}_m${vm.n}`,
+          title: `Module ${vm.n}: ${vm.title} - Assessment`,
+          pass_threshold: passing,
+          passing_score: passing,
+          duration_minutes: 15,
+          total_questions: v2.bank[vm.n].length,
+          token_bounty: MODULE_QUIZ_TOKENS,
+        },
+        lessons: vm.lessons,
+      });
+    }
+    lessonFiles.push(...v2.lessonFiles);
+  }
+
   serverBank.course = c.partC.mcqs.map((q) => ({
     id: q.id,
     q: q.q,

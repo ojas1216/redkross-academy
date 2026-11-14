@@ -1,0 +1,178 @@
+{
+  "course": 22,
+  "code": "C22",
+  "title": "Security Architecture and Zero Trust Engineering",
+  "level": "Specialization | Prerequisite: Courses 07, 11, 13, 17.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Zero-trust reference architecture with implementation roadmap and presentation\") lists 3 deliverables; expanded to 8 lessons: scope and requirements / zero-trust reference architecture and architecture review / implementation roadmap and roadmap prioritization / presentation preparation and presentation / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Architecture foundations",
+      "lessons": [
+        "Business requirements",
+        "SABSA and TOGAF overview",
+        "Assets",
+        "Trust boundaries",
+        "Architecture views",
+        "Principles",
+        "Documentation",
+        "Lab"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Threat-led design",
+      "lessons": [
+        "Threat modelling at architecture level",
+        "Attack trees",
+        "Risk-driven design",
+        "Abuse cases",
+        "Control selection",
+        "Trade-offs",
+        "Review",
+        "Lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Identity-centric security",
+      "lessons": [
+        "Identity as control plane",
+        "IdP",
+        "SSO",
+        "MFA and passkeys",
+        "Device trust",
+        "PAM",
+        "Workload identity",
+        "Keycloak lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Zero trust principles",
+      "lessons": [
+        "NIST SP 800-207",
+        "Continuous verification",
+        "Policy decision and enforcement points",
+        "ZTNA",
+        "Maturity model",
+        "Migration",
+        "Pitfalls",
+        "Lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Network architecture",
+      "lessons": [
+        "Micro-segmentation",
+        "SASE",
+        "Secure gateways",
+        "Private connectivity",
+        "Encrypted transport",
+        "OpenZiti",
+        "DNS design",
+        "Network lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Application and API architecture",
+      "lessons": [
+        "Secure service design",
+        "API gateways",
+        "Service mesh",
+        "mTLS",
+        "SPIFFE and SPIRE",
+        "Authorization services",
+        "OPA policies",
+        "App lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Data architecture",
+      "lessons": [
+        "Data classification",
+        "Encryption layers",
+        "Key custody",
+        "Tokenization",
+        "Data loss prevention",
+        "Backup architecture",
+        "Privacy by design",
+        "Data lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Cloud and hybrid architecture",
+      "lessons": [
+        "Landing zones",
+        "Multi-account design",
+        "Hybrid connectivity",
+        "Edge security",
+        "Reference architectures",
+        "Cloud exit planning",
+        "Cost",
+        "Lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Resilience and monitoring",
+      "lessons": [
+        "Central logging",
+        "Failure modes",
+        "Resilience patterns",
+        "DR design",
+        "Incident-ready architecture",
+        "Observability",
+        "Chaos testing",
+        "Lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Architecture assurance",
+      "lessons": [
+        "Design reviews",
+        "Control validation",
+        "Architecture decision records",
+        "Security debt",
+        "Exceptions",
+        "Metrics",
+        "Audits",
+        "Review lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Patterns, roadmap and budget",
+      "lessons": [
+        "Security patterns library",
+        "Roadmap building",
+        "Prioritization",
+        "Budgeting",
+        "Stakeholder communication",
+        "Vendor evaluation",
+        "Open-source strategy",
+        "Roadmap lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and requirements",
+        "Capstone: zero-trust reference architecture",
+        "Capstone: architecture review",
+        "Capstone: implementation roadmap",
+        "Capstone: roadmap prioritization",
+        "Capstone: presentation preparation",
+        "Capstone: presentation",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

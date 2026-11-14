@@ -1,0 +1,178 @@
+{
+  "course": 12,
+  "code": "C12",
+  "title": "DevSecOps and Secure Software Engineering",
+  "level": "Advanced | Prerequisite: Courses 04, 06.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Build a secure pipeline for a sample app, scan, fix, sign, produce release security report\") lists 5 stages; expanded to 8 lessons by splitting the build stage into sample app and scope / pipeline design / build a secure pipeline, and adding debrief and review after the release security report.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Secure SDLC",
+      "lessons": [
+        "Security requirements",
+        "SDLC models",
+        "OWASP SAMM",
+        "Security gates",
+        "Roles",
+        "Metrics",
+        "Policy",
+        "SDLC lab"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Git and CI/CD basics",
+      "lessons": [
+        "Git workflow",
+        "Branching",
+        "Pull requests",
+        "GitHub Actions",
+        "GitLab CI",
+        "Jenkins",
+        "Runners",
+        "Pipeline lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Threat modelling",
+      "lessons": [
+        "Assets",
+        "Trust boundaries",
+        "STRIDE",
+        "Data flow diagrams",
+        "Abuse cases",
+        "Risk scoring",
+        "Threat Dragon",
+        "Threat model lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Secure coding",
+      "lessons": [
+        "Input validation",
+        "Output encoding",
+        "Authentication patterns",
+        "Authorization patterns",
+        "Error handling",
+        "Crypto use",
+        "Language-specific pitfalls",
+        "Coding lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Static analysis",
+      "lessons": [
+        "SAST concepts",
+        "Semgrep rules",
+        "CodeQL",
+        "Triage",
+        "False positives",
+        "Custom rules",
+        "IDE integration",
+        "SAST lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Dynamic testing",
+      "lessons": [
+        "DAST concepts",
+        "ZAP in pipeline",
+        "API scanning",
+        "Authenticated scans",
+        "IAST overview",
+        "Gating",
+        "Reporting",
+        "DAST lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Dependencies and SBOM",
+      "lessons": [
+        "SCA",
+        "Vulnerable dependencies",
+        "SBOM (CycloneDX, SPDX)",
+        "Syft and Grype",
+        "Licence review",
+        "Update strategy",
+        "Typosquatting",
+        "SCA lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Secrets management",
+      "lessons": [
+        "Secrets in code",
+        "Gitleaks",
+        "TruffleHog",
+        "Vault",
+        "Rotation",
+        "Env vs secret stores",
+        "Pre-commit hooks",
+        "Secrets lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Containers and IaC",
+      "lessons": [
+        "Dockerfile security",
+        "Image scanning",
+        "Base images",
+        "IaC scanning",
+        "Kubernetes manifests",
+        "Policy gates",
+        "Signing",
+        "Container lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Pipeline and supply chain",
+      "lessons": [
+        "Pipeline identity",
+        "Least privilege",
+        "SLSA",
+        "Sigstore and Cosign",
+        "Build provenance",
+        "Artifact integrity",
+        "Dependency pinning",
+        "Supply chain lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Vulnerability management",
+      "lessons": [
+        "DefectDojo",
+        "Triage",
+        "SLAs",
+        "Risk-based fixing",
+        "Metrics",
+        "Security champions",
+        "Bug bounty basics",
+        "Reporting lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: sample app and scope",
+        "Capstone: pipeline design",
+        "Capstone: build a secure pipeline",
+        "Capstone: scan",
+        "Capstone: fix",
+        "Capstone: sign",
+        "Capstone: release security report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

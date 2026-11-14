@@ -1,0 +1,178 @@
+{
+  "course": 19,
+  "code": "C19",
+  "title": "Advanced Penetration Testing and Red Team Operations",
+  "level": "Specialization | Prerequisite: Courses 05, 06, 13 pass.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Isolated emulation exercise with executive and technical reports, plus debrief\") lists 3 stages; expanded to 8 lessons: the exercise split into emulation plan and rules of engagement / range preparation / execution / evidence and detection notes, then executive report and technical report (printed order), then debrief split into debrief and lessons learned and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Engagement engineering",
+      "lessons": [
+        "Objectives",
+        "Authorization",
+        "Rules of engagement",
+        "Safety controls",
+        "Deconfliction",
+        "Emergency stop",
+        "Legal contracts",
+        "Engagement plan"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Threat-informed planning",
+      "lessons": [
+        "Threat intel for planning",
+        "ATT&CK techniques",
+        "Adversary profiles",
+        "Emulation plans",
+        "Success criteria",
+        "Risk to client",
+        "Scheduling",
+        "Plan lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "External and infrastructure assessment",
+      "lessons": [
+        "Asset discovery",
+        "Exposure analysis",
+        "Service review",
+        "Cloud-edge review",
+        "Controlled validation",
+        "Evidence management",
+        "Findings",
+        "Assessment lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Identity and AD assessment (owned range)",
+      "lessons": [
+        "Privilege mapping",
+        "Credential exposure review",
+        "Delegation review",
+        "BloodHound analysis",
+        "AD CS review",
+        "Detection checks",
+        "Remediation",
+        "AD lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Endpoint testing",
+      "lessons": [
+        "Endpoint control review",
+        "Application control",
+        "EDR telemetry awareness",
+        "Privilege boundaries",
+        "Credential protection",
+        "Hardening gaps",
+        "Defender evidence",
+        "Endpoint lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Detection-aware testing",
+      "lessons": [
+        "What defenders see",
+        "Log sources",
+        "Noise vs stealth trade-offs",
+        "Detection gap notes",
+        "Coordination with blue team",
+        "Telemetry mapping",
+        "Reporting gaps",
+        "Lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Lateral movement concepts",
+      "lessons": [
+        "Trust relationships",
+        "Remote execution concepts",
+        "Segmentation validation",
+        "Jump hosts",
+        "Credential reuse risk",
+        "Detection opportunities",
+        "Containment",
+        "Lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "C2 architecture theory",
+      "lessons": [
+        "C2 concepts",
+        "Channels",
+        "Beaconing patterns",
+        "Infrastructure design theory",
+        "Network indicators",
+        "Detection",
+        "Takedown and containment",
+        "Defender lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Cloud and hybrid scenarios",
+      "lessons": [
+        "Cloud identity paths",
+        "Misconfiguration paths",
+        "Hybrid identity",
+        "SaaS risks",
+        "Logging gaps",
+        "Cloud purple lab",
+        "Reporting",
+        "Remediation"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "People and physical operations",
+      "lessons": [
+        "Consented phishing",
+        "Pretext ethics",
+        "Physical review",
+        "Badge controls",
+        "Awareness metrics",
+        "Legal limits",
+        "Client communication",
+        "Lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Purple team operations",
+      "lessons": [
+        "Red/blue collaboration",
+        "Atomic Red Team",
+        "CALDERA",
+        "Detection gap analysis",
+        "Retesting",
+        "VECTR tracking",
+        "Reporting",
+        "Purple lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: emulation plan and rules of engagement",
+        "Capstone: range preparation",
+        "Capstone: emulation exercise execution",
+        "Capstone: evidence and detection notes",
+        "Capstone: executive report",
+        "Capstone: technical report",
+        "Capstone: debrief",
+        "Capstone: lessons learned and review"
+      ]
+    }
+  ]
+}

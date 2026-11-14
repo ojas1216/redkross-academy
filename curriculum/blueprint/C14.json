@@ -1,0 +1,178 @@
+{
+  "course": 14,
+  "code": "C14",
+  "title": "Threat Intelligence and OSINT",
+  "level": "Intermediate/Advanced | Prerequisite: Courses 01, 02, 08.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Intelligence brief on a fictional actor: sources, confidence, ATT&CK mapping, defensive actions\") lists 4 stages; expanded to 8 lessons: requirements and scope, the 4 listed stages, then the intelligence brief itself split into brief writing / brief presentation, then debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Intelligence foundations",
+      "lessons": [
+        "Intelligence lifecycle",
+        "Requirements",
+        "Collection planning",
+        "Analytic bias",
+        "Confidence language",
+        "Types of intelligence",
+        "Consumers",
+        "Intel lab"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "OSINT methodology and law",
+      "lessons": [
+        "Passive collection",
+        "Source evaluation",
+        "Privacy law",
+        "Ethics",
+        "DPDP Act implications",
+        "Documentation",
+        "Operational security",
+        "Scope rules"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Domain and infrastructure intelligence",
+      "lessons": [
+        "WHOIS",
+        "DNS records",
+        "Passive DNS",
+        "Certificate transparency",
+        "IP and ASN context",
+        "Hosting relationships",
+        "Amass and subfinder",
+        "Infra lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Organisation and technology OSINT",
+      "lessons": [
+        "Company footprint",
+        "Job posts and tech stack",
+        "Public code leaks",
+        "Breach exposure (company-level)",
+        "Document metadata",
+        "Reporting",
+        "Defensive use",
+        "Lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Media verification",
+      "lessons": [
+        "Image verification",
+        "Reverse image concepts",
+        "Metadata",
+        "Video checks",
+        "Geolocation basics (public events)",
+        "Disinformation patterns",
+        "Source credibility",
+        "Lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Threat actor analysis",
+      "lessons": [
+        "Actor types",
+        "Naming confusion",
+        "Attribution limits",
+        "TTP analysis",
+        "Campaign tracking",
+        "Malware families",
+        "Diamond model",
+        "Analysis lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "IOC operations",
+      "lessons": [
+        "IOC types",
+        "Lifecycle",
+        "Confidence",
+        "Enrichment",
+        "Expiry",
+        "False-positive control",
+        "Blocklists",
+        "IOC lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Structured intelligence",
+      "lessons": [
+        "STIX 2.1 objects",
+        "TAXII",
+        "Sharing rules",
+        "TLP",
+        "ISACs",
+        "CERT-In sharing",
+        "Feeds",
+        "STIX lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "MISP and OpenCTI",
+      "lessons": [
+        "MISP events and attributes",
+        "Galaxies",
+        "Sharing groups",
+        "OpenCTI model",
+        "Connectors",
+        "Correlation",
+        "Automation",
+        "Platform lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "ATT&CK-driven defence",
+      "lessons": [
+        "ATT&CK mapping",
+        "Navigator layers",
+        "Gap analysis",
+        "Detection priorities",
+        "Purple team input",
+        "Reporting",
+        "Use cases",
+        "Mapping lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Reporting and briefing",
+      "lessons": [
+        "Intelligence report types",
+        "Writing for executives",
+        "Tactical vs strategic",
+        "Visualisation",
+        "Feedback loop",
+        "Briefing practice",
+        "Metrics",
+        "Lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: requirements and scope",
+        "Capstone: sources",
+        "Capstone: confidence",
+        "Capstone: ATT&CK mapping",
+        "Capstone: defensive actions",
+        "Capstone: brief writing",
+        "Capstone: brief presentation",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

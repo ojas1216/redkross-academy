@@ -1,0 +1,178 @@
+{
+  "course": 20,
+  "code": "C20",
+  "title": "Blue Team Engineering and Threat Hunting",
+  "level": "Specialization | Prerequisite: Courses 07, 08, 09.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Detection pack and hunt report for a simulated enterprise\") lists 2 deliverables; expanded to 8 lessons: scope and telemetry review / detection pack split into design, build, testing / hunt report split into hunt hypotheses, hunt execution, hunt report / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Defensive engineering",
+      "lessons": [
+        "Defence architecture",
+        "Coverage models",
+        "ATT&CK coverage",
+        "Data sources",
+        "Telemetry strategy",
+        "Detection lifecycle",
+        "Metrics",
+        "Planning lab"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Telemetry architecture",
+      "lessons": [
+        "Log pipelines",
+        "Agents",
+        "Sysmon config",
+        "Windows and Linux auditing",
+        "Cloud logs",
+        "Parsing",
+        "Storage",
+        "Pipeline lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Endpoint detection",
+      "lessons": [
+        "Process events",
+        "Parent-child analysis",
+        "osquery",
+        "Wazuh rules",
+        "EDR concepts",
+        "Response actions",
+        "Baselining",
+        "Endpoint lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Network detection",
+      "lessons": [
+        "Zeek scripts",
+        "Suricata rules",
+        "DNS analytics",
+        "TLS metadata",
+        "Beacon detection",
+        "Packet investigations",
+        "Tuning",
+        "Network lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Identity and cloud detection",
+      "lessons": [
+        "Authentication anomalies",
+        "Impossible travel",
+        "MFA fatigue patterns",
+        "Cloud trail analysis",
+        "SaaS audit logs",
+        "Privilege changes",
+        "Alerts",
+        "Lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Detection as code",
+      "lessons": [
+        "Sigma and pySigma",
+        "Rule structure",
+        "Unit tests",
+        "CI for rules",
+        "Version control",
+        "Peer review",
+        "Deployment",
+        "Detection lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Threat hunting",
+      "lessons": [
+        "Hypothesis design",
+        "Data requirements",
+        "Hunting frameworks",
+        "ATT&CK-driven hunts",
+        "Stacking and outliers",
+        "Documentation",
+        "Hunt lab",
+        "Review"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Hunting tooling",
+      "lessons": [
+        "Jupyter notebooks",
+        "Velociraptor hunts",
+        "Elastic and OpenSearch queries",
+        "pandas for hunting",
+        "Enrichment",
+        "Visualisation",
+        "Automation",
+        "Tooling lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Incident automation",
+      "lessons": [
+        "SOAR concepts",
+        "Shuffle",
+        "TheHive and Cortex",
+        "Approval gates",
+        "Safe playbooks",
+        "Metrics",
+        "Failure handling",
+        "Automation lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Purple validation",
+      "lessons": [
+        "Atomic tests",
+        "Coverage matrices",
+        "Simulation",
+        "Detection testing",
+        "Tuning",
+        "Regression tests",
+        "Reporting",
+        "Validation lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Deception and metrics",
+      "lessons": [
+        "Honeytokens",
+        "Canaries",
+        "Deception design",
+        "Alert quality",
+        "MTTD and MTTR",
+        "Detection debt",
+        "Program metrics",
+        "Lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and telemetry review",
+        "Capstone: detection pack design",
+        "Capstone: detection pack build",
+        "Capstone: detection pack testing",
+        "Capstone: hunt hypotheses",
+        "Capstone: hunt execution",
+        "Capstone: hunt report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

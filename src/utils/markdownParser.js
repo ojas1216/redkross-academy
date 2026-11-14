@@ -212,7 +212,7 @@ function renderMathStepsBlock(blockText, blockTitle = 'Sequential Technical Calc
     </div>`;
   }).join('\n');
 
-  return `<div class="not-prose my-4 rounded-2xl border border-white/10 bg-[#070A0F] overflow-hidden shadow-xl">
+  return `<div class="not-prose my-4 rounded-2xl border border-white/10 bg-[#0B0B0B] overflow-hidden shadow-xl">
     <div class="px-4 py-2 bg-[#10141D] border-b border-white/10 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-[#FF7A00]"></span>
@@ -220,7 +220,7 @@ function renderMathStepsBlock(blockText, blockTitle = 'Sequential Technical Calc
       </div>
       <span class="text-[10px] font-mono text-[#8C7A6B] uppercase tracking-wider">Academic Derivation</span>
     </div>
-    <div class="p-3.5 sm:p-4 space-y-2.5 bg-[#070A0F]">
+    <div class="p-3.5 sm:p-4 space-y-2.5 bg-[#0B0B0B]">
       ${stepHtmls}
     </div>
   </div>`;
@@ -265,7 +265,7 @@ function convertBoxTableToHtml(text) {
 
   const tbody = `<tbody>${body.map((row, rIdx) => {
     const isAlt = rIdx % 2 === 1;
-    return `<tr class="border-b border-[#FF7A00]/10 ${isAlt ? 'bg-[#0E0B07]' : 'bg-[#070A0F]'} hover:bg-[#1A1208]/70 transition-colors">
+    return `<tr class="border-b border-[#FF7A00]/10 ${isAlt ? 'bg-[#0E0B07]' : 'bg-[#0B0B0B]'} hover:bg-[#1A1208]/70 transition-colors">
       ${row.map(c => `<td class="py-2.5 px-3.5 text-sm font-lora text-[#E2D9CE] leading-relaxed">${c}</td>`).join('')}
     </tr>`;
   }).join('\n')}</tbody>`;
@@ -349,7 +349,7 @@ export function renderMarkdownToHtml(markdown = '', options = {}) {
     let dotColor = isExplicitCli ? 'bg-[#65F58A]' : isTelemetry ? 'bg-[#38BDF8]' : 'bg-[#FF7A00]';
 
     const token = `@@@CODEBLOCK_${codeBlocks.length}@@@`;
-    codeBlocks.push(`<div class="my-5 rounded-xl border border-[#FF7A00]/25 overflow-hidden bg-[#070A0F] shadow-lg">
+    codeBlocks.push(`<div class="my-5 rounded-xl border border-[#FF7A00]/25 overflow-hidden bg-[#0B0B0B] shadow-lg">
       <div class="px-3.5 py-1.5 bg-[#120E09] border-b border-[#FF7A00]/20 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full ${dotColor}"></span>
@@ -631,7 +631,7 @@ export function renderMarkdownToHtml(markdown = '', options = {}) {
     const bodyRows = filteredLines.slice(dataStartIdx).map((line, rIdx) => {
       const cols = parseRow(line);
       const isAlt = rIdx % 2 === 1;
-      return `<tr class="border-b border-[#FF7A00]/10 ${isAlt ? 'bg-[#0E0B07]' : 'bg-[#070A0F]'} hover:bg-[#1A1208]/70 transition-colors">
+      return `<tr class="border-b border-[#FF7A00]/10 ${isAlt ? 'bg-[#0E0B07]' : 'bg-[#0B0B0B]'} hover:bg-[#1A1208]/70 transition-colors">
         ${cols.map(c => `<td class="py-2.5 px-3.5 text-sm font-lora text-[#E2D9CE] leading-relaxed">${c}</td>`).join('')}
       </tr>`;
     }).join('\n');

@@ -1,0 +1,178 @@
+{
+  "course": 16,
+  "code": "C16",
+  "title": "Wireless and Mobile Security",
+  "level": "Advanced | Prerequisite: Courses 02, 06.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Assess a demo mobile app and owned wireless lab, remediation report\") lists 3 stages; expanded to 8 lessons: scope and authorisation / demo mobile app split into static and dynamic assessment / owned wireless lab split into survey and assessment / remediation report split into findings and remediation and remediation report / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "RF and WLAN foundations",
+      "lessons": [
+        "Radio basics",
+        "Frequency bands",
+        "Channels",
+        "Antennas",
+        "Access points",
+        "Controllers",
+        "WLAN architecture",
+        "Spectrum tools"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Wi-Fi security",
+      "lessons": [
+        "WEP history",
+        "WPA2",
+        "WPA3",
+        "PSK vs enterprise",
+        "802.1X",
+        "RADIUS",
+        "Guest design",
+        "Secure deployment"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Wireless assessment (owned lab)",
+      "lessons": [
+        "Authorised testing",
+        "Survey",
+        "Configuration review",
+        "Rogue AP detection",
+        "Client risks",
+        "Aircrack-ng suite",
+        "Kismet",
+        "Wireless lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Bluetooth and BLE",
+      "lessons": [
+        "Bluetooth stack",
+        "Pairing",
+        "BLE GATT",
+        "Privacy",
+        "Common weaknesses",
+        "Device hardening",
+        "Analysis tools",
+        "BLE lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "IoT, RFID and Zigbee basics",
+      "lessons": [
+        "IoT architecture",
+        "Zigbee and Z-Wave overview",
+        "NFC and RFID",
+        "Firmware basics",
+        "Default credentials",
+        "Update mechanisms",
+        "Hardening",
+        "IoT lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Android security",
+      "lessons": [
+        "Android architecture",
+        "Sandbox",
+        "Permissions",
+        "App signing",
+        "Storage",
+        "Intents",
+        "Components",
+        "Android lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Android app analysis",
+      "lessons": [
+        "APK structure",
+        "Apktool",
+        "jadx",
+        "Manifest review",
+        "Static analysis",
+        "MobSF",
+        "Secrets in apps",
+        "Analysis lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "iOS security",
+      "lessons": [
+        "iOS architecture",
+        "Sandbox",
+        "Code signing",
+        "Keychain",
+        "Secure Enclave",
+        "Entitlements",
+        "IPA structure",
+        "iOS lab (basics)"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Dynamic mobile testing",
+      "lessons": [
+        "Emulators",
+        "Frida",
+        "objection",
+        "Certificate pinning concepts",
+        "Runtime inspection",
+        "Traffic analysis",
+        "Insecure storage",
+        "Dynamic lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Mobile APIs and data",
+      "lessons": [
+        "Token handling",
+        "Transport security",
+        "Backend authorization",
+        "Local databases",
+        "Logs",
+        "Backups",
+        "Privacy",
+        "API lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "MDM and mobile defence",
+      "lessons": [
+        "MDM and MAM",
+        "BYOD policy",
+        "Mobile threat defence",
+        "App vetting",
+        "Patching",
+        "Incident response on mobile",
+        "Compliance",
+        "Lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and authorisation",
+        "Capstone: mobile app static assessment",
+        "Capstone: mobile app dynamic assessment",
+        "Capstone: wireless lab survey",
+        "Capstone: wireless lab assessment",
+        "Capstone: findings and remediation",
+        "Capstone: remediation report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

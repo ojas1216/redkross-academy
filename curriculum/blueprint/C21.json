@@ -1,0 +1,178 @@
+{
+  "course": 21,
+  "code": "C21",
+  "title": "Kubernetes, Container and Infrastructure Security",
+  "level": "Specialization | Prerequisite: Courses 03, 11, 12.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Harden a local cluster, scan workloads, produce security evidence\") lists 3 stages; expanded to 8 lessons: scope and local cluster setup / hardening split into access and RBAC, policy and admission, network and runtime / scan workloads and remediate scan findings / produce security evidence / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Container foundations",
+      "lessons": [
+        "Namespaces",
+        "cgroups",
+        "Images and layers",
+        "Registries",
+        "Runtimes",
+        "Docker basics",
+        "Container threat model",
+        "Lab setup"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Docker security",
+      "lessons": [
+        "Dockerfile best practices",
+        "Non-root",
+        "Capabilities",
+        "seccomp",
+        "AppArmor",
+        "Rootless mode",
+        "Docker socket risk",
+        "Hardening lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Image security",
+      "lessons": [
+        "Base images",
+        "Vulnerability scanning",
+        "Trivy",
+        "SBOM",
+        "Provenance",
+        "Registry security",
+        "Image signing",
+        "Image lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Kubernetes architecture",
+      "lessons": [
+        "Control plane",
+        "Nodes",
+        "API server",
+        "etcd",
+        "kubelet",
+        "Workloads",
+        "Services",
+        "Local cluster with kind"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Cluster access",
+      "lessons": [
+        "Authentication",
+        "RBAC",
+        "Service accounts",
+        "Secrets",
+        "Audit logs",
+        "Least privilege",
+        "RBAC review",
+        "Access lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Policy and admission",
+      "lessons": [
+        "Admission controllers",
+        "Pod Security Standards",
+        "Kyverno",
+        "OPA Gatekeeper",
+        "Policy tests",
+        "Exceptions",
+        "Reporting",
+        "Policy lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Network security",
+      "lessons": [
+        "Network policies",
+        "Cilium",
+        "Ingress",
+        "Egress control",
+        "Service mesh",
+        "mTLS",
+        "DNS in clusters",
+        "Network lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Runtime security",
+      "lessons": [
+        "Falco rules",
+        "eBPF concepts",
+        "Runtime detection",
+        "Incident response in clusters",
+        "Forensics for containers",
+        "Tracing",
+        "Response",
+        "Runtime lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "IaC security",
+      "lessons": [
+        "Terraform and OpenTofu",
+        "Ansible",
+        "Helm",
+        "Scanning with Checkov",
+        "Policy as code",
+        "Drift",
+        "Secrets in IaC",
+        "IaC lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Supply chain security",
+      "lessons": [
+        "Build integrity",
+        "Cosign",
+        "SLSA",
+        "Admission verification",
+        "Dependency control",
+        "CI hardening",
+        "SBOM gates",
+        "Supply chain lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Benchmarks and operations",
+      "lessons": [
+        "CIS Kubernetes Benchmark",
+        "kube-bench",
+        "Kubescape",
+        "Upgrade strategy",
+        "Backup and restore",
+        "Multi-tenancy",
+        "Monitoring",
+        "Ops lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and local cluster setup",
+        "Capstone: harden access and RBAC",
+        "Capstone: harden policy and admission",
+        "Capstone: harden network and runtime",
+        "Capstone: scan workloads",
+        "Capstone: remediate scan findings",
+        "Capstone: produce security evidence",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "course": 6,
+  "code": "C06",
+  "title": "Web Application Security",
+  "level": "Intermediate | Paid advanced labs, free foundations (modules 1–3) | 12 modules, 96 lessons | Prerequisite: Courses 02, 04.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row lists 5 stages (\"Test a demo app end to end, secure code review, fix, retest, security report\"); expanded to 8 lessons by splitting \"test a demo app end to end\" into scope and test plan / end-to-end testing / findings validation, and \"security report\" into security report / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Web foundations",
+      "lessons": [
+        "Browser-server model",
+        "URLs",
+        "HTTP methods",
+        "Headers",
+        "Cookies",
+        "Status codes",
+        "HTML, CSS, JavaScript basics",
+        "Developer tools"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Browser security",
+      "lessons": [
+        "Same-origin policy",
+        "CORS",
+        "Cookie flags",
+        "CSP",
+        "HSTS",
+        "Clickjacking and framing",
+        "Security headers audit",
+        "Browser lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "App mapping",
+      "lessons": [
+        "Attack surface",
+        "Trust boundaries",
+        "Endpoint discovery in lab",
+        "Parameter analysis",
+        "Proxy workflow",
+        "Threat modelling",
+        "OWASP Top 10",
+        "Test plan"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Authentication",
+      "lessons": [
+        "Login design",
+        "Password reset flaws",
+        "MFA weaknesses",
+        "Account enumeration",
+        "Brute-force defences",
+        "OAuth basics",
+        "Passkeys",
+        "Auth lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Sessions and access control",
+      "lessons": [
+        "Session IDs",
+        "Fixation",
+        "Token storage",
+        "RBAC design",
+        "IDOR and BOLA",
+        "Privilege boundaries",
+        "Forced browsing",
+        "Access-control lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Injection",
+      "lessons": [
+        "SQL injection concepts",
+        "Parameterized queries",
+        "Command injection",
+        "NoSQL injection",
+        "LDAP and template injection",
+        "ORM safety",
+        "Detection",
+        "Injection lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "XSS and output handling",
+      "lessons": [
+        "Reflected, stored, DOM XSS",
+        "Contexts",
+        "Output encoding",
+        "Sanitization",
+        "CSP as defence",
+        "Framework protections",
+        "XSS lab",
+        "Retest"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Request-based flaws",
+      "lessons": [
+        "CSRF",
+        "SameSite",
+        "SSRF",
+        "Open redirects",
+        "HTTP request smuggling concepts",
+        "Host header issues",
+        "Cache issues",
+        "Mitigations"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Files and data formats",
+      "lessons": [
+        "Path traversal",
+        "File upload",
+        "XXE",
+        "Insecure deserialization",
+        "Zip and archive issues",
+        "Secure parsers",
+        "Storage",
+        "File lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "API security",
+      "lessons": [
+        "REST and GraphQL",
+        "OWASP API Top 10",
+        "Rate limiting",
+        "Mass assignment",
+        "BOLA",
+        "JWT issues",
+        "API gateway",
+        "API lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Business logic and modern apps",
+      "lessons": [
+        "Logic flaws",
+        "Race conditions",
+        "Payment flows",
+        "SPA and BFF",
+        "WebSockets",
+        "Serverless web",
+        "Supply chain in JS",
+        "Logic lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and test plan",
+        "Capstone: end-to-end testing",
+        "Capstone: findings validation",
+        "Capstone: secure code review",
+        "Capstone: fix",
+        "Capstone: retest",
+        "Capstone: security report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

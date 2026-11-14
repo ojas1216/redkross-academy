@@ -1,0 +1,177 @@
+{
+  "course": 15,
+  "code": "C15",
+  "title": "Cryptography and Applied Security",
+  "level": "Intermediate/Advanced | Prerequisite: Courses 01, 04.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M3 \"Symmetric crypto\" has 7 lessons in the PDF (kept exactly as printed, not padded): Block and stream ciphers; AES; Modes (CBC, CTR, GCM); Padding; AEAD; Key sizes; Symmetric lab. M12 capstone row (\"Build file integrity and encryption utility with tests and security documentation\") lists 3 stages (build, tests, security documentation); expanded to 8 lessons: scope and design / build split into file integrity, encryption, utility build and integration / tests split into unit tests and security tests / security documentation / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Foundations",
+      "lessons": [
+        "Security goals",
+        "Kerckhoffs principle",
+        "Threat models",
+        "Randomness and entropy",
+        "Encoding vs encryption",
+        "History of ciphers",
+        "Notation",
+        "Lab setup"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Math basics",
+      "lessons": [
+        "Modular arithmetic",
+        "Primes",
+        "GCD",
+        "Modular inverse",
+        "Groups",
+        "Fields intro",
+        "Complexity",
+        "Practice"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Symmetric crypto",
+      "lessons": [
+        "Block and stream ciphers",
+        "AES",
+        "Modes (CBC, CTR, GCM)",
+        "Padding",
+        "AEAD",
+        "Key sizes",
+        "Symmetric lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Hashing and MAC",
+      "lessons": [
+        "Hash properties",
+        "SHA-2 and SHA-3",
+        "Collisions",
+        "HMAC",
+        "KDFs",
+        "Password hashing (Argon2, bcrypt, scrypt)",
+        "Salts and pepper",
+        "Hashing lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "RSA",
+      "lessons": [
+        "Key generation",
+        "Encryption",
+        "Padding (OAEP)",
+        "Signatures (PSS)",
+        "Key sizes",
+        "Common mistakes",
+        "Performance",
+        "RSA lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "ECC and key exchange",
+      "lessons": [
+        "Elliptic curve basics",
+        "ECDH",
+        "X25519",
+        "Ed25519",
+        "Diffie-Hellman",
+        "Forward secrecy",
+        "Curve choice",
+        "ECC lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Signatures and PKI",
+      "lessons": [
+        "Digital signatures",
+        "Certificates",
+        "X.509",
+        "CA hierarchy",
+        "Trust stores",
+        "Revocation",
+        "Certificate transparency",
+        "PKI lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "TLS in depth",
+      "lessons": [
+        "TLS 1.2 vs 1.3",
+        "Handshake",
+        "Cipher suites",
+        "Session resumption",
+        "mTLS",
+        "HSTS",
+        "Testing",
+        "TLS lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Key management",
+      "lessons": [
+        "Key lifecycle",
+        "KMS and HSM",
+        "Envelope encryption",
+        "Rotation",
+        "Secrets",
+        "Backups",
+        "Recovery",
+        "Key lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Implementation pitfalls",
+      "lessons": [
+        "Nonce reuse",
+        "IV misuse",
+        "Padding oracles (concept)",
+        "Timing leaks",
+        "Weak RNG",
+        "Library choice",
+        "Crypto code review",
+        "Pitfalls lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Modern cryptography",
+      "lessons": [
+        "End-to-end encryption",
+        "Signal protocol overview",
+        "Post-quantum crypto",
+        "Zero-knowledge intro",
+        "Homomorphic intro",
+        "Blockchain crypto basics",
+        "Disk and file encryption",
+        "Case studies"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and design",
+        "Capstone: file integrity",
+        "Capstone: encryption",
+        "Capstone: utility build and integration",
+        "Capstone: unit tests",
+        "Capstone: security tests",
+        "Capstone: security documentation",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

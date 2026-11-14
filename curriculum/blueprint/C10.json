@@ -1,0 +1,178 @@
+{
+  "course": 10,
+  "code": "C10",
+  "title": "Malware Analysis and Reverse Engineering",
+  "level": "Advanced | PAID | 12 modules, 96 lessons | Prerequisite: Courses 03, 04, 09 (module 1–6).",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Analyse an academy-made benign sample: behaviour report, confidence, detection rules, recommendations\") lists 4 stages; expanded to 8 lessons by splitting \"analyse the sample\" into sample triage and lab setup / static analysis / dynamic analysis, then the 4 listed stages, then debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Malware foundations",
+      "lessons": [
+        "Categories",
+        "Infection lifecycle",
+        "Delivery methods",
+        "Persistence concepts",
+        "History",
+        "Threat reports",
+        "Legal handling",
+        "Safety rules"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Safe lab design",
+      "lessons": [
+        "Isolated network",
+        "VM snapshots",
+        "FLARE-VM",
+        "REMnux",
+        "Fake internet",
+        "Sample hashing",
+        "Provenance",
+        "Lab lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Basic static analysis",
+      "lessons": [
+        "File identification",
+        "Hashes",
+        "Strings",
+        "Metadata",
+        "Entropy",
+        "Packers detection",
+        "Online reputation",
+        "Static lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Executable formats",
+      "lessons": [
+        "PE structure",
+        "Headers and sections",
+        "Imports and exports",
+        "ELF basics",
+        "Resources",
+        "Digital signatures",
+        "pefile scripting",
+        "Format lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Dynamic analysis",
+      "lessons": [
+        "Behaviour monitoring",
+        "Process and file changes",
+        "Registry changes",
+        "Procmon",
+        "Sysmon",
+        "Sandbox (CAPE)",
+        "Report reading",
+        "Dynamic lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Network behaviour",
+      "lessons": [
+        "Simulated services",
+        "FakeNet-NG",
+        "DNS and HTTP patterns",
+        "Beaconing",
+        "C2 concepts",
+        "PCAP review",
+        "Indicators",
+        "Network lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Assembly basics",
+      "lessons": [
+        "Registers",
+        "Memory",
+        "Stack",
+        "x86 and x64 instructions",
+        "Calling conventions",
+        "Control flow",
+        "Common patterns",
+        "Assembly lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Reverse engineering",
+      "lessons": [
+        "Disassembly",
+        "Decompilation",
+        "Ghidra workflow",
+        "Function analysis",
+        "Renaming and annotation",
+        "Debugger basics (x64dbg)",
+        "String decoding",
+        "RE lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Script and document malware",
+      "lessons": [
+        "Office macros",
+        "PDF analysis",
+        "JavaScript",
+        "PowerShell obfuscation",
+        "Deobfuscation methods",
+        "oletools",
+        "Email attachments",
+        "Script lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Detection engineering",
+      "lessons": [
+        "YARA rules",
+        "capa rules",
+        "IOC extraction",
+        "Sigma from behaviour",
+        "Rule testing",
+        "False positives",
+        "Sharing",
+        "Detection lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Evasion and packing concepts",
+      "lessons": [
+        "Packing",
+        "Anti-analysis concepts",
+        "Anti-VM concepts",
+        "Unpacking approach",
+        "Process injection concepts",
+        "Fileless concepts",
+        "Defender response",
+        "Lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: sample triage and lab setup",
+        "Capstone: static analysis",
+        "Capstone: dynamic analysis",
+        "Capstone: behaviour report",
+        "Capstone: confidence",
+        "Capstone: detection rules",
+        "Capstone: recommendations",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

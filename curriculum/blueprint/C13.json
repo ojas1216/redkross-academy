@@ -1,0 +1,178 @@
+{
+  "course": 13,
+  "code": "C13",
+  "title": "Active Directory and Enterprise Security",
+  "level": "Advanced | Prerequisite: Courses 03, 07, 08.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Build contained domain lab, assess with PingCastle and BloodHound, harden, produce audit report\") lists 4 stages; expanded to 8 lessons: scope and lab plan (split from build) / build / assess split per tool (PingCastle, BloodHound) / harden and verify hardening / audit report / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Directory foundations",
+      "lessons": [
+        "What is a directory",
+        "LDAP",
+        "Domains",
+        "Forests",
+        "Trusts",
+        "Sites",
+        "Domain controller roles",
+        "Lab build"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "AD objects and design",
+      "lessons": [
+        "Users",
+        "Groups",
+        "OUs",
+        "Computers",
+        "Schema",
+        "FSMO roles",
+        "Replication",
+        "Design principles"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "DNS, DHCP and PKI in AD",
+      "lessons": [
+        "AD-integrated DNS",
+        "DHCP",
+        "Certificate services",
+        "Time sync",
+        "Sites and subnets",
+        "Health checks",
+        "Backup",
+        "Services lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Authentication",
+      "lessons": [
+        "Kerberos flow",
+        "Tickets",
+        "NTLM",
+        "LDAP binds",
+        "SAML and OIDC overview",
+        "SSO",
+        "Smart cards",
+        "Authentication lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Group Policy and delegation",
+      "lessons": [
+        "GPO design",
+        "Security filtering",
+        "Preferences",
+        "Delegation",
+        "ACLs on objects",
+        "Change control",
+        "GPO audit",
+        "Policy lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Privileged access",
+      "lessons": [
+        "Tiered administration",
+        "PAWs",
+        "Just-in-time access",
+        "LAPS",
+        "gMSA",
+        "Protected users",
+        "Admin hygiene",
+        "PAM lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Attack-path awareness (defence view)",
+      "lessons": [
+        "Credential exposure concepts",
+        "Delegation risks",
+        "Kerberos weaknesses at concept level",
+        "ACL abuse paths",
+        "BloodHound defensive use",
+        "AD CS risks",
+        "Detection",
+        "Attack-path lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "AD hardening",
+      "lessons": [
+        "CIS benchmarks",
+        "SMB signing",
+        "LDAP signing",
+        "NTLM reduction",
+        "Password policy",
+        "Fine-grained policy",
+        "Legacy protocol removal",
+        "Hardening lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Monitoring and detection",
+      "lessons": [
+        "Event IDs",
+        "Audit policy",
+        "Sysmon",
+        "Defender for Identity",
+        "Honeytokens concept",
+        "Alert rules",
+        "Investigations",
+        "Detection lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "AD CS and PKI security",
+      "lessons": [
+        "Certificate templates",
+        "Enrollment",
+        "Misconfig patterns",
+        "Auditing",
+        "CA hardening",
+        "Revocation",
+        "PKI lab",
+        "Remediation"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Hybrid identity",
+      "lessons": [
+        "Entra Connect",
+        "Password hash sync",
+        "Federation",
+        "Conditional Access",
+        "Hybrid risks",
+        "M365 security",
+        "ScubaGear",
+        "Hybrid lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and lab plan",
+        "Capstone: build contained domain lab",
+        "Capstone: assess with PingCastle",
+        "Capstone: assess with BloodHound",
+        "Capstone: harden",
+        "Capstone: verify hardening",
+        "Capstone: audit report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "course": 5,
+  "code": "C05",
+  "title": "Ethical Hacking and Penetration Testing",
+  "level": "Intermediate | Paid advanced labs, free foundations (modules 1–3) | 12 modules, 96 lessons | Prerequisite: Courses 01–04.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Methodology and law",
+      "lessons": [
+        "PTES and OSSTMM overview",
+        "Authorization letter",
+        "Scope",
+        "Rules of engagement",
+        "Legal boundaries in India",
+        "Evidence handling",
+        "Lab safety",
+        "Report templates"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Reconnaissance",
+      "lessons": [
+        "Passive vs active recon",
+        "DNS and WHOIS",
+        "Search engine techniques",
+        "Subdomain concepts",
+        "Asset inventory",
+        "Metadata",
+        "Documentation",
+        "Recon lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Scanning and enumeration",
+      "lessons": [
+        "Host discovery",
+        "Port scanning",
+        "Service and version detection",
+        "Nmap scripting engine",
+        "SMB, SNMP, LDAP enumeration",
+        "Web enumeration",
+        "Result management",
+        "Enumeration lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Vulnerability assessment",
+      "lessons": [
+        "Scanner concepts",
+        "CVE and CVSS",
+        "OpenVAS workflow",
+        "Authenticated scans",
+        "False positives",
+        "Prioritization",
+        "Remediation mapping",
+        "Assessment report"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Web testing basics",
+      "lessons": [
+        "HTTP in practice",
+        "Proxy tools (ZAP, Burp)",
+        "Content discovery",
+        "Auth testing",
+        "Injection overview",
+        "File upload risks",
+        "Session testing",
+        "Web lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Credential and service testing",
+      "lessons": [
+        "Password policy review",
+        "Hashing and cracking concepts",
+        "Service misconfigurations",
+        "SMB, FTP, SSH hardening",
+        "Lockout design",
+        "MFA bypass patterns",
+        "Defence",
+        "Credential lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Exploitation concepts",
+      "lessons": [
+        "Exploit lifecycle",
+        "Reading CVE advisories",
+        "Metasploit basics (lab only)",
+        "Payload types",
+        "Safe proof-of-concept",
+        "Memory corruption concepts",
+        "DEP and ASLR",
+        "Exploit mitigations"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Privilege escalation",
+      "lessons": [
+        "Privilege boundaries",
+        "Linux misconfigurations",
+        "Windows misconfigurations",
+        "Service and scheduled-task issues",
+        "Sudo and token concepts",
+        "Kernel exploit risk",
+        "Detection",
+        "Privesc lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Post-access review",
+      "lessons": [
+        "Persistence detection",
+        "Lateral movement concepts",
+        "Pivoting concepts",
+        "Data exposure checks",
+        "Log review",
+        "Evidence",
+        "Cleanup",
+        "Defender view"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Social engineering and physical",
+      "lessons": [
+        "Phishing simulation (consented)",
+        "Awareness training",
+        "Vishing risks",
+        "Physical security review",
+        "Badge and tailgating",
+        "Policy gaps",
+        "Metrics",
+        "Ethics"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Reporting",
+      "lessons": [
+        "Risk ranking",
+        "Finding write-up",
+        "Evidence screenshots",
+        "Remediation advice",
+        "Executive summary",
+        "Retest plan",
+        "Presenting findings",
+        "Report review"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope",
+        "Capstone: recon",
+        "Capstone: enumeration",
+        "Capstone: validation",
+        "Capstone: report",
+        "Capstone: retest",
+        "Capstone: debrief",
+        "Capstone: review"
+      ]
+    }
+  ]
+}

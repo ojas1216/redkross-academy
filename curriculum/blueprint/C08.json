@@ -1,0 +1,178 @@
+{
+  "course": 8,
+  "code": "C08",
+  "title": "SOC Analyst and Security Operations",
+  "level": "Intermediate | Paid professional labs, free intro | 12 modules, 96 lessons | Prerequisite: Courses 01–03.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Run a simulated SOC shift: triage 30 alerts, write 3 cases, 2 detections, shift report\") lists 4 stages; expanded to 8 lessons using its own counts: triage split into alerts 1-15 and 16-30, one lesson per case (3) and per detection (2), then shift report.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "SOC operations",
+      "lessons": [
+        "SOC tiers",
+        "Roles",
+        "Alert lifecycle",
+        "Analyst workflow",
+        "Shift handover",
+        "SLAs",
+        "Metrics",
+        "SOC tooling map"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Telemetry",
+      "lessons": [
+        "Endpoint logs",
+        "Network logs",
+        "Identity logs",
+        "Cloud logs",
+        "Event fields",
+        "Timestamps",
+        "Collection pipelines",
+        "Telemetry lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "SIEM fundamentals",
+      "lessons": [
+        "Ingestion",
+        "Parsing",
+        "Normalization",
+        "Correlation",
+        "Dashboards",
+        "Searching",
+        "Retention",
+        "SIEM lab (Wazuh, Elastic)"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Log analysis",
+      "lessons": [
+        "Windows event analysis",
+        "Linux auth logs",
+        "Web server logs",
+        "Firewall logs",
+        "DNS logs",
+        "Proxy logs",
+        "Query writing",
+        "Log lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Alert triage",
+      "lessons": [
+        "Severity",
+        "Prioritization",
+        "Enrichment",
+        "Validation",
+        "False-positive handling",
+        "Escalation criteria",
+        "Case notes",
+        "Triage lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Threat intelligence",
+      "lessons": [
+        "IOC types",
+        "Confidence",
+        "Enrichment workflow",
+        "MISP basics",
+        "Feeds",
+        "Limitations",
+        "Sharing",
+        "Intel lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Detection engineering",
+      "lessons": [
+        "Detection logic",
+        "Sigma rules",
+        "ATT&CK mapping",
+        "Rule testing",
+        "Tuning",
+        "Coverage gaps",
+        "Rule review",
+        "Detection lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Incident handling",
+      "lessons": [
+        "Incident response lifecycle",
+        "Communication",
+        "Containment advice",
+        "Evidence preservation",
+        "Severity matrix",
+        "Post-incident review",
+        "Tabletop",
+        "IR lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Phishing and malware triage",
+      "lessons": [
+        "Email header analysis",
+        "URL and attachment checks",
+        "Sandbox use",
+        "User reports",
+        "Account compromise signs",
+        "Containment",
+        "Reporting",
+        "Phishing lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Threat hunting",
+      "lessons": [
+        "Hypothesis design",
+        "Data needs",
+        "Hunt queries",
+        "Baselines",
+        "ATT&CK-driven hunts",
+        "Documentation",
+        "Validation",
+        "Hunt lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "SOC automation",
+      "lessons": [
+        "SOAR concepts",
+        "TheHive and Cortex",
+        "Shuffle workflows",
+        "Approval gates",
+        "Enrichment automation",
+        "Metrics",
+        "Safe playbooks",
+        "Automation lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: triage alerts 1-15",
+        "Capstone: triage alerts 16-30",
+        "Capstone: case 1",
+        "Capstone: case 2",
+        "Capstone: case 3",
+        "Capstone: detection 1",
+        "Capstone: detection 2",
+        "Capstone: shift report"
+      ]
+    }
+  ]
+}

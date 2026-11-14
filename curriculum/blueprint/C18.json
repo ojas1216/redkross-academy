@@ -1,0 +1,178 @@
+{
+  "course": 18,
+  "code": "C18",
+  "title": "AI Security and Emerging Cyber Threats",
+  "level": "Advanced | Prerequisite: Courses 04, 06, 12 (module 1–4).",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Assess a controlled AI app, document attack paths, mitigations and monitoring plan\") lists 4 stages; expanded to 8 lessons: scope and threat model / assessment split into prompt and model surface and tools, data and integrations / document attack paths / mitigations / monitoring plan / assessment report / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "AI foundations",
+      "lessons": [
+        "ML basics",
+        "Neural networks",
+        "Training vs inference",
+        "Datasets",
+        "Model lifecycle",
+        "MLOps",
+        "Assets",
+        "Lab setup"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "LLM systems",
+      "lessons": [
+        "Tokens and context",
+        "Prompts",
+        "RAG",
+        "Vector databases",
+        "Tool use",
+        "Agents",
+        "Deployment patterns",
+        "LLM lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "AI threat modelling",
+      "lessons": [
+        "OWASP LLM Top 10",
+        "MITRE ATLAS",
+        "Trust boundaries",
+        "Attack surface",
+        "Abuse cases",
+        "Risk scoring",
+        "Threat model lab",
+        "Review"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Prompt injection",
+      "lessons": [
+        "Direct injection",
+        "Indirect injection",
+        "Untrusted content",
+        "Jailbreak concepts",
+        "Defence layers",
+        "Detection",
+        "Testing",
+        "Injection lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Data and privacy",
+      "lessons": [
+        "Sensitive data exposure",
+        "Training data risks",
+        "RAG data leaks",
+        "PII handling",
+        "Data governance",
+        "Retention",
+        "DPDP alignment",
+        "Privacy lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Output and agency risks",
+      "lessons": [
+        "Unsafe output handling",
+        "Excessive agency",
+        "Tool permissions",
+        "Sandboxing",
+        "Human approval",
+        "Rate limits",
+        "Logging",
+        "Agent lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Model supply chain",
+      "lessons": [
+        "Model provenance",
+        "Pickle and serialization risks",
+        "Dependency risks",
+        "Dataset poisoning concepts",
+        "Model scanning",
+        "Registries",
+        "Signing",
+        "Supply chain lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Adversarial ML concepts",
+      "lessons": [
+        "Evasion",
+        "Poisoning",
+        "Extraction",
+        "Membership inference",
+        "Robustness testing",
+        "ART toolkit",
+        "Defences",
+        "ML lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "AI red teaming",
+      "lessons": [
+        "Test planning",
+        "garak",
+        "PyRIT",
+        "promptfoo",
+        "Scoring",
+        "Safe adversarial evaluation",
+        "Reporting",
+        "Red team lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Guardrails and monitoring",
+      "lessons": [
+        "Input and output filters",
+        "LLM Guard",
+        "NeMo Guardrails",
+        "Monitoring",
+        "Abuse detection",
+        "Incident response",
+        "Evals",
+        "Guardrail lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Governance and emerging threats",
+      "lessons": [
+        "NIST AI RMF",
+        "ISO 42001",
+        "EU AI Act overview",
+        "Deepfakes",
+        "AI-assisted phishing",
+        "Quantum risk overview",
+        "Secure AI policy",
+        "Case studies"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: scope and threat model",
+        "Capstone: assess prompt and model surface",
+        "Capstone: assess tools, data and integrations",
+        "Capstone: document attack paths",
+        "Capstone: mitigations",
+        "Capstone: monitoring plan",
+        "Capstone: assessment report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

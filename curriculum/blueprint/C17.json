@@ -1,0 +1,178 @@
+{
+  "course": 17,
+  "code": "C17",
+  "title": "Governance, Risk and Compliance (GRC)",
+  "level": "Professional | Prerequisite: Courses 01, 08 (module 1–3).",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Risk register, policy pack, control mapping and management review for a fictional company\") lists 4 stages; expanded to 8 lessons: company profile and scope / risk register split into risk assessment and risk register / policy pack / control mapping split into control mapping and control gap analysis / management review / debrief and review.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Governance foundations",
+      "lessons": [
+        "Security governance",
+        "Roles (CISO, DPO)",
+        "Accountability",
+        "Policy hierarchy",
+        "Board reporting",
+        "Security strategy",
+        "Maturity models",
+        "Governance lab"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Risk management",
+      "lessons": [
+        "ISO 31000",
+        "NIST RMF",
+        "Asset inventory",
+        "Risk assessment methods",
+        "Risk treatment",
+        "Risk appetite",
+        "Risk register",
+        "Risk lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "NIST CSF 2.0",
+      "lessons": [
+        "Functions and categories",
+        "Profiles",
+        "Tiers",
+        "Implementation",
+        "Mapping",
+        "Assessment",
+        "Roadmap",
+        "CSF lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "ISO 27001 and 27002",
+      "lessons": [
+        "ISMS",
+        "Scope",
+        "Annex A controls",
+        "Statement of Applicability",
+        "Internal audit",
+        "Certification process",
+        "Continual improvement",
+        "ISMS lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Policies and procedures",
+      "lessons": [
+        "Policy writing",
+        "Standards",
+        "Procedures",
+        "Exceptions",
+        "Acceptable use",
+        "Access policy",
+        "Incident policy",
+        "Policy pack lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Laws and compliance",
+      "lessons": [
+        "IT Act 2000",
+        "DPDP Act 2023",
+        "CERT-In directions",
+        "GDPR overview",
+        "PCI DSS",
+        "HIPAA",
+        "SOC 2",
+        "Compliance mapping"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Business continuity",
+      "lessons": [
+        "BIA",
+        "RTO and RPO",
+        "Continuity plans",
+        "Disaster recovery",
+        "Backup strategy",
+        "Tabletop exercises",
+        "Testing",
+        "BCP lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Audit and assurance",
+      "lessons": [
+        "Audit planning",
+        "Evidence collection",
+        "Control testing",
+        "Sampling",
+        "Findings",
+        "Audit reports",
+        "Follow-up",
+        "Audit lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Third-party risk",
+      "lessons": [
+        "Vendor tiering",
+        "Security questionnaires",
+        "Contract clauses",
+        "SLAs",
+        "Monitoring",
+        "Supply chain risk",
+        "Exit plans",
+        "Vendor lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Privacy engineering",
+      "lessons": [
+        "Data inventory",
+        "Data classification",
+        "DPIA",
+        "Consent",
+        "Retention",
+        "Data subject rights",
+        "Privacy by design",
+        "Privacy lab"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Metrics and culture",
+      "lessons": [
+        "KPIs and KRIs",
+        "Security dashboards",
+        "Awareness programmes",
+        "Phishing metrics",
+        "Culture building",
+        "Reporting to management",
+        "Budget",
+        "Lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: company profile and scope",
+        "Capstone: risk assessment",
+        "Capstone: risk register",
+        "Capstone: policy pack",
+        "Capstone: control mapping",
+        "Capstone: control gap analysis",
+        "Capstone: management review",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}

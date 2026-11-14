@@ -1,0 +1,178 @@
+{
+  "course": 9,
+  "code": "C09",
+  "title": "Digital Forensics and Incident Response",
+  "level": "Advanced | PAID | 12 modules, 96 lessons | Prerequisite: Courses 03, 08.",
+  "source": "RedKross Academy - Master Curriculum, Notes Pipeline & Tool Repo Blueprint v2",
+  "notes": "M12 capstone row (\"Investigate a simulated breach: evidence timeline, findings, limitations, defensible report\") lists 4 stages; expanded to 8 lessons by splitting \"investigate a simulated breach\" into briefing and scope / evidence collection / evidence analysis, then the 4 listed stages, then debrief and review split from the report.",
+  "modules": [
+    {
+      "n": 1,
+      "title": "Forensic foundations",
+      "lessons": [
+        "Forensic principles",
+        "Evidence types",
+        "Order of volatility",
+        "Legal handling in India",
+        "Chain of custody",
+        "Documentation",
+        "Ethics",
+        "Lab setup"
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Acquisition",
+      "lessons": [
+        "Imaging concepts",
+        "Write blockers",
+        "Hashing",
+        "E01 and raw formats",
+        "Live vs dead acquisition",
+        "Verification",
+        "Storage",
+        "Acquisition lab"
+      ]
+    },
+    {
+      "n": 3,
+      "title": "File systems",
+      "lessons": [
+        "Partitions",
+        "NTFS",
+        "ext4",
+        "FAT",
+        "Deleted files",
+        "Slack space",
+        "Metadata",
+        "File system lab"
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Windows artefacts",
+      "lessons": [
+        "Event logs",
+        "Prefetch",
+        "Shimcache and amcache",
+        "Jump lists",
+        "LNK files",
+        "Recycle bin",
+        "User activity",
+        "Artefact lab"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Registry and persistence",
+      "lessons": [
+        "Registry hives",
+        "Run keys",
+        "Services",
+        "Scheduled tasks",
+        "USB history",
+        "User assist",
+        "Timeline from registry",
+        "Registry lab"
+      ]
+    },
+    {
+      "n": 6,
+      "title": "Memory forensics",
+      "lessons": [
+        "RAM acquisition",
+        "Volatility 3",
+        "Process lists",
+        "Network connections",
+        "Injected code concepts",
+        "Memory timeline",
+        "Reporting",
+        "Memory lab"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Linux forensics",
+      "lessons": [
+        "Auth logs",
+        "Bash history",
+        "Cron and systemd persistence",
+        "Package logs",
+        "File timestamps",
+        "SSH artefacts",
+        "Containers",
+        "Linux lab"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Network forensics",
+      "lessons": [
+        "PCAP analysis",
+        "Flows",
+        "DNS and HTTP evidence",
+        "TLS metadata",
+        "Zeek logs",
+        "Reconstructing sessions",
+        "Exfil indicators",
+        "Network lab"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Browser, email, mobile basics",
+      "lessons": [
+        "Browser artefacts",
+        "Email headers",
+        "Cloud storage traces",
+        "Android and iOS basics",
+        "App data",
+        "Legal limits",
+        "Reporting",
+        "Lab"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Incident response",
+      "lessons": [
+        "Preparation",
+        "Detection",
+        "Scoping",
+        "Containment",
+        "Eradication",
+        "Recovery",
+        "Lessons learned",
+        "IR playbooks"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Timelines and cloud forensics",
+      "lessons": [
+        "Plaso timelines",
+        "Super timeline review",
+        "Cloud audit logs",
+        "Log retention",
+        "Evidence from SaaS",
+        "Ransomware case study",
+        "BEC case study",
+        "Timeline lab"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "Capstone",
+      "lessons": [
+        "Capstone: briefing and scope",
+        "Capstone: evidence collection",
+        "Capstone: evidence analysis",
+        "Capstone: evidence timeline",
+        "Capstone: findings",
+        "Capstone: limitations",
+        "Capstone: defensible report",
+        "Capstone: debrief and review"
+      ]
+    }
+  ]
+}
