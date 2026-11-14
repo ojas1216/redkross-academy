@@ -26,19 +26,30 @@ function req({ peer = '127.0.0.1', cf, uid } = {}) {
   return { headers, socket: { remoteAddress: peer }, ip: peer };
 }
 
-function run(limiter, r) {
+/** Runs the limiter; if it passes, the "handler" answers handlerStatus (e.g. 401 for a fake token). */
+function run(limiter, r, handlerStatus = 200) {
   let status = 200;
+  const finish = [];
   const res = {
+    statusCode: 200,
     setHeader() {},
+    on(ev, fn) {
+      if (ev === 'finish') finish.push(fn);
+    },
     status(c) {
       status = c;
+      this.statusCode = c;
       return this;
     },
     json() {
       return this;
     },
   };
-  limiter(r, res, () => {});
+  limiter(r, res, () => {
+    res.statusCode = handlerStatus;
+    status = handlerStatus;
+  });
+  finish.forEach((fn) => fn());
   return status;
 }
 
@@ -71,12 +82,21 @@ check(clientIp(req({ peer: '198.51.100.9', cf: '203.0.113.7' })) === '198.51.100
   check(run(lim, req({ cf: '203.0.113.60', uid: 'classmate' })) === 200, 'a classmate on the same IP is still allowed');
 }
 
-// forging many uids is capped by the per-IP ceiling
+// a whole college exam start on the strict limiter (auth + status + start per student)
 {
-  const lim = createRateLimiter({ name: 't4', perUser: 40, perAnonIp: 30, perIp: 600 });
+  const lim = createRateLimiter({ name: 't5', perUser: 40, perAnonIp: 30, perIp: 15000, perIpRejected: 60 });
   let blocked = 0;
-  for (let i = 0; i < 700; i++) if (run(lim, req({ cf: '203.0.113.99', uid: `fake${i}` })) === 429) blocked++;
-  check(blocked === 100, 'rotating fake uids from one IP is capped at the per-IP limit (600)', blocked);
+  for (let u = 0; u < 500; u++) for (let i = 0; i < 3; i++) if (run(lim, req({ cf: '203.0.113.20', uid: `exam${u}` })) === 429) blocked++;
+  check(blocked === 0, '500 students from one college IP starting an exam (1,500 strict calls) are not blocked', blocked);
+}
+
+// rotating fake uids gets the IP blocked after 60 rejected tokens
+{
+  const lim = createRateLimiter({ name: 't4', perUser: 40, perAnonIp: 30, perIp: 15000, perIpRejected: 60 });
+  let blocked = 0;
+  for (let i = 0; i < 200; i++) if (run(lim, req({ cf: '203.0.113.99', uid: `fake${i}` }), 401) === 429) blocked++;
+  check(blocked === 140, 'an IP rotating fake tokens is blocked after 60 rejections', blocked);
+  check(run(lim, req({ cf: '203.0.113.98', uid: 'honest' })) === 200, 'other IPs are unaffected');
 }
 
 console.log(`\n--- TEST RUN SUMMARY: ${passed} PASSED, ${failed} FAILED ---`);

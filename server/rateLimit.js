@@ -2,12 +2,15 @@
  * In-memory fixed-window rate limiting, designed for traffic that arrives through a
  * Cloudflare tunnel (every request reaches Node from 127.0.0.1).
  *
- * Two buckets per request:
- *  - per user  (signed-in requests, keyed on the token's uid): stops one account
- *    from hammering the API.
- *  - per IP, anonymous: a lower ceiling for callers without a token.
- *  - per IP    (everyone): a much higher ceiling, because a whole college batch can
- *    share one NAT address. Also caps anyone forging uids to dodge the user bucket.
+ * Buckets per request:
+ *  - per user  (signed-in requests, keyed on the token's uid): the main limit; stops
+ *    one account from hammering the API.
+ *  - per IP, anonymous: a low ceiling for callers without a token.
+ *  - per IP, total: a very high ceiling. A whole college batch shares one NAT address
+ *    (500 students starting an exam = ~1,500 calls in seconds), so it must not bite
+ *    real classes.
+ *  - per IP, rejected tokens: requests that end in 401 count here. Rotating fake uids
+ *    to dodge the user bucket produces 401s, so that IP is blocked quickly.
  *
  * Runs in one process. If the API is ever scaled to several processes, move the
  * counters to Redis (or rely on Cloudflare rate-limiting rules).
@@ -40,19 +43,21 @@ export function tokenSubject(req) {
   const h = req.headers?.authorization || '';
   if (!h.startsWith('Bearer ')) return null;
   const parts = h.slice(7).split('.');
-  if (parts.length !== 3) return null;
-  try {
-    const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
-    const sub = payload.user_id || payload.sub;
-    if (typeof sub === 'string' && sub.length <= 128) return sub;
-  } catch {
-    // fall through
+  if (parts.length === 3) {
+    try {
+      const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
+      const sub = payload.user_id || payload.sub;
+      if (typeof sub === 'string' && sub.length <= 128) return sub;
+    } catch {
+      // fall through
+    }
   }
-  // Unparseable token: count by a hash of it (still per-caller, never the raw token).
+  // Not a readable JWT: count by a hash of it (still per-caller, never the raw token).
+  // Junk tokens end in 401 and trip the per-IP rejected-token limit.
   return `h:${crypto.createHash('sha256').update(h).digest('hex').slice(0, 16)}`;
 }
 
-export function createRateLimiter({ name, windowMs = 60000, perUser, perIp, perAnonIp, message = 'Too many requests. Please slow down.' }) {
+export function createRateLimiter({ name, windowMs = 60000, perUser, perIp, perAnonIp, perIpRejected = 60, message = 'Too many requests. Please slow down.' }) {
   const buckets = new Map();
 
   const hit = (key, max, now) => {
@@ -74,6 +79,13 @@ export function createRateLimiter({ name, windowMs = 60000, perUser, perIp, perA
   return function rateLimit(req, res, next) {
     const now = Date.now();
     const ip = clientIp(req);
+    const badKey = `${name}:bad:${ip}`;
+    const bad = buckets.get(badKey);
+    if (bad && now - bad.start < windowMs && bad.count >= perIpRejected) {
+      const wait = Math.ceil((bad.start + windowMs - now) / 1000);
+      res.setHeader('Retry-After', String(wait));
+      return res.status(429).json({ error: message, retryAfterSeconds: wait });
+    }
     let retry = hit(`${name}:ip:${ip}`, perIp, now);
     const sub = tokenSubject(req);
     if (!retry && sub && perUser) retry = hit(`${name}:u:${sub}`, perUser, now);
@@ -81,6 +93,11 @@ export function createRateLimiter({ name, windowMs = 60000, perUser, perIp, perA
     if (retry) {
       res.setHeader('Retry-After', String(retry));
       return res.status(429).json({ error: message, retryAfterSeconds: retry });
+    }
+    if (sub) {
+      res.on?.('finish', () => {
+        if (res.statusCode === 401) hit(badKey, Number.MAX_SAFE_INTEGER, Date.now());
+      });
     }
     return next();
   };

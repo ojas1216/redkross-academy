@@ -89,16 +89,18 @@ app.use((req, res, next) => {
 // 3. RATE LIMITING (per user + per IP; see server/rateLimit.js)
 // -----------------------------------------------------------------------------
 // Traffic arrives through cloudflared on 127.0.0.1, so the client IP comes from
-// CF-Connecting-IP. A whole college batch can share one NAT IP, hence the high
-// per-IP ceilings and the tighter per-user limits.
-app.use('/api', createRateLimiter({ name: 'api', perUser: 180, perAnonIp: 300, perIp: 1500 }));
+// CF-Connecting-IP. A whole college batch can share one NAT IP, so the per-IP
+// ceilings are very high and the real limits are per user; IPs sending many
+// rejected (401) tokens are blocked. Load-tested: 500 students, one IP, one exam.
+app.use('/api', createRateLimiter({ name: 'api', perUser: 180, perAnonIp: 300, perIp: 30000, perIpRejected: 120 }));
 app.use(
   ['/api/auth', '/api/redeem', '/api/assessment', '/api/violation', '/api/send-email', '/api/support-tickets', '/api/e2b'],
   createRateLimiter({
     name: 'strict',
     perUser: 40,
     perAnonIp: 30,
-    perIp: 600,
+    perIp: 15000,
+    perIpRejected: 60,
     message: 'Too many attempts. Please wait a moment and try again.',
   })
 );

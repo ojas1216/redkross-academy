@@ -12,6 +12,7 @@
  *   ADMIN_EMAILS                   optional comma-separated bootstrap admin list
  *                                  (Google-verified emails only)
  */
+import crypto from 'crypto';
 import { sql, json } from './_db.js';
 
 let injectedVerifier = null;
@@ -132,18 +133,29 @@ export async function resolveUser(identity, { create = false, profile = {} } = {
     .trim()
     .slice(0, 120);
   const avatar = profile.avatar || identity.picture || null;
-  let cadetId = generateCadetId(identity.email, identity.uid);
-  const clash = await sql`SELECT 1 FROM users WHERE cadet_id = ${cadetId} LIMIT 1`;
-  if (clash.length) cadetId = `RK-CADET-${Math.floor(10000 + Math.random() * 90000)}`;
-
-  rows = await sql`
-    INSERT INTO users (id, email, full_name, avatar, headline, role, cadet_id, status, streak_days, token_balance, created_at, updated_at)
-    VALUES (${id}, ${identity.email}, ${fullName}, ${avatar}, NULL, 'student', ${cadetId}, 'ACTIVE', 1, 0, NOW(), NOW())
-    ON CONFLICT (id) DO UPDATE SET updated_at = NOW()
-    RETURNING *
-  `;
-  rows[0].__created = true;
-  return rows[0];
+  // The email-derived cadet id has only 90,000 values, so clashes are common (and two
+  // sign-ups can race). Insert, and on a cadet_id clash retry with a random 7-digit id.
+  for (let attempt = 0; attempt < 6; attempt++) {
+    const cadetId =
+      attempt === 0 ? generateCadetId(identity.email, identity.uid) : `RK-CADET-${crypto.randomInt(1000000, 10000000)}`;
+    try {
+      rows = await sql`
+        INSERT INTO users (id, email, full_name, avatar, headline, role, cadet_id, status, streak_days, token_balance, created_at, updated_at)
+        VALUES (${id}, ${identity.email}, ${fullName}, ${avatar}, NULL, 'student', ${cadetId}, 'ACTIVE', 1, 0, NOW(), NOW())
+        ON CONFLICT (id) DO UPDATE SET updated_at = NOW()
+        RETURNING *, (xmax = 0) AS __inserted
+      `;
+      const user = rows[0];
+      // Only the request that actually created the row runs the sign-up side effects.
+      user.__created = Boolean(user.__inserted);
+      delete user.__inserted;
+      return user;
+    } catch (err) {
+      if (err?.code === '23505' && /cadet_id/.test(err.constraint || err.message || '')) continue;
+      throw err;
+    }
+  }
+  throw new Error('Could not allocate a cadet id');
 }
 
 export function isAdminUser(user, identity) {
