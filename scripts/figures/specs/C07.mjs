@@ -1,0 +1,210 @@
+export default {
+  'C07-M01-F1': {
+    type: 'graph',
+    dir: 'LR',
+    fixedDir: true,
+    nodes: [
+      { id: 'i', label: 'Internet', tone: 'red' },
+      { id: 'u', label: 'Users', tone: 'blue' },
+      { id: 'd', label: 'DMZ / web', tone: 'orange' },
+      { id: 'a', label: 'App', tone: 'violet' },
+      { id: 'db', label: 'Database', sub: 'crown jewel', tone: 'dark' },
+      { id: 'm', label: 'Management', sub: 'controlled admin only', tone: 'slate' },
+    ],
+    edges: [
+      { from: 'i', to: 'd', label: '443' },
+      { from: 'u', to: 'd', label: '443' },
+      { from: 'd', to: 'a', label: '8080' },
+      { from: 'a', to: 'db', label: '5432' },
+      { from: 'm', to: 'a', label: '22' },
+      { from: 'm', to: 'db', label: '22' },
+    ],
+    note: 'Denied by default: user → db, internet → db, dmz → db, user → management.',
+  },
+  'C07-M01-F3': {
+    type: 'layers',
+    arrows: false,
+    layers: [
+      { label: 'Perimeter firewall', tone: 'orange' },
+      { label: 'Internal segmentation', tone: 'blue' },
+      { label: 'IDS / IPS at boundaries', tone: 'violet' },
+      { label: 'Host firewalls', tone: 'green' },
+      { label: 'Strong remote / management authentication', tone: 'slate' },
+      { label: 'Monitoring', sub: 'sees every other layer', tone: 'dark' },
+    ],
+    note: 'An attacker must defeat several independent layers, while monitoring watches all of them.',
+  },
+  'C07-M02-F1': {
+    type: 'table',
+    columns: ['Rule', 'Matches', 'Result for flow user → db tcp/5432'],
+    rowTones: ['slate', 'slate', 'slate', 'red', 'slate'],
+    rows: [
+      ['Rule 0', 'internet → dmz : 443', 'No match'],
+      ['Rule 1', 'dmz → app : 8080', 'No match'],
+      ['Rule 2', 'app → db : 5432', 'No match'],
+      ['Rule 3', 'user → any : 1–65535', 'MATCH → ALLOW (over-broad; the decision is made here)'],
+      ['Later rules', '…', 'Never consulted'],
+    ],
+    note: 'Firewalls evaluate rules top to bottom and stop at the first match.',
+  },
+  'C07-M02-F3': {
+    type: 'graph',
+    dir: 'LR',
+    fixedDir: true,
+    nodes: [
+      { id: 'a', label: 'App', tone: 'blue' },
+      { id: 'f', label: 'Firewall state table', sub: 'records the allowed connection', tone: 'violet' },
+      { id: 'd', label: 'Database :5432', tone: 'orange' },
+    ],
+    edges: [
+      { from: 'a', to: 'f', label: 'SYN (allowed by rule)' },
+      { from: 'f', to: 'd' },
+      { from: 'd', to: 'a', label: 'reply: automatically allowed', dashed: true },
+    ],
+    note: 'No separate inbound rule is needed for return traffic; packets not in the state table are dropped.',
+  },
+  'C07-M03-F1': {
+    type: 'compare',
+    vs: true,
+    columns: [
+      { title: 'IDS (out-of-line)', tone: 'blue', items: ['Sees traffic → ALERT only, no block', 'A false positive is just an alert'] },
+      { title: 'IPS (in-line)', tone: 'orange', items: ['Sees traffic → ALERT + BLOCK', 'A false positive blocks good traffic (availability risk)'] },
+    ],
+    note: 'Place sensors at trust boundaries where they have visibility (tap, SPAN or in-line).',
+  },
+  'C07-M03-F3': {
+    type: 'table',
+    columns: ['Detector', 'Traffic', 'Result'],
+    rowTones: ['green', 'red', 'green', 'red'],
+    rows: [
+      ['Scan (≥ 20 ports / host in 120 s)', 'Normal web: 1 port (443)', 'Below threshold → NO alert'],
+      ['Scan (≥ 20 ports / host in 120 s)', '60 ports in 59 s', 'Over threshold → ALERT'],
+      ['Beacon (≥ 8 contacts, low variance)', 'Jittered normal traffic', 'Variance too high → NO alert'],
+      ['Beacon (≥ 8 contacts, low variance)', 'C2 beacon every exactly 60 s', 'Low variance → ALERT'],
+    ],
+    note: 'Tuning thresholds separates signal from noise.',
+  },
+  'C07-M04-F1': {
+    type: 'rows',
+    arrow: true,
+    header: ['Source', 'Permitted destinations'],
+    rows: [
+      { label: 'Internet', items: ['DMZ :443'] },
+      { label: 'User', items: ['DMZ :443'] },
+      { label: 'DMZ', items: ['App :8080'] },
+      { label: 'App', items: ['DB :5432'] },
+      { label: 'Management', items: ['App :22', 'DB :22'] },
+    ],
+    note: 'Everything not listed is DENIED, e.g. user → db, internet → db, dmz → db, user → management.',
+  },
+  'C07-M04-F2': {
+    type: 'compare',
+    vs: true,
+    columns: [
+      { title: 'Flat network', tone: 'red', items: ['Entry host can reach the DATABASE directly', 'One hop = breach'] },
+      { title: 'Segmented network', tone: 'green', items: ['Entry host → database is DENIED', 'Must cross the app boundary (controlled + monitored)', 'Compromise is contained'] },
+    ],
+  },
+  'C07-M04-F3': {
+    type: 'flow',
+    steps: [
+      { label: 'DESIGN', sub: 'the allowed-flow matrix (intended policy)', tone: 'blue' },
+      { label: 'ENFORCE', sub: 'firewalls / ACLs implement it at boundaries', tone: 'orange' },
+      { label: 'VALIDATE', sub: 'compare observed and configured flows to the matrix; flag violations', tone: 'green' },
+    ],
+    loop: { label: 'violations found → fix enforcement → revalidate' },
+    note: 'In the lab, 3 of 7 connections violate the matrix: fix enforcement, then revalidate.',
+  },
+  'C07-M05-F1': {
+    type: 'graph',
+    dir: 'LR',
+    fixedDir: true,
+    nodes: [
+      { id: 'r', label: 'Remote device', tone: 'blue' },
+      { id: 'g', label: 'Corporate gateway', tone: 'green' },
+      { id: 's', label: 'Least-privilege access', sub: 'segmentation / ZTNA, not flat access', tone: 'dark' },
+    ],
+    edges: [
+      { from: 'r', to: 'g', label: 'encrypted tunnel across the untrusted network' },
+      { from: 'g', to: 's', label: 'after connecting' },
+    ],
+    note: 'The tunnel provides confidentiality, integrity and endpoint authentication.',
+  },
+  'C07-M05-F2': {
+    type: 'graph',
+    dir: 'LR',
+    fixedDir: true,
+    nodes: [
+      { id: 'r', label: 'Trusted root CA', tone: 'green' },
+      { id: 'i', label: 'Intermediate CA', tone: 'blue' },
+      { id: 's', label: 'Server certificate', tone: 'orange' },
+    ],
+    edges: [{ from: 'r', to: 'i', label: 'signs' }, { from: 'i', to: 's', label: 'signs' }],
+    note: 'TLS gives confidentiality, integrity and authentication. The client checks the signature chain, domain match, validity and revocation.',
+  },
+  'C07-M05-F3': {
+    type: 'compare',
+    vs: true,
+    columns: [
+      { title: 'Pre-hardening (5 HIGH)', tone: 'red', items: ['TLS 1.0 / 1.1 / 1.2', 'RC4, 3DES, AES-GCM', 'RSA 1024-bit', 'Certificate expires in 12 days'] },
+      { title: 'Hardened (0)', tone: 'green', items: ['TLS 1.2 / 1.3 only', 'AES-GCM, ChaCha20-Poly1305', 'RSA 2048-bit', 'Certificate expiry far off'] },
+    ],
+  },
+  'C07-M06-F1': {
+    type: 'layers',
+    layers: [
+      { label: 'WPA3', sub: 'SAE handshake; resists offline guessing; preferred', tone: 'green' },
+      { label: 'WPA2', sub: 'AES-CCMP; acceptable minimum; PSK handshake has weaknesses (patch, strong key)', tone: 'blue' },
+      { label: 'WPA', sub: 'weak: never use', tone: 'orange' },
+      { label: 'WEP', sub: 'broken: never use', tone: 'red' },
+    ],
+    note: 'Rule: WPA3 preferred, WPA2-AES minimum, never WEP or WPA.',
+  },
+  'C07-M06-F2': {
+    type: 'compare',
+    columns: [
+      { title: 'Personal (PSK)', tone: 'orange', items: ['One shared passphrase', 'Hard to revoke', 'Offline-guessable (WPA2)', 'Use for small / guest networks with a strong key'] },
+      { title: 'Enterprise (802.1X / EAP)', tone: 'green', items: ['Per-user credentials or certificates via RADIUS', 'Revocable per user', 'Use for corporate wireless'] },
+    ],
+  },
+  'C07-M07-F1': {
+    type: 'compare',
+    columns: [
+      { title: 'Packet capture', tone: 'violet', items: ['Full content, deep detail', 'Large and privacy-heavy', 'Targeted: for deep dives'] },
+      { title: 'Flow (NetFlow / IPFIX)', tone: 'blue', items: ['Metadata only: src, dst, ports, protocol, bytes, time', 'Compact and network-wide', 'Privacy-preserving; good for pattern detection'] },
+    ],
+    note: 'Use flow telemetry for breadth and packet capture for deep dives.',
+  },
+  'C07-M07-F3': {
+    type: 'table',
+    columns: ['Signal', 'Evidence', 'Containment'],
+    rowTones: ['orange', 'red'],
+    rows: [
+      ['SCAN', '203.0.113.50 → dmz: 60 ports in 59 s', 'Block / rate-limit the source at the perimeter'],
+      ['BEACON', '10.4.0.21 → 203.0.113.50 every 60 s', 'Isolate the host; block the flow'],
+    ],
+    note: 'The scan source is the beacon destination (203.0.113.50): one intrusion. Segmentation already denied user → db, so the damage was limited.',
+  },
+  'C07-M08-F1': {
+    type: 'flow',
+    dir: 'TB',
+    steps: [
+      { label: 'Review', sub: 'every defence-in-depth layer', tone: 'blue' },
+      { label: 'Verify', sub: 'each enforcing control: run the check, count findings', tone: 'violet' },
+      { label: 'Harden → re-verify', sub: 'finding count reaches 0', tone: 'orange' },
+      { label: 'Telemetry review', sub: 'residual signals → containment', tone: 'slate' },
+      { label: 'Consolidated assessment', sub: 'status + evidence per layer', tone: 'green' },
+    ],
+  },
+  'C07-M08-F2': {
+    type: 'table',
+    columns: ['Layer', 'Before', 'After'],
+    rowTones: ['orange', 'blue', 'violet', 'slate'],
+    rows: [
+      ['Firewall', '4 findings (1 HIGH): FAIL', '0: PASS'],
+      ['Segmentation', '3 violations: FAIL', '0: PASS'],
+      ['TLS', '6 findings (5 HIGH, 1 MEDIUM): FAIL', '0: PASS'],
+      ['Monitoring', 'Signals: 1 scan, 1 beacon, 3 violations', 'Contained'],
+    ],
+  },
+};

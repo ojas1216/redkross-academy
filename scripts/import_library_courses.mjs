@@ -526,6 +526,15 @@ function main() {
         `export const LIBRARY_BANK_LOADERS = {\n${loaders}\n};\n`
     );
   }
+  // The library ships its figures as ASCII-art SVGs; replace them with the
+  // designed diagrams (scripts/figures/specs/*.mjs) at the same paths.
+  const codes = catalog.length ? nums.map((n) => `C${pad2(n)}`) : [];
+  if (codes.length) {
+    execFileSync(process.execPath, [path.join(__dirname, 'figures', 'build.mjs'), ...codes, '--strict'], {
+      stdio: 'inherit',
+      env: { ...process.env, COURSE_LIBRARY: LIB },
+    });
+  }
   console.log(`Imported ${catalog.length} courses.`);
 }
 
