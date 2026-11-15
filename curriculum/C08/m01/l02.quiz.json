@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A SOC analyst is working a case alone during a quiet shift. Which of these decisions is the analyst normally entitled to make without anyone else's approval?",
+    "options": [
+      "Close the case as a benign true positive when the playbook criteria are met",
+      "Declare a major incident and invoke the organisation's response plan",
+      "Take a production database server offline to stop suspected data theft",
+      "Decide that the case is not reportable to CERT-In and close the matter"
+    ],
+    "correct": 0,
+    "explanation": "Analysts own dispositions within playbook criteria, escalation and pre-authorised first-response actions. Declaring major incidents, taking production servers offline and deciding reportability belong to other roles.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a post-incident review, the SOC discovers that the proxy logs stopped arriving in the SIEM five weeks earlier. The queue looked unusually calm the whole time. Which role gap does this most clearly reveal?",
+    "options": [
+      "Detection engineering, because the proxy rules were never tuned after deployment",
+      "Threat intelligence, because no advisory warned the SOC about proxy outages",
+      "Platform engineering, because nobody was monitoring ingestion for silent sources",
+      "Shift lead, because the handover did not list the open proxy-related cases"
+    ],
+    "correct": 2,
+    "explanation": "Monitoring ingestion so that a silent source is noticed is the platform engineer's job; a gap in ingestion is a gap in detection that analysts cannot see from the queue. Rule tuning cannot help when no data reaches the rules.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A draft RACI marks both the SOC and IT operations as 'A' for the activity 'Contain a compromised server'. What problem does this create?",
+    "options": [
+      "Nobody does the work, because an A role is never also responsible",
+      "Both teams may claim ownership and argue during the incident itself",
+      "The matrix is invalid only because IT operations should be marked C",
+      "Legal must then be added as a third A to break any disagreement"
+    ],
+    "correct": 1,
+    "explanation": "A RACI must have exactly one Accountable per activity; two As lead to disputes during the incident, and zero leads to inaction. Adding a third A makes the problem worse, not better.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab's triage.py, the only suppression silences the new-local-administrator rule for the account itadmin, with the reason 'approved build account, CHG-1042' and an expiry of 2026-12-31. Who owns it, and what must happen before it expires?",
+    "options": [
+      "The shift lead owns it and extends it automatically at each handover",
+      "The analyst who first closed the alert owns it and may delete it at will",
+      "The platform engineer owns it, because suppressions are stored in the SIEM",
+      "Detection engineering owns it and must review it against the change ticket"
+    ],
+    "correct": 3,
+    "explanation": "The kit labels suppressions as owned by detection engineering, each with an owner ticket and an expiry, so the entry must be reviewed and justified again before 2026-12-31. Analysts benefit from the suppression but do not own it.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A retailer's contract with its managed provider says only 'monitoring of logs'. At 03:00 the provider sees ransomware staging on two file servers but does not isolate them. Which contract gap is most responsible?",
+    "options": [
+      "The contract did not set out which log sources were in scope for monitoring",
+      "The contract did not require metrics or monthly service review meetings",
+      "The contract did not state what containment the provider may perform",
+      "The contract did not define how data is returned when the service ends"
+    ],
+    "correct": 2,
+    "explanation": "Nobody was accountable for isolating the servers because the contract never said whether the provider could do it. The other clauses matter too, but none of them would have changed what happened at 03:00.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lesson's example RACI, the row 'Isolate endpoint (EDR, pre-agreed)' shows SOC analyst R, incident responder A and IT ops / identity I. What does this mean in practice?",
+    "options": [
+      "The analyst performs the isolation, the responder owns the outcome, and IT ops is told",
+      "The analyst must ask IT ops for permission before isolating any endpoint",
+      "The responder performs the isolation and the analyst is only consulted",
+      "IT ops owns the decision but delegates the technical work to the SOC"
+    ],
+    "correct": 0,
+    "explanation": "R means does the work, A means owns the outcome, I means told afterwards; because the action is pre-agreed, the analyst can carry it out without waiting for IT ops. Asking permission first would make IT ops C or A, which the row does not say.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A company hands its monitoring, investigation and response to an MDR provider, and the contract says the provider will help prepare CERT-In reports. Who is accountable for the company's CERT-In reporting obligation?",
+    "options": [
+      "The MDR provider, because the contract transfers reporting to it",
+      "CERT-In itself, once the provider has submitted the incident details",
+      "Shared equally between the provider and the company's IT operations",
+      "The company, because outsourcing moves roles but not accountability"
+    ],
+    "correct": 3,
+    "explanation": "Outsourcing moves roles, not accountability: the organisation remains accountable for its own regulatory reporting, even when the provider supports it. 'Shared equally' breaks the one-accountable principle.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A new threat intelligence analyst loads every indicator from every commercial and community feed straight into the SIEM's matching rules. What is the likely result?",
+    "options": [
+      "Better coverage with no extra cost, because each indicator is low-risk",
+      "Floods of low-value alerts, because the role's value lies in filtering",
+      "Fewer alerts, because broad indicator sets cancel each other out",
+      "Faster CERT-In reporting, because indicators come from national advisories"
+    ],
+    "correct": 1,
+    "explanation": "The threat intelligence role assesses which information is relevant; loading everything produces alert floods, while curated intelligence produces a few alerts that matter. Uncurated indicators are not free: each false match costs analyst time.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOAR platform holds credentials that can disable accounts and isolate hosts across production. Beyond building automations, what is the SOAR engineer's key safety responsibility?",
+    "options": [
+      "Deciding which actions run without approval, which need an analyst's click, and logging all of them",
+      "Ensuring every automation runs fully unattended so containment never waits for a human",
+      "Storing the platform's credentials in each playbook so they never expire during an incident",
+      "Granting every analyst administrator rights so playbooks can be edited quickly at night"
+    ],
+    "correct": 0,
+    "explanation": "Because SOAR can change production systems, its engineer must define approval levels for each action and log every action. Running everything unattended removes the human check on powerful, sometimes irreversible changes.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At 02:15 a critical case has sat unacknowledged in the queue for forty minutes. Which role on the shift is primarily responsible for noticing this and calling the on-call incident responder?",
+    "options": [
+      "The detection engineer who wrote the rule that raised the alert",
+      "The platform engineer responsible for the SIEM's ingestion health",
+      "The shift lead, who watches ageing cases and guards the escalation path",
+      "The SOC manager, who owns the SOC's metrics and service levels"
+    ],
+    "correct": 2,
+    "explanation": "The shift lead assigns work, watches the queue for ageing high-severity cases and is often the person who calls out the on-call responder. The SOC manager is accountable for service levels overall but is not watching the queue at 02:15.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An incident responder confirms that customer personal data was exfiltrated. Under the DPDP Act 2023 notification may be required. What is the SOC's proper part in that decision?",
+    "options": [
+      "Notify the Data Protection Board directly, since the SOC found the breach",
+      "Give legal and compliance accurate, timely facts so they can decide",
+      "Wait until the investigation is fully closed before telling legal anything",
+      "Decide whether the data was sensitive enough to need any notification"
+    ],
+    "correct": 1,
+    "explanation": "Legal and compliance decide whether an obligation is triggered and what is said; the SOC's job is to supply accurate facts quickly. Waiting for full closure delays a decision that may have a short deadline.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lesson observes that in almost every case the SOC holds the knowledge while another team holds the authority. Which practice follows most directly from this observation?",
+    "options": [
+      "Moving all containment authority into the SOC so it no longer depends on others",
+      "Limiting what the SOC shares with other teams until an incident is confirmed",
+      "Letting each team decide its own actions during the incident as facts emerge",
+      "Agreeing authority with other teams in advance and passing knowledge to them fast"
+    ],
+    "correct": 3,
+    "explanation": "If knowledge and authority sit in different teams, the interface must move knowledge quickly and the authority must already be agreed, or decisions wait while the attacker does not. Moving all authority into the SOC would let it change systems it does not own.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A detection engineer adds a suppression for a noisy rule and is also the only person who ever reviews the suppression list. Which control does this arrangement lack?",
+    "options": [
+      "Separation of duties, so someone else reviews suppressions that one person adds",
+      "Log retention, so suppressed alerts are kept for at least 180 days",
+      "Ingestion monitoring, so the suppressed log source is still reporting",
+      "Pre-authorisation, so the suppression is agreed with IT operations first"
+    ],
+    "correct": 0,
+    "explanation": "A suppression silences detection, so a single person adding and reviewing it is a risk; the person who adds one should not be its only reviewer. Retention and ingestion matter, but they do not check whether the suppression itself is justified.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Investigators expect that an insider fraud case may end up before a regulator or in court. Which specialist role should handle the acquisition of disk and memory evidence, and why?",
+    "options": [
+      "The malware analyst, because evidence must first be detonated in a sandbox",
+      "The threat hunter, because the case started from a hypothesis about an insider",
+      "The forensic analyst, because acquisition must preserve the evidence's integrity",
+      "The SOC analyst on shift, because the evidence is already in the case record"
+    ],
+    "correct": 2,
+    "explanation": "The forensic analyst acquires and examines evidence in a way that preserves its integrity, which is what makes it usable before a court or regulator. The malware analyst examines suspicious files, not the overall evidence collection.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a phishing incident, an incident responder with domain-admin rights resets a director's password and revokes her sessions himself, without involving anyone. Under the example RACI, what is wrong?",
+    "options": [
+      "Nothing, because the incident responder is accountable for all containment",
+      "The analyst on shift should have done it, since containment is pre-agreed",
+      "Legal should have been consulted first, because the user is a director",
+      "IT ops / identity is A/R for account resets; the responder should be consulted"
+    ],
+    "correct": 3,
+    "explanation": "In the example matrix the identity team is Accountable and Responsible for resets and session revocation, with the responder only Consulted; acting alone bypasses the owner of the identity system. Only endpoint isolation is pre-agreed for the SOC.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A five-person SOC asks whether it really needs a role tree, since its members each do 'a bit of everything'. What is the best answer?",
+    "options": [
+      "No, a role tree is only useful once each role has its own dedicated team",
+      "Yes, because it maps responsibilities, so each box needs a named owner",
+      "No, because small SOCs should outsource the engineering roles instead",
+      "Yes, because it fixes the number of staff each role must have"
+    ],
+    "correct": 1,
+    "explanation": "The role tree is a responsibility map, not a headcount chart; one person can sit in several boxes, but each box still needs someone who is answerable for it this month. It does not prescribe staff numbers.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A mid-sized bank wants its own staff, who know the business, to own investigations and response, but cannot staff nights and weekends. Which delivery model fits, and what must it design carefully?",
+    "options": [
+      "Hybrid; the hand-offs between the internal team and the provider",
+      "In-house; the cost of hiring enough analysts for round-the-clock cover",
+      "Outsourced MDR; the business context the provider will lack",
+      "Outsourced MSSP; the response actions the provider will not take"
+    ],
+    "correct": 0,
+    "explanation": "A hybrid model keeps context and response inside while a provider covers hours, and its weak point is the hand-off between the two organisations. Full outsourcing would give away the business-context ownership the bank wants to keep.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lesson's 03:00 scenario, the night analyst recognised ransomware staging but escalated by chat to a colleague who had gone home. Which fix addresses why the shift lead never learned of it?",
+    "options": [
+      "Training the analyst to recognise ransomware staging patterns earlier",
+      "Escalating only in the case system, with alerts on unacknowledged critical cases",
+      "Buying an EDR product with stronger ransomware detection signatures",
+      "Extending the CERT-In reporting window through a customer agreement"
+    ],
+    "correct": 1,
+    "explanation": "The analyst detected correctly; the failure was an escalation outside the case system, so nobody owned the case. Mandatory escalation through the case system with automatic alerts on unacknowledged critical cases fixes this without new technology.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Reading the example RACI from triage down to the CERT-In decision, how does accountability change from row to row?",
+    "options": [
+      "It stays with the incident responder throughout, from triage to reporting",
+      "It moves towards the SOC as incidents become more severe and urgent",
+      "It moves away from the SOC as actions change production systems or make legal statements",
+      "It is shared equally across all four roles in the containment rows"
+    ],
+    "correct": 2,
+    "explanation": "The SOC is accountable for analysis and knowing; IT ops and identity own changes to their systems, and legal owns the reporting decision. Shared accountability would break the one-A rule.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst closes an alert as a false positive and flags the rule. What does the detection engineer do with that feedback?",
+    "options": [
+      "Deletes the rule at once, because any false positive proves it is broken",
+      "Forwards the alert to threat intelligence to add the host as an indicator",
+      "Asks the platform engineer to stop ingesting the log source that fired",
+      "Decides whether to change the logic, add a suppression or retire the rule"
+    ],
+    "correct": 3,
+    "explanation": "The detection engineer receives the feedback and chooses among changing the logic, adding a justified suppression or retiring the rule, testing changes against data that should and should not trigger it. Stopping ingestion would blind every other rule using that source.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A company hires its first 'SOC engineer' and gives them no written responsibilities beyond the job title. Which first step best prevents gaps that would only appear during an incident?",
+    "options": [
+      "Map the responsibilities onto boxes of the role tree and record the owner of each",
+      "Let the engineer choose their own priorities after the first incident occurs",
+      "Rename the post 'detection engineer' so its purpose is obvious to everyone",
+      "Give the engineer SIEM administrator rights so they can cover any task"
+    ],
+    "correct": 0,
+    "explanation": "Titles vary widely; what matters is which responsibilities the person owns, written down against the role tree, so no box is left unowned. Renaming the post still leaves platform, SOAR and other boxes unassigned.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "SIEM administrators can search every log, including personal data about staff and customers. Which set of controls does the lesson recommend for such privileged SOC roles?",
+    "options": [
+      "Shared admin accounts so that actions can be traced to the team as a whole",
+      "Full access for all analysts so that investigations are never delayed",
+      "Password-only sign-in so analysts are not locked out during incidents",
+      "Least privilege, phishing-resistant MFA and logged actions reviewed by another role"
+    ],
+    "correct": 3,
+    "explanation": "Privileged SOC roles are attractive targets, so they need least privilege, phishing-resistant MFA and logging of their own actions, reviewed by someone outside the role. Shared accounts destroy individual accountability.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab, triage.py contains RULE_META and SUPPRESS, prints a prioritised queue, and depends on minisiem.py loading all 340 events from four sources. Which mapping of these to role-tree boxes is correct?",
+    "options": [
+      "RULE_META and SUPPRESS to threat intelligence; the queue to incident responders; loading to SOAR engineers",
+      "RULE_META to platform engineers; SUPPRESS to the shift team; loading to detection engineers",
+      "RULE_META and SUPPRESS to detection engineers; the queue to the shift team; loading to platform engineers",
+      "RULE_META and SUPPRESS to the SOC manager; the queue to hunters; loading to the shift lead"
+    ],
+    "correct": 2,
+    "explanation": "Rule severities, confidences and suppressions are detection-engineering artefacts, the printed queue is the shift team's work, and keeping all sources loading is platform engineering. Threat intelligence feeds requirements to rules but does not own the rule metadata.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A company is choosing between an MSSP and an MDR service. What distinguishes MDR from a plain MSSP monitoring service?",
+    "options": [
+      "MDR covers only cloud workloads, while an MSSP covers on-premises systems",
+      "MDR adds investigation and response actions on top of monitoring",
+      "MDR transfers regulatory accountability for incidents to the provider",
+      "MDR replaces the need for an in-house incident response plan"
+    ],
+    "correct": 1,
+    "explanation": "An MSSP monitors security telemetry, while MDR adds investigation and response actions. Neither moves the organisation's accountability for its own reporting or response plan to the provider.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is 'are all log sources reporting?' one of the first checks at the start of every shift?",
+    "options": [
+      "Because a gap in ingestion is a gap in detection that the queue cannot show",
+      "Because CERT-In requires a written ingestion report at each shift change",
+      "Because silent sources raise floods of false-positive alerts when they return",
+      "Because the SOAR platform stops all automations when any source goes quiet"
+    ],
+    "correct": 0,
+    "explanation": "If a source stops sending data, its rules cannot fire, and the queue simply looks calm; only a deliberate check reveals that the SOC is blind. CERT-In requires log retention, not shift-by-shift ingestion reports.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

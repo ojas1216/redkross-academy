@@ -142,6 +142,11 @@ a numbered list:
 8. **Security implications** - risks, controls, detection.
 9. **Key learning** - one or two sentences the student must retain.
 
+Describe only what the renderer actually draws: rounded boxes (there are no diamonds,
+cylinders or icons), colours by their tone (orange, blue, green, violet, red, slate,
+dark), and the layout as rendered - check it in the `--preview` gallery before writing
+"top row", "left column" and similar.
+
 ## 5. Lesson notes (the main work)
 
 Length: 2,200-3,500 words of prose per lesson (code, tables and walkthroughs are in

@@ -1,0 +1,39 @@
+{
+  "C08-M02-L03-F1": {
+    "title": "One domain sign-in, three machines, five events",
+    "caption": "A Kerberos sign-in at WS-101 followed by a share access on FS01, showing which machine writes which Security event at each step.",
+    "alt": "Sequence diagram with four lanes: Asha (user), WS-101 (workstation), DC01 (domain controller, KDC: AS + TGS) and FS01 (file server, SMB share). Asha enters user name and password at WS-101. WS-101 sends AS-REQ with pre-auth to DC01; DC01 replies AS-REP with a TGT and logs 4768. WS-101 sends TGS-REQ for host/WS-101; DC01 replies with a service ticket and logs 4769. WS-101 creates the session and logs 4624 type 2. Later WS-101 sends TGS-REQ for cifs/FS01; DC01 replies with a service ticket and logs 4769. WS-101 sends AP-REQ to FS01 to open the share; FS01 logs 4624 type 3.",
+    "type": "sequence",
+    "actors": [
+      { "id": "u", "label": "Asha (user)", "tone": "slate" },
+      { "id": "w", "label": "WS-101 (workstation)", "tone": "blue" },
+      { "id": "d", "label": "DC01 (domain controller)", "sub": "KDC: AS + TGS", "tone": "dark" },
+      { "id": "f", "label": "FS01 (file server)", "sub": "SMB share", "tone": "orange" }
+    ],
+    "messages": [
+      { "from": "u", "to": "w", "label": "Ctrl+Alt+Del: user name + password" },
+      { "from": "w", "to": "d", "label": "AS-REQ with pre-auth" },
+      { "from": "d", "to": "w", "label": "AS-REP: TGT (DC logs 4768)", "dashed": true },
+      { "from": "w", "to": "d", "label": "TGS-REQ for host/WS-101" },
+      { "from": "d", "to": "w", "label": "service ticket (DC logs 4769)", "dashed": true },
+      { "from": "w", "to": "u", "label": "session created: 4624 type 2 on WS-101", "dashed": true },
+      { "from": "w", "to": "d", "label": "TGS-REQ for cifs/FS01" },
+      { "from": "d", "to": "w", "label": "service ticket (DC logs 4769)", "dashed": true },
+      { "from": "w", "to": "f", "label": "AP-REQ: open share (FS01 logs 4624 type 3)" }
+    ],
+    "note": "The DC records ticket requests; each target records the session and its logon type. Collect both."
+  },
+  "C08-M02-L03-F2": {
+    "title": "A password spray on the Banyan VPN, 06:41:30 to 06:47:00 UTC",
+    "caption": "A five-and-a-half-minute window of VPN events from the Banyan dataset: eight single failures across eight users from one address, then one success as gopal.",
+    "alt": "Timeline diagram from 06:41:30 to 06:47:00 UTC with three rows. Row one, VPN failures from 203.0.113.66, has eight ticks close together in the first quarter of the window, labelled 8 users, one try each, 7 s apart. Row two, gopal, has a tick inside that cluster for a failure at 06:42:42 and a tick far to the right for a success at 06:46:00. Row three, divya, has one tick inside the cluster for a failure at 06:42:21 while she was logged on at WS-104 since 03:18.",
+    "type": "ticks",
+    "axis": "06:41:30 to 06:47:00 UTC (5.5 minutes)",
+    "series": [
+      { "label": "VPN failures from 203.0.113.66", "sub": "8 users, one try each, 7 s apart", "times": [0.091, 0.112, 0.133, 0.155, 0.176, 0.197, 0.218, 0.239], "tone": "red" },
+      { "label": "gopal", "sub": "failure 06:42:42, success 06:46:00", "times": [0.218, 0.818], "tone": "orange" },
+      { "label": "divya", "sub": "failure while logged on at WS-104 since 03:18", "times": [0.155], "tone": "violet" }
+    ],
+    "note": "Many users, one try each, one source, then a success: count distinct users per source to see it."
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "C08-M02-L01-F1": {
+    "title": "Endpoint telemetry: sources, control points and collection",
+    "caption": "Where endpoint events are produced on a host, which settings filter them, and how they reach the SIEM.",
+    "alt": "Graph diagram. Activity on the host (processes, files, registry, logons) feeds four sources: the Security log (4624, 4625, 4688, 4720, 4732, 1102), PowerShell Operational (4103 module, 4104 script block), Sysmon/Operational (events 1, 3, 11, 12-14, 22 with ProcessGuid) and the EDR agent (telemetry plus own detections). Audit policy filters the Security log; the Sysmon XML config filters Sysmon. The EDR agent has a dashed response arrow back to the host activity. A Linux host (auth.log, journal, auditd) is a further source. All sources send events to the Collector / forwarder (agent, WEF or syslog), which sends parsed, normalised events to the SIEM (search, correlate, retain).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "act", "label": "Activity on the host", "sub": "processes, files, registry, logons", "tone": "slate" },
+      { "id": "pol", "label": "Audit policy", "sub": "decides what the Security log records", "tone": "violet" },
+      { "id": "cfg", "label": "Sysmon XML config", "sub": "include / exclude rules", "tone": "violet" },
+      { "id": "sec", "label": "Security log", "sub": "4624, 4625, 4688, 4720, 4732, 1102", "tone": "blue" },
+      { "id": "ps", "label": "PowerShell Operational", "sub": "4103 module, 4104 script block", "tone": "blue" },
+      { "id": "sys", "label": "Sysmon/Operational", "sub": "1, 3, 11, 12-14, 22 with ProcessGuid", "tone": "orange" },
+      { "id": "edr", "label": "EDR agent", "sub": "telemetry + own detections", "tone": "blue" },
+      { "id": "lin", "label": "Linux host", "sub": "auth.log, journal, auditd", "tone": "slate" },
+      { "id": "col", "label": "Collector / forwarder", "sub": "agent, WEF or syslog", "tone": "green" },
+      { "id": "siem", "label": "SIEM", "sub": "search, correlate, retain", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "act", "to": "sec", "label": "logons, accounts" },
+      { "from": "act", "to": "ps", "label": "scripts" },
+      { "from": "act", "to": "sys", "label": "process, network, file" },
+      { "from": "act", "to": "edr", "label": "all activity" },
+      { "from": "pol", "to": "sec", "label": "filters" },
+      { "from": "cfg", "to": "sys", "label": "filters" },
+      { "from": "edr", "to": "act", "label": "response", "dashed": true },
+      { "from": "sec", "to": "col", "label": "events" },
+      { "from": "ps", "to": "col", "label": "events" },
+      { "from": "sys", "to": "col", "label": "events" },
+      { "from": "edr", "to": "col", "label": "events" },
+      { "from": "lin", "to": "col", "label": "events" },
+      { "from": "col", "to": "siem", "label": "parsed, normalised" }
+    ],
+    "note": "An event reaches the SOC only if a source observed it, its configuration allowed it and the forwarder shipped it."
+  },
+  "C08-M02-L01-F2": {
+    "title": "WS-104 from endpoint telemetry alone (lab dataset)",
+    "caption": "The finance workstation's Windows and Sysmon events on 2026-11-03, read in time order against the baseline.",
+    "alt": "Table with columns Time (UTC), Source / ID, What it records, Reading. 03:18:00, windows 4624 type 2: divya logs on at the console; routine start of day. 03:29-05:14, sysmon 1 (x4): Excel, Explorer, Outlook, Edge from explorer.exe; baseline seen on all 8 hosts. 06:14:00, sysmon 1: WINWORD.EXE starts powershell.exe -W Hidden -EncodedCommand; rare pair, only this host. 07:02:00, windows 4720: account svc_update created; possible backdoor account. 07:03:00, windows 4732: svc_update added to Administrators; privilege for persistence. 08:17:00, windows 1102: Security log cleared; defence evasion.",
+    "type": "table",
+    "columns": ["Time (UTC)", "Source / ID", "What it records", "Reading"],
+    "rowTones": ["slate", "slate", "red", "orange", "orange", "red"],
+    "rows": [
+      ["03:18:00", "windows 4624 (type 2)", "divya logs on at the console", "routine start of day"],
+      ["03:29-05:14", "sysmon 1 (x4)", "Excel, Explorer, Outlook, Edge from explorer.exe", "baseline: same on all 8 hosts"],
+      ["06:14:00", "sysmon 1", "WINWORD.EXE starts powershell.exe -W Hidden -EncodedCommand", "rare pair: only this host"],
+      ["07:02:00", "windows 4720", "account svc_update created", "possible backdoor account"],
+      ["07:03:00", "windows 4732", "svc_update added to Administrators", "privilege for persistence"],
+      ["08:17:00", "windows 1102", "Security log cleared", "defence evasion"]
+    ],
+    "note": "No single row proves an intrusion; rows 3 to 6 on one host, in this order, justify escalation."
+  }
+}

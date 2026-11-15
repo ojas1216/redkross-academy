@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Two SOCs both report \"MTTR 40 minutes\" in a quarterly benchmark. Why can you not conclude that they perform equally well?",
+    "options": [
+      "Their MTTR definitions may use different start and stop points, such as creation versus acknowledgement or containment versus closure",
+      "MTTR is only comparable when both SOCs run the same SIEM product and the same correlation rules",
+      "One SOC must be reporting a median and the other a mean, because benchmarks always mix the two",
+      "MTTR is a lagging metric that only becomes comparable after a full year of case data"
+    ],
+    "correct": 0,
+    "explanation": "The \"R\" can mean respond, remediate, recover or resolve, and the clock may start at creation or acknowledgement, so equal numbers can measure different intervals. Mixing median and mean is possible but not guaranteed; the definition problem always applies.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A day's acknowledgement times are 3, 4, 6, 8 and 240 minutes. Which pair of summaries is correct?",
+    "options": [
+      "Median 8.0 minutes, mean 52.2 minutes",
+      "Median 6.0 minutes, mean 52.2 minutes",
+      "Median 6.0 minutes, mean 65.3 minutes",
+      "Median 52.2 minutes, mean 6.0 minutes"
+    ],
+    "correct": 1,
+    "explanation": "Sorted, the middle value is 6, so the median is 6.0; the sum is 261, divided by 5 gives a mean of 52.2. Choosing 8 as the median picks the fourth value rather than the third.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In soc_metrics.py the 09:00 true positive was acknowledged after 150 minutes. If that delay were 1,500 minutes instead, what would happen to the reported median MTTA?",
+    "options": [
+      "It would rise to 5.0 minutes",
+      "It would rise to roughly 302 minutes",
+      "It would stay at 4.0 minutes",
+      "It would fall to 2.0 minutes"
+    ],
+    "correct": 2,
+    "explanation": "The median depends only on the order of values; the outlier stays the largest value, so the middle value is still 4 minutes. Around 302 minutes is what the mean would become, not the median.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is MTTD harder to measure honestly than MTTA in a typical SOC?",
+    "options": [
+      "MTTD can only be measured once analysts have acknowledged every alert within its SLA",
+      "MTTD is defined only for false positives, which are rarely investigated in depth",
+      "MTTD depends on the SIEM keeping raw events for no more than thirty days",
+      "The start of malicious activity is usually established only later, by investigation"
+    ],
+    "correct": 3,
+    "explanation": "MTTD starts at the attacker's first action, which is reconstructed during investigation, so it is retrospective and available only for investigated true positives. MTTA uses two system timestamps that exist as soon as a case is picked up.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A manager proposes counting benign true positives as false positives in the weekly false-positive share. What is the strongest objection?",
+    "options": [
+      "It would lower the reported false-positive share and hide genuinely noisy rules",
+      "It would make correctly firing rules look noisy, risking them being disabled and losing coverage",
+      "It would break the median calculation, because BTP cases have no acknowledgement timestamp",
+      "It would double-count each BTP case in both the true-positive and false-positive totals"
+    ],
+    "correct": 1,
+    "explanation": "A BTP is a correct detection of authorised activity; labelling it FP makes a working rule look noisy and may lead to it being switched off. Merging BTPs would raise, not lower, the FP share, so the first option has the effect backwards.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lab run reports a false-positive share of 40 per cent. What does this figure primarily point to?",
+    "options": [
+      "An opportunity for detection engineering to tune the rules that produced those alerts",
+      "Tier 1 analysts misclassifying real incidents in order to protect their averages",
+      "An inflated MTTA, because false positives are the slowest cases to acknowledge",
+      "A coverage gap, because critical assets are not sending enough log sources"
+    ],
+    "correct": 0,
+    "explanation": "False positives are a property of detection rules and telemetry, so a high share is a tuning signal; closing FPs quickly and correctly is good analyst work. In the lab data the FP cases were among the fastest, so they do not inflate MTTA.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Using the lesson's model, where MTTR is measured from case creation, a night-shift staffing gap adds 60 minutes of queue wait to every case while investigation time is unchanged. What happens?",
+    "options": [
+      "MTTA rises but MTTR is unchanged, because MTTR starts when the analyst acknowledges",
+      "MTTR rises but MTTA is unchanged, because the queue wait is not a timed interval",
+      "Neither changes, because the wait happens before the case is created in the system",
+      "Both MTTA and MTTR rise, because MTTR from creation already includes the queue wait"
+    ],
+    "correct": 3,
+    "explanation": "Acknowledgement time absorbs the wait directly, and resolution measured from creation contains it too, so a slow queue inflates both. MTTR would be unaffected only if the organisation measured it from acknowledgement, which is not this model.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The extended lab script prints median resolve TP 205.0 min (n=2) and FP 10.0 min (n=2), while the overall median MTTR is 20.0 minutes. Which conclusion is best supported?",
+    "options": [
+      "The overall median of 20 minutes is the right figure for planning true-positive workload",
+      "False positives consume more analyst time than true positives because their count is equal",
+      "A single blended MTTR describes no real case, so resolution should be reported by disposition",
+      "The TP median of 205 minutes is reliable enough to set a new resolution SLA from it"
+    ],
+    "correct": 2,
+    "explanation": "Blending 10-minute FPs with multi-hour TPs gives a figure that matches neither, so splitting by disposition and severity is more informative. With only two cases, the TP median is far too fragile to set an SLA.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Over one quarter, a SOC's MTTR falls sharply while the reopen rate rises and weekly case-review scores fall. What is the most likely interpretation?",
+    "options": [
+      "Detection rules were tuned successfully, so fewer complex alerts reach analysts",
+      "Analysts have become more efficient at investigation and evidence gathering",
+      "Cases are probably being closed before investigation is complete, a Goodhart's law effect",
+      "Telemetry coverage has improved, so each investigation needs less searching"
+    ],
+    "correct": 2,
+    "explanation": "Faster closure paired with more reopened cases and worse review scores signals premature closure driven by the speed target. Genuine efficiency gains would not normally reduce review quality or increase reopens.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should the timestamps behind SOC speed metrics be written automatically by the case system with an audit trail?",
+    "options": [
+      "Hand-entered times drift and can be altered under pressure, so metrics built on them cannot be trusted",
+      "Hand-entered times cannot be stored in ISO 8601 format, so metric scripts fail to parse them",
+      "Automatic timestamps let the SOC compute MTTD in real time for every case as it opens",
+      "Automatic timestamps exclude false positives from MTTR without any extra filtering"
+    ],
+    "correct": 0,
+    "explanation": "A metric that depends on an editable field will eventually be edited, so system-generated, auditable UTC timestamps are required. Automation does not make MTTD real-time, because the activity start is still found by investigation.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC has excellent MTTA, yet its payment servers send no logs at all. Which family of metrics would have exposed this weakness?",
+    "options": [
+      "Speed metrics, such as MTTA split by severity",
+      "Coverage metrics, such as the share of critical assets sending logs",
+      "Volume metrics, such as alerts per rule per day",
+      "Quality metrics, such as reopen rate and review scores"
+    ],
+    "correct": 1,
+    "explanation": "Coverage measures what the SOC can see at all; speed, volume and quality metrics only describe alerts that were generated, so a silent asset never appears in them.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC lead plans to publish a weekly leaderboard ranking analysts by personal MTTR. What does the lesson recommend?",
+    "options": [
+      "Publish it, because individual MTTR is an objective and fair measure of analyst skill",
+      "Publish it, but rank analysts by median rather than mean so outliers are ignored",
+      "Publish it, but exclude true positives so long investigations are not penalised",
+      "Do not publish rankings; use per-analyst data privately for coaching alongside case review"
+    ],
+    "correct": 3,
+    "explanation": "Speed rankings reward cherry-picking easy alerts and closing hard ones early, and punish the analyst who works the real intrusion. Switching to the median or excluding TPs still leaves the perverse incentive in place.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "MTTA is stable most of the day but rises steeply between 02:00 and 06:00 UTC. What should the SOC lead investigate first?",
+    "options": [
+      "A staffing or queue-coverage gap during those hours",
+      "Whether the early-shift analysts lack triage skills",
+      "Whether detection rules fire more false positives at night",
+      "Whether improved MTTD is pushing more alerts into that window"
+    ],
+    "correct": 0,
+    "explanation": "MTTA measures how long alerts wait for an owner, so a time-of-day rise reflects queue health and staffing rather than analyst skill. More FPs would add volume but is a weaker explanation than missing cover.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "When metrics_ext.py imports CASES and p from soc_metrics.py, the three summary lines are printed before the per-case lines. Why?",
+    "options": [
+      "metrics_ext.py explicitly calls a summary function defined in soc_metrics.py",
+      "Python prints the docstring and top-level output of every module it imports",
+      "soc_metrics.py has no if __name__ == \"__main__\" guard, so its top-level prints run on import",
+      "The from-import statement re-executes soc_metrics.py after metrics_ext.py finishes"
+    ],
+    "correct": 2,
+    "explanation": "Importing a module executes its top-level code, and without a main guard the print statements run as a side effect. No summary function exists, and the import runs once, at the point of import, not afterwards.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "With the illustrative 15-minute acknowledgement target, four of the five lab cases are marked ok. Why is reporting \"80 per cent compliance\" on its own not enough?",
+    "options": [
+      "Compliance percentages must be calculated from medians rather than from individual cases",
+      "The BTP case should have been excluded, which would make compliance 75 per cent",
+      "SLA compliance may only be reported over true positives, never over all cases",
+      "The single breach is a true positive, and the named breach list is what drives action"
+    ],
+    "correct": 3,
+    "explanation": "The percentage is accurate but hides that the one breach was a real incident waiting 150 minutes; the exception list puts that case in front of the reviewer. Excluding the BTP would give 3 of 4, still not the point.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A weekly export contains several cases that are still open at the end of the reporting period. How should they be handled in resolution metrics?",
+    "options": [
+      "Include them with a resolution time set to the period end so MTTR covers every case",
+      "Exclude them from resolution metrics, but report how many are open and the age of the oldest",
+      "Delete them from the export, because unresolved cases distort the mean resolution time",
+      "Give them the current median resolution time so the sample size stays the same"
+    ],
+    "correct": 1,
+    "explanation": "Open cases have no resolution timestamp, so they cannot enter MTTR honestly, but their count and age must be visible because long-open cases are often the important ones. Imputing an end time or median invents data.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why are MTTD and time to contain normally computed only over true positives, while MTTA and MTTR can cover all cases?",
+    "options": [
+      "A false positive has no attacker activity to detect or contain, so those intervals have no meaning",
+      "Containment times are recorded only by the EDR, which discards false-positive cases",
+      "Including false positives in those intervals would artificially lower MTTA as well",
+      "Containment and detection SLAs apply only to benign true positives by convention"
+    ],
+    "correct": 0,
+    "explanation": "A false positive goes from acknowledgement straight to closure with no malicious activity start and no containment step. Acknowledgement and resolution exist for every case, so those can be computed over all cases or split by disposition.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A correlation rule has produced zero hits in the three months since a log parser was upgraded. What is the appropriate response?",
+    "options": [
+      "Retire the rule, because three months of silence shows the threat is absent",
+      "Lower its severity so that it no longer affects the coverage figures",
+      "Test it, because a field-name change may have broken it without any error",
+      "Raise its acknowledgement SLA, because rarely firing rules need less urgency"
+    ],
+    "correct": 2,
+    "explanation": "Rules with zero hits may be broken by a renamed field rather than genuinely quiet, so they warrant testing and automated alerting. Retiring the rule on the assumption of absence could remove real coverage.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "For SOC response-time data, why is the mean usually larger than the median?",
+    "options": [
+      "The mean discards the smallest values before averaging",
+      "Times have a floor at zero but no ceiling, so a long tail pulls the sum up",
+      "The median is calculated only from false-positive cases",
+      "The mean is usually computed in seconds and the median in minutes"
+    ],
+    "correct": 1,
+    "explanation": "Response times are right-skewed: they cannot go below zero but a few cases can be very long, and the mean, which depends on the sum, follows those tail cases while the median does not.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A dashboard shows a median acknowledgement time of 3 minutes for critical true positives this week, with n=2, and a manager wants to plot it as a weekly trend. What is the main concern?",
+    "options": [
+      "The mean should be plotted instead, because it is more stable at small sample sizes",
+      "Critical TPs should be merged with false positives so the sample becomes meaningful",
+      "The 90th percentile should be reported instead, because it is reliable at any sample size",
+      "With n=2 the median is fragile and a percentile meaningless, so trends need caution and n shown"
+    ],
+    "correct": 3,
+    "explanation": "Tiny samples make any summary unstable, so the sample size must be printed and trends treated with caution. The mean is even more sensitive to a single value, and a p90 of two cases is not meaningful.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which of these is an acceptable entry for a SOC metrics definition sheet?",
+    "options": [
+      "MTTR = resolved minus created, all cases, minutes, reported as median and mean",
+      "MTTR = how quickly the team responds to security incidents on average",
+      "MTTR = the resolution target agreed for high-severity cases in the SLA",
+      "MTTR = the duration the analyst writes into the case closure notes"
+    ],
+    "correct": 0,
+    "explanation": "A usable definition states the formula, start and stop points, population, unit and summary. The second option is a vague description, the third is a target rather than a measurement, and the fourth relies on an editable manual field.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does the 2013 Target breach, as used in this lesson, illustrate about SOC metrics?",
+    "options": [
+      "That detection technology failed to raise any warnings about the intrusion",
+      "That warnings were raised but not acted on, the failure that response metrics and exception lists expose",
+      "That short log retention made it impossible to reconstruct the timeline afterwards",
+      "That excessive false positives forced analysts to switch off the intrusion detection system"
+    ],
+    "correct": 1,
+    "explanation": "The Senate committee staff analysis reported that automated intrusion-detection warnings were generated but not responded to; the gap was in response, which acknowledgement metrics and breach lists make visible. It was not a failure to detect.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which of these measures most deserves automated, near-real-time alerting rather than appearing only in a weekly report?",
+    "options": [
+      "The monthly reopen rate for closed cases",
+      "The quarterly median MTTR split by severity",
+      "The time since each expected log source last sent an event",
+      "The year-on-year change in alerts per analyst"
+    ],
+    "correct": 2,
+    "explanation": "A silent log source creates a blind spot immediately and no speed metric will reveal it, so it needs its own alert. Reopen rate and quarterly trends are review measures where a weekly or monthly cadence is adequate.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Case records exported for metrics reporting contain user names, host names and sometimes email content. What does the lesson require for these exports?",
+    "options": [
+      "Remove all timestamps so that the export no longer identifies individuals",
+      "Keep each export for a rolling 180 days within Indian jurisdiction",
+      "Apply no special controls, because metrics exports stay inside the SOC",
+      "Minimise the data and control access in line with the DPDP Act 2023"
+    ],
+    "correct": 3,
+    "explanation": "Metrics exports carry personal data, so they should contain only what reporting needs and be access-controlled under the DPDP Act 2023. Removing timestamps would destroy the metrics, and the 180-day rule concerns CERT-In log retention, not reports.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In weekly case review, senior analysts find that about one in five cases closed as false positive at Tier 1 should have gone to Tier 2, although none of them were reopened. Which quality metric captures this most directly?",
+    "options": [
+      "Reopen rate for closed cases",
+      "False-positive share per rule",
+      "Escalation accuracy between tiers",
+      "Coverage of ATT&CK techniques"
+    ],
+    "correct": 2,
+    "explanation": "Escalation accuracy tracks how often Tier 2 finds that a Tier 1 closure should have been escalated. Reopen rate would miss these cases because none came back, which is why sampling-based review is needed alongside it.",
+    "lesson": 7,
+    "difficulty": "hard"
+  }
+]

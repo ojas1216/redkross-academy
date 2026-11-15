@@ -67,12 +67,24 @@ ${written.map((fc) => `<h3>${fc} - ${figs[fc].title}</h3><img src="${fc}.svg" st
 }
 
 // ---------------------------------------------------------------- full course build
+// --partial (LOCAL PREVIEW ONLY - never commit its output): integrate just the modules that
+// validate, so finished modules can be checked in the lesson player before the course is done.
+const partial = flag('--partial');
 const failures = [];
+const ready = [];
 for (const bm of bp.modules) {
   const r = await validateModule(code, bm.n, { render: false });
   if (r.errors.length) failures.push(`M${pad2(bm.n)}: ${r.errors.length} error(s) - ${r.errors[0]}`);
+  else ready.push(bm.n);
 }
-if (failures.length) {
+if (partial) {
+  if (!ready.length) {
+    console.error(`${code}: no module validates yet`);
+    process.exit(1);
+  }
+  bp.modules = bp.modules.filter((m) => ready.includes(m.n));
+  console.warn(`${code}: PARTIAL preview build with modules ${ready.join(', ')} - do not commit curriculum/build/${code}.json`);
+} else if (failures.length) {
   console.error(`${code} is not complete; the course stays on its current content:\n  ${failures.join('\n  ')}`);
   process.exit(1);
 }

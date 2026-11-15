@@ -1,0 +1,327 @@
+[
+  {
+    "q": "After a log parser update, a well-tested detection stops firing and no component reports an error. Which part of the tooling map most likely broke?",
+    "options": [
+      "The SIEM-to-case integration, because alerts are generated but rejected by the case API",
+      "The SOAR-to-EDR response hook, because isolation commands are timing out",
+      "The pipeline's normalisation step, because a renamed field silently breaks rules that use it",
+      "The context-source lookup, because slow enrichment suppresses new alerts"
+    ],
+    "correct": 2,
+    "explanation": "Parsing and normalisation happen in the collection pipeline, and a field renamed there makes every rule using the old name match nothing, with no error. A failing case API would leave alerts visible in the SIEM, which is a different symptom.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During a busy shift, a Tier 1 analyst escalates a suspicious login to Tier 2 only by chat message. Why is this a problem for the SOC?",
+    "options": [
+      "As far as the SOC record goes it did not happen: no owner, timestamps or evidence in the case, and metrics miss it",
+      "It is acceptable as long as the chat platform keeps its messages for at least 180 days",
+      "It is the preferred method, because chat is faster than updating a case during an incident",
+      "It matters only for false positives, which need a documented disposition at closure"
+    ],
+    "correct": 0,
+    "explanation": "Case management is the single source of truth for handover, timestamps and metrics; an escalation outside it has no owner or audit trail. Chat retention does not make the message part of the case record.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOAR playbook is being designed for new phishing-related cases. Which action can safely be fully automated without a human approval gate?",
+    "options": [
+      "Disabling the recipient's account as soon as a high-severity detection fires",
+      "Fetching the host's criticality and owner from the CMDB and writing them to the case",
+      "Isolating the host through the EDR when the TIP marks the sender's IP as known-bad",
+      "Blocking the linked domain at the perimeter firewall for every user"
+    ],
+    "correct": 1,
+    "explanation": "Enrichment lookups are low-risk and reversible, so they can run automatically. Disabling accounts, isolating hosts and firewall blocks can disrupt the business on a false positive and belong behind an approval gate.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The kit's source-count search returns proxy 284, sysmon 33, windows 13 and vpn 10. What lesson about tooling does this distribution illustrate?",
+    "options": [
+      "Proxy logs are low-value noise and should be dropped to reduce SIEM licence cost",
+      "Sysmon collection is broken, because it produced less than an eighth of the proxy volume",
+      "VPN logging is incomplete, because identity events should match endpoint volume",
+      "Web telemetry dominates volume, while endpoint and identity events are fewer but richer"
+    ],
+    "correct": 3,
+    "explanation": "Network and web telemetry is high-volume and cheap per event, which matters for SIEM sizing; dropping it would lose the best view of data leaving the organisation. Different sources naturally produce very different volumes.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOAR playbook automatically isolates any host on a single detection. Beyond outages from false positives, what risk does the lesson identify?",
+    "options": [
+      "An attacker who understands the playbook could trigger it deliberately to disrupt the business",
+      "The playbook could leak the SOAR platform's stored API keys into the case notes",
+      "The playbook would stop the SIEM from correlating any further events from that host",
+      "The playbook would skip enrichment, so cases would reach analysts with no context"
+    ],
+    "correct": 0,
+    "explanation": "Automatic disruptive actions can be weaponised: someone who knows the trigger can cause outages on demand, which is why such actions require human approval. The other options are not consequences of auto-isolation itself.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In minisiem.py, the load command stores common fields as columns and also keeps a raw column. What does the raw column correspond to in a real SIEM?",
+    "options": [
+      "A cache of recent search results kept to speed up repeated queries",
+      "The enrichment that the SOAR platform writes back after a lookup",
+      "The original event preserved alongside its parsed and normalised fields",
+      "A per-event hash used to prove evidence integrity in court"
+    ],
+    "correct": 2,
+    "explanation": "load keeps the original event as JSON in raw, which is how a SIEM preserves the source record next to the parsed fields. Enrichment comes later from triage tooling, and hashing for custody is a separate kit script.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Following an R1 office_spawns_script alert across the tooling map, at which point does the MTTA clock from the metrics lesson start?",
+    "options": [
+      "When Sysmon on the workstation records the process creation",
+      "When the SIEM correlation rule matches the normalised event",
+      "When the analyst approves host isolation through the EDR",
+      "When the alert becomes a case with a creation timestamp"
+    ],
+    "correct": 3,
+    "explanation": "MTTA runs from case creation to acknowledgement, so the clock starts when the case management system records the case. The rule match produces the alert, but the timed interval begins with the case record.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During an authorised purple-team exercise, the red team stops the log forwarder on a server rather than clearing its event log. Which control is designed to catch this?",
+    "options": [
+      "A detection rule for Windows Security event ID 1102",
+      "A health check that alerts when an expected source has sent nothing for N minutes",
+      "A Sigma rule for winword.exe spawning powershell.exe",
+      "A SOAR playbook that adds CMDB criticality to new cases"
+    ],
+    "correct": 1,
+    "explanation": "Stopping collection produces silence rather than an event, so only monitoring for missing data catches it. Event 1102 fires when the audit log is cleared, which did not happen here.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should the credentials used by SOC integrations, such as the SOAR connector to the identity provider, be managed?",
+    "options": [
+      "A dedicated least-privilege service account or key per integration, held in a secrets manager and rotated",
+      "One shared administrator key for all integrations, so that rotation is a single change",
+      "Each analyst's personal credentials, so that every automated action is attributable",
+      "Keys embedded directly in playbooks, so they survive migrations between platforms"
+    ],
+    "correct": 0,
+    "explanation": "Each integration should have its own minimum-permission credential, stored and rotated securely, and its use logged. A shared admin key turns one compromise into access to everything the SOC controls.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Analysts copy indicators by hand between six separate consoles to work each case. What remedy does the lesson recommend?",
+    "options": [
+      "Replace all of them with a single, more capable SIEM product",
+      "Add a dashboard console that aggregates screenshots of the other six",
+      "Integrate the tools into the case system or retire duplicates, since each manual copy adds delay and error",
+      "Assign one analyst to each console so nobody has to switch screens"
+    ],
+    "correct": 2,
+    "explanation": "Tool sprawl is fixed by integration and consolidation around the case system. Buying a new SIEM does not fix process, and another console or per-console staffing keeps the manual hand-offs in place.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The SIEM shows no alerts at all for an entire day. Why does the lesson argue that the team must understand how its alerts are produced?",
+    "options": [
+      "Because a day with zero alerts always means the SIEM licence has lapsed",
+      "Because commercial SIEMs cannot run correlation rules against synthetic data",
+      "Because transparent scripts process events faster than production SIEMs do",
+      "Because without that understanding nobody can tell whether a quiet day is genuinely quiet"
+    ],
+    "correct": 3,
+    "explanation": "Treating the SIEM as a black box hides silent failures: a broken source or rule looks exactly like a safe day. That is why the course teaches each function on transparent scripts before production tools.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A student renames the user field in minisiem.py's events schema. Which effect best reflects how the course kit mirrors production fragility?",
+    "options": [
+      "Only minisiem.py's own search command would stop working",
+      "triage.py, ioc_match.py and hunt.py would break together, as tools sharing one schema do",
+      "Only make_dataset.py would fail, and regenerating the dataset would restore the old name",
+      "Nothing would break, because each kit script keeps its own private copy of the data"
+    ],
+    "correct": 1,
+    "explanation": "Most kit scripts share minisiem.py's SQLite database and field list, just as production tools share a SIEM's normalised schema, so one schema change breaks every consumer. The scripts do not keep private copies.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which normalised event would match the kit's correlation rule R1 office_spawns_script?",
+    "options": [
+      "Sysmon event ID 3 in which winword.exe opens a network connection",
+      "Sysmon event ID 1 with parent image winword.exe and image powershell.exe",
+      "Windows Security event ID 1102 recorded on a finance workstation",
+      "Sysmon event ID 1 with parent image powershell.exe and image winword.exe"
+    ],
+    "correct": 1,
+    "explanation": "R1 looks for process creation (event ID 1) where Word is the parent and PowerShell or cmd is the child. The reversed parent-child pair describes a different behaviour, and event ID 3 is a network connection, not process creation.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which capability does an EDR platform provide that a SIEM on its own does not?",
+    "options": [
+      "Taking authorised response actions on the host, such as isolating it or ending a process",
+      "Correlating endpoint events with VPN and proxy logs on a single timeline",
+      "Retaining normalised events centrally for a defined retention period",
+      "Matching network traffic against signatures at the perimeter"
+    ],
+    "correct": 0,
+    "explanation": "EDR is both a detector and a response tool on the endpoint. Cross-source correlation and central retention are the SIEM's strengths, and signature matching of traffic is what IDS sensors such as Suricata do.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which activity is an NDR sensor most likely to reveal that the organisation's EDR deployment would miss?",
+    "options": [
+      "A Word macro spawning PowerShell on a managed laptop",
+      "A new registry run key created on a managed server",
+      "A process stopping antivirus on a managed workstation",
+      "Lateral movement from an unmanaged device with no agent"
+    ],
+    "correct": 3,
+    "explanation": "EDR only sees hosts where its agent runs, while network sensors see traffic from unmanaged devices and between servers. The other three happen on managed hosts, where the EDR agent records them directly.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The SIEM team owns the SIEM and the endpoint team owns the EDR. The connector between them failed and nobody noticed for a week. What process gap does this reveal?",
+    "options": [
+      "The EDR lacked behavioural detection for the threats it was missing",
+      "The SIEM's retention period was too short to show the gap",
+      "Nobody owned the connector itself or had a health check defined for it",
+      "The SOAR playbooks lacked approval gates for response actions"
+    ],
+    "correct": 2,
+    "explanation": "Integrations fall between teams, so the tooling map assigns an owner and a health check to every arrow, not only every tool. The other options do not explain why a silent integration failure went undetected.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the main purpose of the failure-impact field in a tooling-map inventory entry?",
+    "options": [
+      "To state concretely what visibility the SOC loses if the tool fails, which drives priority and budget",
+      "To record which team is to blame when the tool or its connector fails",
+      "To replace a health check for tools that cannot be monitored automatically",
+      "To document personal-data flows as required by the DPDP Act 2023"
+    ],
+    "correct": 0,
+    "explanation": "A sentence such as \"no endpoint process visibility for 2,000 workstations\" makes the risk of a failure concrete, which helps prioritise fixes and justify spend. It complements, not replaces, a health check.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An Indian entity covered by CERT-In's April 2022 directions plans to keep SIEM logs for 60 days in an overseas cloud region to save cost. What is wrong with the plan?",
+    "options": [
+      "Nothing, provided the logs are encrypted at rest in the overseas region",
+      "The directions require ICT system logs for a rolling 180 days within Indian jurisdiction",
+      "The directions require reporting within 6 hours, so 60 days of retention is excessive",
+      "The DPDP Act 2023 forbids retaining any log that contains personal data beyond 30 days"
+    ],
+    "correct": 1,
+    "explanation": "The directions require covered entities to maintain ICT logs for a rolling 180 days within India, so both the period and the location fail. The 6-hour figure is the incident-reporting deadline, not a retention limit.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A compromised SIEM administrator account is used to delete detection rules. Which control gives defenders the best chance of noticing?",
+    "options": [
+      "Letting Tier 1 analysts edit rules so that more people see each change",
+      "Keeping a backup copy of every rule inside the SOAR playbooks",
+      "Relying on the SIEM's change history, which its own administrators can edit",
+      "Logging admin activity to a store its admins cannot quietly alter, and alerting on rule deletions"
+    ],
+    "correct": 3,
+    "explanation": "Monitoring the monitors means sending the tools' administrative logs somewhere the same administrators cannot tamper with, and treating rule deletions as high-value detections. A history the attacker can edit offers no assurance.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During triage an analyst needs to know how critical host FIN-WS-12 is and which business unit owns it. Which context source answers this?",
+    "options": [
+      "The threat intelligence platform",
+      "The malware analysis sandbox",
+      "The CMDB or asset inventory",
+      "The identity provider"
+    ],
+    "correct": 2,
+    "explanation": "The CMDB records assets, their owners and criticality. The identity provider answers questions about users and their roles, and the TIP answers whether an indicator is known.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which part of the SOC tooling map does the kit script triage.py stand in for?",
+    "options": [
+      "SOAR and context-source enrichment, adding asset criticality and user role and computing a priority",
+      "The collection pipeline, parsing two raw log formats into one normalised schema",
+      "Detection engineering, testing rules against known-bad and near-miss events",
+      "Evidence preservation, writing a hashed chain-of-custody record for a case"
+    ],
+    "correct": 0,
+    "explanation": "triage.py attaches criticality and the user's department and role from tables standing in for a CMDB and identity provider, then scores priority. Parsing is normalise_demo.py, rule testing is test_rules.py and custody is evidence_export.py.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a major incident the team suspects that the corporate chat and email platform may itself be compromised. What gap in the tooling map does this expose?",
+    "options": [
+      "The SIEM does not retain chat logs long enough for investigation",
+      "The SOAR platform has no connector for paging on-call staff",
+      "The case system has no field to record the channel used",
+      "Escalation relies on one channel that may be compromised, so an out-of-band channel is needed"
+    ],
+    "correct": 3,
+    "explanation": "Communication tools belong on the map, and an escalation path with a single channel is a single point of failure, especially if an attacker can read it. Retention and case fields do not address reaching people safely.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An intrusion is discovered weeks late. According to the lesson, what should the SOC lead's first question be?",
+    "options": [
+      "Which analyst was on shift when the first malicious activity occurred?",
+      "Which arrow on the tooling map failed to carry the evidence?",
+      "Which competing SIEM product would have detected the activity?",
+      "Which SLA target did Tier 1 breach during the incident?"
+    ],
+    "correct": 1,
+    "explanation": "Most SOC failures are integration failures, so the review starts by finding the broken link between tools, and the answer updates the map. Blaming the analyst or the product skips the systemic cause.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An organisation with no asset inventory, unclear escalation paths and untested rules plans to fix detection by migrating to a more expensive SIEM. What outcome does the lesson predict?",
+    "options": [
+      "Detection will improve, because modern SIEMs include built-in asset discovery",
+      "MTTA will fall, because the new platform acknowledges alerts automatically",
+      "The same failures will recur on a costlier platform, because tools amplify process rather than replace it",
+      "Coverage will rise, because a migration forces every log source to be re-onboarded"
+    ],
+    "correct": 2,
+    "explanation": "Tools do not supply missing process: without context, clear escalation and tested rules, the new SIEM repeats the old failures. The map and process should be fixed first, then tools chosen to fill real gaps.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The API integration that turns SIEM alerts into cases starts failing without any notification. What symptom would the SOC experience?",
+    "options": [
+      "Sources stop sending events and the SIEM shows rising ingestion lag",
+      "Cases still open, but their enrichment fields arrive empty",
+      "Alerts are generated in the SIEM but never reach an analyst as cases",
+      "The EDR stops isolating hosts after an analyst has approved it"
+    ],
+    "correct": 2,
+    "explanation": "The SIEM-to-case arrow carries alerts to humans; if it breaks, detection still happens but nobody works the alerts, and the queue simply looks quiet. Empty enrichment would point to the SOAR-to-context link instead.",
+    "lesson": 8,
+    "difficulty": "hard"
+  }
+]

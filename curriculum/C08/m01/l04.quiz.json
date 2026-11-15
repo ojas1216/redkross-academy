@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A start-of-shift health query returns proxy last_seen 12:32, vpn 13:33, windows 08:17 and sysmon 06:14. What is the soundest conclusion before any investigation?",
+    "options": [
+      "Endpoint telemetry may have stopped after 06:14, so a lack of Sysmon evidence later cannot be read as no activity",
+      "Sysmon is healthy, because its last event matches the R1 alert time and so the rule is working",
+      "The proxy source is faulty, because it is the only source with far more events than the others",
+      "Nothing of note, because sources naturally report at different rates throughout a working day"
+    ],
+    "correct": 0,
+    "explanation": "The gap raises a question the analyst must answer, and until it is answered, absence of Sysmon events is not evidence of absence. Different volumes are normal; a source falling silent while others continue is the signal.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst starts each shift by opening the queue and taking the top alert straight away. What is the main risk of skipping orientation?",
+    "options": [
+      "The highest-priority alert may have been acknowledged already by the previous shift",
+      "The analyst will work alerts in score order rather than in event-time order",
+      "A source that has stopped sending looks exactly like a quiet night, so blind spots go unnoticed",
+      "The analyst cannot acknowledge alerts until the handover has been signed in the case system"
+    ],
+    "correct": 2,
+    "explanation": "The queue cannot show what the SOC can no longer see; only a health check reveals a silent source. The other options describe minor or invented constraints rather than the core risk.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new local administrator alert fires at 07:02, and the change calendar shows an approved IT task to build an account at 07:00. What should the analyst do?",
+    "options": [
+      "Close it as a false positive, since the change calendar proves the rule fired in error",
+      "Check that the ticket matches the account and host, then record the change reference with the disposition",
+      "Escalate it immediately, because account creation on any workstation is always high impact",
+      "Suppress the rule for the morning, since approved work makes all alerts in that window benign"
+    ],
+    "correct": 1,
+    "explanation": "The change calendar can make the alert a benign true positive, but only if it actually covers this account and host, and recording the reference makes the decision defensible. In Banyan, svc_update was created by divya on a finance workstation, which a build ticket would not normally explain.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst acknowledges R5 at the top of the Banyan queue and sees that five other lines name WS-104. What is the best next step?",
+    "options": [
+      "Leave the other WS-104 alerts for colleagues, so the queue is shared fairly by priority",
+      "Take R2 next, since it is the oldest of the alerts scoring 7.2 and so should be handled first",
+      "Close the lower-scoring WS-104 alerts as duplicates of R5 to reduce the queue length",
+      "Open a case for the host and work the WS-104 alerts together rather than separately"
+    ],
+    "correct": 3,
+    "explanation": "Before starting, the workflow checks the queue for alerts sharing entities, and here they belong in one case. Splitting them across analysts hides the sequence; closing them as duplicates discards different evidence.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At 03:00 a Tier 1 analyst sees signs consistent with ransomware precursors, but the playbook says to escalate during business hours. What is the right action?",
+    "options": [
+      "Follow the playbook and queue the escalation for 09:00, recording the evidence in the case meanwhile",
+      "Isolate the affected hosts personally before escalating, since waiting would allow encryption to begin",
+      "Escalate immediately through the emergency on-call path with the evidence, then raise a playbook change",
+      "Close the alert as undetermined until business hours, when Tier 2 can review the evidence"
+    ],
+    "correct": 2,
+    "explanation": "Playbooks support judgement and must never block an urgent response; the fix for the playbook comes afterwards. Taking response action outside one's authority is not the answer either.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst has spent 30 minutes on an unclear alert, the planned time box for a first decision, and still cannot decide. What does the workflow call for?",
+    "options": [
+      "Escalate or ask for help rather than continuing alone while the queue waits",
+      "Close it as undetermined so the time box metric for the shift is not breached",
+      "Keep investigating until a confident disposition is reached, however long it takes",
+      "Return it to New so another analyst picks it up later with a fresh view"
+    ],
+    "correct": 0,
+    "explanation": "A time box exists so an unclear alert does not absorb the analyst indefinitely; when it expires the analyst escalates or asks for help. Closing to meet a metric is evidence-free closure.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During the validate step for R1 (Word starting PowerShell on WS-104), the analyst asks what else would be true if the alert were real. Which check best answers that question?",
+    "options": [
+      "Confirm that the R1 rule's severity and confidence values are set as detection engineering intended",
+      "Look for a document download shortly before the PowerShell start in the proxy logs for WS-104",
+      "Check whether other finance workstations also ran PowerShell during the same hour",
+      "Compare the R1 priority score with the other scores in the queue to judge its relative weight"
+    ],
+    "correct": 1,
+    "explanation": "If Word truly launched PowerShell from a malicious document, the document had to arrive somehow, so a preceding download is the expected corroborating evidence. Rule settings and queue scores say nothing about whether this event is real.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which case note line correctly records an observation as a fact, kept separate from any assessment?",
+    "options": [
+      "WS-104 is beaconing to a command-and-control server, confirmed by regular proxy traffic",
+      "The user probably opened a malicious invoice, which then started the beacon traffic",
+      "Proxy traffic looks suspicious and is consistent with known malware, so escalating",
+      "WS-104 made 18 requests of 220 bytes each to cdn-telemetry-sync.example from 06:17 UTC"
+    ],
+    "correct": 3,
+    "explanation": "The fact states what the logs show, with count, size, destination and UTC time. Calling it command and control is an assessment and should be labelled as one with its reasoning.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Six months after a case, a reviewer reads the note 'checked the proxy logs, nothing else found'. Why does this fall short of a defensible note?",
+    "options": [
+      "Without the exact query text, nobody can reproduce what was searched or judge whether it was sufficient",
+      "Proxy logs are outside the analyst's remit and should be checked only by the network team",
+      "The note should state the analyst's tier, since conclusions carry weight according to seniority",
+      "Notes that report no findings should not be written, since only positive evidence is retained"
+    ],
+    "correct": 0,
+    "explanation": "Copying the query as run lets anyone rerun it and see its scope, which is what makes the note reviewable. The other options misstate who may search or what notes should hold.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC with analysts in two countries finds that case notes from different sites disagree on when actions happened around a daylight-saving change. Which habit removes the problem?",
+    "options": [
+      "Writing each site's local time with its time-zone name beside it in the note",
+      "Recording only the order of steps, since exact times are kept by the case system",
+      "Using UTC for every observation and action recorded in case notes",
+      "Converting all notes to head-office local time when the case is closed"
+    ],
+    "correct": 2,
+    "explanation": "UTC avoids confusion across sites and daylight-saving changes, and matches the lab data and tools. Labelled local times still need conversion and remain error-prone.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Weeks after evidence_export.py was run for CASE-0001, the exported file no longer matches its SHA256SUMS entry. What should the analyst conclude?",
+    "options": [
+      "The manifest is out of date and should be regenerated from the current file before use",
+      "The file has changed since export, so its integrity cannot be relied on and the custody record must be examined",
+      "The mismatch is expected, because the custody utc field changes each time the file is opened",
+      "The events were re-indexed by the SIEM, which updates exported copies automatically"
+    ],
+    "correct": 1,
+    "explanation": "A digest mismatch means the bytes differ from what was recorded at export, so the item can no longer be shown to be unchanged. Regenerating the manifest would destroy the very check that reveals the problem.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A student runs evidence_export.py and finds that the utc field in custody.jsonl differs from the value shown in the lesson. What does this indicate?",
+    "options": [
+      "The dataset differs from the course version, so the export should be repeated",
+      "The custody record is corrupt, because utc should equal the time of the first event",
+      "The system clock is wrong, because utc should match the end of the query window",
+      "Nothing is wrong, because utc records when the export was run rather than any event time"
+    ],
+    "correct": 3,
+    "explanation": "The utc field is the time of the export action, so every run will differ. The digest, not the utc field, is what matches only when the dataset is identical.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case may lead to a disciplinary process. Why should the analyst export the relevant events during the shift rather than rely on finding them in the SIEM later?",
+    "options": [
+      "Retention limits and re-indexing can remove or change the raw events the case depends on",
+      "SIEM searches cannot be cited in disciplinary processes unless the platform is certified",
+      "Exported files are smaller, so they are faster to search than the SIEM's original index",
+      "Exporting events automatically closes the case, which stops the service-level clock"
+    ],
+    "correct": 0,
+    "explanation": "SIEM data does not last forever and can change, so evidence is preserved early with a hash and custody record. The other options invent rules about certification or case closure.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Re-running the lab's evidence_export.py overwrites the exported file and appends a second custody line. How should a production evidence system behave instead?",
+    "options": [
+      "Overwrite silently, since only the most recent export is relevant to the investigation",
+      "Delete the earlier custody line, so the record shows one clean export per item",
+      "Refuse to overwrite an existing evidence item, preserving the original and its record",
+      "Rename the old file without hashing it, so storage is not consumed by duplicate digests"
+    ],
+    "correct": 2,
+    "explanation": "The lesson notes that a production system would refuse to overwrite; evidence must stay as collected, with every custody action recorded. Deleting custody lines destroys the history the record exists to keep.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which escalation note best lets a Tier 2 responder act without re-investigating CASE-0001?",
+    "options": [
+      "WS-104 looks compromised, beaconing and a cleared log seen; please take over urgently",
+      "UTC timeline of the WS-104 activity, affected user and criticality, evidence export reference, actions taken, recommendation and open unknowns",
+      "All 32 exported events pasted in full, so the responder can review them in their own order",
+      "Assessment: likely exfiltration; recommend isolating WS-104; details are in the analyst's notes"
+    ],
+    "correct": 1,
+    "explanation": "A good escalation states what and when, which entities and how critical, the evidence, what was done, what is recommended and what is still unknown. A raw event dump shifts the analysis back to the receiver.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst escalates a case in the case system, but the receiving team has not acknowledged it within the agreed time. Who owns the alert, and what happens next?",
+    "options": [
+      "The receiving team owns it, because the escalation was recorded in the case system",
+      "The SOC lead owns it automatically, and the analyst returns to the queue",
+      "Nobody owns it until acknowledgement arrives, so it reverts to the New state",
+      "The original analyst still owns it and follows the escalation path to the next contact"
+    ],
+    "correct": 3,
+    "explanation": "Escalation is complete only on acknowledgement; until then ownership stays with the sender, who must chase it along the path to the next contact or on-call lead. Recording the escalation alone does not transfer responsibility.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst sees the rule title beacon_regular_small and its low score of 3.6 and is inclined to close it as routine telemetry. Which part of the workflow most directly counters this anchoring?",
+    "options": [
+      "The related-alert check on the same entities and asking what else would be true if it were real",
+      "Acknowledging the alert first, which records an owner and starts the service-level clock",
+      "Reading the handover, which lists the previous shift's open cases and pending decisions",
+      "Exporting the events with a hash, so the decision can be reviewed by someone else later"
+    ],
+    "correct": 0,
+    "explanation": "Anchoring is over-weighting the first impression; checking related alerts on WS-104 and testing the alert's implications pulls in contrary evidence. Acknowledgement and export are useful but do not challenge the first impression.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst has decided early that a case is a benign software update and keeps finding evidence that fits. Which note-taking habit best guards against confirmation bias here?",
+    "options": [
+      "Writing the note at the end of the shift, once the full picture has become clear",
+      "Recording only the evidence that supports the current assessment, to keep notes short",
+      "Separating facts from the assessment and writing down what evidence would refute it",
+      "Copying the previous shift's assessment so the case conclusion stays consistent"
+    ],
+    "correct": 2,
+    "explanation": "Labelling the assessment and stating what would disprove it keeps alternative explanations alive. Recording only supporting evidence is confirmation bias written down.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst notices that one noisy rule produces hundreds of near-identical, mostly benign alerts each shift and that colleagues close them almost without looking. What is the best response?",
+    "options": [
+      "Create a personal suppression for the rule, since the alerts are almost always benign",
+      "Report the rule so the feedback stage can tune it, alongside measures such as rotating duties",
+      "Close the alerts in bulk at the start of each shift, so attention is saved for other rules",
+      "Raise the rule's severity, so analysts treat its alerts with more care during triage"
+    ],
+    "correct": 1,
+    "explanation": "Alert fatigue leads to fast closure of the alert that matters; the defences are organisational, including tuning noisy rules through feedback, as much as individual. An unreviewed personal suppression removes coverage without an owner or expiry.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst is called to an incident bridge halfway through handling an alert. What should they leave in the case note before going?",
+    "options": [
+      "A disposition, so the alert does not breach its service level while they are away",
+      "Nothing, because the case system records each query the analyst has already run",
+      "A request for the alert to be reassigned, since interrupted work should be restarted",
+      "Where they are and what they were about to check, so they or a colleague can resume"
+    ],
+    "correct": 3,
+    "explanation": "Interruptions compound bias and lost context; a note of current position and next check lets work resume without starting again. Forcing a disposition to beat a timer is evidence-free closure.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst with SIEM-wide search uses it to look at a colleague's browsing records out of curiosity, with no assigned case. How should this be judged?",
+    "options": [
+      "As misuse, because powerful tools may be used only for authorised work on assigned cases",
+      "As acceptable, because the analyst's role grants access to all proxy data in the SIEM",
+      "As acceptable if no data is exported, because viewing results leaves no evidence copy",
+      "As a policy gap only, because the tool allowed the search and so no rule was broken"
+    ],
+    "correct": 0,
+    "explanation": "Searches must be limited to what a case needs, and personal data handled in line with policy and the DPDP Act 2023; the tool allowing a search does not make it authorised. Not exporting the data does not change that it was accessed without purpose.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the analyst workflow place documentation inside the per-alert loop rather than at the end of the shift?",
+    "options": [
+      "Because the case system locks notes once the analyst's shift has formally ended",
+      "Because notes written later are shorter, which makes them harder for reviewers to sample",
+      "Because notes reconstructed from memory are less accurate and complete than ones written while working",
+      "Because each loop step must be documented before the next alert in the queue can be acknowledged"
+    ],
+    "correct": 2,
+    "explanation": "The case note serves handover, escalation, review and possibly legal use, and memory-based notes lose queries, times and evidence references. The other options invent system behaviour.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC wants to detect automatically that a log source has gone quiet, rather than relying on analysts noticing at the start of a shift. Which detection does this?",
+    "options": [
+      "A rule that fires when the total number of alerts per hour falls below its usual level",
+      "A rule that fires when a source's event volume rises well above its normal daily rate",
+      "A meta-alert that fires when a high-severity alert stays unowned beyond its service level",
+      "An alert when a source's most recent event is older than its expected reporting interval"
+    ],
+    "correct": 3,
+    "explanation": "Comparing each source's last event time with its expected interval detects silence directly. A drop in alert totals is ambiguous, and the unowned-alert meta-alert covers a different workflow failure.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The handover says a case is pending a user's confirmation and that a host should be watched. What should the incoming analyst do first with this information?",
+    "options": [
+      "Accept the summary as written and move straight to the top of the alert queue",
+      "Open the cases in the case system, confirm their current state and note what is now theirs",
+      "Close the pending case, since the user has had a full shift to answer the question",
+      "Ask the previous analyst to stay on until the pending case has been resolved"
+    ],
+    "correct": 1,
+    "explanation": "Orientation means reading the handover fully, then confirming each case's state in the system rather than trusting the summary, and taking ownership of what has passed over. Closing a pending case without an answer skips the playbook's time-limit rule.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "While working a case on one host, an analyst sees a low-priority alert lower in the queue that fits the pattern under investigation and takes it ahead of higher-scoring alerts. Is this acceptable?",
+    "options": [
+      "No, because the priority order is a control and must be followed exactly by every analyst",
+      "No, unless a supervisor first re-scores the alert so that it rises to the top of the queue",
+      "Yes, because the score is a starting point, provided the analyst records why in the note",
+      "Yes, and no record is needed, since the alert will be grouped into the case anyway"
+    ],
+    "correct": 2,
+    "explanation": "The score guides where to start, but an analyst may take an alert that fits an active pattern, and the reason belongs in the note so the choice is reviewable. Skipping the record makes the deviation unexplained.",
+    "lesson": 4,
+    "difficulty": "hard"
+  }
+]

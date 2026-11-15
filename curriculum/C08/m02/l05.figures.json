@@ -1,0 +1,41 @@
+{
+  "C08-M02-L05-F1": {
+    "title": "Same field name, different meaning across sources",
+    "caption": "A field dictionary for four Banyan identifiers shows that src_ip, user, host and outcome mean different things in the VPN, proxy and Windows 4720 events.",
+    "alt": "Table with four columns: Field, VPN log, Proxy log and Windows 4720. Row src_ip: VPN external client address; proxy internal workstation address; Windows 4720 not recorded. Row user: VPN account signing in; proxy user browsing; Windows 4720 subject, who created the account, with the new account in target_user. Row host: VPN no host field; proxy client workstation; Windows the machine that logged the event. Row outcome: VPN success or failure; proxy none, HTTP status instead; Windows success or failure.",
+    "type": "table",
+    "columns": ["Field", "VPN log", "Proxy log", "Windows 4720"],
+    "rowTones": ["red", "red", "orange", "slate"],
+    "rows": [
+      ["src_ip", "external client address", "internal workstation address", "not recorded"],
+      ["user", "account signing in", "user browsing", "subject: who created the account"],
+      ["host", "no host field", "client workstation", "machine that logged the event"],
+      ["outcome", "success / failure", "none (HTTP status instead)", "success / failure"]
+    ],
+    "note": "New account in 4720 is in target_user; confirm each field's meaning per source before pivoting."
+  },
+  "C08-M02-L05-F2": {
+    "title": "Normalisation: two raw formats, one ECS-style vocabulary",
+    "caption": "normalise_demo.py parses a firewall syslog line and a VPN JSON record into the same field names, so one search on source.ip finds both.",
+    "alt": "Graph flowing left to right. Firewall syslog (fw01), with SRC= and DPT=3389 and local IST time with no year, feeds the parser from_syslog(), which uses a regular expression and converts IST to UTC. VPN gateway JSON, with clientIP, user and result, feeds the parser from_vpn_json(), which decodes JSON and renames fields. The edge from from_syslog() is labelled SRC to source.ip and the edge from from_vpn_json() is labelled clientIP to source.ip; both arrive at ECS-style event, with @timestamp (UTC), source.ip, event.module and event.action. That node feeds One search: source.ip = 203.0.113.66, via an edge labelled matches both events.",
+    "type": "graph",
+    "dir": "LR",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "fw", "label": "Firewall syslog (fw01)", "sub": "SRC= DPT=3389; local IST, no year", "tone": "slate" },
+      { "id": "vpn", "label": "VPN gateway JSON", "sub": "clientIP, user, result", "tone": "slate" },
+      { "id": "p1", "label": "from_syslog()", "sub": "regular expression, IST to UTC", "tone": "blue" },
+      { "id": "p2", "label": "from_vpn_json()", "sub": "JSON decode, rename", "tone": "blue" },
+      { "id": "ecs", "label": "ECS-style event", "sub": "@timestamp (UTC), source.ip, event.module, event.action", "tone": "orange" },
+      { "id": "q", "label": "One search: source.ip = 203.0.113.66", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "fw", "to": "p1" },
+      { "from": "vpn", "to": "p2" },
+      { "from": "p1", "to": "ecs", "label": "SRC to source.ip" },
+      { "from": "p2", "to": "ecs", "label": "clientIP to source.ip" },
+      { "from": "ecs", "to": "q", "label": "matches both events" }
+    ],
+    "note": "Normalised, a firewall drop and a VPN login from the same address appear 21 seconds apart."
+  }
+}

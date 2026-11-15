@@ -128,5 +128,200 @@
     "explanation": "Limited, reversible actions such as isolating an endpoint can be pre-agreed with system owners, which lets the SOC act immediately while keeping the cost of a mistake low. Regulators do not forbid such actions, and every action must still be documented.",
     "lesson": 1,
     "difficulty": "medium"
+  },
+  {
+    "q": "An escalated case lands with an analyst who must build a timeline, find every affected host and account, and agree which accounts to disable with the identity team. Which tier's work is this, and what question does it answer?",
+    "options": [
+      "Tier 1: is the alert real, and is there an obvious benign explanation?",
+      "Tier 2: what exactly happened, how far does it reach, and what must be done?",
+      "Tier 3: which attacker activity exists that no rule has alerted on yet?",
+      "SOC lead: which metrics and stakeholders should hear about this case?"
+    ],
+    "correct": 1,
+    "explanation": "Scoping, root cause and containment recommendations coordinated with IT are Tier 2 investigation work. Tier 1 asks whether the alert is real; hypothesis-driven searching for unalerted activity is Tier 3 hunting.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For months, Tier 1 has closed the same alert caused by a legitimate backup tool as a false positive several times a day, yet the rule has never changed. Which part of the SOC structure is failing?",
+    "options": [
+      "The escalation path from Tier 1 to Tier 2 for probable true positives",
+      "The Tier 1 time budget, which is too generous for this alert type",
+      "The SOC lead's oversight of case ownership in case management",
+      "The feedback flow from closures and investigations back to the rules"
+    ],
+    "correct": 3,
+    "explanation": "Knowledge should flow back down from closures and investigations into rule and playbook changes; without that feedback the same false positives reach Tier 1 every day. The escalation path is irrelevant because these alerts are correctly closed, not escalated.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Tier 1 analyst sends a chat message to a Tier 2 colleague saying 'have a look at WS-104' and returns to the queue. Why is this an unsafe way to escalate?",
+    "options": [
+      "No owner is recorded in case management, so the case can be lost, especially at shift change",
+      "Chat messages cannot carry screenshots, so the evidence is always lost in transit",
+      "Tier 2 analysts are not permitted to accept work from Tier 1 outside office hours",
+      "It breaches the CERT-In requirement that every escalation be reported within six hours"
+    ],
+    "correct": 0,
+    "explanation": "Escalation must happen in the case-management system with an acknowledgement, so ownership is recorded; a chat message to someone who has gone home leaves the case with no owner. CERT-In's six-hour rule concerns reporting incidents, not internal escalations.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The same suspicious-PowerShell rule fires on a test virtual machine and on a domain controller within the same minute. Why should the analyst escalate the domain-controller alert faster?",
+    "options": [
+      "Because domain controllers produce fewer false positives than other hosts",
+      "Because test machines are outside the SOC's monitoring scope by default",
+      "Because asset criticality is an escalation factor, so impact there is higher",
+      "Because the second alert to arrive is always the more reliable one"
+    ],
+    "correct": 2,
+    "explanation": "Escalation criteria combine evidence strength with asset and identity criticality; the same evidence on a domain controller carries far greater potential impact. This is why CMDB enrichment is a Tier 1 task. Test machines are still monitored.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which escalation note gives Tier 2 the most useful starting point?",
+    "options": [
+      "Looks suspicious on WS-104, several alerts fired overnight, please check urgently",
+      "R5 fired on WS-104 at high severity; escalating per playbook, priority 10.8",
+      "WS-104 might be compromised; user divya is a payments approver so treat as critical",
+      "Log cleared on WS-104 after new admins and a large upload; no change ticket found; meets critical-asset criteria"
+    ],
+    "correct": 3,
+    "explanation": "A good escalation states what was observed, what was checked, what was ruled out and why the criteria were met, so Tier 2 does not redo Tier 1's work. The other notes either give no evidence or give a score without the checks behind it.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC treats an alert on a reception kiosk and one on the payments server with equal urgency because it has no record of what either system is. Under the NIST CSF 2.0, which Function's weakness is causing this?",
+    "options": [
+      "Protect, because the kiosk should have been hardened before going live",
+      "Identify, because the asset inventory and criticality context are missing",
+      "Respond, because the containment playbooks have not been written yet",
+      "Recover, because the backup priorities of each system are undefined"
+    ],
+    "correct": 1,
+    "explanation": "The SOC lives mainly in Detect and Respond but depends on Identify for an asset inventory that says which systems matter most. Hardening (Protect) affects what happens, not how the SOC prioritises alerts it receives.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A covered entity in India has no out-of-hours escalation path; critical alerts raised overnight are read by the morning shift. How does the CERT-In Direction of 28 April 2022 make this especially risky?",
+    "options": [
+      "Reporting is required within six hours of noticing, so an overnight wait may use up the window",
+      "Logs must be kept for 180 days, so overnight alerts are deleted before the morning shift",
+      "CERT-In requires a 24x7 staffed SOC for every registered company in India",
+      "Incidents must be reported within 72 hours, which an overnight delay always exceeds"
+    ],
+    "correct": 0,
+    "explanation": "The Direction requires covered entities to report specified incidents within six hours of noticing them; an alert left until morning may already have consumed that window. The 180-day figure is log retention, not deletion, and 72 hours is not the CERT-In deadline.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC manager starts rewarding Tier 1 analysts for closing alerts well inside their time budget. What risk does this create?",
+    "options": [
+      "Tier 2 becomes overloaded because analysts escalate everything to save time",
+      "Real alerts get closed as false positives because speed is rewarded over accuracy",
+      "Detection engineers stop receiving alerts because rules are disabled to cut volume",
+      "Case records grow too long because analysts paste every log line into notes"
+    ],
+    "correct": 1,
+    "explanation": "The time budget is a ceiling that triggers escalation, not a target; rewarding speed pushes analysts to close cases they should escalate. Over-escalation is the opposite pressure and is not what a closure reward encourages.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A large tiered SOC finds that details noticed by Tier 1 are often missing by the time a case reaches Tier 3, and analysts leave after months of repetitive queue work. Which redesign addresses both problems most directly?",
+    "options": [
+      "Adding a fourth tier between Tier 2 and Tier 3 to review every escalation",
+      "Raising the Tier 1 time budget so analysts can investigate each case deeper",
+      "Functional teams where one analyst owns a case end to end, with triage automated",
+      "Outsourcing Tier 1 to a provider so that internal staff only handle Tier 2 work"
+    ],
+    "correct": 2,
+    "explanation": "Functional teams keep case ownership continuous, so context survives, and automation removes repetitive triage that drives burnout. Adding another tier creates one more hand-off, which makes context loss worse.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan Microfinance's night shift has only two analysts. How is the SOC's work best organised for that shift?",
+    "options": [
+      "One analyst acts as Tier 1 and the other as Tier 2, with Tier 3 left vacant",
+      "Both analysts triage only and leave every escalated case for the day shift",
+      "All alerts are queued unread overnight and triaged together each morning",
+      "Both analysts triage, either takes a case to closure, and on-call Tier 3 is paged"
+    ],
+    "correct": 3,
+    "explanation": "A two-person shift cannot run three tiers, so it uses a functional model: both triage, either can own a case through to closure, and a specialist is paged when forensics are needed. Leaving cases for the day shift recreates the overnight gap.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After automating most enrichment in a SOAR platform and abolishing the 'Tier 1' job title, a SOC manager proposes deleting the written escalation criteria. Why is this a mistake?",
+    "options": [
+      "Someone still makes the first close-or-escalate decision on each alert and needs criteria",
+      "SOAR platforms cannot run unless escalation criteria are stored in their configuration",
+      "Auditors require the tier job titles to be kept in the organisation chart",
+      "Without Tier 1, Tier 2 can no longer declare incidents under the response plan"
+    ],
+    "correct": 0,
+    "explanation": "Automation and functional teams redistribute triage work but do not remove it; whoever makes the first decision still needs written criteria. The tier vocabulary describes the work, whatever the job titles say.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The US Senate committee analysis of the 2013 Target breach reported that automated intrusion warnings were raised but not acted on effectively. Which control from the lesson targets that failure most directly?",
+    "options": [
+      "Adding more detection rules so that the intrusion produces stronger alerts",
+      "Restricting case-system access so that only senior analysts can read alerts",
+      "Extending log retention so that evidence is available for later investigation",
+      "Automatically notifying the SOC lead and on-call staff about unacknowledged critical cases"
+    ],
+    "correct": 3,
+    "explanation": "In that case the technology detected but the organisation did not act; alerting on unacknowledged high-severity cases attacks exactly that gap. More rules would only add alerts that could also go unanswered.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new SOC writes a single escalation rule for every alert type: 'escalate anything suspicious'. What outcome does the lesson predict?",
+    "options": [
+      "Tier 1 closures become more accurate, because analysts escalate more often",
+      "Detection engineering receives more tuning requests and false positives fall",
+      "Overload moves up to Tier 2, or Tier 1 grows unsure and reluctant to escalate",
+      "Case volume falls, because suspicious activity is defined narrowly by the rule"
+    ],
+    "correct": 2,
+    "explanation": "Vague criteria either send everything to Tier 2, recreating the overload one level up, or leave Tier 1 uncertain and hesitant. Good criteria are written per alert type and combine evidence, criticality, time sensitivity and effort.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a CERT-In advisory, an analyst searches the estate for signs of a credential-theft technique that none of the SOC's rules has ever alerted on, starting from a written hypothesis. Which function is this?",
+    "options": [
+      "Detection engineering, because it involves writing and tuning new rules",
+      "Threat hunting, a proactive Tier 3 search for activity no rule has flagged",
+      "Digital forensics, because it requires preserving disk and memory evidence",
+      "Tier 2 scoping, because it builds a timeline of an escalated incident"
+    ],
+    "correct": 1,
+    "explanation": "Hypothesis-driven searching for activity that no rule has alerted on is threat hunting. Detection engineering may later turn a finding into a rule, but the search itself is the hunt; scoping applies to an already escalated case.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Each week a senior analyst reviews a random sample of the cases Tier 1 closed. What is the main purpose of this review?",
+    "options": [
+      "To catch mis-closures and turn them into training and tuning items",
+      "To measure each analyst's closure speed for the monthly league table",
+      "To re-open every sampled case so Tier 2 can investigate it fully",
+      "To delete closed cases older than 180 days from the case system"
+    ],
+    "correct": 0,
+    "explanation": "Quality review of closures is a control protecting the tier structure: a wrong Tier 1 closure hides a case from everyone above it, so sampled mistakes become training and rule changes. Ranking by speed would encourage the hurried closures the review is meant to catch.",
+    "lesson": 1,
+    "difficulty": "medium"
   }
 ]

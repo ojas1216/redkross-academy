@@ -128,5 +128,200 @@
     "explanation": "Escalation is a transfer of ownership made through the case system and is complete only when the receiver acknowledges it there. A chat reply is a conversation, not a recorded hand-off.",
     "lesson": 3,
     "difficulty": "medium"
+  },
+  {
+    "q": "R2 reports eight distinct users failing VPN logon from 203.0.113.66 before gopal succeeds from the same address. It shares no host or user with CASE-0001. How should the investigation treat it?",
+    "options": [
+      "Merge it into CASE-0001, because two serious alerts on the same morning almost certainly share one actor",
+      "Close it as a false positive, because the account that succeeded is a standard user on a sales laptop",
+      "Record it as a true positive in a linked case, with any connection to CASE-0001 kept as an open hypothesis",
+      "Leave it undispositioned until CASE-0001 is closed, so both can be judged with the full set of evidence"
+    ],
+    "correct": 2,
+    "explanation": "The rule correctly detected a spray followed by a success, so the behaviour is a true positive, but without shared entities it is linked rather than merged, with the reason written down. Merging assumes a connection the evidence has not shown.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst cannot decide whether an alert is malicious because process command lines were not being collected on the host. After recording the alert as undetermined, which feedback is most appropriate?",
+    "options": [
+      "A tuning ticket asking detection engineering to lower the rule's severity until the data improves",
+      "A suppression for the host, since alerts that cannot be resolved only add noise to the queue",
+      "A playbook change telling analysts to close similar alerts as benign when evidence is missing",
+      "A telemetry-gap ticket, owned by the right team, requesting command-line collection on that host"
+    ],
+    "correct": 3,
+    "explanation": "Undetermined outcomes point at telemetry: the missing data is the finding and should be ticketed with an owner. Lowering severity or suppressing would hide the alert without fixing the blind spot.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Banyan case, fixed-size beacon requests from WS-104 began at 06:17, but the top-scoring alert was the log clearing at 08:17. What feedback does this true positive most clearly justify?",
+    "options": [
+      "Raising the log_cleared rule's severity so that it scores above every other rule in the queue",
+      "Asking detection engineering whether the beacon detection should alert or score sooner than it did",
+      "Suppressing the large_upload rule on finance hosts, since it fired after the more useful beacon alert",
+      "Removing asset criticality from the score, since it pushed the finance host alerts too high"
+    ],
+    "correct": 1,
+    "explanation": "True positives point at coverage and speed; an earlier, low-scoring signal was available more than an hour before the loudest alert, which is a question for detection engineering. Raising log_cleared further does nothing to surface the earlier evidence.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A single rule matches the same host forty times in ten minutes for the same behaviour. What should the queueing stage do with these matches?",
+    "options": [
+      "Deduplicate them into one alert carrying a hit counter, so the queue shows one item to work",
+      "Raise forty separate alerts, so each match receives its own disposition and closure note",
+      "Discard all but the first match, since later identical hits cannot add investigative value",
+      "Convert them into an incident automatically, since repeated matches confirm malicious activity"
+    ],
+    "correct": 0,
+    "explanation": "Deduplication collapses repeated hits of one rule on one entity into a single alert with a counter, preserving the information without flooding the queue. Discarding hits loses the count, and repetition alone does not make an incident.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R3 (new_local_admin) fired twice, at 07:02 and 07:03, both for the account svc_update on WS-104, from Windows Security events 4720 and 4732. What is the correct reading of the pair?",
+    "options": [
+      "A duplicate pair caused by two collectors forwarding the same Security event to the SIEM",
+      "Two failed attempts to create svc_update, since a successful creation produces only one event",
+      "The account being deleted and recreated, which is typical of software update installers",
+      "An account being created and then added to a security-enabled local group, two linked steps"
+    ],
+    "correct": 3,
+    "explanation": "Event 4720 records a user account being created and 4732 a member being added to a security-enabled local group; together they show a new local administrator being set up. They are different events, so treating them as duplicate noise would miss a key step.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A targeted search on WS-104 shows a proxy fetch of invoice.docm at 06:12, a Sysmon event ID 1 for PowerShell at 06:14 and a 220-byte proxy request to a fixed URL at 06:17. Why does this strengthen the true positive disposition for R1?",
+    "options": [
+      "Because any PowerShell start on a finance workstation is malicious regardless of its context",
+      "Because the 220-byte size matches a published signature for a known malware family",
+      "Because separate log sources independently agree on a plausible download, execution and callback sequence",
+      "Because the proxy records prove the user deliberately ran the macro inside the document"
+    ],
+    "correct": 2,
+    "explanation": "Corroboration across proxy, Sysmon and the follow-on proxy beacon, in a coherent time order, supports the disposition. The logs show sequence, not user intent, and PowerShell alone is not proof of compromise.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lifecycle allows triage to go straight to the disposition decision, skipping investigation. When is that shortcut appropriate?",
+    "options": [
+      "When the answer is already clear, such as a false positive caused by a data error, and it is still recorded",
+      "When the queue is long, since investigation can be deferred to the feedback stage after closure",
+      "When the alert has a low priority score, because low-scoring alerts rarely belong to larger cases",
+      "When the rule has a high confidence value, because confident rules do not need corroborating evidence"
+    ],
+    "correct": 0,
+    "explanation": "Triage can close obvious cases directly, but the disposition and closure record are still required. Queue length and low scores are not reasons to skip investigation, as the low-scoring Banyan beacon alert shows.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "triage.py shows R2 on host WS-107 even though VPN events carry no host field. What does this imply for the alert record?",
+    "options": [
+      "The VPN logs are being parsed incorrectly and the host field must be reconstructed by the parser",
+      "The host came from a user-to-device mapping table, and the mapping method should be recorded",
+      "The host is the VPN concentrator, which the helper reports instead of the source IP address",
+      "The host is unreliable and should be removed, since enrichment must only use raw event fields"
+    ],
+    "correct": 1,
+    "explanation": "The helper maps gopal to a primary device via a PRIMARY_HOST table, which a real SOC would replace with DHCP, VPN or EDR data; recording the method tells later readers how much to trust it. Removing enrichment would discard useful context rather than qualify it.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The R6 line in the triage queue shows user=None (?). What is the correct explanation?",
+    "options": [
+      "An unknown attacker account generated the beacon traffic and must be hunted in identity logs",
+      "The proxy source stopped sending user fields, which indicates a log-source health failure",
+      "The identity table has no entry for divya, so enrichment of the user failed for this rule",
+      "The rule groups by host and URL and returns no user, so enrichment has to tolerate the gap"
+    ],
+    "correct": 3,
+    "explanation": "R6 is a grouped rule keyed on host and URL, so there is no user value to enrich; the field is empty by design. The same identity table enriches divya successfully on the other WS-104 alerts.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC manager worries that an insider on the team could close high-severity alerts as false positives to hide their own activity. Which lifecycle control best addresses this?",
+    "options": [
+      "Raising the confidence values of high-severity rules so they always top the queue",
+      "Allowing only Tier 2 analysts to acknowledge alerts generated by high-severity rules",
+      "Sampling closed false positives on high-severity rules for evidence, with attributable state changes",
+      "Disabling the false positive disposition for high-severity rules so they must be escalated"
+    ],
+    "correct": 2,
+    "explanation": "Closure quality reviews that check the evidence behind sampled closures, combined with state changes attributable to named users, expose both drift and deliberate misuse. Removing the FP label would stop legitimate tuning feedback rather than detect abuse.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Post-incident reviews often find that the detection fired but nobody acted in time. Which lifecycle-level control most directly catches this failure as it happens?",
+    "options": [
+      "Requiring every closure note to answer four questions before an alert can be closed",
+      "A meta-alert when a high-severity alert stays in New beyond its service level",
+      "Grouping new alerts automatically into open cases that share a host or user",
+      "Exporting the raw events of every high-severity alert with a hash and custody record"
+    ],
+    "correct": 1,
+    "explanation": "Monitoring the age of unacknowledged alerts detects warnings that exist but are not being worked. Closure-note standards and evidence export improve quality after someone acts; they do not notice that nobody has.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An alert scored 5.4 has waited an hour while a steady stream of new alerts scoring 5.5 to 6.0 keeps arriving above it. What does the lesson say queueing should account for?",
+    "options": [
+      "Age, so that an older alert is not overtaken indefinitely by a stream of slightly higher scores",
+      "Nothing further, because the score already reflects severity, confidence and asset criticality",
+      "Volume, so that the 5.4 alert is closed automatically once newer alerts exceed a set count",
+      "Analyst preference, so that each analyst re-sorts the queue by the rules they know best"
+    ],
+    "correct": 0,
+    "explanation": "Age matters alongside score; without it, a moderate alert can starve in the queue. Leaving the order purely to score is exactly what allows that starvation.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A covered entity in India must report specified incidents to CERT-In within six hours of noticing them. Which property of the alert lifecycle record best supports showing that this was met?",
+    "options": [
+      "A disposition label on each alert, showing which ones were confirmed as true positives",
+      "A ticketed feedback item for each closed case, showing that lessons were acted upon",
+      "Narrow, expiring suppressions, showing that no relevant alerts were silenced during the period",
+      "System-written timestamps for when the alert was raised, acknowledged and escalated"
+    ],
+    "correct": 3,
+    "explanation": "Demonstrating a reporting deadline depends on reliable, attributable times for when the SOC noticed and acted. Disposition labels say what was concluded, not when.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After the Banyan day, a manager reports that the SOC had seven incidents, one for each alert in the queue. What is wrong with that statement?",
+    "options": [
+      "Nothing, because every alert from a correlation rule counts as an incident once it is queued",
+      "It undercounts, because the two R3 hits and each beacon request should be separate incidents",
+      "Alerts are claims to be tested; investigation grouped them into two cases, and only confirmed ones are incidents",
+      "It overcounts, because alerts on a single host can never form more than one incident"
+    ],
+    "correct": 2,
+    "explanation": "An alert is a claim; triage, investigation and disposition decide whether anything becomes an incident, and the seven alerts formed CASE-0001 plus a linked VPN case. The host-based option invents a rule the lesson does not state.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule that alerts on every powershell.exe start produces many false positives from administrative tools. Which fix best follows the lesson's guidance for false-positive feedback?",
+    "options": [
+      "Suppress powershell.exe for all hosts until a better rule is written by detection engineering",
+      "Require a suspicious parent-child relationship, such as Word starting PowerShell, not the name alone",
+      "Lower the rule's severity so its alerts sink below the threshold analysts usually reach",
+      "Reclassify the alerts as benign true positives so the false-positive rate stops rising"
+    ],
+    "correct": 1,
+    "explanation": "False positives point at detection logic, and adding context such as the parent process makes the rule precise without discarding coverage, as R1 does. A blanket suppression removes the coverage entirely.",
+    "lesson": 3,
+    "difficulty": "medium"
   }
 ]

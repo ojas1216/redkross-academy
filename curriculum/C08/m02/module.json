@@ -1,0 +1,64 @@
+{
+  "course": "C08",
+  "module": 2,
+  "title": "Telemetry",
+  "description": "The raw material of security operations: what endpoint, network, identity and cloud sources record, which event fields matter and how to read them, why timestamps and time zones make or break an investigation, and how collection pipelines move telemetry reliably into the SIEM.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Endpoint logs",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 2,
+      "title": "Network logs",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 3,
+      "title": "Identity logs",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 4,
+      "title": "Cloud logs",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 5,
+      "title": "Event fields",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 6,
+      "title": "Timestamps",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 7,
+      "title": "Collection pipelines",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 8,
+      "title": "Telemetry lab",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    }
+  ]
+}

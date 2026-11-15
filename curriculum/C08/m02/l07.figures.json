@@ -1,0 +1,57 @@
+{
+  "C08-M02-L07-F1": {
+    "title": "A collection pipeline from source to rules, with health checks",
+    "caption": "How Banyan's endpoint, network, server and cloud telemetry reaches the SIEM through different collectors, a buffer and a parser, watched by a source-health monitor.",
+    "alt": "Graph diagram. Windows workstations (Security log, Sysmon) send events via WEF over WinRM to the Windows Event Collector. Network devices (firewall, proxy) push syslog over TLS to the Syslog relay. Linux servers are read by an Agent on host. Cloud and SaaS audit APIs are pulled over HTTPS by the API poller. The Windows Event Collector, Syslog relay, Agent on host and API poller all send events to the Buffer / message queue, which feeds Parse + normalise, which feeds SIEM storage, which feeds Rules, searches, dashboards. Dashed arrows from the Buffer / message queue (queue depth) and from SIEM storage (last seen, volume, parse errors) go to the Source-health monitor, which raises health alerts to the SOC queue.",
+    "type": "graph",
+    "dir": "LR",
+    "nodes": [
+      { "id": "win", "label": "Windows workstations", "sub": "Security log, Sysmon", "tone": "slate" },
+      { "id": "net", "label": "Network devices", "sub": "firewall, proxy", "tone": "slate" },
+      { "id": "lin", "label": "Linux servers", "sub": "files, journal", "tone": "slate" },
+      { "id": "cld", "label": "Cloud and SaaS", "sub": "audit APIs", "tone": "slate" },
+      { "id": "wec", "label": "Windows Event Collector", "sub": "WEF subscriptions", "tone": "blue" },
+      { "id": "sys", "label": "Syslog relay", "sub": "TLS, disk queue", "tone": "blue" },
+      { "id": "agt", "label": "Agent on host", "sub": "read position + local buffer", "tone": "blue" },
+      { "id": "api", "label": "API poller", "sub": "read-only credential", "tone": "blue" },
+      { "id": "buf", "label": "Buffer / message queue", "sub": "turns outages into delay", "tone": "orange" },
+      { "id": "prs", "label": "Parse + normalise", "sub": "fields, UTC, keep raw", "tone": "violet" },
+      { "id": "sto", "label": "SIEM storage", "sub": "hot search + retention", "tone": "dark" },
+      { "id": "ana", "label": "Rules, searches, dashboards", "tone": "green" },
+      { "id": "hm", "label": "Source-health monitor", "sub": "health alerts to SOC queue", "tone": "red" }
+    ],
+    "edges": [
+      { "from": "win", "to": "wec", "label": "WEF over WinRM" },
+      { "from": "net", "to": "sys", "label": "syslog push" },
+      { "from": "lin", "to": "agt", "label": "local read" },
+      { "from": "cld", "to": "api", "label": "pulled over HTTPS" },
+      { "from": "wec", "to": "buf" },
+      { "from": "sys", "to": "buf" },
+      { "from": "agt", "to": "buf" },
+      { "from": "api", "to": "buf" },
+      { "from": "buf", "to": "prs" },
+      { "from": "prs", "to": "sto" },
+      { "from": "sto", "to": "ana" },
+      { "from": "buf", "to": "hm", "label": "queue depth", "dashed": true },
+      { "from": "sto", "to": "hm", "label": "last seen, volume, parse errors", "dashed": true }
+    ],
+    "note": "Each hand-off can fail silently; the health monitor measures the pipeline itself."
+  },
+  "C08-M02-L07-F2": {
+    "title": "Where telemetry is lost, and the check that notices",
+    "caption": "Six loss points in a collection pipeline, the symptom each produces in the SIEM, and the health check that reveals it.",
+    "alt": "Table with columns Stage, What fails, Symptom in the SIEM, Health check. Source: audit policy off or local log wraps; event types missing or gaps; field and event-type completeness. Agent / WEF: agent stopped or subscription lapsed; one host goes silent; last seen per host. Transport: UDP syslog drops or expired certificate; volume falls or traffic uninspected; hourly volume against baseline. Buffer / queue: disk full or queue overflows; lag rises, then loss; queue depth and ingestion lag. Parser: new or changed log format; events present but fields empty; parse-error count. Storage / index: retention too short or write fails; old data missing; retention and write-error checks.",
+    "type": "table",
+    "columns": ["Stage", "What fails", "Symptom in the SIEM", "Health check"],
+    "rowTones": ["orange", "red", "red", "orange", "red", "violet"],
+    "rows": [
+      ["Source", "Audit policy off; local log wraps", "Event types missing; gaps", "Field and event-type completeness"],
+      ["Agent / WEF", "Agent stopped; subscription lapsed", "One host goes silent", "Last seen per host"],
+      ["Transport", "UDP syslog drops; expired certificate", "Volume falls; traffic uninspected", "Hourly volume against baseline"],
+      ["Buffer / queue", "Disk full; queue overflows", "Lag rises, then loss", "Queue depth and ingestion lag"],
+      ["Parser", "New or changed log format", "Events present, fields empty", "Parse-error count"],
+      ["Storage / index", "Retention too short; write fails", "Old data missing", "Retention and write-error checks"]
+    ],
+    "note": "Red rows fail without any error the SOC normally sees; each needs its own check."
+  }
+}
