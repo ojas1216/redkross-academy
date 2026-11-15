@@ -1,0 +1,111 @@
+{
+  "course": "C08",
+  "module": 1,
+  "title": "SOC operations",
+  "description": "How a security operations centre is organised and run: the tiered team and its roles, how an alert moves from detection to closure, the analyst's daily workflow and shift handover, the service levels and metrics that measure the SOC, and the tooling that connects it all.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "SOC tiers",
+      "summary": "Why a SOC is organised in tiers, what Tier 1, Tier 2 and Tier 3 each own, how cases escalate up and lessons flow back down, and how functional teams and automation reshape the classic model.",
+      "objectives": [
+        "Explain the SOC's mission and why a tiered structure is used to handle alert volume",
+        "Describe the responsibilities and decision rights of Tier 1, Tier 2, Tier 3 and the SOC lead",
+        "Apply written escalation criteria to decide whether a Tier 1 analyst should close or escalate an alert",
+        "Compare the classic tiered model with functional-team SOCs and automation",
+        "Interpret a prioritised Tier 1 queue from the course lab and group related alerts into a case"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Roles",
+      "summary": "The roles in and around a SOC: analysis and response roles, the engineering roles that keep detection working, the outside teams that hold authority to act, RACI matrices, and how roles are split with MSSP and MDR providers.",
+      "objectives": [
+        "Describe the responsibilities and decision rights of analyst, shift lead, incident responder and specialist roles",
+        "Explain why detection, threat intelligence, SOAR and platform engineering roles are essential to a SOC",
+        "Identify the SOC's interfaces with IT operations, identity, legal and compliance, communications and external parties",
+        "Construct a RACI matrix with exactly one Accountable role per activity",
+        "Evaluate what an MSSP or MDR contract must specify about roles and responsibilities"
+      ],
+      "minutes": 55
+    },
+    {
+      "n": 3,
+      "title": "Alert lifecycle",
+      "summary": "Follows an alert from generation through queueing, triage, investigation, disposition, escalation and closure to feedback, using the Banyan lab queue to show why priority order is not event order.",
+      "objectives": [
+        "Describe the eight stages of the alert lifecycle and the output of each",
+        "Distinguish true positive, benign true positive, false positive and undetermined dispositions and the action each requires",
+        "Explain alert states, ownership and acknowledged escalation in a case system",
+        "Group the minisiem and triage.py alerts into cases and reconstruct them in event-time order",
+        "Write a closure note that answers what happened, what evidence supports it, what was done and what should change"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "Analyst workflow",
+      "summary": "The analyst's shift as a repeatable workflow: orientation and log-source health checks, the per-alert loop, time boxes and early escalation, documentation as you go, evidence preservation and escalation notes.",
+      "objectives": [
+        "Carry out start-of-shift orientation, including a log-source health check in minisiem",
+        "Apply a consistent per-alert loop inside a time box and escalate early when impact may be high",
+        "Write a defensible case note with UTC times, exact queries, evidence references and labelled assessments",
+        "Preserve case evidence with a hash and custody record using evidence_export.py",
+        "Recognise anchoring, confirmation bias and alert fatigue and the workflow habits that counter them"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 5,
+      "title": "Shift handover",
+      "summary": "How a SOC transfers situational awareness, open work and case ownership from one shift to the next without losing anything, using a written note, a verbal briefing with read-back and acknowledged reassignment.",
+      "objectives": [
+        "Explain why shift boundaries are a point of operational risk and the failure modes that cause handover gaps",
+        "Carry out a handover in the correct order: update cases, publish the note, brief with read-back, reassign and acknowledge ownership",
+        "Write a handover note using the seven-section template, separating facts from assessments",
+        "Check platform health with the course mini-SIEM and report it in a handover",
+        "Describe controls that make handover failures visible, such as alerts on unacknowledged critical cases"
+      ],
+      "minutes": 55
+    },
+    {
+      "n": 6,
+      "title": "SLAs",
+      "summary": "What a SOC service level agreement defines, how its timers start, stop, pause, warn and breach, how severity sets the targets, and how SLAs fit regulatory clocks such as CERT-In's six-hour reporting rule.",
+      "objectives": [
+        "Distinguish an SLA from SLOs, OLAs, underpinning contracts and aggregate SOC metrics",
+        "Define start, stop and pause events for acknowledgement, triage, notification and resolution targets",
+        "Build a severity-based SLA matrix and apply it to cases in the queue",
+        "Check per-case SLA compliance from the lab kit's synthetic case data and interpret breaches",
+        "Identify ways SLAs are gamed and the quality controls that counter them"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 7,
+      "title": "Metrics",
+      "summary": "How a SOC measures speed, quality, coverage and capacity, computing MTTA, MTTR and false-positive share from synthetic cases with soc_metrics.py and showing why the median and mean must be read together.",
+      "objectives": [
+        "Define MTTD, MTTA, MTTR, false-positive share and coverage with explicit start and stop points",
+        "Compute MTTA and MTTR means and medians from case records using soc_metrics.py",
+        "Interpret the effect of outliers and identify the cases behind an average",
+        "Explain how metrics change behaviour and pair speed metrics with quality measures"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "SOC tooling map",
+      "summary": "The SOC's tools as a connected system: telemetry and collection, SIEM, EDR and NDR, case management, SOAR and context sources, the data flows between them, and how each maps onto the course lab kit.",
+      "objectives": [
+        "Describe the function of each major SOC tool category",
+        "Trace an alert across the tooling map from telemetry to closure and metrics",
+        "Build a tooling map with owners, health checks and failure impact for each integration",
+        "Explain how SOC tools are protected and how attempts to blind the SOC are detected",
+        "Map each course lab kit script to its real-world tool category"
+      ],
+      "minutes": 55
+    }
+  ]
+}

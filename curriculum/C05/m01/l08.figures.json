@@ -1,0 +1,36 @@
+{
+  "C05-M01-L08-F1": {
+    "title": "Penetration-test report structure by audience",
+    "caption": "A report is layered from the leadership decision at the top to raw supporting evidence at the bottom, each layer written for a specific reader.",
+    "alt": "Stack of seven layers, top first: Executive summary (leadership: risk, impact, recommendation), highlighted dark; Scope, methodology, limitations (auditors: authorised, how, what not); Summary of findings (CISO: ID, severity, status); Detailed findings (engineers: evidence, CVSS, fix, retest), highlighted orange; Remediation roadmap (owners: prioritised actions); Retest results (everyone: closed or still open); Appendices (raw output, captures, hash manifest).",
+    "type": "layers",
+    "layers": [
+      { "label": "Executive summary", "sub": "leadership: risk, impact, recommendation", "tone": "dark" },
+      { "label": "Scope, methodology, limitations", "sub": "auditors: authorised, how, what not", "tone": "violet" },
+      { "label": "Summary of findings", "sub": "CISO: ID, severity, status", "tone": "blue" },
+      { "label": "Detailed findings", "sub": "engineers: evidence, CVSS, fix, retest", "tone": "orange" },
+      { "label": "Remediation roadmap", "sub": "owners: prioritised actions", "tone": "green" },
+      { "label": "Retest results", "sub": "everyone: closed or still open", "tone": "green" },
+      { "label": "Appendices", "sub": "raw output, captures, hash manifest", "tone": "slate" }
+    ],
+    "note": "Each layer summarises the ones beneath it; readers stop when they have what they need."
+  },
+  "C05-M01-L08-F2": {
+    "title": "The lab reporting pipeline: from verification to retest",
+    "caption": "Confirmed evidence is scored and ranked into a report, the client remediates, and a retest with the same checks closes each finding.",
+    "alt": "Top-to-bottom flow of seven steps: verify.py (minimum safe check per finding); data/findings.json (confirmed findings + UTC time); report.py + cvss.py (score, rank, attach fix and retest); Report delivered (executive summary + findings); Client remediates (fix the root cause); retest.py --port 8100 (same checks, hardened target); Retest results (4 of 4 closed), highlighted as the outcome. A loop arrow from the last step back to the start is labelled: open findings return for further remediation.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "verify.py", "sub": "minimum safe check per finding", "tone": "orange" },
+      { "label": "data/findings.json", "sub": "confirmed findings + UTC time", "tone": "blue" },
+      { "label": "report.py + cvss.py", "sub": "score, rank, attach fix and retest", "tone": "violet" },
+      { "label": "Report delivered", "sub": "executive summary + findings", "tone": "blue" },
+      { "label": "Client remediates", "sub": "fix the root cause", "tone": "green" },
+      { "label": "retest.py --port 8100", "sub": "same checks, hardened target", "tone": "orange" },
+      { "label": "Retest results", "sub": "4 of 4 closed", "tone": "dark" }
+    ],
+    "loop": { "label": "open findings return for further remediation" },
+    "note": "A finding is closed by evidence from a retest, not by assertion."
+  }
+}

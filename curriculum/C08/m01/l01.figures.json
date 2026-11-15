@@ -1,0 +1,62 @@
+{
+  "C08-M01-L01-F1": {
+    "title": "The tiered SOC: escalation up, feedback down",
+    "caption": "Telemetry becomes alerts and cases; Tier 1 closes or escalates, higher tiers investigate, and lessons flow back to the detections.",
+    "alt": "Top-to-bottom graph. Telemetry (endpoint, network, identity, cloud) feeds SIEM / EDR alerts (rules and models fire), which feed Case management (one record per case, owner, evidence), which feeds Tier 1: triage (validate, enrich, close or escalate). From Tier 1 one arrow goes to Closed with disposition (FP or benign true positive, documented) and another, labelled escalate, goes to Tier 2: investigation (scope, contain, coordinate IT). An arrow labelled escalate goes from Tier 2 to Tier 3: specialists (hunt, malware, forensics, detections). A dashed arrow labelled tuning and playbook feedback returns from Tier 3 to SIEM / EDR alerts. A SOC lead node (metrics, quality, stakeholders, CERT-In) has a dashed arrow labelled oversees to Case management.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "tel", "label": "Telemetry", "sub": "endpoint, network, identity, cloud", "tone": "slate" },
+      { "id": "al", "label": "SIEM / EDR alerts", "sub": "rules and models fire", "tone": "blue" },
+      { "id": "cm", "label": "Case management", "sub": "one record per case, owner, evidence", "tone": "violet" },
+      { "id": "t1", "label": "Tier 1: triage", "sub": "validate, enrich, close or escalate", "tone": "orange" },
+      { "id": "cl", "label": "Closed with disposition", "sub": "FP or benign true positive, documented", "tone": "green" },
+      { "id": "t2", "label": "Tier 2: investigation", "sub": "scope, contain, coordinate IT", "tone": "red" },
+      { "id": "t3", "label": "Tier 3: specialists", "sub": "hunt, malware, forensics, detections", "tone": "dark" },
+      { "id": "lead", "label": "SOC lead", "sub": "metrics, quality, stakeholders, CERT-In", "tone": "violet" }
+    ],
+    "edges": [
+      { "from": "tel", "to": "al" },
+      { "from": "al", "to": "cm" },
+      { "from": "cm", "to": "t1" },
+      { "from": "t1", "to": "cl" },
+      { "from": "t1", "to": "t2", "label": "escalate" },
+      { "from": "t2", "to": "t3", "label": "escalate" },
+      { "from": "t3", "to": "al", "label": "tuning and playbook feedback", "dashed": true },
+      { "from": "lead", "to": "cm", "label": "oversees", "dashed": true }
+    ],
+    "note": "Each tier receives fewer, harder cases than the one below it; knowledge flows back to improve the queue."
+  },
+  "C08-M01-L01-F2": {
+    "title": "Classic tiers versus functional teams",
+    "caption": "Two ways of building the same SOC funnel, compared on organisation, ownership, growth, repetitive work and cost.",
+    "alt": "Two-column comparison. Classic tiered SOC: work organised by depth (T1, T2, T3); case changes hands at each escalation; clear entry role and career ladder; Tier 1 queue is repetitive, burnout risk; easy to staff and measure per tier. Versus Functional teams: work organised by function (detect, respond, hunt); one analyst owns a case end to end; mixed seniority within each team; repetitive triage automated (SOAR); needs strong automation and mentoring.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Classic tiered SOC",
+        "tone": "blue",
+        "items": [
+          "Work organised by depth: T1, T2, T3",
+          "Case changes hands at each escalation",
+          "Clear entry role and career ladder",
+          "Tier 1 queue is repetitive, burnout risk",
+          "Easy to staff and measure per tier"
+        ]
+      },
+      {
+        "title": "Functional teams",
+        "tone": "green",
+        "items": [
+          "Work organised by function: detect, respond, hunt",
+          "One analyst owns a case end to end",
+          "Mixed seniority within each team",
+          "Repetitive triage automated (SOAR)",
+          "Needs strong automation and mentoring"
+        ]
+      }
+    ],
+    "note": "Most real SOCs blend the two: what matters is clear ownership, written criteria and a working feedback loop."
+  }
+}

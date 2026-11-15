@@ -1,38 +1,63 @@
-# Brief for a module-writing agent
+# Briefs for content agents
 
-(The coordinator fills in COURSE, MODULE and the course id, then gives this text to one
-agent per module. Each agent owns exactly one folder.)
+Work is split into small units so that no agent has to produce a whole module in one
+run: a LESSON agent writes 2 lessons (or 1), a QUIZ agent writes the module quiz after
+all lessons exist. The coordinator writes `module.json` (or a lesson agent fills in the
+lesson entries it owns) and runs the final validation.
+
+Repository root: `c:\Users\Mario\Desktop\Course_Content\redkross-academy-main\redkross-academy-main`
 
 ---
 
-You are writing Module {MODULE} of RedKross Academy course {COURSE} ("{COURSE_TITLE}"),
-course id `{COURSE_ID}`. Repository root:
-`c:\Users\Mario\Desktop\Course_Content\redkross-academy-main\redkross-academy-main`.
+## LESSON agent
+
+You are writing lesson(s) {LESSONS} of Module {MODULE} of RedKross Academy course
+{COURSE} ("{COURSE_TITLE}", course id `{COURSE_ID}`).
 
 1. Read `curriculum/AUTHORING_GUIDE.md` and `curriculum/DIAGRAM_SPECS.md` completely.
-2. Read the module's structure in `curriculum/blueprint/{COURSE}.json` (module {MODULE}):
-   the module title and its 8 lesson titles, in order, are fixed.
-3. Study the presentation benchmark: one lesson of
-   `src/services/db/course04/modules/module2.js` (read ~300 lines) for tone, depth,
-   headings, callouts, code blocks and walkthrough style.
-4. Gather source material for THIS module's topics (search, do not read everything):
-   - `public/course-content/{COURSE_ID}/` (existing v1 lessons of this course),
-   - `../../RedKross_Academy_Complete_Cybersecurity_Course_Library/LAB_ASSETS/{COURSE}/`
-     (lab scripts and their real `*_output.txt` outputs),
-   - `../../RedKross_Academy_Complete_Cybersecurity_Course_Library/COURSE_{NN}_*.txt`.
-5. Write `curriculum/{COURSE}/m{MM}/`: `module.json`, `l01.md` ... `l08.md`,
-   `figures.json`, `quiz.json` exactly as the guide specifies. Every lesson: 2,200-3,500
-   words of prose, 1-2 diagrams (2 where the lesson has two distinct mechanisms), each
-   followed by its `### Visual Walkthrough & Architectural Breakdown` (300-600 words).
-6. Run `node scripts/curriculum/validate.mjs {COURSE} {MODULE}` and fix every ERROR;
-   review every warn. Repeat until PASS.
-7. Run `node scripts/curriculum/build.mjs {COURSE} --module {MODULE} --preview` to make
-   sure every figure renders.
+2. Read `curriculum/blueprint/{COURSE}.json` (module {MODULE}) and, if it exists,
+   `curriculum/{COURSE}/m{MM}/module.json` and the module's other finished lessons, so
+   your lessons fit the module and do not repeat what neighbouring lessons cover.
+3. Study the presentation benchmark: `curriculum/C05/m01/l01.md` (the approved pilot
+   lesson) for tone, depth, structure and walkthrough style.
+4. Gather source material for YOUR lesson topics (search, do not read everything):
+   `public/course-content/{COURSE_ID}/` (existing v1 lessons),
+   `../../RedKross_Academy_Complete_Cybersecurity_Course_Library/LAB_ASSETS/{COURSE}/`
+   (lab scripts and their real `*_output.txt` outputs) and
+   `../../RedKross_Academy_Complete_Cybersecurity_Course_Library/COURSE_{NN}_*.txt`.
+5. For each lesson NN you own, write:
+   - `curriculum/{COURSE}/m{MM}/lNN.md` - 2,200-3,500 words of prose, 1-2 diagrams
+     (2 where the lesson has two distinct mechanisms), each placeholder followed by
+     `### Visual Walkthrough & Architectural Breakdown` (300-600 words).
+   - `curriculum/{COURSE}/m{MM}/lNN.figures.json` - the specs for that lesson's figures
+     only (codes `{COURSE}-M{MM}-LNN-F1`, ...). Labels must match what the walkthrough says.
+   Write the lesson file in two or three chunks (create it, then append sections) rather
+   than one huge write.
+6. If `module.json` exists, update ONLY your lessons' entries in its `lessons` array
+   (summary, objectives, minutes); do not touch other entries.
+7. Check your lessons: `node scripts/curriculum/validate.mjs {COURSE} {MODULE}` and fix
+   every ERROR and warn that mentions YOUR lessons or figure files (errors about other
+   lessons or quiz.json are not yours). Then
+   `node scripts/curriculum/build.mjs {COURSE} --module {MODULE} --preview` must succeed.
 
-Rules: write ONLY inside `curriculum/{COURSE}/m{MM}/`. Do not edit any other file, do not
-run the full course build, do not commit. Accuracy over volume: never invent tool
-output, flags, CVEs or standard clauses; use the lab kit's real outputs. Defensive,
-authorised-lab framing for every offensive technique.
+Write ONLY your own `lNN.md` / `lNN.figures.json` files (and your entries in
+`module.json`). Never run or modify anything inside the course library or LAB_ASSETS
+folder: copy the kit to your own temporary directory first and run scripts there. Do not commit. Accuracy over volume: never invent tool output, flags,
+CVEs or standard clauses; use the lab kit's real outputs. Defensive, authorised-lab
+framing for every offensive technique.
 
-Final reply (only this, under 15 lines): validator result line, total prose words,
-figure count, and any facts you were unsure about and left out.
+Final reply (under 10 lines): per lesson, prose words and figure count; facts you were
+unsure about and left out.
+
+---
+
+## QUIZ agent
+
+You write the question-bank share for lesson(s) {LESSONS} of Module {MODULE} of course
+{COURSE}: {COUNT} questions per lesson. Read `curriculum/AUTHORING_GUIDE.md` section 7 and
+the "Defence-first depth" rules, then each lesson you own in `curriculum/{COURSE}/m{MM}/`.
+Write `curriculum/{COURSE}/m{MM}/lNN.quiz.json` for each of your lessons (write in batches
+of about 10 questions, appending, not one huge write). Then run
+`node scripts/curriculum/validate.mjs {COURSE} {MODULE}` and fix every error that names your
+files (errors about other lessons' files are not yours). Write only your lNN.quiz.json files.
+Final reply: questions written per lesson, hard/medium split, the validator line.

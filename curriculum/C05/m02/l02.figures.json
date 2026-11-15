@@ -1,0 +1,47 @@
+{
+  "C05-M02-L02-F1": {
+    "title": "One DNS lookup through the hierarchy",
+    "caption": "How a recursive resolver walks root, TLD and authoritative servers on the tester's behalf, so the target never sees the tester's address.",
+    "alt": "Sequence diagram with five lanes: Tester's stub resolver, Recursive resolver, Root server, .com TLD server, example.com authoritative. The stub asks the recursive resolver for www.example.com A. The resolver asks the root, which replies with a referral to the .com name servers. The resolver asks the .com TLD server, which replies with a referral to the example.com name servers. The resolver asks the authoritative server, which replies with the A record and TTL. The resolver returns the answer to the stub and caches it.",
+    "type": "sequence",
+    "actors": [
+      { "id": "st", "label": "Tester's stub resolver", "sub": "OS or dig", "tone": "blue" },
+      { "id": "rr", "label": "Recursive resolver", "sub": "ISP or public", "tone": "orange" },
+      { "id": "root", "label": "Root server", "tone": "slate" },
+      { "id": "tld", "label": ".com TLD server", "tone": "slate" },
+      { "id": "auth", "label": "example.com authoritative", "tone": "dark" }
+    ],
+    "messages": [
+      { "from": "st", "to": "rr", "label": "www.example.com A?" },
+      { "from": "rr", "to": "root", "label": "www.example.com A?" },
+      { "from": "root", "to": "rr", "label": "referral: .com name servers", "dashed": true },
+      { "from": "rr", "to": "tld", "label": "www.example.com A?" },
+      { "from": "tld", "to": "rr", "label": "referral: example.com name servers", "dashed": true },
+      { "from": "rr", "to": "auth", "label": "www.example.com A?" },
+      { "from": "auth", "to": "rr", "label": "A record + TTL", "dashed": true },
+      { "from": "rr", "to": "st", "label": "answer (resolver caches it)", "dashed": true }
+    ],
+    "note": "The authoritative server sees only the resolver, never the tester's own address."
+  },
+  "C05-M02-L02-F2": {
+    "title": "RDAP lookup: bootstrap, registry, registrar",
+    "caption": "An RDAP client finds the registry through IANA's bootstrap file, then follows a link to the registrar for contact data.",
+    "alt": "Sequence diagram with four lanes: Tester (RDAP client), IANA bootstrap file, Registry RDAP, Registrar RDAP. The tester fetches dns.json from the IANA bootstrap file, which returns the registry's base URL for the TLD. The tester sends GET /domain/example.com to the registry, which returns JSON with status, events, name servers, the registrar and a link to the registrar's record. The tester follows the link to the registrar, which returns the record with contact entities, often redacted.",
+    "type": "sequence",
+    "actors": [
+      { "id": "t", "label": "Tester (RDAP client)", "sub": "browser, curl, client", "tone": "blue" },
+      { "id": "i", "label": "IANA bootstrap file", "sub": "dns.json", "tone": "slate" },
+      { "id": "r", "label": "Registry RDAP", "tone": "violet" },
+      { "id": "g", "label": "Registrar RDAP", "tone": "orange" }
+    ],
+    "messages": [
+      { "from": "t", "to": "i", "label": "fetch dns.json" },
+      { "from": "i", "to": "t", "label": "registry base URL for the TLD", "dashed": true },
+      { "from": "t", "to": "r", "label": "GET /domain/example.com" },
+      { "from": "r", "to": "t", "label": "JSON: status, events, name servers, registrar + link", "dashed": true },
+      { "from": "t", "to": "g", "label": "follow link to registrar record" },
+      { "from": "g", "to": "t", "label": "contact entities (often redacted)", "dashed": true }
+    ],
+    "note": "Use registration facts to confirm ownership, not to profile people."
+  }
+}

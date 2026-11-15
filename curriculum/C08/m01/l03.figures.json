@@ -1,0 +1,64 @@
+{
+  "C08-M01-L03-F1": {
+    "title": "The alert lifecycle: from detection to feedback",
+    "caption": "An alert moves through generation, queueing, triage and investigation to a disposition; each disposition leads to its own action, every path ends in a closure record, and feedback returns to detection.",
+    "alt": "Graph diagram. Generated leads to Queued and prioritised, then Triage, then Investigate, then a decision Disposition?. Triage can also lead straight to the decision. The decision branches to True positive, which leads to Escalate to incident response; Benign true positive, which leads to Close with documented reason; False positive, which leads to Close and tune the rule; and Undetermined, which leads to Monitor and record the gap. All four actions lead to Closure record. A dashed Feedback arrow runs from Closure record back to Generated.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "g", "label": "Generated", "sub": "rule, model or analyst", "tone": "slate" },
+      { "id": "q", "label": "Queued and prioritised", "sub": "severity x confidence x criticality", "tone": "blue" },
+      { "id": "t", "label": "Triage", "sub": "plausibly real? urgent?", "tone": "orange" },
+      { "id": "i", "label": "Investigate", "sub": "timeline, scope, related alerts", "tone": "orange" },
+      { "id": "d", "label": "Disposition?", "kind": "decision", "tone": "violet" },
+      { "id": "tp", "label": "True positive", "tone": "red" },
+      { "id": "btp", "label": "Benign true positive", "tone": "green" },
+      { "id": "fp", "label": "False positive", "tone": "slate" },
+      { "id": "u", "label": "Undetermined", "tone": "violet" },
+      { "id": "e", "label": "Escalate to incident response", "sub": "acknowledged hand-off", "tone": "red" },
+      { "id": "cb", "label": "Close with documented reason", "sub": "e.g. change ticket", "tone": "green" },
+      { "id": "ct", "label": "Close and tune the rule", "sub": "tuning ticket", "tone": "slate" },
+      { "id": "m", "label": "Monitor and record the gap", "sub": "missing evidence named", "tone": "violet" },
+      { "id": "c", "label": "Closure record", "sub": "what happened, evidence, actions, changes", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "g", "to": "q" },
+      { "from": "q", "to": "t" },
+      { "from": "t", "to": "i" },
+      { "from": "t", "to": "d", "label": "obvious answer" },
+      { "from": "i", "to": "d" },
+      { "from": "d", "to": "tp", "label": "TP" },
+      { "from": "d", "to": "btp", "label": "BTP" },
+      { "from": "d", "to": "fp", "label": "FP" },
+      { "from": "d", "to": "u", "label": "undetermined" },
+      { "from": "tp", "to": "e" },
+      { "from": "btp", "to": "cb" },
+      { "from": "fp", "to": "ct" },
+      { "from": "u", "to": "m" },
+      { "from": "e", "to": "c" },
+      { "from": "cb", "to": "c" },
+      { "from": "ct", "to": "c" },
+      { "from": "m", "to": "c" },
+      { "from": "c", "to": "g", "label": "Feedback", "dashed": true }
+    ],
+    "note": "Every path ends in a closure record, and every closure can send feedback to the detection layer."
+  },
+  "C08-M01-L03-F2": {
+    "title": "Banyan lab: queue order versus event order",
+    "caption": "The seven alerts from minisiem.py as scored by triage.py, with the time of the underlying activity and the case each joins after grouping.",
+    "alt": "Table with columns Queue, Rule, Priority, Event time (UTC) and Case after grouping. 1: R5 log_cleared, 10.8, 08:17, CASE-0001 WS-104. 2: R2 vpn_spray_then_success, 7.2, 06:46, linked case, gopal VPN. 3: R1 office_spawns_script, 7.2, 06:14, CASE-0001. 4: R3 new_local_admin, 5.4, 07:02, CASE-0001. 5: R3 new_local_admin, 5.4, 07:03, CASE-0001. 6: R4 large_upload, 4.5, 08:12, CASE-0001. 7: R6 beacon_regular_small, 3.6, from 06:17, CASE-0001.",
+    "type": "table",
+    "columns": ["Queue", "Rule", "Priority", "Event time (UTC)", "Case after grouping"],
+    "rows": [
+      ["1", "R5 log_cleared", "10.8", "08:17", "CASE-0001 (WS-104)"],
+      ["2", "R2 vpn_spray_then_success", "7.2", "06:46", "Linked case (gopal, VPN)"],
+      ["3", "R1 office_spawns_script", "7.2", "06:14", "CASE-0001 (WS-104)"],
+      ["4", "R3 new_local_admin", "5.4", "07:02", "CASE-0001 (WS-104)"],
+      ["5", "R3 new_local_admin", "5.4", "07:03", "CASE-0001 (WS-104)"],
+      ["6", "R4 large_upload", "4.5", "08:12", "CASE-0001 (WS-104)"],
+      ["7", "R6 beacon_regular_small", "3.6", "from 06:17", "CASE-0001 (WS-104)"]
+    ],
+    "rowTones": ["orange", "violet", "orange", "orange", "orange", "orange", "orange"],
+    "note": "The top of the queue is the last event of the attack; the bottom of the queue is one of the first."
+  }
+}

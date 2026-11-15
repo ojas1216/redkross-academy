@@ -1,0 +1,132 @@
+[
+  {
+    "q": "In the Banyan queue, R5 (log_cleared, 10.8) is at the top and R6 (beacon_regular_small, 3.6) is at the bottom, and both name WS-104. After taking R5, what is the most effective next investigative move?",
+    "options": [
+      "Pull every alert sharing WS-104 and user divya into one case and rebuild the sequence in event-time order",
+      "Move to R2 next, because it holds the second-highest priority score in the queue at 7.2",
+      "Close R6 as routine telemetry traffic, because its low score shows the rule has little confidence",
+      "Suppress the second R3 hit as a duplicate so the queue only shows one alert per rule and host"
+    ],
+    "correct": 0,
+    "explanation": "The queue says where to start, not what the story is; grouping by shared entities and ordering by event time reveals the intrusion from 06:12 onwards. Working R2 next follows score order but ignores that R2 shares no entities with R5.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule for new local administrator accounts fires when an IT administrator runs an approved build script covered by a change ticket. How should the alert be dispositioned?",
+    "options": [
+      "False positive, with a tuning request so the rule stops matching administrator scripts",
+      "Benign true positive, closed with the change ticket number recorded as the documented reason",
+      "Undetermined, because authorised and malicious account creation leave identical events",
+      "True positive, escalated so incident response can confirm the change ticket is genuine"
+    ],
+    "correct": 1,
+    "explanation": "The rule detected exactly what it was built to detect, but the activity was authorised, which is the definition of a benign true positive. Calling it a false positive would wrongly imply the rule logic is broken.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team routinely records authorised administrator actions as false positives instead of benign true positives. What is the most serious long-term consequence?",
+    "options": [
+      "Closure notes become longer because each false positive needs a tuning ticket attached",
+      "Incident response receives more escalations because false positives are reviewed by Tier 2",
+      "The per-rule false-positive rate is inflated, so detection engineers may weaken a healthy rule",
+      "Suppressions expire sooner because false-positive suppressions carry shorter review dates"
+    ],
+    "correct": 2,
+    "explanation": "Detection engineers tune rules using the false-positive rate; mislabelled BTPs make a correct rule look broken and invite changes that reduce coverage. The other options describe workload effects, not loss of detection.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Rule R4 (large_upload) matched the nightly backup job sending data to the approved storage endpoint. Which closure note meets the lifecycle's closure standard?",
+    "options": [
+      "FP, closing: known backup traffic, no further action needed on this alert",
+      "FP: backup traffic, rule is noisy for uploads; suppressed R4 for all hosts until it is rewritten",
+      "BTP: probably the backup job based on the destination name, closing to keep the queue short",
+      "FP: R4 matched the backup server's nightly upload to the approved endpoint; confirmed against the backup schedule and change record; tuning ticket raised for a narrow, expiring exclusion"
+    ],
+    "correct": 3,
+    "explanation": "A usable note states what happened, the evidence checked, the decision and what should change, so an engineer can act and a reviewer can verify. The broad suppression option removes coverage for every host, exactly what an attacker would hide behind.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "triage.py gives R5 a priority of 10.8 from severity 4, confidence 0.9 and asset criticality 3. If the same log_cleared hit occurred on a host of criticality 1, what would its score be?",
+    "options": [
+      "10.8, because severity and confidence are properties of the rule rather than the host",
+      "3.6, so the same behaviour would rank alongside the beacon alert at the bottom of the queue",
+      "4.5, because the score is reduced by one criticality step from the finance workstation",
+      "1.2, because confidence is applied twice when the asset is of low business importance"
+    ],
+    "correct": 1,
+    "explanation": "The score is the product severity x confidence x criticality, so 4 x 0.9 x 1 = 3.6. Asset context scales the priority; the rule's severity and confidence alone do not fix it.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A dashboard shows an alert in the In progress state, but the owner field is empty. How should a SOC lead interpret this?",
+    "options": [
+      "It is effectively an unhandled New alert, because no named person is responsible for it",
+      "It is safe to leave, because the In progress state shows that triage has already begun",
+      "It should be moved to Pending, because unowned work is waiting for an external answer",
+      "It should be closed as undetermined, because the record cannot show who investigated it"
+    ],
+    "correct": 0,
+    "explanation": "Every state other than New and Closed needs a named owner; an ownerless In progress alert is New work disguised as handled. Pending is for waiting on an external answer and still requires an owner.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An alert has sat in Pending for two days waiting for a user to confirm whether they ran a script, and the playbook's time limit has passed. What should normally happen?",
+    "options": [
+      "Close it as a benign true positive, since no complaint from the user suggests the run was intended",
+      "Leave it in Pending until the user replies, because closing without the answer would lose evidence",
+      "Close it as a false positive and raise a tuning ticket, since the rule produced an unanswerable alert",
+      "Escalate it as the playbook directs, because an unanswered confirmation is not evidence of safety"
+    ],
+    "correct": 3,
+    "explanation": "Pending must be time-limited, and the usual outcome when the answer never arrives is escalation, not closure. Silence from the user proves nothing about whether the activity was authorised.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should alert state transitions be timestamped by the case system in UTC rather than entered by the analyst?",
+    "options": [
+      "Because analysts are not permitted to edit case records once an alert has been acknowledged",
+      "Because SIEM rules can only correlate events whose timestamps were written by the platform",
+      "Because those timestamps feed metrics and service levels, which need consistent, trustworthy times",
+      "Because UTC timestamps are required for the case system to sort the queue by priority score"
+    ],
+    "correct": 2,
+    "explanation": "System-written UTC transition times are the raw data for time-to-acknowledge and time-to-resolve metrics and for service-level timers. Typed times drift, vary by time zone and can be wrong.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which suppression entry shows the properties of a well-formed suppression as described for the lab's triage helper?",
+    "options": [
+      "R3, user matches *admin*, reason: admins create accounts often, no expiry date",
+      "R3, user = itadmin, reason: approved build account under CHG-1042, expires 2026-12-31",
+      "All rules, host = WS-104, reason: finance workstation is noisy, expires next quarter",
+      "R3, any user, reason: rule under review by detection engineering, expires when fixed"
+    ],
+    "correct": 1,
+    "explanation": "A good suppression names one rule, one field and one exact value, cites a change record as the reason and expires. The wildcard option is broad and permanent, removing coverage for any account whose name contains admin.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Tier 1 analyst sends a chat message to a Tier 2 colleague about a suspicious alert, and the colleague replies that they will look later. The case record still lists the Tier 1 analyst as owner. What is the status of the escalation?",
+    "options": [
+      "Not complete: ownership has not moved in the case system and no acknowledgement is recorded there",
+      "Complete: the Tier 2 colleague has accepted the work, which transfers ownership in practice",
+      "Complete once the Tier 1 analyst sets the state to Escalated, even without a named receiver",
+      "Not required: chat escalations are logged by the platform, so the case record is not needed"
+    ],
+    "correct": 0,
+    "explanation": "Escalation is a transfer of ownership made through the case system and is complete only when the receiver acknowledges it there. A chat reply is a conversation, not a recorded hand-off.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

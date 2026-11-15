@@ -19,7 +19,7 @@ const ROOT = path.join(__dirname, '../../curriculum');
 
 export const MIN_PROSE_WORDS = 2000;
 export const MIN_WALKTHROUGH_WORDS = 250;
-export const QUIZ_SIZE = 12;
+export const QUIZ_SIZE = 200; // questions per module bank (exam draws 20 per attempt)
 export const FIG_RE = /^\{\{figure ([A-Z]\d\d-M\d\d-L\d\d-F\d)\}\}\s*$/;
 const WALK = '### Visual Walkthrough & Architectural Breakdown';
 
@@ -111,6 +111,37 @@ function loadJson(file, errors) {
   }
 }
 
+/** quiz.json and/or per-lesson lNN.quiz.json files, concatenated in file order. */
+export function loadQuiz(dir, errors = []) {
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => /^(quiz|l\d\d\.quiz)\.json$/.test(f)).sort() : [];
+  if (!files.length) {
+    errors.push('missing quiz.json (or lNN.quiz.json files)');
+    return null;
+  }
+  const all = [];
+  for (const f of files) {
+    const part = loadJson(path.join(dir, f), errors);
+    if (Array.isArray(part)) all.push(...part.map((q) => ({ ...q, _file: f })));
+    else if (part) errors.push(`${f}: must be a JSON array`);
+  }
+  return all;
+}
+
+/** figures.json and/or per-lesson lNN.figures.json files, merged (duplicate codes are an error). */
+export function loadFigures(dir, errors = []) {
+  const merged = {};
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => /^(figures|l\d\d\.figures)\.json$/.test(f)).sort() : [];
+  if (!files.length) errors.push('missing figures.json (or lNN.figures.json files)');
+  for (const f of files) {
+    const part = loadJson(path.join(dir, f), errors) || {};
+    for (const [k, v] of Object.entries(part)) {
+      if (merged[k]) errors.push(`${f}: figure ${k} defined twice`);
+      merged[k] = v;
+    }
+  }
+  return merged;
+}
+
 export async function validateModule(code, m, { render = true } = {}) {
   const errors = [];
   const warnings = [];
@@ -121,8 +152,8 @@ export async function validateModule(code, m, { render = true } = {}) {
   if (!fs.existsSync(dir)) return { errors: [`missing folder ${path.relative(process.cwd(), dir)}`], warnings, stats: {} };
 
   const meta = loadJson(path.join(dir, 'module.json'), errors);
-  const figs = loadJson(path.join(dir, 'figures.json'), errors) || {};
-  const quiz = loadJson(path.join(dir, 'quiz.json'), errors);
+  const figs = loadFigures(dir, errors);
+  const quiz = loadQuiz(dir, errors);
   const stats = { lessons: 0, prose: 0, figures: 0, walkthroughs: 0, quiz: Array.isArray(quiz) ? quiz.length : 0 };
 
   if (meta) {
@@ -186,21 +217,31 @@ export async function validateModule(code, m, { render = true } = {}) {
     if (quiz.length !== QUIZ_SIZE) errors.push(`quiz.json has ${quiz.length} questions (need ${QUIZ_SIZE})`);
     const positions = new Set();
     const seen = new Set();
+    const counts = [0, 0, 0, 0];
+    const lessonsCovered = new Set();
     quiz.forEach((q, i) => {
-      const t = `quiz #${i + 1}`;
+      const t = `${q._file} #${i + 1}`;
+      if (Number.isInteger(q.correct) && q.correct >= 0 && q.correct <= 3) counts[q.correct]++;
+      lessonsCovered.add(q.lesson);
       if (!q.q || words(q.q) < 6) errors.push(`${t}: question too short`);
       if (!Array.isArray(q.options) || q.options.length !== 4 || q.options.some((o) => !String(o).trim())) errors.push(`${t}: needs 4 non-empty options`);
       else if (new Set(q.options.map(norm)).size !== 4) errors.push(`${t}: duplicate options`);
       if (!Number.isInteger(q.correct) || q.correct < 0 || q.correct > 3) errors.push(`${t}: correct must be 0-3`);
       positions.add(q.correct);
       if (!q.explanation || words(q.explanation) < 8) errors.push(`${t}: explanation missing/short`);
-      if (!['easy', 'medium', 'hard'].includes(q.difficulty)) errors.push(`${t}: difficulty must be easy|medium|hard`);
-      if (!(q.lesson >= 1 && q.lesson <= 8)) errors.push(`${t}: lesson must be 1-8`);
+      if (!['medium', 'hard'].includes(q.difficulty)) errors.push(`${t}: difficulty must be medium|hard`);
+      if (!(q.lesson >= 1 && q.lesson <= bpm.lessons.length)) errors.push(`${t}: lesson must be 1-${bpm.lessons.length}`);
+      const fileLesson = (q._file.match(/^l(\d\d)\./) || [])[1];
+      if (fileLesson && Number(fileLesson) !== q.lesson) errors.push(`${t}: lesson ${q.lesson} in ${q._file}`);
       if ((q.options || []).some((o) => /all of the above|none of the above/i.test(o))) errors.push(`${t}: no "all/none of the above"`);
       if (seen.has(norm(q.q))) errors.push(`${t}: duplicate question`);
       seen.add(norm(q.q));
     });
-    if (quiz.length === QUIZ_SIZE && positions.size < 4) errors.push(`quiz.json: correct answers use only positions ${[...positions].join(',')} (use all four)`);
+    if (quiz.length >= 40) {
+      const share = counts.map((c) => c / quiz.length);
+      if (share.some((x) => x < 0.15 || x > 0.35)) errors.push(`quiz: correct-answer positions are unbalanced (${counts.join('/')}); each of A-D should be 15-35%`);
+    } else if (quiz.length && positions.size < 4) errors.push(`quiz: correct answers use only positions ${[...positions].join(',')}`);
+    for (let n = 1; n <= bpm.lessons.length; n++) if (!lessonsCovered.has(n)) errors.push(`quiz: no questions for lesson ${n}`);
   }
   return { errors, warnings, stats };
 }

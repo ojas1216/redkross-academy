@@ -1,0 +1,48 @@
+{
+  "C05-M04-L02-F1": {
+    "title": "From discovered flaw to a CVE in your finding",
+    "caption": "How a vulnerability is reserved, published, enriched and consumed by scanners before it appears in an assessment.",
+    "alt": "Left-to-right flow of six steps: Discovery and report (researcher or vendor), CNA reserves an ID (CVE-YYYY-NNNN, may stay Reserved), Record published (description, affected products, references), Enrichment (NVD and others: CVSS, CWE, CPE; can lag days), Scanner feeds and advisories (checks and patches), Your finding (a result citing the CVE).",
+    "type": "flow",
+    "dir": "LR",
+    "steps": [
+      { "label": "Discovery and report", "sub": "researcher or vendor", "tone": "slate" },
+      { "label": "CNA reserves an ID", "sub": "CVE-YYYY-NNNN, may stay Reserved", "tone": "violet" },
+      { "label": "Record published", "sub": "description, products, references", "tone": "orange" },
+      { "label": "Enrichment (NVD and others)", "sub": "CVSS, CWE, CPE; can lag days", "tone": "blue" },
+      { "label": "Scanner feeds and advisories", "sub": "checks and patches", "tone": "green" },
+      { "label": "Your finding", "sub": "a result citing the CVE", "tone": "dark" }
+    ],
+    "note": "Publication is the gate: defenders and attackers learn of the flaw at the same moment."
+  },
+  "C05-M04-L02-F2": {
+    "title": "CVSS v3.1 base score calculation",
+    "caption": "The eight metrics in a vector string feed parallel impact and exploitability branches that combine into a score and a severity rating.",
+    "alt": "Graph. Vector string (e.g. AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H) feeds Impact Sub-Score (combines C, I, A), which feeds Impact (ISS scaled by Scope); the vector also feeds Exploitability (8.22 x AV x AC x PR x UI) and the Scope decision (Unchanged or Changed). Scope points into Impact (formula), Exploitability (PR weight) and Combine and Roundup (1.08 multiplier). Impact and Exploitability both feed Combine and Roundup (add, x1.08 if Changed, cap at 10, round up; 0.0 if Impact is 0), which feeds Severity rating (None, Low, Medium, High, Critical).",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "v", "label": "Vector string", "sub": "AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H", "tone": "slate" },
+      { "id": "iss", "label": "Impact Sub-Score", "sub": "combines C, I, A", "tone": "blue" },
+      { "id": "sc", "label": "Scope", "sub": "Unchanged or Changed", "kind": "decision", "tone": "violet" },
+      { "id": "ex", "label": "Exploitability", "sub": "8.22 × AV × AC × PR × UI", "tone": "orange" },
+      { "id": "im", "label": "Impact", "sub": "ISS scaled by Scope", "tone": "blue" },
+      { "id": "c", "label": "Combine and Roundup", "sub": "add, ×1.08 if Changed, cap at 10, round up; 0.0 if Impact is 0", "tone": "red" },
+      { "id": "r", "label": "Severity rating", "sub": "None, Low, Medium, High, Critical", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "v", "to": "iss" },
+      { "from": "v", "to": "sc" },
+      { "from": "v", "to": "ex" },
+      { "from": "iss", "to": "im" },
+      { "from": "sc", "to": "im", "label": "formula" },
+      { "from": "sc", "to": "ex", "label": "PR weight" },
+      { "from": "sc", "to": "c", "label": "1.08 multiplier" },
+      { "from": "im", "to": "c" },
+      { "from": "ex", "to": "c" },
+      { "from": "c", "to": "r" }
+    ],
+    "note": "Deterministic: AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H gives 5.873 + 3.887 = 9.76, rounded up to 9.8 Critical."
+  }
+}

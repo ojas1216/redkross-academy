@@ -1,0 +1,104 @@
+{
+  "course": "C05",
+  "module": 1,
+  "title": "Methodology and law",
+  "description": "Before any tool runs, a penetration test is defined on paper and bounded by law. This module covers the recognised methodologies (PTES, OSSTMM and NIST SP 800-115), the authorisation letter, scope and rules of engagement that make a test lawful and safe, the Indian legal framework (IT Act 2000, CERT-In Directions, DPDP Act 2023), and the evidence, lab-safety and reporting disciplines that make the work trustworthy and useful.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "PTES and OSSTMM overview",
+      "summary": "How the PTES seven-phase lifecycle, the OSSTMM measurement approach and NIST SP 800-115's four phases give a penetration test structure, repeatability and coverage.",
+      "objectives": [
+        "Describe the seven PTES phases and the output each phase hands to the next",
+        "Explain OSSTMM's channels, porosity and operational controls and why it measures rather than lists",
+        "Map PTES and OSSTMM onto the NIST SP 800-115 four-phase model and its feedback loop",
+        "Choose and justify a methodology spine for a given engagement"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Authorization letter",
+      "summary": "What a written authorisation to test must contain, who can validly sign it, and how third parties and contracts fit around it.",
+      "objectives": [
+        "Identify the mandatory elements of an authorisation letter",
+        "Determine who has authority to authorise testing of a given asset",
+        "Explain why cloud, hosting and other third-party providers need separate consent",
+        "Relate the authorisation letter to the MSA, SOW and NDA that surround it"
+      ],
+      "minutes": 55
+    },
+    {
+      "n": 3,
+      "title": "Scope",
+      "summary": "How to define precisely what may and may not be tested, verify ownership of every target, and handle assets discovered during the test.",
+      "objectives": [
+        "Write a scope that lists in-scope targets precisely and out-of-scope items explicitly",
+        "Verify that the client owns or controls every in-scope asset",
+        "Apply a stop-and-ask decision procedure to newly discovered assets",
+        "Distinguish black-box, grey-box and white-box scoping and their trade-offs"
+      ],
+      "minutes": 55
+    },
+    {
+      "n": 4,
+      "title": "Rules of engagement",
+      "summary": "How rules of engagement govern the conduct of a test: permitted techniques, windows, communication, escalation and stop conditions.",
+      "objectives": [
+        "List the core sections of a rules-of-engagement document",
+        "Define stop conditions and the escalation path for critical findings",
+        "Explain how source addresses, test windows and notifications let defenders tell a test from an attack",
+        "Draft rules of engagement for the course lab"
+      ],
+      "minutes": 55
+    },
+    {
+      "n": 5,
+      "title": "Legal boundaries in India",
+      "summary": "The Indian legal framework that bounds penetration testing: IT Act 2000 sections 43, 66, 70 and 72A, the CERT-In Directions of 2022 and the DPDP Act 2023.",
+      "objectives": [
+        "Explain how IT Act section 43 creates civil liability and section 66 makes the same acts an offence",
+        "Identify when protected-system, confidentiality and extraterritorial provisions apply",
+        "Describe CERT-In's role and the reporting duties in its 2022 Directions",
+        "Apply data-protection duties under the DPDP Act 2023 to data met during a test"
+      ],
+      "minutes": 65
+    },
+    {
+      "n": 6,
+      "title": "Evidence handling",
+      "summary": "How to capture reproducible, timestamped evidence, protect its integrity with hashes, and keep a chain of custody from capture to destruction.",
+      "objectives": [
+        "Capture evidence that lets another tester reproduce a finding",
+        "Compute and verify SHA-256 hashes of evidence files",
+        "Maintain a chain-of-custody record across hand-offs",
+        "Apply minimisation, retention and destruction rules to sensitive evidence"
+      ],
+      "minutes": 55
+    },
+    {
+      "n": 7,
+      "title": "Lab safety",
+      "summary": "How to build and run a practice lab that cannot reach anyone else's systems, using isolation, snapshots, loopback binding and tool-level scope checks.",
+      "objectives": [
+        "Design an isolated lab topology using host-only or internal networking",
+        "Explain how loopback binding and allowlists enforce scope in code",
+        "Use snapshots, separation of tools and data, and cleanup to keep the lab safe",
+        "Run the course lab's scope refusal and interpret its result"
+      ],
+      "minutes": 50
+    },
+    {
+      "n": 8,
+      "title": "Report templates",
+      "summary": "The structure of a professional penetration-test report, the anatomy of a finding, and how the lab pipeline turns verified evidence into a ranked, retestable report.",
+      "objectives": [
+        "Describe the sections of a penetration-test report and their audiences",
+        "Write a complete finding entry with evidence, CVSS vector, impact and remediation",
+        "Trace the lab pipeline from verification to report to retest",
+        "Review a report against a quality checklist before release"
+      ],
+      "minutes": 60
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "C05-M01-L07-F1": {
+    "title": "An isolated practice lab and the paths it blocks",
+    "caption": "Targets live on loopback or a host-only network inside the host; no adapter connects the lab to the physical LAN or the internet.",
+    "alt": "Graph. Host computer (your own machine, patched, non-admin user) connects to Loopback lab target (app.py on 127.0.0.1:8099) and to Host-only network (e.g. 192.168.56.0/24, no route out). The host-only network connects Tester VM (tools, scope-checked), which connects to Target VM (snapshot before every session). Dashed arrows labelled blocked: no bridged or NAT adapter run from the Host-only network to Physical LAN (home, office, campus) and to Internet (third-party systems), both shown in red as out of scope.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "h", "label": "Host computer", "sub": "your own machine, patched, non-admin user", "tone": "dark" },
+      { "id": "lo", "label": "Loopback lab target", "sub": "app.py on 127.0.0.1:8099", "tone": "green" },
+      { "id": "ho", "label": "Host-only network", "sub": "e.g. 192.168.56.0/24, no route out", "tone": "violet" },
+      { "id": "tv", "label": "Tester VM", "sub": "tools, scope-checked", "tone": "blue" },
+      { "id": "gv", "label": "Target VM", "sub": "snapshot before every session", "tone": "orange" },
+      { "id": "lan", "label": "Physical LAN", "sub": "home, office, campus", "tone": "red" },
+      { "id": "net", "label": "Internet", "sub": "third-party systems", "tone": "red" }
+    ],
+    "edges": [
+      { "from": "h", "to": "lo" },
+      { "from": "h", "to": "ho" },
+      { "from": "ho", "to": "tv" },
+      { "from": "tv", "to": "gv" },
+      { "from": "ho", "to": "lan", "label": "blocked: no bridged or NAT adapter", "dashed": true },
+      { "from": "ho", "to": "net", "label": "blocked: no bridged or NAT adapter", "dashed": true }
+    ],
+    "note": "Isolation is a property of the whole topology: one bridged adapter joins the lab to someone else's network."
+  },
+  "C05-M01-L07-F2": {
+    "title": "How the kit's tools enforce scope before acting",
+    "caption": "Each tool checks the host against an allowlist, then checks the target is up, and only then runs its read-only checks.",
+    "alt": "Decision graph. Tool invoked (enumerate.py / retest.py --host X) leads to decision Host in ALLOWED_HOSTS? (127.0.0.1 or localhost only). No leads to REFUSED, exit 2 (no packet sent). Yes leads to decision Target reachable on loopback? (TCP connect, 1-second timeout). No leads to Stop, exit 1 (start target/app.py first). Yes leads to Run safe checks (read-only, evidence to data/).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "i", "label": "Tool invoked", "sub": "enumerate.py / retest.py --host X", "tone": "slate" },
+      { "id": "a", "label": "Host in ALLOWED_HOSTS?", "sub": "127.0.0.1 or localhost only", "tone": "violet", "kind": "decision" },
+      { "id": "r", "label": "REFUSED, exit 2", "sub": "no packet sent", "tone": "red" },
+      { "id": "u", "label": "Target reachable on loopback?", "sub": "TCP connect, 1-second timeout", "tone": "violet", "kind": "decision" },
+      { "id": "s", "label": "Stop, exit 1", "sub": "start target/app.py first", "tone": "slate" },
+      { "id": "c", "label": "Run safe checks", "sub": "read-only, evidence to data/", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "i", "to": "a" },
+      { "from": "a", "to": "r", "label": "no" },
+      { "from": "a", "to": "u", "label": "yes" },
+      { "from": "u", "to": "s", "label": "no" },
+      { "from": "u", "to": "c", "label": "yes" }
+    ],
+    "note": "Scope is checked before reachability, so an out-of-scope host never receives even a connection attempt."
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "C05-M04-L04-F1": {
+    "title": "Unauthenticated vs authenticated scan: what each can see",
+    "caption": "The outside and inside views of the same host are complementary: one guesses patch level from labels, the other reads it directly.",
+    "alt": "Two columns separated by vs. Unauthenticated (outside view): open ports; banners and headers; protocol behaviour; anonymous responses; patch level guessed from labels. Authenticated (inside view): installed package inventory; kernel and OS build; configuration files and registry; non-listening software; patch level read directly.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Unauthenticated (outside view)",
+        "tone": "orange",
+        "items": ["Open ports", "Banners and headers", "Protocol behaviour", "Anonymous responses", "Patch level guessed from labels"]
+      },
+      {
+        "title": "Authenticated (inside view)",
+        "tone": "green",
+        "items": ["Installed package inventory", "Kernel and OS build", "Configuration files and registry", "Non-listening software", "Patch level read directly"]
+      }
+    ],
+    "note": "Run both and reconcile: use the inside view to confirm or dismiss outside guesses."
+  },
+  "C05-M04-L04-F2": {
+    "title": "One authenticated Linux scan, message by message",
+    "caption": "The exchange behind an authenticated scan: SSH login, OS and package inventory, facts stored, compared with advisories, result recorded.",
+    "alt": "Sequence diagram with four lanes: OpenVAS scanner, Lab host (sshd), Knowledge base (Redis), Advisory data (feed). Scanner to host: SSH login with the scan account's key. Host to scanner (reply): login accepted. Scanner to host: read-only commands for OS release and installed packages. Host to scanner (reply): release + package list. Scanner to knowledge base: write facts. Knowledge base to scanner (reply): local checks read the facts back. Scanner to advisory data: look up fixed versions. Advisory data to scanner (reply): fixed version, compared with the installed version to produce a result.",
+    "type": "sequence",
+    "actors": [
+      { "id": "s", "label": "OpenVAS scanner", "tone": "orange" },
+      { "id": "h", "label": "Lab host (sshd)", "sub": "in-scope Linux VM", "tone": "blue" },
+      { "id": "k", "label": "Knowledge base (Redis)", "tone": "slate" },
+      { "id": "a", "label": "Advisory data (feed)", "sub": "fixed package versions", "tone": "green" }
+    ],
+    "messages": [
+      { "from": "s", "to": "h", "label": "SSH login with scan account key" },
+      { "from": "h", "to": "s", "label": "login accepted", "dashed": true },
+      { "from": "s", "to": "h", "label": "read-only: OS release, installed packages" },
+      { "from": "h", "to": "s", "label": "release + package list", "dashed": true },
+      { "from": "s", "to": "k", "label": "write facts" },
+      { "from": "k", "to": "s", "label": "local checks read facts", "dashed": true },
+      { "from": "s", "to": "a", "label": "look up fixed versions" },
+      { "from": "a", "to": "s", "label": "fixed version → compare → result", "dashed": true }
+    ],
+    "note": "If the login fails, nothing after it happens: always check authentication status before trusting a quiet report."
+  }
+}

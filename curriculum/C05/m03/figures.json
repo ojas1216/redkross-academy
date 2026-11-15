@@ -1,0 +1,36 @@
+{
+  "C05-M03-L01-F1": {
+    "title": "Host discovery probe families and what they prove",
+    "caption": "Each probe family proves a host is live in a different way and fails in a different way.",
+    "alt": "Table with six rows. ARP request, Nmap -PR, proven by an ARP reply, works only on the local segment. ICMP echo, -PE, proven by an echo reply, often dropped at perimeters. ICMP timestamp, -PP, proven by a timestamp reply, sometimes answered when echo is blocked. TCP SYN probe, -PS with ports, proven by SYN/ACK or RST, needs a port the filter allows. TCP ACK probe, -PA with ports, proven by RST, stateful firewalls drop it. UDP probe, -PU with ports, proven by ICMP port unreachable, open UDP ports are often silent.",
+    "type": "table",
+    "columns": ["Probe", "Nmap option", "Reply that proves 'up'", "Main limitation"],
+    "rowTones": ["green", "blue", "blue", "blue", "orange", "orange"],
+    "rows": [
+      ["ARP request", "-PR", "ARP reply", "Local segment only"],
+      ["ICMP echo request", "-PE", "Echo reply", "Often dropped at perimeters"],
+      ["ICMP timestamp request", "-PP", "Timestamp reply", "Rarely needed; may be filtered"],
+      ["TCP SYN probe", "-PS<ports>", "SYN/ACK or RST", "Needs a port the filter allows"],
+      ["TCP ACK probe", "-PA<ports>", "RST", "Stateful firewalls drop it"],
+      ["UDP probe", "-PU<ports>", "ICMP port unreachable", "Open UDP ports stay silent"]
+    ],
+    "note": "A host is marked up when any probe gets a reply; 'down' only means every probe used went unanswered."
+  },
+  "C05-M03-L01-F2": {
+    "title": "From signed scope to verified live-host list",
+    "caption": "The safe discovery procedure: verify the target list without touching targets, then probe.",
+    "alt": "Top-to-bottom flow of six steps: signed scope (scope.md); target file (targets.txt plus exclude.txt); list scan with -sL -n, which sends no packets to targets; review and exclude, checking the address count against the scope; discovery with -sn --reason, the only active step; live-host list saved with -oA and timestamped. A loop arrow returns from the last step to review when results are unexpected.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {"label": "Signed scope", "sub": "scope.md: hosts, ports, window", "tone": "violet"},
+      {"label": "Target file", "sub": "targets.txt + exclude.txt", "tone": "blue"},
+      {"label": "List scan (-sL -n)", "sub": "expands targets, no packets to them", "tone": "green"},
+      {"label": "Review and exclude", "sub": "count matches scope? exclusions applied?", "tone": "orange"},
+      {"label": "Discovery (-sn --reason)", "sub": "the only active step", "tone": "red"},
+      {"label": "Live-host list", "sub": "saved with -oA, timestamped", "tone": "dark"}
+    ],
+    "loop": {"label": "unexpected result: return to review before probing again"},
+    "note": "Only one of the six steps sends packets to targets; the others prevent it reaching the wrong ones."
+  }
+}

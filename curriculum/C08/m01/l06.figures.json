@@ -1,0 +1,45 @@
+{
+  "C08-M01-L06-F1": {
+    "title": "SLA timers on one case: start, stop, pause, warn, breach",
+    "caption": "How SLA timers start when an alert reaches the queue, stop at acknowledgement and triage, pause only where the SLA allows, and warn before they breach.",
+    "alt": "Decision graph. Alert reaches SOC queue, where SLA clocks start in UTC, leads to Analyst acknowledges, which stops time to acknowledge. A dashed failure path labelled no owner yet leads from the start to 75% of target elapsed, which warns the owner and shift lead, and a further dashed arrow labelled still no owner leads to Target missed: breach, which escalates and records a reason code. Analyst acknowledges leads to a Triage decision with three branches: benign to Closed: false or benign, where triage and resolve clocks stop; malicious to Escalated as incident, where time to notify starts; and needs customer input to Awaiting customer, where the clock pauses only if the SLA allows. Awaiting customer returns to the triage decision when the reply is received.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "s", "label": "Alert reaches SOC queue", "sub": "SLA clocks start, UTC", "tone": "slate" },
+      { "id": "a", "label": "Analyst acknowledges", "sub": "time to acknowledge stops", "tone": "blue" },
+      { "id": "w", "label": "75% of target elapsed", "sub": "warn owner and shift lead", "tone": "orange" },
+      { "id": "b", "label": "Target missed: breach", "sub": "escalate, record reason code", "tone": "red" },
+      { "id": "t", "label": "Triage decision", "tone": "violet", "kind": "decision" },
+      { "id": "c", "label": "Closed: false or benign", "sub": "triage and resolve clocks stop", "tone": "green" },
+      { "id": "e", "label": "Escalated as incident", "sub": "time to notify starts", "tone": "dark" },
+      { "id": "p", "label": "Awaiting customer", "sub": "clock paused only if SLA allows", "tone": "violet" }
+    ],
+    "edges": [
+      { "from": "s", "to": "a" },
+      { "from": "s", "to": "w", "label": "no owner yet", "dashed": true },
+      { "from": "w", "to": "b", "label": "still no owner", "dashed": true },
+      { "from": "a", "to": "t" },
+      { "from": "t", "to": "c", "label": "benign" },
+      { "from": "t", "to": "e", "label": "malicious" },
+      { "from": "t", "to": "p", "label": "needs customer input" },
+      { "from": "p", "to": "t", "label": "reply received" }
+    ],
+    "note": "Every arrow is a timestamped event in the case record; the SLA engine computes elapsed time from those events, minus permitted pauses."
+  },
+  "C08-M01-L06-F2": {
+    "title": "Illustrative SOC SLA matrix by severity",
+    "caption": "The fictional Banyan Microfinance SOC's targets for acknowledgement, triage and customer notification, and the escalation method, at each severity level.",
+    "alt": "Table with columns Severity, Acknowledge, Triage, Notify customer and Escalation. Critical: 15 min, 30 min, within 1 h of confirmation, phone on-call plus case. High: 30 min, 2 h, within 4 h, case plus chat to shift lead. Medium: 4 h, 1 business day, in daily report, case queue. Low: 1 business day, 3 business days, in weekly report, case queue.",
+    "type": "table",
+    "columns": ["Severity", "Acknowledge", "Triage", "Notify customer", "Escalation"],
+    "rowTones": ["red", "orange", "blue", "slate"],
+    "rows": [
+      ["Critical", "15 min", "30 min", "within 1 h of confirmation", "phone on-call + case"],
+      ["High", "30 min", "2 h", "within 4 h", "case + chat to shift lead"],
+      ["Medium", "4 h", "1 business day", "in daily report", "case queue"],
+      ["Low", "1 business day", "3 business days", "in weekly report", "case queue"]
+    ],
+    "note": "Illustrative values for a fictional 24x7 SOC; notification is measured from incident confirmation, the other targets from alert arrival."
+  }
+}

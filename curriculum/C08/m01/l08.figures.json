@@ -1,0 +1,58 @@
+{
+  "C08-M01-L08-F1": {
+    "title": "The SOC tooling map: how evidence flows between tools",
+    "caption": "A reference map of SOC tool categories, the data each passes to the next, and where the analyst decides.",
+    "alt": "Graph diagram. Telemetry sources send raw logs to the Collection pipeline, which sends normalised events to the SIEM. EDR / NDR sensors send detections and telemetry to the SIEM. The SIEM sends alerts to Case management. Case management triggers SOAR with a new case; SOAR sends lookups to Context sources (TIP, CMDB, identity, sandbox), which return context; SOAR writes enrichment back to Case management. The Analyst works the case and gives approval to SOAR, which executes Response actions (isolate host, disable account, block); response actions are applied via EDR, IdP or firewall back to the sensors. Case management feeds Metrics and feedback (MTTA, MTTR, rule tuning), which tunes the SIEM rules.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "src", "label": "Telemetry sources", "sub": "endpoint, network, identity, cloud", "tone": "slate" },
+      { "id": "col", "label": "Collection pipeline", "sub": "agents, forwarders; parse + normalise", "tone": "blue" },
+      { "id": "edr", "label": "EDR / NDR sensors", "sub": "own detections + response hooks", "tone": "blue" },
+      { "id": "siem", "label": "SIEM", "sub": "store, search, correlate", "tone": "orange" },
+      { "id": "case", "label": "Case management", "sub": "one record per alert, with timestamps", "tone": "dark" },
+      { "id": "soar", "label": "SOAR", "sub": "playbooks + approval gates", "tone": "violet" },
+      { "id": "ctx", "label": "Context sources", "sub": "TIP, CMDB, identity, sandbox", "tone": "blue" },
+      { "id": "an", "label": "Analyst", "sub": "triage, investigate, decide", "tone": "orange" },
+      { "id": "act", "label": "Response actions", "sub": "isolate host, disable account, block", "tone": "green" },
+      { "id": "met", "label": "Metrics and feedback", "sub": "MTTA, MTTR, rule tuning", "tone": "slate" }
+    ],
+    "edges": [
+      { "from": "src", "to": "col", "label": "raw logs" },
+      { "from": "col", "to": "siem", "label": "normalised events" },
+      { "from": "edr", "to": "siem", "label": "detections + telemetry" },
+      { "from": "siem", "to": "case", "label": "alerts" },
+      { "from": "case", "to": "soar", "label": "new case" },
+      { "from": "soar", "to": "ctx", "label": "lookups" },
+      { "from": "ctx", "to": "soar", "label": "context", "dashed": true },
+      { "from": "soar", "to": "case", "label": "enrichment" },
+      { "from": "an", "to": "case", "label": "works the case" },
+      { "from": "an", "to": "soar", "label": "approval" },
+      { "from": "soar", "to": "act", "label": "execute" },
+      { "from": "act", "to": "edr", "label": "via EDR / IdP / firewall" },
+      { "from": "case", "to": "met", "dashed": true },
+      { "from": "met", "to": "siem", "label": "tune rules", "dashed": true }
+    ],
+    "note": "Every arrow is an integration with an owner, credentials and a failure mode; a broken arrow is a blind spot."
+  },
+  "C08-M01-L08-F2": {
+    "title": "SOC tool categories mapped to the course lab kit",
+    "caption": "Each SOC tool category, well-known real-world examples, the course lab kit file that teaches it, and the module where it is used.",
+    "alt": "Table with columns Category, Real-world examples, Course lab kit, Module. Telemetry: Sysmon, Windows, proxy logs; make_dataset.py and banyan_events.jsonl; Module 2. SIEM: Wazuh, Elastic, Splunk, Sentinel; minisiem.py and normalise_demo.py; Module 3. Triage and enrichment: CMDB and identity lookups; triage.py; Module 5. Threat intelligence: MISP, OpenCTI; ioc_match.py; Module 6. Detection engineering: Sigma rules and rule tests; rk_*.yml and test_rules.py; Module 7. Evidence preservation: case evidence with hashes; evidence_export.py; Module 8. Threat hunting: SIEM hunt queries; hunt.py; Module 10. Case management and SOAR: TheHive, Cortex, Shuffle; Module 11 labs; Module 11. Metrics: SOC dashboards; soc_metrics.py; Module 1.",
+    "type": "table",
+    "columns": ["Category", "Real-world examples", "Course lab kit", "Module"],
+    "rowTones": ["slate", "orange", "blue", "blue", "violet", "green", "blue", "violet", "dark"],
+    "rows": [
+      ["Telemetry", "Sysmon, Windows, proxy logs", "make_dataset.py, banyan_events.jsonl", "2"],
+      ["SIEM", "Wazuh, Elastic, Splunk, Sentinel", "minisiem.py, normalise_demo.py", "3"],
+      ["Triage and enrichment", "CMDB and identity lookups", "triage.py", "5"],
+      ["Threat intelligence", "MISP, OpenCTI", "ioc_match.py", "6"],
+      ["Detection engineering", "Sigma rules + rule tests", "rk_*.yml, test_rules.py", "7"],
+      ["Evidence preservation", "Case evidence with hashes", "evidence_export.py", "8"],
+      ["Threat hunting", "SIEM hunt queries", "hunt.py", "10"],
+      ["Case management and SOAR", "TheHive, Cortex, Shuffle", "Module 11 labs", "11"],
+      ["Metrics", "SOC dashboards", "soc_metrics.py", "1"]
+    ],
+    "note": "Learn each function on a transparent kit script, then recognise it in any production product."
+  }
+}

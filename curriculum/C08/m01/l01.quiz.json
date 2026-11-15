@@ -1,0 +1,132 @@
+[
+  {
+    "q": "A small SOC has no tiers: every analyst takes alerts from one shared queue and follows each as far as it goes. One analyst picks up an alert that turns out to be a genuine intrusion and works it for the rest of the shift. Which structural weakness does this expose most directly?",
+    "options": [
+      "The queue stops moving, so other alerts, possibly more urgent ones, wait unseen",
+      "Handling becomes inconsistent, because each analyst sets their own depth of checks",
+      "Specialist expertise is wasted on closing alerts from misconfigured backup jobs",
+      "The feedback loop to detection rules breaks, because nobody files tuning requests"
+    ],
+    "correct": 0,
+    "explanation": "While one analyst is rightly absorbed by a deep case, the alerts they would have triaged sit untouched; tiers separate breadth from depth to stop this. Inconsistency is a real weakness of the flat model too, but it is not what this scenario shows.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Tier 1 analyst has used the full time budget on an alert. The evidence neither clearly meets the playbook's escalation criteria nor supports a benign explanation. What is the correct action?",
+    "options": [
+      "Keep investigating past the budget until the evidence becomes conclusive",
+      "Close it as a false positive, since the escalation criteria were not clearly met",
+      "Escalate it as inconclusive, with notes on what was checked and ruled out",
+      "Close it as a benign true positive and ask the rule owner to review it later"
+    ],
+    "correct": 2,
+    "explanation": "The time budget is a ceiling that triggers escalation; an undecided case goes up as inconclusive with notes, which protects both the queue and the case. Closing it as a false positive without evidence risks hiding a real intrusion.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule for mass file modification fires on a file server during a scheduled data migration, and the analyst finds an approved change ticket covering exactly that host and time window. How should the alert be closed?",
+    "options": [
+      "As a false positive, with a request to detection engineering to rewrite the rule",
+      "As a benign true positive, citing the change ticket as the reason",
+      "As a true positive, escalated to Tier 2 so the migration can be scoped",
+      "As inconclusive, because a change ticket alone does not prove intent"
+    ],
+    "correct": 1,
+    "explanation": "The rule correctly detected the activity it was designed for, and the activity was authorised, so it is a benign true positive with the ticket cited. A false positive would mean the rule matched something it was not meant to match, which is not the case here.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule meant to detect a script interpreter launched by an Office application keeps firing when a document-conversion service starts a print driver helper, which is not a script interpreter at all. Besides closing each alert, what should the Tier 1 analyst produce?",
+    "options": [
+      "An escalation to Tier 2, since repeated alerts on one service suggest compromise",
+      "A benign true positive record citing the conversion service's change history",
+      "A permanent personal note so future shifts recognise and close it quickly",
+      "A false-positive disposition plus a tuning request routed to the rule's owner"
+    ],
+    "correct": 3,
+    "explanation": "The rule's logic matched something it was not designed to catch, which is a false positive; the closure should feed detection engineering so the rule is fixed. It is not a benign true positive, because the detected behaviour is not what the rule targets.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lab triage output, six of the seven alerts (log cleared, Office spawning a script, two new local admins, a large upload, a regular small beacon) concern host WS-104. What should a disciplined Tier 1 analyst do with them?",
+    "options": [
+      "Work them as six separate tickets in descending order of priority score",
+      "Escalate only the log-cleared alert, since it has the highest score",
+      "Link them into one case and escalate it as a probable incident",
+      "Close the low-scoring beacon alert first to shorten the queue quickly"
+    ],
+    "correct": 2,
+    "explanation": "Together the alerts describe a sequence on one host that none proves alone, so they belong in one case escalated as a probable incident. Escalating only the top alert would leave Tier 2 without the context that makes the case convincing.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lab's triage.py, the R5 log-cleared alert on WS-104 scores 10.8 while the R6 beacon alert on the same host scores 3.6. Which inputs produce this difference?",
+    "options": [
+      "Rule base severity multiplied by rule confidence and by asset criticality",
+      "The number of events matched multiplied by the age of the newest event",
+      "Threat-intelligence reputation of the source IP added to user privilege",
+      "The analyst's manual severity rating averaged with the SIEM default"
+    ],
+    "correct": 0,
+    "explanation": "triage.py defines priority as base severity times confidence times asset criticality; the host is the same, so the difference comes from the rules' severity and confidence. Source-IP reputation is not part of the formula, and both lines show ip=n/a.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab queue contains an R2 alert (many users failed from one external address, then one succeeded) for host WS-107 and user gopal. Why should it be a separate case from the WS-104 alerts?",
+    "options": [
+      "Because its priority score of 7.2 is too low to be grouped with the 10.8 alert",
+      "Because VPN alerts are always handled by the identity team, not by the SOC",
+      "Because it came from the VPN source, and cases must not mix log sources",
+      "Because it concerns a different host and user and a distinct attack pattern"
+    ],
+    "correct": 3,
+    "explanation": "Cases group alerts that describe the same activity; R2 involves another host, another user and a password-spraying pattern unrelated to the WS-104 sequence. Mixing log sources within a case is normal, so the source is not the reason.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At 03:00 the EDR raises a high-confidence ransomware detection on a branch workstation. The playbook pre-authorises endpoint isolation for this detection. What should the Tier 1 analyst on shift do?",
+    "options": [
+      "Record the alert and leave it for the morning shift's Tier 2 analysts",
+      "Isolate the endpoint through the EDR and escalate via the on-call path",
+      "Shut down the file server the workstation maps, to stop encryption spreading",
+      "Message a Tier 2 colleague on chat and wait for an answer before acting"
+    ],
+    "correct": 1,
+    "explanation": "Pre-authorised, reversible first-response actions exist so containment does not wait while an attack spreads; the case then goes up through the on-call path. Shutting down a server is outside the pre-agreed action and could cause more harm than the attacker.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A playbook says suspicious-encryption alerts should be escalated 'during business hours'. At 03:00 an analyst sees evidence strongly suggesting ransomware. What is the correct course?",
+    "options": [
+      "Escalate through the emergency on-call path, document why, then request a playbook change",
+      "Follow the playbook literally and escalate at 09:00, noting the delay in the case",
+      "Close the alert as inconclusive, since the playbook does not cover this situation",
+      "Wait for a second alert to confirm before deviating from the written playbook"
+    ],
+    "correct": 0,
+    "explanation": "Playbooks support judgement but must not block urgent action; when they conflict with the evidence, the analyst escalates, records the reason and asks for the playbook to be fixed. Waiting until 09:00 could let encryption spread and use up a reporting window.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why are the first-response actions a SOC is allowed to take without further approval deliberately kept limited and reversible?",
+    "options": [
+      "Because EDR tools cannot technically perform irreversible actions on endpoints",
+      "Because regulators forbid SOC analysts from changing production systems at all",
+      "So they can be agreed with system owners in advance and used without waiting",
+      "So Tier 1 can avoid documenting them in the case-management system"
+    ],
+    "correct": 2,
+    "explanation": "Limited, reversible actions such as isolating an endpoint can be pre-agreed with system owners, which lets the SOC act immediately while keeping the cost of a mistake low. Regulators do not forbid such actions, and every action must still be documented.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

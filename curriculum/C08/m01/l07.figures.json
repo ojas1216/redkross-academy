@@ -1,0 +1,33 @@
+{
+  "C08-M01-L07-F1": {
+    "title": "Where SOC speed metrics start and stop",
+    "caption": "The five moments on an incident timeline that MTTD, MTTA, time to contain and MTTR are measured between.",
+    "alt": "Flow diagram of five steps in time order: Malicious activity begins (earliest evidence, often found later); Alert or case created (MTTD stops; MTTA and MTTR start); Analyst acknowledges (MTTA stops: someone owns it); Threat contained (time to contain stops); Case resolved and closed (MTTR stops, as in soc_metrics.py).",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Malicious activity begins", "sub": "earliest evidence, often found later", "tone": "red" },
+      { "label": "Alert or case created", "sub": "MTTD stops; MTTA and MTTR start", "tone": "orange" },
+      { "label": "Analyst acknowledges", "sub": "MTTA stops: someone owns it", "tone": "blue" },
+      { "label": "Threat contained", "sub": "time to contain stops", "tone": "violet" },
+      { "label": "Case resolved and closed", "sub": "MTTR stops (as in soc_metrics.py)", "tone": "dark" }
+    ],
+    "note": "A metric is an interval between two defined timestamps: write down both ends and record them in UTC."
+  },
+  "C08-M01-L07-F2": {
+    "title": "Mean versus median MTTA in soc_metrics.py",
+    "caption": "The five acknowledgement times from the lab script and the two summaries it prints: one late true positive inflates the mean.",
+    "alt": "Bar chart of acknowledgement times in minutes: 06:15 TP 5, 07:00 FP 2, 08:20 FP 1, 09:00 TP 150 (highlighted red), 10:00 BTP 4, then Median MTTA 4.0 in green and Mean MTTA 32.4 in orange.",
+    "type": "bars",
+    "bars": [
+      { "label": "06:15 TP", "value": 5, "display": "5 min", "tone": "slate" },
+      { "label": "07:00 FP", "value": 2, "display": "2 min", "tone": "slate" },
+      { "label": "08:20 FP", "value": 1, "display": "1 min", "tone": "slate" },
+      { "label": "09:00 TP", "value": 150, "display": "150 min", "tone": "red" },
+      { "label": "10:00 BTP", "value": 4, "display": "4 min", "tone": "slate" },
+      { "label": "Median MTTA", "value": 4, "display": "4.0 min", "tone": "green" },
+      { "label": "Mean MTTA", "value": 32.4, "display": "32.4 min", "tone": "orange" }
+    ],
+    "note": "Real output: MTTA mean 32.4 min, median 4.0 min. The outlier was a true positive that waited 150 minutes."
+  }
+}

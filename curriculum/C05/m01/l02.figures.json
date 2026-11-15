@@ -1,0 +1,53 @@
+{
+  "C05-M01-L02-F1": {
+    "title": "Is this authorisation valid for this asset?",
+    "caption": "A decision graph: only a signatory with legal authority, with every third party accounted for, gives a valid authorisation.",
+    "alt": "Decision graph. Request to test an asset leads to the decision: Does the signatory own or control it? No leads to Find the right authority (owner or empowered officer), which loops back to the same decision. Yes leads to a second decision: Third party in the path? (cloud, hosting, SaaS, CDN, MSSP). Yes leads to Follow provider policy / get consent, which leads to Valid authorisation (signed and dated before testing); No leads directly to Valid authorisation. Valid authorisation leads to Test within the letter's terms.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "r", "label": "Request to test an asset", "tone": "slate" },
+      { "id": "d1", "label": "Does the signatory own or control it?", "kind": "decision", "tone": "violet" },
+      { "id": "f", "label": "Find the right authority", "sub": "owner or empowered officer", "tone": "orange" },
+      { "id": "d2", "label": "Third party in the path?", "sub": "cloud, hosting, SaaS, CDN, MSSP", "kind": "decision", "tone": "violet" },
+      { "id": "p", "label": "Follow provider policy / get consent", "tone": "violet" },
+      { "id": "v", "label": "Valid authorisation", "sub": "signed and dated before testing", "tone": "green" },
+      { "id": "t", "label": "Test within the letter's terms", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "r", "to": "d1" },
+      { "from": "d1", "to": "f", "label": "No" },
+      { "from": "f", "to": "d1", "label": "check new signatory", "dashed": true },
+      { "from": "d1", "to": "d2", "label": "Yes" },
+      { "from": "d2", "to": "p", "label": "Yes" },
+      { "from": "d2", "to": "v", "label": "No" },
+      { "from": "p", "to": "v" },
+      { "from": "v", "to": "t" }
+    ],
+    "note": "Only one route reaches testing: through both decisions."
+  },
+  "C05-M01-L02-F2": {
+    "title": "Obtaining a valid authorisation: who sends what",
+    "caption": "The messages between sponsor, testing firm, signatory and third-party provider, in time order, before testing starts.",
+    "alt": "Sequence diagram with four lanes: Client sponsor, Testing firm, Client signatory, Third-party provider. Sponsor to firm: Request: test the customer portal. Firm to sponsor (reply): Scoping questions + draft scope/RoE. Firm to signatory: Draft letter + annexes. Firm to signatory: Verify authority via known channel. Signatory to firm (reply): Delegation of authority confirmed. Firm to provider: Check provider testing policy. Provider to firm (reply): Conditions / approval. Signatory to firm (reply): Signed, dated letter. Firm to sponsor: Start notice: dates, testers, source IPs.",
+    "type": "sequence",
+    "actors": [
+      { "id": "sp", "label": "Client sponsor", "tone": "blue" },
+      { "id": "tf", "label": "Testing firm", "tone": "orange" },
+      { "id": "sg", "label": "Client signatory", "tone": "dark" },
+      { "id": "tp", "label": "Third-party provider", "tone": "slate" }
+    ],
+    "messages": [
+      { "from": "sp", "to": "tf", "label": "Request: test the customer portal" },
+      { "from": "tf", "to": "sp", "label": "Scoping questions + draft scope/RoE", "dashed": true },
+      { "from": "tf", "to": "sg", "label": "Draft letter + annexes" },
+      { "from": "tf", "to": "sg", "label": "Verify authority via known channel" },
+      { "from": "sg", "to": "tf", "label": "Delegation of authority confirmed", "dashed": true },
+      { "from": "tf", "to": "tp", "label": "Check provider testing policy" },
+      { "from": "tp", "to": "tf", "label": "Conditions / approval", "dashed": true },
+      { "from": "sg", "to": "tf", "label": "Signed, dated letter", "dashed": true },
+      { "from": "tf", "to": "sp", "label": "Start notice: dates, testers, source IPs" }
+    ],
+    "note": "Never start on the sponsor's word alone: the letter comes from the verified signatory."
+  }
+}

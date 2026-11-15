@@ -37,6 +37,9 @@ const OUT_SERVER = path.join(ROOT, 'api/_data/library');
 const MODULE_QUIZ_TOKENS = 100;
 const FINAL_TOKENS = 300;
 const FINAL_FROM_MODULES = 20; // + all 20 course-level MCQs = 40-question final
+// v2 curriculum courses: random questions per attempt, drawn on the server
+const MODULE_EXAM_QUESTIONS = 20; // from that module's bank only
+const FINAL_EXAM_QUESTIONS = 50; // from the union of every module bank
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const write = (file, data) => {
@@ -340,7 +343,8 @@ function buildCourse(num, raw) {
   // build exists it replaces the library modules, lessons and module quiz banks. Course
   // metadata, the lab kit and the course-level final-exam pool still come from the library.
   const v2File = path.join(ROOT, 'curriculum', 'build', `${code}.json`);
-  if (fs.existsSync(v2File)) {
+  const isV2 = fs.existsSync(v2File);
+  if (isV2) {
     const v2 = JSON.parse(fs.readFileSync(v2File, 'utf8'));
     modules.length = 0;
     lessonFiles.length = 0;
@@ -358,7 +362,7 @@ function buildCourse(num, raw) {
           pass_threshold: passing,
           passing_score: passing,
           duration_minutes: 15,
-          total_questions: v2.bank[vm.n].length,
+          total_questions: Math.min(MODULE_EXAM_QUESTIONS, v2.bank[vm.n].length),
           token_bounty: MODULE_QUIZ_TOKENS,
         },
         lessons: vm.lessons,
@@ -434,6 +438,12 @@ function buildCourse(num, raw) {
     },
     modules,
   };
+  if (isV2) {
+    const pool = Object.values(serverBank.modules).reduce((a, qs) => a + qs.length, 0);
+    course.curriculum_version = 2;
+    course.final_assessment.total_questions = Math.min(FINAL_EXAM_QUESTIONS, pool);
+    course.total_tokens_reward = modules.length * MODULE_QUIZ_TOKENS + FINAL_TOKENS;
+  }
 
   return { course, lessonFiles, serverBank, code, figuresDir: path.join(LIB, 'FIGURES', code), figDir };
 }
@@ -540,6 +550,7 @@ function main() {
         passingScore: course.final_assessment.passing_score,
         count: course.final_assessment.total_questions,
         fromModules: FINAL_FROM_MODULES,
+        ...(course.curriculum_version === 2 ? { selection: 'combined' } : {}),
         timeLimitMinutes: course.final_assessment.time_limit_minutes,
         tokenBounty: course.final_assessment.token_bounty,
         credentialTitle: course.final_assessment.credential_title,

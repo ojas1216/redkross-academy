@@ -1,0 +1,36 @@
+{
+  "C08-M01-L02-F1": {
+    "title": "Roles inside a SOC",
+    "caption": "The SOC manager is accountable for six role groups: the shift team, responders, specialists and three engineering roles.",
+    "alt": "Tree diagram. Root: SOC manager, accountable for the service. Six children: Shift lead + SOC analysts (triage, cases, first response); Incident responders (scope, coordinate, recommend); Hunters, forensics, malware (specialist depth, Tier 3); Detection engineers (rules, tests, tuning, ATT&CK); Threat intelligence (relevant threats into detections); Platform + SOAR engineers (ingestion, retention, automation).",
+    "type": "tree",
+    "root": { "label": "SOC manager", "sub": "accountable for the service", "tone": "dark" },
+    "children": [
+      { "label": "Shift lead + SOC analysts", "sub": "triage, cases, first response", "tone": "orange" },
+      { "label": "Incident responders", "sub": "scope, coordinate, recommend", "tone": "red" },
+      { "label": "Hunters, forensics, malware", "sub": "specialist depth, Tier 3", "tone": "violet" },
+      { "label": "Detection engineers", "sub": "rules, tests, tuning, ATT&CK", "tone": "blue" },
+      { "label": "Threat intelligence", "sub": "relevant threats into detections", "tone": "blue" },
+      { "label": "Platform + SOAR engineers", "sub": "ingestion, retention, automation", "tone": "slate" }
+    ],
+    "perRow": 3,
+    "note": "A responsibility map, not a headcount chart: one person may hold several boxes, but every box needs an owner."
+  },
+  "C08-M01-L02-F2": {
+    "title": "Example SOC RACI (fictional Banyan Microfinance)",
+    "caption": "Who is Responsible, Accountable, Consulted and Informed for six common activities, with exactly one Accountable per row.",
+    "alt": "Table with columns Activity, SOC analyst, Incident responder, IT ops / identity, Legal / compliance. Triage and disposition: A/R, I, -, -. Declare an incident: C, A/R, -, I. Isolate endpoint (EDR, pre-agreed): R, A, I, -. Reset account / revoke sessions: I, C, A/R, -. Rebuild or restore a server: I, C, A/R, -. CERT-In report decision (6 h): C, C, -, A/R.",
+    "type": "table",
+    "columns": ["Activity", "SOC analyst", "Incident responder", "IT ops / identity", "Legal / compliance"],
+    "rowTones": ["orange", "orange", "red", "red", "slate", "violet"],
+    "rows": [
+      ["Triage and disposition", "A/R", "I", "-", "-"],
+      ["Declare an incident", "C", "A/R", "-", "I"],
+      ["Isolate endpoint (EDR, pre-agreed)", "R", "A", "I", "-"],
+      ["Reset account / revoke sessions", "I", "C", "A/R", "-"],
+      ["Rebuild or restore a server", "I", "C", "A/R", "-"],
+      ["CERT-In report decision (6 h)", "C", "C", "-", "A/R"]
+    ],
+    "note": "R = Responsible, A = Accountable (one per row), C = Consulted, I = Informed. Each organisation agrees its own matrix."
+  }
+}

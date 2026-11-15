@@ -1,0 +1,39 @@
+{
+  "C05-M01-L06-F1": {
+    "title": "The evidence lifecycle from capture to destruction",
+    "caption": "Each item of evidence is captured, hashed, logged, stored, verified at every hand-off, retained only as agreed and then destroyed with a record.",
+    "alt": "Top-to-bottom flow of seven steps: Capture (request, response, tool output, UTC time); Hash at capture (SHA-256 into the manifest); Log custody (who, when, where, why); Secure storage (encrypted, access-controlled, client-approved); Transfer and verify (recompute hash at every hand-off); Retain (only for the agreed period); Destroy and certify (sanitise, record, confirm to the client), the last step highlighted as the outcome.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Capture", "sub": "request, response, tool output, UTC time", "tone": "blue" },
+      { "label": "Hash at capture", "sub": "SHA-256 into the manifest", "tone": "orange" },
+      { "label": "Log custody", "sub": "who, when, where, why", "tone": "violet" },
+      { "label": "Secure storage", "sub": "encrypted, access-controlled, client-approved", "tone": "green" },
+      { "label": "Transfer and verify", "sub": "recompute hash at every hand-off", "tone": "orange" },
+      { "label": "Retain", "sub": "only for the agreed period", "tone": "slate" },
+      { "label": "Destroy and certify", "sub": "sanitise, record, confirm to the client", "tone": "dark" }
+    ],
+    "note": "Skipping a stage weakens every later one: an item not hashed at capture can never be proved unaltered."
+  },
+  "C05-M01-L06-F2": {
+    "title": "A custody hand-off verified by hash",
+    "caption": "The receiver trusts evidence only when its recomputed SHA-256 matches a value recorded separately in the custody log.",
+    "alt": "Sequence diagram with three lanes: Tester (captures and hashes), Custody log (separate record) and Reviewer (peer or client). Tester to Custody log: Record SHA-256 at capture. Tester to Reviewer: Evidence file + manifest. Reviewer to Custody log: Fetch recorded hash. Custody log to Reviewer, dashed: Expected SHA-256. Reviewer to Custody log: Log: received, hash OK (or FAILED). Reviewer to Tester, dashed: Acknowledge receipt.",
+    "type": "sequence",
+    "actors": [
+      { "id": "t", "label": "Tester", "sub": "captures and hashes", "tone": "blue" },
+      { "id": "c", "label": "Custody log", "sub": "separate record", "tone": "dark" },
+      { "id": "r", "label": "Reviewer", "sub": "peer or client", "tone": "green" }
+    ],
+    "messages": [
+      { "from": "t", "to": "c", "label": "Record SHA-256 at capture" },
+      { "from": "t", "to": "r", "label": "Evidence file + manifest" },
+      { "from": "r", "to": "c", "label": "Fetch recorded hash" },
+      { "from": "c", "to": "r", "label": "Expected SHA-256", "dashed": true },
+      { "from": "r", "to": "c", "label": "Log: received, hash OK (or FAILED)" },
+      { "from": "r", "to": "t", "label": "Acknowledge receipt", "dashed": true }
+    ],
+    "note": "A mismatch quarantines the item: it is not cited in the report until the change is explained."
+  }
+}

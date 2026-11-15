@@ -1,0 +1,45 @@
+{
+  "C05-M01-L01-F1": {
+    "title": "The seven PTES phases as one engagement",
+    "caption": "PTES runs from pre-engagement to reporting, with lessons and retests feeding the next engagement.",
+    "alt": "Top-to-bottom graph of seven phases: Pre-engagement interactions (scope, RoE, authorisation), Intelligence gathering (assets, technologies, people), Threat modelling (business assets and threat communities), Vulnerability analysis (discover and validate weaknesses), Exploitation (minimum proof that a weakness is real), Post-exploitation (value of access, record every change) and Reporting (executive summary + technical findings). A dashed loop arrow from Reporting back to Pre-engagement interactions is labelled: lessons and retest feed the next engagement.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "pre", "label": "Pre-engagement interactions", "sub": "scope, RoE, authorisation", "tone": "violet" },
+      { "id": "ig", "label": "Intelligence gathering", "sub": "assets, technologies, people", "tone": "blue" },
+      { "id": "tm", "label": "Threat modelling", "sub": "business assets and threat communities", "tone": "blue" },
+      { "id": "va", "label": "Vulnerability analysis", "sub": "discover and validate weaknesses", "tone": "orange" },
+      { "id": "ex", "label": "Exploitation", "sub": "minimum proof that a weakness is real", "tone": "red" },
+      { "id": "pe", "label": "Post-exploitation", "sub": "value of access, record every change", "tone": "slate" },
+      { "id": "rp", "label": "Reporting", "sub": "executive summary + technical findings", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "pre", "to": "ig" },
+      { "from": "ig", "to": "tm" },
+      { "from": "tm", "to": "va" },
+      { "from": "va", "to": "ex" },
+      { "from": "ex", "to": "pe" },
+      { "from": "pe", "to": "rp" },
+      { "from": "rp", "to": "pre", "label": "lessons and retest feed the next engagement", "dashed": true }
+    ],
+    "note": "Agree first, analyse before you attack, prove rather than exploit, and treat the report as the product."
+  },
+  "C05-M01-L01-F2": {
+    "title": "OSSTMM 3 test scope: the five channels",
+    "caption": "The OSSTMM test scope decomposes into five channels, each of which must be stated as tested or not tested.",
+    "alt": "Tree diagram. Root: OSSTMM 3 test scope, measure porosity against controls. Five children: Human (PHYSSEC: people and procedures), Physical (PHYSSEC: sites, hardware, perimeters), Wireless (SPECSEC: Wi-Fi, Bluetooth, RFID), Telecommunications (COMSEC: telephony networks) and Data networks (COMSEC: wired networks and hosts), the last highlighted as the channel the course lab exercises.",
+    "type": "tree",
+    "root": { "label": "OSSTMM 3 test scope", "sub": "measure porosity against controls", "tone": "dark" },
+    "children": [
+      { "label": "Human", "sub": "PHYSSEC: people and procedures", "tone": "blue" },
+      { "label": "Physical", "sub": "PHYSSEC: sites, hardware, perimeters", "tone": "blue" },
+      { "label": "Wireless", "sub": "SPECSEC: Wi-Fi, Bluetooth, RFID", "tone": "violet" },
+      { "label": "Telecommunications", "sub": "COMSEC: telephony networks", "tone": "slate" },
+      { "label": "Data networks", "sub": "COMSEC: wired networks and hosts", "tone": "orange" }
+    ],
+    "perRow": 5,
+    "note": "Every report states which channels were tested and which were not."
+  }
+}

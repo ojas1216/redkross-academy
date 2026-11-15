@@ -1,0 +1,120 @@
+{
+  "C08-M01-L04-F1": {
+    "title": "The analyst's shift: orient once, loop per alert, hand over",
+    "caption": "An analyst reads the handover and checks SOC health once, repeats the pick-handle-document-decide loop for every alert, and ends the shift with a handover.",
+    "alt": "Top-to-bottom diagram of seven steps: Read the handover; Check SOC health (log sources, intel, change calendar); Pick and acknowledge (highest priority, then oldest); Handle the alert (read rule, scope, enrich, validate, related alerts); Document as you go (UTC, exact queries, evidence references); Decide (close, keep investigating in the time box, or escalate now). From Decide a dashed loop arrow labelled next alert returns to Pick and acknowledge, and an arrow labelled shift ends leads to Write the handover.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "h",
+        "label": "Read the handover",
+        "sub": "open cases, pending decisions",
+        "tone": "slate"
+      },
+      {
+        "id": "s",
+        "label": "Check SOC health",
+        "sub": "log sources, intel, change calendar",
+        "tone": "violet"
+      },
+      {
+        "id": "p",
+        "label": "Pick and acknowledge",
+        "sub": "highest priority, then oldest",
+        "tone": "blue"
+      },
+      {
+        "id": "a",
+        "label": "Handle the alert",
+        "sub": "read rule, scope, enrich, validate, related alerts",
+        "tone": "orange"
+      },
+      {
+        "id": "n",
+        "label": "Document as you go",
+        "sub": "UTC, exact queries, evidence refs",
+        "tone": "green"
+      },
+      {
+        "id": "d",
+        "label": "Decide",
+        "sub": "close / keep investigating (time box) / escalate now",
+        "tone": "red",
+        "kind": "decision"
+      },
+      {
+        "id": "w",
+        "label": "Write the handover",
+        "sub": "becomes the next shift's first step",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "h",
+        "to": "s"
+      },
+      {
+        "from": "s",
+        "to": "p"
+      },
+      {
+        "from": "p",
+        "to": "a"
+      },
+      {
+        "from": "a",
+        "to": "n"
+      },
+      {
+        "from": "n",
+        "to": "d"
+      },
+      {
+        "from": "d",
+        "to": "p",
+        "label": "next alert",
+        "dashed": true
+      },
+      {
+        "from": "d",
+        "to": "w",
+        "label": "shift ends"
+      }
+    ],
+    "note": "Orientation happens once per shift; the pick-handle-document-decide loop repeats for every alert."
+  },
+  "C08-M01-L04-F2": {
+    "title": "Case notes: weak versus defensible",
+    "caption": "The same investigative step on CASE-0001 recorded two ways; only the defensible note can be reproduced, reviewed and handed over.",
+    "alt": "Two-column comparison. Weak note: 10:30 checked proxy, looks like beaconing; user probably opened something; escalated to T2. Defensible note: 2026-11-03 08:40Z, owner analyst.t1; query run: SELECT ... WHERE host='WS-104' AND url LIKE '%ping%'; fact: 18 requests of 220 bytes to cdn-telemetry-sync.example from 06:17Z; assessment (labelled): consistent with C2 beaconing; evidence: WS-104_2026-11-03_events.jsonl, SHA-256 8521c97c...; escalated to IR on-call via case system, acknowledged.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Weak note",
+        "tone": "red",
+        "items": [
+          "10:30 checked proxy, looks like beaconing",
+          "User probably opened something",
+          "Escalated to T2"
+        ]
+      },
+      {
+        "title": "Defensible note",
+        "tone": "green",
+        "items": [
+          "2026-11-03 08:40Z, owner analyst.t1",
+          "Query: SELECT ... WHERE host='WS-104' AND url LIKE '%ping%'",
+          "Fact: 18 requests of 220 bytes to cdn-telemetry-sync.example from 06:17Z",
+          "Assessment (labelled): consistent with C2 beaconing",
+          "Evidence: WS-104_2026-11-03_events.jsonl, SHA-256 8521c97c...",
+          "Escalated to IR on-call via case system; acknowledged"
+        ]
+      }
+    ],
+    "note": "UTC times, exact queries, facts separated from assessments, evidence references and acknowledged escalation."
+  }
+}

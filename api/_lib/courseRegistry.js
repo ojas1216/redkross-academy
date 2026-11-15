@@ -99,7 +99,7 @@ function shuffle(arr) {
 }
 
 /** Library bank question -> session question with shuffled, opaque option ids. */
-function fromLibrary(q) {
+export function fromLibrary(q) {
   const order = shuffle([0, 1, 2, 3]);
   const options = order.map((orig, pos) => ({ id: `${q.id}-o${pos}`, text: q.options[orig], orig }));
   return {
@@ -135,13 +135,47 @@ function fromLegacy(q) {
   };
 }
 
+/** Unique by id, then by normalised question text (a bank must not serve the same question twice). */
+function unique(questions) {
+  const ids = new Set();
+  const texts = new Set();
+  return questions.filter((q) => {
+    const t = String(q.q || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    if (ids.has(q.id) || texts.has(t)) return false;
+    ids.add(q.id);
+    texts.add(t);
+    return true;
+  });
+}
+
+/**
+ * Picks the questions for one attempt from a library course bank
+ * ({ modules: { [n]: [q] }, course: [q] }). Pure apart from randomness; exported for tests.
+ *  - module quiz: `quiz.count` random questions from THAT module's bank only
+ *    (the whole bank when it is smaller than count);
+ *  - final, selection "combined": `quiz.count` random questions from the union of every
+ *    module bank (any module, no duplicates);
+ *  - final, legacy library mode: all course-level questions + `fromModules` stratified.
+ * Returns bank-format questions; option order is shuffled later by fromLibrary.
+ */
+export function selectFromBank(bank, quiz) {
+  if (quiz.kind === 'module') {
+    const pool = unique(bank.modules[quiz.number] || []);
+    return shuffle(pool).slice(0, quiz.count > 0 ? quiz.count : pool.length);
+  }
+  if (quiz.selection === 'combined') {
+    const pool = unique(Object.keys(bank.modules).sort((a, b) => a - b).flatMap((n) => bank.modules[n] || []));
+    return shuffle(pool).slice(0, quiz.count);
+  }
+  return null;
+}
+
 /** Generates a fresh randomised question set for a quiz (answers included - server use only). */
 export async function generateQuestions(spec, quiz) {
   if (spec.source === 'library') {
     const bank = (await LIBRARY_BANK_LOADERS[spec.id]()).default;
-    if (quiz.kind === 'module') {
-      return shuffle(bank.modules[quiz.number] || []).map(fromLibrary);
-    }
+    const picked = selectFromBank(bank, quiz);
+    if (picked) return picked.map(fromLibrary);
     // final: every course-level question + a stratified sample of module questions
     const perModule = Object.values(bank.modules).map((qs) => shuffle(qs));
     const sampled = [];

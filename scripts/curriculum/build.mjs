@@ -16,7 +16,7 @@ import path from 'path';
 import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { renderFigure } from '../figures/render.mjs';
-import { validateModule, FIG_RE } from './validate.mjs';
+import { validateModule, FIG_RE, loadFigures, loadQuiz } from './validate.mjs';
 import { LIBRARY_COURSE_MAP } from '../library/courseMap.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -41,7 +41,7 @@ const bp = JSON.parse(fs.readFileSync(path.join(CUR, 'blueprint', `${code}.json`
 const readJson = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 
 async function renderModuleFigures(m, outDir) {
-  const figs = readJson(path.join(CUR, code, `m${pad2(m)}`, 'figures.json'));
+  const figs = loadFigures(path.join(CUR, code, `m${pad2(m)}`));
   fs.mkdirSync(outDir, { recursive: true });
   const written = [];
   for (const [fc, spec] of Object.entries(figs)) {
@@ -125,9 +125,9 @@ for (const bm of bp.modules) {
       content_url: `/course-content/${courseId}/${id}.md`,
     });
   });
-  const quiz = readJson(path.join(dir, 'quiz.json'));
+  const quiz = loadQuiz(dir);
   bank[m] = quiz.map((q, i) => ({
-    id: `q_${lc}_m${pad2(m)}_${pad2(i + 1)}`,
+    id: `q_${lc}_m${pad2(m)}_${String(i + 1).padStart(3, '0')}`,
     q: q.q,
     options: q.options,
     correct: q.correct,

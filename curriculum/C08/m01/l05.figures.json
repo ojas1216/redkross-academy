@@ -1,0 +1,43 @@
+{
+  "C08-M01-L05-F1": {
+    "title": "Shift handover: from written record to acknowledged ownership",
+    "caption": "One shift handover in time order: cases are updated and the note published before the briefing, and responsibility moves only when the new owner acknowledges it.",
+    "alt": "Sequence diagram with four lanes: outgoing analyst, case system, incoming analyst and shift lead. The outgoing analyst updates each open case and publishes the handover note in the case system. The incoming analyst reads the note and queue. The outgoing analyst gives a verbal briefing, highest risk first, and the incoming analyst replies with a read-back and questions. The outgoing analyst reassigns case owners in the case system and the incoming analyst acknowledges ownership. Finally the shift lead confirms every case is owned and signs off.",
+    "type": "sequence",
+    "actors": [
+      { "id": "o", "label": "Outgoing analyst", "sub": "night shift, owns open cases", "tone": "orange" },
+      { "id": "c", "label": "Case system", "sub": "single source of truth", "tone": "dark" },
+      { "id": "i", "label": "Incoming analyst", "sub": "day shift", "tone": "blue" },
+      { "id": "l", "label": "Shift lead", "sub": "confirms coverage", "tone": "violet" }
+    ],
+    "messages": [
+      { "from": "o", "to": "c", "label": "Update each open case: status, next step" },
+      { "from": "o", "to": "c", "label": "Publish handover note (UTC)" },
+      { "from": "i", "to": "c", "label": "Read note and queue" },
+      { "from": "o", "to": "i", "label": "Verbal briefing: highest risk first" },
+      { "from": "i", "to": "o", "label": "Read-back and questions", "dashed": true },
+      { "from": "o", "to": "c", "label": "Reassign case owners" },
+      { "from": "i", "to": "c", "label": "Acknowledge ownership", "dashed": true },
+      { "from": "l", "to": "c", "label": "Confirm every case owned; sign off" }
+    ],
+    "note": "Responsibility moves only when the incoming analyst acknowledges ownership in the case system; a chat message never transfers a case."
+  },
+  "C08-M01-L05-F2": {
+    "title": "The seven sections of a handover note",
+    "caption": "The handover note template, most important section first, with what each section must contain.",
+    "alt": "Mapping of seven handover note sections to their required content, top to bottom: Headline maps to most important fact, say quiet if quiet. Active incidents maps to severity, status, owner, next step, deadline. Open cases maps to status, next action, time due. Pending decisions maps to what we wait for, from whom, since when. Platform health maps to sources reporting, lag, parse errors, tickets. Intel and changes maps to advisories, watchlists, maintenance windows. Handover actions maps to numbered, named owner, time.",
+    "type": "rows",
+    "header": ["Section", "Must contain"],
+    "arrow": true,
+    "rows": [
+      { "label": "Headline", "tone": "dark", "items": ["most important fact; say 'quiet' if quiet"] },
+      { "label": "Active incidents", "tone": "red", "items": ["severity, status, owner, next step, deadline"] },
+      { "label": "Open cases", "tone": "orange", "items": ["status, next action, time due"] },
+      { "label": "Pending decisions", "tone": "violet", "items": ["what we wait for, from whom, since when"] },
+      { "label": "Platform health", "tone": "slate", "items": ["sources reporting, lag, parse errors, tickets"] },
+      { "label": "Intel and changes", "tone": "blue", "items": ["advisories, watchlists, maintenance windows"] },
+      { "label": "Handover actions", "tone": "green", "items": ["numbered, named owner, time"] }
+    ],
+    "note": "Write 'none' under a section rather than deleting it, so the reader can tell 'nothing happened' from 'forgotten'."
+  }
+}

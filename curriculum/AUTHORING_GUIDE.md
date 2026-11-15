@@ -14,7 +14,7 @@ Write only inside your module folder `curriculum/CNN/mMM/` (for example
 | `module.json` | Module metadata and lesson metadata (format in section 6). |
 | `l01.md` … `l08.md` | One Markdown file per lesson, in blueprint order. |
 | `figures.json` | Every diagram used by the 8 lessons, as render specs (section 4). |
-| `quiz.json` | 12 multiple-choice questions for the module quiz (section 7). |
+| `lNN.quiz.json` | The lesson's share of the module's 200-question bank (section 7). |
 
 When finished, run `node scripts/curriculum/validate.mjs CNN MM` from the repository
 root, fix every error it prints, and repeat until it reports PASS. Then run
@@ -55,6 +55,20 @@ Rules:
   inside written authorisation and an isolated lab the student owns, and is followed
   by detection and mitigation. Never encourage testing systems without authorisation.
   Indian legal context (IT Act 2000, DPDP Act 2023, CERT-In directions) where relevant.
+
+### Defence-first depth (applies to every course)
+
+Offensive topics are taught at the level of mechanism, methodology, evidence, detection
+and defence, not as operational attack recipes:
+- Explain how an attack class works (the weakness, why it exists, what the attacker
+  gains), the professional methodology around it (authorisation, scope, safety, evidence),
+  how defenders detect it (logs, telemetry, signatures) and how to prevent or fix it.
+- Practical work uses only the course lab kit's own safe tools against the student's own
+  loopback lab target, showing the kit's saved outputs. Do not write step-by-step attack
+  procedures, exploit or payload code, evasion or bypass techniques, cracking walkthroughs
+  or tool command lines aimed at third-party systems.
+- Prefer the defender's view in examples: what the activity looks like in the logs, how
+  to recognise it, how to reduce exposure.
 
 ## 4. Diagrams (mandatory)
 
@@ -197,9 +211,13 @@ interpret it, troubleshooting, cleanup, and a reflection/checklist.
 `title` values must match the blueprint exactly (see section 2). 3-5 objectives per
 lesson, each starting with a verb. `minutes` is a realistic study time (35-90).
 
-## 7. quiz.json
+## 7. Question bank (200 questions per module)
 
-Exactly 12 questions testing understanding (not trivia), spread across the 8 lessons:
+Each module has a bank of exactly **200** multiple-choice questions. The academy serves a
+random 20 of them (shuffled, options shuffled) for each module-exam attempt and a random 50
+from all modules' banks combined for the final exam, all on the server. The bank is written
+per lesson in `lNN.quiz.json` (25 questions per lesson in an 8-lesson module; the
+coordinator states the count for each lesson). Format of each file:
 
 ```json
 [
@@ -214,15 +232,21 @@ Exactly 12 questions testing understanding (not trivia), spread across the 8 les
 ]
 ```
 
-- 4 options, exactly one correct; `correct` is the 0-based index. Vary the position of
-  the correct answer (all four positions must be used across the 12 questions).
-- Plausible distractors of similar length; no "all of the above"/"none of the above".
-- `difficulty`: `easy` | `medium` | `hard` (mix them). `lesson`: 1-8.
-- Questions must not be copied verbatim from the lesson text.
+- Medium to difficult only (`difficulty`: `medium` | `hard`, at least 40% hard). Test
+  understanding: scenarios, interpreting command/log output, troubleshooting, choosing
+  between techniques or controls, comparing concepts. Not trivia, not recall of a phrase.
+- Each question tests a different idea; no paraphrases of another question in the bank.
+- 4 options, exactly one defensibly correct; three plausible distractors of similar
+  length and style (technically close where possible). No "all/none of the above".
+- `correct` is the 0-based index; spread it evenly (each position 20-30% of a file).
+- `explanation` says why the answer is right and, briefly, why the strongest
+  distractor is wrong. `lesson` is the lesson number the question is based on.
+- Base every question on the lesson's actual content. Never copy sentences verbatim.
 
 ## 8. Quality bar (the validator enforces the mechanical parts)
 
 - 8 lesson files, titles as in the blueprint, each 2,200+ words of prose.
+- 200 valid bank questions per module, every lesson covered, answer positions balanced.
 - Every lesson has 1-3 figures, each placed in context, each followed by its walkthrough.
 - Every figure in `figures.json` is used exactly once; every placeholder has a spec.
 - No ASCII/box diagrams, no mermaid, no `#` headings, no TODO/placeholder text.

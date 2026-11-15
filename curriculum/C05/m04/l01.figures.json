@@ -1,0 +1,44 @@
+{
+  "C05-M04-L01-F1": {
+    "title": "Inside a network vulnerability scanner",
+    "caption": "The scanner pipeline from an authorised target list to results with confidence, with the feed as a separate input to check selection.",
+    "alt": "Pipeline graph: Target list + authorisation leads to Discovery (which hosts are alive), then Port and service detection (product names and versions into the knowledge base), then Check selection (driven by what service detection recorded), then Test execution (version comparisons, active probes, configuration checks), then Results with confidence (severity, evidence, detection confidence). A separate Feed box (checks as data, updated daily) points into Check selection.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "t", "label": "Target list + authorisation", "sub": "addresses from the RoE, nothing more", "tone": "violet" },
+      { "id": "d", "label": "Discovery", "sub": "which hosts are alive; dead hosts get no checks", "tone": "blue" },
+      { "id": "p", "label": "Port and service detection", "sub": "product names and versions into the knowledge base", "tone": "blue" },
+      { "id": "f", "label": "Feed", "sub": "checks as data, updated daily", "tone": "slate" },
+      { "id": "s", "label": "Check selection", "sub": "driven by what service detection recorded", "tone": "orange" },
+      { "id": "e", "label": "Test execution", "sub": "version comparisons, active probes, configuration checks", "tone": "red" },
+      { "id": "r", "label": "Results with confidence", "sub": "severity, evidence, detection confidence", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "t", "to": "d" },
+      { "from": "d", "to": "p" },
+      { "from": "p", "to": "s", "label": "service facts" },
+      { "from": "f", "to": "s" },
+      { "from": "s", "to": "e" },
+      { "from": "e", "to": "r" }
+    ],
+    "note": "Output is only as good as discovery and fingerprinting: treat every result as a candidate."
+  },
+  "C05-M04-L01-F2": {
+    "title": "Scanner detection methods ranked by evidence strength",
+    "caption": "Detection methods from the weakest evidence (a banner) to the strongest (a safe proof), with false-positive risk moving the other way.",
+    "alt": "Table with columns Method, What is observed, Evidence strength and False-positive risk. Banner or header version: a label the target chose to send; weak; high. Remote behaviour probe: response to a crafted request; medium; medium. Configuration observation: a visible setting such as a missing header; medium-strong; low. Authenticated package check: installed package versions; strong; low. Safe proof of exploit: behaviour the target cannot fake; strongest; very low. Rows are coloured from red for the weakest evidence to green for the strongest.",
+    "type": "table",
+    "columns": ["Method", "What is observed", "Evidence strength", "False-positive risk"],
+    "rowTones": ["red", "orange", "violet", "blue", "green"],
+    "rows": [
+      ["Banner or header version", "A label the target chose to send", "Weak", "High"],
+      ["Remote behaviour probe", "Response to a crafted request", "Medium", "Medium"],
+      ["Configuration observation", "A visible setting, e.g. missing header", "Medium-strong", "Low"],
+      ["Authenticated package check", "Installed package versions", "Strong", "Low"],
+      ["Safe proof of exploit", "Behaviour the target cannot fake", "Strongest", "Very low"]
+    ],
+    "note": "The weaker the method, the more validation a result needs before it is reported."
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "C05-M02-L01-F1": {
+    "title": "How much a reconnaissance action touches the target",
+    "caption": "Reconnaissance actions on a scale from prior knowledge to systematic probing, grouped into passive, low-touch and active bands.",
+    "alt": "Scale with five ticks from left to right: Prior knowledge (scope document, asset list), Third-party records (DNS, WHOIS/RDAP, CT logs, search engines), Ordinary visit (one request to a public page), Targeted requests (/robots.txt, /admin, candidate paths) and Systematic probing (port scans, name brute-force, service enumeration). A green passive band covers the first two ticks, where no packet reaches the target; an orange low-touch band covers the ordinary visit; a red active band covers targeted requests and systematic probing.",
+    "type": "scale",
+    "reverse": true,
+    "ticks": [
+      { "label": "Prior knowledge", "sub": "scope document, asset list" },
+      { "label": "Third-party records", "sub": "DNS, WHOIS/RDAP, CT logs, search engines" },
+      { "label": "Ordinary visit", "sub": "one request to a public page" },
+      { "label": "Targeted requests", "sub": "/robots.txt, /admin, candidate paths" },
+      { "label": "Systematic probing", "sub": "port scans, name brute-force, services" }
+    ],
+    "bands": [
+      { "from": 0, "to": 1.5, "label": "passive: no packet reaches the target", "tone": "green" },
+      { "from": 1.5, "to": 2.5, "label": "low-touch", "tone": "orange" },
+      { "from": 2.5, "to": 4, "label": "active: shaped by testing intent", "tone": "red" }
+    ],
+    "note": "Everything right of the second tick sends traffic to the target and needs authorisation, however gentle it looks."
+  },
+  "C05-M02-L01-F2": {
+    "title": "The reconnaissance gate: may this action run?",
+    "caption": "Every planned reconnaissance action passes three questions before it is executed; ambiguity resolves to stop.",
+    "alt": "Decision graph. Planned recon action leads to Sends traffic to the target? No leads to Proceed as passive. Yes leads to Asset listed in scope? No leads to Stop: park lead, ask client. Yes leads to Activity, time and rate permitted? No leads to Stop: park lead, ask client. Yes leads to Proceed and log.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "a", "label": "Planned recon action", "tone": "slate" },
+      { "id": "q1", "label": "Sends traffic to the target?", "kind": "decision", "tone": "violet" },
+      { "id": "p", "label": "Proceed as passive", "tone": "green" },
+      { "id": "q2", "label": "Asset listed in scope?", "kind": "decision", "tone": "violet" },
+      { "id": "q3", "label": "Activity, time and rate permitted?", "kind": "decision", "tone": "violet" },
+      { "id": "s", "label": "Stop: park lead, ask client", "tone": "red" },
+      { "id": "l", "label": "Proceed and log", "tone": "green" }
+    ],
+    "edges": [
+      { "from": "a", "to": "q1" },
+      { "from": "q1", "to": "p", "label": "no" },
+      { "from": "q1", "to": "q2", "label": "yes" },
+      { "from": "q2", "to": "s", "label": "no" },
+      { "from": "q2", "to": "q3", "label": "yes" },
+      { "from": "q3", "to": "s", "label": "no" },
+      { "from": "q3", "to": "l", "label": "yes" }
+    ],
+    "note": "There is no \"probably in scope\" branch: ambiguity resolves to no."
+  }
+}

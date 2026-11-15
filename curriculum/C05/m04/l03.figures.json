@@ -1,0 +1,61 @@
+{
+  "C05-M04-L03-F1": {
+    "title": "Greenbone Community Edition architecture",
+    "caption": "How a click in the GSA web UI becomes probes against the target through gvmd, ospd-openvas and the openvas scanner, and how results return.",
+    "alt": "Architecture graph. Analyst browser to GSA web UI (gsad), which talks GMP to gvmd (manager). gvmd stores objects and results in PostgreSQL and talks OSP to ospd-openvas, which starts the openvas scanner. The scanner keeps its per-host knowledge base in Redis and sends probes to the Authorised lab target. Results flow back from the scanner through ospd-openvas to gvmd. Feed sync points into gvmd (SCAP, CERT data, data objects) and into the scanner (NVTs).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "b", "label": "Analyst browser", "tone": "slate" },
+      { "id": "gsa", "label": "GSA web UI (gsad)", "sub": "serves the interface", "tone": "blue" },
+      { "id": "gvmd", "label": "gvmd (manager)", "sub": "objects, results, reports", "tone": "violet" },
+      { "id": "pg", "label": "PostgreSQL", "tone": "slate" },
+      { "id": "feed", "label": "Feed sync", "sub": "NVTs, SCAP, CERT data, data objects", "tone": "green" },
+      { "id": "ospd", "label": "ospd-openvas", "sub": "OSP wrapper", "tone": "blue" },
+      { "id": "sc", "label": "openvas scanner", "sub": "runs NVTs", "tone": "orange" },
+      { "id": "redis", "label": "Redis", "sub": "per-host knowledge base", "tone": "slate" },
+      { "id": "t", "label": "Authorised lab target", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "b", "to": "gsa" },
+      { "from": "gsa", "to": "gvmd", "label": "GMP" },
+      { "from": "gvmd", "to": "pg", "label": "store" },
+      { "from": "gvmd", "to": "ospd", "label": "OSP" },
+      { "from": "ospd", "to": "sc" },
+      { "from": "sc", "to": "redis", "label": "facts" },
+      { "from": "sc", "to": "t", "label": "probes" },
+      { "from": "sc", "to": "ospd", "label": "results", "dashed": true },
+      { "from": "ospd", "to": "gvmd", "label": "results", "dashed": true },
+      { "from": "feed", "to": "gvmd", "label": "SCAP, CERT, data objects" },
+      { "from": "feed", "to": "sc", "label": "NVTs" }
+    ],
+    "note": "Manager (gvmd + PostgreSQL) and scanner (openvas + Redis) are separate, joined by OSP and both fed by the feed."
+  },
+  "C05-M04-L03-F2": {
+    "title": "The OpenVAS scan workflow",
+    "caption": "The analyst's end-to-end OpenVAS workflow, from a healthy installation to a validated report, with a rescan loop for delta reports.",
+    "alt": "Top-to-bottom graph of seven steps: Sync and check setup, Create target (hosts from scope, port list, alive test, credentials), Create task (scan config + scanner), Run and monitor (inside the agreed window), Review results (filter by severity and QoD, read evidence), Validate, override, note (confirmed, false positive or unverified), and Export report (XML, CSV or PDF). A dashed arrow from Export report back to Run and monitor is labelled: rescan after fixes, compare with a delta report.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "s", "label": "Sync and check setup", "sub": "feed sync + installation self-check", "tone": "slate" },
+      { "id": "t", "label": "Create target", "sub": "hosts from scope, port list, alive test, credentials", "tone": "violet" },
+      { "id": "k", "label": "Create task", "sub": "scan config + scanner", "tone": "violet" },
+      { "id": "r", "label": "Run and monitor", "sub": "inside the agreed window; stop on distress", "tone": "orange" },
+      { "id": "v", "label": "Review results", "sub": "filter by severity and QoD, read evidence", "tone": "blue" },
+      { "id": "o", "label": "Validate, override, note", "sub": "confirmed, false positive or unverified", "tone": "green" },
+      { "id": "e", "label": "Export report", "sub": "XML, CSV or PDF", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "s", "to": "t" },
+      { "from": "t", "to": "k" },
+      { "from": "k", "to": "r" },
+      { "from": "r", "to": "v" },
+      { "from": "v", "to": "o" },
+      { "from": "o", "to": "e" },
+      { "from": "e", "to": "r", "label": "rescan after fixes, compare with a delta report", "dashed": true }
+    ],
+    "note": "Reuse the same task for the rescan: that is what makes delta reports possible."
+  }
+}
