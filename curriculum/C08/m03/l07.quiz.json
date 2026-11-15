@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A SIEM keeps 30 days of searchable data. An exfiltration alert fires today, and later evidence suggests the attacker's foothold was gained about 40 days ago. What is the most serious consequence for the investigation?",
+    "options": [
+      "The SOC can describe recent attacker actions but cannot show how access was gained, so it cannot be sure the entry point is closed",
+      "The exfiltration alert itself is unreliable, because correlation rules need the full dwell time of data to fire correctly",
+      "The SOC must restore the deleted indices from the hot tier's replicas before it can begin any form of scoping",
+      "The incident cannot be reported to a regulator, because reports must include the complete attack timeline from the start"
+    ],
+    "correct": 0,
+    "explanation": "Intrusions are found after they start; with 30 days held, the quiet initial-access stage from 40 days ago is gone, so the root cause and the way in cannot be established. Replicas are copies of current data, not of deleted indices, so they cannot bring it back.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Of the four reasons a SOC retains telemetry, which one most directly requires that the data sit on fast, frequently searched storage?",
+    "options": [
+      "Legal and regulatory retention, because a regulator can request logs at any moment",
+      "Operational audit, because SLA reports are generated from the raw events every day",
+      "Detection lookback, because first-seen and baseline rules query history every few minutes",
+      "Investigation and scoping, because analysts need every raw event older than the dwell time"
+    ],
+    "correct": 2,
+    "explanation": "Scheduled rules that compare the present with recent history run constantly, so their lookback period must be on the hot tier. Investigation needs older, complete data but searches it far less often, so it can live on slower tiers.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab purge experiment with a 07:00Z cutoff, the beaconing rule R6 returns zero hits although WS-104 kept beaconing until after 08:00Z. Why?",
+    "options": [
+      "The purge also removed the proxy source's parsing metadata, so later beacon events no longer match the URL field",
+      "Only 9 of the 18 beacon requests survive, below the rule's threshold of 10, because its lookback straddles the cutoff",
+      "The surviving beacon requests were compressed into a summary table, which the rule's SQL does not read from",
+      "R6 depends on the R1 hit for the same host, and R1 lost its only matching event in the purge"
+    ],
+    "correct": 1,
+    "explanation": "A shorter retention window can silently break any rule whose lookback crosses the boundary: half the beacons were deleted, leaving a count under the threshold. The rules in minisiem are independent queries over the events table; R6 does not chain to R1.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A policy states that firewall logs are deleted after 90 days. An auditor finds some events that are 90 days and several hours old still present. What is the most likely explanation?",
+    "options": [
+      "The lifecycle job failed and the excess events are evidence that the retention policy is not being enforced at all",
+      "Legal hold is applied automatically to every index older than the policy age until a reviewer releases it",
+      "The SIEM counts retention from ingestion time, and every firewall event arrived several hours after it was written",
+      "Data ages in whole indices, and an index is deleted only when its newest event passes the age, so retention acts as a minimum"
+    ],
+    "correct": 3,
+    "explanation": "Rollover groups events into time-based units that move and are deleted as a whole, so the oldest events in a unit outlive the nominal age slightly; this is why retention statements should be written as minimums. A failed job would leave data far older, not hours older.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An investigator needs logs from eleven months ago, which sit as snapshots in object storage in the frozen tier. What must happen before they can be searched?",
+    "options": [
+      "Nothing extra: the lifecycle policy automatically moves data back to hot when an analyst queries it",
+      "They must be rehydrated: restored or mounted into a searchable tier, which takes time and may cost money",
+      "They must be re-collected from the original hosts, since frozen snapshots hold only summaries",
+      "Their legal hold must be lifted first, because frozen data is locked against any read access"
+    ],
+    "correct": 1,
+    "explanation": "Lifecycle arrows run one way; bringing archived data back into a searchable tier is a separate, deliberate rehydration step. Frozen snapshots hold the data itself, not summaries, and a legal hold blocks deletion, not reading.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An organisation covered by the CERT-In Directions of April 2022 plans its log retention. Which statement correctly reflects what the Directions mean for the covered ICT logs?",
+    "options": [
+      "They must be kept for at least a rolling 180 days, within Indian jurisdiction, and be producible to CERT-In",
+      "They must be kept on the hot tier for 180 days so that a six-hour report can include every event",
+      "They may be kept for at most 180 days, after which the data protection law requires their deletion",
+      "They must be kept for 180 days only if an incident has been reported to CERT-In in that period"
+    ],
+    "correct": 0,
+    "explanation": "The Directions set a 180-day rolling floor, require the logs to be maintained within Indian jurisdiction and to be provided to CERT-In on reporting or request. They do not dictate a storage tier, and 180 days is a minimum, not a maximum.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A card-processing environment subject to PCI DSS keeps audit logs for three months on searchable storage and a further nine months in an archive that can be restored. How does this compare with the standard's log history requirement?",
+    "options": [
+      "It falls short: all twelve months must be held on the hot tier so they can be searched immediately",
+      "It falls short: the standard sets 180 days of searchable data, so three months is not enough",
+      "It exceeds it: the standard requires only three months, so the nine archived months are optional",
+      "It meets it: twelve months in total with the most recent three immediately available for analysis"
+    ],
+    "correct": 3,
+    "explanation": "PCI DSS requires at least twelve months of audit log history with at least the most recent three months immediately available. The rest may sit on a slower tier; 180 days is the CERT-In figure, not the PCI DSS one.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An engineer proposes keeping all raw web proxy logs indefinitely 'because security monitoring is a legitimate purpose'. What is the strongest objection?",
+    "options": [
+      "Indefinite retention breaches the CERT-In Directions, which forbid keeping logs for longer than 180 days",
+      "Indefinite retention prevents legal holds, because a hold can only be applied to data that has a deletion date",
+      "Proxy logs hold personal data; privacy law expects deletion once the purpose is met, so the policy needs a ceiling as well as a floor",
+      "Raw proxy logs become unreadable after a year because parsers change, so keeping them longer has no value"
+    ],
+    "correct": 2,
+    "explanation": "Under the DPDP Act 2023 personal data should be kept only as long as its purpose needs, so a security purpose justifies retention but not forever; the design needs both a floor and a ceiling, often extending lookback with summaries instead. CERT-In sets a minimum, not a maximum.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A lawsuit about an employee's actions is expected. The relevant endpoint logs will be deleted by the lifecycle policy in five days. What is the correct action?",
+    "options": [
+      "Extend the retention period of the whole SIEM until the lawsuit ends, so nothing relevant is deleted",
+      "Disable the lifecycle policy until legal confirms which data is needed, then re-enable it",
+      "Apply a legal hold to that specific data through the documented process before the policy reaches it",
+      "Rehydrate the logs into the hot tier, since hot data is exempt from the deletion phase"
+    ],
+    "correct": 2,
+    "explanation": "A legal hold suspends deletion for the specific data, not for the whole SIEM, and must be in place before the policy deletes it. Extending everything or disabling the policy over-retains personal data and is not how holds are meant to work.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For one data class, investigators need 270 days of history, but the privacy and cost limits agreed so far allow only 180. How should the retention design handle this?",
+    "options": [
+      "Resolve the conflict explicitly, for example by summarising or tiering to cut cost, or by documenting why the purpose justifies longer retention",
+      "Use the shorter limit automatically, because the privacy ceiling always overrides investigative and legal requirements",
+      "Use the longer need automatically, because the floor set by investigation always overrides cost and privacy limits",
+      "Split the difference at 225 days, which balances the two requirements without needing further approval"
+    ],
+    "correct": 0,
+    "explanation": "When the floor exceeds the ceiling, the policy must resolve it deliberately and in writing: reduce cost through tiering or summaries, or justify longer retention for this purpose. Neither side wins automatically, and an arbitrary midpoint fails both.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Raw proxy logs are deleted at 180 days, but daily counts per host and destination domain are kept for a year. What can an analyst still do with day-300 data?",
+    "options": [
+      "Reconstruct each individual request from the daily counts, provided the original parser is still available",
+      "Produce the requests as evidence, because summaries are derived from raw events and inherit their integrity",
+      "Nothing useful, because summaries without the raw events cannot support first-seen detection rules",
+      "Answer whether a domain was ever contacted and by which host, but not produce the individual request as evidence"
+    ],
+    "correct": 3,
+    "explanation": "Summaries extend cheap lookback for questions like 'has this domain been seen here?', but they cannot reproduce a single event with its fields. Summarisation is irreversible, so no parser can rebuild the requests from counts.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Four months after go-live, engineers find that a parser had mapped source and destination addresses the wrong way round for one firewall. The SIEM stores only normalised fields. What is the consequence?",
+    "options": [
+      "The events can be corrected by running the fixed parser over the normalised fields that are already stored",
+      "The four months of affected events cannot be corrected by re-parsing, because the original events were never kept",
+      "Only events on the hot tier are affected, since older tiers keep the original events automatically",
+      "The events can be corrected by swapping the two fields, which fully restores what the device logged"
+    ],
+    "correct": 1,
+    "explanation": "Without the raw original event, a parser bug cannot be fixed after the fact; this is why minisiem keeps each line in its raw column. Swapping fields assumes the bug was the only error and that nothing else was lost in parsing, which cannot be verified without the raw data.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An estate produces 10 million events a day at an average of 400 bytes. Hot storage is to hold 30 days with one replica. Roughly how much hot storage is needed before index overhead and compression?",
+    "options": [
+      "About 120 GB",
+      "About 240 GB",
+      "About 480 GB",
+      "About 720 GB"
+    ],
+    "correct": 1,
+    "explanation": "10,000,000 x 400 bytes = 4 GB a day; 30 days is 120 GB, and one replica doubles it to 240 GB. 120 GB forgets the replica; 480 GB counts two replicas.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC's commercial SIEM is licensed by daily ingest volume, and the budget is over. Which decision has the largest effect on cost?",
+    "options": [
+      "Whether each low-value source is collected at all, because licence cost follows ingest",
+      "How many days each index stays on warm storage before it moves down to cold",
+      "Whether the archive tier writes snapshots to object storage or to local disks",
+      "How often the scheduled detection rules run against the hot tier each hour"
+    ],
+    "correct": 0,
+    "explanation": "When licensing follows ingest, deciding whether to collect a source is the first cost lever; storage tiering is the second. Tier ages and archive media change storage cost but not the licence charge.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC has kept a year of logs in its archive for three years but has never restored any of it. During an incident, the first restore attempt takes four days and fails on two snapshots. What does this show?",
+    "options": [
+      "The archive tier is unsuitable for security data, which should be kept on the hot tier for its whole retention period",
+      "The lifecycle policy was misconfigured, because an archive should replicate snapshots back to warm storage weekly",
+      "The snapshots were probably altered, so the archive should be treated as tampered and its contents discarded",
+      "Archive data that cannot be rehydrated within the time an incident allows is not usefully retained, so restores must be tested and timed"
+    ],
+    "correct": 3,
+    "explanation": "Retention is only useful if the data can be returned in time; a SOC that never practises a restore discovers its problems during an incident, which is why a timed restore test at least quarterly is recommended. A failed restore points to process and storage problems, not necessarily tampering.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An attacker who has gained domain administrator rights clears the Security log on a server and then tries to delete the SIEM's archived indices. Which control most directly stops the archive deletion?",
+    "options": [
+      "Encryption at rest of the archive, so the attacker cannot read the indices that they are attempting to delete",
+      "A correlation rule for Event ID 1102 that raises an alert when a Windows Security log is cleared",
+      "Write-once (WORM) or object-lock storage that forbids deletion before the retention date, even by an administrator",
+      "Compression of older indices, which makes individual events impossible to locate and remove selectively"
+    ],
+    "correct": 2,
+    "explanation": "Immutable storage prevents deletion or change before the set date regardless of the account used. Encryption protects confidentiality, not deletion, and the 1102 rule detects log clearing on the host but does nothing to protect the archive.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which event should a SOC treat as alert-worthy in the same way it treats a cleared Windows Security log?",
+    "options": [
+      "A change that shortens a SIEM lifecycle policy or disables a snapshot job",
+      "A scheduled rollover that closes the current hot index and opens a new one",
+      "A lifecycle transition that moves a closed index from warm storage to cold",
+      "A rehydration of archived data by a named analyst for an open case"
+    ],
+    "correct": 0,
+    "explanation": "Shortened policies, deleted indices and disabled snapshots can erase history just as log clearing does, so they should alert the SOC lead. Rollover and tier transitions are routine, and an authorised, logged restore is expected activity.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC sets hot to 14 days, warm to 90 days, cold to 180 days and archive to one year. An intrusion is found that began 60 days ago. Where will the analyst find the initial-access events?",
+    "options": [
+      "On the hot tier, because recent intrusions are kept there by default",
+      "On the cold tier, since anything older than 30 days is moved there",
+      "On the warm tier, still indexed and searchable on cheaper nodes",
+      "In the archive, which must be rehydrated before any search is run"
+    ],
+    "correct": 2,
+    "explanation": "Data older than 14 days but younger than 90 sits on warm, which is read-only but searchable. Cold starts at 90 days in this design and the archive at 180, so no restore is needed.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A vendor advertises '30 days retention' for its SIEM service. Which follow-up question matters most for investigations and legal obligations?",
+    "options": [
+      "Whether the 30 days are counted from the event timestamp or from midnight UTC each day",
+      "How long data stays searchable in total, and for how long it can still be produced on request",
+      "Whether the hot tier is replicated across two nodes or across two separate data centres",
+      "How many correlation rules can run against those 30 days at the same time"
+    ],
+    "correct": 1,
+    "explanation": "Advertised retention is often the hot period; investigations depend on the total searchable period and legal obligations on the total period data can be produced. The counting basis changes the figure by hours, not months.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lesson's Banyan schedule, web proxy logs stop at 180 days while VPN and endpoint logs are archived to one year. What is the reasoning?",
+    "options": [
+      "Proxy logs are not covered by the CERT-In Directions, so they need only be kept for as long as detection rules need them",
+      "Proxy events cannot be compressed effectively, so archiving them for a year would cost more than all the other sources",
+      "Proxy logs never contain evidence of initial access, so a shorter period does not affect any investigation",
+      "Proxy is the largest and most privacy-sensitive source, so it stops at the legal floor and its long-term value is kept in summaries"
+    ],
+    "correct": 3,
+    "explanation": "Volume and privacy push proxy retention down to the CERT-In floor, and daily summaries of domains and hosts preserve long first-seen lookback cheaply. Proxy logs are covered ICT logs and often do show initial access, such as the invoice.docm download.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the Banyan schedule give VPN and identity logs a 30-day hot period when endpoint logs get only 14 days?",
+    "options": [
+      "Identity logs are smaller than endpoint logs, so keeping them hot for longer costs almost nothing extra",
+      "The CERT-In Directions require identity logs to be searchable within six hours for the first 30 days",
+      "Rules such as 'first logon from this country for this user' need about a month of fast-searchable baseline",
+      "Identity logs cannot be moved to warm storage until every account in them has been reviewed by an analyst"
+    ],
+    "correct": 2,
+    "explanation": "The hot period is set from detection lookback, and new-country logon rules need a month of baseline that rules query constantly. The six-hour CERT-In clock concerns incident reporting, not a 30-day searchable window.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case is opened on day 170 for events whose SIEM retention ends at day 180. The case will take months. How does the lesson's design keep the evidence available?",
+    "options": [
+      "Case evidence is exported with hashes and follows the case's own retention, not the SIEM schedule",
+      "The SIEM extends retention for every index in the estate while any case remains open",
+      "Analysts copy the relevant events into the hot tier, where the deletion phase never applies",
+      "Case evidence is kept as daily summaries, which last two years and replace the raw events"
+    ],
+    "correct": 0,
+    "explanation": "Exported evidence, hashed and recorded in custody, outlives SIEM retention and is governed by the case's lifetime and any legal hold. Summaries cannot serve as evidence of individual events, and moving data to hot does not exempt it from the lifecycle policy.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Working from the 07:00Z purged copy of the Banyan data, an analyst sees an administrator account created, a 48 MB upload and a cleared log on WS-104, and contains WS-104. What risk does this partial picture leave?",
+    "options": [
+      "The upload is probably misattributed, because the purge removed the proxy events that identified the host",
+      "The cleared-log alert is probably a false positive, since its preceding Security events no longer exist",
+      "The new administrator account cannot be disabled, because its creation event was deleted with the purge",
+      "The VPN account compromised from 203.0.113.66 before the cutoff stays open, because the spray evidence was purged"
+    ],
+    "correct": 3,
+    "explanation": "The spray and gopal's successful VPN logon happened before 07:00Z, so they vanish, and containment based on the remaining events would likely leave that account in use. The admin creation (07:02Z) and upload (08:12Z) survive the cutoff.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab's retention_purge.py deletes rows with the SQL condition ts < '2026-11-03T07:00:00Z', comparing text strings. Why does this give the correct time-based result?",
+    "options": [
+      "SQLite detects ISO 8601 text and converts both sides to Unix time before it compares them",
+      "Every timestamp uses the same fixed-width ISO 8601 UTC format, so string order is the same as time order",
+      "The ts column was declared as a DATETIME type when minisiem created the events table",
+      "The trailing Z marks the values as UTC, which tells SQLite to compare them numerically"
+    ],
+    "correct": 1,
+    "explanation": "Consistent zero-padded ISO 8601 UTC strings sort lexically in chronological order, so a text comparison is a valid time comparison. SQLite does not silently convert text timestamps to numbers; mixed formats or time zones would break the comparison.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a review, you find that the SIEM's cold and archive tiers are readable by the whole IT department, and that index deletion is available as a console action to the SIEM administrators, who also use those accounts for daily IT work. Which change best addresses the risk?",
+    "options": [
+      "Encrypt the cold and archive tiers with a new key, and keep the existing administrator accounts and console deletion",
+      "Move all cold data back to the hot tier, where existing access controls already restrict who can search it",
+      "Apply hot-tier access controls to every tier, and allow deletion only through a change-controlled policy run by separate SIEM accounts",
+      "Shorten the retention of the cold and archive tiers, so less data is exposed to the IT department over time"
+    ],
+    "correct": 2,
+    "explanation": "Older tiers need the same access control and integrity protection as hot storage, and deletion should be possible only via policy and separated privileges. Encryption does not stop users who already have read access, and shortening retention throws away evidence to hide a control weakness.",
+    "lesson": 7,
+    "difficulty": "hard"
+  }
+]

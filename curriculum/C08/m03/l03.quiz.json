@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Before normalisation was introduced, an analyst searched src_ip = \"203.0.113.66\" and got only firewall drops, although the same address had logged in to the VPN. What best explains the result?",
+    "options": [
+      "The VPN stored the address under its own field name, so the search silently skipped it",
+      "The VPN login was rejected at parse time because its JSON carried a UTC timestamp",
+      "The firewall events were indexed first, so later VPN events were hidden by the search",
+      "The search engine discards duplicate addresses that appear in more than one source"
+    ],
+    "correct": 0,
+    "explanation": "Each source was parsed correctly but used its own name (clientIP for the VPN), so a search on one name returns a partial answer that looks complete. A UTC timestamp is not a parse failure; the VPN already logged in UTC and was passed through.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new engineer onboards the VPN and maps its clientIP field to destination.ip instead of source.ip. Nothing errors. What is the most likely security consequence?",
+    "options": [
+      "VPN events fail schema validation and are routed to the pipeline error index",
+      "Rules that watch source.ip for sprayers stop seeing VPN attacks, with no alert raised",
+      "The firewall begins to drop VPN traffic because the two sources now share one field",
+      "Only dashboards break; correlation rules read the raw event and are not affected"
+    ],
+    "correct": 1,
+    "explanation": "A mapping error is a silent detection gap: the address is stored under the wrong role, so any rule keyed on source.ip simply never matches VPN events. Rules run on normalised fields, not raw text, so they are affected, which is why mappings must be reviewed and tested like code.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The firewall line reads 'Nov  3 12:16:21 fw01 ...' and the stored event shows @timestamp 2026-11-03T06:46:21Z. What did the mapping have to rely on to produce that value?",
+    "options": [
+      "The VPN event's timestamp, used as a reference to estimate the firewall's offset",
+      "The time at which the SIEM received the line, substituted for the event time",
+      "Configuration knowledge that the device runs in IST and of which year it was",
+      "The syslog header's embedded zone marker, which the parser converted to UTC"
+    ],
+    "correct": 2,
+    "explanation": "The line has neither year nor zone, so the parser applied the device's configured zone (IST, UTC+05:30) and the current year. Classic syslog headers carry no zone marker, and substituting receive time would replace event time with ingest time.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the normalised firewall event, DPT=3389 is stored as the integer 3389 rather than the string \"3389\". Which query does this choice protect?",
+    "options": [
+      "A free-text search for the word 3389 anywhere in the raw event",
+      "A grouping of events by host.name for a daily dashboard panel",
+      "A lookup of the destination address in a geolocation database",
+      "A filter for destination ports in a numeric range such as 1-1023"
+    ],
+    "correct": 3,
+    "explanation": "Type normalisation lets range and numeric comparisons work; as strings, '3389' would sort and compare as text. Free-text search on the raw event works either way, so it is not the query the integer type protects.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Ten Windows logon events in the lab hold '-' in src_ip. A rule groups failed logons by src_ip and alerts when one address exceeds a threshold. What is the risk if the mapping leaves '-' as it is?",
+    "options": [
+      "The dash is treated as one very busy address, creating a false cluster of events",
+      "SQLite rejects the dash in a text column, so those ten events are never loaded",
+      "The events are classified as external, because the dash does not start with 10.",
+      "The rule ignores them, since a dash is read by SQL as a null value by default"
+    ],
+    "correct": 0,
+    "explanation": "A placeholder stored as a value makes unrelated interactive logons look like one source address. SQL does not treat '-' as null; it is a normal string, which is why the mapping should convert placeholders to a true null.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the Banyan data, proxy src_ip values are always 10.40.0.x while VPN src_ip values are external. A rule says 'alert on many failures from one src_ip'. What should the rule author conclude?",
+    "options": [
+      "The proxy values are mapped wrongly and should be moved to destination.ip",
+      "Both are the initiator, but one address means very different things on each source",
+      "The VPN values are unreliable because external addresses are always behind NAT",
+      "The rule is safe on both sources, since normalisation has made the meanings identical"
+    ],
+    "correct": 1,
+    "explanation": "Both fields correctly hold the initiator, but an internal proxy client or NAT address may be shared by many people, while one external VPN address may be one attacker. Normalisation fixes names, not the need to know each source; the proxy mapping itself is correct.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "One user appears as DIVYA in Windows, BANYAN\\divya in another log and divya@banyan.example from the identity provider. A search for user = 'divya' finds only one form. What is the mature mapping fix?",
+    "options": [
+      "Keep all three forms and ask analysts to list every variant in each query",
+      "Replace user names with numeric account IDs and drop the original strings",
+      "Normalise case and move the domain into its own field such as user.domain",
+      "Store the identity provider form only and discard the Windows user fields"
+    ],
+    "correct": 2,
+    "explanation": "Normalising case and splitting the domain gives one person one searchable identity while keeping the domain information. Asking analysts to list variants pushes the problem back onto every query and rule author, which is exactly what normalisation exists to avoid.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab's field coverage matrix shows host empty for VPN, src_ip empty for Sysmon and outcome empty for proxy and Sysmon. Which field can a rule join on across all four sources?",
+    "options": [
+      "host, because every event is observed on some machine",
+      "src_ip, because every network event has an initiator",
+      "outcome, because every source records success or failure",
+      "user, because all four sources fill it in every event"
+    ],
+    "correct": 3,
+    "explanation": "The matrix shows user filled by proxy, Sysmon, VPN and Windows, so it is the only identifier available everywhere. host looks universal in principle, but the VPN record belongs to a person and carries no host.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule correlating a suspicious VPN login with later endpoint activity 'on the same host.name' has never fired, even in a test of the scenario. What is the most likely cause and fix?",
+    "options": [
+      "VPN events carry no host; add the user's primary host through identity enrichment",
+      "The VPN logs in UTC while endpoints log locally; convert the VPN to local time",
+      "Endpoint events are too many to join; sample them before the rule is executed",
+      "host.name is case sensitive; compare both sides in upper case to fix the join"
+    ],
+    "correct": 0,
+    "explanation": "The coverage matrix shows host empty for every VPN event, so a host join can never match; enrichment such as triage.py's PRIMARY_HOST fills the gap. Converting to local time would break correlation, since every source should be in UTC.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The coverage matrix query uses COUNT(host), COUNT(user) and so on, grouped by source. Why does this produce the information the matrix needs?",
+    "options": [
+      "COUNT(column) counts distinct values, showing how varied each field is",
+      "COUNT(column) counts only non-null values, showing which sources fill a field",
+      "COUNT(column) counts rows in the index, showing which fields are searchable",
+      "COUNT(column) counts parse failures, showing which fields need new mappings"
+    ],
+    "correct": 1,
+    "explanation": "In SQL, COUNT(column) ignores nulls, so comparing it with COUNT(*) per source shows how often each field is populated. Distinct counts would need COUNT(DISTINCT column) and would measure variety, not coverage.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A single rule filtering event.category: authentication AND event.outcome: failure returns failed logons from Windows, the VPN, a cloud identity provider and SSH. What makes this possible?",
+    "options": [
+      "Each product writes the same event.action verb, which the rule matches",
+      "The SIEM translates the query into each vendor's own field names at run time",
+      "Categorisation fields take values from a small fixed set that mappings must use",
+      "The rule reads event.code, which holds one shared ID for every failed logon"
+    ],
+    "correct": 2,
+    "explanation": "ECS categorisation fields have fixed allowed values, so every source mapped to them can be queried by meaning. event.action keeps each source's own verb and event.code each source's own identifier, so neither is shared across products.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An administrator account 'ravi' creates a new account 'svc_update'. In an ECS-style mapping, how should the two accounts be stored?",
+    "options": [
+      "Both in user.name as a list, ordered by their appearance in the raw event",
+      "svc_update in user.name and ravi in a source-specific namespace field",
+      "ravi in host.name, since the action was performed on the admin's machine",
+      "ravi in user.* as the actor and svc_update in user.target.* as the affected account"
+    ],
+    "correct": 3,
+    "explanation": "ECS keeps the acting account in user.* and the affected account in user.target.*, so 'who did it' and 'who it was done to' never collide. Putting both in one field would make it impossible to tell actor from target in searches and rules.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An architect must decide when to add the geolocation and ASN of each external address seen at the VPN. Which choice best serves an investigation months later?",
+    "options": [
+      "Enrich at ingestion and record the reference data version, so the context of that day survives",
+      "Enrich at search time, so every investigator always sees the most current location data",
+      "Skip enrichment and let analysts look addresses up by hand whenever an alert is opened",
+      "Enrich at search time and cache the result, so that repeated queries become faster"
+    ],
+    "correct": 0,
+    "explanation": "Geolocation and ASN describe the address at that moment and can change, so ingest-time enrichment with a record of the data version preserves what was true and what the analyst knew. Search-time lookup would show today's assignment, which may differ from the one at the time of the event.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC enriches host ownership only at search time. Last week WS-104 was reissued to a new employee. What problem appears when the team reviews an incident on WS-104 from last month?",
+    "options": [
+      "The old events are deleted, because their enrichment no longer matches the CMDB",
+      "The old activity appears to belong to the new owner, rewriting the history",
+      "The query fails, because the lookup table no longer contains the old owner",
+      "Nothing changes, because search-time enrichment is frozen when events arrive"
+    ],
+    "correct": 1,
+    "explanation": "Search-time enrichment joins current reference data, so historical events are shown with today's owner. It is ingest-time enrichment that freezes context at arrival, which is why ownership at the time of an incident may need to be captured at ingestion.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The kit's triage.py holds ASSETS, USERS and PRIMARY_HOST dictionaries and adds their facts to each rule hit without changing the events table. How should this enrichment be classified?",
+    "options": [
+      "Ingest-time, because the dictionaries are loaded when minisiem loads events",
+      "Parse-time, because the facts are extracted from the raw JSON of each event",
+      "Search-time, because the lookups run when rules run and nothing is written back",
+      "Ingest-time, because each hit's context is fixed once the triage line is printed"
+    ],
+    "correct": 2,
+    "explanation": "The dictionaries are consulted when the rules are evaluated and the stored events stay unchanged, which is search-time enrichment. Ingest-time enrichment would write the context into the stored event when it arrived.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team proposes enriching events with asset and identity context before mapping them to the common schema, to save a pipeline stage. What is the strongest objection?",
+    "options": [
+      "Enrichment before normalisation makes events too large to store in the index",
+      "Enrichment sources only accept UTC times, which parsing has not yet produced",
+      "Context lookups must run at search time, so they cannot occur in the pipeline",
+      "Lookups would need one key per vendor field name instead of one normalised key"
+    ],
+    "correct": 3,
+    "explanation": "The asset lookup keys on host.name, identity on user.name and geo or intelligence on source.ip; before normalisation each lookup would have to know every vendor's name for those fields. Ingest-time enrichment in the pipeline is normal, so the third option is false.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During onboarding, a Windows-only field has no equivalent in the common schema and no current search uses it. What should the mapping do with it?",
+    "options": [
+      "Keep it under a source-specific namespace or in the raw event for later use",
+      "Drop it, because unmapped fields add storage cost without detection value",
+      "Map it to the nearest common field, so that it becomes searchable everywhere",
+      "Copy it into event.action, which exists to hold source-specific information"
+    ],
+    "correct": 0,
+    "explanation": "Fields with no common name are kept under a namespace such as winlog.* or in the raw event, because the field nobody needs this year may be what an incident needs next year. Forcing it into the nearest common field would corrupt that field's meaning.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A manager says detection coverage is fine because 'we adopted ECS last quarter'. What is the most useful response?",
+    "options": [
+      "Agree, because ECS field names guarantee that every source fills each field",
+      "Ask for a source-by-source audit of mappings, since the schema is only a vocabulary",
+      "Recommend replacing ECS with OCSF, which enforces mappings during ingestion",
+      "Agree, provided that the SIEM vendor certifies its own parsers for ECS output"
+    ],
+    "correct": 1,
+    "explanation": "A schema defines names; normalisation is the mapping of each source onto it, and that is where mistakes live, so mappings need auditing per source. Switching schemas does not remove the mapping work, and the lesson stresses that consistency matters more than which schema is chosen.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Pipeline monitoring shows that, overnight, the share of events with an empty user.name from the VPN rose from 0% to 95%, while event volume is unchanged. What is the most likely explanation?",
+    "options": [
+      "Users have stopped logging in to the VPN and only health checks remain",
+      "The identity provider is down, so user enrichment could not be applied",
+      "The VPN vendor changed its log format, so the mapping no longer finds the user",
+      "The SIEM index is full, so it is truncating fields from incoming events"
+    ],
+    "correct": 2,
+    "explanation": "A sudden rise in empty key fields from one source with stable volume usually means a format change broke the parser or mapping. user.name comes from the event itself, not from enrichment, so an identity provider outage would not empty it.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two products both expose a field called 'src'. In one it is the connecting client; in the other it is the appliance that generated the log. How should the mapping author avoid an error?",
+    "options": [
+      "Map both to source.ip, since the schema defines src as the initiator in all cases",
+      "Map both to host.name, because the device name is the safer of the two meanings",
+      "Leave both unmapped and rely on full-text search of the raw events instead",
+      "Read each vendor's field documentation and test the mapping with known events"
+    ],
+    "correct": 3,
+    "explanation": "Mapping must follow meaning, not name: only documentation and test events reveal that one 'src' is the client and the other the reporting device. Mapping both to source.ip would put the appliance's address in the initiator role for one product.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A triage line shows 'host=WS-107 (sales laptop) user=gopal' for a VPN alert, although VPN events never carry a host. How should the analyst treat the host value?",
+    "options": [
+      "As an inference from the user's primary host, to be confirmed before acting on it",
+      "As an observed fact, because the VPN concentrator recorded the client device name",
+      "As an error, because enrichment must never add fields the source did not provide",
+      "As proof of compromise of WS-107, because the alert has already linked the two"
+    ],
+    "correct": 0,
+    "explanation": "PRIMARY_HOST fills the gap from identity data, so WS-107 is an assumption about where gopal usually works, not a record of the connecting device. Adding context the source lacked is the purpose of enrichment, but good enrichment labels inferred context as inferred.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Months after onboarding, the team discovers that a proxy mapping swapped two fields. What makes it possible to correct historical events rather than only new ones?",
+    "options": [
+      "The correlation engine stores every rule result, which can be replayed later",
+      "The raw event was kept beside the normalised fields, so history can be re-normalised",
+      "The coverage matrix records old values, so the swapped fields can be restored",
+      "The ingest-time enrichment saved a copy of each field before the mapping ran"
+    ],
+    "correct": 1,
+    "explanation": "Normalised fields are an interpretation; the raw record is the evidence and allows re-parsing and re-normalising after a mapping mistake. The coverage matrix only counts populated fields and holds no event values.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC wants to enrich every event with each employee's department, manager, home address and salary band. Under the purpose-limitation principle of India's DPDP Act 2023, what is the sound approach?",
+    "options": [
+      "Add all attributes, since data already held by HR may be reused for any purpose",
+      "Add no identity attributes at all, since any personal data in a SIEM is unlawful",
+      "Add only the attributes security decisions need and restrict who can view them",
+      "Add all attributes but hash them, so that analysts cannot read the raw values"
+    ],
+    "correct": 2,
+    "explanation": "Personal data should be processed for a specified purpose and limited to what it needs, so the SOC enriches with security-relevant attributes under access control and avoids turning the SIEM into general employee monitoring. Banning all identity context would remove information that triage genuinely needs.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Every source is stored in UTC except Windows, which was accidentally left in IST. A rule looks for a VPN success followed within 30 minutes by an account creation (4720). What happens to a real sequence of those two events?",
+    "options": [
+      "It still matches, because the rule compares only the order of the two events",
+      "It matches twice, because the IST event is indexed under both of its times",
+      "It is rejected at ingestion, because mixed zones fail schema validation",
+      "It is missed, because the 4720 appears 5.5 hours later than it occurred"
+    ],
+    "correct": 3,
+    "explanation": "IST is UTC+05:30, so a Windows time stored as if it were UTC lands five and a half hours after the true moment, outside a 30-minute window. A wrong zone is stored silently, not rejected, which is why every source must be verified as UTC.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Some events fail processing in the ingest pipeline. Instead of dropping them, the pipeline stores them marked event.kind: pipeline_error. Why is this the better design?",
+    "options": [
+      "The failures stay searchable and countable, so a broken source is noticed",
+      "The failures are automatically re-parsed by the SIEM with a fallback mapping",
+      "The failures are excluded from licensing, so ingest volume and cost are lower",
+      "The failures are treated as alerts, so every one is reviewed by an analyst"
+    ],
+    "correct": 0,
+    "explanation": "Marking rather than discarding failed events makes processing problems visible and measurable per source, instead of invisible gaps. Nothing in the marking itself re-parses events or turns them into analyst alerts; event.kind alert is a different value.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

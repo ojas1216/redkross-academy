@@ -1,0 +1,39 @@
+{
+  "C08-M03-L08-F1": {
+    "title": "The SIEM lab route: from loaded data to preserved evidence",
+    "caption": "The seven stages of the lab, each exercising one SIEM capability from Lessons 1-7, in the order an analyst uses them during an investigation.",
+    "alt": "Top-to-bottom flow of seven steps. Load and orient: minisiem.py load; counts by source, time range. Run saved rules: R1-R6, six detections. Pivot on an alert: VPN spray, src_ip 203.0.113.66. Write rule R7: download then Office spawn within 10 min. Build host timeline: WS-104, 06:00Z-09:00Z. Dashboard panels: hourly by source; top talkers. Export evidence: SHA-256 plus custody record, shown in dark as the final outcome.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Load and orient", "sub": "minisiem.py load; counts by source, time range", "tone": "slate" },
+      { "label": "Run saved rules", "sub": "R1-R6: six detections", "tone": "blue" },
+      { "label": "Pivot on an alert", "sub": "VPN spray: src_ip 203.0.113.66", "tone": "violet" },
+      { "label": "Write rule R7", "sub": "download then Office spawn within 10 min", "tone": "orange" },
+      { "label": "Build host timeline", "sub": "WS-104, 06:00Z-09:00Z", "tone": "blue" },
+      { "label": "Dashboard panels", "sub": "hourly by source; top talkers", "tone": "green" },
+      { "label": "Export evidence", "sub": "SHA-256 + custody record", "tone": "dark" }
+    ],
+    "note": "Every step queries the same events table; only the last one produces something that outlives retention."
+  },
+  "C08-M03-L08-F2": {
+    "title": "Translating the lab: minisiem, Wazuh and Elastic",
+    "caption": "Where each stage of the minisiem lab lives in a self-hosted Wazuh or Elastic single-node lab.",
+    "alt": "Table with columns Stage, minisiem, Wazuh, Elastic. Collect: load from JSONL; Wazuh agent; Elastic Agent or Beats. Parse + normalise: kit fields, raw kept; decoders; ingest pipelines, ECS. Store + index: SQLite events table; Wazuh indexer, alerts by default; Elasticsearch indices, all events. Search: search with SQL; Wazuh dashboard; Kibana Discover. Detect: RULES dictionary; rules, levels 0-15; detection rules: query, threshold, EQL. Dashboards: GROUP BY queries; Wazuh dashboard; Kibana dashboards. Retention: purge on a copy; index management policies; ILM phases. Evidence: evidence_export.py; export events, hash, custody; export events, hash, custody.",
+    "type": "table",
+    "columns": ["Stage", "minisiem", "Wazuh", "Elastic"],
+    "firstColTone": "slate",
+    "rowTones": ["blue", "violet", "orange", "blue", "red", "green", "violet", "slate"],
+    "rows": [
+      ["Collect", "load from JSONL", "Wazuh agent", "Elastic Agent / Beats"],
+      ["Parse + normalise", "kit fields, raw kept", "decoders", "ingest pipelines, ECS"],
+      ["Store + index", "SQLite events table", "Wazuh indexer (alerts by default)", "Elasticsearch indices (all events)"],
+      ["Search", "search (SQL)", "Wazuh dashboard", "Kibana Discover"],
+      ["Detect", "RULES dictionary", "rules, levels 0-15", "detection rules: query, threshold, EQL"],
+      ["Dashboards", "GROUP BY queries", "Wazuh dashboard", "Kibana dashboards"],
+      ["Retention", "purge on a copy (L7)", "index management policies", "ILM phases"],
+      ["Evidence", "evidence_export.py", "export events, hash, custody", "export events, hash, custody"]
+    ],
+    "note": "Same stages, different products: the orange row is the main conceptual difference."
+  }
+}

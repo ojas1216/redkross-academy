@@ -1,0 +1,327 @@
+[
+  {
+    "q": "All six minisiem rules fired on the Banyan storyline. Which of them relates two different kinds of event to each other in time, making it correlation in the strict sense?",
+    "options": [
+      "R2, which ties a VPN success to earlier failures from the same address",
+      "R5, which flags event 1102 because log clearing follows an intrusion",
+      "R1, which needs both a Word parent and a PowerShell child to be present",
+      "R4, which compares each upload's byte count against a fixed threshold"
+    ],
+    "correct": 0,
+    "explanation": "R2 joins two event types (failures and a success) on a shared address with an order condition. R1 checks two conditions, but both are fields of one process-start record, so it is still a single-event rule.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R2 counts COUNT(DISTINCT f.user) rather than COUNT(*) of failures before the success. Which situation does this choice prevent from firing the rule?",
+    "options": [
+      "Eight accounts failing once each from one external address in a minute",
+      "One user mistyping a password ten times from the same address",
+      "A spray that continues against new accounts after the success",
+      "Five accounts failing from one address and then one succeeding"
+    ],
+    "correct": 1,
+    "explanation": "Counting distinct users separates a spray (many accounts, few tries each) from one person's repeated typos, which would give ten failures but only one distinct user. Eight accounts failing once each is exactly the spray the rule should catch.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R2 orders events with f.ts <= s.ts, comparing ts as text. Why does this give the correct order in the lab, and when would it silently fail?",
+    "options": [
+      "SQLite converts text to dates automatically; it fails only if seconds are missing",
+      "The index idx_ts sorts by event time; it fails only when the index is rebuilt",
+      "UTC ISO 8601 strings sort in time order; mixed time zones would break it",
+      "Events are loaded in time order; it fails only if the file is shuffled first"
+    ],
+    "correct": 2,
+    "explanation": "Fixed-format UTC ISO 8601 timestamps sort lexically in chronological order, so text comparison works; a source left in local time would compare wrongly without any error. SQLite does not convert text to dates in a plain comparison.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R2 as written requires only that failures come at or before the success. On a year of production data, what is the main problem with this?",
+    "options": [
+      "Failures that come after the success are counted twice in the result",
+      "Successes without any failures are reported as low-severity alerts",
+      "The distinct count stops working once more than one year is loaded",
+      "Failures from months earlier can join a success and raise false alerts"
+    ],
+    "correct": 3,
+    "explanation": "'Before' is not a window: failures in January could join a success in November, giving false positives and a join that grows without limit. Failures after the success are discarded by f.ts <= s.ts, not double counted.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The last spray failure was at 06:42:49 and gopal's success at 06:46:00. Using the windowed R2 (julianday difference <= N/1440.0), what is the smallest whole-minute window N among these that still fires?",
+    "options": [
+      "4 minutes",
+      "3 minutes",
+      "2 minutes",
+      "10 minutes"
+    ],
+    "correct": 0,
+    "explanation": "The gap is 3 minutes 11 seconds, so a 3-minute window leaves every failure outside it and misses, while 4 minutes includes all eight. The 10-minute window also fires but is not the smallest; 2 minutes is the case the lesson shows missing.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A threshold rule fires on 5 or more distinct users failing from one address in clock-aligned ten-minute buckets. A spray of eight accounts runs from 06:48 to 06:52. What may happen, and why?",
+    "options": [
+      "It fires twice, once for each bucket the eight failures touch",
+      "It may never fire, because the burst can split four and four across buckets",
+      "It fires once, because a tumbling window slides to cover the full burst",
+      "It fires late, because buckets are evaluated only once the hour has closed"
+    ],
+    "correct": 1,
+    "explanation": "Tumbling buckets split a burst that straddles a boundary, so neither 06:40-06:50 nor 06:50-07:00 may reach five users. It is a sliding window, not a tumbling one, that moves with each event and avoids the boundary problem.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The cross-source query matches lower(p.parent_image) LIKE '%winword.exe%'. What would happen if lower() were removed and the pattern left in lower case?",
+    "options": [
+      "Nothing, because LIKE in every SIEM is case-insensitive by definition",
+      "The query would also match WINWORD processes on unrelated hosts",
+      "It could miss the event, since the raw parent path is in capitals",
+      "The query would fail, because parent_image is not an indexed field"
+    ],
+    "correct": 2,
+    "explanation": "The raw path is WINWORD.EXE in capitals, and the lesson warns that a case-sensitive comparison would miss it, so case must be normalised or compared case-insensitively. Host scope is set by the join on host, not by the case of the pattern.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The combination query joins a Sysmon process start to proxy beacons and finds WS-104 with 12 beacons in 60 minutes. Why can these two sources be joined on host?",
+    "options": [
+      "Sysmon events carry the proxy's URL, which identifies the requesting host",
+      "Both sources share src_ip, which minisiem converts to host at search time",
+      "The proxy records the process ID, which matches Sysmon's process start",
+      "Both Sysmon and the proxy fill the host field with the same host name"
+    ],
+    "correct": 3,
+    "explanation": "The field coverage matrix shows host populated by both Sysmon and the proxy, so the join key exists on both sides with one representation. Sysmon events in this dataset have no src_ip, so an address join would not work.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The VPN spray and gopal's login (06:42-06:46) overlap in time with the WS-104 intrusion. What may an analyst conclude from the data alone?",
+    "options": [
+      "Nothing links them yet; they share no entity, so a link needs other evidence",
+      "They are one attack, since both happened on the same morning in one network",
+      "The spray compromised WS-104, because divya was one of the sprayed accounts",
+      "They are unrelated, because VPN events cannot ever be correlated with hosts"
+    ],
+    "correct": 0,
+    "explanation": "Overlap in time without a shared entity is coincidence until enrichment or threat intelligence connects them. Divya's account failed in the spray but never succeeded from that address, and VPN events can be linked to hosts through enrichment, so the last option is too strong.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the entity aggregation query, R3 fired twice for one account creation on WS-104. Why does the query count distinct rules per host rather than total hits?",
+    "options": [
+      "Because SQLite cannot count rows that come from a UNION ALL subquery",
+      "Because repeated hits of one rule are weaker than hits from unrelated rules",
+      "Because R3 hits must be removed, since 4732 duplicates the 4720 event",
+      "Because counting hits would make WS-104 score lower than other hosts"
+    ],
+    "correct": 1,
+    "explanation": "One behaviour producing two hits adds little; four different rules on one host are independent lines of evidence. The R3 hits are not duplicates to delete: 4720 and 4732 record different steps, an account created and then added to a group.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC with 300 rules plans to write a pairwise correlation rule for every pair of behaviours that might occur together. Why does entity risk aggregation usually scale better?",
+    "options": [
+      "Pairwise rules cannot join events that come from two different log sources",
+      "Aggregation replaces the need for single-event rules, so fewer rules run",
+      "Each rule contributes to an entity's total, instead of one rule per pair",
+      "Aggregation needs no time period, so it never misses slow-moving attacks"
+    ],
+    "correct": 2,
+    "explanation": "Pairs grow quickly (six rules already give fifteen), while aggregation lets every rule add to the entity it names and alerts when one entity collects several. Aggregation depends on the single-event rules as inputs and still works within a period.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In production, a host's last Sysmon event is a suspicious PowerShell start at 06:14, while its proxy traffic continues until 12:32. How should an absence rule treat this?",
+    "options": [
+      "Ignore it, because proxy activity proves the endpoint agent is still healthy",
+      "Raise it only at the end of the day, when the daily event totals are compared",
+      "Treat it as normal, because endpoint sources report far less often than proxies",
+      "Alert, because endpoint telemetry went quiet while the host stayed active"
+    ],
+    "correct": 3,
+    "explanation": "An absence rule compares each source's last-seen time, ideally per host, with its expected interval, and endpoint silence while the host is still active is exactly what it exists to catch. In the lab this is a generator artefact, but in production it could be telemetry being disabled.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R5 fires because event 1102 shows the Security log on WS-104 was cleared at 08:17. What evidence of the earlier activity on that host should still be available?",
+    "options": [
+      "The events already forwarded to the SIEM before the log was cleared",
+      "The cleared local log, which Windows keeps in a hidden backup copy",
+      "Nothing, because 1102 instructs the SIEM to purge that host's events",
+      "Only the 1102 event itself, as clearing removes all prior forwarded data"
+    ],
+    "correct": 0,
+    "explanation": "Clearing the log locally does not remove copies already sent to the SIEM, which is a strong argument for central collection. A 1102 event has no effect on the SIEM's stored data.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A scheduled rule runs every 10 minutes with a 10-minute look-back. A laptop that was offline for an hour uploads its events in one batch. What is the risk, and the usual fix?",
+    "options": [
+      "The events are counted twice; shorten the look-back to five minutes",
+      "The events may never fall in a searched window; use a longer look-back with de-duplication",
+      "The events are rejected as late; switch every rule to streaming evaluation",
+      "The events overwrite newer ones; sort the batch by ingestion time first"
+    ],
+    "correct": 1,
+    "explanation": "Late events carry old event times, so a look-back equal to the interval can skip them entirely; a longer look-back catches them and de-duplication prevents double alerts. Shortening the look-back would make the gap worse, not better.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team must choose between streaming and scheduled evaluation for a new correlation rule. Which statement correctly describes the trade-off?",
+    "options": [
+      "Streaming uses the full query language; scheduled rules cannot use joins",
+      "Streaming re-reads stored history; scheduled rules keep state in memory",
+      "Streaming alerts within seconds but holds window state; scheduled waits for its next run",
+      "Streaming is only for single-event rules; scheduled is needed for every threshold"
+    ],
+    "correct": 2,
+    "explanation": "Streaming engines evaluate each event against open windows held in memory and alert quickly; scheduled searches are simpler and can use the full query language but alert only on the next run. The first option reverses which approach has the full query language.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A sequence rule sometimes misses real activity from one firewall, whose events appear to fall outside windows they belong in. What should be monitored to confirm the cause?",
+    "options": [
+      "The number of distinct users per address reported by the firewall each hour",
+      "The share of firewall events marked as parse failures by the ingest pipeline",
+      "The bytes per event, since larger events take longer to index and search",
+      "The difference between event time and ingestion time for that source"
+    ],
+    "correct": 3,
+    "explanation": "A wrong source clock shifts events out of their windows, and per-source monitoring of event time against ingestion time reveals the skew. Parse failures would show missing or tagged events, not events that are present but displaced in time.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A correlation rule joins all proxy events to all Windows events on user over a 24-hour window, then filters for 4720 and large uploads. It times out in production. What is the best first change?",
+    "options": [
+      "Filter each side to the event types the rule needs before joining them",
+      "Lengthen the scheduled interval, so that the join has more time to finish",
+      "Switch the join key from user to host, since host has fewer distinct values",
+      "Remove the time window, so that the engine does not need to compare times"
+    ],
+    "correct": 0,
+    "explanation": "Narrowing inputs first (4720 events on one side, large uploads on the other) makes the join small without changing what the rule detects. Changing the join key alters the rule's meaning, and removing the window makes the join larger and less correct.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An adversary sprays three accounts per address from many different addresses, staying under R2's threshold of five distinct users per address. Which detection change best addresses this?",
+    "options": [
+      "Lower the threshold to one distinct user per address, keeping the address join",
+      "Add a rule that counts failures per account across many source addresses",
+      "Extend R2's window to a full week, so that each address accumulates more users",
+      "Restrict R2 to addresses outside India, since sprays come from other countries"
+    ],
+    "correct": 1,
+    "explanation": "Layering rules on another entity (the account, across addresses) catches activity spread to avoid a per-address threshold, alongside MFA that makes a sprayed password useless. A threshold of one would alert on every typo and flood the queue.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An auditor notices that R2's threshold was changed from 5 to 500 three months ago, and nobody can say who made the change. Which practice would have prevented or exposed this?",
+    "options": [
+      "Running R2 more often, so that a raised threshold is noticed sooner",
+      "Copying R2 into each analyst's personal saved searches as a backup",
+      "Keeping detection content under access control, version history and review",
+      "Adding an absence rule that alerts when the VPN stops sending events"
+    ],
+    "correct": 2,
+    "explanation": "A silently disabled rule or raised threshold works for an attacker like deleting logs, so detection content should be controlled, versioned and reviewed like production code. An absence rule detects missing telemetry, not changes to rules.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A newly written rule for Office spawning script interpreters has returned no results in its first month. What is the soundest next step?",
+    "options": [
+      "Record the empty result as evidence that no such attacks occurred",
+      "Delete the rule, since it uses compute without producing any value",
+      "Lower its severity, so that any future hits do not page an analyst",
+      "Test it with a known-bad event to confirm it can fire at all"
+    ],
+    "correct": 3,
+    "explanation": "An empty result may mean a broken rule, for example a case mismatch or a missing field, so it must be tested with a known-bad event and a near-miss benign one. Treating silence as proof of safety is one of the lesson's named mistakes.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Banyan storyline, which preventive control would remove the scenario behind R1 at its source rather than detect it afterwards?",
+    "options": [
+      "Application control that stops Office from starting script interpreters",
+      "Multi-factor authentication on the VPN for every remote access account",
+      "A proxy block on uploads larger than 10,000,000 bytes to unknown sites",
+      "Forwarding the Security log so that a local clear cannot destroy it"
+    ],
+    "correct": 0,
+    "explanation": "R1 detects WINWORD.EXE starting PowerShell or cmd, and application control preventing that parent-child launch removes the behaviour itself. MFA is the preventive answer to R2's spray scenario, not to R1's.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The entity aggregation query combines R1, R3, R4 and R5 but leaves out R6, although R6 also names WS-104. Why was R6 left out?",
+    "options": [
+      "R6 is a single-event rule, and aggregation only accepts threshold rules",
+      "R6 groups by host and URL and returns no timestamp column to aggregate",
+      "R6 uses proxy data, which has no host field filled in the coverage matrix",
+      "R6 fired 18 times, which would dominate the count of distinct rules"
+    ],
+    "correct": 1,
+    "explanation": "The aggregation needs host and ts from each rule, and R6's output has host, URL and statistics but no time; giving it one (such as the first beacon) lets it contribute. The proxy does fill host, and distinct-rule counting is unaffected by R6's hit volume.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R2 returns ('203.0.113.66', 8, 'gopal', '2026-11-03T06:46:00Z'), and the raw events show gopal himself among the failures at 06:42:42. What exactly does the value 8 represent?",
+    "options": [
+      "Failed attempts against gopal's account before his successful login",
+      "Accounts other than gopal that failed from the address before 06:46",
+      "Distinct accounts, gopal included, that failed from the address by then",
+      "Total VPN events from the address, both failures and the success"
+    ],
+    "correct": 2,
+    "explanation": "COUNT(DISTINCT f.user) counts every distinct account with a failure from that address at or before the success, and gopal's own failure is one of the eight. The rule does not exclude the successful user, so 'accounts other than gopal' would give seven.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R2's self-join pairs each VPN success with every earlier failure from its address. On a production VPN with millions of events, what keeps this join practical?",
+    "options": [
+      "Replacing COUNT(DISTINCT) with COUNT(*), which avoids a sort step",
+      "Joining on user instead of src_ip, which has far fewer distinct values",
+      "Running the rule once a day, so that fewer joins are executed overall",
+      "Bounding the join with a time window and an index on the time column"
+    ],
+    "correct": 3,
+    "explanation": "A time window limits how many failures each success can pair with, and a time index (minisiem creates idx_ts at load) lets the engine find them quickly. Swapping COUNT(DISTINCT) for COUNT(*) would change what the rule detects, losing the spray logic.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The kit's test_rules.py tests R2 with a spray of five users that must match and a spray of four users that must not. What does the second test add?",
+    "options": [
+      "It confirms the threshold boundary, so a near-miss does not raise an alert",
+      "It measures how fast the rule runs when fewer failures are in the table",
+      "It checks that the rule ignores VPN failures that come after the success",
+      "It proves the rule handles accounts whose names are in upper case"
+    ],
+    "correct": 0,
+    "explanation": "Pairing a known-bad case with a near-miss benign case pins the threshold exactly: five fires, four does not. The four-user test varies only the count, so it says nothing about failures after the success or about case handling.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

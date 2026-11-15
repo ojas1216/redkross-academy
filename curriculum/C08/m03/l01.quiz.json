@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Banyan adds a second firewall model and points it at the syslog input already used by the first firewall. Its events are stored, but a rule that searches the firewall index for blocked connections never returns them. What is the most likely cause?",
+    "options": [
+      "The new device inherited the shared input's default source type and index",
+      "The new device's events were dropped by an ingest-time filter on the input",
+      "The new device sends over UDP, so its events were lost before they arrived",
+      "The new device's events are still waiting in the indexing refresh interval"
+    ],
+    "correct": 0,
+    "explanation": "An input applies its default source type and index to everything that arrives on it, so a new device on a shared port is labelled and routed as the old one, with the wrong time rules and container. A drop filter would mean the events were never stored, but here they are present.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst knows a server sent authentication events at about 09:30 today, but a search of 09:00-10:00 returns none. Searching all time finds them, with ingest time 09:30 today and event time in 2019. What does this pattern indicate?",
+    "options": [
+      "The events were routed to an index the analyst has no permission to read",
+      "The indexing layer delayed the events until after the search window ended",
+      "The events were filed by a wrong or misread timestamp from the source side",
+      "The events were duplicated upstream and the copies replaced the originals"
+    ],
+    "correct": 2,
+    "explanation": "The events arrived on time (ingest time 09:30) but were filed under a wrong event time, from a bad source clock or a timestamp the SIEM misread, so a search of the right window cannot find them. An access problem would hide them from the all-time search as well.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Events from twenty branch routers are relayed through one central syslog server to the SIEM. Every event shows the same value in the host field. What explains this?",
+    "options": [
+      "The routers share one source type, which overwrites the host label",
+      "The SIEM recorded the relay as host instead of reading it from the message",
+      "The relay merges events from all routers into a single multi-line record",
+      "The routers' clocks are synchronised, so the SIEM treats them as one host"
+    ],
+    "correct": 1,
+    "explanation": "For relayed data the sender the SIEM sees is the relay, so unless the ingestion layer takes the host name from inside each message, every event is labelled with the relay's name. A shared source type sets parsing rules, not the host label.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A source averages 1,000 events per second with an average event size of 800 bytes. Approximately how much raw data per day will it add before indexing overhead or replication?",
+    "options": [
+      "About 0.8 GB per day",
+      "About 6.9 GB per day",
+      "About 86.4 GB per day",
+      "About 69.1 GB per day"
+    ],
+    "correct": 3,
+    "explanation": "1,000 x 800 bytes = 800,000 bytes per second; multiplied by 86,400 seconds this is about 69.1 x 10^9 bytes, or 69.1 GB per day. 86.4 GB/day is the figure for 2,000 EPS at 500 bytes, not this source.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An application's audit records are written as several records per block. A threshold rule counting failed logons from it fires far less often than the application's own report suggests it should. Which ingestion fault best explains the under-count?",
+    "options": [
+      "The breaking rule splits each record into several one-line events",
+      "The breaking rule merges several real records into one stored event",
+      "The input truncates each record at the platform's maximum event size",
+      "The routing rule sends the records to a cheaper, slower storage tier"
+    ],
+    "correct": 1,
+    "explanation": "If the breaking rule merges several records into one stored event, a count-based rule sees one event where several logons failed, so it under-counts. Splitting records would produce more events, not fewer, and tiering affects search speed, not counts.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In Splunk, events from a newly onboarded source land in the correct index but are cut in the middle of records and carry wrong _time values. Which single setting most likely explains both symptoms?",
+    "options": [
+      "The sourcetype assigned to the data, which selects breaking and time rules",
+      "The index assigned to the data, which selects its retention and access",
+      "The host value assigned to the data, which selects the relay to trust",
+      "The _indextime recorded for the data, which selects the search window"
+    ],
+    "correct": 0,
+    "explanation": "In Splunk the source type selects the line-breaking and timestamp rules, so a wrong source type corrupts both at once. The index is correct here and governs retention and access, not how events are broken or timed.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Proxy logs make up most of Banyan's ingest volume and the finance team wants costs cut, but beaconing detection relies on every proxy record. Which option reduces cost while keeping every record available to an investigator?",
+    "options": [
+      "Aggregate the proxy logs into hourly request counts per host",
+      "Drop proxy requests to well-known content delivery networks",
+      "Trim the URL and user-agent fields from every proxy record",
+      "Route the proxy logs to a cheaper storage tier with slower search"
+    ],
+    "correct": 3,
+    "explanation": "Moving data to a cheaper tier keeps every record and only slows searching, the lowest-risk option. Aggregation destroys the per-request timing that beaconing detection needs, and dropping or trimming permanently removes evidence.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Rendered Windows events include a long block of descriptive text that is identical in every event of the same ID. Which volume-reduction step targets this with the least loss of evidence?",
+    "options": [
+      "Aggregating the events into counts per event ID per host per hour",
+      "Dropping the event IDs that make up the largest share of the volume",
+      "Trimming the repeated description while keeping the structured fields",
+      "Routing all rendered Windows events to an archive-only storage tier"
+    ],
+    "correct": 2,
+    "explanation": "Removing repeated boilerplate while keeping structured fields cuts size without removing what detections use. Aggregation and dropping lose individual events, and an archive-only tier keeps everything but makes it hard to use for detection.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a cost review an engineer proposes an ingest-time rule that drops all PowerShell Operational events because they are 'noisy'. What is the most defensible way to handle the proposal?",
+    "options": [
+      "Treat it as a detection change: list dependent rules, assign an owner and review date",
+      "Approve it if the platform keeps dropped events in a recovery buffer for seven days",
+      "Approve it if the endpoint agent still keeps the events in its local event log",
+      "Treat it as housekeeping and record it in the SIEM platform's change log only"
+    ],
+    "correct": 0,
+    "explanation": "A drop rule removes evidence for every future detection and investigation; this one would also remove script-block events recording an intruder's commands. It must be decided per event type with dependent detections, an owner and a review date. Local logs on endpoints roll over and are not centrally searchable.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After reloading the Banyan dataset, a health query returns total 341 and distinct_raw 340 from SELECT COUNT(*) total, COUNT(DISTINCT raw) distinct_raw FROM events. What does this show?",
+    "options": [
+      "One event failed to parse and was stored twice, once raw and once parsed",
+      "One event was stored twice because the ingestion layer does not de-duplicate",
+      "One event was dropped and replaced with a placeholder row by the loader",
+      "One event's raw text was truncated at the maximum event size and split"
+    ],
+    "correct": 1,
+    "explanation": "Two rows share identical raw text, so one event was stored twice. load() has no de-duplication, so a duplicate line, as at-least-once delivery can produce, is stored and counted. A truncated and split event would give two different raw values, not identical ones.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In a scratch copy of the kit, one truncated JSON line is inserted into banyan_events.jsonl. After load raises a JSONDecodeError, a count of the events table returns 0, although the file has 340 valid lines. Why is the table empty?",
+    "options": [
+      "SQLite rolls back the whole transaction when any inserted row is invalid",
+      "The idx_ts index cannot be built when one row has no timestamp value",
+      "The table is dropped first and all lines are parsed before any insert",
+      "The search command refuses to read a table left by an incomplete load"
+    ],
+    "correct": 2,
+    "explanation": "load() runs DROP TABLE IF EXISTS first, then parses every line into a list in memory before inserting, so an exception on one line aborts the load after the old data is already gone. No row was ever inserted, so there was nothing for SQLite to roll back.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A threat model notes that anyone able to write to an upstream log file can insert one malformed record into a feed. Which ingestion property most directly prevents this from blinding the SOC to the whole feed?",
+    "options": [
+      "Recording ingest time beside event time on every stored event",
+      "De-duplicating events on a stable identifier before they are written",
+      "Routing the feed to a container with restricted search access",
+      "Quarantining and counting bad records while ingesting the rest"
+    ],
+    "correct": 3,
+    "explanation": "Isolation contains a fault to the one bad record: it is quarantined, tagged and counted while the rest of the feed keeps flowing. Without it, all-or-nothing ingestion is a denial-of-service condition. De-duplication improves count accuracy but does nothing for malformed input.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In minisiem, logon_type and the VPN country are present in the dataset but are not among the twelve stored columns. What is the practical consequence for a detection rule that needs them?",
+    "options": [
+      "The rule must extract them from raw at search time, which is slower and fragile",
+      "The rule cannot use them, because fields without columns are discarded at load",
+      "The rule can use them directly, because SQLite creates columns on first use",
+      "The rule must wait for a reload, because raw is only populated on request"
+    ],
+    "correct": 0,
+    "explanation": "The fields survive only inside the raw column, so a rule must pull them out with json_extract at search time, which is slower and easier to get wrong. They are not discarded, precisely because the original line was kept.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The minisiem volume query shows the proxy producing about 83 per cent of stored bytes while Sysmon events are the largest on average. Before trimming proxy data, what should the SOC establish first?",
+    "options": [
+      "Whether Sysmon events could be trimmed instead because they are larger",
+      "Which detections, such as beaconing or large uploads, depend on proxy fields",
+      "Whether the proxy can send its events in a more compact binary format",
+      "Which proxy users generate the most requests so they can be excluded"
+    ],
+    "correct": 1,
+    "explanation": "High-volume network data often feeds important detections, so any reduction must start by asking which rules and investigations use it. Trimming the largest events per record ignores that proxy data dominates total volume, and excluding heavy users removes the very activity beaconing produces.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A covered entity in India routes its VPN logs into a container with a 30-day retention because the container is cheap. Why is this routing decision a compliance problem and not just a storage choice?",
+    "options": [
+      "The DPDP Act 2023 forbids storing VPN logs outside a restricted container",
+      "MITRE ATT&CK T1562 requires authentication logs to be kept for one year",
+      "CERT-In's 2022 directions require ICT logs to be kept for a rolling 180 days",
+      "ISO 27001 requires every security log to be kept in a hot searchable tier"
+    ],
+    "correct": 2,
+    "explanation": "The container carries the retention period, and CERT-In's April 2022 directions require covered entities to keep ICT system logs for a rolling 180 days within Indian jurisdiction, so routing a regulated source to 30-day storage breaks that duty. T1562 is an adversary technique, not a retention rule.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A platform team moves Windows Security events from index wineventlog to a new index win_security to separate retention. Nothing errors, but several rules stop producing alerts. What most likely happened?",
+    "options": [
+      "The new index has a shorter refresh interval, so events arrive too quickly",
+      "The new index inherited a different source type, breaking timestamp rules",
+      "The rules still name the old index, so they now search an empty container",
+      "The new index restricts access, so rules run as the analyst cannot read it"
+    ],
+    "correct": 2,
+    "explanation": "Detection rules usually name the container they search, so when routing changes and the rules do not, they search where the data no longer is and fall silent without any error. Changing the index does not by itself change the source type or its time rules.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A VPN appliance buffers events during an outage and delivers a two-hour batch late. The SIEM stores only event time. What can the SOC not determine as a result?",
+    "options": [
+      "Whether the batch's events occurred during the outage window",
+      "Whether a correlation rule ran before the batch's events had arrived",
+      "Whether the batch's events can be searched by their original time",
+      "Whether the batch's events were filed under the correct source type"
+    ],
+    "correct": 1,
+    "explanation": "Without ingest time a late batch looks identical to a timely one, so the SOC cannot measure lag or tell whether a rule evaluated its window before all events arrived. Event time still places the events correctly in time and still allows searches by when they happened.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SIEM's syslog input accepts UDP from any address on the internal network. A red-team report shows forged events planted in it from a test workstation. Which control best addresses the weakness?",
+    "options": [
+      "Authenticate the input with TLS client certificates and restrict which networks reach it",
+      "Raise the input's maximum event size so forged records are split and easier to spot",
+      "Route the input's events to a restricted container that only the SOC can search",
+      "Record ingest time on the input so that forged events show an unusual lag value"
+    ],
+    "correct": 0,
+    "explanation": "Forged events succeed because the input accepts anyone who can reach it; authenticating senders and restricting the network, plus alerting on unexpected senders, closes that gap. Restricting who can search the data does nothing to stop forged data being written.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Source-health monitoring alerts when any source's event count drops sharply, and nothing else. Which ingestion attack does this configuration fail to detect?",
+    "options": [
+      "An intruder stopping the endpoint agent on a compromised server",
+      "An administrator deleting the input that receives firewall events",
+      "A flood of junk events that exhausts licence and delays real events",
+      "A routing change that makes one event type disappear from its index"
+    ],
+    "correct": 2,
+    "explanation": "Flooding raises volume, so monitoring that only watches for falls misses it while the backlog delays the events that matter and the licence quota drains. A stopped agent, a deleted input or a routing change that removes an event type all reduce volume and would be caught.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A health check compares event time with ingest time. Several events from one host carry event times three days after their ingest times. How should the SOC treat this?",
+    "options": [
+      "As normal lag, since buffered events always arrive with later timestamps",
+      "As expected, because ingest time is assigned before the event is created",
+      "As harmless, because the events are still searchable within all-time scope",
+      "As a red flag for a wrong clock or deliberate time manipulation to investigate"
+    ],
+    "correct": 3,
+    "explanation": "An event cannot be ingested before it happened, so a negative gap means either a faulty clock or timestamps set to file events where nobody looks; both deserve investigation. Normal lag produces event times earlier than ingest times, not later.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During onboarding of a new EDR feed, the engineer wants to prove that no events are being silently lost between source and SIEM. Which check gives that assurance most directly?",
+    "options": [
+      "For a fixed window, compare the source's sent count with the SIEM's stored count",
+      "For a fixed window, compare the SIEM's event count with yesterday's event count",
+      "For a sample of events, compare the host field with the source's own host name",
+      "For a sample of events, compare event time with the source's own system clock"
+    ],
+    "correct": 0,
+    "explanation": "Reconciling what the source says it sent against what the SIEM holds for the same window directly measures loss. Comparing with yesterday only shows a change in volume, and host and time checks test labelling, not completeness.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a large incident the SIEM is under heavy load. A forwarder confirms delivery of a critical event, but an analyst's search run seconds later does not return it. What is the most likely explanation?",
+    "options": [
+      "The event was delivered but routed to a container the analyst cannot read",
+      "The event is stored but not yet searchable because indexing has lagged",
+      "The event was rejected by the input because it exceeded the size limit",
+      "The event was de-duplicated against an earlier copy and discarded"
+    ],
+    "correct": 1,
+    "explanation": "Indexing is not instantaneous: new data becomes searchable after a refresh interval, and that delay grows under heavy load, so a delivered event can be briefly unsearchable. A rejected or discarded event would not resolve itself, while this one appears once indexing catches up.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "minisiem's load() creates only one index, idx_ts on the ts column. Why is a time index the first choice for almost every SIEM store?",
+    "options": [
+      "Because event time is the only field present in every source type",
+      "Because SQLite requires an index on a time column before inserts",
+      "Because almost every search is bounded by a time range",
+      "Because indexing by time makes duplicate events easy to remove"
+    ],
+    "correct": 2,
+    "explanation": "SIEM searches are almost always limited to a time window, so organising and indexing by time lets the engine skip everything outside it. SQLite requires no index at all, and a time index does nothing to identify duplicates.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst used to Splunk's _indextime is investigating ingestion lag in Elastic data that follows the Elastic Common Schema. Which field holds the comparable value?",
+    "options": [
+      "@timestamp",
+      "TimeGenerated",
+      "event.dataset",
+      "event.ingested"
+    ],
+    "correct": 3,
+    "explanation": "The Elastic Common Schema defines event.ingested for the time the event reached the pipeline, the counterpart of Splunk's _indextime. @timestamp is the event time, and TimeGenerated is Microsoft Sentinel's event-time column.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Banyan's proxy logs reveal which websites individual staff visit. The SOC needs them for detection, and the privacy officer cites the DPDP Act 2023. Which ingestion design best serves both needs?",
+    "options": [
+      "Drop the URL field at ingest time so no browsing history is ever stored",
+      "Route proxy logs to a container whose search access is limited to the SOC",
+      "Route proxy logs to the shared default index so all teams can audit them",
+      "Aggregate proxy logs into daily totals so individual visits are not kept"
+    ],
+    "correct": 1,
+    "explanation": "Separate containers allow access to sensitive data to be limited to those who need it, which supports DPDP safeguard duties while keeping the evidence. Dropping URLs or aggregating would protect privacy but destroy the detail that detections such as beaconing need.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

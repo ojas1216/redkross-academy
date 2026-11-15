@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A rule searching for source.ip = 203.0.113.66 misses firewall events. Inspecting one of them shows the raw text contains SRC=203.0.113.66 and the stored fields include src=203.0.113.66 but no source.ip. Where does the fault lie?",
+    "options": [
+      "In parsing, because the address was never extracted from the raw text",
+      "In normalisation, because the value was extracted under another name",
+      "In ingestion, because the event was routed to the wrong container",
+      "In event breaking, because the address was split into another event"
+    ],
+    "correct": 1,
+    "explanation": "The value was extracted, so the parser did its job; it was simply stored as src instead of the common name source.ip, which is a normalisation problem. A parsing failure would leave no extracted address field at all.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A firmware update makes a firewall insert a new IFACE=eth0 token near the start of every message. Which parser design is most likely to keep extracting SRC, DST and DPT correctly?",
+    "options": [
+      "A dissect parser that splits the message on spaces in a declared order",
+      "A regex that captures the fourth, fifth and sixth words of the message",
+      "A delimited parser that treats each space-separated token as a column",
+      "A key-value parser that looks up each value by its label after splitting"
+    ],
+    "correct": 3,
+    "explanation": "A label-based key-value parser finds values by key, so inserted or reordered tokens do not matter. All three positional designs, including dissect, assume a fixed layout and shift or fail when a token is inserted before the values they want.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A parser's pattern has no ^ or $ anchors. It occasionally produces plausible-looking source and destination fields from log lines of a completely different program. What change addresses the root cause?",
+    "options": [
+      "Anchor the pattern so it must match the whole record or nothing",
+      "Make the quantifiers greedy so the pattern consumes the whole line",
+      "Move the pattern into grok so it uses tested named sub-patterns",
+      "Add a type conversion so that extracted ports become integers"
+    ],
+    "correct": 0,
+    "explanation": "An unanchored pattern can match a fragment of a line that only resembles the expected format, producing wrong but plausible fields; anchoring forces a full match or none. Grok sub-patterns improve readability but still match fragments if the overall pattern is unanchored.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A parser uses the pattern .*SRC=(\\S+) to extract the source address. An application field that users can control is logged after the header, and one record contains the text SRC=198.51.100.9 inside it. What will the parser capture?",
+    "options": [
+      "The first SRC= value, because regex engines stop at the first match",
+      "Neither value, because two SRC= tokens make the pattern fail to match",
+      "The last SRC= value, because the greedy .* consumes as much as it can",
+      "Both values, because the capture group repeats for each occurrence"
+    ],
+    "correct": 2,
+    "explanation": "The greedy .* takes as much text as possible and gives back only what is needed, so the group captures the last SRC= occurrence, here the forged one in the user-controlled field. That is why attacker-influenced text must never be able to override header fields.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A parsing worker's CPU suddenly stays at 100 per cent and the feed backs up. The trigger is one very long user-agent value. Which parser property is the most likely cause?",
+    "options": [
+      "A greedy capture that stores the whole user-agent value in a single field",
+      "A key-value split that treats each space in the user-agent as a new token",
+      "A missing type conversion that leaves the user-agent stored as a string",
+      "A pattern with nested quantifiers that backtracks exponentially on that input"
+    ],
+    "correct": 3,
+    "explanation": "Nested or overlapping quantifiers can take exponential time on certain inputs (catastrophic backtracking, CWE-1333), stalling a worker. Specific character classes, anchoring and parsing timeouts are the defences. A greedy capture is linear work and does not explain a stalled worker.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A source's records have a fixed header (time, host, program) followed by a message whose tokens vary between event types. Which parsing design best balances speed and robustness?",
+    "options": [
+      "Dissect for the fixed header, then a key-value or regex step for the message",
+      "Dissect for the whole record, declaring every token in one fixed order",
+      "One large regex for the whole record, with optional groups for every token",
+      "A JSON decoder for the header, then a CSV reader for the variable message"
+    ],
+    "correct": 0,
+    "explanation": "Dissect is fast and readable but only suits a layout that never varies, so it fits the fixed header, while a key-value or regex step handles the variable message. Using dissect for the whole record would break on the first event type whose tokens differ.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A key-value parser splits on spaces and then on '='. A record contains msg=user login failed, and the stored msg field holds only 'user'. What went wrong?",
+    "options": [
+      "The parser split each token on its last '=' instead of its first",
+      "The value contained spaces and was not quoted and handled as one value",
+      "The key msg appears only in some records, so the parser skipped it",
+      "The parser converted the value to an integer and truncated the rest"
+    ],
+    "correct": 1,
+    "explanation": "Key-value parsing breaks on values containing the separator; an unquoted value with spaces is split into several tokens, leaving only the first word under msg. The source must quote such values and the parser must honour the quoting. Splitting on '=' is unrelated to the space problem.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A DNS log is parsed with line.split(','). Occasionally the user and query-name fields hold the wrong values. Raw records show a quoted field containing a comma. What is the correct fix?",
+    "options": [
+      "Split on the comma only a fixed number of times from the left",
+      "Replace every comma inside the line with a space before splitting",
+      "Switch to a key-value parser that splits each token on '='",
+      "Use a real CSV reader that understands quoting before unpacking"
+    ],
+    "correct": 3,
+    "explanation": "A naive split ignores quoting, so a comma inside a quoted value shifts every later column; a real CSV reader such as Python's csv.reader handles quoting correctly. Limiting the number of splits still breaks when the quoted comma falls before a later column.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "VPN events arrive as JSON and decode without error. A rule written as result == \"success\" never fires, although many logons succeed. What does this illustrate?",
+    "options": [
+      "Structured formats remove pattern matching but still need interpretation",
+      "JSON records must be pattern-matched because decoders lose field values",
+      "JSON decoding fails silently on nested objects and drops the result key",
+      "Structured formats need anchored regexes to locate keys in the document"
+    ],
+    "correct": 0,
+    "explanation": "Decoding gives fields for free, but someone still has to know what they mean and how values are written; the VPN writes SUCCESS in upper case, so a rule expecting lower case never matches. The decoder did not lose anything.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a parser change, a firewall source starts storing destination ports of 99999 and timestamps in 1970. How should these values be interpreted?",
+    "options": [
+      "As evidence of port scanning from hosts with misconfigured clocks",
+      "As normal edge values that type conversion stores without comment",
+      "As signs of a parsing or source fault that validation should flag",
+      "As placeholders the parser inserted for fields that were missing"
+    ],
+    "correct": 2,
+    "explanation": "Type conversion is the first validation: a port above 65535 is impossible and an epoch-zero date usually means a failed time extraction, so both point to a parser or source fault. Treating them as attack evidence would build conclusions on corrupt fields.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A firewall record matches the parser's header pattern and most fields are extracted, but SRC, the field this source's rules depend on, is absent. Following the decision pipeline in the lesson, how should the event be stored?",
+    "options": [
+      "Discarded, because an event without a source address cannot be detected on",
+      "Tagged _parse_failure and stored with only its original text",
+      "Stored as a clean event with source.ip set to 0.0.0.0 as a placeholder",
+      "Tagged _parse_warning and stored with the fields that were found"
+    ],
+    "correct": 3,
+    "explanation": "The record was understood but is incomplete, so it is stored with its extracted fields and a _parse_warning tag. _parse_failure is for records whose header does not match at all, and inventing a placeholder address would create false matches.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To reduce noise, an engineer proposes discarding any event that a parser cannot interpret. From a security standpoint, what is the strongest objection?",
+    "options": [
+      "Unparsed events are needed to calculate the platform's licence usage",
+      "An adversary could hide activity simply by making records fail parsing",
+      "Discarding events breaks the time index for the rest of the feed",
+      "Unparsed events are the only ones that carry the original raw text"
+    ],
+    "correct": 1,
+    "explanation": "If unparsable events vanish, any record malformed enough to fail parsing disappears, giving an adversary a way to hide; keeping and counting them preserves the evidence and exposes the attempt. Raw text should be kept on every event, not only unparsed ones.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lesson's harness reports FAIL with TypeError: 'NoneType' object is not subscriptable for three of five lines fed to the demo parser. What does this error tell the analyst?",
+    "options": [
+      "The pattern did not match and the code indexed the result without checking",
+      "The pattern matched but one capture group returned an empty string value",
+      "The timestamp conversion failed because the year was missing from the line",
+      "The JSON output step failed because a field contained an unsupported type"
+    ],
+    "correct": 0,
+    "explanation": "re.match returns None when the pattern does not match, and the demo uses m[1], m[2] and so on without checking, so indexing None raises this TypeError. The message is the same for every failure, which is why it says nothing about which assumption broke.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "With the kit's demo firewall parser in production, which kind of activity against internal hosts would the SOC be blind to, based on the harness results?",
+    "options": [
+      "RDP connection attempts arriving from external addresses on port 3389",
+      "Drops logged on days of the month with two digits, such as 13 November",
+      "ICMP ping sweeps, because those drops carry TYPE and CODE but no DPT",
+      "TCP drops logged with the standard SRC, DST, PROTO and DPT key order"
+    ],
+    "correct": 2,
+    "explanation": "The demo pattern requires DPT=, and ICMP drops have TYPE and CODE instead, so every ICMP drop fails to parse and a ping-sweep rule sees nothing. The original RDP line and the two-digit day both parsed successfully in the harness.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The tolerant header pattern accepts an optional log prefix with (?:\\[[^\\]]*\\] )?. Why is [^\\]]* used inside the brackets instead of .*?",
+    "options": [
+      "Because .* cannot match the hyphen inside a prefix such as [FW-IN]",
+      "Because [^\\]]* cannot run past the closing bracket of the prefix",
+      "Because .* would create a capture group that shifts the later fields",
+      "Because [^\\]]* converts the prefix into a separate named field"
+    ],
+    "correct": 1,
+    "explanation": "The negated class stops at the first closing bracket, so the optional group matches exactly the prefix and cannot swallow the action and message that follow; it is also cheaper to evaluate. .* inside a non-capturing group would not shift group numbers, but it could consume far more than the prefix.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "parse_kv.py builds its key-value dictionary with tok.split(\"=\", 1). What does the second argument achieve?",
+    "options": [
+      "It skips tokens that contain no equals sign at all",
+      "It keeps only the first token that contains an equals sign",
+      "It converts each value to an integer where possible",
+      "It splits on the first '=' only, so values may contain '='"
+    ],
+    "correct": 3,
+    "explanation": "maxsplit=1 splits each token at its first equals sign only, so a value that itself contains '=' (for example a URL query string) stays intact. Skipping tokens without '=' is done by the separate if \"=\" in tok filter.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An ICMP drop has no destination port. A colleague suggests the parser store destination.port = 0 so that every firewall event has the same fields. Why is this a poor choice?",
+    "options": [
+      "An invented value creates false matches for rules and searches on that port",
+      "Port 0 is outside the valid port range and is rejected by type conversion",
+      "Port 0 forces the event to be tagged _parse_failure by field validation",
+      "An invented value prevents the event from being re-parsed after a fix"
+    ],
+    "correct": 0,
+    "explanation": "A missing port is absent, not zero; storing 0 makes ICMP drops match any search or rule that looks at port 0 and corrupts port statistics. The tolerant parser correctly adds destination.port only when DPT is present. Port 0 is a valid integer, so conversion would not reject it.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "parse_dns_csv checks len(row) != 6 before unpacking the row into six variables. What would happen on a five-column line if that check were removed?",
+    "options": [
+      "The last variable would silently receive an empty string",
+      "The csv module would pad the row with None to six values",
+      "The unpacking would raise an exception instead of tagging the event",
+      "The parser would shift the values and store them under wrong names"
+    ],
+    "correct": 2,
+    "explanation": "Unpacking five values into six names raises a ValueError, turning one short line into a crash rather than a tagged _parse_failure with an error message. Python neither pads the row nor shifts values silently.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC wants one metric that shows within an hour when a vendor change has broken a parser. Which metric best fits?",
+    "options": [
+      "Total events stored per source type per day",
+      "_parse_failure events per source type per hour",
+      "Average event size per source type per hour",
+      "Number of detection alerts per source per day"
+    ],
+    "correct": 1,
+    "explanation": "Tagged failures counted per source type per hour rise sharply when a format changes, showing which source broke and when. Total event counts may stay unchanged when parsing fails, because the events are still stored, just without fields.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the course case study, a VPN vendor changed its log format; the parser kept matching but stopped extracting user names, and brute-force rules were silent for a month. Which monitoring would most likely have caught this on the first day?",
+    "options": [
+      "An alert when the VPN source stops sending events entirely",
+      "An alert when the VPN source's daily ingest volume doubles",
+      "An alert when the VPN source's ingest lag exceeds an hour",
+      "A field-completeness panel tracking user.name on VPN events"
+    ],
+    "correct": 3,
+    "explanation": "Events kept arriving and parsing, so volume and lag looked normal; only the share of VPN events with a populated user.name changed, which is exactly what a field-completeness panel shows. A silence alert never fires because the source never went quiet.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A _parse_failure appears in production for a new record variant, and the parser is fixed. What should happen to that record to prevent the same silent break recurring?",
+    "options": [
+      "Add it, with its expected output, to the parser's golden sample set",
+      "Delete it, since the fixed parser will handle future records anyway",
+      "Keep it only in the quarantine container until the retention expires",
+      "Add a drop rule for its exact text so it cannot trigger failures again"
+    ],
+    "correct": 0,
+    "explanation": "Adding every production failure to the golden samples, with its expected output, means every later parser change or upgrade is tested against it. Deleting or dropping it removes evidence and leaves no regression test.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A parser bug stored a week of firewall events without fields. After the fix, the team reviews that week for missed detections. What design decision makes this review possible?",
+    "options": [
+      "Recording ingest time beside event time on every stored event",
+      "Selecting the parser by explicit source type at ingestion",
+      "Keeping the original raw record on every event, parsed or not",
+      "Running the parser's golden samples on every platform upgrade"
+    ],
+    "correct": 2,
+    "explanation": "Because the raw event was kept, the faulty week's events can be re-parsed or re-ingested and the rules re-run. Golden samples prevent future breaks but cannot recover fields for events already stored without them.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A web proxy logs the client's user-agent string inside a free-text message after its own header fields. A tester shows that a crafted user-agent can change the stored client address. Which defence addresses this CWE-117 weakness most directly?",
+    "options": [
+      "Anchor the user-agent pattern at the end of the line with a $ symbol",
+      "Never let a value from a free-text field overwrite a header field",
+      "Convert the user-agent to lower case before running the parser",
+      "Raise the maximum event size so the crafted text is not truncated"
+    ],
+    "correct": 1,
+    "explanation": "Log injection works when attacker-controlled text inside a field is read as another field; extracting header fields first, taking attacker-influenced fields last by explicit delimiters and never letting them overwrite header values prevents it. Anchoring alone does not stop a greedy pattern picking up injected keys.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The parser health dashboard shows a sudden burst of _parse_failure events from a single workstation, while all other hosts of the same source type parse normally. What is the most appropriate response?",
+    "options": [
+      "Suppress the host's failures until the vendor publishes a new log format",
+      "Re-route the host's events to a cheaper tier until the burst subsides",
+      "Rewrite the parser to accept any record from that host without checks",
+      "Investigate the host, since deliberate parse evasion is one explanation"
+    ],
+    "correct": 3,
+    "explanation": "A vendor format change would affect every host of that source type; failures confined to one host may mean someone is crafting records to defeat rules keyed on parsed fields, so the host deserves investigation. Suppressing or accepting everything would remove the signal.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lesson runs parse_kv.py with python -I but runs parse_harness.py without it. Why does the harness need to run without isolated mode?",
+    "options": [
+      "Isolated mode drops the script's folder from the import path, blocking normalise_demo",
+      "Isolated mode disables exception handling, so the try/except block would not work",
+      "Isolated mode prevents scripts from printing JSON output to the terminal",
+      "Isolated mode forbids importing standard-library modules such as json and re"
+    ],
+    "correct": 0,
+    "explanation": "-I removes the script's own directory from Python's import path, and the harness must import normalise_demo.py from the same folder; parse_kv.py imports nothing local, so it can run isolated. Isolated mode does not affect exception handling or standard-library imports.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

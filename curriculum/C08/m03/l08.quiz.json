@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Before running any correlation rules in the lab, you count events by source and check the minimum and maximum timestamps. What does this step protect against?",
+    "options": [
+      "Mistaking a missing or truncated source for 'no detections', since a rule over absent data simply returns zero hits",
+      "Rules firing twice on the same event, since the counts reveal any duplicate rows created during the load step",
+      "Timestamps being interpreted in local time, since the range check converts every value to UTC before searching",
+      "The raw column diverging from the normalised fields, since the counts are taken from both and compared"
+    ],
+    "correct": 0,
+    "explanation": "Orientation proves that ingestion worked and that all expected sources cover the expected period; without it, a silent rule could mean either no activity or no data. The counts do not detect duplicates or convert time zones.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Five of the six saved rules point at WS-104 and user divya, while R2 names an external address and user gopal. What is the most defensible conclusion at this stage?",
+    "options": [
+      "R2 is likely a false positive, since it does not share a host or user with the other five rule hits",
+      "gopal must have logged on to WS-104, so the VPN events should be merged into the endpoint timeline",
+      "There is a second compromise, of gopal's VPN account, that needs its own containment alongside WS-104",
+      "The spray caused the WS-104 activity, so containing WS-104 also contains the VPN account compromise"
+    ],
+    "correct": 2,
+    "explanation": "R2 shows a spray followed by a successful VPN logon as gopal from 203.0.113.66, an address that appears nowhere else; that is a separate compromised account, and a host-only view would miss it. Nothing in the data links gopal to WS-104 or proves the two are one actor.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Pivoting on 203.0.113.66 shows one failed VPN logon each for eight different users, seven seconds apart in alphabetical order, then a success for gopal three minutes later. Which activity does this pattern indicate?",
+    "options": [
+      "A brute-force attack: many passwords tried against one account until one of them succeeded",
+      "A password spray: one password tried across many accounts, followed by a working credential",
+      "Users mistyping their passwords after a scheduled password change across the whole team",
+      "A misconfigured VPN client on a shared host retrying stored credentials for every user"
+    ],
+    "correct": 1,
+    "explanation": "Many accounts, one attempt each, at machine-regular intervals from one address is the shape of a spray. Brute force concentrates many attempts on one account, and genuine mistyping would not be evenly spaced, alphabetical and from a single external address.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After adding R7, you change its window from '-10 minutes' to '-1 minutes' and the hit disappears; you then restore the original value. What has this test established?",
+    "options": [
+      "That the rule is free of false positives, since only one hit remains however the window is set",
+      "That ten minutes is the optimal window, since any shorter window loses the only true positive",
+      "That the join on host is correct, since narrowing the window would otherwise return other hosts",
+      "That the time condition genuinely constrains the match, since a download two minutes earlier falls outside a one-minute window"
+    ],
+    "correct": 3,
+    "explanation": "Seeing the rule fail when the condition should exclude the event shows the window logic works; a rule you have never seen fail is untested. One boundary test says nothing about false-positive rates on other data or about the best window size.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R7 computes the window start with strftime('%Y-%m-%dT%H:%M:%SZ', s.ts, '-10 minutes') rather than a plain date-time function. Why does the exact output format matter?",
+    "options": [
+      "strftime is the only SQLite function that accepts a negative minutes modifier when subtracting from a timestamp",
+      "The stored timestamps are compared as strings, so the computed bound must use the identical ISO 8601 'T' and 'Z' layout",
+      "The format string converts the stored UTC values to local time, so that the window matches the analyst's clock",
+      "Without an explicit format, SQLite returns Unix epoch seconds, which cannot be compared with the proxy timestamps"
+    ],
+    "correct": 1,
+    "explanation": "The ts column is text; a bound written as '2026-11-03 06:04:00' (with a space) would sort differently from '2026-11-03T06:04:00Z', so matching the stored format makes string comparison a correct time comparison. Other SQLite date functions accept modifiers too, and no conversion to local time occurs.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is R7, which joins a .docm download to an Office-spawned process on the same host within ten minutes, stronger evidence than either event alone?",
+    "options": [
+      "Each event is common on its own, but their combination on one host in a short window is rare and specific",
+      "The proxy event proves the document contained a macro, which the process event cannot show by itself",
+      "Joining two sources removes the need to test the rule, because each half has already been validated",
+      "The combined rule fires earlier than R1, because the download is logged before the process starts"
+    ],
+    "correct": 0,
+    "explanation": "Correlation turns two weak signals into a strong one: .docm downloads and Office add-ins that start scripts both occur legitimately, but together on one host minutes apart they indicate the document launched the script. The proxy log shows a download, not the file's contents.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The WS-104 timeline query excludes the beacon URL with url IS NOT '<beacon URL>'. What would happen if it used url <> '<beacon URL>' instead?",
+    "options": [
+      "The beacon requests would remain, because <> compares case-sensitively and the stored URL uses mixed case",
+      "The query would fail, because SQLite does not support the <> operator in combination with ORDER BY",
+      "Nothing would change, because IS NOT and <> behave identically whenever the right-hand side is a literal",
+      "The Sysmon and Windows events would vanish, because their url is NULL and a <> comparison with NULL is not true"
+    ],
+    "correct": 3,
+    "explanation": "In SQL, NULL <> 'x' evaluates to unknown, so rows with no url (non-proxy events such as the 4720 and 1102 records) are silently dropped; IS NOT treats NULL as a comparable value and keeps them. The difference only matters for NULLs, which is exactly the case here.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the timeline query, what does COALESCE(url, image, target_user, '') AS detail achieve?",
+    "options": [
+      "A combined string of all three fields, so each row shows the URL, the image and the user together",
+      "A filter that keeps only rows where at least one of the three fields has a non-empty value",
+      "One readable column holding the first non-empty of those fields, whichever source the row came from",
+      "A sort key that orders proxy rows before process rows and account rows when times are equal"
+    ],
+    "correct": 2,
+    "explanation": "COALESCE returns its first non-NULL argument, so proxy rows show the URL, Sysmon rows the image and Windows account rows the target user. It neither concatenates values nor filters or sorts rows.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The hourly events-by-source panel shows the 06 UTC row standing out only in the VPN column. What does this illustrate about dashboards?",
+    "options": [
+      "They are unsuitable for security use, because a panel that misses the phishing and the beacon is effectively wrong",
+      "They show every stage of an intrusion as long as the time bucket is set to one hour instead of one day",
+      "They reveal shape and volume anomalies, but most individual malicious events stay invisible at that level of aggregation",
+      "They work only for network sources, because endpoint events are too rare to change an hourly count"
+    ],
+    "correct": 2,
+    "explanation": "Aggregation hides single events such as one document download among dozens of proxy requests; the panel surfaced the burst of VPN failures because it changed volume. Searches and timelines, not panels, expose individual events.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The hourly panel uses SUM(source='proxy') AS proxy with GROUP BY on the hour. How does SUM produce a count here?",
+    "options": [
+      "In SQLite the comparison evaluates to 1 or 0 for each row, so summing it counts the matching rows",
+      "SUM ignores the comparison and counts all rows in each hour, which the panel then splits by source",
+      "The comparison filters the rows before grouping, so SUM adds up the proxy bytes_out for each hour",
+      "SUM treats the comparison as a string and counts the distinct sources found within each hour"
+    ],
+    "correct": 0,
+    "explanation": "A boolean expression yields 1 or 0 in SQLite, so SUM of it is a conditional count, letting one query produce a column per source. It does not filter rows or sum bytes.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A top-talkers panel shows WS-104 sent 48,263,095 bytes through the proxy, while the next host sent 82,933. Which statement about this result is most accurate?",
+    "options": [
+      "It proves data theft from WS-104, since no legitimate activity sends almost 600 times more than other hosts",
+      "It shows that WS-104 is beaconing, since regular small requests accumulate into a very large byte total",
+      "It is unreliable, because bytes_out also counts the response data that the proxy returned to the host",
+      "It flags WS-104 for investigation, but a search is needed to see which request carried the bytes and where it went"
+    ],
+    "correct": 3,
+    "explanation": "A single outlying number is what dashboards surface well, but the individual 48,200,000-byte upload to files-share-drop.example is found by search; the panel alone does not prove theft. The 18 beacons at 220 bytes each add only about 4 KB.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The scope check shows that only WS-104 contacted cdn-telemetry-sync.example. How should this negative result be reported?",
+    "options": [
+      "No other host in the organisation is infected, since every host's traffic passes through the monitored web proxy",
+      "No other host contacted the domain in the collected and retained telemetry; gaps in sources or retention limit the claim",
+      "No other host is affected by this campaign, since the beacon domain is the most specific indicator available",
+      "No other host needs to be checked for the other two domains, since the beacon is always contacted first"
+    ],
+    "correct": 1,
+    "explanation": "A negative search is only as strong as the data behind it: hosts that bypass the proxy, unhealthy sources or deleted data would not appear. The lab also asks you to check the other two domains, because a different host could have been affected in a different way.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Your WS-104 timeline for 06:00Z-09:00Z has 14 rows, but evidence_export.py reports 'exported 32 events' for the same host and window. Why?",
+    "options": [
+      "The timeline query excluded the 18 beacon requests, which the export includes",
+      "The export adds the 18 hits produced by the correlation rules as extra records",
+      "The export includes gopal's VPN events, which share the same time window",
+      "The export duplicates each process event into a raw and a normalised copy"
+    ],
+    "correct": 0,
+    "explanation": "The timeline filtered out the beacon URL to stay readable; the export copies all raw events for the host and window, so 14 + 18 = 32. The export is scoped to WS-104 and does not include the VPN events.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two students run the same evidence export on the kit. Their SHA-256 values match each other and the lesson exactly, but the utc values in their custody records differ. What does this indicate?",
+    "options": [
+      "One export is corrupt: matching hashes with different times means one custody record was edited after export",
+      "Both exports are correct: the export file is deterministic, while the custody utc records when each student ran it",
+      "Both exports are suspect: a valid custody chain needs the export time to be embedded in the hashed file",
+      "The hashes are meaningless: identical hashes across machines show the tool hashes the query, not the data"
+    ],
+    "correct": 1,
+    "explanation": "The same dataset, host and window produce byte-identical files and so identical SHA-256 values; the custody record separately notes when and by whom the export was made. A hash covers the file's content, which is why it matches across machines.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "evidence_export.py writes the raw column of each event rather than the normalised fields. Why is that the right choice for evidence?",
+    "options": [
+      "The raw line is smaller than the normalised fields, which keeps the case folder within its storage quota",
+      "The raw line already contains the correlation rule that matched it, which documents why it was exported",
+      "The raw line is encrypted by minisiem on load, so it cannot be altered by anyone who opens the file",
+      "The raw line is the original record as received, so it can be verified and re-parsed independently of the SIEM"
+    ],
+    "correct": 3,
+    "explanation": "Evidence should be the original event, not the SIEM's interpretation of it, so others can check it and re-parse it if a mapping was wrong. minisiem does not encrypt raw lines or attach rule names to them; integrity comes from the SHA-256 manifest.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After exporting WS-104's events as CASE-0001, a reviewer points out a gap in the case evidence. What is it?",
+    "options": [
+      "The beacon requests are missing, because the export reuses the filtered timeline query",
+      "The 1102 log-clearing event is missing, because it falls after the export window ends",
+      "gopal's VPN spray and successful logon are not in the export, which covers only WS-104",
+      "The custody record omits the hash, so the file cannot yet be verified by a second analyst"
+    ],
+    "correct": 2,
+    "explanation": "The export is scoped by host, and the VPN events carry no WS-104 host, so the second compromise needs its own export with hash and custody entry. The beacons are included, 08:17Z is inside the 06:00Z-09:00Z window, and the custody record does contain the SHA-256.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A draft report states: 'The attacker behind the VPN spray sent the phishing document and ran a data-stealing PowerShell script.' How should a reviewer judge it against the lab evidence?",
+    "options": [
+      "It overstates: the link between spray and phishing is only timing, and the PowerShell command line is redacted",
+      "It is supported: both activities occurred within one hour, which is sufficient to attribute them to one actor",
+      "It is supported: the 48 MB upload proves PowerShell stole data, since it followed the script launch on WS-104",
+      "It understates: R7 links the VPN source address directly to the download of the macro-enabled document"
+    ],
+    "correct": 0,
+    "explanation": "The data shows the events happened and links the WS-104 events by host, user and timing, but it does not show what PowerShell ran, what was uploaded or that the spray and phishing share an actor. R7 joins proxy and Sysmon events by host, not by VPN address.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R3 returns two hits for svc_update on WS-104, at 07:02Z and 07:03Z. What do the two underlying Windows events record?",
+    "options": [
+      "Event ID 4732, a member added to a group, then 4720, the same account's password being reset",
+      "Event ID 4720, a user account created, then 1102, the audit log cleared to hide the creation",
+      "Event ID 4720, a user account created, then 4732, a member added to a security-enabled local group",
+      "Event ID 4624, a successful logon by the account, then 4720, the account created by a service"
+    ],
+    "correct": 2,
+    "explanation": "The pair is 4720 (account created) followed a minute later by 4732 (added to a local group, here Administrators). 1102 appears at 08:17Z and is caught by R5, not R3.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "You repeat the lab on a default Wazuh deployment. A dashboard search for all WS-104 events returns far fewer rows than the 32 in your minisiem export. What is the most likely reason?",
+    "options": [
+      "Wazuh decoders discard JSON fields they do not recognise, so most Banyan events fail to decode at all",
+      "Wazuh is alert-centric and indexes only events that matched a rule, unless archiving of all events is enabled",
+      "Wazuh assigns low-level events to level 0, which the dashboard hides until the analyst changes the time range",
+      "Wazuh deduplicates repeated events, so the 18 identical beacon requests are stored as a single record"
+    ],
+    "correct": 1,
+    "explanation": "By default Wazuh indexes alerts rather than every event, so timeline pivots need event archiving enabled; Elastic, by contrast, is event-centric. The built-in JSON decoder handles the Banyan fields.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When porting the lab to Elastic Security, which rule type fits R2, 'one source address failing against at least five users, then succeeding', most naturally?",
+    "options": [
+      "A custom query rule matching a single failed logon event",
+      "An indicator match rule against a list of known spray addresses",
+      "A machine-learning job modelling each user's logon times",
+      "A threshold rule that counts distinct users per source address"
+    ],
+    "correct": 3,
+    "explanation": "R2 is an aggregation, counting distinct users per source IP, which is what a threshold rule does. A single-event custom query cannot count across events, and an indicator list would miss a new address.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which Elastic mechanism best expresses R7, 'a .docm download followed by Office spawning a process on the same host within ten minutes'?",
+    "options": [
+      "A threshold rule counting proxy and process events per host in ten minutes",
+      "A custom KQL query matching both event types in one search",
+      "An EQL sequence grouped by host.name with a ten-minute maximum span",
+      "An ILM policy that keeps both event types together on the hot tier"
+    ],
+    "correct": 2,
+    "explanation": "An EQL sequence joins ordered events by a shared field within a maximum time span, the exact shape of R7. A threshold counts events without order, and a single KQL query matches individual events, not one-then-the-other on the same host.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "While writing a Wazuh custom rule equivalent to R7, you want to check, before deploying, which decoder and rule a given Banyan log line triggers. Which tool serves this purpose?",
+    "options": [
+      "wazuh-logtest on the Wazuh server",
+      "The alerts.json file on the server",
+      "The Wazuh agent's local log reader",
+      "The indexer's lifecycle policy view"
+    ],
+    "correct": 0,
+    "explanation": "wazuh-logtest takes a pasted log line and shows the decoder and rule it matches, the equivalent of testing R7 at its boundary. alerts.json shows alerts only after rules are live.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After editing minisiem.py, you run 'python minisiem.py rules' and R1 to R6 print normally, but no R7 line appears at all. What is the most likely cause?",
+    "options": [
+      "The time condition in R7 has a typo, so the rule runs but its join produces no matching rows",
+      "The dataset was not reloaded after the edit, so the new rule cannot see the events table",
+      "The LIKE pattern is case-sensitive, so the WINWORD.EXE parent never matches the condition",
+      "The R7 entry sits outside the RULES dictionary's braces, or a missing comma merged it into R6"
+    ],
+    "correct": 3,
+    "explanation": "If R7 were in the dictionary but matched nothing, it would print 'R7 ...: 0 hit(s)'; its total absence means it is not a separate dictionary entry. Reloading is not needed to add rules, since rules read the existing table.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R6 flags many requests of nearly constant size from one host to one URL over the day. Why does the lesson suggest an ES|QL rule or anomaly detection for it in Elastic rather than a simple custom query?",
+    "options": [
+      "It must join proxy events to Sysmon events, which a custom query cannot do without an EQL sequence",
+      "It depends on aggregating many events over a period, such as counts and size spread, not on matching one event",
+      "It requires the frozen tier, which only ES|QL and anomaly jobs are able to search directly",
+      "It is triggered by a single 220-byte request, which is too small for a custom query to index"
+    ],
+    "correct": 1,
+    "explanation": "Beaconing is a property of a set of events (many requests, little size variation), so it needs aggregation over a window; a custom query matches individual events. R6 uses only proxy data and no join.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "You are building the optional single-node Elastic lab on a home virtual machine. Which configuration follows the lesson's safety guidance?",
+    "options": [
+      "A bridged network so other home devices can reach Kibana, with security disabled to simplify first-time setup",
+      "A cloud VM with Kibana published to the internet, protected by the default password the installer generated",
+      "A host-only network, security and TLS left enabled, generated credentials changed, only course or own-lab data ingested",
+      "A host-only network with TLS disabled, since traffic on a host-only network cannot be observed by anyone"
+    ],
+    "correct": 2,
+    "explanation": "The lab should be isolated, keep authentication and TLS on (Elasticsearch 8.x enables security by default), replace generated credentials and ingest only the course dataset or your own lab logs. Disabling TLS even on a host-only network removes a control the lesson says to keep.",
+    "lesson": 8,
+    "difficulty": "medium"
+  }
+]

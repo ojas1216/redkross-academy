@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The overnight alert queue for endpoint detections is completely empty, while proxy alerts arrived as usual. Before the shift lead records a quiet night, which dashboard panel should be consulted?",
+    "options": [
+      "The log-source health panel showing last-seen time per source",
+      "The detection performance panel showing alerts per rule",
+      "The activity panel showing outbound bytes per host",
+      "The management panel showing the trend in MTTA"
+    ],
+    "correct": 0,
+    "explanation": "A source that stops sending produces no alerts, and an empty queue for it looks exactly like a quiet night; only a last-seen health panel distinguishes the two. Alerts per rule would also show zero and cannot say whether the data was there.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the Banyan lab data the 06 UTC hour, which contains the phishing download, the PowerShell launch and the VPN spray, holds 47 events, while 04 UTC holds 65. What does this show about a static threshold on total event volume?",
+    "options": [
+      "It would fire for 06 UTC because several sources were active at once",
+      "It would fire for 04 UTC only after the proxy events were excluded",
+      "It would flag the routine 04 UTC peak before the intrusion hour",
+      "It would need a baseline from the same hour on the previous day"
+    ],
+    "correct": 2,
+    "explanation": "The busiest hour, 04 UTC, is routine start-of-day activity, and the intrusion hour sits inside the day's normal range, so a volume threshold draws attention to the wrong hour. Activity from several sources does not raise 06 above the peak.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a vendor changes its log format, events keep arriving at normal volume but rules that use user.name stop matching. Which panel would have revealed the break?",
+    "options": [
+      "Events per hour per source against a baseline",
+      "Field fill rate for user.name per source",
+      "Last event time per source with a threshold",
+      "Alerts raised per correlation rule per day"
+    ],
+    "correct": 1,
+    "explanation": "The volume and last-seen measures stay normal because events still arrive; only the percentage of events with user.name populated falls. A drop in alerts per rule is a late, indirect symptom that does not identify the parsing cause.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team member proposes a panel titled 'Top browsers in use'. Following the panel design procedure, nobody can say who would read it or what they would do differently if it changed. What is the correct outcome?",
+    "options": [
+      "Build it with a weekly refresh so it costs little search capacity",
+      "Build it and give it an owner who will review it each quarter",
+      "Move it to the management dashboard where trends are expected",
+      "Stop at the audience step and do not build the panel at all"
+    ],
+    "correct": 3,
+    "explanation": "If no audience or action can be named, the procedure stops before the panel is built, because it would be decoration. A slow refresh or an owner reduces cost and drift but does not give the panel a purpose.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "While designing a health panel, the team defines a precise condition: 'Sysmon from any workstation has sent nothing for more than 15 minutes during office hours'. What should happen to that condition besides colouring the panel red?",
+    "options": [
+      "It should be shown as a single threat-level gauge for managers",
+      "It should also become a meta-alert so that nobody has to watch",
+      "It should be replaced by a relative baseline learned over a month",
+      "It should be hidden behind a drilldown to protect personal data"
+    ],
+    "correct": 1,
+    "explanation": "When a threshold can be stated precisely, it should also raise an alert so the panel becomes a convenience rather than the only safeguard. A relative baseline is less suitable for a health floor, which the lesson recommends keeping static.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The outbound-bytes panel lists WS-104 with total_out 48,263,095 and max_out 48,200,000, while every other host is below 100 KB. Why is showing max_out beside total_out valuable here?",
+    "options": [
+      "It shows that almost all of the total came from one single request",
+      "It shows that WS-104 sent many medium uploads spread over the day",
+      "It shows that the proxy truncated large requests at a fixed size",
+      "It shows that the total includes bytes received as well as sent"
+    ],
+    "correct": 0,
+    "explanation": "A maximum almost equal to the total means one request carried nearly all the data, the 48.2 MB upload, which points the drilldown at a specific event. Many medium uploads would give a maximum far below the total.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC wall screen shows a stacked area chart of events by source. The proxy forms a thick band and the VPN is barely visible. What is the main risk of this design?",
+    "options": [
+      "Stacking doubles the counts of sources that share an hour",
+      "The proxy band hides whether the chart has refreshed recently",
+      "Area charts cannot show values below one event per hour",
+      "Small series such as the VPN, which carried the spray, are hidden"
+    ],
+    "correct": 3,
+    "explanation": "Stacked and cumulative charts make low-volume sources invisible, yet in the Banyan data the small VPN source held the password spray. Stacking does not double counts; it adds series on top of each other.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The per-source hourly query returns rows for Sysmon up to 06 UTC and then no Sysmon rows at all. The chart drawn from it simply shows nothing for Sysmon after 06. What design change makes this silence hard to miss?",
+    "options": [
+      "Sort the rows by count so that the smallest sources appear at the top",
+      "Switch the chart to a pie of total events per source for the day",
+      "Draw explicit zeros for empty buckets and show last-seen per source",
+      "Raise the refresh interval so that the missing rows reappear sooner"
+    ],
+    "correct": 2,
+    "explanation": "Absence appears only as a missing row, so a chart that drops empty buckets hides it; explicit zeros and a last-seen time make it visible. A daily pie still shows Sysmon with a share and gives no sign that it stopped.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A queue panel reports '5 open high-severity alerts'. Which addition most improves the shift lead's ability to act on it?",
+    "options": [
+      "The age of the oldest alert and the SLA time remaining",
+      "The total number of alerts closed in the current month",
+      "A breakdown of the five alerts by ATT&CK tactic name",
+      "The number of events that the alerts were built from"
+    ],
+    "correct": 0,
+    "explanation": "Five alerts is fine if raised ten minutes ago and alarming if the oldest is six hours old, so age and SLA time remaining drive the action. A monthly closed count is a trend measure and says nothing about the current queue.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The 'failures per hour' panel shows 2 failures at 04 UTC and 8 at 06 UTC. An analyst wants a panel that explains why 06 is unusual. Which design follows the lesson's reasoning?",
+    "options": [
+      "A line of failures per minute for 06 UTC with a shaded normal band",
+      "A top-N of source addresses by distinct users failed and later success",
+      "A pie chart of failures split between the Windows and VPN sources",
+      "A single number for the day's failure total coloured by a threshold"
+    ],
+    "correct": 1,
+    "explanation": "Distinct users failed per address, plus whether a success followed, shows a spray from one address; and once stated that precisely it is rule R2's logic and should be a rule. A per-minute line still shows only counts, not who or from where.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC replaces its static failed-logon threshold with a baseline learned from the previous 30 days. Which weakness of this approach should the team keep in mind?",
+    "options": [
+      "It cannot adapt to the organisation's daily working rhythm",
+      "It fires too often at night when logon volume is naturally low",
+      "It requires every panel to be expressed in the IST time zone",
+      "It treats an attacker already present in that period as normal"
+    ],
+    "correct": 3,
+    "explanation": "A relative baseline learns whatever happened during the learning period, including an intruder who was already active. Adapting to the daily rhythm is its strength, and being too sensitive at night is the weakness of static thresholds.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which combination of thresholds does the lesson recommend as a practical compromise for a SOC's dashboards?",
+    "options": [
+      "Baselines for health and static limits for activity, set by vendors",
+      "Static limits everywhere, with values reduced during night shifts",
+      "A static floor for source health and reviewed baselines for activity",
+      "Baselines everywhere, retrained automatically after each incident"
+    ],
+    "correct": 2,
+    "explanation": "Health has a clear fixed expectation such as at least one event per 15 minutes, while activity varies with the organisation's rhythm and suits baselines reviewed by a person. Reversing the two loses the clarity of the health floor.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During an incident one panel is in UTC and shows the Security log cleared at 08:17, while another is in IST and shows the VPN success as gopal at 12:16. An analyst concludes that the log was cleared before the VPN logon. What is correct?",
+    "options": [
+      "Wrong: 12:16 IST is 06:46 UTC, about 90 minutes before the clearing",
+      "Right: 08:17 UTC is earlier than 12:16 on any clock used in India",
+      "Wrong: 12:16 IST is 17:46 UTC, many hours after the log clearing",
+      "It cannot be checked without the raw events from both sources"
+    ],
+    "correct": 0,
+    "explanation": "IST is UTC plus 5 hours 30 minutes, so 12:16 IST is 06:46 UTC and the VPN logon came roughly an hour and a half before the 08:17 clearing. Adding instead of subtracting the offset gives the wrong 17:46 figure; mixed zones are a classic cause of misordering.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Correlation searches have started skipping runs since a new 20-panel dashboard was put on a wall screen with a 30-second refresh and opened by ten analysts in their browsers. What is the most appropriate fix?",
+    "options": [
+      "Move the correlation searches to run only outside office hours",
+      "Refresh panels only as fast as their decisions require",
+      "Split the dashboard into two dashboards of ten panels each",
+      "Replace the panels with stacked charts that use one query"
+    ],
+    "correct": 1,
+    "explanation": "Every refresh costs search capacity, and dashboards can consume more than the rules; trend panels may refresh hourly and health or queue panels every minute or two. Splitting the dashboard keeps the same number of queries running.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A heavy panel times out during peak load and renders as an empty table. Why is this dangerous, and what is the defence?",
+    "options": [
+      "Empty tables trigger false meta-alerts; suppress alerts during peaks",
+      "Timeouts corrupt saved searches; restore them from version control",
+      "Nothing can look like no events; show errors visibly and monitor failures",
+      "Timeouts expose raw data; restrict the panel to administrator roles"
+    ],
+    "correct": 2,
+    "explanation": "A panel that fails returns nothing, which a viewer may read as a quiet period, so panels must display errors and search failures and timeouts must be monitored. A timeout does not damage the saved search itself.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A dashboard built for the help desk includes a panel drawn from security logs that help-desk staff are not permitted to search directly. What principle does this break?",
+    "options": [
+      "Dashboards must keep one time zone across all their panels",
+      "Panels should show rates against a baseline, not raw counts",
+      "Dashboards must refresh no faster than their decisions require",
+      "Role-based access applies to dashboards exactly as to search"
+    ],
+    "correct": 3,
+    "explanation": "A dashboard is a pre-built query over sensitive data, so it must not expose what its viewers could not search themselves. The other options are sound design rules but do not concern who may see the data.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A proposed wall-screen panel in the open-plan SOC lists each user's browsing destinations by name. Which design satisfies the purpose while respecting data protection?",
+    "options": [
+      "Show host names with counts and keep details in a logged drilldown",
+      "Show the full list but rotate it off the screen every few minutes",
+      "Show the full list only in UTC so that times cannot be linked to staff",
+      "Show user names with destinations hashed so they remain searchable"
+    ],
+    "correct": 0,
+    "explanation": "Data minimisation under the DPDP Act 2023 and good practice means showing only what the purpose requires on shared screens and putting detail behind access-controlled, logged drilldowns. Rotating the list still exposes it to everyone in the room.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An insider with SIEM editing rights quietly raises the threshold on a health panel so that a stopped agent no longer turns it red. Which control most directly addresses this?",
+    "options": [
+      "Refreshing the health panel more often during the night shift",
+      "Logging and reviewing dashboard and threshold changes like rule changes",
+      "Replacing the health panel with an events-per-hour volume chart",
+      "Showing the panel only in the management dashboard for the CISO"
+    ],
+    "correct": 1,
+    "explanation": "Silently changing a threshold or deleting a panel can hide activity as effectively as deleting logs, so dashboard changes need logging, versioning and review. Faster refresh just redraws the altered threshold more often.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which description best fits an investigation (entity) dashboard as the lesson defines it?",
+    "options": [
+      "A wall display of open alerts by severity watched throughout the shift",
+      "A weekly report of rules that fired most often, used to tune detection",
+      "A trend view of incidents by category prepared for the SOC manager",
+      "A set of panels opened during a case and filtered on one host or user"
+    ],
+    "correct": 3,
+    "explanation": "The investigation dashboard is opened rather than watched: an entity typed at the top re-runs every panel for it, so the first minutes of each case look the same. The wall display of open alerts is the queue dashboard.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The CISO asks for 'one dashboard that shows whether we are under attack'. What is the honest response the lesson recommends?",
+    "options": [
+      "Build a green, amber and red threat gauge driven by alert counts",
+      "Offer the analysts' queue dashboard with a summary panel added",
+      "Explain that no dashboard proves absence; offer owned measures and briefings",
+      "Offer a live attack map of blocked internet connections by country"
+    ],
+    "correct": 2,
+    "explanation": "No dashboard can prove the absence of an attack; management is better served by a small set of measures with owners plus regular narrative briefings. A threat gauge invites exactly the false reassurance the request implies.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A vendor demo features an animated world map of 'attacks' in real time. Why would it have contributed little to spotting the Banyan VPN compromise?",
+    "options": [
+      "The map would show the spraying address only after it was blocked",
+      "A valid-account VPN logon does not register as an attack at all",
+      "The map draws only countries with more than one thousand events",
+      "Geolocation of documentation addresses always resolves to India"
+    ],
+    "correct": 1,
+    "explanation": "The most dangerous activity, a successful logon with a valid account through the VPN, is not classed as an attack, and internet-noise geography says little about risk. Geolocation is approximate, not reliably India; that is a different weakness.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "For an analyst activity dashboard, which panel is likely to be most informative according to the lesson's 'show' guidance?",
+    "options": [
+      "New values never seen before, such as a new parent of an Office app",
+      "Total events ingested per day across all log sources combined",
+      "A pie chart with one slice for each of the twelve event types",
+      "Threats blocked this month by the perimeter firewall and proxy"
+    ],
+    "correct": 0,
+    "explanation": "Change, such as a never-before-seen parent process for Word or a new admin account, is more informative than totals and leads straight to an entity to examine. Ingest totals are vanity metrics that change no decision.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On the lab day the Security log on WS-104 was cleared (event 1102) at 08:17 UTC. Which arrangement best ensures the SOC notices this kind of tampering without depending on someone looking at a screen?",
+    "options": [
+      "A volume chart of Windows events per hour on the wall display",
+      "A management trend of incidents by category reviewed monthly",
+      "A threat-level gauge that turns amber when Windows volume drops",
+      "An owned health panel whose thresholds are also backed by alerts"
+    ],
+    "correct": 3,
+    "explanation": "Attackers who clear logs or stop agents benefit from health panels that are unowned or unalerted, so health thresholds need owners and alerts behind them. A wall volume chart still relies on someone happening to look.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A queue panel shows, for each confirmed incident, the time elapsed since it was noticed, against CERT-In's six-hour reporting direction. How should the SOC regard this panel?",
+    "options": [
+      "As the official record that the incident has been reported",
+      "As the trigger that sends the report to CERT-In automatically",
+      "As a reminder of the deadline that does not replace the process",
+      "As a detection that confirms which incidents are reportable"
+    ],
+    "correct": 2,
+    "explanation": "The panel helps the shift lead keep the six-hour obligation in view, but reporting remains part of the incident process. It neither files the report nor decides reportability.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Applying the review question 'if this number doubled or dropped to zero, what would I do?' to an analyst panel showing 'events ingested today', the honest answer is 'nothing'. What should happen to the panel?",
+    "options": [
+      "Move it to the engineering dashboard if capacity planning needs it",
+      "Keep it but add a shaded baseline band for the same day last week",
+      "Convert it into a correlation rule that fires on unusual totals",
+      "Replace it with a cumulative chart of ingest since the month began"
+    ],
+    "correct": 0,
+    "explanation": "A number that changes no analyst decision is decoration; if it serves capacity planning it belongs on the engineering dashboard. A baseline band makes the vanity total look more meaningful without giving analysts an action.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

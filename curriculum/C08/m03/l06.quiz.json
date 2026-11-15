@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A ticket names the host as 'ws-104'. In minisiem, host='ws-104' returns a count of 0, while the same search with lower(host) returns 58. What should the analyst conclude before writing anything in the case notes?",
+    "options": [
+      "The host was renamed during the day, so its earlier events use another name",
+      "The lower() function also matched other hosts whose names contain 104",
+      "The = operator compared case exactly, so the zero reflects the query",
+      "The host sent no events, and lower() matched only the raw JSON column"
+    ],
+    "correct": 2,
+    "explanation": "In SQLite = compares text including case, so 'ws-104' does not match the stored 'WS-104'; an empty result should first be treated as a question about the query. lower(host)='ws-104' is an exact match after case folding and cannot match other hosts.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Banyan dataset has 340 events, nine of them from 203.0.113.66, yet src_ip <> '203.0.113.66' returns 295 rather than 331. What explains the 36 missing events?",
+    "options": [
+      "Events with a NULL src_ip are neither equal nor unequal, so they drop out",
+      "Events whose src_ip is the placeholder '-' are treated as matching NULL",
+      "The <> operator ignores case and so removes addresses that look alike",
+      "Proxy events carry the address in the raw column and are not compared"
+    ],
+    "correct": 0,
+    "explanation": "A comparison with NULL is unknown, so rows without the field fail both = and <>; here that is all 33 Sysmon events and three Windows events. The '-' placeholder is a real string, so those Windows logon events are kept.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst checks Windows events for missing source addresses with source='windows' AND src_ip IS NULL and gets 3, although 13 Windows events show no usable address. Why the difference?",
+    "options": [
+      "Ten Windows events were dropped at load because their address was invalid",
+      "IS NULL only matches fields stored in the raw JSON, not in the columns",
+      "Three events have no address at all and ten were stored with src_ip 'None'",
+      "Logon events store the placeholder '-', which is a value and not NULL"
+    ],
+    "correct": 3,
+    "explanation": "The 4624 and 4625 events carry '-' as a real string, while 4720, 4732 and 1102 have no src_ip at all, which SQL represents as NULL. 'None' is only how minisiem prints NULL, not a stored string.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst writes WHERE COUNT(DISTINCT user) >= 5 to find addresses that failed against many accounts, and the query errors. What is the fix?",
+    "options": [
+      "Move the condition into ORDER BY so that it is applied after sorting",
+      "Put the condition in HAVING, which is applied after the grouping",
+      "Replace COUNT(DISTINCT user) with COUNT(user) inside the WHERE",
+      "Add a LIMIT so that the aggregation runs on fewer rows at a time"
+    ],
+    "correct": 1,
+    "explanation": "WHERE filters events before grouping and cannot test an aggregate; HAVING filters the grouped rows and can. Swapping to COUNT(user) is still an aggregate and still invalid in WHERE.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two VPN failure patterns appear: one address failing 8 times for one account, and another failing once each for 8 accounts. Which aggregation separates a password spray from a user mistyping a password?",
+    "options": [
+      "COUNT(DISTINCT user) grouped by source address",
+      "COUNT(*) grouped by source address and outcome",
+      "MAX(ts) minus MIN(ts) grouped by user account",
+      "SUM(bytes_out) grouped by source address"
+    ],
+    "correct": 0,
+    "explanation": "A spray is one address against many accounts with few attempts each, which a distinct count of users exposes; both patterns give the same COUNT(*) of 8. Time span alone does not tell the two apart.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On the Banyan table, SELECT COUNT(*), COUNT(src_ip) FROM events returns two different numbers. What does the difference measure?",
+    "options": [
+      "The number of events with the placeholder '-' as address",
+      "The number of duplicate addresses across all four sources",
+      "The number of events where src_ip is absent, which is 36",
+      "The number of addresses that appear in only one event"
+    ],
+    "correct": 2,
+    "explanation": "COUNT(*) counts rows while COUNT(field) counts rows where the field is not NULL, so the gap of 340 minus 304 is the 36 events without src_ip. Placeholder '-' values are non-NULL and are counted by both.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Stacking proxy URLs by distinct hosts shows cdn-telemetry-sync.example visited by 1 host, 18 times. Which interpretation is most defensible?",
+    "options": [
+      "It is confirmed command-and-control because no other host visited it",
+      "It is rare in breadth but frequent in count, worth a pivot, not proof",
+      "It is ordinary browsing because 18 requests is a low daily volume",
+      "It is a proxy logging error because the requests are so regular"
+    ],
+    "correct": 1,
+    "explanation": "One host contacting one domain regularly fits automated traffic, but a newly installed legitimate agent would look the same; stacking yields candidates for a pivot, not a verdict. Calling it confirmed C2 skips that check.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does query thinking place 'inspect raw events' before 'aggregate'?",
+    "options": [
+      "Aggregation is not possible until the raw events are loaded in memory",
+      "Inspection is cheaper, so it reduces the cost of the later aggregation",
+      "Raw events must be exported to the case before they may be counted",
+      "A summary of broken data looks as tidy as a summary of good data"
+    ],
+    "correct": 3,
+    "explanation": "Looking at a few full events reveals empty fields, unexpected case or the wrong event type, none of which a neat count would show. Inspection is about validity, not about reducing the cost of the aggregation.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A colleague in Bengaluru reports that suspicious activity began 'around 11:40'. The analyst searches minisiem with ts BETWEEN '2026-11-03T11:35:00Z' AND '2026-11-03T11:50:00Z' and finds ordinary proxy traffic. What is the most likely problem?",
+    "options": [
+      "The BETWEEN filter excludes events whose seconds are not zero",
+      "The ts column is indexed and cannot be searched with BETWEEN",
+      "The window was written in IST but the data is stored in UTC",
+      "The proxy source is too noisy for a fifteen-minute window"
+    ],
+    "correct": 2,
+    "explanation": "A local time typed against UTC data is 5 hours 30 minutes off and returns other, plausible-looking events; 11:40 IST is 06:10 UTC, when the phishing download and PowerShell occurred. BETWEEN on ISO text compares whole strings, seconds included.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A new log source is ingested with timestamps like 2026-11-03T12:14:00+05:30 while existing events use the Z suffix. Why does this threaten time-range searches in minisiem?",
+    "options": [
+      "String comparison orders ts correctly only with one format and zone",
+      "SQLite rejects timestamps that include a numeric zone offset",
+      "The index on ts is rebuilt and ignores rows with offsets",
+      "BETWEEN treats any offset as UTC plus the offset twice"
+    ],
+    "correct": 0,
+    "explanation": "ISO 8601 text sorts chronologically only when every value has the same format and zone, which is why normalisation converts times to UTC at ingest. SQLite accepts the text; it simply compares it as a string and misorders it.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A hunt query uses image LIKE '%powershell%' over 30 days of endpoint data on a production SIEM and runs far longer than expected. What is the main cause?",
+    "options": [
+      "LIKE is case-insensitive and so compares each character twice",
+      "The leading wildcard stops index use and forces a full read",
+      "The pattern also matches the parent_image column of each event",
+      "Wildcards are evaluated after GROUP BY and so see every group"
+    ],
+    "correct": 1,
+    "explanation": "A pattern that begins with % prevents most platforms from using an index, so every event in the range must be read; on billions of events this decides whether the search finishes. LIKE tests only the column it is applied to.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To remove internal traffic from a proxy hunt, an analyst adds url NOT LIKE '%banyan.example%'. What happens to requests to https://banyan-payroll-update.example/invoice.docm?",
+    "options": [
+      "They are removed because the pattern matches any URL containing banyan",
+      "They are removed because LIKE ignores the hyphen when matching text",
+      "They are kept only if the request returned more than zero bytes out",
+      "They are kept because the look-alike name does not contain banyan.example"
+    ],
+    "correct": 3,
+    "explanation": "The look-alike domain contains 'banyan-payroll-update.example', not the string 'banyan.example', so the exclusion leaves it in. Wildcards match exact substrings, which is why patterns must be checked against what they should and should not match.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The VPN country field has no column in the minisiem events table, yet the analyst needs it for the successful logons. How can it be retrieved, and what does this show?",
+    "options": [
+      "With json_extract on raw, showing why keeping the original event matters",
+      "With a join to a geolocation table, showing why lookups need maintenance",
+      "With LIKE on the src_ip column, showing that addresses encode countries",
+      "With a reload of the dataset, showing that columns are added on demand"
+    ],
+    "correct": 0,
+    "explanation": "json_extract(raw, '$.country') reads a field that normalisation did not map to a column, which is only possible because the raw event is stored. A geolocation lookup would estimate a country, not return the value the VPN recorded.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "gopal's VPN session at 06:46 came from 203.0.113.66 with country '??', and at 07:22 his workstation WS-107 browsed the intranet. What conclusion do these pivots support?",
+    "options": [
+      "gopal ran the spray himself and then returned to his own desk",
+      "The VPN logon was legitimate because his workstation was active",
+      "A precise question for gopal and the VPN team about who held the session",
+      "Proof that WS-107 is compromised and must be isolated immediately"
+    ],
+    "correct": 2,
+    "explanation": "The data cannot say who used which session; it turns the alert into a specific, answerable question about a VPN session from an unknown location while his desk machine was in use. Treating desk activity as proof of legitimacy ignores the spraying source address.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the pivot map of the investigation, an arrow runs from the beacon domain to 'Host WS-104', although the invoice download on that host happened earlier than the first beacon. What do the arrows represent?",
+    "options": [
+      "The order in which events occurred on the network",
+      "The direction in which data flowed between the hosts",
+      "The parent-to-child relationship between processes",
+      "The order of discovery, labelled with the pivot field"
+    ],
+    "correct": 3,
+    "explanation": "Each arrow points from the value already known to the value the next search revealed, so it records the analyst's path, not chronology. Event order is established afterwards from the timestamps of the events found.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The beacon thread centres on WS-104 and the VPN thread on the gopal account and WS-107. Why would a host-based correlation rule not link the two?",
+    "options": [
+      "The VPN source did not record a host, so it was discarded at load",
+      "The threads share no host; only pivots on user and address connect them",
+      "Host names in VPN events are in lower case and fail exact matches",
+      "The threads fall into different UTC hours and exceed the rule window"
+    ],
+    "correct": 1,
+    "explanation": "The two threads involve different hosts, so grouping by host keeps them apart and only pivots by user and source address reveal the full scope. VPN events lack a host field but are still loaded and searchable.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When pivoting from WS-104 to everything else it did, the analyst first excludes the proxy source. What must the analyst remember about that choice?",
+    "options": [
+      "A separate proxy pivot is still needed; it reveals the 48 MB upload",
+      "The exclusion also removes Sysmon events that lack a src_ip value",
+      "Excluding proxy events changes the host value in Windows events",
+      "The proxy must be excluded first to avoid a case-sensitivity error"
+    ],
+    "correct": 0,
+    "explanation": "Excluding the noisy proxy makes the endpoint and Windows events readable, but the 48,200,000-byte upload at 08:12 exists only in proxy data, so it needs its own pivot. source<>'proxy' tests source, which every event has, so no Sysmon rows are lost.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which part of the query in Pivot 1 turns a list of beacon requests into the information needed to scope the activity in time?",
+    "options": [
+      "COUNT(*) per host, giving the 18 hits on the domain",
+      "GROUP BY host and user, giving one row per account",
+      "MIN(ts) and MAX(ts), giving first and last seen times",
+      "LIKE on url, giving every variant of the domain path"
+    ],
+    "correct": 2,
+    "explanation": "First and last seen, 06:17 to 07:42, define the span during which the host beaconed, which is what scoping requires. The count shows intensity, not when the activity started and stopped.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why do pipeline languages such as SPL, KQL and ES|QL have no separate equivalent of SQL's HAVING clause?",
+    "options": [
+      "They compute aggregates in the time picker before any filtering",
+      "They do not allow filtering on values produced by aggregations",
+      "They apply every filter to raw events and never to summary rows",
+      "A filter stage placed after the stats stage filters aggregated rows"
+    ],
+    "correct": 3,
+    "explanation": "Each pipeline stage transforms the output of the previous one, so a filter after summarize or stats naturally acts on the aggregated rows. Pipelines can therefore filter aggregates; they just need no special clause for it.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A hunter's search over 90 days of all sources, filtered only by a URL wildcard, keeps timing out. Which change is the single most effective first step?",
+    "options": [
+      "Add ORDER BY ts so the platform reads events in time order",
+      "Narrow the time range, since storage is organised by time",
+      "Return all matching rows and count them in a spreadsheet",
+      "Add a join to the asset table to enrich each matching event"
+    ],
+    "correct": 1,
+    "explanation": "Nearly every platform organises storage by time, so a tighter range most reduces the data read; filters on indexed fields come next. Sorting adds work rather than limiting what is read.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst wants to know how many proxy requests each host made yesterday and exports every matching event to the browser to count them by eye. What does the lesson recommend instead?",
+    "options": [
+      "Let the SIEM aggregate by host and return only the summary rows",
+      "Export the events in smaller batches and count each batch in turn",
+      "Inspect the first ten events and extrapolate to the whole day",
+      "Run the export at night when correlation searches are paused"
+    ],
+    "correct": 0,
+    "explanation": "Aggregating on the platform returns a handful of rows instead of a million, which is faster and readable. A small limit is right for inspecting the shape of events, not for counting them.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Rule R2's self-join of VPN failures to later successes runs instantly on the ten lab VPN events. How should the same logic be prepared for a production VPN log?",
+    "options": [
+      "Join every success to every failure across the full retention period",
+      "Replace the join with a wildcard search on the source address field",
+      "Run the join in the browser after exporting all VPN events daily",
+      "Restrict to a short window and to failures above a threshold first"
+    ],
+    "correct": 3,
+    "explanation": "Joining large sets is expensive in every product, so the inputs must be reduced first by time window and threshold. A wildcard search cannot express the relationship between failures and a later success.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SIEM lets analysts search authentication records, browsing history and command lines across the organisation. Which control best reflects the lesson's view that search access is privileged?",
+    "options": [
+      "Allow searches only in UTC so that personal times are not revealed",
+      "Use role-based restrictions and log each search's user, query and time",
+      "Limit every search to 10,000 rows so that bulk extraction is prevented",
+      "Require searches to be run from saved queries approved by managers"
+    ],
+    "correct": 1,
+    "explanation": "Role-based access plus an audit of who searched what and when lets misuse beyond the monitoring purpose be detected, as the DPDP Act 2023 expects. A row limit slows extraction but leaves the searches themselves unaccountable.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team builds a multi-user search portal that takes a user name from an alert and pastes it straight into the SQL text before running it. What is the main security problem?",
+    "options": [
+      "User names in alerts are case-sensitive and will often fail to match",
+      "Pasted values bypass the index on ts and make every search slower",
+      "Untrusted input placed in query text allows query injection",
+      "Alert values are stored as NULL and so match nothing at all"
+    ],
+    "correct": 2,
+    "explanation": "Values from alerts or emails are attacker-influenced, and pasting them into query text lets them change the query; multi-user systems must use parameterised queries and sandbox what queries can do, as minisiem's load does with its inserts. Case mismatch is an accuracy issue, not a security one.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At handover an analyst's case note says 'Searched for other hosts contacting files-share-drop.example, found nothing'. What would turn this note into usable evidence?",
+    "options": [
+      "A screenshot of the empty result with the analyst's name on it",
+      "A statement that the search was repeated twice with the same result",
+      "The exact query, its time range and when it was run",
+      "The total number of proxy events present in the dataset"
+    ],
+    "correct": 2,
+    "explanation": "Only the recorded query, range and run time let a colleague review and reproduce the result, and check whether the empty answer came from the query rather than the data. A screenshot shows the outcome but not what was actually asked.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

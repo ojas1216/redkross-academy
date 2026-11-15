@@ -1,0 +1,45 @@
+{
+  "C08-M03-L07-F1": {
+    "title": "The storage lifecycle of SIEM data: hot to delete",
+    "caption": "Each stored index or bucket moves down the tiers by age, becoming cheaper and slower to search, until the lifecycle policy deletes it.",
+    "alt": "Flow diagram with five steps from left to right. Hot: days to weeks, SSD, fully indexed, written now. Warm: weeks to months, read-only, cheaper nodes. Cold: months, low-cost disks, slower search. Frozen / archive: months to years, object storage, restore first. Delete: irreversible unless a legal hold applies, shown in dark.",
+    "type": "flow",
+    "steps": [
+      { "label": "Hot", "sub": "days to weeks: SSD, fully indexed, written now", "tone": "orange" },
+      { "label": "Warm", "sub": "weeks to months: read-only, cheaper nodes", "tone": "blue" },
+      { "label": "Cold", "sub": "months: low-cost disks, slower search", "tone": "violet" },
+      { "label": "Frozen / archive", "sub": "months to years: object storage, restore first", "tone": "slate" },
+      { "label": "Delete", "sub": "irreversible unless legal hold", "tone": "dark" }
+    ],
+    "note": "Speed and cost fall from left to right; the ages at each arrow come from the retention policy."
+  },
+  "C08-M03-L07-F2": {
+    "title": "Deriving a retention policy from competing requirements",
+    "caption": "Detection lookback, investigation needs and legal minimums push retention longer, privacy and cost push it shorter, and the resulting policy sets tier ages and a deletion point that a legal hold can override.",
+    "alt": "Graph diagram. Five input nodes, Detection lookback (baselines, first-seen rules), Investigation and dwell time (reach back past initial access), Legal and regulatory (CERT-In 180 days, PCI DSS, contracts), Privacy ceiling (DPDP: no longer than needed) and Cost and capacity (ingest, storage, restore), each have an arrow to the dark node Retention policy per data class. That node has arrows to Tier ages (hot / warm / cold / archive) and Deletion point (unless legal hold). A red node Legal hold has a dashed arrow labelled suspends to Deletion point.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "look", "label": "Detection lookback", "sub": "baselines, first-seen rules", "tone": "blue" },
+      { "id": "inv", "label": "Investigation and dwell time", "sub": "reach back past initial access", "tone": "orange" },
+      { "id": "legal", "label": "Legal and regulatory", "sub": "CERT-In 180 days, PCI DSS, contracts", "tone": "violet" },
+      { "id": "priv", "label": "Privacy ceiling", "sub": "DPDP: no longer than needed", "tone": "green" },
+      { "id": "cost", "label": "Cost and capacity", "sub": "ingest, storage, restore", "tone": "slate" },
+      { "id": "pol", "label": "Retention policy per data class", "tone": "dark" },
+      { "id": "tiers", "label": "Tier ages", "sub": "hot / warm / cold / archive", "tone": "blue" },
+      { "id": "del", "label": "Deletion point", "sub": "unless legal hold", "tone": "slate" },
+      { "id": "hold", "label": "Legal hold", "sub": "specific data only", "tone": "red" }
+    ],
+    "edges": [
+      { "from": "look", "to": "pol" },
+      { "from": "inv", "to": "pol" },
+      { "from": "legal", "to": "pol" },
+      { "from": "priv", "to": "pol" },
+      { "from": "cost", "to": "pol" },
+      { "from": "pol", "to": "tiers" },
+      { "from": "pol", "to": "del" },
+      { "from": "hold", "to": "del", "label": "suspends", "dashed": true }
+    ],
+    "note": "The floor is the longest need; the ceiling is privacy and cost; write the result down per data class."
+  }
+}

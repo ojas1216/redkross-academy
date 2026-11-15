@@ -1,0 +1,162 @@
+{
+  "C08-M03-L05-F1": {
+    "title": "Designing a dashboard panel from a question",
+    "caption": "Each panel starts from a question with an audience and an action, and only then gets a query, a threshold, a visual form, a drilldown and an owner.",
+    "alt": "Top-to-bottom flow of seven steps: Question (is a critical source silent for more than 30 minutes?); Audience and action (who reads it, what they do); Data and query (sources, fields, time range, refresh); Baseline and threshold (what is normal, when the state changes); Visual form (number, line, table or top-N); Context and drilldown (underlying events, runbook link); Owner and review (retire if nobody acts). A feedback arrow returns from the last step to the first, labelled review: rewrite, merge or retire panels nobody acts on.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "n0",
+        "label": "Question",
+        "sub": "is a critical source silent > 30 min?",
+        "tone": "orange"
+      },
+      {
+        "id": "n1",
+        "label": "Audience and action",
+        "sub": "who reads it, what they do",
+        "tone": "blue"
+      },
+      {
+        "id": "n2",
+        "label": "Data and query",
+        "sub": "sources, fields, time range, refresh",
+        "tone": "blue"
+      },
+      {
+        "id": "n3",
+        "label": "Baseline and threshold",
+        "sub": "what is normal, when the state changes",
+        "tone": "violet"
+      },
+      {
+        "id": "n4",
+        "label": "Visual form",
+        "sub": "number, line, table or top-N",
+        "tone": "slate"
+      },
+      {
+        "id": "n5",
+        "label": "Context and drilldown",
+        "sub": "underlying events, runbook link",
+        "tone": "green"
+      },
+      {
+        "id": "n6",
+        "label": "Owner and review",
+        "sub": "retire if nobody acts",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "n0",
+        "to": "n1"
+      },
+      {
+        "from": "n1",
+        "to": "n2"
+      },
+      {
+        "from": "n2",
+        "to": "n3"
+      },
+      {
+        "from": "n3",
+        "to": "n4"
+      },
+      {
+        "from": "n4",
+        "to": "n5"
+      },
+      {
+        "from": "n5",
+        "to": "n6"
+      },
+      {
+        "from": "n6",
+        "to": "n0",
+        "label": "review: rewrite, merge or retire panels nobody acts on",
+        "dashed": true
+      }
+    ],
+    "note": "If no audience and action can be named, do not build the panel; if the threshold is precise, make it an alert too."
+  },
+  "C08-M03-L05-F2": {
+    "title": "Banyan lab day: events per UTC hour, all sources",
+    "caption": "Hourly event counts from minisiem for the Banyan dataset; the intrusion hour (06 UTC) is below the morning peak.",
+    "alt": "Bar chart of event counts per UTC hour from the minisiem query: 03 UTC 28, 04 UTC 65, 05 UTC 34, 06 UTC 47 (highlighted in orange as the intrusion hour), 07 UTC 38, 08 UTC 33, 09 UTC 26, 10 UTC 25, 11 UTC 32, 12 UTC 11, 13 UTC 1. The busiest hour is 04 UTC, which is routine activity.",
+    "type": "bars",
+    "bars": [
+      {
+        "label": "03 UTC",
+        "value": 28,
+        "display": "28",
+        "tone": "slate"
+      },
+      {
+        "label": "04 UTC",
+        "value": 65,
+        "display": "65",
+        "tone": "slate"
+      },
+      {
+        "label": "05 UTC",
+        "value": 34,
+        "display": "34",
+        "tone": "slate"
+      },
+      {
+        "label": "06 UTC",
+        "value": 47,
+        "display": "47 (intrusion hour)",
+        "tone": "orange"
+      },
+      {
+        "label": "07 UTC",
+        "value": 38,
+        "display": "38",
+        "tone": "slate"
+      },
+      {
+        "label": "08 UTC",
+        "value": 33,
+        "display": "33",
+        "tone": "slate"
+      },
+      {
+        "label": "09 UTC",
+        "value": 26,
+        "display": "26",
+        "tone": "slate"
+      },
+      {
+        "label": "10 UTC",
+        "value": 25,
+        "display": "25",
+        "tone": "slate"
+      },
+      {
+        "label": "11 UTC",
+        "value": 32,
+        "display": "32",
+        "tone": "slate"
+      },
+      {
+        "label": "12 UTC",
+        "value": 11,
+        "display": "11",
+        "tone": "slate"
+      },
+      {
+        "label": "13 UTC",
+        "value": 1,
+        "display": "1",
+        "tone": "slate"
+      }
+    ],
+    "note": "Volume shows activity, not threat: the intrusion was found by correlation rules, not by this chart."
+  }
+}

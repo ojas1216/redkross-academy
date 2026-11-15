@@ -1,0 +1,156 @@
+{
+  "C08-M03-L03-F1": {
+    "title": "Field mapping: two vendor vocabularies, one schema",
+    "caption": "How normalise_demo.py maps the firewall syslog and VPN JSON fields onto ECS-style names, and the flat column minisiem uses for each.",
+    "alt": "Table with four columns: Common field (ECS), Firewall syslog, VPN JSON, minisiem column. Rows: @timestamp from syslog 'Nov 3 12:16:21' (IST) and VPN 'time' (UTC), stored as ts; source.ip from SRC= and clientIP, stored as src_ip; user.name not present in the firewall, from 'user' in the VPN, stored as user; host.name from fw01 in the firewall, not present in the VPN, stored as host; event.outcome not present in the firewall, from 'result' SUCCESS lower-cased to success in the VPN, stored as outcome; event.action from DROP lower-cased to drop and the constant login for the VPN, no minisiem column; destination.port from DPT=3389 as an integer, not present in the VPN, no minisiem column.",
+    "type": "table",
+    "columns": [
+      "Common field (ECS)",
+      "Firewall syslog",
+      "VPN JSON",
+      "minisiem column"
+    ],
+    "rowTones": [
+      "orange",
+      "blue",
+      "blue",
+      "blue",
+      "violet",
+      "violet",
+      "slate"
+    ],
+    "rows": [
+      [
+        "@timestamp",
+        "Nov 3 12:16:21 (IST, no year)",
+        "time (UTC)",
+        "ts"
+      ],
+      [
+        "source.ip",
+        "SRC=",
+        "clientIP",
+        "src_ip"
+      ],
+      [
+        "user.name",
+        "not present",
+        "user",
+        "user"
+      ],
+      [
+        "host.name",
+        "fw01 (device name)",
+        "not present",
+        "host"
+      ],
+      [
+        "event.outcome",
+        "not present",
+        "result: SUCCESS to success",
+        "outcome"
+      ],
+      [
+        "event.action",
+        "DROP to drop",
+        "constant: login",
+        "kept in raw"
+      ],
+      [
+        "destination.port",
+        "DPT=3389 (integer)",
+        "not present",
+        "kept in raw"
+      ]
+    ],
+    "note": "Empty cells are where correlation breaks: a host-based rule never sees a VPN login unless enrichment adds a host."
+  },
+  "C08-M03-L03-F2": {
+    "title": "Where enrichment sits in the pipeline",
+    "caption": "Events are normalised first, then enriched on normalised keys from four reference sources, then stored with the raw event.",
+    "alt": "Graph. A column on the left runs top to bottom: Parsed event (slate) to Normalise (blue) to Enrich (orange) to Store (dark, bottom left). On the bottom row beside Store are four green context sources, each with an arrow pointing up into Enrich: Asset inventory (CMDB) keyed on host.name, Identity provider keyed on user.name, Geo / ASN data keyed on source.ip, and Threat intelligence keyed on source.ip and url.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      {
+        "id": "p",
+        "label": "Parsed event",
+        "sub": "fields extracted, time in UTC",
+        "tone": "slate"
+      },
+      {
+        "id": "n",
+        "label": "Normalise",
+        "sub": "names, values, categorisation",
+        "tone": "blue"
+      },
+      {
+        "id": "e",
+        "label": "Enrich",
+        "sub": "add context on normalised keys",
+        "tone": "orange"
+      },
+      {
+        "id": "s",
+        "label": "Store",
+        "sub": "normalised + enriched fields + raw",
+        "tone": "dark"
+      },
+      {
+        "id": "a",
+        "label": "Asset inventory (CMDB)",
+        "sub": "key: host.name",
+        "tone": "green"
+      },
+      {
+        "id": "i",
+        "label": "Identity provider",
+        "sub": "key: user.name",
+        "tone": "green"
+      },
+      {
+        "id": "g",
+        "label": "Geo / ASN data",
+        "sub": "key: source.ip",
+        "tone": "green"
+      },
+      {
+        "id": "t",
+        "label": "Threat intelligence",
+        "sub": "key: source.ip, url",
+        "tone": "green"
+      }
+    ],
+    "edges": [
+      {
+        "from": "p",
+        "to": "n"
+      },
+      {
+        "from": "n",
+        "to": "e"
+      },
+      {
+        "from": "e",
+        "to": "s"
+      },
+      {
+        "from": "a",
+        "to": "e"
+      },
+      {
+        "from": "i",
+        "to": "e"
+      },
+      {
+        "from": "g",
+        "to": "e"
+      },
+      {
+        "from": "t",
+        "to": "e"
+      }
+    ],
+    "note": "Normalise before enriching: one lookup per common field instead of one per vendor field name."
+  }
+}

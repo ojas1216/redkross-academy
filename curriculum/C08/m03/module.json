@@ -1,0 +1,112 @@
+{
+  "course": "C08",
+  "module": 3,
+  "title": "SIEM fundamentals",
+  "description": "How a SIEM turns raw telemetry into answers: ingestion and parsing, normalisation to a common schema, correlation rules that join events across sources and time, dashboards and search for investigation, and retention that balances cost, compliance and forensic need - finishing with a hands-on SIEM lab.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Ingestion",
+      "summary": "What a SIEM does between receiving an event and making it searchable: receiving, event breaking, source labelling, event and ingest time, routing and indexing, with volume and cost decisions, explored by loading and deliberately breaking the Banyan dataset in minisiem.",
+      "objectives": [
+        "Describe the stages of SIEM ingestion and the filing decision each one makes",
+        "Compare how Splunk, Elastic, Microsoft Sentinel and Wazuh name the same ingestion stages",
+        "Explain why routing to an index or table is a retention, access and detection control",
+        "Estimate ingest volume from EPS and event size and assess the detection risk of volume reductions",
+        "Interpret minisiem load results, including duplicate and malformed-input failures"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Parsing",
+      "summary": "How parsers turn raw syslog, key-value, CSV, JSON, XML and CEF records into typed fields, why positional patterns break, and how to build, test and monitor parsers that tag failures instead of losing events, shown by stress-testing the kit's firewall parser.",
+      "objectives": [
+        "Match raw format families to suitable extraction techniques such as regex, grok, dissect, key-value and structured decoding",
+        "Explain how anchoring, greediness and backtracking affect regex parser correctness and performance",
+        "Diagnose parse failures from test-harness output and identify the assumption that failed",
+        "Design a parser that tags and keeps failed and partial events and exposes a failure metric",
+        "Apply golden-sample testing and defences against log injection and regex denial of service"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Normalization",
+      "summary": "How a SIEM maps many vendors' field names, values and event types onto one common schema (ECS concepts, field mapping) and adds asset, identity, geo and intelligence context through enrichment.",
+      "objectives": [
+        "Explain why normalisation is needed and how ECS field sets, categorisation fields and other schemas (OCSF, CIM, ASIM) organise events",
+        "Write a field mapping for a new source, covering names, values, types, case, placeholders and time",
+        "Build and interpret a field coverage matrix to see which sources fill each correlation key",
+        "Design enrichment from asset, identity, geolocation and threat-intelligence sources, choosing ingest-time or search-time lookup",
+        "Identify normalisation and enrichment failures that create silent detection gaps"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "Correlation",
+      "summary": "How correlation rules join events across sources, time windows and shared entities, studied through the lab SIEM's six rules (R1-R6) and windowed, cross-source, entity-aggregation and absence variants.",
+      "objectives": [
+        "Distinguish single-event, threshold, sequence, combination, absence and entity risk aggregation rules",
+        "Read a sequence rule line by line and explain its entity join, order condition, distinct count and threshold",
+        "Choose and test time windows, and explain the trade-offs of sliding and tumbling windows",
+        "Write a cross-source correlation query on a normalised entity and interpret its result",
+        "Explain how adversaries try to stay outside rule assumptions and how layered rules and preventive controls respond"
+      ],
+      "minutes": 65
+    },
+    {
+      "n": 5,
+      "title": "Dashboards",
+      "summary": "How to design purpose-driven SOC dashboards from operational questions, what to show and what to leave out, and why dashboards inform rather than detect, using real minisiem panels from the Banyan dataset.",
+      "objectives": [
+        "Distinguish the three jobs of SOC dashboards and match dashboard families to their audiences",
+        "Design a panel from a question, audience, action, baseline, threshold and owner",
+        "Build queue, health, activity and top-N panels as minisiem queries and interpret their output",
+        "Explain why the Banyan intrusion hour is invisible on a volume chart and which panels to avoid",
+        "Assess dashboards for data exposure, search load, time-zone and integrity risks"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Searching",
+      "summary": "Query thinking for investigations: time ranges, filters, aggregations, stacking and pivoting across sources, practised with minisiem's SQL search over the Banyan dataset and related to pipeline languages such as SPL, KQL and ES|QL.",
+      "objectives": [
+        "Apply the question, time range, filter, inspect, aggregate, pivot and record loop to an investigative question",
+        "Diagnose search errors caused by letter case, wildcards, null fields and time zones",
+        "Use COUNT DISTINCT, MIN/MAX, HAVING and stacking to find rare and regular values",
+        "Pivot on hosts, users and addresses across proxy, Sysmon, Windows and VPN events to scope an incident",
+        "Explain the security and privacy controls that SIEM search access requires"
+      ],
+      "minutes": 70
+    },
+    {
+      "n": 7,
+      "title": "Retention",
+      "summary": "How long SIEM data is kept and where: hot, warm, cold and archive tiers, their cost, legal floors such as the CERT-In 180-day log retention and privacy ceilings, and the forensic value lost when retention is too short.",
+      "objectives": [
+        "Explain the four purposes of telemetry retention and the minimum each sets",
+        "Describe how hot, warm, cold and archive tiers and lifecycle policies trade search speed for cost",
+        "Apply legal and regulatory requirements, including the CERT-In 180-day direction and DPDP limits, to a retention schedule",
+        "Demonstrate with the lab kit how a retention purge removes an intrusion's root cause and breaks lookback rules",
+        "Design a per-data-class retention schedule with protected, tested archives"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "SIEM lab (Wazuh, Elastic)",
+      "summary": "A hands-on investigation in the course's minisiem: load and orient, run rules, pivot, write and test a cross-source correlation rule, build a timeline and dashboard panels, export hashed evidence, then map the exercise onto Wazuh and Elastic.",
+      "objectives": [
+        "Run and interpret saved correlation rules over a multi-source dataset",
+        "Pivot from an alert by IP and host to reconstruct a cross-source incident timeline",
+        "Write and boundary-test a time-windowed correlation rule",
+        "Export case evidence with a SHA-256 hash and custody record",
+        "Map each lab stage onto the components of a Wazuh or Elastic single-node lab"
+      ],
+      "minutes": 90
+    }
+  ]
+}

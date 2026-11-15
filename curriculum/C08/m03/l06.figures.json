@@ -1,0 +1,187 @@
+{
+  "C08-M03-L06-F1": {
+    "title": "Query thinking: from question to recorded evidence",
+    "caption": "An investigative search moves from a written question through time range, filter, inspection, aggregation and pivot to a recorded result, then loops on the next entity.",
+    "alt": "Top-to-bottom flow of seven steps: Question (what else did WS-104 do?); Time range first (window around the known events); Filter (source and normalised fields); Inspect raw events (check fields, case, nulls); Aggregate (count, distinct, first and last seen, stack); Pivot on an entity (a value becomes the next filter); Record query + result (range, time run, output). A feedback arrow from the last step back to the first is labelled new entity: new question.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "n0",
+        "label": "Question",
+        "sub": "what else did WS-104 do?",
+        "tone": "orange"
+      },
+      {
+        "id": "n1",
+        "label": "Time range first",
+        "sub": "window around the known events",
+        "tone": "violet"
+      },
+      {
+        "id": "n2",
+        "label": "Filter",
+        "sub": "source and normalised fields",
+        "tone": "blue"
+      },
+      {
+        "id": "n3",
+        "label": "Inspect raw events",
+        "sub": "check fields, case, nulls",
+        "tone": "slate"
+      },
+      {
+        "id": "n4",
+        "label": "Aggregate",
+        "sub": "count, distinct, first/last seen, stack",
+        "tone": "blue"
+      },
+      {
+        "id": "n5",
+        "label": "Pivot on an entity",
+        "sub": "a value becomes the next filter",
+        "tone": "green"
+      },
+      {
+        "id": "n6",
+        "label": "Record query + result",
+        "sub": "range, time run, output",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "n0",
+        "to": "n1"
+      },
+      {
+        "from": "n1",
+        "to": "n2"
+      },
+      {
+        "from": "n2",
+        "to": "n3"
+      },
+      {
+        "from": "n3",
+        "to": "n4"
+      },
+      {
+        "from": "n4",
+        "to": "n5"
+      },
+      {
+        "from": "n5",
+        "to": "n6"
+      },
+      {
+        "from": "n6",
+        "to": "n0",
+        "label": "new entity: new question",
+        "dashed": true
+      }
+    ],
+    "note": "Inspect before you aggregate: a summary of broken data looks as tidy as a summary of good data."
+  },
+  "C08-M03-L06-F2": {
+    "title": "Pivot map of the Banyan investigation",
+    "caption": "Each box is a value found by a minisiem search and each arrow is the next search, labelled with the pivot field.",
+    "alt": "Graph with two threads. Beacon thread: cdn-telemetry-sync.example (18 hits, 06:17 to 07:42) points, via pivot field url to host, to Host WS-104 / user divya. From that box, arrows labelled host + time lead to four boxes: invoice.docm download (proxy, 06:12); PowerShell under WINWORD.EXE (Sysmon, 06:14); svc_update created and added (4720/4732, 07:02 to 07:03); 48 MB upload + log cleared (08:12 and 08:17). VPN thread: 203.0.113.66 (8 users failed) points, via src_ip, to gopal VPN success (06:46, country ??), which points, via user, to gopal on WS-107 (intranet at 07:22, open question).",
+    "type": "graph",
+    "dir": "LR",
+    "nodes": [
+      {
+        "id": "d",
+        "label": "cdn-telemetry-sync.example",
+        "sub": "R6: 18 hits, 06:17-07:42",
+        "tone": "orange"
+      },
+      {
+        "id": "h",
+        "label": "Host WS-104 / user divya",
+        "tone": "blue"
+      },
+      {
+        "id": "a",
+        "label": "invoice.docm download",
+        "sub": "proxy, 06:12",
+        "tone": "slate"
+      },
+      {
+        "id": "p",
+        "label": "PowerShell under WINWORD.EXE",
+        "sub": "Sysmon, 06:14",
+        "tone": "red"
+      },
+      {
+        "id": "u",
+        "label": "svc_update created and added",
+        "sub": "4720/4732, 07:02-07:03",
+        "tone": "red"
+      },
+      {
+        "id": "x",
+        "label": "48 MB upload + log cleared",
+        "sub": "08:12 and 08:17 (1102)",
+        "tone": "dark"
+      },
+      {
+        "id": "ip",
+        "label": "203.0.113.66",
+        "sub": "8 users failed (VPN)",
+        "tone": "red"
+      },
+      {
+        "id": "g",
+        "label": "gopal VPN success",
+        "sub": "06:46, country ??",
+        "tone": "violet"
+      },
+      {
+        "id": "w",
+        "label": "gopal on WS-107",
+        "sub": "intranet at 07:22: open question",
+        "tone": "slate"
+      }
+    ],
+    "edges": [
+      {
+        "from": "d",
+        "to": "h",
+        "label": "url to host"
+      },
+      {
+        "from": "h",
+        "to": "a",
+        "label": "host + time"
+      },
+      {
+        "from": "h",
+        "to": "p",
+        "label": "host + time"
+      },
+      {
+        "from": "h",
+        "to": "u",
+        "label": "host + time"
+      },
+      {
+        "from": "h",
+        "to": "x",
+        "label": "host + time"
+      },
+      {
+        "from": "ip",
+        "to": "g",
+        "label": "src_ip"
+      },
+      {
+        "from": "g",
+        "to": "w",
+        "label": "user"
+      }
+    ],
+    "note": "The two threads share no host; only pivots by user and address reveal the full scope."
+  }
+}

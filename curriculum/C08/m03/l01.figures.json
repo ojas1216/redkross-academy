@@ -1,0 +1,54 @@
+{
+  "C08-M03-L01-F1": {
+    "title": "Inside the SIEM ingestion layer: six filing decisions",
+    "caption": "The ordered stages between an event's arrival at the SIEM and the moment it becomes searchable, each with its typical silent failure.",
+    "alt": "Flow diagram, top to bottom. Receive (input: port, endpoint, agent, API; failure: wrong input defaults). Break into events (line, multi-line, size limit; failure: split or merged events). Label source + type (host, source, source type; failure: relay recorded as host). Assign time (event time + ingest time; failure: receipt time substituted). Route (index, tier, access, filter; failure: wrong index or dropped). Write + index (searchable after refresh; failure: indexing delay under load).",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Receive", "sub": "input: port, endpoint, agent, API", "tone": "slate", "side": "fails: wrong input defaults" },
+      { "label": "Break into events", "sub": "line, multi-line, size limit", "tone": "blue", "side": "fails: split or merged events" },
+      { "label": "Label source + type", "sub": "host, source, source type", "tone": "blue", "side": "fails: relay recorded as host" },
+      { "label": "Assign time", "sub": "event time + ingest time", "tone": "orange", "side": "fails: receipt time substituted" },
+      { "label": "Route", "sub": "index, tier, access, filter", "tone": "violet", "side": "fails: wrong index or dropped" },
+      { "label": "Write + index", "sub": "searchable after refresh", "tone": "dark", "side": "fails: indexing delay under load" }
+    ],
+    "note": "Delivered is not filed: each stage can mis-file evidence without raising an error."
+  },
+  "C08-M03-L01-F2": {
+    "title": "minisiem load() versus production ingestion",
+    "caption": "Behaviours observed when loading the Banyan dataset with the teaching SIEM, paired with what a production ingestion layer must do instead.",
+    "alt": "Comparison of two columns. minisiem load() (teaching): one file, one line per event; source copied from the event; event time only, no ingest time; everything in one table; duplicates stored silently (341 vs 340); one bad line aborts the load, table left empty; raw kept beside 12 columns. Production ingestion: many inputs, per-source-type breaking rules; host, source and source type set and validated; event time plus ingest time recorded; routing by data type, retention and access; de-duplication or a duplicate-rate check; bad events quarantined, the rest ingested; raw kept beside parsed fields.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "minisiem load() (teaching)",
+        "tone": "orange",
+        "items": [
+          "One file, one line per event",
+          "source copied from the event",
+          "Event time only; no ingest time",
+          "Everything in one table",
+          "Duplicates stored silently (341 vs 340)",
+          "One bad line aborts the load; table left empty",
+          "Raw kept beside 12 columns"
+        ]
+      },
+      {
+        "title": "Production ingestion",
+        "tone": "green",
+        "items": [
+          "Many inputs, per-source-type breaking rules",
+          "host, source and source type set and validated",
+          "Event time plus ingest time recorded",
+          "Routing by data type, retention and access",
+          "De-duplication or a duplicate-rate check",
+          "Bad events quarantined, the rest ingested",
+          "Raw kept beside parsed fields"
+        ]
+      }
+    ],
+    "note": "Test ingestion with imperfect input before trusting it."
+  }
+}

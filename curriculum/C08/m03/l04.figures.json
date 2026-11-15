@@ -1,0 +1,170 @@
+{
+  "C08-M03-L04-F1": {
+    "title": "R2 vpn_spray_then_success: how the rule decides",
+    "caption": "The minisiem sequence rule as the engine evaluates it: two event roles, an entity join, an order condition, a distinct-count grouping and a threshold.",
+    "alt": "Top-to-bottom graph. Two blue inputs, VPN successes (s) and VPN failures (f), both feed an orange box Join on src_ip. It leads to a violet Time condition box (f.ts <= s.ts, no lower bound), then a violet Group per success box (COUNT DISTINCT f.user), then a violet decision box users_failed >= 5?. The yes branch leads to a dark Alert box: 203.0.113.66, 8 users failed, then gopal succeeded at 06:46:00Z. The no branch leads to a slate No alert box.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "s",
+        "label": "VPN successes (s)",
+        "sub": "source='vpn' AND outcome='success'",
+        "tone": "blue"
+      },
+      {
+        "id": "f",
+        "label": "VPN failures (f)",
+        "sub": "source='vpn' AND outcome='failure'",
+        "tone": "blue"
+      },
+      {
+        "id": "j",
+        "label": "Join on src_ip",
+        "sub": "entity: same client address",
+        "tone": "orange"
+      },
+      {
+        "id": "t",
+        "label": "Time condition",
+        "sub": "f.ts <= s.ts (no lower bound)",
+        "tone": "violet"
+      },
+      {
+        "id": "g",
+        "label": "Group per success",
+        "sub": "COUNT(DISTINCT f.user)",
+        "tone": "violet"
+      },
+      {
+        "id": "h",
+        "label": "users_failed >= 5?",
+        "tone": "violet",
+        "kind": "decision"
+      },
+      {
+        "id": "a",
+        "label": "Alert",
+        "sub": "203.0.113.66, 8 users, then gopal 06:46:00Z",
+        "tone": "dark"
+      },
+      {
+        "id": "n",
+        "label": "No alert",
+        "tone": "slate"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s",
+        "to": "j"
+      },
+      {
+        "from": "f",
+        "to": "j"
+      },
+      {
+        "from": "j",
+        "to": "t"
+      },
+      {
+        "from": "t",
+        "to": "g"
+      },
+      {
+        "from": "g",
+        "to": "h"
+      },
+      {
+        "from": "h",
+        "to": "a",
+        "label": "yes"
+      },
+      {
+        "from": "h",
+        "to": "n",
+        "label": "no"
+      }
+    ],
+    "note": "Add an upper bound to the time condition: with 10 minutes the rule fires, with 2 minutes it misses this spray."
+  },
+  "C08-M03-L04-F2": {
+    "title": "The Banyan storyline on one UTC timeline",
+    "caption": "Storyline events from four sources between 06:00 and 08:30 UTC; four rows belong to host WS-104, the VPN row to an account and address.",
+    "alt": "Timeline with five rows from 06:00 to 08:30 UTC. Proxy download and upload (orange): ticks at 06:12 and 08:12. Sysmon WINWORD to PowerShell (red): one tick at 06:14. Proxy beacon every 5 minutes (red): 18 evenly spaced ticks from 06:17 to 07:42. Windows 4720, 4732, 1102 (violet): ticks at 07:02, 07:03 and 08:17. VPN spray and success for gopal (blue): a cluster of 8 failures at 06:42 and a success at 06:46. The first four rows are host WS-104; the VPN events carry no host.",
+    "type": "ticks",
+    "axis": "UTC, 06:00 to 08:30 on 2026-11-03",
+    "series": [
+      {
+        "label": "Proxy: download and upload",
+        "times": [
+          0.08,
+          0.88
+        ],
+        "sub": "WS-104: invoice.docm 06:12, 48.2 MB upload 08:12",
+        "tone": "orange"
+      },
+      {
+        "label": "Sysmon: WINWORD to PowerShell",
+        "times": [
+          0.0933
+        ],
+        "sub": "WS-104: R1 at 06:14",
+        "tone": "red"
+      },
+      {
+        "label": "Proxy: beacon every 5 minutes",
+        "times": [
+          0.1133,
+          0.1467,
+          0.18,
+          0.2133,
+          0.2467,
+          0.28,
+          0.3133,
+          0.3467,
+          0.38,
+          0.4133,
+          0.4467,
+          0.48,
+          0.5133,
+          0.5467,
+          0.58,
+          0.6133,
+          0.6467,
+          0.68
+        ],
+        "sub": "WS-104: R6, 18 requests 06:17 to 07:42",
+        "tone": "red"
+      },
+      {
+        "label": "Windows: 4720, 4732, 1102",
+        "times": [
+          0.4133,
+          0.42,
+          0.9133
+        ],
+        "sub": "WS-104: R3 07:02 and 07:03, R5 08:17",
+        "tone": "violet"
+      },
+      {
+        "label": "VPN: spray and success (gopal)",
+        "times": [
+          0.28,
+          0.2808,
+          0.2816,
+          0.2823,
+          0.2831,
+          0.2839,
+          0.2847,
+          0.2854,
+          0.3067
+        ],
+        "sub": "no host: R2, 8 failures 06:42, success 06:46",
+        "tone": "blue"
+      }
+    ],
+    "note": "Four rows share host WS-104 and can be joined; the VPN row overlaps in time but shares no entity with them."
+  }
+}

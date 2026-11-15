@@ -1,0 +1,77 @@
+{
+  "C08-M03-L02-F1": {
+    "title": "The parser as a decision pipeline",
+    "caption": "How a parser handles every event, and why each branch ends in storage with a label rather than deletion.",
+    "alt": "Graph diagram, top to bottom. Raw event + source type leads to Select parser, then to the decision Header matches?. No leads to Unparsed: _parse_failure (original kept). Yes leads to Extract + convert (fields, types, UTC time), then to the decision Required fields present?. All leads to Parsed event + raw; some missing leads to Partial: _parse_warning. All three outcomes lead to Stored and counted. A dashed arrow labelled failure count goes from Unparsed: _parse_failure to Parser health dashboard.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "raw", "label": "Raw event + source type", "sub": "from ingestion", "tone": "slate" },
+      { "id": "sel", "label": "Select parser", "sub": "by source type", "tone": "violet" },
+      { "id": "hdr", "label": "Header matches?", "tone": "violet", "kind": "decision" },
+      { "id": "ext", "label": "Extract + convert", "sub": "fields, types, UTC time", "tone": "blue" },
+      { "id": "req", "label": "Required fields present?", "tone": "violet", "kind": "decision" },
+      { "id": "ok", "label": "Parsed event + raw", "tone": "green" },
+      { "id": "warn", "label": "Partial: _parse_warning", "sub": "original kept", "tone": "orange" },
+      { "id": "fail", "label": "Unparsed: _parse_failure", "sub": "original kept", "tone": "red" },
+      { "id": "sto", "label": "Stored and counted", "tone": "dark" },
+      { "id": "dash", "label": "Parser health dashboard", "sub": "per source type per hour", "tone": "orange" }
+    ],
+    "edges": [
+      { "from": "raw", "to": "sel" },
+      { "from": "sel", "to": "hdr" },
+      { "from": "hdr", "to": "ext", "label": "yes" },
+      { "from": "hdr", "to": "fail", "label": "no" },
+      { "from": "ext", "to": "req" },
+      { "from": "req", "to": "ok", "label": "all" },
+      { "from": "req", "to": "warn", "label": "some missing" },
+      { "from": "ok", "to": "sto" },
+      { "from": "warn", "to": "sto" },
+      { "from": "fail", "to": "sto" },
+      { "from": "fail", "to": "dash", "label": "failure count", "dashed": true }
+    ],
+    "note": "No branch deletes the event: failures are labelled, kept and counted."
+  },
+  "C08-M03-L02-F2": {
+    "title": "Brittle versus tolerant firewall parser",
+    "caption": "The kit demo's positional regex against a header regex with key-value lookup, with the results each produced on the same variant lines.",
+    "alt": "Two code panels. Left, red, Brittle: one positional regex. The pattern requires SRC, DST, PROTO=(\\w+) DPT=(\\d+) in fixed order; the code uses m[1] without checking for a match. Results: ICMP with no port, keys reordered and new [FW-IN] prefix all fail with TypeError; parsed 2 of 5. Right, green, Tolerant: header regex + key-value. An anchored header with an optional [prefix]; if no match, return a _parse_failure tag with the original; kv = dict of key=value tokens; fields read with kv.get; the port is added only if present. Results: all 4 firewall drops parsed; link-down line tagged _parse_failure.",
+    "type": "code",
+    "panels": [
+      {
+        "title": "Brittle: one positional regex",
+        "tone": "red",
+        "lines": [
+          "re.match(r\"... kernel: (\\w+) .*SRC=(\\S+)",
+          "  DST=(\\S+) PROTO=(\\w+) DPT=(\\d+)\", line)",
+          "ts = ... m[1] ...   # no None check",
+          "",
+          "ICMP, no port   -> TypeError",
+          "keys reordered  -> TypeError",
+          "[FW-IN] prefix  -> TypeError",
+          "",
+          "parsed 2 of 5; parse failures: 3"
+        ],
+        "highlight": ["PROTO=(\\w+) DPT=(\\d+)", "TypeError"]
+      },
+      {
+        "title": "Tolerant: header regex + key-value",
+        "tone": "green",
+        "lines": [
+          "HEADER = ^... kernel: (?:\\[...\\] )?",
+          "         ([A-Z]+) (.*)$",
+          "if not m: return {tags: [_parse_failure],",
+          "                  event.original: line}",
+          "kv = dict(tok.split(\"=\", 1) ...)",
+          "source.ip = kv.get(\"SRC\")",
+          "if \"DPT\" in kv: add destination.port",
+          "",
+          "all 4 firewall drops parsed",
+          "link-down line -> _parse_failure"
+        ],
+        "highlight": ["kv.get", "_parse_failure"]
+      }
+    ],
+    "note": "Parse by label, check every match, and tag failures instead of crashing."
+  }
+}
