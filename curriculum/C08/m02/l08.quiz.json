@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In the lab, the first step after regenerating banyan_events.jsonl is to compute and record its SHA-256 digest. What does this achieve?",
+    "options": [
+      "It lets minisiem.py load the file faster, because hashed files skip JSON validation",
+      "It detects duplicate events, because repeated lines change the digest in a known way",
+      "It shows that the evidence analysed is exactly the evidence that was generated",
+      "It converts the line endings to Unix format so that every learner's file matches"
+    ],
+    "correct": 2,
+    "explanation": "A recorded hash proves the input is unchanged and, with the fixed seed, identical for every learner; in an investigation it shows the evidence analysed is the evidence collected. A hash detects that a file changed, not what changed, such as duplicates.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab's first health check is that the generator wrote 340 events and minisiem.py loaded 340. What is the production equivalent of this check?",
+    "options": [
+      "Comparing events sent by each forwarder with events indexed by the SIEM, per source and per hour",
+      "Comparing the SIEM's total daily event count with the licence limit agreed with the vendor",
+      "Comparing the number of hosts in the SIEM with the number of hosts seen the previous day",
+      "Comparing each event's own timestamp with the time it became searchable in the SIEM"
+    ],
+    "correct": 0,
+    "explanation": "Sent-versus-indexed counts per source and hour directly reveal loss between forwarding and storage. Comparing event time with search time measures lag, not loss.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The source-inventory search uses MIN(ts) and MAX(ts) on the timestamp column, which minisiem.py stores as text. Why do these return the correct first and last times?",
+    "options": [
+      "SQLite converts text that looks like a date into a datetime value automatically",
+      "The index on the timestamp column stores the values in numeric time order",
+      "MIN and MAX call julianday() implicitly whenever a column holds timestamps",
+      "ISO 8601 UTC strings in one fixed format sort as text in time order"
+    ],
+    "correct": 3,
+    "explanation": "Timestamps such as 2026-11-03T06:14:00Z in a single fixed format and time base sort lexically in chronological order, which is one reason to normalise time representation. SQLite does not silently convert text to dates.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab's silence check reports Sysmon silent for 439 minutes, well above a 60-minute threshold. What is the correct next step before raising an outage?",
+    "options": [
+      "Raise a priority outage at once, since any endpoint source silent for hours is an incident",
+      "Compare the result with what the source normally does; here the generator only models morning activity",
+      "Lower the threshold for Sysmon so that shorter silences are also flagged in future",
+      "Remove Sysmon from the expected-source inventory, since it stops early every day"
+    ],
+    "correct": 1,
+    "explanation": "A silence check yields a candidate that the baseline resolves; reading make_dataset.py shows it writes routine process starts only within two hours of logon, so the silence is a property of the dataset. Removing the source would blind the check to a real future outage.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The hourly-volume query uses SUM(source='proxy') to produce a proxy column. Why does this count proxy events per hour?",
+    "options": [
+      "In SQLite the comparison evaluates to 1 or 0 for each row, so the sum counts matching rows",
+      "SUM on a text column counts the number of rows whose value is not NULL",
+      "The expression filters the table to proxy rows before the GROUP BY is applied",
+      "SQLite treats the string 'proxy' as a column alias holding the per-hour count"
+    ],
+    "correct": 0,
+    "explanation": "A comparison in SQLite yields 1 when true and 0 when false, so summing it per group counts the rows that match, giving one column per source. It does not filter rows; other sources stay in the group and contribute 0.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Drill A, the hourly count of WS-104's proxy events lists hours 03, 04, 05, 06, 09, 10, 11 and 12. Why could an analyst reading this output miss the outage?",
+    "options": [
+      "The ROUND function merged the 07 and 08 hours into the neighbouring hours",
+      "substr(ts,12,2) truncated the 07 and 08 timestamps so they did not match",
+      "GROUP BY returns no row for an hour with no events, so the gap shows as a missing line, not a zero",
+      "The query applied a LIMIT that cut off the two hours with the lowest counts"
+    ],
+    "correct": 2,
+    "explanation": "An aggregate over existing rows cannot print an hour that has none, so the eye must notice an absent line; a dashboard built on an expected list of hours shows such hours as zero. The query contains no ROUND or LIMIT that could hide them.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Drill A removes two hours of WS-104's proxy events, and the proxy total falls from 284 to 270. Why is the largest-gap check more sensitive to this fault than the source total?",
+    "options": [
+      "The gap check counts events twice, so any missing event doubles its effect on the result",
+      "A small change in the source total is lost in daily variation, while WS-104's gap jumps far above the clean worst case",
+      "The gap check compares event time with ingestion time, so it measures lag rather than volume",
+      "The source total is computed only once a day, while the gap check runs every hour"
+    ],
+    "correct": 1,
+    "explanation": "Fourteen missing events barely change a total of 284, but WS-104's largest gap rises from 75 to 145 minutes, far above the 88-minute worst case of any host on the clean day. The gap check uses consecutive event times from one host, not ingestion time.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does LAG(ts) OVER (PARTITION BY host ORDER BY ts) contribute to the largest-gap search?",
+    "options": [
+      "The delay between each event's timestamp and the time it was loaded",
+      "The timestamp of the earliest event from each host in the dataset",
+      "The number of minutes since each host's last event and the reference time",
+      "For each event, the timestamp of the previous event from the same host"
+    ],
+    "correct": 3,
+    "explanation": "LAG returns the previous row's value within the partition, so for each proxy event it gives the prior event from the same host and the gap between consecutive events can be computed. It does not use ingestion time, which minisiem.py does not record.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The completeness check shows no_outcome = 284 for all 284 proxy events. How should this be interpreted?",
+    "options": [
+      "As normal for this source, because proxy events carry an HTTP status instead; alert only if the baseline changes",
+      "As a parser failure, because every event should populate outcome for detection rules to work",
+      "As evidence that proxy events were duplicated during ingestion into the teaching SIEM",
+      "As a sign that the proxy dropped events whose outcome field could not be determined"
+    ],
+    "correct": 0,
+    "explanation": "Many NULLs are by design: proxy events record status rather than outcome. A completeness check needs a per-source baseline and alerts when the numbers change, not when they are non-zero.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Windows source, three events have a NULL src_ip and ten have the literal value '-'. A completeness check counts only NULLs and reports 3 of 13 missing. What is wrong with this result?",
+    "options": [
+      "Nothing, because '-' is a valid address that Windows writes for local loopback logons",
+      "It over-reports, because the three NULL events should be excluded as log-clear noise",
+      "It under-reports, because '-' is a placeholder meaning no network source and should count as empty",
+      "It double-counts, because each '-' event also produces a matching NULL event"
+    ],
+    "correct": 2,
+    "explanation": "The ten '-' values come from interactive (type 2) logons with no network source; a NULL-only check treats them as populated. Placeholders that mean empty must be counted as empty, decided per source.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which change in the lab's completeness numbers should raise a health alert?",
+    "options": [
+      "Proxy no_event_id stays at 284 of 284 events on the following day",
+      "VPN no_user rises from 0 to most of its events after a firmware upgrade",
+      "Sysmon no_src_ip stays equal to the number of Sysmon process events",
+      "VPN no_host stays equal to the total number of VPN events received"
+    ],
+    "correct": 1,
+    "explanation": "The user field is fully populated in every source on the clean day and most detections pivot on it, so a jump in empty user values is a real regression. The other three are unchanged by-design values from the baseline.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "normalise_demo.py parses the firewall line 'Nov  3 12:16:21 fw01 ...', from a firewall configured in India Standard Time, as 06:46:21Z. If the parser had instead assumed the time was UTC, what would happen?",
+    "options": [
+      "The event would be rejected, because a BSD syslog line without a zone cannot be parsed",
+      "The event would be stored a day early, because the missing year defaults to the previous one",
+      "Nothing would change, because 203.0.113.66 links the two events regardless of their times",
+      "The drop would be placed at 12:16:21Z, five and a half hours after the VPN login, breaking the correlation"
+    ],
+    "correct": 3,
+    "explanation": "A wrong time-zone assumption shifts the firewall event by the UTC+05:30 offset, so it no longer sits beside the VPN login and every time-window correlation fails silently. The parser would still accept the line; the error is silent, not a rejection.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After normalisation, the VPN record shows gopal logging in successfully from 203.0.113.66 at 06:46:00Z, and the firewall record shows a TCP drop from 203.0.113.66 to 10.40.0.5 port 3389 at 06:46:21Z. Which statement do the records support?",
+    "options": [
+      "The address that logged in to the VPN as gopal had a connection to an internal RDP port dropped 21 seconds later",
+      "The firewall dropped the address first, and the VPN login 21 seconds later was its successful retry",
+      "The firewall allowed RDP from 203.0.113.66 to 10.40.0.5 after the VPN login succeeded",
+      "The two records come from different addresses and cannot be correlated without a user field"
+    ],
+    "correct": 0,
+    "explanation": "In a common schema and time base the records share source.ip, and the VPN login at 06:46:00Z precedes the firewall drop on port 3389 at 06:46:21Z. The firewall action was drop, not allow, and the login came first.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which two problems with the BSD-style firewall syslog line does normalise_demo.py have to fix before the event can be stored in the common schema's time base?",
+    "options": [
+      "It has no host name and no protocol, which the parser adds from configuration",
+      "It has no source address and no port, which the parser looks up from the VPN",
+      "It has no year and no time zone, so the parser supplies the year and applies UTC+05:30",
+      "It has no message text and no severity, which the parser derives from the facility"
+    ],
+    "correct": 2,
+    "explanation": "The RFC 3164-style timestamp lacks a year and an offset, so the parser adds 2026 and converts from IST. The line does contain the host (fw01), addresses, protocol and port, which the parser extracts with a regular expression.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Drill B, a healthy minisiem.db with 340 events is in the folder; a load of a file containing one truncated record fails with a JSONDecodeError, and the table then holds 0 events. What is the cause?",
+    "options": [
+      "The JSON decoder deleted every row that shared a source with the truncated record",
+      "SQLite rolled the whole database back to an empty file when the error was raised",
+      "The truncated record overwrote the other records because it had no closing brace",
+      "load drops the existing table before inserting, and the error stops the inserts, so good data is destroyed first"
+    ],
+    "correct": 3,
+    "explanation": "load drops and recreates the events table and only then inserts; the decode error ends the run before any rows are written, leaving an empty store. The decoder only rejects the bad line; it does not touch the database.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which set of production defences addresses the failure that Drill B demonstrates?",
+    "options": [
+      "A lenient parser that silently discards bad records, so that one line cannot stop a batch",
+      "Tagging and counting unparsable records, writing new data before replacing old, and alerting when volume falls to zero",
+      "Turning off JSON validation at ingest so that truncated records are stored as they arrive",
+      "Reducing the batch size so that each failed load empties a smaller part of the table"
+    ],
+    "correct": 1,
+    "explanation": "The defences are to keep and count bad records, never destroy good data before new data is safely written, and alert on a source dropping to zero. A lenient parser that silently discards records is the other failure mode, not a fix.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In Drill C the load reports 345 events. Which search result shows that five of them are duplicates?",
+    "options": [
+      "COUNT(*) returns 345 while COUNT(DISTINCT raw) returns 340",
+      "COUNT(DISTINCT host) returns more hosts than the inventory holds",
+      "MAX(ts) returns a later time than the clean dataset's last event",
+      "SUM(user IS NULL) returns five more empty values than the baseline"
+    ],
+    "correct": 0,
+    "explanation": "The raw column holds each event exactly as delivered, so the difference between rows and distinct raw events counts the copies. Duplicates repeat existing hosts, times and users, so the other checks would not change.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab de-duplicates by comparing whole raw records. Why does the lesson call this a teaching shortcut rather than a production method?",
+    "options": [
+      "Comparing raw text is too slow for SQLite on more than a few thousand rows",
+      "The raw column is truncated to 60 characters, so different events look the same",
+      "Two genuine events can share every field, so production uses an event ID assigned at the source or forwarder",
+      "Raw records change on each delivery attempt, so true duplicates never match exactly"
+    ],
+    "correct": 2,
+    "explanation": "Real events often lack a unique identifier and two separate events can be identical, so whole-record matching could merge genuine events; production pipelines de-duplicate on a stable event ID. The 60-character substring was only for display in the search.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The five duplicated events in Drill C are proxy events from the 07:00 hour. Which kind of detection or metric do they affect most?",
+    "options": [
+      "A single-event rule that fires on any Security log clear (event ID 1102)",
+      "A rule that alerts on any new administrator account being created",
+      "A silence check comparing each source's last-seen time with a threshold",
+      "A count of proxy requests per host per hour, which over-reports that hour"
+    ],
+    "correct": 3,
+    "explanation": "Duplicates rarely matter for single-event detections but inflate counts, so per-host hourly request metrics over-report the 07:00 hour. Last-seen times are unchanged because the copies repeat existing timestamps.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does make_faults.py copy minisiem.py into each of the outage, broken and dup folders?",
+    "options": [
+      "Each drill needs a modified version of the loader that tolerates its fault",
+      "The script reads banyan_events.jsonl and writes minisiem.db in the folder it runs in, so drills leave the healthy database alone",
+      "SQLite cannot open the same database file from more than one folder at once",
+      "Copying the script resets its random seed so each faulty dataset is regenerated"
+    ],
+    "correct": 1,
+    "explanation": "Because minisiem.py works on files in its own folder, a copy per drill gives each fault its own database and keeps the clean one intact. The copies are unmodified; the point is to test the same ingestion path.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On some day, one workstation's Sysmon stops sending entirely, and the Sysmon source total falls from 33 to 29, well within normal day-to-day variation. Which lab view would reveal the problem?",
+    "options": [
+      "Per-host count and last-seen for Sysmon, checked against the inventory of eight workstations",
+      "The hourly volume pivot for all sources, read across the morning hours",
+      "The source inventory with first-seen and last-seen times per source",
+      "The field-completeness counts of NULL values per source"
+    ],
+    "correct": 0,
+    "explanation": "Source-level counts can hide a single silent host; breaking Sysmon down by host against the eight expected workstations shows one missing. The source inventory would still show Sysmon present with plausible times from the other hosts.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The troubleshooting table lists the error 'no such function: LAG'. What is the cause?",
+    "options": [
+      "The search was run before load, so the events table does not exist yet",
+      "The SQL statement was split by the shell because of missing double quotes",
+      "The SQLite library in that Python is older than 3.25, which added window functions",
+      "The search is running against a fault-drill database that lacks the ts column"
+    ],
+    "correct": 2,
+    "explanation": "LAG is a window function that SQLite supports from 3.25; older libraries do not recognise it, which is why setup prints sqlite3.sqlite_version. Running search before load gives 'no such table: events' instead.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why do the fault drills feed their damaged datasets through exactly the same minisiem.py load step as the clean data?",
+    "options": [
+      "Because the generator cannot produce faulty data, so a different loader is not available",
+      "Because the same loader is faster, which keeps the drills within the lab's time budget",
+      "Because a different loader would detect the faults automatically and spoil the exercise",
+      "Because the aim is to test whether the health checks notice problems, not to test a different pipeline"
+    ],
+    "correct": 3,
+    "explanation": "The drills damage the input while keeping the pipeline unchanged, so any result shows whether the checks themselves notice the fault; a check never seen to fire is an assumption. The plain loader does not detect faults, which is part of the lesson.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Drill A's chart, WS-104 has no proxy events at 07 and 08 UTC. What should the analyst check first to tell a switched-off host from a pipeline problem?",
+    "options": [
+      "Whether the proxy's events from other workstations also stopped in those two hours",
+      "Whether WS-104's Windows logon and Sysmon events also stopped in the same period",
+      "Whether the dataset hash still matches the one recorded in step 1",
+      "Whether the duplicates query finds repeated WS-104 events at 06 UTC"
+    ],
+    "correct": 1,
+    "explanation": "If the host's other telemetry also stopped, it was probably off; if it continued, the proxy configuration or relay path for that host is suspect. Other workstations' proxy events only show the problem is not proxy-wide, which the per-host view already implies.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lab's silence check uses the last event in the dataset, 13:33Z, as its reference time. Why must a production silence check use the current time instead?",
+    "options": [
+      "If the whole pipeline stops, the latest stored event stops advancing too, so every source looks recently active",
+      "The latest stored event is always in local time, so it cannot be compared with UTC timestamps",
+      "julianday() works only with the current time and returns NULL for stored timestamps",
+      "Using the latest event would double-count sources that sent several events in the final minute"
+    ],
+    "correct": 0,
+    "explanation": "Measuring silence against the newest stored event cannot detect a total stop, since the reference freezes with the data; 'now' keeps advancing and exposes it. julianday() accepts stored ISO timestamps, as the lab's own query shows.",
+    "lesson": 8,
+    "difficulty": "hard"
+  }
+]

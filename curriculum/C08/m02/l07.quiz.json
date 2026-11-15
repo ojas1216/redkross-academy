@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A firewall sends its logs as syslog over UDP port 514 to a relay. The relay's disk fills up for three hours before anyone notices. What happens to the firewall messages sent during those three hours?",
+    "options": [
+      "They are lost, and neither the firewall nor the relay records that delivery failed",
+      "They are held by the firewall and re-sent once the relay acknowledges it has space",
+      "They are delayed in the relay's memory queue and written when disk space returns",
+      "They are redirected by the relay to the SIEM directly, bypassing the full disk"
+    ],
+    "correct": 0,
+    "explanation": "UDP syslog is at-most-once: there is no acknowledgement or retransmission, so messages that cannot be accepted simply vanish without either side knowing. The firewall cannot buffer and re-send because it never learns that delivery failed.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a server reboot, Filebeat resumes shipping a busy application log and neither re-sends old lines nor skips new ones. What makes this possible?",
+    "options": [
+      "The SIEM acknowledges every event and tells Filebeat which ones it already holds",
+      "The SIEM de-duplicates any lines that Filebeat sends a second time after restart",
+      "Filebeat records the offset it has reached in each file in its registry",
+      "The application writes a sequence number on every line that Filebeat checks"
+    ],
+    "correct": 2,
+    "explanation": "Agents keep their own read position; Filebeat stores the offset per file in a registry and continues from it after a restart. Acknowledgements support at-least-once delivery but do not tell the agent where in a file to resume.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule fires on 'ten failed logons for one account in five minutes'. Investigation finds only six genuine failures, all forwarded by an agent during a brief network interruption between the agent and the SIEM. What best explains the alert?",
+    "options": [
+      "Clock skew on the host made six events appear to fall inside the five-minute window",
+      "At-least-once delivery re-sent events whose acknowledgements were lost, storing some twice",
+      "The parser split each failure into two events because of a changed log format",
+      "UDP transport dropped the success events, so failures looked more frequent than they were"
+    ],
+    "correct": 1,
+    "explanation": "An agent that retries until acknowledged will re-send events whose acknowledgement was lost, so some are stored twice and counting rules over-count. Clock skew would move events in time but could not raise six events to ten.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC builds its list of expected log sources from the distinct hosts that appear in the SIEM over the last 30 days, and alerts when any of them goes silent. Which problem can this design never detect?",
+    "options": [
+      "A domain controller that stops sending events in the middle of a working day",
+      "A workstation whose agent was stopped by a local administrator yesterday",
+      "A proxy whose hourly volume drops to a fraction of its usual rate",
+      "A newly deployed server that has never sent a single event to the SIEM"
+    ],
+    "correct": 3,
+    "explanation": "A host that has never sent anything never appears in a list built from the SIEM, so its absence is invisible; the inventory should come from the asset register or CMDB. The other three hosts were seen before and would show up as silent or low.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A correlation rule runs every ten minutes over the last ten minutes of data, looking for VPN failures followed by a success for the same user. VPN events are found to become searchable about an hour after they occur. What is the most likely result, and the right fix?",
+    "options": [
+      "The rule fires twice for each pattern; add de-duplication on the VPN event identifier",
+      "The rule misses patterns because the window is evaluated before the events arrive; measure lag and set the window to allow for it",
+      "The rule works normally because the SIEM re-evaluates old windows when late events arrive",
+      "The rule fires on the wrong user; convert the VPN timestamps to UTC at ingest"
+    ],
+    "correct": 1,
+    "explanation": "When ingestion lag exceeds the rule's window, the window is evaluated while the relevant events are still in transit and the pattern is never seen; lag must be measured and windows set accordingly. Most scheduled rules do not automatically re-run over past windows.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a proxy firmware update, proxy events keep arriving at their normal hourly volume, yet rules keyed on the user field stop firing. Which health check is designed to catch this?",
+    "options": [
+      "Field completeness and parse-error counts for the proxy source",
+      "Last-seen time per proxy host compared with its quiet interval",
+      "Hourly volume per source compared with the same hour last week",
+      "Queue depth on the relay that receives the proxy's syslog"
+    ],
+    "correct": 0,
+    "explanation": "Events that are present but missing rule-critical fields are a completeness failure, caught by checking that fields such as user are populated and that parse errors are zero. Volume and last-seen checks pass because events are still arriving on time.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A workstation configured for source-initiated Windows Event Forwarding cannot reach its collector for several days. What is the eventual risk to its Security events?",
+    "options": [
+      "The collector pulls the missing events automatically once the workstation reappears",
+      "The workstation copies unsent events into its own Forwarded Events log for later",
+      "Group Policy disables Security auditing on the host until the collector is reachable",
+      "Unsent events are lost once the local Security log reaches its maximum and overwrites the oldest"
+    ],
+    "correct": 3,
+    "explanation": "A workstation that cannot reach the collector keeps its events in the local log, which by default overwrites its oldest entries when full; after a long enough outage, unsent events are gone. Forwarded Events is the log on the collector, not a buffer on the source.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC collects an identity provider's audit records with an API poller. Which failure mode is characteristic of this collection method?",
+    "options": [
+      "A broken agent upgrade silences the provider's servers until it is rolled back",
+      "Packets are dropped in transit because the protocol has no acknowledgement",
+      "Provider throttling or publication delay makes the poller fall behind, adding lag",
+      "The provider's local log wraps before the forwarding subscription is renewed"
+    ],
+    "correct": 2,
+    "explanation": "Pull-based API collection depends on the provider's rate limits, pagination and the delay before audit events are published, so the poller can fall behind or its cursor can stick. Agent upgrades and UDP drops belong to other collection methods.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A network appliance cannot host an agent but supports syslog over UDP, TCP and TLS. Which collection design best fits the lesson's recommendations?",
+    "options": [
+      "Syslog over TLS to a relay with a disk-backed queue",
+      "Syslog over UDP to the SIEM, with a larger receive buffer",
+      "An API poller that reads the appliance's logs every hour",
+      "A collector-initiated Windows Event Forwarding subscription"
+    ],
+    "correct": 0,
+    "explanation": "TLS syslog (RFC 5425) adds confidentiality, integrity and a connection that fails visibly, and a disk-backed relay queue turns downstream outages into delay. UDP stays at-most-once regardless of buffer size.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A syslog relay's disk-backed queue can hold about four hours of the traffic it receives. The SIEM is unavailable for six hours, and the sending devices cannot be slowed down. What is the expected outcome?",
+    "options": [
+      "No loss, because back-pressure makes the devices hold events until the SIEM returns",
+      "Roughly two hours of events are lost and the rest arrive late",
+      "All six hours are lost, because a queue that overflows discards its whole contents",
+      "No loss, because the relay switches to an in-memory buffer when the disk queue is full"
+    ],
+    "correct": 1,
+    "explanation": "Buffers turn loss into delay only up to their capacity; with four hours of queue and a six-hour outage, about two hours cannot be held. Back-pressure cannot help when the senders, such as UDP syslog devices, cannot be told to wait.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A relay holds syslog in an in-memory buffer while the SIEM is down for maintenance. During the outage the relay process is restarted to apply a patch. What happens, and which design change prevents it?",
+    "options": [
+      "The events are re-read from the devices on restart; no change is needed",
+      "The events are kept in the operating system's page cache; enable swap on the relay",
+      "The buffered events are lost; use a persistent, disk-backed queue",
+      "The buffered events are forwarded twice; add de-duplication in the SIEM"
+    ],
+    "correct": 2,
+    "explanation": "An in-memory buffer loses its contents when the process restarts, while a persistent disk-backed queue survives restarts. Syslog devices do not keep a copy to re-send, so nothing can be re-read from them.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst finds that the field extraction for a proxy source has been wrong for months. On which kind of platform does a corrected extraction apply to the historic data immediately, without reprocessing what is stored?",
+    "options": [
+      "One that parses at ingest and stores only the extracted fields",
+      "One that parses at ingest and tags events that fail to parse",
+      "One that de-duplicates events on a stable identifier before storage",
+      "One that stores the raw text and extracts fields at search time"
+    ],
+    "correct": 3,
+    "explanation": "With schema-on-read, fields are extracted when a search runs, so a new extraction applies to old data at once. Schema-on-write platforms that keep the raw event can re-parse, but only by reprocessing stored data.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does a well-designed pipeline keep the original raw event alongside the fields it parsed at ingest?",
+    "options": [
+      "So that events can be re-parsed when a parser was wrong, and the original record can be shown as evidence",
+      "So that searches run faster, because the raw text is indexed more efficiently than parsed fields",
+      "So that storage costs fall, because the raw event compresses better than the parsed fields",
+      "So that the pipeline can switch from at-least-once to exactly-once delivery when needed"
+    ],
+    "correct": 0,
+    "explanation": "The raw event allows re-parsing after a parser error and is the evidence an investigation must be able to show. Keeping it adds storage rather than saving it, and it does not change delivery guarantees.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A vendor changes its log format. Which parser behaviour turns this change into loss that nobody notices?",
+    "options": [
+      "Storing unrecognised events with an error tag and the unparsed message kept",
+      "Discarding unrecognised events without counting or reporting them",
+      "Rejecting the batch and raising an error that the SIEM team can see",
+      "Extracting the fields at search time from the stored raw message"
+    ],
+    "correct": 1,
+    "explanation": "A parser that silently drops what it cannot read makes a format change invisible: volume falls and no rule fires, with no error anywhere. Tagging and keeping failed events lets the parse-error count reveal the problem.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A health monitor applies a single 60-minute silence threshold to every source and host. What is the main weakness of this design?",
+    "options": [
+      "It cannot measure ingestion lag, because silence and lag use different timestamps",
+      "It ignores volume drops, because a silence check only looks at event counts per day",
+      "It requires the asset inventory to be built from the SIEM rather than the CMDB",
+      "Normal quiet intervals differ by source, host group and time of day, so it misfires both ways"
+    ],
+    "correct": 3,
+    "explanation": "A workstation is quiet at night while a domain controller never is, so one threshold raises false alerts for some sources and is too slow for others; silence must be judged against what each source normally does.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Equifax breach, a traffic-inspection device had an expired certificate and encrypted traffic passed uninspected for about ten months. Which control would most directly have shortened that period of blindness?",
+    "options": [
+      "Writing more correlation rules over the inspected traffic in the SIEM",
+      "Extending log retention so that older traffic could be searched later",
+      "Monitoring the device's output and certificate validity as a source-health signal",
+      "Adding a second SIEM to receive a copy of every inspected session"
+    ],
+    "correct": 2,
+    "explanation": "The sensor and pipeline existed, but nobody watched whether the telemetry itself was healthy; a health check on the device's output (and its certificate) would have flagged it. More rules or retention over data that was never produced do not help.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During working hours a finance workstation stops sending events, and the last event received from it records its security agent's service being stopped. How should the SOC treat this?",
+    "options": [
+      "As a possible defence-impairment action, triaged in the SOC queue with priority",
+      "As an operations ticket for the desktop team, since agents often fail on upgrade",
+      "As benign until the next day's volume baseline confirms the host is still quiet",
+      "As closed, because the stop event proves the forwarding pipeline is working"
+    ],
+    "correct": 0,
+    "explanation": "Stopping security tools is a recognised adversary behaviour (ATT&CK T1562.001), so silence from a sensitive host after an agent stop is a security signal, not only an operations issue. Waiting a day gives an intruder the blind window they wanted.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An intruder clears the Security log on a host that forwards its events in near real time. What can the SOC still rely on?",
+    "options": [
+      "Nothing from that host, because clearing the log also removes the forwarded copies",
+      "The events forwarded before the clear, together with the 1102 event recording it",
+      "Only the events written after the clear, because the agent restarts its read position",
+      "A full copy of the cleared log, because Windows archives it to the collector first"
+    ],
+    "correct": 1,
+    "explanation": "Near-real-time forwarding means earlier events, and usually the 1102 log-clear event itself, have already reached the SIEM even though the local copy is gone. Clearing a local log does not touch what the SIEM already stores.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In an Active Directory domain, workstations forward events to a Windows Event Collector over WinRM on port 5985 (HTTP). An auditor says the events are therefore sent in clear text. Is the auditor right?",
+    "options": [
+      "Yes, because port 5985 carries unauthenticated HTTP and only 5986 is protected",
+      "Yes, because WEF sends events as plain syslog once they leave the workstation",
+      "No, because inside the domain Kerberos authenticates and encrypts the channel",
+      "No, because WEF tunnels its traffic through SMB signing on port 445 by default"
+    ],
+    "correct": 2,
+    "explanation": "Within a domain, WinRM's HTTP channel is authenticated and encrypted with Kerberos, so port 5985 does not mean clear text. Port 5986 (HTTPS) is the alternative, typically outside a domain, not the only protected option.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC has scheduled source-health searches for every source but has never seen one of them raise an alert. What should it do to turn these checks into a trusted control?",
+    "options": [
+      "Lower every threshold until the checks start to raise occasional alerts",
+      "Wait for a real outage and review whether the checks fired at the time",
+      "Move the checks from a fifteen-minute schedule to a daily schedule",
+      "Stop forwarding on a test workstation and confirm that the alert fires"
+    ],
+    "correct": 3,
+    "explanation": "A health check that has never been seen to fire is an assumption; deliberately breaking forwarding on a test host proves it works end to end. Waiting for a real outage tests it only when a failure would already be costly.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An engineer proposes dropping a high-volume, low-value endpoint event type at the agent to save bandwidth and licence. What is the key consideration before approving it?",
+    "options": [
+      "Data dropped at the agent is gone for good, so the decision must weigh detection value and be recorded",
+      "Dropped events can be re-sent later from the SIEM archive, so the decision is easily reversed",
+      "Filtering at the agent increases ingestion lag for every other event type on the host",
+      "Filtering at the agent only affects the parse-error count, not what the rules can see"
+    ],
+    "correct": 0,
+    "explanation": "Filtering at the source is permanent for that data: it never reaches any buffer or archive, so it needs a risk decision based on which detections depend on it. Nothing downstream can re-send what was never collected.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An Indian entity covered by CERT-In's April 2022 directions keeps firewall logs for 90 days. Apart from limiting investigations, why is this a problem?",
+    "options": [
+      "The Digital Personal Data Protection Act 2023 requires all logs to be kept for a year",
+      "ISO 27001 certification is withdrawn automatically for retention below 120 days",
+      "CERT-In requires covered entities to export firewall logs to it every 90 days",
+      "The directions require ICT system logs to be kept for a rolling 180 days within India"
+    ],
+    "correct": 3,
+    "explanation": "CERT-In's directions require covered entities to keep ICT logs for a rolling 180 days within Indian jurisdiction, so 90 days is a regulatory gap. The DPDP Act sets purpose limitation and safeguards, not a one-year log retention period.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which of these sources is the strongest case for agent-based rather than agentless collection?",
+    "options": [
+      "A firewall appliance that exports its logs only through syslog",
+      "An application on a Linux server that writes logs only to a local file",
+      "A SaaS platform whose audit records are available through an API",
+      "A web proxy appliance supplied by a vendor with a closed operating system"
+    ],
+    "correct": 1,
+    "explanation": "Agents can read sources that are never exposed over the network, such as a local application log file. Appliances and SaaS platforms cannot host an agent and are collected by syslog push or API pull.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How is exactly-once delivery usually approximated in a real collection pipeline?",
+    "options": [
+      "By sending over UDP with a buffer large enough that no packet is ever dropped",
+      "By switching from UDP to TCP, which guarantees each event is stored only once",
+      "By using at-least-once delivery plus de-duplication on a stable event identifier",
+      "By using at-most-once delivery and retrying each event a fixed number of times"
+    ],
+    "correct": 2,
+    "explanation": "End-to-end exactly-once is hard, so pipelines retry until acknowledged and then remove duplicates using a stable event ID. TCP makes the connection reliable but cannot stop a retry after a lost acknowledgement from storing an event twice.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A health dashboard shows a server's events still arriving at normal volume, last seen two minutes ago, but the ingestion lag has grown steadily from one minute to forty minutes over the morning. The server's clock is NTP-synchronised. What does this most likely indicate?",
+    "options": [
+      "A backlog is building in a buffer, which will turn into loss if the buffer fills",
+      "The server's events are being duplicated by an at-least-once forwarder",
+      "The parser has stopped extracting the timestamp field from the server's events",
+      "The server has been quiet, and the lag reflects its normal overnight interval"
+    ],
+    "correct": 0,
+    "explanation": "Steadily growing lag with normal volume and a correct source clock points to events queuing somewhere downstream; it is often the first sign of a backlog that becomes loss when the buffer is full. Duplication would raise volume rather than lag.",
+    "lesson": 7,
+    "difficulty": "hard"
+  }
+]

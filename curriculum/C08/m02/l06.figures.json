@@ -1,0 +1,47 @@
+{
+  "C08-M02-L06-F1": {
+    "title": "Same instant, two clocks: normalising to UTC",
+    "caption": "An IST firewall time and a UTC VPN time align on one UTC timeline only after conversion; a naive time with an assumed offset lands on the wrong instant.",
+    "alt": "Graph flowing left to right. Firewall fw01 (IST), 12:16:21+05:30, feeds Convert to UTC via an edge labelled subtract 05:30. VPN gateway (UTC), 06:46:00Z, feeds Convert to UTC via an edge labelled already UTC. Convert to UTC feeds Common UTC timeline, which shows 06:46:00Z VPN login and 06:46:21Z firewall drop, 21 seconds apart. A third input, Naive 12:16:21 with no offset, has a dashed edge labelled offset assumed, not known, leading to Wrong instant: parsed as 12:16:21Z, 5 h 30 min late.",
+    "type": "graph",
+    "dir": "LR",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "fw", "label": "Firewall fw01 (IST)", "sub": "12:16:21+05:30", "tone": "slate" },
+      { "id": "vpn", "label": "VPN gateway (UTC)", "sub": "06:46:00Z", "tone": "slate" },
+      { "id": "nv", "label": "Naive \"12:16:21\"", "sub": "no offset recorded", "tone": "red" },
+      { "id": "c", "label": "Convert to UTC", "sub": "at ingestion", "tone": "orange" },
+      { "id": "t", "label": "Common UTC timeline", "sub": "06:46:00Z VPN login; 06:46:21Z firewall drop (21 s apart)", "tone": "green" },
+      { "id": "w", "label": "Wrong instant", "sub": "parsed as 12:16:21Z: 5 h 30 min late", "tone": "red" }
+    ],
+    "edges": [
+      { "from": "fw", "to": "c", "label": "subtract 05:30" },
+      { "from": "vpn", "to": "c", "label": "already UTC" },
+      { "from": "c", "to": "t" },
+      { "from": "nv", "to": "w", "label": "offset assumed, not known", "dashed": true }
+    ],
+    "note": "Compare instants only after converting to UTC with a known offset."
+  },
+  "C08-M02-L06-F2": {
+    "title": "Event time vs ingest time: a late event slips past a rule",
+    "caption": "Illustrative: an event buffered during a network outage reaches the SIEM 86 minutes late and falls outside every run of a rule that searches recent event time.",
+    "alt": "Sequence diagram with four lanes: Endpoint WS-104, Agent buffer, SIEM index and Scheduled rule. Endpoint to agent: Sysmon 1 written, @timestamp 06:14:00Z. Agent to SIEM: send fails, network down, event queued. Rule to SIEM: 06:15 run, @timestamp in last 5 min; SIEM replies no match, event not yet ingested. Agent to SIEM: 07:40 reconnect, queue sent, event.ingested 07:40Z. Rule to SIEM: 07:45 run, @timestamp in last 5 min; SIEM replies misses it, 06:14 is outside the window.",
+    "type": "sequence",
+    "actors": [
+      { "id": "e", "label": "Endpoint WS-104", "sub": "event source", "tone": "blue" },
+      { "id": "a", "label": "Agent buffer", "sub": "queues unsent events", "tone": "slate" },
+      { "id": "s", "label": "SIEM index", "sub": "records event.ingested", "tone": "dark" },
+      { "id": "r", "label": "Scheduled rule", "sub": "every 5 min, last 5 min of event time", "tone": "violet" }
+    ],
+    "messages": [
+      { "from": "e", "to": "a", "label": "Sysmon 1 written, @timestamp 06:14:00Z" },
+      { "from": "a", "to": "s", "label": "Send fails: network down, event queued" },
+      { "from": "r", "to": "s", "label": "06:15 run: @timestamp in last 5 min" },
+      { "from": "s", "to": "r", "label": "no match: event not yet ingested", "dashed": true },
+      { "from": "a", "to": "s", "label": "07:40 reconnect: queue sent, event.ingested 07:40Z" },
+      { "from": "r", "to": "s", "label": "07:45 run: @timestamp in last 5 min" },
+      { "from": "s", "to": "r", "label": "misses it: 06:14 is outside the window", "dashed": true }
+    ],
+    "note": "Select by ingest time, or look back far enough to cover expected delay, so late events are still evaluated."
+  }
+}

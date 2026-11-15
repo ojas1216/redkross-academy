@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An attacker with administrative rights on a workstation has stopped Sysmon and cleared the Security log. Why can the web proxy's logs still be relied on for that host's activity?",
+    "options": [
+      "The proxy keeps its own records, which the workstation cannot edit",
+      "The proxy reads the workstation's event logs before they are cleared",
+      "The proxy log is encrypted with a key held only by the endpoint agent",
+      "The proxy restarts Sysmon automatically when its events stop arriving"
+    ],
+    "correct": 0,
+    "explanation": "Network logs are written by separate devices, so control of the workstation does not let the attacker alter them; they are an independent second witness. The proxy has no access to the host's event logs.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A compromised workstation connects to dozens of other workstations on port 445, yet the perimeter firewall and the web proxy show nothing unusual. What best explains this, and which source would reveal it?",
+    "options": [
+      "The traffic was encrypted, so only full packet capture could reveal it",
+      "The firewall logs only denied traffic; enabling allow logging would reveal it",
+      "The traffic is east-west; internal flow records or an NSM sensor would see it",
+      "The proxy filtered SMB requests; its category logs would reveal the activity"
+    ],
+    "correct": 2,
+    "explanation": "Workstation-to-workstation traffic never crosses the perimeter or the proxy, so only internal vantage points such as flow exporters or internal sensors see it. Allow logging on the perimeter firewall would still not see traffic that does not pass through it.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A firewall line reads: DROP IN=eth0 SRC=203.0.113.66 DST=10.40.0.5 PROTO=TCP DPT=3389. Which reading is correct, and what would raise its importance?",
+    "options": [
+      "An internal host tried outbound SSH and was blocked; repeats would matter",
+      "An external host's RDP attempt was dropped; the source appearing elsewhere would matter",
+      "An external host's RDP session was allowed; a large byte count would matter",
+      "An internal host's DNS query was dropped; NXDOMAIN replies would matter"
+    ],
+    "correct": 1,
+    "explanation": "SRC is the external 203.0.113.66, DPT=3389 is Remote Desktop and the action is DROP; such lines are common, but the same address appearing in another source, such as the VPN log, sharply increases their value. The action field rules out an allowed session.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A syslog firewall entry begins with 'Nov  3 12:16:21 fw01 kernel:'. What limitation of this timestamp must the analyst account for before correlating it with UTC events?",
+    "options": [
+      "It records the time the SIEM received the line, not when it was written",
+      "It is rounded to the minute, so the seconds shown are only approximate",
+      "It is always expressed in UTC, so it must be converted to local time",
+      "It carries no year and no time zone, so both must be assumed or known"
+    ],
+    "correct": 3,
+    "explanation": "The classic syslog timestamp omits the year and the time zone, so the analyst must know the device's zone (the kit treats it as IST) before aligning it with UTC data. Nothing in the format marks it as UTC.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An external partner reports malicious traffic from the organisation's single public address. The perimeter firewall performs NAT for all internal hosts. What does the analyst need to identify the internal machine?",
+    "options": [
+      "The partner's own packet capture of the reported connection",
+      "The DNS resolver's logs of queries for the partner's domain",
+      "The firewall's translation records or its pre-NAT address fields",
+      "The proxy's URL category assigned to the partner's domain"
+    ],
+    "correct": 2,
+    "explanation": "With NAT, the outside address is shared by many hosts, so only the firewall's translation log or pre-NAT fields map the connection back to one internal address. DNS logs might suggest candidates but cannot tie a specific connection to a host.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "To save storage, a firewall logs every denied connection but only a sample of allowed ones. Why is this especially damaging for incident investigation?",
+    "options": [
+      "The connections of an attack that succeeded are exactly the ones not recorded",
+      "Denied connections cannot be correlated without the matching allowed ones",
+      "Sampling changes the rule numbers recorded in the denied connection logs",
+      "Allowed connections are needed to compute the NAT table for denied ones"
+    ],
+    "correct": 0,
+    "explanation": "A successful intrusion consists of connections the firewall allowed, so partial allow logging removes the evidence that matters most. Denied entries stand on their own and do not depend on allowed ones.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A proxy that does not perform TLS inspection handles a user's HTTPS request to a file-sharing site. What can its log show about that request?",
+    "options": [
+      "The full URL path and the name of the file that was uploaded",
+      "The HTTP method and response status of each request in the session",
+      "Nothing at all, because encrypted sessions bypass the proxy entirely",
+      "The destination host name and port from the CONNECT request"
+    ],
+    "correct": 3,
+    "explanation": "Without inspection the proxy sees only the CONNECT request, which gives host and port; the URL, method and status travel inside the encrypted tunnel. The session still passes through the proxy, so it is logged.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A bank's SOC proposes TLS inspection on its secure web gateway to gain full URL visibility. Which approach reflects the lesson's guidance on this decision?",
+    "options": [
+      "Inspect all traffic without exception, since partial inspection creates blind spots",
+      "Treat it as a privacy and legal decision, exempting categories such as banking and health",
+      "Inspect only traffic to internal servers, since external sites use certificate pinning",
+      "Avoid inspection entirely, since SNI already reveals the full URL of each request"
+    ],
+    "correct": 1,
+    "explanation": "TLS inspection gives full visibility but is a significant privacy, legal and technical decision; sensitive categories are normally exempted and some applications break. SNI gives only the host name, not the full URL.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A DNS resolver log shows one workstation receiving hundreds of NXDOMAIN responses within minutes, each for a different random-looking name. What does this pattern most likely indicate?",
+    "options": [
+      "Malware trying algorithmically generated domains to find its controller",
+      "A browser prefetching links from a page of search results",
+      "A misconfigured DHCP server handing out the wrong DNS suffix",
+      "A user mistyping the address of the company's intranet site"
+    ],
+    "correct": 0,
+    "explanation": "Bursts of NXDOMAIN for random-looking names are a classic sign of malware cycling through generated domains until one resolves. Prefetching resolves real, readable names that mostly exist.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Malware on a workstation resolves its controller's name using DNS over HTTPS to a public provider. What effect does this have, and which control addresses it?",
+    "options": [
+      "The resolver logs the query as TXT; alerting on TXT volume addresses it",
+      "The query appears in DHCP logs instead; collecting lease logs addresses it",
+      "The resolver's logs never see the query; forcing all name resolution through approved resolvers addresses it",
+      "The query is rejected by the firewall by default; no further control is needed"
+    ],
+    "correct": 2,
+    "explanation": "Encrypted DNS to an external provider bypasses the organisation's resolver and its logs, which is why many organisations block outbound DNS except from their own resolvers. The query never reaches the internal resolver, so no TXT record is logged there.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A network team exports sFlow from its core switches and asks whether a single short connection from a server to an external host is guaranteed to appear in the data. What is the correct answer?",
+    "options": [
+      "Yes, because every flow exporter records each connection's 5-tuple",
+      "Yes, provided that the connection carried more than one packet of data",
+      "No, because sFlow records only connections to internal destinations",
+      "No, because sFlow samples packets, so a short connection may be missed"
+    ],
+    "correct": 3,
+    "explanation": "sFlow samples packets rather than tracking every flow, so brief connections may leave no record at all. sFlow does see external destinations; the limitation is sampling, not direction.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Investigators need to know, months after the fact, which internal hosts a file server exchanged large volumes with. No URLs or content are required. Which source is best suited to this?",
+    "options": [
+      "Full packet capture from the data centre's core switch",
+      "Flow records such as NetFlow or IPFIX from internal devices",
+      "Web proxy logs with the authenticated user recorded",
+      "IDS alerts produced by signatures on the perimeter link"
+    ],
+    "correct": 1,
+    "explanation": "Flow records are compact, cheap to keep for months and available on internal segments, and they answer who talked to whom and how much. Packet capture is usually kept for days because of its storage cost.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Zeek output, an analyst has a suspicious entry in conn.log and wants the matching TLS server name and any DNS lookup for the same connection. What lets them link these records?",
+    "options": [
+      "The connection's uid, which Zeek writes into each related protocol log",
+      "The file hash in files.log, which Zeek copies into every other log",
+      "The SNI value, which Zeek uses as the primary key for conn.log",
+      "The sensor's capture interface, which is unique to each connection"
+    ],
+    "correct": 0,
+    "explanation": "Zeek gives each connection a unique identifier (uid) that ties its entries across conn.log, ssl.log, http.log and other logs. File hashes apply only to transferred files, not to every connection.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Suricata alert names a signature for known command-and-control traffic from a workstation. How should a SOC analyst treat this alert?",
+    "options": [
+      "As confirmed compromise, because signature matches are exact by design",
+      "As raw telemetry equivalent to a flow record for the same connection",
+      "As low value, because encrypted traffic makes IDS signatures unreliable",
+      "As someone else's detection logic that still needs validation as an alert"
+    ],
+    "correct": 3,
+    "explanation": "IDS alerts are detections produced by a rule author's logic, not raw telemetry, so they need the same validation as any SIEM alert. Signatures can and do match benign traffic.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A manager asks why the SOC does not simply capture all packets everywhere and keep them for a year. Which answer reflects the trade-offs described in the lesson?",
+    "options": [
+      "Packet capture cannot record traffic that passes through a SPAN port",
+      "Packet capture records only headers, so it adds nothing beyond flows",
+      "Storage cost, wholesale personal data and encryption limit its value",
+      "Packet capture is illegal in India unless approved by CERT-In in advance"
+    ],
+    "correct": 2,
+    "explanation": "Full capture is expensive to store, collects personal data wholesale and offers limited insight into encrypted traffic, so SOCs capture selectively at key points or on demand. It records full payloads, not just headers.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A workstation makes a TLS 1.3 connection without Encrypted Client Hello. Which metadata can a passive sensor on the path normally still observe?",
+    "options": [
+      "The server certificate, because TLS 1.3 sends it before encryption begins",
+      "The SNI host name in the ClientHello, along with addresses, timing and size",
+      "The requested URL path, because TLS 1.3 leaves the HTTP request line visible",
+      "Nothing beyond the 5-tuple, because TLS 1.3 encrypts the whole handshake"
+    ],
+    "correct": 1,
+    "explanation": "In TLS 1.3 the server certificate is encrypted, but the SNI in the ClientHello still usually names the destination, and addresses, timing and volume remain visible. ECH would conceal the real SNI, but it is not in use here.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A hunt reports: WS-104 https://cdn-telemetry-sync.example/api/v2/ping n=18 mean_gap=300s cv=0.004. How should this be interpreted?",
+    "options": [
+      "Requests every five minutes with almost no variation, typical of software on a timer",
+      "Eighteen requests clustered within 300 seconds, typical of a page loading assets",
+      "Requests every five minutes with high variation, typical of a user refreshing a page",
+      "A single 300-second session split into 18 parts, typical of a large download"
+    ],
+    "correct": 0,
+    "explanation": "A coefficient of variation near 0 means the gaps barely vary, so a mean gap of 300 s describes a check-in every five minutes, which is machine behaviour. A high CV, not 0.004, would indicate human irregularity.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A beacon hunt flags hosts whose request intervals have a coefficient of variation below 0.2 rather than requiring perfectly identical gaps. Why is the threshold set this way?",
+    "options": [
+      "Proxy timestamps are rounded to minutes, which hides sub-minute regularity",
+      "Perfect regularity would flag every routine site visited by all hosts",
+      "Malware may add jitter, which raises the CV without making it human-like",
+      "The CV cannot be computed when two consecutive gaps are exactly equal"
+    ],
+    "correct": 2,
+    "explanation": "Implants often add random variation to their interval, which raises the CV; a threshold catches such beacons while still excluding irregular human browsing. Routine human browsing is irregular, so perfect regularity would not flag it.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In a proxy log, which pattern best suggests exfiltration rather than ordinary use?",
+    "options": [
+      "Many small downloads from a content delivery network during working hours",
+      "A large response received by a host from a software update server",
+      "Repeated failed requests with status 404 to a single internal web server",
+      "An unusually large volume sent from an internal host to a rare destination"
+    ],
+    "correct": 3,
+    "explanation": "Clients normally download far more than they send, so a large outbound volume to an unfamiliar destination reverses the usual pattern. A large download from an update server is the ordinary direction of traffic.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A suspicious connection came from 10.40.0.23 at 08:12 UTC. Which combination of evidence correctly attributes it to a machine and a person?",
+    "options": [
+      "The current DHCP lease for 10.40.0.23 and the user logged on right now",
+      "The DHCP lease valid at 08:12 and the endpoint logon events for that host",
+      "The asset register's default address for each host and its listed owner",
+      "The firewall's post-NAT address and the proxy's URL category for the site"
+    ],
+    "correct": 1,
+    "explanation": "IP addresses are reassigned, so attribution needs the lease that held at the time of the event plus logon evidence from that host for the same time. Today's lease and current logons may describe a different machine and user.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst writes one SIEM query that joins the lab's proxy and VPN events on the field src_ip to find users who connected from the same address. Why will the results be misleading?",
+    "options": [
+      "VPN events record src_ip in IPv6 notation, so no proxy values can match",
+      "Proxy events leave src_ip empty whenever the user is authenticated",
+      "In proxy events src_ip is the internal workstation; in VPN events it is the user's external address",
+      "The SIEM drops src_ip from VPN events because they are written in syslog format"
+    ],
+    "correct": 2,
+    "explanation": "The same field name means different things in the two sources: an internal workstation address in proxy events and the remote user's external address in VPN events, so a naive join compares unlike values. The lab's proxy events do carry src_ip.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lab data, WS-104 made the most proxy requests of any host. Why is that fact on its own weak evidence, and what made WS-104 stand out instead?",
+    "options": [
+      "A busy user is not a suspect; its rare single-host destinations and regular timing did",
+      "Request counts are unreliable in proxies; its blocked categories made it stand out",
+      "Volume is meaningless without payloads; its decrypted traffic made it stand out",
+      "Busiest hosts are usually servers; its workstation naming made it stand out"
+    ],
+    "correct": 0,
+    "explanation": "High volume is normal for a busy user; the evidence lay in three destinations visited by WS-104 alone and in the machine-regular timing of one of them. The dataset holds no payloads, so decryption played no part.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab's rule R6 prints the hit ('WS-104', 'https://cdn-telemetry-sync.example/api/v2/ping', 18, 220, 220). What does this tuple tell the analyst, and what does the rule leave unchecked?",
+    "options": [
+      "18 distinct hosts sent 220 requests; it leaves the destination's reputation unchecked",
+      "18 requests took 220 seconds each; it leaves the request sizes unchecked",
+      "18 requests were blocked with status 220; it leaves the user's identity unchecked",
+      "18 hits with bytes_out from 220 to 220; it leaves the request timing unchecked"
+    ],
+    "correct": 3,
+    "explanation": "The tuple is host, URL, hit count and minimum and maximum bytes_out, so the requests were identical in size; R6 tests size regularity only, and the interval check comes from hunt.py. The figures are bytes, not seconds or status codes.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104's proxy log shows a request for https://banyan-payroll-update.example/invoice.docm at 06:12, and endpoint data shows Word starting PowerShell at 06:14. What is the most reasonable joint reading?",
+    "options": [
+      "The download came from the company's own payroll system and is routine",
+      "A look-alike domain served a macro-enabled document that then ran PowerShell",
+      "The PowerShell process downloaded the document after Word had been opened",
+      "The proxy blocked the document, so the PowerShell event is unrelated to it"
+    ],
+    "correct": 1,
+    "explanation": "The domain imitates the company's name, the .docm extension is a macro-enabled document, and Word starting PowerShell two minutes later fits a phishing download followed by macro execution. The order of events rules out PowerShell fetching the document.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Malware on a workstation contacts its controller over a non-web protocol directly through the perimeter firewall, never touching the proxy. Which telemetry could still record this traffic?",
+    "options": [
+      "The firewall log and flow records, but not the web proxy log",
+      "The web proxy log, because it records every outbound connection",
+      "The DHCP server log, because it records each outbound session",
+      "Only the endpoint, because firewalls log non-web protocols as denied"
+    ],
+    "correct": 0,
+    "explanation": "Traffic that bypasses the proxy appears only at devices it does pass through, such as the firewall and flow exporters. The proxy logs only requests sent to it, and DHCP records address leases, not sessions.",
+    "lesson": 2,
+    "difficulty": "hard"
+  }
+]

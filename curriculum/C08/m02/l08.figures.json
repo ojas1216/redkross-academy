@@ -1,0 +1,53 @@
+{
+  "C08-M02-L08-F1": {
+    "title": "The C08 lab kit as a collection pipeline",
+    "caption": "How make_dataset.py, minisiem.py and normalise_demo.py map onto pipeline stages, and where the lab's health checks and fault drills attach.",
+    "alt": "Graph diagram. make_dataset.py (sources + collection, fixed seed) writes banyan_events.jsonl (340 JSON lines). minisiem.py load parses each line and writes the events table in minisiem.db (12 field columns + raw). minisiem.py search queries the events table. Source-health checks (inventory, volume, silence, completeness) run through minisiem.py search. A separate branch: a Raw syslog line (firewall, local time, no year) and a Raw VPN JSON record (UTC) both go into normalise_demo.py, which outputs Normalised events with ECS-style names and UTC time. A dashed arrow from make_faults.py (outage, broken, dup copies) goes to minisiem.py load, showing that the fault drills reuse the same ingestion path.",
+    "type": "graph",
+    "dir": "LR",
+    "nodes": [
+      { "id": "gen", "label": "make_dataset.py", "sub": "sources + collection, fixed seed", "tone": "slate" },
+      { "id": "file", "label": "banyan_events.jsonl", "sub": "340 JSON lines", "tone": "blue" },
+      { "id": "load", "label": "minisiem.py load", "sub": "ingest: parse each line", "tone": "orange" },
+      { "id": "tbl", "label": "events table in minisiem.db", "sub": "12 field columns + raw", "tone": "dark" },
+      { "id": "srch", "label": "minisiem.py search", "sub": "SQL as query language", "tone": "blue" },
+      { "id": "hc", "label": "Source-health checks", "sub": "inventory, volume, silence, completeness", "tone": "green" },
+      { "id": "flt", "label": "make_faults.py", "sub": "outage, broken, dup copies", "tone": "red" },
+      { "id": "rs", "label": "Raw syslog line", "sub": "firewall, local time, no year", "tone": "slate" },
+      { "id": "rj", "label": "Raw VPN JSON", "sub": "UTC", "tone": "slate" },
+      { "id": "nd", "label": "normalise_demo.py", "sub": "parse + map fields", "tone": "violet" },
+      { "id": "ne", "label": "Normalised events", "sub": "ECS-style names, UTC", "tone": "green" }
+    ],
+    "edges": [
+      { "from": "gen", "to": "file", "label": "writes" },
+      { "from": "file", "to": "load", "label": "reads" },
+      { "from": "load", "to": "tbl", "label": "inserts" },
+      { "from": "tbl", "to": "srch" },
+      { "from": "srch", "to": "hc" },
+      { "from": "flt", "to": "load", "label": "damaged copies", "dashed": true },
+      { "from": "rs", "to": "nd" },
+      { "from": "rj", "to": "nd" },
+      { "from": "nd", "to": "ne" }
+    ],
+    "note": "Each health check measures one arrow; the fault drills test the checks through the same load path."
+  },
+  "C08-M02-L08-F2": {
+    "title": "Drill A: WS-104 proxy events per hour after a simulated outage",
+    "caption": "Per-host hourly volume from the outage copy of the dataset, with the two missing hours shown as zero bars against their clean-day counts.",
+    "alt": "Bar chart of WS-104 proxy events per UTC hour in the outage copy: 03 UTC 3, 04 UTC 3, 05 UTC 1, 06 UTC 14 (highlighted), 07 UTC 0 (clean day 11, red), 08 UTC 0 (clean day 3, red), 09 UTC 5, 10 UTC 2, 11 UTC 5, 12 UTC 2. The load reported 326 events with no error.",
+    "type": "bars",
+    "bars": [
+      { "label": "03 UTC", "value": 3, "display": "3", "tone": "blue" },
+      { "label": "04 UTC", "value": 3, "display": "3", "tone": "blue" },
+      { "label": "05 UTC", "value": 1, "display": "1", "tone": "blue" },
+      { "label": "06 UTC", "value": 14, "display": "14", "tone": "orange" },
+      { "label": "07 UTC", "value": 0, "display": "0 (clean day: 11)", "tone": "red" },
+      { "label": "08 UTC", "value": 0, "display": "0 (clean day: 3)", "tone": "red" },
+      { "label": "09 UTC", "value": 5, "display": "5", "tone": "blue" },
+      { "label": "10 UTC", "value": 2, "display": "2", "tone": "blue" },
+      { "label": "11 UTC", "value": 5, "display": "5", "tone": "blue" },
+      { "label": "12 UTC", "value": 2, "display": "2", "tone": "blue" }
+    ],
+    "note": "The load reported 326 events with no error; only the per-host view against a baseline shows the hole."
+  }
+}

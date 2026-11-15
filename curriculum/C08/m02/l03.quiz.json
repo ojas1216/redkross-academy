@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An analyst investigating whether Asha opened a share on FS01 searches only DC01's Security log for her 4624 events and finds no type 3 logon. Where should the 4624 type 3 for that share access have been written?",
+    "options": [
+      "On FS01, because the machine accepting the session records the logon and its type",
+      "On DC01, but only when the Kerberos Authentication Service audit subcategory is on",
+      "On WS-101, because the client that requested the share records the network logon",
+      "On DC01 as a 4769, since the DC writes logon types into its service ticket events"
+    ],
+    "correct": 0,
+    "explanation": "The target of a logon writes the 4624 with the logon type; the DC records only ticket requests such as 4768 and 4769. A 4769 on DC01 would exist, but it carries no logon type and is not a session record.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A 4624 on WS-101 shows the Subject account as the workstation's own system account and the New Logon account as asha. Which statement about who logged on is correct?",
+    "options": [
+      "The Subject account logged on, and asha is the account whose token it later borrowed",
+      "Asha logged on; the Subject is only the local account that requested the logon",
+      "Both accounts logged on, because Windows records a pair of sessions for every 4624",
+      "Neither can be stated until the matching 4672 confirms which account got the session"
+    ],
+    "correct": 1,
+    "explanation": "In a 4624 the account actually logged on is under New Logon; the Subject is the local requester, often the system itself. Reading the Subject as the user is a classic beginner's error.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A file server shows forty 4625 events in ten minutes from one address, each for a different user name, all with status 0xC0000064. What is the most reasonable reading?",
+    "options": [
+      "Several real users mistyped their passwords after a password policy change",
+      "Accounts were locked out and the clients kept retrying their saved credentials",
+      "Someone is trying user names that do not exist, which real users rarely do",
+      "Disabled leavers' accounts are still configured in a scheduled script somewhere"
+    ],
+    "correct": 2,
+    "explanation": "0xC0000064 means the user name does not exist, so a burst across many names suggests name guessing or a stale script. Mistyped passwords on real accounts would show 0xC000006A instead.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A junior analyst tries to link a session on WS-101 to a session on FS01 by matching the Logon ID value in both machines' 4624 events. Why will this fail?",
+    "options": [
+      "Logon IDs are only written to 4634 logoff events, never to 4624 logon events",
+      "The Logon ID is a domain-wide value, so every session on every host shares it",
+      "Logon IDs appear only in DC events, so the workstation records cannot be matched",
+      "A Logon ID is local to one machine and resets on reboot, so it is not cross-host"
+    ],
+    "correct": 3,
+    "explanation": "The Logon ID ties events within one session on one machine, such as a 4624 to its 4672 and 4634. It is not a cross-host identifier; correlation across hosts uses account, time and client address.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "DC01 records a burst of 4769 events from one workstation within a minute, each for a different service account, and every one shows Ticket Encryption Type 0x17. What does this pattern most likely indicate?",
+    "options": [
+      "A routine Group Policy refresh renewing service tickets for every domain service",
+      "An attempt to obtain service tickets for offline password cracking (Kerberoasting)",
+      "A password spray against service accounts that is failing Kerberos pre-authentication",
+      "A client that cannot reach the DC and is falling back from Kerberos to NTLM logons"
+    ],
+    "correct": 1,
+    "explanation": "Bulk RC4 (0x17) service-ticket requests for many service accounts from one client is the well-known Kerberoasting signal (T1558.003). A spray would show pre-authentication failures such as 4771, not successful 4769 ticket issues.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A user maps a share by typing the file server's IP address instead of its name. Which domain controller event would you expect in place of the usual 4769 for cifs/FS01?",
+    "options": [
+      "4776, because Kerberos finds no matching service principal and NTLM is used instead",
+      "4771, because the DC rejects Kerberos pre-authentication for address-based requests",
+      "4768, because the client requests a fresh TGT for every share reached by address",
+      "4648, because supplying an address counts as logging on with explicit credentials"
+    ],
+    "correct": 0,
+    "explanation": "Reaching a server by IP address prevents Kerberos from matching an SPN, so the client falls back to NTLM and the DC writes 4776; the 4624 on FS01 then shows the NTLM package. 4771 is a pre-authentication failure, not a protocol fallback.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A service account that has only ever produced type 5 logons on application servers appears in a 4624 type 10 on a finance workstation. How should this be treated?",
+    "options": [
+      "As routine, because services restart under their configured account after patching",
+      "As a cached logon, because type 10 means no domain controller could be reached",
+      "As a scheduled task run, because type 10 records batch jobs using stored credentials",
+      "As a Remote Desktop session by a service identity, a baseline deviation to investigate"
+    ],
+    "correct": 3,
+    "explanation": "Type 10 is RemoteInteractive (Remote Desktop), and a service account interactively reaching a workstation breaks its type 5 baseline. Cached logons are type 11 and batch jobs are type 4.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A domain user mistypes her password at the console of her workstation. Which pair of events best describes what the domain controller and the workstation record?",
+    "options": [
+      "DC writes 4769 for the host service; workstation writes 4624 with an elevated token",
+      "DC writes 4740 lockout immediately; workstation writes 4625 with status 0xC0000234",
+      "DC writes 4771 pre-authentication failed; workstation writes 4625 with 0xC000006A",
+      "DC writes 4776 for NTLM; workstation writes 4648 with the explicit credentials used"
+    ],
+    "correct": 2,
+    "explanation": "A wrong password fails Kerberos pre-authentication, so the DC writes 4771 (or a failed 4768) and the workstation writes 4625 with 0xC000006A. Lockout (4740, 0xC0000234) only follows after the threshold is exceeded.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A user's Entra ID sign-in log shows six attempts in four minutes that passed the password check and then failed MFA, with no final success. What is the right response?",
+    "options": [
+      "No action is needed, because MFA held and the attacker never obtained a session",
+      "Block the source address and keep monitoring, since no account was compromised",
+      "Treat the password as compromised: reset it and contact the user by another channel",
+      "Disable MFA prompts for that user temporarily to stop the fatigue being exploited"
+    ],
+    "correct": 2,
+    "explanation": "Passing the first factor proves someone knows the password, and repeated prompts suggest MFA request generation (T1621). Even though MFA held, the password must be reset and the user contacted separately; blocking the address alone leaves the known password in use.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should an analyst not filter out Entra ID non-interactive user sign-ins as background noise?",
+    "options": [
+      "They are the only records that carry the conditional access policy result",
+      "They record directory changes such as role assignments and MFA registrations",
+      "They are written only for administrator accounts, so each one is high value",
+      "They show tokens being used, where replay from an unexpected place becomes visible"
+    ],
+    "correct": 3,
+    "explanation": "Non-interactive sign-ins are made by clients using tokens they already hold, so stolen-token reuse from an unusual location shows up there. Directory changes belong to the audit log, not the sign-in categories.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An organisation's lockout threshold is five failures per account, and a sprayer tries one password against 300 accounts from a single address. Which detection logic is most likely to catch it?",
+    "options": [
+      "Counting distinct user names that failed from each source address in a time window",
+      "Alerting when any single account exceeds five failures within thirty minutes",
+      "Alerting on every 4740 lockout event written by the domain controllers",
+      "Counting failures per account per day and flagging the top ten accounts"
+    ],
+    "correct": 0,
+    "explanation": "Spraying keeps each account under the lockout threshold, so per-account counts and lockout alerts stay silent; per-source distinct-user counts expose it. Per-account thresholds catch guessing against one account, not spraying.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An IdP shows failures against 2,000 accounts from 700 different addresses, each account tried once or twice with a different password per account. Which technique best fits?",
+    "options": [
+      "Password spraying (T1110.003), because each account receives very few attempts",
+      "Credential stuffing (T1110.004), using breached pairs from many sources at once",
+      "Password guessing (T1110.001), because the attempts are spread over many accounts",
+      "MFA request generation (T1621), because the attacker is cycling user prompts"
+    ],
+    "correct": 1,
+    "explanation": "Many accounts, a different password per account, and many sources is the credential stuffing shape. Spraying instead tries one or a few common passwords across accounts, typically from one or few sources.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Banyan data, a VPN failure for divya appears at 06:42:21, while the Windows log shows her interactively logged on at WS-104 since 03:18. What does this combination tell the analyst?",
+    "options": [
+      "Divya was connecting to the VPN from her desk and mistyped her password once",
+      "The VPN concentrator replayed her earlier desktop logon after a session timeout",
+      "Her WS-104 logon must have ended, so the VPN attempt marks her leaving the office",
+      "Someone other than divya was trying her account from the external spray address"
+    ],
+    "correct": 3,
+    "explanation": "She was already at her workstation, and the failure came from the external address 203.0.113.66 within the eight-user spray, so another party was using her name. A single desk typo would appear as a 4625 at WS-104, not a VPN failure from outside.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At 04:05 the Banyan data shows a single 4625 for ben at WS-102 with status 0xC000006A and logon type 2, after his successful logon there at 03:48. What is the most defensible disposition?",
+    "options": [
+      "Suspicious, because any failure after a success suggests a second person at the desk",
+      "Benign: one wrong password at his own console after a success, with no follow-up",
+      "Malicious, because 0xC000006A shows the attacker knew a valid account name",
+      "Undetermined until his account is reset and the workstation is reimaged"
+    ],
+    "correct": 1,
+    "explanation": "A single wrong-password failure at the user's own console, after a success and with nothing following, matches unlocking a screen with a typo. Valid-name knowledge only matters when failures form a pattern across accounts or sources.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In your copy of the kit you raise rule R2's distinct-user threshold from 5 to 9 and rerun the rules. Why does the 203.0.113.66 hit disappear?",
+    "options": [
+      "Only eight distinct users failed from that address before gopal's success",
+      "The rule now requires nine failures for the same user before any success",
+      "SQLite rejects HAVING thresholds larger than the number of VPN events",
+      "Gopal's own failure no longer counts once the threshold exceeds eight"
+    ],
+    "correct": 0,
+    "explanation": "R2 fires when the count of distinct failing users from the success's source meets the threshold; the spray reached eight, so a threshold of nine misses it. This also shows a sprayer that stays under a known threshold evades the rule.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Banyan query reads logon_type and status with json_extract(raw, ...) because they are not normalised SIEM columns. What broader lesson does this illustrate?",
+    "options": [
+      "Normalised columns should be dropped once json_extract can read the raw record",
+      "Logon type and status are too low-value to normalise in an identity pipeline",
+      "A field not normalised at ingestion is recoverable only if the raw event was kept",
+      "SQLite cannot index JSON, so identity fields must always be queried from raw"
+    ],
+    "correct": 2,
+    "explanation": "The values could be recovered only because the raw event was stored alongside the normalised fields. Dropping raw data would make such fields unrecoverable, which is the opposite of the first option.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the Banyan triage script keep a PRIMARY_HOST mapping such as divya to WS-104?",
+    "options": [
+      "VPN concentrators log the internal host name only when the session is successful",
+      "VPN events carry no host, so alerts need a user-to-laptop map to show an asset",
+      "The mapping replaces geolocation, which VPN records never include for users",
+      "Windows logons lack a host field, so the script must infer it from the user"
+    ],
+    "correct": 1,
+    "explanation": "A VPN concentrator sees a remote client and its external address, not an inventory asset, so the script maps users to their usual laptops. Windows events do carry the host, so the last option is wrong.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An impossible-travel alert fires because a user signed in from Mumbai and, twenty minutes later, from an address geolocated to Frankfurt. What is the best first step?",
+    "options": [
+      "Disable the account at once, because two distant successes prove token theft",
+      "Close the alert, because geolocation is unreliable and the heuristic is noisy",
+      "Block the Frankfurt address range at the firewall and the identity provider",
+      "Treat it as a prompt: check for VPN, proxy or mobile egress, then the user"
+    ],
+    "correct": 3,
+    "explanation": "Unfamiliar or impossible travel is a heuristic, often caused by VPNs, mobile networks and cloud proxies, so it is a triage prompt, not a verdict. Closing it outright discards a possibly real signal without checking.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Linux server's deploy account has authenticated only with SSH keys for a year. Today auth.log shows \"Accepted password for deploy\" from an unfamiliar address. Why is this significant?",
+    "options": [
+      "Password logins are always malicious on Linux, whatever the account baseline",
+      "It indicates a non-existent user, which SSH reports as Accepted password",
+      "The authentication method changed from key to password, breaking the baseline",
+      "It shows the account was locked out and then unlocked by an administrator"
+    ],
+    "correct": 2,
+    "explanation": "A server that normally sees only key-based logons should not suddenly accept a password; the method change plus an unfamiliar source deserves investigation. Password logins are not malicious in themselves, only unusual for this account.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC collects Security logs from domain controllers but not from servers or workstations. What will it be unable to see?",
+    "options": [
+      "Logon types and the target-side sessions created on the machines being accessed",
+      "Which client address requested Kerberos tickets for each account in the domain",
+      "Kerberos pre-authentication failures caused by wrong passwords on domain accounts",
+      "NTLM credential validation for domain accounts presented to member servers"
+    ],
+    "correct": 0,
+    "explanation": "DCs hold ticket and credential-validation requests (4768, 4769, 4771, 4776) including client address, but logon types and sessions (4624, 4625) are written on the targets. The other options are all recorded on the DC.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A user reports a new MFA method she did not add. You want the record of when that method was registered in Entra ID. Where should you look?",
+    "options": [
+      "The interactive sign-in log, filtered to the user's successful MFA results",
+      "The non-interactive sign-in log, where token refreshes record method changes",
+      "The service principal sign-in log, because MFA registration runs as an app",
+      "The Entra ID audit log, which records directory changes such as new methods"
+    ],
+    "correct": 3,
+    "explanation": "Directory changes such as role grants and new authentication methods are recorded in the audit log, the IdP's counterpart of 4720 and 4732. Sign-in logs show authentication attempts, not registrations.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On a file server, a 4624 for the account svc-backup is immediately followed by a 4672 with the same Logon ID. The account is not in the administrator baseline. What does this indicate?",
+    "options": [
+      "The new session holds administrator-equivalent privileges the baseline does not expect",
+      "The account used explicit credentials to run a process under a different identity",
+      "The session was created from cached credentials because no DC was reachable",
+      "The account's password was validated by NTLM rather than by Kerberos on the DC"
+    ],
+    "correct": 0,
+    "explanation": "4672 means special privileges were assigned to the new logon, and the shared Logon ID ties it to that 4624; for an account outside the admin baseline that is worth investigating. Explicit-credential use is 4648, a different event.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Gopal's VPN success at 06:46 from 203.0.113.66 follows an eight-user spray. Which additional fact from the Windows log makes it more serious than the VPN records alone show?",
+    "options": [
+      "Gopal had a 4625 at WS-107 that morning, proving his password was being guessed",
+      "Gopal had never logged on to any workstation, so the VPN was his first session",
+      "Gopal was already logged on at WS-107, so this was a concurrent second use of his identity",
+      "Gopal's 4624 at WS-107 was type 10, showing he normally works through Remote Desktop"
+    ],
+    "correct": 2,
+    "explanation": "His account was in use at WS-107 from 03:33, so a VPN session from an unplaced external address is a simultaneous second use of his identity. The Windows log shows only a type 2 success for gopal, no 4625 and no type 10.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a VPN spray ends in one account's compromise, which pair of controls most reduces the chance of the same attack succeeding again?",
+    "options": [
+      "Blocking the spraying address and lowering the per-account lockout threshold",
+      "Requiring MFA on the VPN and enforcing a banned-password list for all accounts",
+      "Geo-blocking unplaced countries and shortening VPN session lifetimes",
+      "Alerting on every VPN failure and renaming accounts to non-guessable names"
+    ],
+    "correct": 1,
+    "explanation": "The spray worked because one password was guessable and the VPN accepted a single factor; MFA and banned passwords address both causes. Blocking one address is the weakest response, since sprayers simply change source.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A field engineer's laptop shows a 4624 type 11 for his domain account while he is at a customer site with no corporate connectivity. What does this logon type tell you?",
+    "options": [
+      "He connected through Remote Desktop to the laptop from another machine",
+      "A scheduled task started under his stored credentials while he was away",
+      "A process cloned his token and used other credentials for outbound access",
+      "He logged on interactively with cached domain credentials, no DC being reachable"
+    ],
+    "correct": 3,
+    "explanation": "Type 11 is CachedInteractive: an interactive logon verified against cached domain credentials because no domain controller could be contacted, which fits an off-network laptop. Remote Desktop is type 10, batch is type 4 and NewCredentials is type 9.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

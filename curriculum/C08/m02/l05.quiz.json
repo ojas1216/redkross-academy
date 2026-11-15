@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A Banyan Windows event 4720 on WS-104 shows user: divya and target_user: svc_update. Which reading of this event is correct?",
+    "options": [
+      "The account svc_update created a new account for divya on WS-104",
+      "The account divya was created on WS-104 and renamed to svc_update",
+      "Something acting under divya's authority created the new account svc_update",
+      "The account svc_update logged on to WS-104 using divya's credentials"
+    ],
+    "correct": 2,
+    "explanation": "In account-management events `user` is the subject (the identity performing the action) and `target_user` is the object acted upon, so divya's identity created svc_update. Reading it as divya's account being created swaps actor and victim, the exact trap the lesson describes.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst finds VPN events with src_ip 203.0.113.66 and then searches the proxy log's src_ip for the same address. It returns nothing. What is the best explanation?",
+    "options": [
+      "The proxy parser failed on those events and dropped the src_ip field from them",
+      "The proxy records external client addresses in its host field rather than in src_ip",
+      "Proxy src_ip holds internal workstation addresses, so an external VPN client address cannot appear there",
+      "The attacker routed the web traffic around the proxy, so no proxy events were written"
+    ],
+    "correct": 2,
+    "explanation": "The same field name has a different perspective in each source: on the VPN it is the external client, on the proxy the internal workstation. The empty result is correct, not a parse failure; there is no evidence of missing events, only of a pivot that cannot match.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule alerts on any VPN login where country != \"IN\". It fires on gopal's successful login, whose country value is \"??\". What is the underlying problem?",
+    "options": [
+      "The placeholder for an unknown location is being compared as if it were a real country code",
+      "The gateway has mislabelled an Indian address, so the country field must be corrected",
+      "The rule should have compared src_ip instead, because country is never recorded by VPNs",
+      "The rule is correct, because \"??\" is the gateway's code for an anonymising network"
+    ],
+    "correct": 0,
+    "explanation": "`??` means the gateway could not geolocate the address; it is a placeholder, not a country, and should be mapped to null and handled deliberately. Nothing in the lesson says it denotes an anonymiser or a mislabelled Indian address.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A query counting distinct source addresses per user over Windows logons shows every user with an extra address, and a join on src_ip links unrelated local logons together. What causes this?",
+    "options": [
+      "Interactive logons record src_ip as the literal string \"-\", which is being treated as an address",
+      "Windows writes the domain controller's address into src_ip on every interactive logon",
+      "DHCP reassigned the workstations' addresses during the day, multiplying the distinct values",
+      "The SIEM stores src_ip as text, so identical addresses are counted as different values"
+    ],
+    "correct": 0,
+    "explanation": "A local (type 2) logon has no remote address, so Banyan records `-`; counted or joined as a value it creates a phantom shared entity. DHCP churn would add real, different addresses, not one common value linking every local logon.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A correlation rule searches all sources for event.outcome: failure. Months later someone notices it has never matched a Sysmon process event. Why?",
+    "options": [
+      "Sysmon writes its outcome in upper case, so the comparison with failure is case-sensitive",
+      "Sysmon process events have no outcome field at all, so the rule silently excludes that source",
+      "Sysmon process events only record successes, so a failure value can never occur there",
+      "The rule's time window is too short for Sysmon's delayed delivery of process events"
+    ],
+    "correct": 1,
+    "explanation": "Missing is not the same as false: the field inventory shows Sysmon events carry no `outcome`, so they can never satisfy the condition. The useful question is which sources populate a field before asking which events match; case differences would not explain total absence.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A dashboard charts the values of the field status across all sources and plots 200 next to 0xC000006A. What is wrong with this chart?",
+    "options": [
+      "The Windows value is hexadecimal and must be converted to decimal before charting",
+      "The two values are HTTP status and Windows NTSTATUS codes that merely share a field name",
+      "The proxy value should be grouped by URL before it can be compared with Windows",
+      "The Windows value is a parse error and should be filtered out of the dashboard"
+    ],
+    "correct": 1,
+    "explanation": "On the proxy `status` is an HTTP code; on 4625 it is an NTSTATUS code meaning a wrong password for a valid user. They must live in separate fields with documented meanings. Converting hex to decimal would still compare unrelated encodings.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A firewall drop event is recorded on fw01 and describes a packet from 203.0.113.66 to 10.40.0.5. How should a normaliser place these three values?",
+    "options": [
+      "fw01 in host.name as the observer; the two addresses in source.ip and destination.ip",
+      "fw01 in source.ip as the sending device; 10.40.0.5 in host.name as the target",
+      "fw01 in destination.ip as the device that received the packet; 203.0.113.66 in host.name",
+      "All three in host.ip, because each is a host that took part in the connection"
+    ],
+    "correct": 0,
+    "explanation": "The firewall is the observer, not a participant, so it belongs in `host.name`, while the connection's ends go in `source.*` and `destination.*`. Treating the firewall as one end of the connection is the observer-versus-participant trap.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To attribute proxy traffic to a machine, an analyst joins every proxy event of the day with src_ip 10.40.0.23 to WS-104, because that address was WS-104 at 03:26 UTC. What is the main risk?",
+    "options": [
+      "Proxy src_ip is the external address, so 10.40.0.23 cannot belong to a workstation",
+      "The proxy rewrites src_ip to its own address after the first request from each host",
+      "DHCP may hand the address to another machine later, so the join needs a time window",
+      "IP addresses are stable all day, so the join is sound and there is no real risk"
+    ],
+    "correct": 2,
+    "explanation": "IP addresses change with DHCP leases, NAT and VPN pools, so a join on IP must be bounded by time, and a stable identifier is better where available. Proxy src_ip is internal, so the second option reverses the field's semantics.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst wants to link a network connection to the process that made it, minutes after a process start event. Why is Sysmon's ProcessGuid a better join key than the PID?",
+    "options": [
+      "The PID is recorded only in Windows Security logs, never in Sysmon events",
+      "ProcessGuid includes the host name and user, so no other field is needed",
+      "The operating system reuses PIDs, while ProcessGuid identifies one process instance",
+      "PIDs are randomised on each event, so the same process shows different PIDs"
+    ],
+    "correct": 2,
+    "explanation": "A numeric PID may belong to a different program a few minutes later; Sysmon added ProcessGuid precisely to identify a single process instance. PIDs are not randomised per event; they are stable for a process but reused after it exits.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One source records the user as BANYAN\\divya, another as divya@banyan.example, and the account was renamed last year. Which join key is most reliable for linking her activity?",
+    "options": [
+      "The lower-cased user name with domain prefixes and suffixes stripped from both values",
+      "The workstation name WS-104, because divya always signs in to the same machine",
+      "The source IP address, joined over the whole day to cover every logon she made",
+      "The account's SID or directory object ID, which stays the same when names and formats differ"
+    ],
+    "correct": 3,
+    "explanation": "The lesson's rule is to join on the most specific stable identifier: SIDs and cloud object IDs survive renames and formatting differences. Stripping prefixes still fails across a rename and can merge different people who reuse a name.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In ECS, the VPN's external client address and the proxy's internal workstation address can both be mapped to source.ip without creating a semantic collision. Why?",
+    "options": [
+      "ECS allows any address to go in source.ip as long as event.module records the source",
+      "ECS converts private addresses to public ones during ingestion, so the values align",
+      "source.ip means the initiator of the connection, and both values are the initiators seen by their devices",
+      "The two values never occur in the same search, so the shared name causes no harm"
+    ],
+    "correct": 2,
+    "explanation": "ECS names carry semantics: `source.ip` is the initiator from the observing device's viewpoint, which both values are, while the observer itself goes in `host.name`. Relying on `event.module` to disambiguate would mean the name itself carries no meaning.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Three products report a successful logon as SUCCESS, Succeeded and the number 0. After normalisation, what lets one detection rule handle all three?",
+    "options": [
+      "Writing the rule with a regular expression that matches all three spellings",
+      "Copying the original value into event.original for the rule to read",
+      "Storing each product's value in its own vendor-specific outcome field",
+      "Mapping each to the controlled ECS value success in event.outcome"
+    ],
+    "correct": 3,
+    "explanation": "ECS defines `event.outcome` with the controlled values success, failure and unknown, so rules no longer depend on vendor spelling. A multi-spelling regex works only until the next product appears, which is the problem controlled values remove.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new Windows parser maps both the creator and the newly created account of event 4720 into a single user field. What is the consequence for investigations?",
+    "options": [
+      "Nothing is lost, because event.code 4720 already tells the analyst which value is which",
+      "The subject/target distinction is destroyed, so actor and created account can no longer be told apart",
+      "The event becomes unsearchable, because ECS rejects a user field holding two values",
+      "Only the group membership is lost, because 4720 never records the creating account"
+    ],
+    "correct": 1,
+    "explanation": "The raw Windows record keeps Subject and New Account in separate sections; flattening them loses which identity acted. ECS keeps them apart as `user.name` and `user.target.name`. The event code says what happened, not which name belongs to which role.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "normalise_demo.py outputs a firewall drop at 06:46:21Z from 203.0.113.66 to 10.40.0.5 port 3389 and a VPN login success at 06:46:00Z from the same address as gopal. What is the sound analyst conclusion?",
+    "options": [
+      "gopal opened a remote desktop session to 10.40.0.5 through the VPN, and the firewall logged it as allowed",
+      "The firewall blocked gopal's VPN login, and the VPN gateway then retried it successfully 21 seconds later",
+      "The two events are unrelated, because firewall and VPN events can never share a source address",
+      "Shortly after that address logged in to the VPN as gopal, it tried to reach an internal host's remote desktop port and was blocked"
+    ],
+    "correct": 3,
+    "explanation": "Once both share `source.ip` and UTC time, the drop of a TCP 3389 attempt follows the VPN login by 21 seconds from the same address. The action is `drop`, so no remote desktop session was established.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the normalised firewall event from normalise_demo.py contain no user.name, and what follows for the investigation?",
+    "options": [
+      "The parser dropped the user field by mistake; it should be restored from event.original",
+      "A packet filter does not know who sent a packet; linking the address to a person needs a pivot through an identity source",
+      "ECS forbids user.name on network events, so the user is stored in host.name instead",
+      "The firewall recorded the user, but the regular expression did not capture that token"
+    ],
+    "correct": 1,
+    "explanation": "Normalisation does not invent information; the raw firewall line never contained a user. Getting from 203.0.113.66 to gopal requires the VPN log. There is no user token in the raw line for the parser to have missed.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In a copy of the lab script, the firewall parser is called with tz=timezone.utc instead of IST. What happens to the investigation?",
+    "options": [
+      "The drop is stamped 01:16:21Z, before the VPN login, which reveals that the firewall saw the attacker first",
+      "The drop is stamped 12:16:21Z, five and a half hours after the VPN login, and the link between them disappears",
+      "Nothing changes, because the parser converts every time to UTC whatever offset it is given",
+      "The script fails with an error, because a syslog line cannot be parsed without its own zone"
+    ],
+    "correct": 1,
+    "explanation": "Declaring the IST wall-clock reading to be UTC leaves 12:16:21 unchanged as UTC, 5 h 30 min late, so the 21-second link vanishes. Conversion only works if the declared offset is the true one; the script runs without error, which is why the mistake is silent.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The VPN parser outputs event.action: \"login\" although the raw VPN JSON contains no action field. Why is this acceptable?",
+    "options": [
+      "ECS requires event.action on every event, so parsers insert a default value when it is missing",
+      "The parser author knows this gateway emits login records, so the parser states what the source implies",
+      "The value is copied from the result field, which the gateway uses to record the action",
+      "It is not acceptable: a parser must never output a field that the raw event did not contain"
+    ],
+    "correct": 1,
+    "explanation": "Parsers carry knowledge about their source; here the record type is fixed, so stating the action is an accurate translation rather than invention. `result` holds the outcome (SUCCESS), not the action.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The raw line \"Nov  3 12:16:21 fw01 kernel: DROP ... SRC=203.0.113.66 ...\" is classic syslog. Which two facts must from_syslog() supply from configuration rather than read from the line?",
+    "options": [
+      "The host name and the action",
+      "The month and the destination port",
+      "The source address and the protocol",
+      "The year and the time zone"
+    ],
+    "correct": 3,
+    "explanation": "Classic syslog timestamps carry month, day and time but no year and no zone, so the parser takes 2026 and IST from configuration. Host, action, addresses and port are all captured by the regular expression.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a firewall vendor upgrade, event volume from the firewall looks normal, but every rule that uses source.ip on that source has stopped matching. Which monitoring would have caught this first?",
+    "options": [
+      "Event volume per source, alerting when the number of events per hour falls",
+      "The count of alerts per rule, reviewed in the monthly detection report",
+      "Per-source parse-error rates and the fill rate of critical fields such as source.ip",
+      "The disk usage of the SIEM index that stores the firewall's events"
+    ],
+    "correct": 2,
+    "explanation": "A format change can stop a parser extracting a field while events keep arriving, so volume looks healthy. Fill-rate and parse-error monitoring detect the silent gap. Volume monitoring is exactly the metric this failure does not move.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A detection engineer must pick which field a rule should trust for the client's identity in web traffic. Which choice follows the lesson's guidance?",
+    "options": [
+      "The observed source address of the TCP connection, which the sensor measures itself",
+      "The HTTP user agent, because it identifies the client software precisely",
+      "The requested host name, because the client must send it to reach the site",
+      "The user name typed at the login prompt, because it names the person"
+    ],
+    "correct": 0,
+    "explanation": "User agents, requested host names and typed user names are supplied by the remote party and are claims an attacker can craft. The sensor-measured connection address is observed, not self-reported, so rules should prefer it.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two analysts dispute whether a long command line in a normalised event was truncated. What practice lets them settle it?",
+    "options": [
+      "Keeping the raw event alongside the normalised one, for example in event.original",
+      "Re-running the parser on the normalised event to regenerate the full value",
+      "Comparing the event with the field dictionary entry for that command line",
+      "Querying the source's ingest time to see whether the event arrived complete"
+    ],
+    "correct": 0,
+    "explanation": "Normalisation is not lossless: parsers drop unknown fields and truncate long values, so the raw event must be kept for verification. Re-running a parser on already-normalised output cannot restore what was lost.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Banyan dataset the encoded PowerShell command is shown as <redacted-for-course>. What can an analyst still learn from that Sysmon event?",
+    "options": [
+      "Its shape: hidden, no-profile PowerShell with an encoded command launched by WINWORD.EXE",
+      "Nothing reliable, because a redacted command line removes all evidential value",
+      "The decoded payload, because redaction only applies to the analyst's display",
+      "Only the user, because image and parent image are redacted with the command line"
+    ],
+    "correct": 0,
+    "explanation": "A redacted field can still be analysed for its shape: the flags -NoP -W Hidden -EncodedCommand and the parent WINWORD.EXE are suspicious in themselves. Image and parent image remain present in the event.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Module 3's correlation rule links the proxy download of invoice.docm to the Sysmon event at 06:14 UTC in which WINWORD.EXE launches powershell.exe. Which fields make that link?",
+    "options": [
+      "The shared src_ip, because both the proxy and Sysmon events record it",
+      "The url field, because Sysmon records the document's download location",
+      "The Sysmon ProcessGuid, which the proxy also records for each request",
+      "The shared host WS-104 and user divya, together with the short time gap"
+    ],
+    "correct": 3,
+    "explanation": "The field inventory shows Sysmon events carry host and user but no src_ip or url, and the proxy has no ProcessGuid. The shared host and user, plus time proximity, are the identifiers that join the two sources.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A proxy event for WS-104 shows an unusually large bytes_out value. Mapped to ECS as source.bytes, how should it be read?",
+    "options": [
+      "The workstation sent a lot of data, which suggests an upload worth investigating",
+      "The workstation received a large file, which suggests a big download from the site",
+      "The proxy forwarded a large response, so the value measures server load",
+      "The value is in kilobytes, so it must be multiplied before it can be assessed"
+    ],
+    "correct": 0,
+    "explanation": "`bytes_out` is counted from the client, so it is bytes the workstation sent; large values suggest uploads, possibly exfiltration. Reading it as a download is the direction-and-unit trap the lesson lists.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC in India stores command lines, URLs and user names from its sources. What does the lesson say this implies?",
+    "options": [
+      "These fields are technical metadata, so privacy law does not apply to them once they are inside a SIEM",
+      "The fields must be deleted after normalisation, because only the ECS form may be kept lawfully",
+      "The fields must be hashed before ingestion, which also keeps them usable for every investigation",
+      "These fields can hold personal data under the DPDP Act 2023, so access to raw fields and their retention should be controlled"
+    ],
+    "correct": 3,
+    "explanation": "Under the Digital Personal Data Protection Act 2023 the SOC processes personal data when it stores such fields, so access should be need-to-know and retention follow policy. Deleting raw events contradicts the advice to keep event.original.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,66 @@
+{
+  "C08-M02-L02-F1": {
+    "title": "Network vantage points and the telemetry each produces",
+    "caption": "The devices on a workstation's traffic paths that write network logs, and how those logs reach the SIEM.",
+    "alt": "Graph diagram. Workstation WS-104 (10.40.0.23, finance) sends a name lookup to the DNS resolver (query logs: client, name, type, rcode), HTTP(S) requests to the Web proxy / SWG (URL, user, status, bytes) and SMB on port 445 to the Internal file server (east-west destination). The DHCP server (lease logs: IP to host over time) assigns the workstation's address. The proxy sends egress to the Perimeter firewall (5-tuple, action, rule, NAT), which connects to the Internet (203.0.113.0/24 and other external hosts). A dashed SPAN / tap copy goes from the firewall to the NSM / IDS sensor (Zeek logs, Suricata alerts). A Flow exporter (switch / router: NetFlow, IPFIX) summarises the file-server traffic. The DNS resolver, DHCP server, proxy, firewall, sensor and flow exporter each send logs to the SIEM.",
+    "type": "graph",
+    "dir": "LR",
+    "nodes": [
+      { "id": "ws", "label": "Workstation WS-104", "sub": "10.40.0.23, finance", "tone": "blue" },
+      { "id": "dhcp", "label": "DHCP server", "sub": "lease logs: IP to host over time", "tone": "violet" },
+      { "id": "dns", "label": "DNS resolver", "sub": "query logs: client, name, type, rcode", "tone": "violet" },
+      { "id": "px", "label": "Web proxy / SWG", "sub": "URL, user, status, bytes", "tone": "orange" },
+      { "id": "fw", "label": "Perimeter firewall", "sub": "5-tuple, action, rule, NAT", "tone": "orange" },
+      { "id": "inet", "label": "Internet", "sub": "203.0.113.0/24 and other external hosts", "tone": "slate" },
+      { "id": "fs", "label": "Internal file server", "sub": "east-west destination", "tone": "blue" },
+      { "id": "nsm", "label": "NSM / IDS sensor", "sub": "Zeek logs, Suricata alerts", "tone": "green" },
+      { "id": "flow", "label": "Flow exporter", "sub": "switch / router: NetFlow, IPFIX", "tone": "green" },
+      { "id": "siem", "label": "SIEM", "sub": "correlate network + endpoint", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "dhcp", "to": "ws", "label": "address lease" },
+      { "from": "ws", "to": "dns", "label": "name lookup" },
+      { "from": "ws", "to": "px", "label": "HTTP(S) requests" },
+      { "from": "ws", "to": "fs", "label": "SMB (port 445)" },
+      { "from": "px", "to": "fw", "label": "egress" },
+      { "from": "fw", "to": "inet" },
+      { "from": "fw", "to": "nsm", "label": "SPAN / tap copy", "dashed": true },
+      { "from": "fs", "to": "flow", "label": "flow summary", "dashed": true },
+      { "from": "dns", "to": "siem", "label": "logs" },
+      { "from": "dhcp", "to": "siem", "label": "logs" },
+      { "from": "px", "to": "siem", "label": "logs" },
+      { "from": "fw", "to": "siem", "label": "logs" },
+      { "from": "nsm", "to": "siem", "label": "logs" },
+      { "from": "flow", "to": "siem", "label": "logs" }
+    ],
+    "note": "Each log is a view from one vantage point; traffic that avoids a point is invisible to it."
+  },
+  "C08-M02-L02-F2": {
+    "title": "WS-104 proxy requests, 06:00-08:30 UTC (lab dataset)",
+    "caption": "Every proxy request from the finance workstation in a 150-minute window, separated into beacon, routine and rare one-off destinations.",
+    "alt": "Timeline from 06:00 to 08:30 UTC with three rows. Beacon to cdn-telemetry-sync.example: 18 evenly spaced ticks every 300 seconds, 220 bytes each, from 06:17 to 07:42. Routine sites: 8 irregular ticks (mail, intranet, maps, cdn) at 06:02, 06:04, 06:05, 06:40, 07:19, 07:44, 08:02 and 08:11. One-off rare destinations: 2 ticks, the invoice.docm download at 06:12 and the 48.2 MB upload at 08:12.",
+    "type": "ticks",
+    "axis": "06:00 to 08:30 UTC (11:30 to 14:00 IST)",
+    "series": [
+      {
+        "label": "Beacon: cdn-telemetry-sync.example",
+        "sub": "every 300 s, 220 bytes, 06:17-07:42",
+        "tone": "red",
+        "times": [0.113, 0.147, 0.18, 0.214, 0.247, 0.28, 0.313, 0.347, 0.38, 0.414, 0.447, 0.48, 0.513, 0.547, 0.58, 0.613, 0.647, 0.68]
+      },
+      {
+        "label": "Routine sites",
+        "sub": "mail, intranet, maps, cdn, irregular",
+        "tone": "slate",
+        "times": [0.013, 0.027, 0.033, 0.267, 0.527, 0.693, 0.813, 0.873]
+      },
+      {
+        "label": "One-off rare destinations",
+        "sub": "06:12 invoice.docm, 08:12 48.2 MB upload",
+        "tone": "orange",
+        "times": [0.08, 0.88]
+      }
+    ],
+    "note": "Machine-regular timing and size reveal the beacon without any payload; the rare singles are judged by type and volume."
+  }
+}

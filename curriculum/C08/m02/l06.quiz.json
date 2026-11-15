@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An analyst merges two timelines and finds that every event from one source is exactly 5 hours 30 minutes later than the matching event in the other. What should be suspected first?",
+    "options": [
+      "Clock drift on the slower source's hardware oscillator",
+      "IST local times have been treated as UTC in one source",
+      "A collection backlog delaying one source's events",
+      "An attacker changing the system time on one host"
+    ],
+    "correct": 1,
+    "explanation": "A constant gap equal to a whole zone offset, here IST's +05:30, is the signature of a zone error. Drift is usually small, not a round number and changes over time, so it does not produce an exact, constant 5.5-hour gap.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Banyan report lists an alert at 00:20 IST on 4 November 2026. What is the corresponding UTC time?",
+    "options": [
+      "05:50 UTC on 4 November 2026",
+      "18:50 UTC on 3 November 2026",
+      "18:50 UTC on 4 November 2026",
+      "00:20 UTC on 4 November 2026"
+    ],
+    "correct": 1,
+    "explanation": "UTC = local time minus the offset: 00:20 minus 05:30 crosses midnight back to 18:50 on the previous day. Adding the offset instead gives 05:50, the most common conversion mistake.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In January 2027 a team imports December 2026 firewall logs written in classic syslog format, and the parser supplies the current year. What goes wrong?",
+    "options": [
+      "The events are rejected, because classic syslog timestamps must include a year",
+      "The December events are dated December 2027, almost a year in the future",
+      "The events are dated correctly, because the month tells the parser the year",
+      "The events shift by the IST offset, because the year change resets the zone"
+    ],
+    "correct": 1,
+    "explanation": "Classic syslog has no year, so a parser assuming the current year stamps December events as December 2027. The month gives no information about the year, which is why replaying old logs around the new year is a known trap.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst copies event times from the Windows Event Viewer screen on her IST laptop into a case note without any zone. What is the problem?",
+    "options": [
+      "Event Viewer shows UTC, so the note is correct but will confuse readers who expect IST",
+      "Windows stores events in the source machine's local time, so the values cannot be converted",
+      "The note is fine, because Windows event times are always displayed with an offset suffix",
+      "Event Viewer shows the viewer's local time, so the note now holds naive times though the event stores UTC"
+    ],
+    "correct": 3,
+    "explanation": "Windows stores `TimeCreated SystemTime` in UTC but displays it in the viewing machine's local time; copied without a zone it becomes a naive timestamp. Export the XML or use a collector that preserves the UTC value.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An API returns the value 1793688360000 for an event time. A script converts it as seconds and produces a date tens of thousands of years ahead. What is the correct handling?",
+    "options": [
+      "Treat the value as local IST epoch time and subtract the offset before converting",
+      "Treat the 13-digit value as milliseconds and divide by 1000 before converting",
+      "Treat the value as seconds but truncate it to 10 digits by dropping the last digits",
+      "Treat the value as microseconds and divide by one million before converting"
+    ],
+    "correct": 1,
+    "explanation": "A 13-digit epoch value is usually milliseconds; divided by 1000 it is 1793688360, which is 2026-11-03T06:46:00Z. Epoch time is defined from a UTC origin, so there is no local offset to subtract.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Three timestamps: 2026-11-03T06:46:21Z, 2026-11-03T12:15:30+05:30 and 2026-11-03T06:46:00Z. Which event happened first?",
+    "options": [
+      "The one written 06:46:00Z, because it sorts first as text",
+      "The one written 06:46:21Z, because UTC events come before IST",
+      "The one written 12:15:30+05:30, because it is 06:45:30 UTC",
+      "They cannot be ordered, because they use different offsets"
+    ],
+    "correct": 2,
+    "explanation": "Converted to UTC, 12:15:30+05:30 is 06:45:30Z, half a minute before the VPN login. A text sort puts it last because \"12\" follows \"06\"; ISO strings sort correctly as text only when they share one format and offset.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lesson's Python demonstration, comparing a naive datetime with an aware one raises a TypeError. Why does the lesson call this refusal a feature?",
+    "options": [
+      "It forces an explicit decision about the zone instead of silently guessing, as many tools do",
+      "It shows that naive values are always in local time and must be converted by hand",
+      "It proves the two values are different instants, so the comparison would be false anyway",
+      "It prevents comparing times from two different sources, which should never be done"
+    ],
+    "correct": 0,
+    "explanation": "A naive time does not identify an instant, so any comparison would require a hidden assumption. Many tools quietly treat naive times as UTC or local, which is how 5.5-hour errors enter timelines; naive values are not inherently local time.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An MSSP monitors a London client whose server logs local time without an offset. On the night clocks go back, a login is stamped 01:30. What is the problem, and how does storing UTC help?",
+    "options": [
+      "01:30 occurs twice that night, so the instant is ambiguous; UTC never repeats an hour",
+      "01:30 never occurs that night, so the event is invalid; UTC records it as missing",
+      "01:30 is an hour late, so the event is misdated; UTC adds the hour back in",
+      "01:30 is correct, so no problem arises; UTC adds only a display label"
+    ],
+    "correct": 0,
+    "explanation": "When clocks go back, one local hour happens twice, so a naive local time in that hour matches two instants. It is the spring-forward transition when an hour never happens. UTC has no daylight-saving changes, so the ambiguity disappears.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Banyan partner sends a log with the date 03/11/2026. Why does the course prefer ISO 8601 dates such as 2026-11-03?",
+    "options": [
+      "ISO dates are shorter, so they use less storage in the SIEM index",
+      "Year-first order removes the ambiguity between 3 November and 11 March",
+      "ISO dates are in IST by default, so no offset has to be added",
+      "Slash-separated dates cannot be parsed by any SIEM or Python library"
+    ],
+    "correct": 1,
+    "explanation": "03/11/2026 is 3 November in India and the UK but 11 March in the United States; year-month-day removes the doubt. ISO dates have no default zone: the offset or Z must be written explicitly.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Windows workstation's clock is seven minutes ahead of the domain controller. Users report they cannot log on to the domain. What is the most likely cause?",
+    "options": [
+      "The SIEM discards the logon events because their timestamps appear to come from the future",
+      "TLS certificates on the domain controller have expired from the workstation's point of view",
+      "Kerberos rejects requests when client and DC clocks differ by more than its default five-minute tolerance",
+      "NTP blocks logons until the workstation's clock has been slewed back to the correct time"
+    ],
+    "correct": 2,
+    "explanation": "Kerberos depends on synchronised clocks, with a default tolerance of five minutes in Windows domains, so a seven-minute skew breaks authentication. SIEM ingestion has no effect on whether a logon succeeds.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "For one source, the SIEM shows event times that are consistently a few minutes later than the times at which the events were ingested. What does this indicate?",
+    "options": [
+      "The source's events are delayed in a collection queue",
+      "The source is logging local time without an offset",
+      "The SIEM's clock is running ahead of true time",
+      "The source's clock is running ahead of true time"
+    ],
+    "correct": 3,
+    "explanation": "Events cannot arrive before they happen, so event time later than ingest time means the source clock is ahead. A collection delay produces the opposite pattern: ingest time later than event time.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst suspects skew between a client and a domain controller but has no NTP records. Which evidence best measures the offset between the two sources?",
+    "options": [
+      "The client's events sorted alone, compared with their own ingest time",
+      "The gap between the first and last event recorded on each host that day",
+      "The time of the most recent reboot shown in the client's system log",
+      "The same authentication recorded on both the client and the domain controller"
+    ],
+    "correct": 3,
+    "explanation": "Anchor events known to be simultaneous, such as both ends of one connection or one authentication seen on both systems, reveal the offset directly. A single host's events alone cannot show its offset from another host.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Compared with a time-zone error, how does clock skew between two sources typically appear?",
+    "options": [
+      "A smaller, irregular offset that changes over time",
+      "An exact whole-hour or half-hour constant offset",
+      "A gap of exactly one hour around daylight-saving dates",
+      "Events from one source dated in the year 1970"
+    ],
+    "correct": 0,
+    "explanation": "Skew is usually small, not a round number and drifts, while a zone error produces a constant whole offset such as 05:30. Dates in 1970 point to an epoch unit or zero-value error, not skew.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Sysmon event on WS-104 has @timestamp 06:14:00Z but, after a network outage, reaches the SIEM at 07:40Z. A rule runs every five minutes over the last five minutes of event time. What happens, and what fixes it?",
+    "options": [
+      "The rule fires at 07:45, because the SIEM re-runs all windows when late events arrive",
+      "The rule fires at 06:15, because the agent reports the event time before sending the data",
+      "The rule never fires; only moving WS-104 to UTC would let the event match the window",
+      "The rule never fires; selecting by ingest time, or a longer look-back with de-duplication, would catch it"
+    ],
+    "correct": 3,
+    "explanation": "Before 07:40 the data is absent; after it, the 06:14 event lies outside every five-minute event-time window, so it is stored but never alerted on. Scheduled rules do not retroactively re-run past windows, and WS-104's zone is not the issue.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "For the Banyan case timeline, the PowerShell execution on WS-104 has @timestamp 06:14 UTC and event.ingested 07:40 UTC. How should the case record it?",
+    "options": [
+      "Place it at 06:14 UTC (11:44 IST) and record the 86-minute gap as a collection delay",
+      "Place it at 07:40 UTC, because that is when the SOC could confirm the event happened",
+      "Place it at 07:40 IST, because ingest time is recorded in the SIEM's local zone",
+      "Place it midway between the two times, because neither can be fully trusted"
+    ],
+    "correct": 0,
+    "explanation": "Timelines are built on event time; ingest time answers when the SOC could have known and is used to measure detection delay. Sorting the narrative by ingest time would misplace the attacker's action.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An agent reads an event at 06:14:02Z from a log written at 06:14:00Z, buffers it during an outage, and the central store receives it at 07:40:00Z. Which ECS assignment is correct?",
+    "options": [
+      "@timestamp 07:40:00Z, event.created 06:14:00Z, event.ingested 06:14:02Z",
+      "@timestamp 06:14:02Z, event.created 07:40:00Z, event.ingested 06:14:00Z",
+      "@timestamp 06:14:00Z, event.created 06:14:02Z, event.ingested 07:40:00Z",
+      "@timestamp 06:14:00Z, event.created 07:40:00Z, event.ingested 06:14:02Z"
+    ],
+    "correct": 2,
+    "explanation": "`@timestamp` is when the event originated, `event.created` when an agent or pipeline first read it, and `event.ingested` when it arrived in the central store. The last option swaps created and ingested, placing arrival before the read.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Source A records 06:46:21 (whole seconds) and source B records 06:46:21.900 (milliseconds). Which statement about their order is justified?",
+    "options": [
+      "A's event came first, because 06:46:21 is earlier than 06:46:21.900",
+      "B's event came first, because millisecond sources log more promptly",
+      "A's event came first, because it is 900 milliseconds earlier than B's",
+      "Their order is unknown, because A's event could fall anywhere within that second"
+    ],
+    "correct": 3,
+    "explanation": "A whole-second stamp covers the entire second, so A may be at 06:46:21.999. Differences smaller than the coarsest precision involved cannot establish sequence, which is why reading 900 ms of order into it is wrong.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan has two failed logons, on WS-102 and WS-108, both at 04:05:00Z. What can an analyst conclude about their order?",
+    "options": [
+      "WS-102 came first, because a sort keeps the order in which events were written",
+      "WS-108 came first, because its EventRecordID will be the higher number",
+      "Only that they fell in the same second; across sources the order is unknown",
+      "They were simultaneous, because one attacker tool generated both of them"
+    ],
+    "correct": 2,
+    "explanation": "Sorts leave ties in arbitrary or input order. Sequence numbers such as EventRecordID break ties only within one source's log, not between two workstations' separate logs.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Host A's clock is known to run about three seconds ahead of host B's. A file appears on B two seconds after A's log says it was sent. What should the analyst conclude?",
+    "options": [
+      "The ordering is uncertain, because the gap is smaller than the known skew between the hosts",
+      "The file was sent before it arrived, because the logs show a two-second gap in that order",
+      "The file arrived before it was sent, so one of the two logs must have been tampered with",
+      "The hosts are in different zones, so B's time must be converted before any comparison"
+    ],
+    "correct": 0,
+    "explanation": "Within one host, order is usually preserved despite clock error, but across hosts a skew of a few seconds can reverse cause and effect. Orderings closer than the known skew must be treated as uncertain, not as proof of tampering.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A timeline of a laptop's day shows its morning activity after its afternoon activity. The laptop was offline until late afternoon. What is the likely cause?",
+    "options": [
+      "The timeline was sorted on ingest time rather than event time",
+      "The laptop's clock lost several hours during the offline period",
+      "The laptop logged in local time while the server logged in UTC",
+      "The SIEM deduplicated the morning events and replayed them later"
+    ],
+    "correct": 0,
+    "explanation": "Ingest-time order shows when the SIEM learned of events; a laptop that reconnected late delivers its morning events after the afternoon. A clock error would shift the stamps, not reorder them by delivery, so always state which time a timeline uses.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An attacker with administrative rights on WS-104 changes the system clock before acting. Which combination of controls best preserves a trustworthy timeline?",
+    "options": [
+      "Disable NTP on workstations so that the attacker cannot use it to resynchronise the clock afterwards",
+      "Alert on Windows event 4616 outside maintenance and forward logs quickly to a store whose event.ingested gives an independent time",
+      "Rely on file-system timestamps on WS-104, because a clock change does not affect them",
+      "Collect only event 1102 from WS-104, because log clearing always follows a clock change"
+    ],
+    "correct": 1,
+    "explanation": "Event 4616 records system time changes, and rapid off-host forwarding gives a central, trusted ingest time the attacker cannot rewrite. File-system timestamps can also be altered by an attacker, so they are not an independent record.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A body corporate in India covered by the CERT-In Directions of 28 April 2022 is choosing a time source for its servers. Which choice meets the Directions?",
+    "options": [
+      "NTP servers of NIC or NPL, or servers traceable to them",
+      "Any public NTP pool, as long as all servers use the same one",
+      "Each server's own hardware clock, checked monthly by hand",
+      "The cloud provider's time service, whatever it is traceable to"
+    ],
+    "correct": 0,
+    "explanation": "The Directions require connecting to the NTP servers of the National Informatics Centre or National Physical Laboratory, or to servers traceable to them. A consistent public pool keeps clocks aligned but does not meet the traceability requirement.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A management report converts an event at 20:00 UTC on 3 November 2026 to IST. Why does the lesson insist on keeping both columns?",
+    "options": [
+      "It becomes 14:30 IST on 3 November, so readers need the UTC value to know it was evening",
+      "IST changes with daylight saving time, so the UTC column is needed to check the offset used",
+      "The IST value cannot be converted back to UTC, so UTC must be preserved for later analysis",
+      "It becomes 01:30 IST on 4 November, so the event can appear on a different day in each column"
+    ],
+    "correct": 3,
+    "explanation": "Adding 05:30 to 20:00 UTC crosses midnight into 4 November, a frequent cause of events landing on the wrong day in daily reports. IST is a fixed offset with no daylight saving time.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A \"spray then success\" rule requires VPN failures to come before a success. The failures come from a source that logs naive IST times, wrongly parsed as UTC; the success is correctly in UTC. Why does the rule not fire?",
+    "options": [
+      "The failures are stamped 5 h 30 min early, so they fall before the window",
+      "The success is stamped 5 h 30 min late, so it appears after the window",
+      "The failures are stamped 5 h 30 min late, so they appear after the success",
+      "The failures lack an offset, so the SIEM discards them at ingestion"
+    ],
+    "correct": 2,
+    "explanation": "Treating an IST wall-clock reading as UTC makes each failure 5.5 hours later than its true instant, so they now follow the success and the order condition fails. The success was parsed correctly, so it does not move.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An NTP client finds its clock is a few seconds fast. Why does it normally slew the clock rather than jump it back?",
+    "options": [
+      "So the Kerberos tolerance is reset after every correction that is made",
+      "So the stratum of the client is promoted to match that of the server",
+      "So time does not run backwards, which would disorder the host's own logs",
+      "So the network delay between client and server is no longer counted"
+    ],
+    "correct": 2,
+    "explanation": "Slewing adjusts the clock rate gradually so local time never goes backwards; a jump back would make later events appear earlier than earlier ones. Correcting the clock does not change the client's stratum.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

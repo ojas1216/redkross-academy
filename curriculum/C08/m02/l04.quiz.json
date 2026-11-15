@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An attacker with read access to an S3 bucket of KYC documents downloads every object without changing any configuration. The account has a trail recording management events only. What will CloudTrail show?",
+    "options": [
+      "Nothing of the downloads, because object reads are data events not recorded by default",
+      "Each GetObject call, because every trail records S3 reads as management events",
+      "A single summary event per bucket, written hourly as an Insights record",
+      "The downloads only in Event history, which includes data events for 90 days"
+    ],
+    "correct": 0,
+    "explanation": "S3 object-level reads are data events and must be explicitly selected on a trail; with management events only, the exfiltration leaves no audit trace. Event history covers management events only, not data events.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An AWS account with no trail configured discovers a suspicious IAM change thought to have happened about 120 days ago. What can the investigator expect from CloudTrail Event history?",
+    "options": [
+      "The change, because Event history keeps IAM events for 400 days by default",
+      "Nothing, because Event history keeps only the last 90 days of management events",
+      "The change, but only if the investigator searches the region where workloads run",
+      "A digest file proving the change happened, even though the event itself expired"
+    ],
+    "correct": 1,
+    "explanation": "Event history holds 90 days of management events, so a change from 120 days ago is gone unless a trail delivered it to S3 earlier. The 400-day figure belongs to Google Cloud's Admin Activity logs.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst investigating a suspected rogue CreateUser in an account whose workloads all run in ap-south-1 searches Event history in that region only and finds nothing. What is the most likely explanation?",
+    "options": [
+      "CreateUser is a read-only call and is therefore excluded from Event history",
+      "IAM events are written only when a trail has data events enabled for IAM",
+      "IAM is a global service whose events are recorded in us-east-1, not ap-south-1",
+      "CreateUser is logged only in the region of the user's eventual console sign-in"
+    ],
+    "correct": 2,
+    "explanation": "Global services such as IAM and the global STS endpoint record their events in US East (N. Virginia). CreateUser changes state, so it is a management write, not a read-only call.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A CloudTrail record's sourceIPAddress contains a value such as an AWS service's name rather than an IP address. How should the analyst interpret it?",
+    "options": [
+      "The record is corrupt and should be excluded from the investigation timeline",
+      "The caller hid its address with a proxy, which is a sign of defence evasion",
+      "The call came from inside a VPC, which CloudTrail always reports by service name",
+      "An AWS service made the request on the principal's behalf, so no address is given"
+    ],
+    "correct": 3,
+    "explanation": "For calls made by AWS services on your behalf, sourceIPAddress contains the service name. Treating that field as always an address is listed among the common mistakes; it is not evidence of evasion.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A suspicious AttachRolePolicy call shows userIdentity.type AssumedRole with a sessionContext naming the role ops-admin. What should the analyst do to identify the real actor?",
+    "options": [
+      "Treat ops-admin as the actor, because roles are assigned to named individuals",
+      "Find the earlier AssumeRole event that created this session and see who called it",
+      "Read the accountId field, which names the person who owns the role session",
+      "Look up the userAgent string, which records the operator's corporate login"
+    ],
+    "correct": 1,
+    "explanation": "An AssumedRole identity is a session, not a person; the AssumeRole call that issued it reveals who obtained it. accountId identifies the AWS account, not the human.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Within ten minutes one IAM user's access key produces AccessDenied errors against IAM, EC2, S3, KMS and Lambda, a pattern never seen for that user before. What is the most likely explanation?",
+    "options": [
+      "A stolen credential is being used to explore what it is permitted to do",
+      "A recent service control policy change is blocking the user's normal job",
+      "CloudTrail is logging read-only calls as errors because of a selector change",
+      "The user's MFA session expired and every service rejected the old token"
+    ],
+    "correct": 0,
+    "explanation": "A burst of AccessDenied across many services from one principal is a classic sign of a stolen key mapping its permissions. A policy change would affect the services the user normally uses, not a sweep of unfamiliar ones.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During an incident you need to know who read secrets from an Azure Key Vault last week. The vault has never had a diagnostic setting. What can you establish?",
+    "options": [
+      "All reads, from the subscription Activity Log's Administrative category",
+      "All reads, from the Entra ID sign-in log of each user that accessed the vault",
+      "Only reads in the last 24 hours, kept by Key Vault's built-in resource log buffer",
+      "Nothing about secret reads, because resource logs are not collected without one"
+    ],
+    "correct": 3,
+    "explanation": "Resource logs, including Key Vault secret access, are not collected at all unless a diagnostic setting routes them. The Activity Log records control-plane operations, not reads of secret values.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "You want one Azure detection that covers every new Azure RBAC grant on any resource in a subscription. Which Activity Log operation should it match?",
+    "options": [
+      "Microsoft.Authorization/roleAssignments/delete outside the change window",
+      "Microsoft.Compute/virtualMachines/write for any resource group in scope",
+      "Microsoft.Authorization/roleAssignments/write outside the change window",
+      "Microsoft.Authorization/policyAssignments/action on the subscription scope"
+    ],
+    "correct": 2,
+    "explanation": "In the operation name pattern, /write creates or changes, so roleAssignments/write covers every new RBAC grant whatever the resource. The delete variant matches removals, not grants.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Google Cloud project's security team wants to see who reads objects in a Cloud Storage bucket holding customer data. Which audit log type must they make sure is enabled?",
+    "options": [
+      "Admin Activity, which records every API call made against a project's buckets",
+      "System Event, which records actions taken by Google systems on stored data",
+      "Data Access, which records reads of user data and is off by default for most services",
+      "Policy Denied, which records requests blocked by VPC Service Controls perimeters"
+    ],
+    "correct": 2,
+    "explanation": "Reads of user-provided data are Data Access audit logs, disabled by default for most services because of volume. Admin Activity covers configuration and metadata changes, not object reads.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "You are writing a rule for AWS administrators signing in to the console without MFA. Which fields of the ConsoleLogin record must the rule test?",
+    "options": [
+      "errorCode for Success and requestParameters.MFAUsed for No",
+      "eventType for AwsApiCall and sessionContext.mfaRequired for false",
+      "readOnly for true and userIdentity.accessKeyId for an empty value",
+      "responseElements.ConsoleLogin for Success and additionalEventData.MFAUsed for No"
+    ],
+    "correct": 3,
+    "explanation": "ConsoleLogin results are in responseElements.ConsoleLogin and MFA use in additionalEventData.MFAUsed, with eventType AwsConsoleSignIn. errorCode is absent on success and does not hold the value Success.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A workload account's CloudTrail delivers to an S3 bucket in the same account. An attacker gains administrator rights there. Which design change best protects the audit trail?",
+    "options": [
+      "Deliver to a separate log-archive account with Object Lock and integrity validation",
+      "Enable CloudTrail Insights so unusual API volumes in the account are flagged",
+      "Turn on data events for the trail bucket so every deletion is itself recorded",
+      "Shorten the delivery interval so log files reach the bucket every minute"
+    ],
+    "correct": 0,
+    "explanation": "An administrator of the account can delete logs stored in it, so a separate, restricted archive account with immutability and integrity validation keeps the trail out of reach. Logging deletions still lets the attacker delete the evidence.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Months after an incident, a defence lawyer claims the CloudTrail log files presented were edited after the fact. Which feature lets the investigator answer this?",
+    "options": [
+      "Event history, because its 90-day console view cannot be changed by customers",
+      "Log file integrity validation, whose signed hourly digests hold each file's hash",
+      "Multi-region trails, because duplicate copies exist in every enabled region",
+      "CloudTrail Insights, which flags unusual changes in the volume of log files"
+    ],
+    "correct": 1,
+    "explanation": "Integrity validation produces signed digest files containing hashes of the delivered logs, so modification or deletion after delivery can be proven or disproven. Event history would not even cover events that old.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A trail's PutEventSelectors call changes it to stop recording data events for a sensitive bucket, made by a principal that never manages logging. How should this be classed?",
+    "options": [
+      "Routine cost tuning, since data events are optional and expensive to keep",
+      "Privilege escalation, because event selectors grant new permissions to users",
+      "Data exposure, because the call makes the bucket readable by other accounts",
+      "Logging tampering, an attempt to blind defenders before acting (T1562.008)"
+    ],
+    "correct": 3,
+    "explanation": "PutEventSelectors sits with StopLogging, DeleteTrail and UpdateTrail as logging tampering under T1562.008; from an unexpected principal it should alert. Bucket exposure would appear as PutBucketPolicy or PutBucketAcl.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is a multi-region trail preferred even when an organisation runs workloads in only one AWS region?",
+    "options": [
+      "It is the only kind of trail that can record data events for S3 objects",
+      "An attacker may start resources in unused regions, which it also captures",
+      "Single-region trails cannot deliver log files to a bucket in another account",
+      "It lengthens Event history retention from 90 days to 400 days in each region"
+    ],
+    "correct": 1,
+    "explanation": "Attackers may start resources in regions nobody watches, and a multi-region trail covers all of them, including global-service events in us-east-1. It does not change Event history retention.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The pipeline identity ci-deploy calls CreateAccessKey for the user finance-reports from 203.0.113.80 via the CLI, and it succeeds. Which reading and follow-up is best?",
+    "options": [
+      "Likely persistence via a second credential; trace every later use of the new key ID",
+      "Routine key rotation by the pipeline; confirm the old key was disabled afterwards",
+      "A failed escalation attempt; check errorCode for AccessDenied on related calls",
+      "Data exposure of finance reports; review PutBucketPolicy calls by finance-reports"
+    ],
+    "correct": 0,
+    "explanation": "A build identity creating a key for a different user from an unexpected address gives someone a second way in (T1098); later records' userIdentity.accessKeyId reveal what the key did. The call succeeded, so it was not a failed attempt.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Your SIEM maps CloudTrail into ECS fields. Why should the original JSON record still be retained?",
+    "options": [
+      "ECS cannot store timestamps in UTC, so eventTime must be read from the raw JSON",
+      "The raw record is needed to compute cloud.provider, which ECS cannot hold",
+      "Fields such as requestParameters and sessionContext rarely survive normalisation",
+      "ECS discards sourceIPAddress, so address pivots work only on the raw record"
+    ],
+    "correct": 2,
+    "explanation": "Nested, API-specific details like requestParameters and sessionContext are seldom preserved intact by normalisation, yet they show exactly what changed and which role session acted. sourceIPAddress maps cleanly to source.ip.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "When normalising CloudTrail to ECS following the normalise_demo.py pattern, how should event.outcome be derived?",
+    "options": [
+      "From readOnly: true maps to success and false maps to failure",
+      "From whether errorCode is present: absent is success, present is failure",
+      "From eventType: AwsApiCall is success and AwsServiceEvent is failure",
+      "From responseElements: any non-empty value means the call succeeded"
+    ],
+    "correct": 1,
+    "explanation": "errorCode appears only when the call failed, so its presence or absence sets event.outcome. readOnly says whether the call changed state, not whether it worked.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Banyan source count returns proxy 284, sysmon 33, windows 13 and vpn 10. Banyan is known to use Microsoft 365 for mail. What should the analyst do with this finding?",
+    "options": [
+      "Nothing, because email activity is covered by the proxy logs of users' browsers",
+      "Assume Microsoft 365 is safe, since no alerts have come from that environment",
+      "Rebuild the dataset, because the query proves the cloud records failed to load",
+      "Record the missing cloud and SaaS audit logs in the coverage map with owner and date"
+    ],
+    "correct": 3,
+    "explanation": "No cloud audit source is present, so changes in the tenant would be invisible; the gap belongs in the coverage map with an owner and a date, not just noted. An absence of alerts from an unmonitored source proves nothing.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Google Cloud you need to find who changed a project's IAM policy with SetIamPolicy last month. Which logName suffix should your query filter on?",
+    "options": [
+      "cloudaudit.googleapis.com%2Fdata_access, because IAM policies are user data",
+      "cloudaudit.googleapis.com%2Fpolicy, because Policy Denied covers IAM policy changes",
+      "cloudaudit.googleapis.com%2Factivity, because changing configuration is Admin Activity",
+      "cloudaudit.googleapis.com%2Fsystem_event, because IAM changes are made by Google"
+    ],
+    "correct": 2,
+    "explanation": "SetIamPolicy modifies configuration, so it is an Admin Activity log, always written and kept 400 days. Data Access covers reads of configuration and user data, and Policy Denied records blocked requests, not changes.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A CERT-In covered entity uses AWS and Azure with only default logging. Which statement about the 180-day log retention requirement is correct?",
+    "options": [
+      "Both defaults fall short at 90 days, so trails and diagnostic settings must be set up",
+      "Both defaults meet it, because providers keep control-plane logs for a year",
+      "Only Azure falls short, because CloudTrail Event history keeps 400 days",
+      "Neither applies, because the directions exempt logs stored by cloud providers"
+    ],
+    "correct": 0,
+    "explanation": "CloudTrail Event history and the Azure Activity Log both keep 90 days, below the 180 days CERT-In requires, so routing to longer storage is the customer's job. The 400-day default belongs to Google Admin Activity.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the Azure Activity Log, a single VM deployment produces several entries with statuses such as Started and Succeeded. Which field lets you group them as one operation?",
+    "options": [
+      "The category, which is Administrative for every entry of the deployment",
+      "The caller IP address, which is identical for each entry of one operation",
+      "The resource ID, which is unique to each status entry of the operation",
+      "The correlation ID, which groups the entries that belong to one operation"
+    ],
+    "correct": 3,
+    "explanation": "The correlation ID ties together the entries belonging to one operation. Category and caller IP are shared by many unrelated operations, so they cannot isolate one.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A business unit creates a new member account in the company's AWS Organization on a Friday evening. Which setup ensures its API activity is logged from the first call?",
+    "options": [
+      "An organisation trail in the management account, covering every member account",
+      "A single-region trail created by the account owner once workloads are deployed",
+      "Event history in the new account, enabled by the first administrator who signs in",
+      "CloudTrail Insights in the management account, flagging the new account's calls"
+    ],
+    "correct": 0,
+    "explanation": "An organisation trail applies to every member account, so a new account is covered from creation. A trail created later by the owner leaves the first calls, often the most sensitive, unrecorded.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An alert points to suspicious activity in an Azure subscription. Following the lesson's investigation sequence, what should the analyst establish first?",
+    "options": [
+      "Which resources were changed, so the writes can be reverted before anything else",
+      "Which human sits behind the service principal, by finding the principal's owner",
+      "What is logged, since when, and whether logging itself was changed near the time",
+      "What the user's Entra ID sign-ins show about how the session was obtained"
+    ],
+    "correct": 2,
+    "explanation": "The first step is confirming visibility, including whether a diagnostic setting was deleted or logging stopped; otherwise later conclusions rest on gaps. Resolving the principal and checking sign-ins come after.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which control most directly prevents a compromised administrator in a member account from switching off its audit logging in the first place?",
+    "options": [
+      "An alert on StopLogging and DeleteTrail events sent to the SOC queue",
+      "A service control policy or Azure Policy that denies disabling of logging",
+      "Log file integrity validation with hourly signed digest files enabled",
+      "A longer retention period for the trail bucket in the same account"
+    ],
+    "correct": 1,
+    "explanation": "SCPs or Azure Policy can deny the logging-disable actions outright, so even an account administrator cannot perform them. An alert detects the tampering after it happens rather than preventing it.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An attacker uses a stolen cloud access key to open a security group to the internet and copy a database snapshot, without touching any company endpoint. Where is this activity visible?",
+    "options": [
+      "In EDR telemetry, because cloud CLIs always run on corporate laptops",
+      "In the firewall logs, because cloud API calls pass the corporate perimeter",
+      "In VPN logs, because stolen access keys work only over the remote-access VPN",
+      "In the provider's audit logs, since every such change is a recorded API call"
+    ],
+    "correct": 3,
+    "explanation": "In the cloud identity is the perimeter and every change is an API call, so without malware the evidence lives only in the provider's audit logs. The attacker's calls need not cross the corporate network or any company endpoint.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

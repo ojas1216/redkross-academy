@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An EDR console shows that rundll32.exe ran on a file server yesterday, yet a search of that server's Windows Security log finds no event 4688 for it. What should the analyst check first before drawing any conclusion?",
+    "options": [
+      "Whether the Audit Process Creation subcategory was enabled on that server",
+      "Whether the EDR agent recorded the process under a different parent image",
+      "Whether the server's Sysmon configuration excludes rundll32.exe by name",
+      "Whether the 4688 was written to the System channel instead of Security"
+    ],
+    "correct": 0,
+    "explanation": "The Security log holds only what audit policy enables, so a missing 4688 first raises the question of whether process creation was audited at all. A Sysmon exclusion would affect Sysmon event 1, not the Security log's 4688.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A 4688 event confirms that powershell.exe started on a workstation, but the Process Command Line field is empty. Which explanation fits best?",
+    "options": [
+      "PowerShell script block logging was disabled on the workstation",
+      "The process was started by a service rather than by a logged-on user",
+      "The policy to include command lines in process creation events is off",
+      "The event was truncated because the encoded command was too long"
+    ],
+    "correct": 2,
+    "explanation": "Event 4688 carries the command line only when the separate 'Include command line in process creation events' setting is enabled. Script block logging controls 4104 events and has no effect on the 4688 field.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A process command line shows powershell.exe with -EncodedCommand followed by a long Base64 string. Which telemetry source is most likely to give the analyst the readable code that PowerShell actually executed?",
+    "options": [
+      "Security event 4688 with command-line auditing enabled",
+      "PowerShell Operational event 4104, script block logging",
+      "Sysmon event 1, including the ParentCommandLine field",
+      "Sysmon event 11, recording the script file that was created"
+    ],
+    "correct": 1,
+    "explanation": "Script block logging records script blocks as PowerShell processes them, so the decoded code appears in readable form. 4688 and Sysmon event 1 only repeat the encoded command line as it was typed.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The same account produces a 4624 with logon type 2 at 09:00 on the user's own desktop and a 4624 with logon type 10 at 00:40 from another workstation. What does the second event indicate?",
+    "options": [
+      "A network logon, for example the account opening a file share",
+      "A service starting under the account's stored credentials",
+      "A console logon at the keyboard of the second workstation",
+      "A Remote Desktop session into the host using the account"
+    ],
+    "correct": 3,
+    "explanation": "Logon type 10 is RemoteInteractive, the Remote Desktop logon; at midnight from another machine it deserves a closer look. Type 3 is a network logon such as a file share access, and type 2 is the console.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two analysts disagree about a cluster of failed logons (4625). One wants to know whether the attempts targeted real accounts. Which part of the 4625 events answers that question?",
+    "options": [
+      "The logon type, which separates interactive from network attempts",
+      "The privileges list, which is filled in only for valid accounts",
+      "The status and sub-status codes, such as 0xC000006A for a bad password",
+      "The parent process field, which shows which program sent the logon"
+    ],
+    "correct": 2,
+    "explanation": "The status and sub-status codes explain why the logon failed; 0xC000006A means the name was valid and the password wrong, which distinguishes it from attempts against non-existent accounts. Logon type says how the attempt was made, not whether the account exists.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst wants to join every network connection and file write to the exact process instance that made them across a full day of Sysmon data. Which field is the reliable join key, and why?",
+    "options": [
+      "ProcessGuid, because process IDs are reused and can be ambiguous",
+      "ProcessId, because it is unique for as long as the host is running",
+      "Image, because each executable path belongs to a single process",
+      "User, because each process runs in exactly one security context"
+    ],
+    "correct": 0,
+    "explanation": "Windows reuses process IDs quickly, so a PID can belong to several unrelated processes over a day; Sysmon's ProcessGuid identifies one process instance. Image and User are shared by many processes and cannot identify one instance.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Sysmon event 1 shows Image C:\\Users\\Public\\notepad.exe, but the analyst suspects the file is really a renamed copy of a different tool. Which field in the event best tests that suspicion?",
+    "options": [
+      "CurrentDirectory, which shows where the process was started",
+      "IntegrityLevel, which shows whether the process was elevated",
+      "ParentImage, which shows which program launched the process",
+      "OriginalFileName, taken from the file's version resource"
+    ],
+    "correct": 3,
+    "explanation": "OriginalFileName comes from the binary's version resource, so it still names the original tool when the file on disk has been renamed. ParentImage describes the launcher, not the identity of the file itself.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During an investigation the team needs evidence that some process opened the Windows logon process to read its memory. Which Sysmon event type records that kind of activity?",
+    "options": [
+      "Event 8, CreateRemoteThread",
+      "Event 10, process access",
+      "Event 7, image loaded",
+      "Event 3, network connection"
+    ],
+    "correct": 1,
+    "explanation": "Sysmon event 10 records one process opening another, which is how reading the logon process's memory shows up. Event 8 is a thread being started inside another process, a different action.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On a Linux server, an administrator logged in over SSH as their own account and then used sudo and su to become root before running a command. Which value in the auditd record still identifies the human who originally logged in?",
+    "options": [
+      "The effective user ID, which shows root after sudo",
+      "The process ID of the shell that ran the command",
+      "The audit user ID (auid), which survives sudo and su",
+      "The session name written to the systemd journal"
+    ],
+    "correct": 2,
+    "explanation": "auditd records the audit user ID, which is set at login and survives sudo and su, so it still names the original account. The effective user ID would show root and hide who was behind it.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst investigating SSH logons on a Red Hat-family server finds that /var/log/auth.log does not exist. What is the most likely explanation?",
+    "options": [
+      "Red Hat-family systems write authentication events to /var/log/secure",
+      "SSH logons on Linux are recorded only when auditd rules are configured",
+      "The log was deleted, since every Linux distribution creates auth.log",
+      "Authentication events on Linux are kept only in the binary journal"
+    ],
+    "correct": 0,
+    "explanation": "Debian and Ubuntu use /var/log/auth.log, while Red Hat-family systems write the same sshd, sudo and PAM messages to /var/log/secure. Assuming deletion skips the simpler distribution difference.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team deploys Sysmon with a tuned configuration and expects suspicious process launches to be stopped or flagged on the host. What is wrong with that expectation?",
+    "options": [
+      "Sysmon blocks only processes that are listed in its exclude rules",
+      "Sysmon alerts only after its events reach the Windows Security log",
+      "Sysmon needs an EDR licence before it can raise any detections",
+      "Sysmon is a sensor: it records activity but neither blocks nor alerts"
+    ],
+    "correct": 3,
+    "explanation": "Sysmon writes events to its own channel and does nothing else; detection happens later in SIEM rules. Exclude rules decide what is not recorded, they never block execution.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "When stacking Sysmon parent-child pairs across a fleet, an analyst counts both total events and COUNT(DISTINCT host) per pair. Why is the distinct host count the more telling figure?",
+    "options": [
+      "It removes duplicate events created when Sysmon and 4688 both fire",
+      "It shows how widespread a pair is, so pairs unique to one host stand out",
+      "It corrects for process ID reuse, which inflates the total event count",
+      "It weights each pair by how many users were logged on to each host"
+    ],
+    "correct": 1,
+    "explanation": "Normal software produces the same pair on many hosts, while an attack usually produces a pair seen on only one; the distinct host count measures that spread. A pair can occur many times on one machine, so the raw count alone can hide rarity.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lab dataset, a single Sysmon event shows WINWORD.EXE as the parent of powershell.exe on WS-104, a pair seen on no other host. Which interpretation is most defensible?",
+    "options": [
+      "A document opened in Word likely ran a macro that launched PowerShell",
+      "The user started PowerShell from Word's built-in scripting console",
+      "An Office update routine invoked PowerShell to install new components",
+      "Word crashed and Windows Error Reporting started PowerShell to recover"
+    ],
+    "correct": 0,
+    "explanation": "Word has no ordinary reason to start a command interpreter, so the pair is the classic sign of a malicious document running a macro (user execution leading to PowerShell). An update routine would appear on many hosts, not just one.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A process event shows powershell.exe -NoP -W Hidden -EncodedCommand followed by an encoded string. What can the analyst conclude from this command line alone?",
+    "options": [
+      "The script downloaded a second-stage payload from the internet",
+      "The script ran with administrative rights because of the -NoP flag",
+      "The options hide what is run, but not what the script actually did",
+      "The script was blocked, since hidden windows are refused by default"
+    ],
+    "correct": 2,
+    "explanation": "No profile, a hidden window and an encoded command together suggest an effort to conceal, but the command line cannot reveal the script's behaviour; a 4104 record would. -NoP only skips loading the profile and grants no privileges.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Security event 1102 appears on WS-104 at 08:17, but the host's earlier events had already been forwarded to the SIEM. What does this mean for the investigation?",
+    "options": [
+      "The SIEM copies are unreliable, because clearing also rewrites forwarded events",
+      "The 1102 can be ignored, since nothing that mattered was actually lost",
+      "Only events written after 08:17 can be trusted for the investigation",
+      "Earlier events survive centrally, and the 1102 itself records the clearing"
+    ],
+    "correct": 3,
+    "explanation": "Clearing the local log cannot reach copies already in the SIEM, and the 1102 is itself evidence of defence evasion worth investigating. Ignoring it would discard a strong indicator, even though no data was lost.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On a finance workstation, a 4720 creates an account named svc_update from a regular user's session, and a 4732 adds it to the local Administrators group one minute later. Why do these events justify concern?",
+    "options": [
+      "Service accounts must be created on domain controllers, never locally",
+      "A service-like name created outside IT suggests a persistence account",
+      "Event 4732 is only written when a group change fails a policy check",
+      "Local accounts cannot be used for logons until a reboot has occurred"
+    ],
+    "correct": 1,
+    "explanation": "An account that imitates a service name, created from a user's session and immediately made an administrator, is a typical way to keep access (create local account). Event 4732 records a successful group addition, not a failure.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Every suspicious event on WS-104 carries the user name divya. A manager concludes that divya ran the attack herself. What is the flaw in that reasoning?",
+    "options": [
+      "The user field is copied from the proxy and may name another person",
+      "The user field is blank for every process started by a macro",
+      "The event records a security context; malware in her session runs as her",
+      "Sysmon always records the account of the parent process's owner instead"
+    ],
+    "correct": 2,
+    "explanation": "An event records the security context the process ran under, not the person at the keyboard, so malware launched from divya's session runs as divya. The user field is not taken from the proxy in endpoint events.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC lead argues that endpoint events need not be sent to the SIEM because the EDR console already holds rich telemetry. Which risk does this decision create?",
+    "options": [
+      "EDR telemetry may age out and cannot be correlated with proxy or identity data",
+      "EDR agents stop recording events once a SIEM forwarder is not present",
+      "EDR consoles record only alerts and never keep raw process telemetry",
+      "EDR data is legally inadmissible unless it has first passed through a SIEM"
+    ],
+    "correct": 0,
+    "explanation": "EDR consoles often keep raw telemetry for a limited period and in their own format, so it cannot be joined with network and identity sources. EDRs do keep raw telemetry, which is why the decision is about forwarding and retention.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a missed detection, an engineer proposes enabling every Sysmon event type with no filtering and auditd rules for every system call. What is the main operational objection?",
+    "options": [
+      "Sysmon refuses to load a configuration that has no exclude rules",
+      "Unfiltered data can overwhelm collection and budgets and drown key events",
+      "auditd cannot record execve calls when other syscall rules are active",
+      "Broad logging erases ProcessGuid values, breaking parent-child joins"
+    ],
+    "correct": 1,
+    "explanation": "Unfiltered sources produce enormous volume that strains collection and licence budgets while burying the events that matter; logging should be driven by the execution, change and access questions. Sysmon and auditd have no such technical refusals.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An attacker with administrative rights on a host wants to stop Sysmon from recording without leaving a gap that looks obvious. Which defensive measure gives the SOC the best chance of noticing?",
+    "options": [
+      "Configuring Sysmon to record image loads for every process on the host",
+      "Increasing the size of the local Sysmon/Operational channel on disk",
+      "Alerting on Sysmon state and configuration change events and on source silence",
+      "Relying on the attacker's own commands appearing in the 4688 events"
+    ],
+    "correct": 2,
+    "explanation": "Sysmon logs its own state and configuration changes (events 4 and 16), and a host whose events stop arriving is either off or tampered with. A bigger local log does nothing once the sensor is stopped or reconfigured.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On a laptop examined in person, the Sysmon/Operational channel clearly contains the suspicious process events, yet SIEM searches for that laptop return nothing. Audit policy and the Sysmon configuration are both correct. Where does the gap most likely lie?",
+    "options": [
+      "In the audit policy, which must also enable Sysmon's own channel",
+      "In the Sysmon driver, which records events only after a reboot",
+      "In the SIEM's parser, which discards events lacking a ProcessGuid",
+      "In collection: the forwarder is not shipping that channel to the SIEM"
+    ],
+    "correct": 3,
+    "explanation": "Evidence must be observed by a source, allowed by its configuration and shipped by the forwarder; here the first two are satisfied locally, so the missing link is collection. Audit policy governs the Security log, not Sysmon's channel.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A single PowerShell launch produces a 4688, a Sysmon event 1, a 4104 record and an EDR process event. How should a SOC view this overlap?",
+    "options": [
+      "As deliberate redundancy that adds resilience at a cost in volume and duplicates",
+      "As a misconfiguration, since only one source should record each process",
+      "As proof of tampering, because duplicate records indicate log injection",
+      "As a reason to disable 4688, since Sysmon fully replaces the Security log"
+    ],
+    "correct": 0,
+    "explanation": "Overlapping sources mean that if one is disabled or not forwarded, another may still hold the evidence, at the price of extra volume and deduplication work. Disabling 4688 throws away that resilience against Sysmon being stopped.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab's WS-104 timeline, nothing is recorded between the Word-to-PowerShell event at 06:14 and the account creation at 07:02. Which additional collection would most directly explain what happened in that gap?",
+    "options": [
+      "Linux auditd execve rules on the company's file servers",
+      "More 4624 logon auditing on all workstations in the finance team",
+      "Sysmon network, file and registry events plus PowerShell 4104 logging",
+      "Firewall logging of denied inbound connections at the perimeter"
+    ],
+    "correct": 2,
+    "explanation": "The dataset holds only Sysmon process creations and a few Security events, so what PowerShell did inside the host went unrecorded; network, file, registry and script block events would fill that gap. More logon auditing would not show the script's actions.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst sorting a host's evidence into execution, change, access and defence finds a 7045 in the System log showing a new service. Which category does it belong to, and why does that matter?",
+    "options": [
+      "Access, because a service always logs on with its own account",
+      "Change, because it leaves persistence behind that must be cleaned up",
+      "Defence, because services are installed mainly by anti-malware tools",
+      "Execution, because the service binary has already run on the host"
+    ],
+    "correct": 1,
+    "explanation": "A service installation modifies the host and is a common persistence trace, so it is a change that often turns suspicion into a confirmed incident needing clean-up. Installation itself does not prove the binary ran.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC in India plans endpoint log retention. Which approach is consistent with the lesson's guidance?",
+    "options": [
+      "Keep all endpoint logs indefinitely, since security purposes override DPDP",
+      "Keep endpoint logs only for 30 days, to minimise the personal data held",
+      "Keep only alerts, since raw endpoint events are not personal data at all",
+      "Keep logs for a rolling 180 days in India, with defined purpose and access"
+    ],
+    "correct": 3,
+    "explanation": "CERT-In's April 2022 directions require ICT logs for a rolling 180 days within India, and the DPDP Act 2023 calls for a defined purpose and limited access; retention is agreed with legal and compliance. Thirty days would fall short of the CERT-In requirement.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

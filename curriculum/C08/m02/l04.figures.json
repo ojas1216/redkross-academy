@@ -1,0 +1,36 @@
+{
+  "C08-M02-L04-F1": {
+    "title": "Anatomy of a CloudTrail record: read it as a sentence",
+    "caption": "The main fields of an AWS CloudTrail event, in the order an investigator reads them, each labelled with the question it answers.",
+    "alt": "Segment diagram of nine fields from left to right. userIdentity, labelled who, with type, arn, accountId and sessionContext. eventTime, labelled when, UTC in ISO 8601. eventSource, labelled which service, for example iam.amazonaws.com. eventName, labelled what action, for example CreateAccessKey. awsRegion, labelled where, with global services in us-east-1. sourceIPAddress, labelled from where, an address or an AWS service name. userAgent, labelled with which client: console, CLI or SDK. requestParameters / responseElements, labelled details: what was asked and what came back. errorCode, labelled result: absent on success, for example AccessDenied.",
+    "type": "segments",
+    "segments": [
+      { "label": "userIdentity", "sub": "type, arn, accountId, sessionContext", "top": "who", "w": 1.5, "tone": "dark" },
+      { "label": "eventTime", "sub": "UTC, ISO 8601", "top": "when", "w": 1, "tone": "slate" },
+      { "label": "eventSource", "sub": "e.g. iam.amazonaws.com", "top": "which service", "w": 1.2, "tone": "orange" },
+      { "label": "eventName", "sub": "e.g. CreateAccessKey", "top": "what action", "w": 1.2, "tone": "orange" },
+      { "label": "awsRegion", "sub": "global services: us-east-1", "top": "where", "w": 1, "tone": "slate" },
+      { "label": "sourceIPAddress", "sub": "address or AWS service name", "top": "from where", "w": 1.2, "tone": "violet" },
+      { "label": "userAgent", "sub": "console, CLI, SDK", "top": "with which client", "w": 1, "tone": "violet" },
+      { "label": "requestParameters / responseElements", "sub": "what was asked, what came back", "top": "details", "w": 1.8, "tone": "blue" },
+      { "label": "errorCode", "sub": "absent on success; e.g. AccessDenied", "top": "result", "w": 1.1, "tone": "red" }
+    ],
+    "note": "Start with the principal, then the action; resolve an AssumedRole back to the identity that assumed it."
+  },
+  "C08-M02-L04-F2": {
+    "title": "Cloud audit logs compared: AWS, Azure and Google Cloud",
+    "caption": "The equivalent logs in the three major providers for the control plane, data plane and identity, with default retention and the route into a SIEM.",
+    "alt": "Table with columns Question, AWS, Azure and Google Cloud. Control plane: CloudTrail management events; Activity Log; Admin Activity audit logs. Data plane: CloudTrail data events; Resource logs (diagnostic settings); Data Access audit logs. Identity / sign-in: ConsoleLogin + IAM/STS events; Entra ID sign-in + audit logs; Cloud Identity / Workspace logs. Default retention: 90 days Event history; 90 days Activity Log; 400 days Admin Activity. Route to SIEM: Trail to S3 (org trail); Diagnostic setting to workspace / Event Hub; Log sink to Pub/Sub / Storage.",
+    "type": "table",
+    "columns": ["Question", "AWS", "Azure", "Google Cloud"],
+    "rowTones": ["orange", "blue", "violet", "red", "green"],
+    "rows": [
+      ["Control plane", "CloudTrail management events", "Activity Log", "Admin Activity audit logs"],
+      ["Data plane", "CloudTrail data events", "Resource logs (diagnostic settings)", "Data Access audit logs"],
+      ["Identity / sign-in", "ConsoleLogin + IAM/STS events", "Entra ID sign-in + audit logs", "Cloud Identity / Workspace logs"],
+      ["Default retention", "90 days Event history", "90 days Activity Log", "400 days Admin Activity"],
+      ["Route to SIEM", "Trail to S3 (org trail)", "Diagnostic setting to workspace / Event Hub", "Log sink to Pub/Sub / Storage"]
+    ],
+    "note": "Control plane is on by default for a limited time; data plane, long retention and SIEM delivery are yours to configure."
+  }
+}

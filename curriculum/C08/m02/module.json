@@ -7,58 +7,106 @@
     {
       "n": 1,
       "title": "Endpoint logs",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "What endpoints record about execution, change, access and their own defences: Windows Security and PowerShell logs, Sysmon, Linux auth logs and auditd, and EDR, read through the lab's WS-104 events.",
+      "objectives": [
+        "Explain what execution, change, access and defence evidence endpoint telemetry provides and why it complements network logs",
+        "Identify the core Windows Security, PowerShell and Sysmon event IDs and the fields each carries",
+        "Describe how audit policy, Sysmon configuration and forwarding decide which endpoint events reach the SIEM",
+        "Apply parent-child stacking to the lab dataset to isolate an anomalous process",
+        "Interpret a per-host endpoint timeline and recognise the gaps left by missing sources"
+      ],
+      "minutes": 60
     },
     {
       "n": 2,
       "title": "Network logs",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "What firewall, proxy, DNS, DHCP, flow, NSM/IDS and packet-capture telemetry record, how vantage points decide what is visible, what encryption hides, and how proxy metadata exposes a beacon and an exfiltration in the lab.",
+      "objectives": [
+        "Describe the fields and limitations of firewall, proxy, DNS, flow, NSM/IDS and packet-capture telemetry",
+        "Explain how vantage-point placement determines which traffic paths are observed",
+        "Distinguish what TLS encryption hides from the metadata that remains visible",
+        "Attribute a network event to a host and user using DHCP and endpoint evidence",
+        "Analyse proxy logs from the lab for rare destinations, beaconing and large uploads"
+      ],
+      "minutes": 60
     },
     {
       "n": 3,
       "title": "Identity logs",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How Windows and Active Directory authentication events, identity provider sign-in logs and VPN records show who authenticated, how, from where and with what result, read through the Banyan dataset's password spray.",
+      "objectives": [
+        "Explain which machine writes 4624, 4625, 4768, 4769, 4771 and 4776 during a domain logon",
+        "Interpret logon types and common 4625 failure status codes",
+        "Describe the fields and categories of an identity provider sign-in log",
+        "Detect password spraying by counting distinct users per source in VPN logs",
+        "Distinguish benign authentication failures from attack patterns during triage"
+      ],
+      "minutes": 65
     },
     {
       "n": 4,
       "title": "Cloud logs",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How AWS CloudTrail, Azure Activity and resource logs and Google Cloud Audit Logs record control-plane and data-plane activity, what is collected by default, and how to read and route cloud audit records.",
+      "objectives": [
+        "Distinguish control-plane from data-plane logging and explain why the difference matters",
+        "Read a CloudTrail record field by field and resolve assumed roles to the real identity",
+        "Compare the equivalent audit logs, default retention and SIEM routes in AWS, Azure and Google Cloud",
+        "Identify high-signal cloud events such as logging tampering, new credentials and permission changes",
+        "Assess cloud log coverage gaps and map cloud fields to a normalised schema"
+      ],
+      "minutes": 60
     },
     {
       "n": 5,
       "title": "Event fields",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How to read security event fields correctly, why the same field name can mean different things in different sources, and how ECS-style normalisation gives every source one searchable vocabulary.",
+      "objectives": [
+        "Classify the fields of an event into when, where, who, what, how, outcome and provenance families",
+        "Identify field-semantics traps such as perspective, subject versus target, placeholders and encoded values in the Banyan dataset",
+        "Choose stable identifiers for joining events across sources and explain when a time window is required",
+        "Map source-specific fields to ECS-style normalised names and justify each mapping",
+        "Run normalise_demo.py and interpret how normalisation links a firewall drop and a VPN login from the same address"
+      ],
+      "minutes": 60
     },
     {
       "n": 6,
       "title": "Timestamps",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "Why timestamps make or break an investigation: UTC versus local time (IST +05:30), ISO 8601 and other log formats, clock drift and NTP, event versus ingest time, and the pitfalls of ordering events.",
+      "objectives": [
+        "Convert timestamps between IST and UTC and write them in ISO 8601 / RFC 3339 form",
+        "Explain why naive timestamps, classic syslog times and epoch values need explicit handling at ingestion",
+        "Describe clock drift, skew and NTP synchronisation, including the CERT-In requirement for NIC/NPL-traceable time",
+        "Distinguish event time from ingest time and explain how late-arriving events can evade scheduled rules",
+        "Build a correctly ordered multi-source timeline, accounting for precision, ties and cross-host skew"
+      ],
+      "minutes": 60
     },
     {
       "n": 7,
       "title": "Collection pipelines",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How collection pipelines move telemetry from source to SIEM: agent-based and agentless collection, WEF, syslog and Beats/Elastic Agent forwarders, buffering and delivery guarantees, parsing at ingest, and source-health monitoring to detect silent loss.",
+      "objectives": [
+        "Explain the stages of a collection pipeline and how each can lose, delay or duplicate events",
+        "Compare agent-based and agentless collection and choose a method for each source type",
+        "Describe how WEF, syslog and Beats/Elastic Agent forward events and their reliability limits",
+        "Explain buffering, back-pressure and at-most-once versus at-least-once delivery",
+        "Design source-health checks for presence, volume, completeness and ingestion lag"
+      ],
+      "minutes": 60
     },
     {
       "n": 8,
       "title": "Telemetry lab",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "A hands-on telemetry lab with the C08 kit: regenerate and hash the Banyan dataset, ingest it with minisiem.py, run source-health checks for inventory, volume, silence, per-host gaps and field completeness, watch normalise_demo.py parse two raw formats, and inject an outage, a malformed record and duplicates.",
+      "objectives": [
+        "Regenerate and verify the lab dataset and confirm events written equal events loaded",
+        "Run source-health searches for inventory, hourly volume, silence and per-host gaps with minisiem.py",
+        "Interpret field-completeness results against a baseline, including placeholder values",
+        "Explain how normalise_demo.py converts a local-time syslog line and a JSON record into one UTC schema",
+        "Inject outage, parse-failure and duplicate faults and show which checks detect each"
+      ],
+      "minutes": 75
     }
   ]
 }
