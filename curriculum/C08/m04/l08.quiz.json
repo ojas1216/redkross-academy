@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The lab baselines each log source on its own before merging anything into a timeline. What error is this order mainly designed to prevent?",
+    "options": [
+      "Running queries that are too slow because they join every source at once",
+      "Losing events whose timestamps are in different time zones",
+      "Anchoring on the first suspicious event and then reading every later event as confirmation",
+      "Counting the same event twice when it appears in more than one source"
+    ],
+    "correct": 2,
+    "explanation": "Judging each exception against its own source's normal pattern before merging limits confirmation bias: a failed logon is judged against other logons, not against the phishing story. Performance and duplication are not the reason the method fixes this order.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two 4625 events at 04:05 show logon type 2 and status 0xC000006A, one each for ben on WS-102 and hema on WS-108, both of whom logged on successfully earlier. How should they be classified?",
+    "options": [
+      "Noise: single wrong-password failures at the users' own keyboards, the shape of a mistyped password",
+      "Suspicious: two simultaneous failures on two hosts indicate coordinated password guessing",
+      "Suspicious: status 0xC000006A means the account does not exist, so someone is probing names",
+      "Unexplained: failures cannot be judged without the domain controller's logs"
+    ],
+    "correct": 0,
+    "explanation": "0xC000006A means a valid account name with a wrong password; one failure each, interactive, on the user's own workstation after a successful logon, is a typo pattern. Guessing would show many failures or many accounts from one source, and the code does not mean an unknown account.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On WS-104, events 4720, 4732 and 1102 are all recorded under the account divya. Which statement can the analyst make from these logs alone?",
+    "options": [
+      "divya created svc_update and cleared the log, so she should be treated as an insider",
+      "divya's password was stolen through the VPN spray and reused on WS-104",
+      "svc_update was used to clear the Security log, since it had just become an administrator",
+      "The actions were performed under the divya account; the logs do not show that the person divya performed them"
+    ],
+    "correct": 3,
+    "explanation": "Windows records the security context in which an action ran, not who sat at the keyboard; malicious code running in divya's session would produce the same events. svc_update never acts in any source, and the VPN thread shares no entity with WS-104.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Sysmon stack groups process starts by parent and child and orders by number of hosts. Four Explorer-launched pairs appear on all 8 hosts; WINWORD.EXE to powershell.exe appears once on one host. Why is ordering by host count useful here?",
+    "options": [
+      "It sorts processes by risk score so the most dangerous pair is listed first",
+      "Pairs seen on few hosts rise to the top, separating rare behaviour from the estate-wide baseline",
+      "It removes duplicate process starts caused by Sysmon logging each event twice",
+      "It ensures that events are read in chronological order across hosts"
+    ],
+    "correct": 1,
+    "explanation": "Stacking counts how widespread each pattern is; routine applications appear on every host, so a pair on a single host stands out as an exception. The query has no risk score and does not order by time.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "PowerShell's parent is WINWORD.EXE, but a search for any Word process start returns 0 rows. How should the analyst handle this?",
+    "options": [
+      "Discard the PowerShell event as unreliable, because its parent was never logged",
+      "Record it in the note's gaps as a collection limitation, for example a filtered event or late-starting agent",
+      "Conclude that PowerShell spoofed its parent, which proves a sophisticated attacker",
+      "Ignore it, because Sysmon never logs Office application starts"
+    ],
+    "correct": 1,
+    "explanation": "A missing parent start is a gap to state, not a reason to drop the evidence or to invent an explanation such as parent spoofing. The baseline shows Sysmon does log Office starts (excel.exe, outlook.exe), so the last option is false.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "VPN logs show 203.0.113.66 failing once against each of eight accounts, seven seconds apart in alphabetical order, then succeeding as gopal four minutes later. What does this pattern indicate?",
+    "options": [
+      "A brute-force attack on gopal's account, because it is the only one that succeeded",
+      "A misconfigured VPN client retrying cached credentials for every user",
+      "Normal remote working from a shared office network with an unresolved country",
+      "A password spray, with the success meaning one credential may be compromised"
+    ],
+    "correct": 3,
+    "explanation": "One attempt per account across many accounts at machine-regular intervals is a spray; the subsequent success suggests a valid credential was found. Brute force would show many attempts against one account, and eight users do not share one address while failing in alphabetical order.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The only ordinary VPN session in the dataset is gopal from 198.51.100.104 at 13:33. What should the findings note do with this observation?",
+    "options": [
+      "Record the thin baseline as a gap, because one session cannot show what normal VPN use looks like",
+      "Use it as the baseline and flag every other address as malicious",
+      "Omit it, because a successful session is not an exception",
+      "Merge it into the spray thread, since it is also gopal"
+    ],
+    "correct": 0,
+    "explanation": "With a single normal session there is no real baseline for VPN use, and that limitation is itself a finding for the gaps section. Treating one session as the norm would overstate certainty, and the 13:33 session from an Indian address shares nothing with the spraying address.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "gopal logged on interactively at WS-107 at 03:33, and WS-107 browses internal sites from 07:22, while a VPN session as gopal from 203.0.113.66 began at 06:46. VPN events carry no host field. What is the right conclusion?",
+    "options": [
+      "The VPN session ran on WS-107, which was then used to reach the intranet",
+      "gopal cannot have been at his desk, so the 07:22 browsing is the attacker",
+      "There is a conflict the logs cannot resolve; it must go to the user and the VPN team",
+      "The VPN session was gopal working from home before travelling to the office"
+    ],
+    "correct": 2,
+    "explanation": "The data shows an office workstation in use and a remote session from an unknown location under the same account, but with no host on the VPN event nothing ties the two together. Each other option asserts a link or explanation the logs do not support.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The 06:46 VPN success falls in the middle of the WS-104 activity (06:12 to 08:17). How should it be placed in the analysis?",
+    "options": [
+      "As a separate thread, because it shares no host, user or address with the WS-104 events",
+      "As the initial access step of the WS-104 intrusion, because the timing fits",
+      "As noise, because successful logons are part of the baseline",
+      "As a duplicate of the 4720 event, because both occur near 07:00"
+    ],
+    "correct": 0,
+    "explanation": "Different account, no host on the VPN event, and an address seen in no other source: proximity in time is not a link. Merging it into the WS-104 story on timing alone is exactly the narrative bias the method guards against, yet it is still a spray-then-success, not noise.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The scope check starts from a VALUES list of the three suspicious domains and LEFT JOINs the proxy events to it. What does this construction guarantee?",
+    "options": [
+      "Only domains contacted by more than one host are returned",
+      "Every listed domain appears in the output, so a domain with zero hits shows as zero instead of disappearing",
+      "The proxy events are deduplicated before counting hosts",
+      "Domains are matched case-insensitively against the URL"
+    ],
+    "correct": 1,
+    "explanation": "Driving the query from the list means each domain yields a row even with no matches, making a zero visible rather than missing, which matters when negative results are findings. It does not deduplicate or change case handling.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Scope checks find 203.0.113.66 in no source except VPN and no activity by svc_update anywhere. How should these results appear in the findings note?",
+    "options": [
+      "They should be left out, because only positive results are findings",
+      "As proof that the attacker never used the new account or reached internal systems",
+      "As known-negative findings, qualified by the dataset ending at 13:33 and having no server or domain controller logs",
+      "As open questions only, because negative results carry no information"
+    ],
+    "correct": 2,
+    "explanation": "Empty scope checks are findings in their own right, but their reach is limited to the sources and time span analysed. Stating them as proof ignores the missing server and domain controller logs and the end of the data; omitting them hides useful information.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the findings register, the 4720/4732 account creation is rated High while the 18 regular requests to cdn-telemetry-sync.example are rated Medium. What justifies the difference?",
+    "options": [
+      "The account events come from Windows, which is a more trusted source than the proxy",
+      "The beacon happened earlier in the timeline, so it has had more time to be explained",
+      "Medium is used for any finding involving more than one event",
+      "The 4720 event is the fact itself, while a beacon is inferred from regularity and another explanation remains possible"
+    ],
+    "correct": 3,
+    "explanation": "Confidence reflects how directly the log shows the finding: a 4720 records an account creation, while regular small requests are consistent with an implant but could in principle be an unknown legitimate agent. The upload is a proxy finding rated High, so source trust is not the criterion.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The findings register rates every line High or Medium and has no Low rows. Where does a low-confidence item belong according to the lab?",
+    "options": [
+      "In the summary, flagged with a warning so the handler sees it first",
+      "In the recommended actions, as something to block pre-emptively",
+      "Nowhere; low-confidence items are discarded before writing",
+      "Under gaps and open questions rather than among the findings"
+    ],
+    "correct": 3,
+    "explanation": "A finding is a statement supported by cited evidence; something the analyst cannot support well enough is a question to resolve by other means, so it goes under open questions. Discarding it would hide a lead, and acting on it in the summary would overstate it.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When the manual analysis is compared with the six saved rules, which finding has no rule at all, and what surfaced it?",
+    "options": [
+      "The invoice.docm download from the look-alike domain, found by the baseline of domains used by only one host",
+      "The cleared Security log, found by reading all 13 Windows events",
+      "The regular beacon, found by the per-user byte totals",
+      "The VPN spray, found by grouping VPN events by country"
+    ],
+    "correct": 0,
+    "explanation": "R1 to R6 cover the PowerShell spawn, spray, new admin, upload, log clearing and beacon; the 06:12 phishing download had no rule and was found because its domain was used by one host. Log clearing is covered by R5 and the beacon by R6.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "divya sent 48.26 MB through the proxy while every other user sent 57 to 83 KB. A banded count then shows 65 requests under 1 KB, 218 between 1 and 5 KB, none between 5 KB and 1 MB, and one above 1 MB. What does the band check add?",
+    "options": [
+      "It shows that divya's other requests were also unusually large",
+      "It proves the 48.2 MB request contained personal data",
+      "It confirms the large request stands alone rather than being the tail of a gradual spread of sizes",
+      "It shows that the beacon is responsible for most of divya's volume"
+    ],
+    "correct": 2,
+    "explanation": "With nothing between 5 KB and 1 MB, the single request above 1 MB is a clear outlier, not the top of a continuum. The check says nothing about the content of the upload, and the beacon's requests total under 4 KB.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Orientation shows the last Sysmon event at 06:14 while other sources run until 13:33. What follows for the analysis of WS-104 after 06:14?",
+    "options": [
+      "No further processes ran on WS-104, because Sysmon would have logged them",
+      "The absence of process events after 06:14 is not evidence that nothing executed; it is a telemetry gap",
+      "Sysmon events after 06:14 must have been deleted by the 1102 log clearing",
+      "Process activity can be reconstructed from the proxy log's user field"
+    ],
+    "correct": 1,
+    "explanation": "With no process telemetry for most of the day, the account creation and upload cannot be tied to processes, and the silence cannot be read as absence. Event 1102 records clearing of the Security log, not Sysmon's log, so the deletion claim is unsupported.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The merged timeline's activity column uses COALESCE(domain, 'event ' || event_id, 'vpn from ' || src_ip). Why does this work across all four sources?",
+    "options": [
+      "COALESCE returns the first non-NULL argument, so each row shows the field that its source actually populates",
+      "COALESCE concatenates all three values so each row shows its full context",
+      "COALESCE converts NULLs to empty strings, preventing the GROUP BY from failing",
+      "COALESCE picks the longest of the three strings, which is the most descriptive"
+    ],
+    "correct": 0,
+    "explanation": "Proxy rows have a domain, Windows and Sysmon rows have no domain but an event ID, and VPN rows have neither but a source address; COALESCE takes the first non-NULL. It does not concatenate the arguments or pick by length.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The timeline query groups by source, host, user and activity and selects MIN(ts), MAX(ts) and COUNT(*). What is the main purpose of grouping at this grain?",
+    "options": [
+      "To remove the Windows events, which have no activity value",
+      "To hide repeated events that are probably duplicates from the collector",
+      "To ensure only one row per host appears on the timeline",
+      "To collapse repeated activity such as the 18 beacon requests into one row with first and last time"
+    ],
+    "correct": 3,
+    "explanation": "The beacon becomes one row from 06:17 to 07:42:02 with n = 18, keeping the timeline readable while preserving its span and count. WS-104 still has several rows, one per activity, and the repeats are real events, not duplicates.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Sysmon event shows powershell.exe -NoP -W Hidden -EncodedCommand with the encoded content redacted in the course data. How should the findings note treat what the command did?",
+    "options": [
+      "State that it downloaded the beacon, since the beacon began three minutes later",
+      "Rate the PowerShell finding Medium, because its content is unknown",
+      "List it as an open question for the endpoint team to recover from host PowerShell logging or the document",
+      "Omit the event until the command is decoded"
+    ],
+    "correct": 2,
+    "explanation": "The logs show that hidden, encoded PowerShell ran from Word (a High-confidence fact) but not what it did; that belongs in open questions with a route to resolve it. Linking it to the beacon on timing is an inference the data does not establish.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does each row of the findings register list exactly one log source, even though the incident spans several sources?",
+    "options": [
+      "Because the SIEM can only export one source per query",
+      "Because correlation is expressed through shared entities across rows, keeping each row's evidence reproducible from one query",
+      "Because findings from different sources must be reported to different teams",
+      "Because rows mixing sources would automatically be rated Low confidence"
+    ],
+    "correct": 1,
+    "explanation": "Each evidence cell condenses one query's result, so every row can be reproduced; the cross-source story emerges from rows sharing host WS-104 and account divya. It is a design choice for traceability, not a tool limitation or a confidence rule.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which recommended action best matches the VPN spray-then-success thread in the findings note?",
+    "options": [
+      "Reset gopal's credentials, review MFA on the VPN and block 203.0.113.66",
+      "Isolate WS-107, because gopal's workstation must be the source of the session",
+      "Disable svc_update, because the spray created that account",
+      "No action, because the thread is unlinked to WS-104"
+    ],
+    "correct": 0,
+    "explanation": "A possibly compromised VPN credential calls for a reset, MFA review and blocking the spraying address, plus a conversation with gopal. Nothing ties the session to WS-107 or to svc_update, and being a separate thread does not make it benign.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The dataset runs from 03:07 to 13:33 UTC on 3 November 2026. A draft note says 'svc_update was never used'. How should it be corrected?",
+    "options": [
+      "No correction is needed, because the scope query returned zero",
+      "Change it to 'svc_update was used only on WS-104'",
+      "Qualify it: svc_update performed no logged activity in the analysed sources within the 03:07 to 13:33 UTC window",
+      "Replace it with an estimate of when svc_update will be used"
+    ],
+    "correct": 2,
+    "explanation": "Conclusions apply only to the data's span and sources; there are no server or domain controller logs and nothing after 13:33. A bare 'never' overstates the negative result, and nothing shows svc_update acting on WS-104 either.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lab runs minisiem.py rules only at the very end. Why not start from the rule alerts, as the Module 3 lab did?",
+    "options": [
+      "Because the rules require the timeline query to have been run first",
+      "Because running rules first would modify the event table",
+      "Because the rules are less accurate than manual queries on this dataset",
+      "Because rules find only what someone wrote a rule for; independent analysis can then check the rules and find what they miss"
+    ],
+    "correct": 3,
+    "explanation": "Starting from raw sources lets the analyst find gaps in rule coverage (here the phishing download) and judge the rule hits independently. The rules and manual analysis agreed on six findings, so the rules are not less accurate; they are narrower.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Windows query pulls logon_type with json_extract(raw, '$.logon_type'), and the 4720, 4732 and 1102 rows show None. What is the most likely explanation?",
+    "options": [
+      "The JSON path is misspelt, so every row should show None",
+      "Those event types do not carry a logon type field in their raw events",
+      "The events were tampered with when the log was cleared",
+      "json_extract cannot read integers, only strings"
+    ],
+    "correct": 1,
+    "explanation": "json_extract returns NULL when the field does not exist in that event; the 4624 and 4625 rows do show logon_type 2, so the path is correct and integers are read fine. Account-management and log-clearing events simply have no logon type.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which sentence belongs in the FINDINGS section of the note, rather than in the summary's interpretation?",
+    "options": [
+      "07:02-07:03 windows: 4720/4732, svc_update created and added to Administrators on WS-104 under account divya",
+      "WS-104 shows a complete intrusion sequence from phishing to defence evasion",
+      "The attacker established persistence and then exfiltrated payroll data",
+      "divya fell for a phishing email and ran a malicious macro"
+    ],
+    "correct": 0,
+    "explanation": "A finding states what an event records, with time, source and entities. 'Intrusion sequence' is the summary's interpretation, and the claims about payroll data or divya's own actions go beyond what the logs show (the upload content and the person at the keyboard are unknown).",
+    "lesson": 8,
+    "difficulty": "medium"
+  }
+]

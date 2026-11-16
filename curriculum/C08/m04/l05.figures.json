@@ -1,0 +1,40 @@
+{
+  "C08-M04-L05-F1": {
+    "title": "Recursive resolution: where a query is logged and who receives it",
+    "caption": "One DNS lookup relayed by the internal resolver to the zone's authoritative server, showing why the query name itself reaches whoever controls the zone.",
+    "alt": "Sequence diagram with four lanes: Workstation WS-104 (stub resolver), Internal resolver (query log written here), Root / TLD servers (referrals only) and Authoritative for t.example (whoever controls the zone). The workstation sends 'Query: <label>.t.example TXT?' to the internal resolver. The resolver sends 'Same query (recursion)' to the root and TLD servers, which reply with a dashed 'Referral: ask ns1.t.example'. The resolver sends 'Query forwarded to ns1.t.example' to the authoritative server, which replies with a dashed 'Answer: TXT data / or NXDOMAIN'. The resolver returns a dashed 'Answer relayed (and cached for TTL)' to the workstation.",
+    "type": "sequence",
+    "actors": [
+      { "id": "ws", "label": "Workstation WS-104", "sub": "stub resolver", "tone": "blue" },
+      { "id": "res", "label": "Internal resolver", "sub": "query log written here", "tone": "dark" },
+      { "id": "root", "label": "Root / TLD servers", "sub": "referrals only", "tone": "slate" },
+      { "id": "auth", "label": "Authoritative for t.example", "sub": "whoever controls the zone", "tone": "red" }
+    ],
+    "messages": [
+      { "from": "ws", "to": "res", "label": "Query: <label>.t.example TXT?" },
+      { "from": "res", "to": "root", "label": "Same query (recursion)" },
+      { "from": "root", "to": "res", "label": "Referral: ask ns1.t.example", "dashed": true },
+      { "from": "res", "to": "auth", "label": "Query forwarded to ns1.t.example" },
+      { "from": "auth", "to": "res", "label": "Answer: TXT data / or NXDOMAIN", "dashed": true },
+      { "from": "res", "to": "ws", "label": "Answer relayed (and cached for TTL)", "dashed": true }
+    ],
+    "note": "The full name, labels included, reaches the zone's owner without any direct connection from the workstation."
+  },
+  "C08-M04-L05-F2": {
+    "title": "DNS anomaly patterns: evidence, innocent twins and next checks",
+    "caption": "A triage reference for the six DNS patterns in this lesson, pairing each with its common benign look-alike and the check that decides.",
+    "alt": "Table with columns Pattern, In the log, Benign look-alike and Next check. Row 1 (red): NXDOMAIN burst; many random names fail from one client; typos, browser start-up probes; find the NOERROR success and its answer. Row 2 (red): Long high-entropy labels; labels near 63 characters, hex or Base32; CDN and security-product lookups; parent zone age and rarity. Row 3 (red): Many subdomains, one parent; hundreds of unique names under one zone; CDN parent zones across many hosts; how many clients ask, total name bytes. Row 4 (orange): High TXT share; steady TXT or NULL queries from a workstation; mail servers, SPF/DMARC checks; client role and asking process. Row 5 (orange): Direct or encrypted DNS; port 53 or 853 to outside, DoH to a provider; unmanaged or misconfigured device; asset inventory and egress policy. Row 6 (violet): Newly seen domain; first query for the name in the estate; new SaaS service adopted; registration age, who else asked, what followed.",
+    "type": "table",
+    "columns": ["Pattern", "In the log", "Benign look-alike", "Next check"],
+    "rowTones": ["red", "red", "red", "orange", "orange", "violet"],
+    "rows": [
+      ["NXDOMAIN burst", "Many random names fail from one client", "Typos, browser start-up probes", "Find the NOERROR success and its answer"],
+      ["Long high-entropy labels", "Labels near 63 chars, hex or Base32", "CDN and security-product lookups", "Parent zone age and rarity"],
+      ["Many subdomains, one parent", "Hundreds of unique names under one zone", "CDN parent zones across many hosts", "How many clients ask, total name bytes"],
+      ["High TXT share", "Steady TXT or NULL queries from a workstation", "Mail servers, SPF/DMARC checks", "Client role and asking process"],
+      ["Direct or encrypted DNS", "Port 53/853 to outside, DoH to a provider", "Unmanaged or misconfigured device", "Asset inventory and egress policy"],
+      ["Newly seen domain", "First query for the name in the estate", "New SaaS service adopted", "Registration age, who else asked, what followed"]
+    ],
+    "note": "Several rows for one client and one parent zone in the same window outweigh any single row."
+  }
+}

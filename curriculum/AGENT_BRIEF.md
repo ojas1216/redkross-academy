@@ -42,7 +42,9 @@ You are writing lesson(s) {LESSONS} of Module {MODULE} of RedKross Academy cours
 
 Write ONLY your own `lNN.md` / `lNN.figures.json` files (and your entries in
 `module.json`). Never run or modify anything inside the course library or LAB_ASSETS
-folder: copy the kit to your own temporary directory first and run scripts there. Do not commit. Accuracy over volume: never invent tool output, flags,
+folder: copy the kit to your own temporary directory first and run scripts there. Other
+agents share the scratch area, so always work in a subfolder named after your course,
+module and lessons (e.g. `c08_m04_l07-08/`), never directly in the shared folder. Do not commit. Accuracy over volume: never invent tool output, flags,
 CVEs or standard clauses; use the lab kit's real outputs. Defensive, authorised-lab
 framing for every offensive technique.
 

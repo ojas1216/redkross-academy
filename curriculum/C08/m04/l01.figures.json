@@ -1,0 +1,35 @@
+{
+  "C08-M04-L01-F1": {
+    "title": "A method for reading Windows events",
+    "caption": "Seven steps from an alert or hunt question to a recorded disposition, with a loop back when the chain reveals a new lead.",
+    "alt": "Vertical flow of seven steps. Frame the question (scope: hosts, accounts, time window). Inventory the evidence (which IDs and sources exist). Establish the baseline (peers or history). Isolate deviations (rare IDs, odd logon types, actors outside their role). Build the chain (pivot on shared values, order by time). Check for absence (expected events present, collection healthy). Context and disposition (benign, suspicious or malicious, with evidence). A feedback arrow returns from the last step to the first: a new host or account re-opens the question.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Frame the question", "sub": "scope: hosts, accounts, time window", "tone": "slate" },
+      { "label": "Inventory the evidence", "sub": "which IDs and sources exist, from when to when", "tone": "blue" },
+      { "label": "Establish the baseline", "sub": "compare with peers or with history", "tone": "blue" },
+      { "label": "Isolate deviations", "sub": "rare IDs, odd logon types, actors outside their role", "tone": "orange" },
+      { "label": "Build the chain", "sub": "pivot on host, actor, target, Logon ID; order by time", "tone": "orange" },
+      { "label": "Check for absence", "sub": "expected events present? collection healthy?", "tone": "violet" },
+      { "label": "Context and disposition", "sub": "benign / suspicious / malicious, with evidence", "tone": "dark" }
+    ],
+    "loop": { "label": "a new host or account re-opens the question" },
+    "note": "The conclusion is only as strong as the weakest step that was skipped."
+  },
+  "C08-M04-L01-F2": {
+    "title": "Four shapes of failed Windows logons",
+    "caption": "How typing errors, stale credentials, brute force and password spraying differ in accounts, sources, timing, status and outcome.",
+    "alt": "Table with columns Pattern, Accounts x sources, Timing and status, What follows, Reading. Typing error (green): 1 account x own host; one or two failures, 0xC000006A; own success; benign. Stale credential (slate): 1 account x 1 source; repeating at intervals, 0xC000006A; lockout 4740; fix the credential. Brute force (orange): 1 or few accounts x 1 source; burst of many failures; success or lockout; escalate if success. Password spray (red): many accounts x 1 or few sources; one or two each, mechanical spacing, 0xC000006A or 0xC0000064; a success from the same source; escalate, likely compromise.",
+    "type": "table",
+    "columns": ["Pattern", "Accounts x sources", "Timing and status", "What follows", "Reading"],
+    "rowTones": ["green", "slate", "orange", "red"],
+    "rows": [
+      ["Typing error", "1 account x own host", "1-2 failures, 0xC000006A", "own success", "benign"],
+      ["Stale credential", "1 account x 1 source", "repeats at intervals, 0xC000006A", "lockout (4740)", "fix the credential"],
+      ["Brute force", "1 or few accounts x 1 source", "burst of many failures", "success or lockout", "escalate if success"],
+      ["Password spray", "many accounts x 1 or few sources", "1-2 each, mechanical; 6A or 64", "success from same source", "escalate: likely compromise"]
+    ],
+    "note": "Group by source and count distinct accounts: per-account thresholds never see a spray."
+  }
+}

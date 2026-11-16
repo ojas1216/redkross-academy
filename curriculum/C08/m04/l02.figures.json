@@ -1,0 +1,54 @@
+{
+  "C08-M04-L02-F1": {
+    "title": "One SSH password login and the lines it writes",
+    "caption": "Which program writes which auth.log line during an SSH password login on web-01, from connection to disconnect.",
+    "alt": "Sequence diagram with four lanes: SSH client (198.51.100.23), sshd[2120], PAM (pam_unix) and systemd-logind. The client sends connect + user deploy, then password, to sshd. sshd sends check password to PAM; PAM replies success (dashed). sshd replies to the client: Accepted password for deploy (dashed). sshd asks PAM to open session; PAM replies session opened for user deploy(uid=1001) (dashed). sshd registers the session with systemd-logind, which logs New session 57 of user deploy. The client sends disconnect to sshd; sshd tells logind session ended; logind logs Removed session 57 (dashed reply).",
+    "type": "sequence",
+    "actors": [
+      { "id": "c", "label": "SSH client", "sub": "198.51.100.23", "tone": "slate" },
+      { "id": "s", "label": "sshd[2120]", "sub": "per-connection process", "tone": "blue" },
+      { "id": "p", "label": "PAM (pam_unix)", "sub": "auth + session", "tone": "violet" },
+      { "id": "l", "label": "systemd-logind", "sub": "session tracking", "tone": "dark" }
+    ],
+    "messages": [
+      { "from": "c", "to": "s", "label": "connect + user deploy" },
+      { "from": "c", "to": "s", "label": "password" },
+      { "from": "s", "to": "p", "label": "check password" },
+      { "from": "p", "to": "s", "label": "success", "dashed": true },
+      { "from": "s", "to": "c", "label": "logged: Accepted password for deploy", "dashed": true },
+      { "from": "s", "to": "p", "label": "open session" },
+      { "from": "p", "to": "s", "label": "logged: session opened for user deploy(uid=1001)", "dashed": true },
+      { "from": "s", "to": "l", "label": "register session" },
+      { "from": "l", "to": "s", "label": "logged: New session 57 of user deploy", "dashed": true },
+      { "from": "c", "to": "s", "label": "disconnect" },
+      { "from": "s", "to": "l", "label": "session ended" },
+      { "from": "l", "to": "s", "label": "logged: Removed session 57", "dashed": true }
+    ],
+    "note": "Join a connection's lines by the sshd PID and the session by the logind session number."
+  },
+  "C08-M04-L02-F2": {
+    "title": "Triage of SSH failures from one source",
+    "caption": "Two questions, asked in order, separate background noise from targeted guessing and from probable compromise.",
+    "alt": "Decision graph. SSH failures from one source leads to the decision Any Accepted from this source? Yes leads to Probable compromise (red), which leads to Review the session (sshd PID, sudo commands, account changes). No leads to the decision Real accounts targeted? No, invalid users only, leads to Background noise (green, record and suppress). Yes leads to Targeted guessing (orange, block source, check the accounts).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "a", "label": "SSH failures from one source", "sub": "alert or hunt result", "tone": "slate" },
+      { "id": "q1", "label": "Any Accepted from this source?", "kind": "decision", "tone": "violet" },
+      { "id": "q2", "label": "Real accounts targeted?", "kind": "decision", "tone": "violet" },
+      { "id": "pc", "label": "Probable compromise", "sub": "escalate", "tone": "red" },
+      { "id": "bn", "label": "Background noise", "sub": "record and suppress", "tone": "green" },
+      { "id": "tg", "label": "Targeted guessing", "sub": "block source, check the accounts", "tone": "orange" },
+      { "id": "rv", "label": "Review the session", "sub": "sshd PID, sudo commands, account changes", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "a", "to": "q1" },
+      { "from": "q1", "to": "pc", "label": "yes" },
+      { "from": "q1", "to": "q2", "label": "no" },
+      { "from": "q2", "to": "bn", "label": "no, invalid users only" },
+      { "from": "q2", "to": "tg", "label": "yes" },
+      { "from": "pc", "to": "rv" }
+    ],
+    "note": "A success after failures is the incident; failures alone are noise or intent."
+  }
+}

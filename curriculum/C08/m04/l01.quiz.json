@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An analyst checks whether svc_update was ever made an administrator by searching 4732 events for TargetUserName = 'svc_update'. The search returns nothing, so the analyst reports that no group change happened. What is wrong with this reasoning?",
+    "options": [
+      "In a 4732 the TargetUserName holds the group; the added account is in the Member section, often only as a SID",
+      "Event 4732 is written only on domain controllers, so additions to a workstation's local groups never appear",
+      "Additions to local groups are recorded as event 4728, so 4732 was the wrong event ID to search for",
+      "TargetUserName is populated only when command-line auditing is enabled, so the field was empty on this host"
+    ],
+    "correct": 0,
+    "explanation": "In a 4732 the target is the group (for example Administrators) and the account added is identified in the Member section, frequently only by its SID, so a search on TargetUserName for the member can never match. 4728 is the event for global groups, not local ones.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A 4624 on file server FS-01 shows SYSTEM in the Subject section and a finance user in the New Logon section. A junior analyst writes in the case that 'SYSTEM logged on to FS-01'. How should the event be read?",
+    "options": [
+      "SYSTEM cannot appear in a 4624, so the event was probably forged by malware on the server",
+      "The logon type decides which of the two account sections is the real user of the session",
+      "The Subject is the local context that requested the logon; New Logon names who was logged on",
+      "The Subject always names the source workstation's machine account, not a local identity"
+    ],
+    "correct": 2,
+    "explanation": "In a 4624 the Subject is the local context that requested the logon (often SYSTEM or the machine account) and the New Logon section names the account that was actually logged on. The logon type describes how the logon happened, not which section holds the user.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Over ten minutes one source address produces a single failed logon against each of 140 accounts. Most of the 4625 events carry status 0xC0000064. What does the status code add to the reading?",
+    "options": [
+      "It shows a spray using a harvested list of real account names from the directory",
+      "It shows a spray using guessed names, most of which do not exist in the domain",
+      "It shows a service on that source still presenting a password changed last week",
+      "It shows a brute force against one account that was renamed during the attack"
+    ],
+    "correct": 1,
+    "explanation": "0xC0000064 means the user name does not exist, so a spray dominated by it is working from a list of guessed names. A spray built from a harvested list of real names would mostly produce 0xC000006A (bad password) instead.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A detection rule alerts when any single account has more than 10 failed logons within 10 minutes. Which activity is this rule most likely to miss?",
+    "options": [
+      "A brute force from one source against a single administrator account",
+      "A stale credential on a mapped drive retrying every thirty seconds",
+      "A scripted guess of fifty passwords against one service account",
+      "A spray trying one or two passwords against each of many accounts"
+    ],
+    "correct": 3,
+    "explanation": "A spray keeps per-account counts below thresholds by design, so it is only visible in a per-source view of distinct accounts. Brute force and stale credentials both concentrate failures on one account and would trip the per-account rule.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A burst of failed logons from one internal address targets 60 different accounts, and almost every 4625 carries status 0xC0000072. What is the most useful inference?",
+    "options": [
+      "Users are mistyping new passwords after a scheduled password expiry",
+      "The lockout policy is misconfigured and is disabling active accounts",
+      "Someone is working from an old directory list that includes former staff",
+      "Kerberos pre-authentication has been disabled on the targeted accounts"
+    ],
+    "correct": 2,
+    "explanation": "0xC0000072 means the account is disabled, so many such failures across many accounts suggest a list that still contains leavers, typically an old directory export used by an attacker. Typing errors after expiry would produce bad-password failures on active accounts at their owners' hosts.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On a real estate an analyst wants to state that the session which launched a suspicious process also created a new local account on the same host. Which evidence turns this from correlation into proof of one session?",
+    "options": [
+      "The 4720's SubjectLogonId matches the New Logon ID of a 4624 that also covers the process event",
+      "Both events were written by the same host within an hour of each other and name the same user",
+      "Both events fall after the same 4672 special-privileges event recorded for that user on the host",
+      "The proxy log shows the same user name browsing from the host in the minutes between the events"
+    ],
+    "correct": 0,
+    "explanation": "The Logon ID is the value that ties later Security events to the logon session that performed them, so a matching ID demonstrates one session. Same host, same account and close timing is correlation, which is all the simplified Banyan data supports.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Before reading any WS-104 event in detail, the analyst runs a query listing, for each workstation, its event count and its distinct Windows event IDs. Why is this a sound first step?",
+    "options": [
+      "It proves that the events on the busiest workstation are malicious",
+      "It confirms that every workstation's log forwarder is still healthy",
+      "It shows each workstation's distribution of logon types for the day",
+      "It exposes the host whose combination of event IDs is rare among peers"
+    ],
+    "correct": 3,
+    "explanation": "The per-host event profile is stacking applied to event IDs: it builds the peer baseline and makes the rare profile stand out as a lead. It does not prove malice, and a host with few events could equally be quiet or failing to forward.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a 1102 on WS-104 at 08:17, the SIEM holds no further Windows events from any host, yet WS-104 produces proxy traffic until 12:08. What should the analyst do with this observation?",
+    "options": [
+      "Report that the intruder stopped acting on the host once the log had been cleared",
+      "Treat it as a visibility question and confirm Security log forwarding before reporting",
+      "Classify every proxy request after 08:17 as attacker activity, as no user was logged",
+      "Conclude that the clear also deleted the SIEM's copies of the earlier Windows events"
+    ],
+    "correct": 1,
+    "explanation": "Silence from one source while another source shows the host is active is first a collection question: is the Security log still forwarding? Reporting 'no further activity' mistakes a gap in visibility for a gap in activity; the SIEM copy is out of reach of a local clear.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An intruder clears the System and Application logs on a server but leaves the Security log alone. Which record should the analyst look for to show that this happened?",
+    "options": [
+      "Event 104 written in the System log",
+      "Event 1102 written in the Security log",
+      "Event 4719 written in the Security log",
+      "Event 7045 written in the System log"
+    ],
+    "correct": 0,
+    "explanation": "Clearing logs other than Security, such as System or Application, is recorded as event 104 in the System log. 1102 records clearing of the Security log itself, and 4719 records an audit policy change.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A server's Security log shows logon events up to 10:00 and none afterwards, while the server keeps serving users. There is no 1102 and its forwarder is healthy. Which event best explains a quieter way of blinding the log?",
+    "options": [
+      "A 1102 recorded on the domain controller rather than on the server",
+      "A 4740 lockout of the account used by the log forwarding service",
+      "A 4719 change to the system audit policy shortly before 10:00",
+      "A 7045 installation of a new service on the server at about 10:00"
+    ],
+    "correct": 2,
+    "explanation": "4719 records a change to the system audit policy, which stops the Security log recording rather than erasing it. A 7045 shows a service install but would not by itself explain why logon auditing stopped while the host kept working.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A week of 4698 (scheduled task created) events contains thousands of entries. Which approach best separates software deployment from possible attacker persistence?",
+    "options": [
+      "Keep only tasks created outside working hours and review those first",
+      "Alert on every task whose name contains words such as update or sync",
+      "Join each task to the most recent interactive type 2 logon on the host",
+      "Stack task name and command across hosts and review single-host entries"
+    ],
+    "correct": 3,
+    "explanation": "Deployment tools create the same task on many hosts at once, while an attacker typically creates one on a single host, so stacking across hosts brings the rare entries to the top. Time-of-day filtering fails because legitimate deployments often run at night.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On WS-104, Word starts a hidden PowerShell, an account is created 48 minutes later, made an administrator one minute after that and the Security log is cleared 74 minutes later. Why is the chain stronger evidence than any single event?",
+    "options": [
+      "Four related events exceed the threshold at which the SIEM escalates a case",
+      "Each step has an innocent explanation, but only one hypothesis explains all four",
+      "The four events share one Logon ID, which proves a single session acted",
+      "A 1102 is always malicious, and the other events inherit its disposition"
+    ],
+    "correct": 1,
+    "explanation": "Each event alone could be legitimate, but every innocent explanation needs a different coincidence, while an intruder operating through the session explains all of them. The Banyan events carry no Logon IDs, so the link is correlation by host, account and time.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which of these logon observations most deserves a closer look on a typical estate?",
+    "options": [
+      "A type 10 logon to a finance workstation coming from another user's workstation",
+      "A type 5 logon by a service account on a server shortly after it has rebooted",
+      "A type 3 logon to a file server coming from the patch management server",
+      "A type 2 logon by a workstation's owner at 08:40 local time on a weekday"
+    ],
+    "correct": 0,
+    "explanation": "Remote Desktop (type 10) is ordinary on a jump server but unusual onto a finance workstation, and a peer workstation as the source suggests lateral movement. Type 3 from a known management server and type 5 for services are normal shapes.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst flags Banyan's workstation logons between 03:07 and 03:50 as suspicious night-time activity. The SIEM stores times in UTC and Banyan works in India. What is the correct reading?",
+    "options": [
+      "They are night-time logons, because UTC is the authoritative time base",
+      "The SIEM shifted the timestamps by the forwarder's ingest delay",
+      "In IST they are 08:37-09:20, the start of the working day, so normal",
+      "The times are host-local, so the workstations' clocks must be wrong"
+    ],
+    "correct": 2,
+    "explanation": "IST is UTC+5:30, so 03:07-03:50 UTC is 08:37-09:20 local, exactly when the office opens. Analysing in UTC is right, but time must be converted to local before judging whether it is unusual for people.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a password change on Monday, one account fails to log on from one file server every five minutes for two days, status 0xC000006A, with repeated 4740 lockouts. How should this be classified?",
+    "options": [
+      "Brute force against the account, to be escalated as an active attack",
+      "Stale credential that needs fixing, since it can hide real attacks",
+      "Password spray from the file server against the domain's accounts",
+      "Typing errors by the account's owner, needing no further action"
+    ],
+    "correct": 1,
+    "explanation": "One account, one source, a regular interval and lockouts right after a password change is the stale-credential shape: something on the file server still uses the old password. It is rarely malicious but must be fixed because the noise hides genuine attacks on that account.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A user is locked out several times a day and the help desk wants to know which machine keeps presenting the wrong password. Where should the analyst look first?",
+    "options": [
+      "The Subject section of 4625 events written on the domain controller",
+      "The 4672 events written on the user's own workstation at each logon",
+      "The 4776 events written on the user's workstation for each failure",
+      "The Caller Computer Name in the 4740 events on the domain controller"
+    ],
+    "correct": 3,
+    "explanation": "A lockout is recorded as 4740 on the domain controller, and its Caller Computer Name points to the source of the bad attempts. 4672 records special privileges at logon and says nothing about failures.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A search of every source for svc_update returns only its 4720 and 4732. Which absence statement is accurate for the case record?",
+    "options": [
+      "No collected source recorded its use; given the 08:17 clear and unconfirmed collection after it, use cannot be excluded",
+      "The account was never used after creation, because every collected source was searched and nothing was found",
+      "The account was certainly used, because the 08:17 clear was performed to remove the record of its later logons",
+      "The account was removed soon after creation, because no events about it were recorded after the group change"
+    ],
+    "correct": 0,
+    "explanation": "Absence is evidence only when collection is known to be healthy; here the Security log was cleared and Windows collection after the clear is unconfirmed, so the honest statement is limited to what was collected. Claiming certain use is as unsupported as claiming no use.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The worked queries read fields with json_extract(raw, '$.user') instead of a normalised column. What is the analytical benefit?",
+    "options": [
+      "It runs faster than querying the SIEM's indexed normalised columns",
+      "It converts each event's timestamp to UTC before it is compared",
+      "It is required by SQLite whenever a query uses GROUP BY on a field",
+      "It reads the original event's field, independent of normalisation"
+    ],
+    "correct": 3,
+    "explanation": "The raw column holds the original event, so json_extract reads the field as the source wrote it rather than as minisiem chose to normalise it. It is not a speed optimisation and has nothing to do with time conversion or GROUP BY.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two 4625 events occur in the same minute: ben on WS-102 and hema on WS-108. A colleague suspects a coordinated attack because of the shared timestamp. Which evidence best supports a benign disposition?",
+    "options": [
+      "Both failures used Kerberos rather than NTLM, which is normal inside the domain",
+      "Neither account is privileged, so a failure against either carries little risk",
+      "Each is one 0xC000006A at the user's own host after their own successful logon",
+      "The SIEM merged duplicate failures, so each user really failed only once that day"
+    ],
+    "correct": 2,
+    "explanation": "One bad-password failure per user, at their own workstation, after they had already logged on, is the typing-error shape; nothing but the coincidental minute links them. Low privilege does not make an attack benign, it only lowers impact.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which preventive control would have stopped divya's session on WS-104 from creating a new local administrator in the first place?",
+    "options": [
+      "Longer retention of Security events on the SIEM",
+      "Removing local administrator rights from ordinary users",
+      "Multi-factor authentication on the remote-access VPN",
+      "An alert rule for every 1102 without a change ticket"
+    ],
+    "correct": 1,
+    "explanation": "Creating an account and adding it to Administrators requires administrative rights; without them divya's session could not have done it. An alert on 1102 detects the clean-up afterwards but prevents nothing.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During incident response an analyst can read a compromised host's Security log locally with Get-WinEvent or query the SIEM. Why is the local log treated as a last resort?",
+    "options": [
+      "The local log omits event IDs, which are added only when the SIEM parses events",
+      "An attacker on the host could clear or alter it; the forwarded copy is out of reach",
+      "Get-WinEvent cannot read events older than the most recent log rotation on the host",
+      "Local events are stored in local time, which makes them impossible to correlate"
+    ],
+    "correct": 1,
+    "explanation": "Whoever controls the host can clear or tamper with its local log, while events already forwarded to the SIEM are beyond their reach. Local events do carry event IDs, and timestamps can be converted, so neither is the reason.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "When reading a live host's 4732 events, an analyst uses Get-WinEvent with -FilterHashtable @{ LogName = 'Security'; Id = 4732 } rather than piping all Security events into Where-Object. Why?",
+    "options": [
+      "The event log service applies the filter, returning only matches, which is far faster",
+      "Where-Object cannot read events from the Security log without the audit privilege",
+      "FilterHashtable converts each event to XML so that its named fields can be read",
+      "Where-Object returns only the newest twenty events unless MaxEvents is raised"
+    ],
+    "correct": 0,
+    "explanation": "-FilterHashtable passes the filter to the event log service, so only matching events come back, which is much faster than retrieving everything and filtering afterwards. The XML conversion is done separately by ToXml().",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A finance clerk's account produces type 3 logons to twelve servers within four minutes, and each logon is accompanied by a 4672 with the same Logon ID. What is the most significant reading?",
+    "options": [
+      "Normal file share access, since type 3 network logons by users are routine",
+      "Failed authentication, since a 4672 is written when a privileged logon is refused",
+      "Possible lateral movement by an account not known to hold special privileges",
+      "Routine patching, since management tools log on to many servers in minutes"
+    ],
+    "correct": 2,
+    "explanation": "A 4672 assigns special privileges to the new session, which is unexpected for a clerk, and a user reaching many hosts in minutes fits remote-services lateral movement. 4672 records privileges granted at a successful logon, not a failure, and patching runs from management accounts.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which process-creation observation most deserves a closer look?",
+    "options": [
+      "explorer.exe starting outlook.exe on every workstation each morning",
+      "The management agent starting powershell.exe nightly on every host",
+      "A browser started by explorer.exe on three hundred workstations",
+      "WINWORD.EXE starting a hidden, encoded powershell.exe on one host"
+    ],
+    "correct": 3,
+    "explanation": "Office starting a script interpreter with a hidden, encoded command on a single host is a classic execution deviation. The agent starting PowerShell is the same parent-child pair on every host at a regular time, which is the shape of normal automation.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An attacker sprays passwords by requesting Kerberos tickets directly from a domain controller. The SOC collects 4625 only from member servers and finds nothing. Why?",
+    "options": [
+      "Kerberos pre-authentication failures appear on the DC as 4771 or failed 4768, not as 4625",
+      "A spray stays below the lockout threshold, and Windows does not log failures below it",
+      "4625 is written only for NTLM failures, and only on the domain controller that checked them",
+      "Kerberos failures are written to the System log of the client rather than to Security"
+    ],
+    "correct": 0,
+    "explanation": "A Kerberos spray against the KDC is recorded on the domain controller as 4771 or failed 4768; 4625 appears on the machine that received a logon attempt, which here is none of the member servers. Failures are logged whether or not they reach the lockout threshold.",
+    "lesson": 1,
+    "difficulty": "hard"
+  }
+]

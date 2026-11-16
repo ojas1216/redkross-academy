@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An incident lead asks whether workstation 10.40.0.23 connected to 198.51.100.80 at 10:02. The perimeter firewall's logs contain no line for that pair. What should the analyst verify before answering 'no connection'?",
+    "options": [
+      "Whether the firewall's state table had reached its maximum size at that moment",
+      "Whether the destination address was covered by the firewall's DNAT rules",
+      "Whether the rule that would have allowed the traffic had logging enabled",
+      "Whether the workstation's own Windows Firewall was configured to log drops"
+    ],
+    "correct": 2,
+    "explanation": "Firewalls log decisions only for rules with logging switched on, and allowed traffic is the most common gap, so silence may just mean an unlogged allow. DNAT applies to inbound traffic to published servers, not to an outbound workstation connection.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An external vulnerability report lists port 3389 on Banyan's public address as 'filtered' rather than 'closed'. What does that tell the analyst about the perimeter firewall's handling of that port?",
+    "options": [
+      "The firewall silently dropped the SYN, so the scanner received no reply",
+      "The firewall answered the SYN with a TCP reset from the public address",
+      "The firewall sent an ICMP unreachable message back to the scanner",
+      "The firewall allowed the SYN, but no service was listening behind it"
+    ],
+    "correct": 0,
+    "explanation": "A dropped SYN gets no answer and times out, which scanners report as filtered. A reset or ICMP unreachable is a reject, which tells the scanner immediately and is reported as closed.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A netfilter line begins `kernel: DROP IN=eth0 SRC=203.0.113.66 ...`. A colleague says the word DROP is the kernel's verdict and so needs no further checking. What is the accurate view?",
+    "options": [
+      "Correct, because the LOG target writes the verdict of the rule that matched",
+      "DROP is free text the administrator set as the LOG prefix, so confirm it against the rule base",
+      "Correct only if the line also carries an OUT= value showing the egress interface",
+      "DROP is added by syslog when the receiving server cannot parse the action field"
+    ],
+    "correct": 1,
+    "explanation": "The LOG target only logs; the text before IN= is the --log-prefix chosen when the rule was written, and the packet is dropped by a separate rule. A prefix is only as truthful as whoever configured it, so check the rule base.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After normalising the kit's logs, the analyst sees a successful VPN login as gopal from 203.0.113.66 at 06:46:00Z and a dropped inbound RDP attempt from the same address to 10.40.0.5 at 06:46:21Z. Why does this one drop deserve attention?",
+    "options": [
+      "Because any inbound RDP attempt shows that a host has been compromised",
+      "Because the drop proves the VPN account's password was guessed",
+      "Because RDP drops are written only when the target host is listening",
+      "Because joining it to the VPN success by address and time makes it part of a case"
+    ],
+    "correct": 3,
+    "explanation": "A lone dropped RDP attempt from the internet is background noise; the same address succeeding at the VPN 21 seconds earlier links the two lines and makes them part of a story. Nothing in either line proves the password was guessed.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A netfilter line reads `IN=eth0 OUT= SRC=192.0.2.77 DST=203.0.113.10 ... DPT=21 SYN`, where 203.0.113.10 is the firewall's own public address. What does the empty OUT= field indicate?",
+    "options": [
+      "The firewall could not determine an egress route and therefore dropped the packet",
+      "The packet was a reply within an established session, so no route was needed",
+      "The packet was addressed to the firewall itself rather than forwarded through it",
+      "The logging rule was placed before routing, so the interface was not yet known"
+    ],
+    "correct": 2,
+    "explanation": "OUT= is empty when the packet is destined for the firewall's own address (input) rather than forwarded to another network. The SYN flag shows it was the opening packet of an attempt, not a reply in an established session.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A partner reports abuse from `203.0.113.10:40112` at 10:02:41 IST. Every Banyan workstation shares that public address. How does the analyst identify the responsible machine?",
+    "options": [
+      "Find the session record with that translated port and time, then map its internal address to a host via DHCP",
+      "Search the firewall log for 203.0.113.10 at that time, then list every workstation online then",
+      "Ask the partner for the user agent, then match it against the proxy log of all users",
+      "Search DHCP logs for port 40112, since DHCP assigns source ports along with addresses"
+    ],
+    "correct": 0,
+    "explanation": "Only the firewall's session log holds both identities, so joining on public port and time yields the internal address and port, and DHCP ties that address to a machine. Searching the public address alone matches every outbound connection from the company.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The firewall clock is four minutes fast and the session logs are forwarded without correction. Why is this especially damaging when answering external reports about Banyan's public address?",
+    "options": [
+      "Session records older than four minutes are discarded when the clocks disagree",
+      "Public source ports are reused quickly, so the report can map onto the wrong connection",
+      "The SIEM rejects firewall events whose timestamps are ahead of its own clock",
+      "NAT translations expire four minutes early, so long sessions are cut off"
+    ],
+    "correct": 1,
+    "explanation": "Attribution relies on public address, public port and time together; with ports reused quickly, a few minutes of error can match the report to a different internal connection. Clock drift does not cause records to be discarded or translations to expire early.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Outbound deny lines from fw01 show an internal source address but no translated source address or port, while allow lines show both. Why?",
+    "options": [
+      "Deny records are written before syslog adds the NAT fields to the message",
+      "The firewall hides translated addresses on denies to avoid disclosing its public range",
+      "Translation fields appear only in session-end records, which denies also produce",
+      "A denied first packet never creates a translation entry, so there is nothing to record"
+    ],
+    "correct": 3,
+    "explanation": "The first packet must match an allowing rule before any translation exists; a denied packet is never translated, so it is logged with its internal source only. Denied attempts do not produce session-end records with bytes and duration.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Within three seconds one external source is dropped on ports 21, 23, 25, 135, 445, 1433, 3306 and 3389 of Banyan's single public address. Which pattern is this?",
+    "options": [
+      "A vertical port scan mapping the services of one host",
+      "A horizontal sweep looking for one service across hosts",
+      "Out-of-state packets from sessions that timed out",
+      "Beaconing from an implant testing several ports"
+    ],
+    "correct": 0,
+    "explanation": "One source, one destination and many destination ports in seconds is a vertical scan. A horizontal sweep keeps the port fixed and varies the destination host instead.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Internal firewall logs show workstation 10.40.0.57 attempting TCP 445 on 60 other internal hosts in two minutes. How should this compare with an identical sweep of Banyan's public range from the internet?",
+    "options": [
+      "Both are routine background, since sweeps on 445 run continuously everywhere",
+      "The external sweep is more serious, since it comes from an unknown party",
+      "The internal sweep is more serious, suggesting a compromised host seeking its next target",
+      "Both are equally serious, since the pattern and the port are identical"
+    ],
+    "correct": 2,
+    "explanation": "Internet-wide sweeps of public addresses are constant background, but an internal source sweeping internal hosts points to lateral-movement reconnaissance from a compromised machine. Direction is the deciding branch, not the shape alone.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A workstation is denied outbound on TCP 445 to the same external address three times in nine seconds, and again the next morning. What is the most proportionate next step?",
+    "options": [
+      "Isolate the workstation at once, because outbound SMB is proof of worm activity",
+      "Seek the owner's explanation and check on the endpoint which process makes the attempts",
+      "Allow port 445 outbound for this host, because the denies show a business need",
+      "Ignore the denies, because the firewall blocked every attempt successfully"
+    ],
+    "correct": 1,
+    "explanation": "Outbound attempts on a blocked port fit malware but also a misconfigured application or a laptop looking for a home-network share, so the owner and endpoint telemetry decide. Treating it as proof skips the benign look-alike; ignoring it drops a real lead.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Allowed-session logs show 10.40.0.23 contacting 198.51.100.200 every 300 seconds (give or take one), sending 612 to 618 bytes each time. What does this analysis establish on its own?",
+    "options": [
+      "That the host is running command-and-control malware, ready for containment",
+      "That the destination is a software update service, since the bytes are constant",
+      "That the firewall's idle timeout is 300 seconds and is recreating the session",
+      "That a program checks in on a schedule; rarity, proxy and DNS context and the owning process decide intent"
+    ],
+    "correct": 3,
+    "explanation": "The regular gaps and near-identical sizes show a beacon but not whether it is malicious, because update checks and telemetry share the rhythm. Rarity across the estate, destination context and the owning process are the next steps.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A beacon-hunting rule requires identical intervals between sessions to the same destination. Why might it miss real implants?",
+    "options": [
+      "Implants often add random jitter, so the rule should look for a narrow spread of gaps",
+      "Implants always use UDP, which session logs do not record with durations",
+      "Implants rotate destination ports on every check-in, which breaks grouping",
+      "Implants send their check-ins only through DNS, which bypasses the firewall"
+    ],
+    "correct": 0,
+    "explanation": "Real implants commonly randomise their timing slightly, so the signal is a tight distribution of gaps rather than exact repetition. Grouping is by source and destination address, so port changes would not hide the rhythm.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During the beacon investigation the analyst finds that 40 other Banyan hosts also open five-minute sessions of the same size to 198.51.100.200. How does this change the assessment?",
+    "options": [
+      "It confirms malware, because the implant has clearly spread to 40 more hosts",
+      "It shows the firewall duplicated one host's records across several sources",
+      "It weakens the rarity argument; widespread software is likelier, to be confirmed by destination and process",
+      "It changes nothing, because rarity plays no part in judging beacons"
+    ],
+    "correct": 2,
+    "explanation": "A destination contacted by many hosts in the same rhythm fits update checks, telemetry or monitoring agents, so rarity no longer supports maliciousness; identifying the vendor and the process confirms it. Jumping to a 40-host infection skips that check.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The firewall drops a packet from 10.40.0.23 to 198.51.100.80:443 flagged `ACK PSH`, logged with the prefix FW-DROP-INVALID. The host had an allowed session to that server earlier. What is the most likely explanation?",
+    "options": [
+      "An attacker injecting data into the host's established HTTPS session",
+      "A session that outlived the idle timeout, so no state entry matched",
+      "A covert channel hiding data in TCP flags to bypass the rule base",
+      "A port scan using ACK packets to map the firewall's rule set"
+    ],
+    "correct": 1,
+    "explanation": "ACK or PSH packets without a state entry are dropped as invalid, usually because the session expired or routing was asymmetric; with a prior legitimate session this is noise. An ACK scan would come from an external source across many ports.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A next-generation firewall session shows `sent=2.1GB received=40MB` for a workstation's connection to an unfamiliar cloud address. Before reporting exfiltration, what must the analyst confirm?",
+    "options": [
+      "That the session ended with tcp-fin rather than a reset",
+      "That the destination port was 443 rather than a non-standard port",
+      "That the workstation's NAT port was not reused during the session",
+      "How this vendor defines sent and received relative to the initiator"
+    ],
+    "correct": 3,
+    "explanation": "Vendors define the byte-direction fields differently, and reading them backwards turns a download into an apparent exfiltration. How the session ended or which port it used does not tell you the direction of the transfer.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Every night at 02:00 the file server sends about 30 GB to one external address that no other host contacts, with almost nothing received back. What is the sensible first step?",
+    "options": [
+      "Confirm with the system owner whether this is a scheduled backup or sync",
+      "Block the destination at once, because the bytes ratio proves data theft",
+      "Close the alert, because large transfers at night are always backups",
+      "Raise the firewall's idle timeout so the transfer is logged as one session"
+    ],
+    "correct": 0,
+    "explanation": "A large outbound transfer to a rare destination fits data theft but more often a backup or sync; the owner, schedule and host role decide. Assuming either answer without that check is the mistake the lesson warns against.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An external address is dropped 300 times on assorted ports of Banyan's public range, and an hour later appears in a single allowed session to 203.0.113.14:8443. Why does this sequence merit a detection rule of its own?",
+    "options": [
+      "Because allowed sessions from scanned addresses are always successful exploits",
+      "Because the drops prove the firewall's rule base was misconfigured",
+      "Because the source may have found an open path after probing",
+      "Because an allow after drops means the state table was flushed"
+    ],
+    "correct": 2,
+    "explanation": "'Allowed after denied' can mean the source found a reachable service after its probing, which deserves investigation of what that session reached. It is not proof of exploitation, and the drops show the controls working rather than a misconfiguration.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An investigator asks which file a workstation downloaded during an allowed 52 KB HTTPS session found in the firewall log. What can the firewall log provide?",
+    "options": [
+      "The file name, taken from the TLS server name recorded with the session",
+      "The time, addresses, ports and bytes; the file needs proxy or endpoint logs",
+      "The full URL, because stateful firewalls record the request line of each session",
+      "Nothing useful, because firewall logs record denied traffic only"
+    ],
+    "correct": 1,
+    "explanation": "A firewall that is not inspecting applications is content-blind: it establishes that a session happened, when and how much moved, but not URLs or file names. Content-aware sources such as proxy and endpoint logs supply those.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An attacker with administrative control of a workstation clears its event logs. Why do the perimeter firewall's logs remain trustworthy evidence of that workstation's connections?",
+    "options": [
+      "Because the firewall's records are copied to the workstation and cannot be cleared there",
+      "Because firewall logs are signed with the workstation's machine certificate",
+      "Because firewalls record the content of each connection as well as its metadata",
+      "Because the firewall writes its log independently, out of the attacker's reach"
+    ],
+    "correct": 3,
+    "explanation": "Firewall logs are produced on a separate system that the compromised workstation does not control, which makes them reliable for establishing that connections happened. They are content-blind, so they do not record what each connection contained.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan tightens egress so that workstations may reach the internet only on 80 and 443 via the proxy, with denies logged. What new detection benefit does this bring?",
+    "options": [
+      "Malware attempts to use other ports become visible deny lines",
+      "Encrypted sessions on 443 become readable in the firewall log",
+      "Inbound scans of the public range stop appearing in the logs",
+      "Beacons on 443 are blocked automatically by the deny rule"
+    ],
+    "correct": 0,
+    "explanation": "With only needed outbound ports permitted, anything else a host tries is denied and logged, turning malware's attempts into evidence. Egress filtering does nothing to decrypt traffic and does not block beacons that use an allowed port.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A red-team report says unsolicited inbound packets were refused by fw01's final catch-all rule, yet the SIEM shows no drops at all for that window. What is the most likely cause?",
+    "options": [
+      "The catch-all rule rejected rather than dropped, and rejects are never logged",
+      "The packets were matched to existing state entries and therefore not logged",
+      "Logging for the implicit default deny rule was never switched on",
+      "The firewall logged the drops under the destination's internal address only"
+    ],
+    "correct": 2,
+    "explanation": "The default deny at the end of the rule base often has to have logging enabled separately, so traffic refused there can leave no trace. Rejects can be logged just like drops, and unsolicited packets have no state entries to match.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does a stateful firewall's log normally contain one or two records per connection rather than a line for every packet that crosses it?",
+    "options": [
+      "Because packets after the first are discarded once the rule base has been evaluated",
+      "Because rules are evaluated for the first packet and later packets match the state table",
+      "Because syslog merges packets with the same 5-tuple into one message before sending",
+      "Because only TCP packets with the SYN flag are permitted through a stateful firewall"
+    ],
+    "correct": 1,
+    "explanation": "The rule base decides on the first packet; later packets in both directions are matched against the state entry, so the firewall logs decisions at session start, end or both. Later packets are forwarded, not discarded.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Counting distinct destination ports and distinct destinations per source in the drop log shows 198.51.100.140 with one port (23) and eight destinations, 203.0.113.11 to 203.0.113.18. How should it be classified?",
+    "options": [
+      "A vertical scan of one Banyan host, to be escalated as targeted reconnaissance",
+      "Out-of-state noise from an expired Telnet session to several servers",
+      "An internal host attempting outbound Telnet against policy",
+      "A horizontal sweep of the public range, background unless linked to other evidence"
+    ],
+    "correct": 3,
+    "explanation": "One port across many hosts is a horizontal sweep, and a sweep of public addresses from the internet is everyday background until other evidence connects it to Banyan. A vertical scan would show many ports on a single host.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The SOC wants a rule that detects one internal workstation probing many other internal hosts, but its only firewall data comes from the perimeter firewall. What is the fundamental problem?",
+    "options": [
+      "Perimeter firewalls never see east-west traffic, so internal or flow logs are needed",
+      "Perimeter firewalls log internal traffic only when it is denied, not allowed",
+      "Internal addresses are translated by NAT, hiding which workstation scanned",
+      "Perimeter firewalls record internal scans, but only in session-end records"
+    ],
+    "correct": 0,
+    "explanation": "Traffic between internal hosts never crosses the perimeter, so it cannot appear in its logs; segmentation with logging between zones, or flow logs, is required. Source NAT applies only to traffic leaving for the internet.",
+    "lesson": 4,
+    "difficulty": "hard"
+  }
+]

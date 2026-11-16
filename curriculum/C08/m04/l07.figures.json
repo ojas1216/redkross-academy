@@ -1,0 +1,68 @@
+{
+  "C08-M04-L07-F1": {
+    "title": "From an analytical question to a saved, tested query",
+    "caption": "Each decision in the query specification constrains the next, and testing against known positives and negatives decides whether the query can be recorded as evidence.",
+    "alt": "Flow diagram with seven steps from top to bottom. Analytical question, for example did the phish hit anyone else, in orange. Population: sources and time range, in slate. Condition: precise predicates on normalised fields, in blue. Grain: what one result row represents, in violet. Window and output: time relationships, fields, sort and limit, in blue. Test: known positives and known negatives, in green. Saved, documented query: query, specification and result in the case, in dark. A feedback arrow runs from the last step back to the first, labelled failed test or new question: refine the specification.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Analytical question", "sub": "e.g. did the phish hit anyone else?", "tone": "orange" },
+      { "label": "Population", "sub": "sources + time range", "tone": "slate" },
+      { "label": "Condition", "sub": "precise predicates on normalised fields", "tone": "blue" },
+      { "label": "Grain", "sub": "what one result row represents", "tone": "violet" },
+      { "label": "Window and output", "sub": "time relationships; fields, sort, limit", "tone": "blue" },
+      { "label": "Test", "sub": "known positives + known negatives", "tone": "green" },
+      { "label": "Saved, documented query", "sub": "query + specification + result in the case", "tone": "dark" }
+    ],
+    "loop": { "label": "failed test or new question: refine the specification" },
+    "note": "Untested 'not found' and tested 'not found' look identical in a case note; only the test tells them apart."
+  },
+  "C08-M04-L07-F2": {
+    "title": "Three conditions that run cleanly and answer wrongly",
+    "caption": "Imprecise and precise forms of the same three questions, with the real row counts each returns on the Banyan dataset.",
+    "alt": "Two code panels. Left panel, red, titled Imprecise: a confident wrong answer. Block one: IOC search by substring, url LIKE '%cdn%', result 64 rows of which 46 are cdn.example.org. Block two: up to 07:02 on text timestamps, ts BETWEEN '...T06:00' AND '...T07:02', result 15 rows with the 07:02 events excluded. Block three: accounts never created, user NOT IN (SELECT target_user FROM events), result 0 because a NULL poisons NOT IN. Right panel, green, titled Precise: says what the question means. Block one: compare the extracted domain, domain = 'cdn-telemetry-sync.example', result 18 rows. Block two: half-open interval in full format, ts >= '...T06:00:00Z' AND ts < '...T07:03:00Z', result 17 rows. Block three: anti-join that ignores NULLs, NOT EXISTS (SELECT 1 FROM events c WHERE c.target_user = e.user), result 8 accounts.",
+    "type": "code",
+    "panels": [
+      {
+        "title": "Imprecise: a confident wrong answer",
+        "tone": "red",
+        "lines": [
+          "-- IOC search by substring",
+          "WHERE url LIKE '%cdn%'",
+          "  = 64 rows (46 are cdn.example.org)",
+          "",
+          "-- 'up to 07:02' on text timestamps",
+          "ts BETWEEN '…T06:00' AND '…T07:02'",
+          "  = 15 rows (07:02 events excluded)",
+          "",
+          "-- accounts never created",
+          "user NOT IN (SELECT target_user",
+          "             FROM events)",
+          "  = 0 (one NULL poisons NOT IN)"
+        ],
+        "highlight": ["'%cdn%'", "'…T07:02'", "NOT IN"]
+      },
+      {
+        "title": "Precise: says what the question means",
+        "tone": "green",
+        "lines": [
+          "-- compare the extracted domain",
+          "domain = 'cdn-telemetry-sync.example'",
+          "  = 18 rows",
+          "",
+          "-- half-open interval, full format",
+          "ts >= '…T06:00:00Z'",
+          "  AND ts < '…T07:03:00Z'",
+          "  = 17 rows",
+          "",
+          "-- anti-join that ignores NULLs",
+          "NOT EXISTS (SELECT 1 FROM events c",
+          "  WHERE c.target_user = e.user)",
+          "  = 8 accounts"
+        ],
+        "highlight": ["domain =", "< '…T07:03:00Z'", "NOT EXISTS"]
+      }
+    ],
+    "note": "Each left-hand form is a precision, recall or NULL-logic failure; none of them raises an error."
+  }
+}

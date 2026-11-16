@@ -1,0 +1,327 @@
+[
+  {
+    "q": "On one SSH server, source A fails as invalid users admin, oracle and test, once each. Source B fails five times as finance_etl, a real service account specific to the organisation. Neither succeeds. Which source shows targeting, and why?",
+    "options": [
+      "Source A, because trying more distinct names indicates a wider, organised campaign",
+      "Neither source, because no Accepted line appears for either of the two addresses",
+      "Source B, because guessing a real, organisation-specific name implies inside knowledge",
+      "Both equally, because each source produced failed password lines on the same server"
+    ],
+    "correct": 2,
+    "explanation": "Invalid-user failures against common names are a scanner's list and are background noise unless a success follows. Repeated failures against a real account only the organisation would know imply knowledge of the target, which is targeted guessing even without success.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst wants every line belonging to one SSH connection that ended with a [preauth] message. Which value reliably joins those lines?",
+    "options": [
+      "The PID of the sshd child process that handled the connection",
+      "The session number assigned to the login by systemd-logind",
+      "The uid recorded in the pam_unix session opened line for it",
+      "The listening port of the parent sshd process on the server"
+    ],
+    "correct": 0,
+    "explanation": "Each connection is handled by an sshd child whose PID appears on every line about it. A connection that ended in [preauth] never authenticated, so logind never created a session number and PAM never opened a session.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "grep -c 'Failed password' on a server's auth.log returns 12, but the SIEM, which parses the same stream, counts 40 failed attempts in the same window. What is the most likely explanation?",
+    "options": [
+      "The SIEM duplicated events when the forwarder reconnected after a short outage",
+      "grep is case-sensitive and missed lines that begin with a lowercase 'failed'",
+      "PAM writes its own failure line for each attempt, so the SIEM counted each twice",
+      "rsyslog compressed identical consecutive lines into 'message repeated N times'"
+    ],
+    "correct": 3,
+    "explanation": "rsyslog can collapse identical consecutive lines into one 'message repeated N times' line, so counting matching lines undercounts a burst. Counting from parsed events, or accounting for the repeat lines, gives the true number.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The deploy account always logs in with a key from the CI server at 192.0.2.20. Today auth.log shows 'Accepted password for deploy from 192.0.2.20' with no failures before it. How should this be treated?",
+    "options": [
+      "As normal, because the source is the CI server the account always uses",
+      "As a deviation, because a password login breaks the key-only baseline",
+      "As normal, because no failed attempts preceded the successful login",
+      "As a deviation only if the session then goes on to run sudo commands"
+    ],
+    "correct": 1,
+    "explanation": "Every Accepted line is read for method, account and source; on an account that only uses keys, a password acceptance is a deviation in itself even from a familiar source. It also shows that password authentication is enabled on the server.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On a freshly built Debian 12 server an analyst finds no /var/log/auth.log at all. What is the most likely reason, and where are the authentication messages?",
+    "options": [
+      "rsyslog is not installed by default; the messages are in the systemd journal",
+      "SSH logging is off by default; the messages must be enabled in sshd_config",
+      "Debian writes authentication to /var/log/secure, like Red Hat-family systems",
+      "Authentication is recorded only in wtmp and btmp, which are read with last"
+    ],
+    "correct": 0,
+    "explanation": "Debian 12 no longer installs rsyslog by default, so no auth.log is written and the journal is the only local record, readable with journalctl. /var/log/secure is the Red Hat-family file name.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Merged logs show 'Accepted password for deploy' at 'Nov  3 06:53:05' on a server and a suspicious sudo line at 'Nov  3 12:23:05' on another. The analyst concludes the events are five and a half hours apart. What should be checked first?",
+    "options": [
+      "Whether either file was rotated between the two events on 3 November",
+      "Whether both servers run the same OpenSSH and sudo versions",
+      "Each host's time zone, as classic syslog lines carry no zone",
+      "Whether the SIEM received both lines within its refresh interval"
+    ],
+    "correct": 2,
+    "explanation": "Classic syslog timestamps have no year and no time zone, so a host in UTC and one in IST (UTC+5:30) can write the same instant as 06:53 and 12:23. Central collection that stamps a full time, or the journal, removes this ambiguity.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A web server's auth.log contains 'www-data : user NOT in sudoers ; TTY=pts/0 ...'. Why is this line worth investigating even though the command was refused?",
+    "options": [
+      "It means the sudoers file has been corrupted and sudo is now refusing every user",
+      "Legitimate admins know their sudo rights, so a refused account suggests an intruder",
+      "It shows the account mistyped its own password three times at the sudo prompt",
+      "It proves a root shell was already obtained and is being used to test the policy"
+    ],
+    "correct": 1,
+    "explanation": "'user NOT in sudoers' means the policy does not allow the account to use sudo at all; legitimate administrators know whether they can, so a low-privilege service account trying from a terminal suggests someone probing for privilege. Mistyped passwords produce 'incorrect password attempts' instead.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The sudo log shows 'deploy : ... COMMAND=/bin/bash' at 09:10. At 09:24 a useradd 'new user' line appears from the same terminal, but there is no sudo line for useradd. What explains the missing sudo line?",
+    "options": [
+      "useradd logs only through PAM, so sudo suppresses its own line for it",
+      "The sudo line was compressed into a 'message repeated' line by rsyslog",
+      "useradd needs no privilege when it is run from an interactive terminal",
+      "Commands typed inside a root shell started via sudo are not logged by sudo"
+    ],
+    "correct": 3,
+    "explanation": "Starting a shell through sudo ends command-level logging: sudo records the shell, not what is typed inside it. The account tool still writes its own line, which is why useradd appears without a matching sudo command.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a compromise, auth.log shows the backdoor account backupsvc created and added to sudo, but no passwd line setting its password. An analyst concludes the account cannot be used to log in. What is the flaw?",
+    "options": [
+      "A public key written into the account's authorized_keys allows login and leaves no line in auth.log",
+      "Linux accounts created by useradd receive a default password that is not written to auth.log",
+      "passwd lines are written only to the journal, never to auth.log, so the search could not find them",
+      "Accounts in the sudo group can log in without any password when they connect from a local terminal"
+    ],
+    "correct": 0,
+    "explanation": "SSH keys are files; writing one to authorized_keys creates a way in that auth.log never records, so only file integrity monitoring or an auditd watch would show it. useradd does not set a usable default password.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the SSH failure triage graph, why is 'Any Accepted from this source?' asked before 'Were real accounts targeted?'",
+    "options": [
+      "Because invalid-user failures are filtered out by sshd before they are logged",
+      "Because it is the cheapest test with the biggest consequence for the case",
+      "Because real account names can only be checked after the session has ended",
+      "Because an Accepted line proves the failures before it were typing mistakes"
+    ],
+    "correct": 1,
+    "explanation": "One search for Accepted lines from the address settles the most serious outcome: a success after failures is a probable compromise regardless of the names tried. Only when there is no success is it worth analysing the names and rates.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An attacker spreads password guesses against a server's accounts across hundreds of addresses, each trying once or twice. Per-source triage shows nothing of interest. Which additional question best restores visibility?",
+    "options": [
+      "Did any single source try more than the default MaxAuthTries in one connection?",
+      "Did any of the source addresses appear on a public list of known SSH scanners?",
+      "Did any account succeed from a source address it has never used before?",
+      "Did any of the attempts use the names admin, root or oracle as the user?"
+    ],
+    "correct": 2,
+    "explanation": "Distributed attempts defeat every per-source view, so the same questions must be asked per account: a success from a never-seen source is the signal. Scanner lists and common names only identify noise, not the attempt that worked.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A sudo line on web-01 shows TTY=pts/1 and the useradd line written at the same second ends with from=/dev/pts/1. What does matching these values establish?",
+    "options": [
+      "The account was created by configuration management through a scheduled job",
+      "The account was created over a separate SSH connection opened as root",
+      "The account was created by the sshd parent process before authentication",
+      "The account was created from the same interactive terminal that ran sudo"
+    ],
+    "correct": 3,
+    "explanation": "pts/1 is an SSH pseudo-terminal, and the same value in both lines ties the account creation to the interactive session that ran the sudo command. Configuration management runs without an interactive terminal of this kind.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A detection rule built on Ubuntu alerts when an account-tool line shows an account being added to group 'sudo'. Tested on the Red Hat-family fleet, it never fires when admins are granted rights. What is the most likely reason?",
+    "options": [
+      "Red Hat-family systems grant administrative rights through the wheel group",
+      "Red Hat-family systems do not log usermod changes through syslog at all",
+      "Red Hat-family systems record group changes only in the btmp binary file",
+      "Red Hat-family systems require sudoers edits, so usermod is never used"
+    ],
+    "correct": 0,
+    "explanation": "On Red Hat-family systems the administrative group is wheel rather than sudo, so a rule keyed on the group name 'sudo' misses those grants. The account tools still log group changes through syslog there.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For a journal-based detection of account creation, why filter on _COMM=useradd rather than on the syslog identifier with -t useradd?",
+    "options": [
+      "_COMM includes the full command line, while the identifier holds only the name",
+      "_COMM is the only field that the journal includes in its JSON output format",
+      "_COMM filters faster because it is stored in the classic syslog header line",
+      "_COMM is recorded by the journal itself, while the identifier is set by the sender"
+    ],
+    "correct": 3,
+    "explanation": "_COMM is the executable name the journal records from the process itself, whereas the syslog identifier is whatever the program claims, which makes _COMM the more trustworthy filter. All fields appear in -o json output.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On a Red Hat-family server, journalctl -u ssh --since today returns no entries even though administrators logged in over SSH this morning. What is the most likely cause?",
+    "options": [
+      "The journal does not record SSH logins unless rsyslog is also installed",
+      "The SSH service unit is named sshd.service on Red Hat-family systems",
+      "The --since option requires an absolute date and rejects the word today",
+      "SSH logins are recorded under the sudo identifier rather than the unit"
+    ],
+    "correct": 1,
+    "explanation": "-u filters by systemd unit, and the SSH unit is ssh.service on Debian and Ubuntu but sshd.service on Red Hat-family systems. --since accepts words such as today, and the journal records SSH without rsyslog.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On a server where PermitRootLogin is meant to be 'no', which auth.log line should be treated as significant even with no failures before it?",
+    "options": [
+      "Failed password for root from an internet address",
+      "CRON session opened for user root(uid=0) by (uid=0)",
+      "Accepted publickey for root from 192.0.2.10",
+      "Connection closed by authenticating user root [preauth]"
+    ],
+    "correct": 2,
+    "explanation": "An accepted root login says something about both the activity and the configuration, because direct root login should have been refused. Failed root attempts are routine scanner noise and CRON root sessions are routine scheduled jobs.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "grep -F 'sshd[2120]' shows deploy's session ran from 06:53:05 to 07:04:51, but the sudo lines carry no sshd PID. What justifies attributing the 06:58 and 06:59 sudo commands to that SSH session?",
+    "options": [
+      "They are by deploy on pts/1 inside the session window; the journal's session data can confirm",
+      "The sudo lines include the client's source address, which matches the address of the session",
+      "The sudo lines carry the same sshd PID in their pam_unix session lines as the Accepted line",
+      "The uid=1001 in the sudo session lines identifies one SSH connection rather than an account"
+    ],
+    "correct": 0,
+    "explanation": "The link is the invoking account and terminal falling inside the session's boundaries, which the journal can strengthen because logind tags activity with the session. sudo lines do not record the source address, and uid=1001 identifies the account, not a connection.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which configuration change would have prevented the deploy login on web-01, where three failed passwords were followed by a successful one?",
+    "options": [
+      "Setting PermitRootLogin no in sshd_config on the server",
+      "Lowering MaxAuthTries to three attempts per connection",
+      "Setting PasswordAuthentication no on the key-only server",
+      "Removing deploy's unrestricted sudo rights on the server"
+    ],
+    "correct": 2,
+    "explanation": "The attacker logged in with a password on a server whose accounts should only use keys; disabling password authentication refuses that login whatever the password. Limiting deploy's sudo rights would reduce the damage afterwards, but would not stop the login.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After installing a tool that blocks any source with five failed SSH logins, a team declares SSH guessing 'solved'. What is the main weakness of that conclusion?",
+    "options": [
+      "Blocking tools cannot read auth.log on servers whose logs are kept in the journal",
+      "Blocking an address also blocks legitimate administrators sharing that address",
+      "Blocking tools require PasswordAuthentication to be disabled before they will work",
+      "Blocking does nothing against a correct password, such as web-01's success at try four"
+    ],
+    "correct": 3,
+    "explanation": "Rate limiting reduces noise but does not stop an attacker who supplies the right password within the limit; on web-01 the success came after only three failures. That is why the Accepted line is always the one that matters.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After web-01, the team wants to limit what an attacker could do with a stolen automation password once logged in. Which change addresses that most directly?",
+    "options": [
+      "Rotating the automation account's password every thirty days",
+      "Restricting its sudo rules to the exact commands the pipeline needs",
+      "Moving the SSH service to a non-standard port on the server",
+      "Raising the rsyslog repeat-compression threshold on the host"
+    ],
+    "correct": 1,
+    "explanation": "deploy had unrestricted sudo, which let the session create and empower a new account; sudo rules limited to the pipeline's commands would have refused useradd and usermod. Password rotation shortens exposure but leaves full root power during it.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An 'Accepted publickey for alice' line ends with a key type and a SHA256 fingerprint. How does the fingerprint help analysis?",
+    "options": [
+      "It identifies which key was used, so a new fingerprint for alice is a deviation",
+      "It proves the private key is stored on alice's own laptop and nowhere else",
+      "It encodes the source address, so it confirms where the connection began",
+      "It shows the key's passphrase strength, so weak keys can be flagged quickly"
+    ],
+    "correct": 0,
+    "explanation": "The fingerprint identifies the specific key presented, so the baseline can include expected fingerprints per account and an unfamiliar one stands out. It says nothing about where the private key is stored or how it is protected.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "198.51.100.23 fails three times as deploy on sshd[2101], which ends with 'Connection closed by authenticating user deploy ... [preauth]'. Ninety seconds later sshd[2120] accepts a password for deploy from the same address. What follows for the analysis?",
+    "options": [
+      "MaxAuthTries cut off the first connection, which proves an automated tool was used",
+      "Each connection has its own PID, so link them by source address, not by the PID",
+      "The second connection is unrelated, because a different PID means a new client",
+      "The [preauth] line shows the account was locked, so the later success is an error"
+    ],
+    "correct": 1,
+    "explanation": "The first connection closed after three tries, below the default MaxAuthTries of six, so the client ended it; reconnecting created a new sshd child with a new PID. The PID joins lines within one connection, while the success-after-failures link is made on the source address.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "CRON writes a pam_unix session opened and closed pair for root every minute, filling much of auth.log. An engineer proposes dropping these lines from collection. What is the best response?",
+    "options": [
+      "Agree, because CRON sessions can never be part of an intrusion",
+      "Agree, but alert on any CRON line that names a user other than root",
+      "Disagree, and alert on every CRON root session as possible persistence",
+      "Disagree; filter them from investigations but keep collecting them"
+    ],
+    "correct": 3,
+    "explanation": "Routine lines should be learned and filtered out of investigations, but never removed from collection, because they are the baseline and may later matter as evidence. Alerting on every routine root job would simply bury analysts in noise.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which pair of Linux log lines is the closest counterpart to a Windows 4720 followed by a 4732 adding the new account to Administrators?",
+    "options": [
+      "sshd 'Accepted' followed by systemd-logind 'New session'",
+      "su 'session opened for user root' followed by a sudo command",
+      "useradd 'new user' followed by usermod adding it to group sudo",
+      "passwd 'password changed' followed by a 'session closed' line"
+    ],
+    "correct": 2,
+    "explanation": "Creating an account and then adding it to the administrative group is the Linux form of the create-then-empower persistence pattern. An Accepted line followed by a logind session is simply a login.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On web-01 the local auth.log has no lines between 06:50 and 07:10, but the SIEM copy, forwarded in near real time, contains the deploy session and its sudo commands. Which reading is most likely?",
+    "options": [
+      "Someone with root edited the local file after forwarding; the SIEM copy is the evidence",
+      "The journal keeps those lines in binary form only, so auth.log never received them",
+      "The SIEM generated the lines itself when the forwarder reconnected after an outage",
+      "sshd writes session lines only to wtmp, so the SIEM must have read them from there"
+    ],
+    "correct": 0,
+    "explanation": "An intruder with root can edit or delete local text logs, which is why fast central collection matters: the forwarded copy is out of reach. A SIEM stores what it receives and does not invent log lines.",
+    "lesson": 2,
+    "difficulty": "hard"
+  }
+]

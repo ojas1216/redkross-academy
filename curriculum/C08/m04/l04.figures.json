@@ -1,0 +1,40 @@
+{
+  "C08-M04-L04-F1": {
+    "title": "One outbound connection through source NAT",
+    "caption": "How fw01 rewrites a workstation's connection to its public address, reverses the translation for replies, and records both identities in its session log.",
+    "alt": "Sequence diagram with four lanes: Workstation WS-104 (10.40.0.23), Firewall fw01 (SNAT to 203.0.113.10), Web server (198.51.100.80) and SIEM. The workstation sends SYN 10.40.0.23:51290 to 198.51.100.80:443 to the firewall. The firewall sends SYN from 203.0.113.10:40112 (after SNAT) to the web server. The web server replies, dashed, SYN/ACK to 203.0.113.10:40112. The firewall replies, dashed, SYN/ACK to 10.40.0.23:51290 (reversed). The workstation sends data, then FIN: session closes. The firewall sends the session-end log with src, nat_src, bytes and duration to the SIEM.",
+    "type": "sequence",
+    "actors": [
+      { "id": "ws", "label": "Workstation WS-104", "sub": "10.40.0.23", "tone": "blue" },
+      { "id": "fw", "label": "Firewall fw01", "sub": "SNAT to 203.0.113.10", "tone": "orange" },
+      { "id": "srv", "label": "Web server", "sub": "198.51.100.80", "tone": "slate" },
+      { "id": "siem", "label": "SIEM", "tone": "dark" }
+    ],
+    "messages": [
+      { "from": "ws", "to": "fw", "label": "SYN 10.40.0.23:51290 to 198.51.100.80:443" },
+      { "from": "fw", "to": "srv", "label": "SYN from 203.0.113.10:40112 (after SNAT)" },
+      { "from": "srv", "to": "fw", "label": "SYN/ACK to 203.0.113.10:40112", "dashed": true },
+      { "from": "fw", "to": "ws", "label": "SYN/ACK to 10.40.0.23:51290 (reversed)", "dashed": true },
+      { "from": "ws", "to": "fw", "label": "data, then FIN: session closes" },
+      { "from": "fw", "to": "siem", "label": "Session-end log: src, nat_src, bytes, duration" }
+    ],
+    "note": "Outside, every Banyan host is 203.0.113.10; only the firewall's session log links a public port back to an internal host."
+  },
+  "C08-M04-L04-F2": {
+    "title": "Connection patterns in firewall logs and their look-alikes",
+    "caption": "Six connection patterns an analyst recognises in firewall logs, the log signature of each and the benign activity that produces the same shape.",
+    "alt": "Table with columns Pattern, Log signature and Benign look-alike. Vertical port scan: one SRC, one DST, many DPT, seconds; authorised vulnerability scan. Horizontal sweep: one SRC, one DPT, many DST; internet background scanning. Outbound to blocked port: internal SRC, DPT 445 or 25, denied, repeated; misconfigured app or roaming laptop. Regular small sessions: same DST, fixed interval, similar bytes; update checks, telemetry, NTP. Large outbound bytes: bytes out far above bytes in, rare DST; backup, cloud sync, video call. Out-of-state deny: ACK or PSH without SYN, dropped; idle timeout, asymmetric routing.",
+    "type": "table",
+    "columns": ["Pattern", "Log signature", "Benign look-alike"],
+    "rowTones": ["red", "red", "orange", "orange", "orange", "slate"],
+    "rows": [
+      ["Vertical port scan", "one SRC, one DST, many DPT, seconds", "authorised vulnerability scan"],
+      ["Horizontal sweep", "one SRC, one DPT, many DST", "internet background scanning"],
+      ["Outbound to blocked port", "internal SRC, DPT 445 or 25, denied, repeated", "misconfigured app or roaming laptop"],
+      ["Regular small sessions", "same DST, fixed interval, similar bytes", "update checks, telemetry, NTP"],
+      ["Large outbound bytes", "bytes out far above bytes in, rare DST", "backup, cloud sync, video call"],
+      ["Out-of-state deny", "ACK or PSH without SYN, dropped", "idle timeout, asymmetric routing"]
+    ],
+    "note": "Direction, rarity and corroboration from other logs decide which story a pattern tells."
+  }
+}

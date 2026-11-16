@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Yesterday the portal's access log showed `GET /.git/config` answered with 404 and 196 bytes. Today the same request from a different source is answered with 200 and 2,400 bytes. How should the analyst read today's line?",
+    "options": [
+      "As routine content discovery, since the request path is identical to yesterday's",
+      "As a probe that was redirected to the custom error page at a larger size",
+      "As evidence that the repository configuration file was handed to the client",
+      "As a cached copy of yesterday's response served again by the web server"
+    ],
+    "correct": 2,
+    "explanation": "Status and bytes together show the request was served with real content, so a sensitive file was disclosed and that is a finding in its own right. Treating it as routine discovery ignores that the server's answer changed from not found to served.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A customer signs in through the portal's own login form, and the access log records `POST /login` with a 302. The authenticated-user field on that line, and on all her later requests, is `-`. Why?",
+    "options": [
+      "The field is filled only when the web server itself performs HTTP authentication",
+      "The field is blank because the server writes it only for 200 responses",
+      "The login failed, so the application never passed a username to the log",
+      "The field is suppressed by default in nginx to keep personal data out of logs"
+    ],
+    "correct": 0,
+    "explanation": "The user field (%u, $remote_user) records only users authenticated by the web server, such as Basic authentication; application form logins never appear there. A 302 after a login does not tell you the login failed either.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After the portal moved behind a load balancer, every access-log line shows one of two internal addresses as the client. Which change gives the analyst usable attribution without opening a spoofing hole?",
+    "options": [
+      "Take the client address from X-Forwarded-For on every request the server receives",
+      "Trust X-Forwarded-For only from the organisation's own proxies and log both addresses",
+      "Replace the client field with the User-Agent so that visitors can still be told apart",
+      "Disable the load balancer's health checks so that only real visitors are logged"
+    ],
+    "correct": 1,
+    "explanation": "The forwarded header is reliable only when your own proxy wrote it, so trust must be limited to those connections and both the connecting and forwarded addresses kept. Trusting the header from everyone lets any client write whatever address it likes into the log.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During an investigation the access log attributes a series of injection probes to 192.0.2.1, but that organisation's network team shows it never sent traffic to the portal. What configuration weakness most likely explains this?",
+    "options": [
+      "The access log records the ident identity instead of the TCP client address",
+      "The web server converts the client address to local time before logging it",
+      "The load balancer rewrote the destination address of the probes on arrival",
+      "The web server trusts a client-supplied X-Forwarded-For header from any source"
+    ],
+    "correct": 3,
+    "explanation": "If the server accepts X-Forwarded-For from anyone, an attacker can add the header with an address of their choosing and appear in the log as that address. The ident field is the second field and almost always `-`, so it would not place an address in the client position.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On a Combined Log Format line, `awk '{print $9}'` prints the HTTP status. Why is the status the ninth space-separated field rather than the seventh, which is its position in the format definition?",
+    "options": [
+      "Because the timestamp and its UTC offset are counted as three separate fields",
+      "Because the Referer and User-Agent are printed before the status by default",
+      "Because the request line splits into method, path and protocol fields",
+      "Because awk counts the opening and closing double quotes as their own fields"
+    ],
+    "correct": 2,
+    "explanation": "The quoted request line contains two spaces, so awk sees method, path and protocol as fields 6, 7 and 8, pushing the status to 9. The timestamp contributes only two fields (the bracketed time and the offset), not three.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst tries `awk '{print $12}'` to list user agents and gets only `\"Mozilla/5.0` for most lines. What is the correct approach for this field?",
+    "options": [
+      "Split on the double-quote character, because the user agent is quoted and contains spaces",
+      "Print fields 12 to the end of the line, because the user agent is always the final field",
+      "Use the eleventh field instead, because the Referer is omitted when it is empty",
+      "Sort the output first, because awk only reads the first word of an unsorted field"
+    ],
+    "correct": 0,
+    "explanation": "Quoted fields can contain spaces, so splitting on whitespace breaks them; with the quote as separator (-F'\"') the user agent becomes field 6. Printing from field 12 onward happens to work for some lines but is fragile and is not how the lesson extracts the quoted field.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A request carrying `10' UNION SELECT NULL--` in a query parameter is answered with 500 and a small error-sized response. What is the most appropriate next step?",
+    "options": [
+      "Close the alert, because the 500 shows the injection was blocked before reaching code",
+      "Pull the application and database error logs for the same second and the same client",
+      "Escalate as a confirmed data breach, because the server accepted the injected query",
+      "Block the user agent string, because it identifies the scanning tool that sent it"
+    ],
+    "correct": 1,
+    "explanation": "A 5xx means the input reached application code that failed, which is a reason to look deeper but not yet proof; a database syntax error at that moment would show the parameter reaches the query unsafely. It is not a confirmed breach, and a 500 is the opposite of a block.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A request for `/download?file=..%2F..%2F..%2Fetc%2Fpasswd` is answered with 200 and a body roughly the size of a Linux account file. How should it be classified?",
+    "options": [
+      "As a rejected attempt, because servers always normalise traversal sequences",
+      "As background noise, because traversal probes reach every public server daily",
+      "As a malformed request that the framework's path normaliser turned away",
+      "As a likely successful file read, requiring immediate escalation"
+    ],
+    "correct": 3,
+    "explanation": "A 2xx with a size consistent with the targeted system file means the server probably returned it, which is presumed serious until shown otherwise. A rejected or normalised attempt would appear as 400 or 404, as the traversal attempt in the lesson's sample did.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule that alerts on `%27` in any request fires on `/search?q=O%27Brien` from a client that also fetched the page's stylesheet and scripts. What does this tell the rule author?",
+    "options": [
+      "Apostrophes occur in real names and text, so the pattern alone flags customers",
+      "The client is disguising an injection probe as a surname to evade detection",
+      "The search page must be vulnerable, since the encoded apostrophe reached it",
+      "The rule should alert only when the apostrophe appears in a POST request"
+    ],
+    "correct": 0,
+    "explanation": "An encoded apostrophe in a search field from a client with full browsing behaviour is a customer searching a surname; a lone %27 without SQL keywords is not evidence of injection. Treating it as disguise ignores the behavioural evidence the lesson uses to separate the two.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A grep for injection markers across the whole access log also returns `GET /static/app.js` with status 304, whose path contains nothing suspicious. What caused the match, and what fixes it?",
+    "options": [
+      "The 304 status matched the pattern; excluding cached responses from the search",
+      "The file's contents were logged with the request; logging only the request line",
+      "The match came from the Referer field; matching only the decoded request path",
+      "The user agent contained an apostrophe; removing the user agent before matching"
+    ],
+    "correct": 2,
+    "explanation": "grep searched the whole line, and this line's Referer was the earlier search URL containing %27; matching the decoded path field removes the false positive. Access logs never contain response bodies, so the file's contents could not have matched.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An access-log line is timestamped `[03/Nov/2026:10:04:33 +0530]`. An EDR alert to be correlated with it is recorded in UTC. Which UTC time should the analyst search around?",
+    "options": [
+      "15:34:33 UTC on 3 November",
+      "04:34:33 UTC on 3 November",
+      "10:04:33 UTC on 3 November",
+      "05:04:33 UTC on 3 November"
+    ],
+    "correct": 1,
+    "explanation": "The offset +0530 means local time is five and a half hours ahead of UTC, so subtracting it gives 04:34:33 UTC. Adding the offset instead produces 15:34:33, a common sign error.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An access-log line shows `GET /server-status` answered with 403, and the nginx error log at the same second reads `access forbidden by rule, client: 198.51.100.23`. What does the pairing establish?",
+    "options": [
+      "The page does not exist, and the 403 was produced in place of a 404",
+      "The client sent invalid HTTP Basic credentials for the diagnostics page",
+      "The upstream application crashed while generating the status page",
+      "A configured allow/deny rule deliberately refused the request"
+    ],
+    "correct": 3,
+    "explanation": "'Access forbidden by rule' means an allow or deny directive in the configuration refused the client, so the 403 is a control working as designed. Bad Basic credentials would produce a 401, not a rule-based 403.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SIEM rule raising an alert on every SQL keyword in a public portal's URLs produces thousands of alerts a day. Which redesign keeps detection value while cutting noise most effectively?",
+    "options": [
+      "Alert on decoded injection patterns only when the response is 2xx or 5xx",
+      "Alert on injection patterns only when the user agent names a known scanning tool",
+      "Alert on injection patterns only when the client address is outside India",
+      "Alert on injection patterns only when they arrive more than ten times a minute"
+    ],
+    "correct": 0,
+    "explanation": "Pairing the pattern with a served or failing response focuses on requests that got somewhere, which is what decides severity. Filtering on user agent is weak because the client chooses that header and can copy or change it.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Eleven requests from one source all carry the user agent `Mozilla/5.0 (X11; Linux x86_64)`. Which observation best supports the conclusion that the client is automation, not a person's browser?",
+    "options": [
+      "The string starts with Mozilla/5.0, which only scripts send nowadays",
+      "The string names Linux, which few customers of the portal would use",
+      "It lacks engine and version tokens and requested no page assets",
+      "It is identical on every line, which browsers never repeat exactly"
+    ],
+    "correct": 2,
+    "explanation": "Real browser strings carry engine and version tokens, and browsers fetch stylesheets, scripts and images after a page; this client did neither. Every mainstream browser string begins with Mozilla/5.0, so that prefix proves nothing.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A client requesting thousands of pages identifies itself as a major search engine's crawler. How can the analyst verify the claim rather than trust the header?",
+    "options": [
+      "Check whether the client fetched robots.txt before any other page",
+      "Run a reverse DNS lookup on its address, then a forward lookup of the returned name",
+      "Compare the user-agent string with the search engine's published version",
+      "Confirm that its requests include a Referer from the search engine's domain"
+    ],
+    "correct": 1,
+    "explanation": "The reverse-then-forward DNS check, recommended by the search engines themselves, ties the address to the operator; an impersonator fails it. Fetching robots.txt or copying the published user-agent string is behaviour any impersonator can imitate.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A WAF vendor reports SQL injection attempts against the portal's login form, but the analyst's search of the access log finds no injection markers on `/login`. What is the most likely reason?",
+    "options": [
+      "The web server rejected the requests before writing them to the access log",
+      "The attempts were encoded, and the access log decodes values before storing",
+      "Login requests are written only to the error log, not to the access log",
+      "The form parameters travel in the POST body, which the access log does not record"
+    ],
+    "correct": 3,
+    "explanation": "The access log records the request line, so it shows injection only in the URL; POST body parameters require WAF, application or database logs. The access log stores the request as received, still encoded, so it does not decode anything.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Within three seconds one external source requests `/.env`, `/backup.zip`, `/wp-login.php` and `/phpmyadmin/`, all answered 404 with the same byte count. Which question decides whether this becomes a case?",
+    "options": [
+      "Whether any of the probed paths answered 200, or the source went on to do more",
+      "Whether the source's user agent matches a commercial scanning product",
+      "Whether the portal runs WordPress, since one of the paths targets it",
+      "Whether the requests arrived over HTTP/1.1 rather than a newer protocol"
+    ],
+    "correct": 0,
+    "explanation": "Content discovery like this hits every public server daily; it becomes a case when a probe is served or the same source follows up. Whether the site runs WordPress does not matter, since scanners request such paths regardless.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Over a day the same path, `/branches/old-office`, returns 404 to forty different clients, most of whom send a Referer from the portal's own pages. What best explains the pattern?",
+    "options": [
+      "A distributed scan rotating source addresses to avoid per-source thresholds",
+      "A crawler re-indexing the portal from many cloud addresses at once",
+      "A broken link on the site that visitors keep following",
+      "A cache misconfiguration that serves 404s to returning visitors"
+    ],
+    "correct": 2,
+    "explanation": "One real site path failing for many unrelated clients who arrived from your own pages is the mark of a broken link. A distributed scan would request many different well-known paths without a Referer from the site.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At 14:00 the portal returns 502 and 503 to every client on every path for six minutes, and the change calendar shows an application release at 13:58. How should the analyst read the spike?",
+    "options": [
+      "As a denial-of-service attack timed to coincide with the release window",
+      "As a deployment or back-end outage, not activity by any one source",
+      "As injection probes reaching failing code, as the 500 class indicates",
+      "As rate limiting triggering on every client after the release"
+    ],
+    "correct": 1,
+    "explanation": "Errors across all clients and paths at once, matching a change record, point to an outage rather than one actor. Rate limiting would show as 429 per source, not 502 and 503 for everyone.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A developer explains that the portal catches every exception and shows a friendly error page with status 200. Why should the analyst raise this with the application owner?",
+    "options": [
+      "Because 200 responses are excluded from SIEM ingestion by default",
+      "Because the friendly page leaks stack traces to the client",
+      "Because browsers cache 200 responses and repeat the failing request",
+      "Because application failures become invisible in the access log"
+    ],
+    "correct": 3,
+    "explanation": "The status records what the web server returned, so failures dressed as 200 cannot be told apart from successes, removing the 5xx signal injection triage relies on. A friendly page is the opposite of leaking stack traces.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Discovery paths, a traversal attempt and two SQL-shaped requests arrive from one address during the night. Before reading any status codes, what should the analyst establish first, and why?",
+    "options": [
+      "Whether the address belongs to an authorised scanner in its window, since its lines look identical to an attacker's",
+      "Whether the address is on a threat-intelligence blocklist, since unlisted sources are rarely hostile",
+      "Whether the address geolocates abroad, since domestic sources are covered by the scan schedule",
+      "Whether the address previously visited the portal, since first-time visitors are always scanners"
+    ],
+    "correct": 0,
+    "explanation": "A scheduled scan by the organisation's own team produces exactly the same lines, so authorisation is checked first, against the schedule or a signed authorisation rather than assumed. Absence from a blocklist says nothing about intent.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A saved search for `UNION SELECT` returns nothing, yet a colleague finds injection attempts in the same log. Which approach would have caught them?",
+    "options": [
+      "Searching the error log instead, because injection is never written to the access log",
+      "Searching only lines with status 500, because injection always causes a server error",
+      "Decoding the request and normalising case before matching the keywords",
+      "Searching the User-Agent field, because scanners announce injection there"
+    ],
+    "correct": 2,
+    "explanation": "Attempts arrive as UNION%20SELECT, with inline comments or mixed case, so detection must decode and normalise before matching. Restricting to 500s would miss attempts that were served or rejected.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Over ten minutes one source receives hundreds of 401 responses for `/admin/`, which is protected by web-server HTTP authentication. What does the pattern most likely indicate?",
+    "options": [
+      "Content discovery looking for administration interfaces",
+      "Password guessing against the HTTP authentication",
+      "A misconfigured health check polling the wrong path",
+      "Rate limiting refusing the client after too many requests"
+    ],
+    "correct": 1,
+    "explanation": "Many 401s for one protected path from one source is the shape of credential guessing against web-server authentication. Rate limiting would answer with 429, and discovery spreads across many different paths.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The access log suggests the portal's statement page may build its SQL query unsafely. A colleague proposes replaying the logged requests against the portal to confirm. What is the right response?",
+    "options": [
+      "Replay them from a lab address so the WAF does not block the confirmation",
+      "Replay only the request that returned 500, as that one already reached the query",
+      "Replay them outside business hours to keep impact on customers low",
+      "Hand it to the application security team, since testing needs written authorisation"
+    ],
+    "correct": 3,
+    "explanation": "Sending requests to the portal to check a vulnerability is testing, which requires written authorisation under the application security team's rules of engagement. The analyst's role is to read logs of requests others sent; timing or source address does not make unauthorised testing acceptable.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After an administrator adds a response-time field in the middle of the portal's log format, a content-discovery alert built on field positions stops firing entirely. What lesson does this illustrate?",
+    "options": [
+      "Positional parsers break silently when the format changes, so format changes need monitoring",
+      "Custom log formats are not supported by SIEM parsers and must be avoided",
+      "Response-time fields are written only for successful requests, hiding 404s",
+      "Format changes take effect only after the next log rotation, so alerts pause"
+    ],
+    "correct": 0,
+    "explanation": "Access-log fields carry no names, only positions, so inserting a field shifts everything after it and saved searches quietly read the wrong values. Custom formats are fine as long as parsers are updated with them.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

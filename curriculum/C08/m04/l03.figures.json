@@ -1,0 +1,52 @@
+{
+  "C08-M04-L03-F1": {
+    "title": "Anatomy of a Combined Log Format access-log line",
+    "caption": "The nine positional fields of one portal access-log line, with the Apache format directive for each and the two fields Combined adds to the Common Log Format.",
+    "alt": "Segment diagram of one access-log line, left to right: Client address 198.51.100.23 (%h), Identity - (%l), User - (%u), Time [03/Nov/2026:10:04:33 +0530] (%t), Request line GET /account/statement?month=10%27... (\"%r\"), Status 500 (%>s), Bytes 531 (%b), then the two Combined additions Referer - and User-Agent Mozilla/5.0 (X11; Linux x86_64).",
+    "type": "segments",
+    "segments": [
+      { "label": "Client address", "sub": "198.51.100.23", "top": "%h", "w": 1.3, "tone": "blue" },
+      { "label": "Identity", "sub": "-", "top": "%l", "w": 0.7, "tone": "slate" },
+      { "label": "User", "sub": "-", "top": "%u", "w": 0.7, "tone": "slate" },
+      { "label": "Time", "sub": "[03/Nov/2026:10:04:33 +0530]", "top": "%t", "w": 1.5, "tone": "blue" },
+      { "label": "Request line", "sub": "GET /account/statement?month=10%27...", "top": "\"%r\"", "w": 2.0, "tone": "orange" },
+      { "label": "Status", "sub": "500", "top": "%>s", "w": 0.8, "tone": "red" },
+      { "label": "Bytes", "sub": "531", "top": "%b", "w": 0.8, "tone": "blue" },
+      { "label": "Referer", "sub": "-", "top": "Combined", "w": 0.9, "tone": "violet" },
+      { "label": "User-Agent", "sub": "Mozilla/5.0 (X11; Linux x86_64)", "top": "Combined", "w": 1.5, "tone": "violet" }
+    ],
+    "note": "The request line, Referer and User-Agent are written by the client; status and bytes are written by the server."
+  },
+  "C08-M04-L03-F2": {
+    "title": "Triage of a suspicious web request by the server's answer",
+    "caption": "The order of questions an analyst applies to a suspicious access-log line: authorised source first, then the status class, then the deeper logs.",
+    "alt": "Decision graph. Suspicious request in access log (scan path, traversal or injection marker) leads to the decision Known authorised source? (own scanner, monitor, crawler, verified). Yes leads to Benign: document and tune. No leads to the decision What did the server return? It branches to 4xx: 400, 403, 404 (rejected or not found), which leads to Record; watch source and volume; to 5xx: 500, 502 (input reached code that failed), which leads to Read error and app logs (same second, same client), which with evidence it reached the query leads to Escalate as possible compromise; and to 2xx / 3xx (the request was served), which leads directly to Escalate as possible compromise (bytes, follow-on requests, host).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "a", "label": "Suspicious request in access log", "sub": "scan path, traversal or injection marker", "tone": "orange" },
+      { "id": "b", "label": "Known authorised source?", "sub": "own scanner, monitor, crawler (verified)", "tone": "violet", "kind": "decision" },
+      { "id": "c", "label": "Benign: document and tune", "tone": "green" },
+      { "id": "d", "label": "What did the server return?", "tone": "violet", "kind": "decision" },
+      { "id": "e", "label": "4xx: 400, 403, 404", "sub": "rejected or not found", "tone": "blue" },
+      { "id": "f", "label": "5xx: 500, 502", "sub": "input reached code that failed", "tone": "orange" },
+      { "id": "g", "label": "2xx / 3xx", "sub": "the request was served", "tone": "red" },
+      { "id": "h", "label": "Record; watch source and volume", "tone": "slate" },
+      { "id": "i", "label": "Read error and app logs", "sub": "same second, same client", "tone": "orange" },
+      { "id": "j", "label": "Escalate as possible compromise", "sub": "bytes, follow-on requests, host", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "a", "to": "b" },
+      { "from": "b", "to": "c", "label": "yes" },
+      { "from": "b", "to": "d", "label": "no" },
+      { "from": "d", "to": "e" },
+      { "from": "d", "to": "f" },
+      { "from": "d", "to": "g" },
+      { "from": "e", "to": "h" },
+      { "from": "f", "to": "i" },
+      { "from": "i", "to": "j", "label": "evidence it reached the query" },
+      { "from": "g", "to": "j" }
+    ],
+    "note": "The request shows intent; the response shows how far the input got."
+  }
+}

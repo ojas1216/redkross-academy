@@ -1,0 +1,50 @@
+{
+  "C08-M04-L06-F1": {
+    "title": "What a proxy logs for HTTPS, without and with TLS inspection",
+    "caption": "The fields an analyst gets from an uninspected CONNECT tunnel compared with an inspected HTTPS request.",
+    "alt": "Comparison of two columns separated by 'vs'. Left, Without TLS inspection: CONNECT cdn-telemetry-sync.example:443; host and port only, no path, no query; tunnel totals, bytes each way, duration; inner HTTP status and method unseen; timing and rarity still visible. Right, With TLS inspection: full URL /api/v2/ping; method, status, content type; per-request bytes out and in; user agent and referer; malware and DLP scanning possible.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Without TLS inspection",
+        "tone": "slate",
+        "items": [
+          "CONNECT cdn-telemetry-sync.example:443",
+          "Host and port only: no path, no query",
+          "Tunnel totals: bytes each way, duration",
+          "Inner HTTP status and method unseen",
+          "Timing and rarity still visible"
+        ]
+      },
+      {
+        "title": "With TLS inspection",
+        "tone": "blue",
+        "items": [
+          "Full URL: /api/v2/ping",
+          "Method, status, content type",
+          "Per-request bytes out and in",
+          "User agent and referer",
+          "Malware and DLP scanning possible"
+        ]
+      }
+    ],
+    "note": "Inspection adds paths and content controls; rarity, rhythm and volume survive without it."
+  },
+  "C08-M04-L06-F2": {
+    "title": "Six questions for proxy analysis, applied to WS-104",
+    "caption": "A top-to-bottom proxy analysis workflow annotated with what each step found in the Banyan lab dataset.",
+    "alt": "Flow diagram, top to bottom, six steps. 1 Rarity: domains by host count, 3 on one host only. 2 Content: file types and lookalikes, invoice.docm at 06:12. 3 Rhythm: interval CV, 18 pings, 300 s, cv=0.004. 4 Volume: bytes_out vs baseline, 48,200,000 at 08:12. 5 Scope: other hosts, same domains, none found. 6 Pivot to endpoint: process, account, logs, WINWORD.EXE to powershell.exe.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "1 Rarity", "sub": "domains by host count: 3 on one host only", "tone": "slate" },
+      { "label": "2 Content", "sub": "file types and lookalikes: invoice.docm at 06:12", "tone": "blue" },
+      { "label": "3 Rhythm", "sub": "interval CV: 18 pings, 300 s, cv=0.004", "tone": "orange" },
+      { "label": "4 Volume", "sub": "bytes_out vs baseline: 48,200,000 at 08:12", "tone": "red" },
+      { "label": "5 Scope", "sub": "other hosts, same domains: none found", "tone": "violet" },
+      { "label": "6 Pivot to endpoint", "sub": "process, account, logs: WINWORD.EXE to powershell.exe", "tone": "dark" }
+    ],
+    "note": "Narrow with rarity, characterise with content, rhythm and volume, widen with scope, prove with the endpoint."
+  }
+}

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A firewall blocks all direct outbound traffic from workstations except DNS queries to the internal resolver. Why can an implant on a workstation still deliver data to an outside party over DNS?",
+    "options": [
+      "The resolver relays the full query name, including encoded leftmost labels, to the zone's authoritative server",
+      "The resolver opens a direct TCP session between the workstation and the outside server on port 53",
+      "The root servers cache the encoded labels and forward copies to every registered domain owner",
+      "The stub resolver bypasses the internal resolver whenever a query uses the TXT record type"
+    ],
+    "correct": 0,
+    "explanation": "Recursion carries the whole name to whoever runs the zone's authoritative server, so labels can carry data without any direct connection. No direct workstation-to-server session is ever opened; the internal resolver relays both directions.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A resolver log shows that every suspicious query in an alert came from 10.40.0.5, the address of a branch office's local DNS forwarder. What is the best next step to identify the infected machine?",
+    "options": [
+      "Treat the forwarder as the infected host and reimage it immediately",
+      "Search passive DNS for the suspicious names to find the client address",
+      "Use the forwarder's own query logs, DHCP leases or Sysmon event 22 to attribute the queries",
+      "Lower the TTL on the suspicious names so the client re-queries the central resolver directly"
+    ],
+    "correct": 2,
+    "explanation": "Behind a forwarder all queries appear to come from the forwarder, so attribution needs its logs, DHCP leases or endpoint DNS telemetry. Passive DNS records name-to-address answers, not which internal client asked.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A resolver log shows WS-104 looking up an unfamiliar domain, and the analyst needs to know whether the browser or a script made the query. Which source answers this directly?",
+    "options": [
+      "The Zeek dns.log entry with its RD and RA flags",
+      "Sysmon event ID 22, which records the Image that made the query",
+      "The recursive resolver's query log with the response code",
+      "A passive DNS lookup of the domain's historical answers"
+    ],
+    "correct": 1,
+    "explanation": "Sysmon event 22 (DNSEvent) includes the process image, the only one of the three vantage points that names the asking process. Resolver and sensor logs identify the client address but not the process.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A workstation sends DNS queries on UDP port 53 straight to an internet address rather than to the internal resolver. Which source is most likely to reveal this, and why?",
+    "options": [
+      "The internal resolver's log, because it records every query for every external zone",
+      "Sysmon event 1, because it records each DNS packet as a process creation",
+      "Passive DNS, because it stores every query made by the organisation's hosts",
+      "A network sensor or firewall log, because the internal resolver never sees queries that bypass it"
+    ],
+    "correct": 3,
+    "explanation": "Queries sent directly to an outside server never touch the internal resolver, so only on-path sources such as a Zeek sensor or firewall logs see them. The resolver log is blind to traffic that bypasses it.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In a ten-minute window one client makes 60 queries: 55 return NXDOMAIN for 54 different unpronounceable names of similar length, and one similar-looking name returns NOERROR with 198.51.100.14. What is the most useful next pivot?",
+    "options": [
+      "Add the 54 failing names to a blocklist and close the alert",
+      "Ask the user whether they mistyped several addresses during the window",
+      "Search firewall and proxy logs for connections from the client to 198.51.100.14",
+      "Raise the NXDOMAIN threshold, since failed lookups carry no network traffic"
+    ],
+    "correct": 2,
+    "explanation": "The burst fits DGA behaviour, and the single successful resolution is the likely controller, so its answer address is the pivot into connection logs. Blocking failing names is pointless because those names were never registered.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A DGA detection requires, per client per window, nx >= 25 AND nx_ratio >= 0.5 AND names >= 20. Which benign case is excluded specifically by the names >= 20 condition?",
+    "options": [
+      "One application repeatedly retrying a single dead hostname",
+      "A busy server with a few failures among thousands of successes",
+      "A user making occasional typing mistakes in the browser",
+      "A CDN host name that is long and high in entropy"
+    ],
+    "correct": 0,
+    "explanation": "A retry loop can produce many NXDOMAINs at a high ratio but for one name only; requiring many distinct names removes it. The busy server is excluded by the ratio condition, not the distinct-name count.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does a DNS tunnel that sends data upstream normally use a different query name for every chunk of data?",
+    "options": [
+      "Authoritative servers refuse to answer the same name twice within one TTL",
+      "RFC 1035 forbids a client from repeating a query name in the same session",
+      "Root servers rate-limit repeated names, so new names avoid throttling",
+      "A repeated name would be answered from the resolver's cache and never reach the authoritative server"
+    ],
+    "correct": 3,
+    "explanation": "Caching means a repeated name is served locally for the TTL, so the data would never arrive at the zone owner; fresh names force recursion each time. RFC 1035 sets size limits, not a ban on repeated names.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst measures Shannon entropy of leftmost labels and finds banyan-payroll-update scores 3.54 while the random qxv7rk2mzt9bwp scores 3.81. What does this show about entropy as a detection feature?",
+    "options": [
+      "Entropy is unreliable only for hexadecimal labels and should be computed in Base32",
+      "Entropy rises with length for varied text, so on its own it cannot separate word-based malicious names from random ones",
+      "Dictionary-word domains are always benign, so the 3.54 score is a false positive",
+      "Entropy values above 3.5 bits per character prove the name was machine-generated"
+    ],
+    "correct": 1,
+    "explanation": "The lookalike made of words scored almost as high as the random string because entropy grows with varied, longer text, so entropy must be combined with rarity, volume and other features. A 3.5 threshold would flag the word-based name too, so it proves nothing.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A string of 32 characters drawn uniformly from the hexadecimal alphabet is measured with Shannon entropy. Which value is it expected to approach?",
+    "options": [
+      "About 4 bits per character, the ceiling for a 16-symbol alphabet",
+      "About 5 bits per character, because its length is 32",
+      "About 2 bits per character, like a short English word",
+      "About 0 bits per character, because only digits and letters a-f appear"
+    ],
+    "correct": 0,
+    "explanation": "With 16 equally likely symbols the maximum is log2 16 = 4 bits per character, which a long uniform hex string approaches. Five bits would need 32 distinct, equally frequent symbols, which a 16-symbol alphabet cannot provide.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A protective DNS alert flags long, high-entropy labels from a single host. Which finding most strengthens the case for DNS tunnelling rather than CDN traffic?",
+    "options": [
+      "The names resolve successfully with NOERROR",
+      "The parent domain is under a well-known cloud provider used by every host",
+      "Hundreds of distinct names under one young parent zone, asked by that host only, with a high TXT share",
+      "The queries are of type A and AAAA with short CNAME chains"
+    ],
+    "correct": 2,
+    "explanation": "Many unique subdomains under one unfamiliar parent from one client, plus TXT for the return path, is the structural tunnel signature. A well-known parent used estate-wide is the CDN look-alike, not evidence of a tunnel.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A host produced 1,000 unique query names under one parent zone, each carrying about 150 encoded characters in its labels. What is the reasonable upper estimate of data that could have left?",
+    "options": [
+      "About 1.5 kilobytes, because only the final label carries data",
+      "About 150 kilobytes of encoded text",
+      "About 150 megabytes, because each name triggers a full TXT response",
+      "Nothing measurable, because DNS queries carry no payload"
+    ],
+    "correct": 1,
+    "explanation": "The total length of the encoded names bounds upstream data: 1,000 x 150 characters is roughly 150 kilobytes of encoded text. Upstream data rides in the names, so response sizes do not inflate it to megabytes.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During triage a mail gateway and a finance workstation both show many TXT queries. Which interpretation follows the lesson's triage logic?",
+    "options": [
+      "Both are suspicious, because TXT records exist only to carry tunnelled data",
+      "Neither is suspicious, because TXT is used for SPF and DMARC policy",
+      "The gateway is suspicious because servers should never query TXT records",
+      "The gateway's TXT queries fit SPF and DMARC checks, while a high TXT share from a workstation to one zone needs investigation"
+    ],
+    "correct": 3,
+    "explanation": "Client role decides: mail servers routinely query TXT for email policy, ordinary desktops rarely do, so a workstation's TXT share to one parent is the signal. Saying TXT is only for tunnels ignores its legitimate SPF and DMARC use.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Every workstation in the estate queries three random single-label names a few seconds after the browser starts, all returning NXDOMAIN. How should this be classified?",
+    "options": [
+      "Benign browser probing for networks that rewrite NXDOMAIN answers",
+      "An estate-wide DGA infection that needs immediate containment",
+      "A DNS tunnel, because the labels are random and the answers fail",
+      "Misconfigured DHCP options pointing hosts at a broken resolver"
+    ],
+    "correct": 0,
+    "explanation": "Browser probes come from every host, at launch, as a few random single-label names, which is the documented benign look-alike. A DGA burst is many names from one client at machine speed, not a handful from every host.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SIEM's DNS pipeline drops NXDOMAIN responses to reduce storage. Which detection does this change break most directly?",
+    "options": [
+      "Unique-subdomain counts for tunnels that receive NOERROR answers",
+      "Short-TTL churn detection for fast-flux hosting",
+      "NXDOMAIN-ratio detection of DGA malware",
+      "Newly-seen-domain alerts for names that resolve successfully"
+    ],
+    "correct": 2,
+    "explanation": "DGA detection depends on counting failed lookups for many names, so discarding NXDOMAINs removes its evidence. Fast-flux and tunnel detections use successful answers and are less affected.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC reports no DNS tunnelling alerts in six months. Under which condition is that absence meaningful?",
+    "options": [
+      "When the resolver logs only successful responses to save space",
+      "When the protective DNS service has a large blocklist of known-bad zones",
+      "When Sysmon event 22 is enabled on servers but not on workstations",
+      "When egress controls block outbound port 53, DoT and public DoH so that all DNS passes through the logged resolver"
+    ],
+    "correct": 3,
+    "explanation": "Resolver logs only mean everything when every query is forced through the resolver; otherwise DoH, external resolvers or hard-coded IPs leave no trace. A blocklist stops known zones but says nothing about traffic that bypasses the resolver.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst sees a domain whose answers change on almost every query and carry a TTL of 30 seconds. Which conclusion is the most defensible?",
+    "options": [
+      "It proves the domain is a DGA domain, because DGAs use short TTLs",
+      "It is one trait of fast-flux hosting, but load-balanced services also use short TTLs, so more context is needed",
+      "It proves DNS tunnelling, because short TTLs defeat resolver caching",
+      "It is harmless, because only NXDOMAIN answers matter in DNS analysis"
+    ],
+    "correct": 1,
+    "explanation": "Short TTLs with churning answers fit fast flux (T1568.001) but also legitimate load balancing, so rarity and reputation must decide. DGAs are characterised by many failing names, not by short TTLs.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a DGA-infected host is detected, the team blocks the one domain that resolved and closes the case. What is the main flaw?",
+    "options": [
+      "The algorithm will produce new candidate names, and the process on the host has not been found or removed",
+      "Blocking a domain at the resolver also blocks every CDN that shares its address",
+      "The NXDOMAIN names must be registered by defenders before the case can close",
+      "The block will not apply until the domain's TTL has expired across the internet"
+    ],
+    "correct": 0,
+    "explanation": "A DGA generates fresh names daily, so blocking is only containment; the responsible process must still be identified and eradicated. Registering the failing names is a sinkholing tactic, not a requirement for closing a case.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab's domain-stacking query, the clause substr(url, 9, instr(substr(url,9),'/')-1) is used. What would go wrong if the dataset contained plain http:// URLs?",
+    "options": [
+      "The query would fail with a syntax error because instr needs three arguments",
+      "COUNT(DISTINCT host) would double-count every http request",
+      "Domains would be returned with the trailing slash included",
+      "The fixed offset of 9 assumes the 8-character https:// prefix, so http:// domains would lose their first character"
+    ],
+    "correct": 3,
+    "explanation": "Position 9 skips exactly 'https://'; 'http://' is 7 characters, so extraction would start one character into the host name. The instr length expression already stops before the slash, so no trailing slash is included.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lab's domain stacking returns six domains seen on all eight hosts and three seen on one host only, first seen at 06:12, 06:17 and 08:12. What does ordering by host count and then first_seen achieve?",
+    "options": [
+      "It sorts domains by traffic volume so the largest upload is listed first",
+      "It puts the rarest names first in time order, approximating a newly-observed-domain view",
+      "It removes the baseline domains from the result entirely",
+      "It proves the three rare domains were resolved by the internal DNS server"
+    ],
+    "correct": 1,
+    "explanation": "Sorting by distinct hosts brings rare names to the top and first_seen orders them chronologically, a stand-in for first-seen alerting. It does not filter out the baseline, and proxy data cannot prove any resolver lookup took place.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which detection would have caught banyan-payroll-update.example even though its entropy was unremarkable?",
+    "options": [
+      "An NXDOMAIN-ratio rule on the client's queries",
+      "A label-length rule alerting on labels longer than 50 characters",
+      "Names containing the brand string that are not under the organisation's own registered domains",
+      "A TXT-share rule for workstations querying one parent zone"
+    ],
+    "correct": 2,
+    "explanation": "The domain imitates banyan.example under a different registered domain, so a brand-string check outside owned domains flags it, along with rarity and recency. It resolved, was short and used ordinary lookups, so NXDOMAIN, length and TXT rules miss it.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan collected no resolver logs. Which evidence would resolver logs have added that the proxy data cannot provide?",
+    "options": [
+      "The 48.2 MB size of the upload to files-share-drop.example",
+      "The 220-byte size of each beacon request",
+      "The authenticated user name attached to each web request",
+      "Names that were looked up but never reached the proxy, and the addresses returned for them"
+    ],
+    "correct": 3,
+    "explanation": "A DNS view adds lookups that never became web requests, such as a fallback DGA or DNS channel, plus answer addresses for pivoting. Upload and beacon sizes are proxy evidence that DNS logs do not contain.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On a managed workstation, a browser sends DNS over HTTPS to a public provider. Why does the lesson treat this as a control problem even though DoH is not malicious?",
+    "options": [
+      "It bypasses the internal resolver, so its queries escape logging and protective DNS",
+      "It is forbidden by RFC 1035 for clients inside a corporate network",
+      "It forces all queries to use TCP port 853, which firewalls cannot inspect",
+      "It disables the browser's TLS certificate validation for every site"
+    ],
+    "correct": 0,
+    "explanation": "DoH hides queries inside HTTPS to an outside provider, so the resolver's logging and blocking never apply; defenders disable it by policy and block known endpoints. Port 853 is DoT, not DoH, which travels on 443.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team wants one estate-wide threshold for 'too many distinct names per client per hour'. Why is this likely to fail?",
+    "options": [
+      "Distinct-name counts cannot be computed in SQL without a window function",
+      "Mail gateways, servers and workstations have very different DNS profiles, so one threshold produces noise or misses",
+      "Distinct-name counts are only meaningful for NXDOMAIN answers",
+      "Registered-domain grouping makes per-client counts impossible"
+    ],
+    "correct": 1,
+    "explanation": "Baselines must be per client role: a mail gateway's normal volume would swamp a workstation threshold. COUNT(DISTINCT ...) with GROUP BY works fine in SQL, so the problem is the baseline, not the query.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A detection groups DNS queries by full query name to look for tunnelling. Why should it also group by registered domain?",
+    "options": [
+      "Registered-domain grouping removes all CDN traffic automatically",
+      "Full query names are not stored by recursive resolvers",
+      "A tunnel's thousands of unique full names each appear once, but collapse into one large row per parent zone",
+      "Grouping by full name hides NXDOMAIN answers from the result"
+    ],
+    "correct": 2,
+    "explanation": "Each tunnelled chunk is a different full name, so per-name counts look small; grouping by the parent zone reveals the volume. Registered-domain grouping does not remove CDN traffic; rarity and reputation do that.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A DNS log entry shows 'qname: 4f6a3c9e...2d.t.example, qtype: TXT, rcode: NOERROR' from a workstation, the only such query from any host. Under the lesson's triage table, which check most directly separates a tunnel from a one-off oddity?",
+    "options": [
+      "Counting how many distinct names under t.example this client queried in the same window",
+      "Checking whether the TXT answer exceeded 255 bytes",
+      "Confirming that the RCODE was NOERROR rather than SERVFAIL",
+      "Measuring the entropy of the registered domain t.example"
+    ],
+    "correct": 0,
+    "explanation": "A single strange name is noise; hundreds of unique names under the same parent from one client is the tunnel pattern, so the distinct-name count is decisive. The registered domain itself is short and ordinary, so its entropy says little.",
+    "lesson": 5,
+    "difficulty": "hard"
+  }
+]

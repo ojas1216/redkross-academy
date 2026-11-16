@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A newly onboarded Squid proxy uses the default native access.log format. An analyst writes an exfiltration rule on its single byte field. What is the problem?",
+    "options": [
+      "The byte field in that format is recorded in kilobytes, so thresholds are off by 1,024",
+      "The byte field in the default format is the reply size sent to the client, so it measures downloads, not uploads",
+      "The byte field counts both directions combined, so uploads cannot be isolated",
+      "The byte field is only populated for CONNECT tunnels, not for ordinary requests"
+    ],
+    "correct": 1,
+    "explanation": "Squid's default native format logs the size of the reply delivered to the client, so it is good for downloads and poor for uploads; measuring uploads needs a custom format. The field is in bytes and is not a combined total.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A host produces a steady stream of HTTP 407 responses in the proxy log at regular intervals. What is the most accurate reading?",
+    "options": [
+      "The destination server is rejecting the host's requests as forbidden",
+      "The proxy has blocked the destination by URL category",
+      "The destination server is temporarily overloaded and asking the client to retry",
+      "Software that is not proxy-aware or lacks proxy credentials, which may be a broken updater or an implant beaconing"
+    ],
+    "correct": 3,
+    "explanation": "407 is the proxy's own Proxy Authentication Required answer, and regular 407s are a beacon-shaped pattern whether from an updater or an implant. A forbidden answer from the server or a policy block would be 403, not 407.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A proxy does not perform TLS inspection. An implant beacons over HTTPS to a rare domain every five minutes. Which analysis remains possible from the proxy log?",
+    "options": [
+      "Rarity, timing regularity and tunnel volume from the repeated CONNECT records",
+      "Per-request URL paths such as /api/v2/ping and their HTTP methods",
+      "The inner HTTP status code and content type of every beacon request",
+      "Malware scanning and DLP inspection of the beacon's request bodies"
+    ],
+    "correct": 0,
+    "explanation": "Without inspection the proxy still logs CONNECT host:port, tunnel totals and timing, so rarity, rhythm and volume analysis work. Paths, methods, inner status and content scanning require inspection.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Without TLS inspection, a client keeps one long-lived CONNECT tunnel open for an hour and sends many beacon requests inside it. What is the consequence for beacon detection?",
+    "options": [
+      "Each inner request still produces its own log line with a timestamp",
+      "The proxy reports an error and terminates the tunnel after the first request",
+      "Many requests may be hidden inside one tunnel record, so per-request rhythm is not visible",
+      "The tunnel is logged as a 407 because the proxy cannot authenticate it"
+    ],
+    "correct": 2,
+    "explanation": "An uninspected tunnel is logged once with its totals, so a long-lived tunnel can hide many requests and per-request timing disappears. Separate log lines per inner request only exist with inspection.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lab query 'SELECT json_extract(raw,'$.status') AS status, COUNT(*) n FROM events WHERE source='proxy' GROUP BY status' returns a single row: 200 | 284. What does this mean for the investigation?",
+    "options": [
+      "The attacker's requests all succeeded, so evidence must come from rarity, rhythm and volume rather than status codes",
+      "No malicious activity occurred, because blocked or failed requests would show non-200 codes",
+      "The proxy did not log status codes, and 200 is a default placeholder value",
+      "The proxy performed no TLS inspection, because inspected traffic returns 407"
+    ],
+    "correct": 0,
+    "explanation": "Status 200 means the requests worked, not that they were benign; with one status value the lab's evidence lies in rarity, rhythm and volume. Success codes are evidence of activity succeeding, so the second option is the misconception.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab, minisiem.py stores ts, host, user, src_ip, url and bytes_out as columns. How can an analyst read the proxy status code, which is not a normalised column?",
+    "options": [
+      "By rerunning minisiem.py load with a --status flag to add the column",
+      "With json_extract(raw, '$.status'), because the whole original event is kept in the raw column",
+      "By joining the events table to a separate status table created during load",
+      "It cannot be read; fields outside the normalised columns are discarded on load"
+    ],
+    "correct": 1,
+    "explanation": "minisiem.py keeps each original event in a raw column, so SQLite's json_extract can read any field such as status. Nothing in the lesson describes a status flag or a separate status table.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Hunt H1 reports 'n=18 mean_gap=300s cv=0.004' for WS-104's ping URL. What does the CV value tell you about the timing?",
+    "options": [
+      "Gaps varied between roughly 0 and 600 seconds around the mean",
+      "Only 0.4 percent of the requests arrived on schedule",
+      "The beacon used 20 percent jitter, which H1 then corrected for",
+      "The standard deviation of the gaps is about 1.2 seconds, so the contact is machine-regular"
+    ],
+    "correct": 3,
+    "explanation": "CV is standard deviation divided by mean, so 0.004 x 300 s is about 1.2 seconds of spread, consistent with gaps like 06:17:00, 06:22:01, 06:27:03. A wide 0-600 s spread would give a CV near 0.5 or more.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An implant beacons every 300 seconds with 20 percent random jitter. Why does the lesson recommend scoring several features rather than relying on near-zero interval CV?",
+    "options": [
+      "Jitter makes the requests use different domains each time, defeating rarity",
+      "Jitter raises the CV, so regularity alone can be defeated, while rarity, constant sizes and persistence still betray the beacon",
+      "Jitter causes the proxy to log the requests as CONNECT tunnels instead of URLs",
+      "Jitter pushes the CV above 1.0, which is indistinguishable from human browsing"
+    ],
+    "correct": 2,
+    "explanation": "Jitter is designed to defeat naive regularity checks, but a jittered beacon still has rare destinations, small constant sizes and persistence, and its CV stays well under 1. Jitter changes timing, not the destination domain.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lab's rule R6 returns ('WS-104', 'https://cdn-telemetry-sync.example/api/v2/ping', 18, 220, 220). What feature does R6 add beyond hunt H1?",
+    "options": [
+      "Size regularity: every request falls within a narrow byte range, here exactly 220 bytes",
+      "Rarity: the URL is visited by only one host in the estate",
+      "Upload volume: total bytes sent exceed a fixed threshold",
+      "Scope: no other host contacted the same URL"
+    ],
+    "correct": 0,
+    "explanation": "R6 checks at least 10 hits with sizes within 50 bytes, and the minimum and maximum of 220 show identical request sizes. Upload thresholds are R4's job and scope is H3's.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104's average upload is 984,961 bytes while other hosts average about 2,000 to 2,500 bytes. Why is the mean a poor baseline here?",
+    "options": [
+      "The mean ignores requests with zero bytes_out, inflating the result",
+      "The mean is computed per URL rather than per host in minisiem.py",
+      "The mean cannot be computed on integer columns in SQLite",
+      "One 48,200,000-byte request distorts it, suggesting every request is about a megabyte when almost all are small"
+    ],
+    "correct": 3,
+    "explanation": "A single huge upload dominates WS-104's mean; maxima, percentiles or per-destination totals describe volume better. The query in the lesson groups by host, so the per-URL claim is false.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "All other proxy requests in the dataset together sent 560,116 bytes, and the single upload sent 48,200,000. Rule R4 uses a fixed threshold of bytes_out > 10000000. What is the main weakness of R4 in production?",
+    "options": [
+      "It cannot detect any upload smaller than 48 MB",
+      "It only works when TLS inspection is enabled",
+      "Legitimate large uploads to sanctioned storage would trigger it, so it needs per-user baselines and destination category",
+      "It counts download bytes, so it would fire on large file downloads"
+    ],
+    "correct": 2,
+    "explanation": "A fixed threshold is blunt: sanctioned large uploads are common, while first-time uploads to unsanctioned file sharing are not, so baselines and category sharpen it. The lab's bytes_out is the upload direction, so downloads do not trigger it.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Hunt H3 matches known-bad domains with patterns like url LIKE '%://cdn-telemetry-sync.example/%' rather than '%cdn-telemetry-sync.example%'. Why?",
+    "options": [
+      "LIKE patterns without a slash are not supported by SQLite",
+      "Anchoring on the scheme separator and trailing slash prevents false matches on look-alikes such as cdn-telemetry-sync.example.org",
+      "The trailing slash is needed so that only HTTPS URLs are matched",
+      "It makes the search case-insensitive for upper-case domain names"
+    ],
+    "correct": 1,
+    "explanation": "Matching '://' before and '/' after the domain stops a longer name that merely contains it as a substring from matching. The scheme separator matches http and https alike, so it does not restrict to HTTPS.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The proxy shows the beacon and upload logged under the user divya. Which conclusion is justified?",
+    "options": [
+      "Requests left WS-104 carrying divya's session identity, which software running in her session inherits, so the process must be found on the endpoint",
+      "Divya deliberately sent 48.2 MB to an external file-sharing service",
+      "Divya's credentials were stolen and used from another machine",
+      "The proxy authenticated divya interactively before each beacon request"
+    ],
+    "correct": 0,
+    "explanation": "Proxy identity is the session's identity, and an implant in that session inherits it, so the endpoint pivot decides which process acted. The requests came from WS-104 itself, so use from another machine is not supported.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which wording of the 08:12 finding best matches the strength of the proxy evidence?",
+    "options": [
+      "Divya exfiltrated the payroll database to files-share-drop.example",
+      "The beacon channel was used to steal customer records",
+      "48.2 MB of company data was confirmed stolen and must be reported as a breach of personal data",
+      "Likely exfiltration: 48,200,000 bytes were sent from WS-104 under divya's identity to a file-sharing domain; the content is unknown"
+    ],
+    "correct": 3,
+    "explanation": "The proxy proves size, destination, host and session identity, not what the data was or who acted, so 'likely exfiltration' with stated unknowns is right. The other options assert content or intent that the proxy cannot show.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the persistence query for 06:17 to 07:43, only the WS-104 ping URL reached five or more hits. Why does the lesson still apply rarity before this kind of frequency check?",
+    "options": [
+      "Frequency queries cannot run without first filtering by rarity in SQLite",
+      "Popular destinations such as webmail or update services can also be contacted often and regularly, so frequency alone misleads",
+      "Rarity determines the correct time window for the frequency query",
+      "Frequency checks only work on domains that appear on a single host"
+    ],
+    "correct": 1,
+    "explanation": "A regular series to a domain every host uses is usually an update or sync service, so rarity first removes those benign frequent contacts. It is analytic order, not an SQL restriction.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab proxy records contain full URLs such as https://cdn-telemetry-sync.example/api/v2/ping. What does this indicate about Banyan's proxy?",
+    "options": [
+      "It is a transparent proxy that does not need client configuration",
+      "It logs only CONNECT tunnels and reconstructs paths afterwards",
+      "Its HTTPS traffic is visible at request level, as with TLS inspection",
+      "The beacon used plain HTTP disguised with an https:// prefix"
+    ],
+    "correct": 2,
+    "explanation": "A full HTTPS path per request is only available when the proxy is a party to the encryption, which the lesson places in the inspected column. Uninspected tunnels yield host and port only, and paths cannot be reconstructed afterwards.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The question 2 query finds one .docm URL with bytes_out = 812. Why is this byte value small even though a document was delivered?",
+    "options": [
+      "bytes_out counts client-to-server bytes, and a download's request is small; the file size would be in a bytes-in field the lab lacks",
+      "The proxy compressed the document to 812 bytes before logging it",
+      "The download failed, so only 812 bytes of the file were received",
+      "Macro-enabled documents are always smaller than one kilobyte"
+    ],
+    "correct": 0,
+    "explanation": "bytes_out measures what the client sent, so a GET is tiny; the document's size would appear as bytes in. The status was 200, so the download did not fail.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson treat a file extension in the URL as a weaker delivery indicator than a gateway's MIME type and malware verdict?",
+    "options": [
+      "Extensions are removed from URLs by TLS inspection",
+      "MIME types are recorded only for uploads, which makes them more precise",
+      "Extensions can only be matched with regular expressions, not LIKE",
+      "The adversary chooses the URL path freely, while content type and scanning reflect what was actually served"
+    ],
+    "correct": 3,
+    "explanation": "An extension is just part of a path the adversary picks, so it can be omitted or faked; content type and scanning describe the response itself. The lesson's own query matches extensions with LIKE, so the regular-expression claim is false.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Building the WS-104 timeline, an analyst notes a mail.banyan.example visit at 06:04 and the invoice.docm download at 06:12. What can the proxy evidence support about the delivery route?",
+    "options": [
+      "It proves the document link arrived by phishing email at 06:04",
+      "It proves the user typed the lookalike URL manually",
+      "The sequence fits a phishing link, but confirming that the link was in an email needs mail logs",
+      "It proves the download was triggered by the PowerShell process"
+    ],
+    "correct": 2,
+    "explanation": "The proxy shows a mail visit followed by a download, which fits phishing, but only mail logs can show the link in a message. PowerShell started at 06:14, after the download, so it cannot have triggered it.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The timeline query uses ts BETWEEN '2026-11-03T06:00' AND '2026-11-03T06:30' on text timestamps. Why does this comparison return the correct rows?",
+    "options": [
+      "SQLite converts ISO 8601 strings to Unix time before comparing",
+      "ISO 8601 strings in one format and one time zone (UTC, Z) sort lexically in time order",
+      "BETWEEN ignores the date part and compares only the time",
+      "minisiem.py stores timestamps as integers, so the strings are converted on load"
+    ],
+    "correct": 1,
+    "explanation": "Same-format, same-zone ISO 8601 strings sort in chronological order as text, so string comparison works. Mixing time zones or formats would break this, which is why consistent UTC matters.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the merged timeline, Word downloads the document at 06:12, PowerShell starts at 06:14 and the first ping appears at 06:17. Which source shows that PowerShell's parent was Word?",
+    "options": [
+      "Hunt H2's rare parent-child pair WINWORD.EXE -> powershell.exe from endpoint process telemetry",
+      "The proxy's user agent field on the 06:17 ping request",
+      "Windows event 4720 created at 07:02",
+      "The R6 size-regularity rule output for the ping URL"
+    ],
+    "correct": 0,
+    "explanation": "Process lineage comes from endpoint process creation data, which H2 summarises as a parent-child pair seen on one host. The lab proxy has no user agent field, and 4720 is account creation.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104's hourly proxy counts are 3, 3, 1, 14, 11, 3, 5, 2, 5, 2 for hours 03 to 12. What best explains the 06 and 07 peaks?",
+    "options": [
+      "The 48.2 MB upload was split across many requests during those hours",
+      "Divya's working day started at 06:00, so normal browsing increased",
+      "The proxy duplicated log lines during a restart in those hours",
+      "The five-minute beacon, about twelve requests per hour, was active from 06:17 to 07:42"
+    ],
+    "correct": 3,
+    "explanation": "A 300-second beacon adds about twelve requests per hour, which accounts for most of the 14 and 11 in hours 06 and 07. The upload was a single request at 08:12, not spread across these hours.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC wants its proxy logs to cover all web egress, including staff working from home. Which combination of controls achieves this?",
+    "options": [
+      "Enable TLS inspection on the on-premises proxy only",
+      "Block direct outbound HTTP/HTTPS from workstations and extend coverage to remote users with a cloud SWG or always-on VPN",
+      "Require proxy authentication and rely on firewall logs for remote users",
+      "Publish a WPAD file and allow workstations to fall back to direct connections"
+    ],
+    "correct": 1,
+    "explanation": "Completeness requires that traffic cannot bypass the proxy and that off-network users still pass through a gateway. Inspection or authentication improves record content but does not stop bypass, and a direct fallback defeats coverage.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An organisation is deciding whether to enable TLS inspection on its proxy. Which consideration does the lesson place alongside the technical benefits?",
+    "options": [
+      "Inspection removes the need to retain proxy logs for 180 days",
+      "Inspection makes proxy logs exempt from personal data rules",
+      "Decrypted browsing is personal data under the DPDP Act 2023, so purpose, exemptions such as banking and health, and access controls must be documented",
+      "Inspection must be applied to all categories without exemption to be lawful"
+    ],
+    "correct": 2,
+    "explanation": "Inspection is a privacy and legal decision as well as technical, needing documented purpose, exemptions and restricted access. It does not change CERT-In's 180-day retention requirement or remove DPDP obligations.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Banyan's case, H3 reports 'none found' for other hosts contacting the three known-bad domains. Which additional indicators should a thorough scope search also use?",
+    "options": [
+      "Destination IP addresses, the /api/v2/ping path on other domains, the user agent if logged and the 220-byte request size",
+      "Only the full URLs already in the alert, since domains are the strongest indicator",
+      "The hourly request counts of every host compared with WS-104's",
+      "Every URL ending in .docm visited by any host in the last year"
+    ],
+    "correct": 0,
+    "explanation": "Scope should use every indicator a case produces, because an adversary may reuse infrastructure or paths under new domains. Searching only the known URLs repeats H3 and can miss the same implant on another domain.",
+    "lesson": 6,
+    "difficulty": "hard"
+  }
+]

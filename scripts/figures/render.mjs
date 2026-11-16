@@ -196,9 +196,13 @@ function layoutFlow(spec) {
     const bw = Math.min(560, W - 2 * PAD);
     const x = (W - bw) / 2;
     const gap = 30;
+    const tops = [];
+    const heights = [];
     steps.forEach((s, i) => {
       const detail = (s.details || []).join(' · ');
       const b = boxContent(s.label, [s.sub, detail].filter(Boolean).join(' — '), bw, s.tone || spec.tone || 'orange');
+      tops.push(y);
+      heights.push(b.h);
       svg += drawBox(x, y, bw, b);
       if (s.side) {
         const sw = (W - 2 * PAD - bw) / 2 - 24;
@@ -212,6 +216,21 @@ function layoutFlow(spec) {
         y += gap;
       }
     });
+    if (spec.loop) {
+      // feedback: from the last box's right edge, up the right margin, back into the first box
+      // (or into steps[loop.to] when given). Side notes share the right margin, so the loop
+      // runs just outside the boxes.
+      const target = Math.min(Math.max(Number(spec.loop.to) || 0, 0), n - 1);
+      const lx = x + bw + 30;
+      // attach a quarter of the way down the box edges so side notes (at mid-height) stay clear
+      const yFrom = tops[n - 1] + heights[n - 1] / 4;
+      const yTo = tops[target] + heights[target] / 4;
+      svg += `<path d="M${x + bw + 3},${yFrom} L${lx},${yFrom} L${lx},${yTo} L${x + bw + 7},${yTo}" fill="none" stroke="${LINE}" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#ah)"/>`;
+      if (spec.loop.label) {
+        const lines = wrap(spec.loop.label, W - PAD - lx - 12, 12.5);
+        svg += textBlock(lines, lx + 10, (yFrom + yTo) / 2 - ((lines.length - 1) * 12.5 * 1.3) / 2 + 4, { size: 12.5, fill: MUTED, anchor: 'start' });
+      }
+    }
     y += 18;
   }
   const nb = noteBlock(spec.note, y);

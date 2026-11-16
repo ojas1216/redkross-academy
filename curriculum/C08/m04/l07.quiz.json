@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In minisiem, SELECT COUNT(*) FROM events WHERE event_id='4720' returns 0, yet the analyst knows an account was created. Which follow-up query best diagnoses the problem?",
+    "options": [
+      "Rerun the same query with LIKE '%4720%' to catch any formatting differences",
+      "SELECT typeof(event_id), COUNT(*) FROM events GROUP BY 1, to see how the field is stored",
+      "Reload the dataset, because a zero count means the 4720 event was never ingested",
+      "Widen the time range, because the account creation probably falls outside the loaded day"
+    ],
+    "correct": 1,
+    "explanation": "typeof() shows the event IDs are stored as integers, so the text '4720' never equals the integer 4720 in a table without declared column types. A substring LIKE might appear to work but hides the type mismatch rather than diagnosing it.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst excludes 'internal traffic' from a proxy hunt with WHERE url NOT LIKE '%banyan%'. In the Banyan dataset, what is the most serious consequence?",
+    "options": [
+      "The query becomes slow because a leading wildcard prevents any index use",
+      "Requests to cdn.example.org are wrongly treated as internal and dropped",
+      "Upper-case host names such as CRM.BANYAN.EXAMPLE slip through the exclusion",
+      "The request to the look-alike banyan-payroll-update.example is removed along with genuine internal sites"
+    ],
+    "correct": 3,
+    "explanation": "The phishing domain was chosen because it contains 'banyan', so a substring exclusion removes the request that started the intrusion. Performance is a minor concern by comparison; the fix is an anchored suffix test on the extracted domain such as LIKE '%.banyan.example'.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An indicator search url LIKE '%cdn%' returns 64 proxy requests: 18 to cdn-telemetry-sync.example and 46 to cdn.example.org, which all eight workstations use. If the 18 beacon requests are the only genuine matches, what are the query's precision and recall?",
+    "options": [
+      "Precision about 0.28, recall 1.0",
+      "Precision 1.0, recall about 0.28",
+      "Precision about 0.72, recall 1.0",
+      "Precision about 0.28, recall about 0.72"
+    ],
+    "correct": 0,
+    "explanation": "Precision is true matches over returned rows (18/64, about 0.28); recall is true matches over all genuine matches (18/18 = 1.0). Swapping the two definitions gives the second option, which describes a query that misses events rather than one that over-matches.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Timestamps are stored as strings like 2026-11-03T07:02:00Z. A query uses ts BETWEEN '2026-11-03T06:00' AND '2026-11-03T07:02' and returns 15 events for WS-104 instead of 17. Why are the 07:02 events missing?",
+    "options": [
+      "BETWEEN is exclusive at both ends in SQLite, so the upper minute is never included",
+      "The 'Z' suffix makes the stored values UTC while the bounds are read as local time",
+      "The short upper bound is a prefix of the stored value and therefore sorts before every 07:02 timestamp",
+      "String comparison treats the 'T' separator as a wildcard, so seconds are ignored"
+    ],
+    "correct": 2,
+    "explanation": "In string ordering a prefix sorts before the longer string that begins with it, so '...T07:02' is less than '...T07:02:00Z' and both 07:02 events fall outside the range. BETWEEN is in fact inclusive; the fix is a half-open range in the full stored format ending at 07:03:00Z.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team counts events per hour with consecutive windows. Why does the lesson recommend half-open intervals (start <= ts < end) for this?",
+    "options": [
+      "They allow the database to use the time index, which BETWEEN cannot",
+      "They automatically convert timestamps to UTC before comparison",
+      "Consecutive windows tile cleanly, so no event on a boundary is counted twice or dropped",
+      "They exclude both edges, removing duplicate events logged at exactly the hour"
+    ],
+    "correct": 2,
+    "explanation": "Including the start and excluding the end means an event at exactly 08:00:00 belongs to one window only. Inclusive edges on both sides would double-count it; half-open intervals do not exclude both edges.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104 has 4 Windows events and 49 proxy events. Joining them only on host and then reporting SUM(p.bytes_out) gives a total four times too large. What is the most appropriate fix?",
+    "options": [
+      "Bound the join with a time window and aggregate or count distinct values rather than raw joined rows",
+      "Replace the JOIN with a LEFT JOIN so unmatched proxy rows are kept once",
+      "Add ORDER BY p.ts so that duplicate proxy rows are grouped together",
+      "Move the host condition from ON into WHERE so it is applied after the join"
+    ],
+    "correct": 0,
+    "explanation": "Each proxy row matched all four Windows rows (196 rows), so sums and counts are multiplied: fan-out. Bounding by time and aggregating each side or counting distinct values fixes it. A LEFT JOIN keeps more rows and does not remove the multiplication.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst wants every 4720, 4732 and 1102 event listed with the count of proxy requests in the 15 minutes before it, including events with none. They write a LEFT JOIN but put p.source='proxy' in the WHERE clause. What happens?",
+    "options": [
+      "Windows events without matching proxy rows show a count of zero, as intended",
+      "The query fails because WHERE cannot reference the right-hand table of a LEFT JOIN",
+      "Each Windows event is repeated once per proxy row, inflating the result",
+      "Windows events with no qualifying proxy row are discarded, turning the outer join into an inner join"
+    ],
+    "correct": 3,
+    "explanation": "For unmatched rows the right-hand columns are NULL, so a WHERE test on them is not true and the row is filtered out. Conditions on the right-hand table must sit in ON to keep unmatched left rows. The query runs without error, which is what makes the mistake dangerous.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "SELECT COUNT(DISTINCT user) FROM events WHERE user NOT IN (SELECT target_user FROM events) returns 0, while the NOT EXISTS version returns 8. What explains the zero?",
+    "options": [
+      "NOT IN compares case-sensitively, so no user name matched the subquery's format",
+      "The subquery contains NULLs, and comparing a value with NULL is unknown, so no row satisfies NOT IN",
+      "NOT IN is evaluated before DISTINCT, so duplicate users cancel each other out",
+      "The subquery returns svc_update, which matches every user through implicit wildcarding"
+    ],
+    "correct": 1,
+    "explanation": "338 of the 340 target_user values are NULL. x NOT IN (list) is true only if x is known to differ from every element, and a comparison with NULL is unknown, so nothing qualifies. NOT EXISTS ignores NULLs because they never match; case sensitivity has nothing to do with it.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A shift lead asks 'did the phish hit anyone else?'. Which element of the query specification determines that the result should have one row per host and user, and therefore the GROUP BY?",
+    "options": [
+      "The grain",
+      "The population",
+      "The window",
+      "The condition"
+    ],
+    "correct": 0,
+    "explanation": "Grain states what one result row represents, which fixes the GROUP BY. The population names sources and time range; the condition is the predicate on the domain; neither decides the level of aggregation.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The question is 'which workstation sent more than 1 MB in total to a destination no other workstation uses?'. Why does the lesson build it from a CTE that counts distinct hosts per domain, joined back to the events?",
+    "options": [
+      "Because SQLite cannot use COUNT(DISTINCT) and SUM in the same SELECT",
+      "Because the CTE caches the proxy events and makes the query run faster",
+      "Because destination breadth belongs to the domain grain while the byte total belongs to the host and domain grain",
+      "Because HAVING cannot refer to a column derived from the URL"
+    ],
+    "correct": 2,
+    "explanation": "Breadth is a property of a domain across all hosts; the 1 MB total is a property of one host and domain pair. Computing breadth separately and joining it keeps the two grains apart. SQLite does allow COUNT(DISTINCT) and SUM together; the issue is grain, not syntax.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An exfiltration query flags any single proxy request with bytes_out above 1,000,000. An attacker uploads 40 MB as many 900 KB requests to one destination. How should the query be changed to catch this?",
+    "options": [
+      "Lower the per-request threshold to 500 KB so each piece exceeds it",
+      "Filter on a URL path containing 'upload' instead of on bytes",
+      "Count requests per host per hour and alert above the busiest hour seen so far",
+      "Sum bytes_out per host and destination and apply the threshold to the total in HAVING"
+    ],
+    "correct": 3,
+    "explanation": "A threshold at the event grain misses activity split across many events; summing at the host and destination grain catches the total regardless of chunk size. Lowering the per-request threshold only moves the cut, and the attacker can shrink the pieces again.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The beacon to cdn-telemetry-sync.example made 18 requests totalling 3,960 bytes. What does this tell you about choosing a query to find similar beacons?",
+    "options": [
+      "A destination-breadth query is useless, because beacons always use popular domains",
+      "Volume thresholds will not find it; a query on the regularity of intervals between requests is needed",
+      "A byte threshold of about 200 per request reliably separates beacons from browsing",
+      "Counting requests per host per day is enough, because beacons generate the most requests"
+    ],
+    "correct": 1,
+    "explanation": "The beacon sends tiny amounts, so a volume query never catches it; its signature is the near-constant gap between requests, which LAG() measures. Fixed byte sizes are one implant's habit, not a reliable discriminator, and ordinary browsing produces many more requests per day.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst measures beacon regularity with LAG(ts) OVER (PARTITION BY host ORDER BY ts) instead of PARTITION BY host, url. What is the likely effect?",
+    "options": [
+      "The query fails because LAG requires at least two partition columns",
+      "The gaps become shorter but remain perfectly regular, so the beacon is still obvious",
+      "The beacon's requests are interleaved with the host's ordinary browsing, so its regular gaps are broken up and hidden",
+      "Only the first request of each URL is kept, so the gap count drops to one per URL"
+    ],
+    "correct": 2,
+    "explanation": "The partition must be the series being measured. With host alone, each beacon request's predecessor may be an unrelated browsing request, so the measured gaps vary widely and the regularity disappears. The gaps do not stay regular, which is why the second option is wrong.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the LAG() interval query, 18 beacon requests produce 17 gaps and the outer query filters WHERE prev_ts IS NOT NULL. Why is that filter needed?",
+    "options": [
+      "To exclude requests whose timestamps failed to parse",
+      "To remove the beacon's final request, which has no following request",
+      "The first request in each partition has no predecessor, so its gap would be NULL",
+      "To drop requests from hosts that never repeated a URL"
+    ],
+    "correct": 2,
+    "explanation": "LAG() returns NULL for the first row of each partition because nothing precedes it, so 18 requests yield 17 gaps. The last request does have a predecessor; it is the first, not the last, that lacks one.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A short-string time range returned 15 of the 17 WS-104 events in the intended window, and every returned event was in that window. How should the result be described?",
+    "options": [
+      "Precision 1.0 and recall about 0.88: no false matches, but missed matches",
+      "Precision about 0.88 and recall 1.0: some false matches, but nothing missed",
+      "Precision and recall both about 0.88, because one error affects both",
+      "Precision 1.0 and recall 1.0, because 15 events is close enough to 17"
+    ],
+    "correct": 0,
+    "explanation": "All returned rows are genuine (15/15 = 1.0 precision), but 2 of 17 genuine matches were missed (recall 15/17, about 0.88), and one of them was the 4720 account creation. A boundary error is a recall failure, not a precision failure.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A scoping query for 'other hosts that contacted the beacon domain' returns no rows. What should the analyst do before writing 'no other hosts affected' in the case notes?",
+    "options": [
+      "Rerun the query with a longer time range until at least one row appears",
+      "Replace the exact domain comparison with a substring match to be safe",
+      "Accept the result, because a query that runs without error has been validated",
+      "Confirm the query returns the known positive, WS-104, when that host is not excluded"
+    ],
+    "correct": 3,
+    "explanation": "Zero is a result to explain, not proof of absence. Running the query against a case you know must match shows that type, boundary or NULL problems are not hiding results. Switching to a substring match trades a recall check for false matches.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule filters target_user LIKE 'svc_%' to find service accounts. Which account name would it also match, unintentionally?",
+    "options": [
+      "svcXupdate",
+      "svc",
+      "SVC-update in a case-sensitive database",
+      "admin_svc_update"
+    ],
+    "correct": 0,
+    "explanation": "In LIKE, the underscore matches exactly one character, so 'svc_%' matches 'svcXupdate' as well as 'svc_update'. 'svc' is too short to match, and 'admin_svc_update' does not start with 'svc'. A literal underscore needs an escape clause or exact comparison.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a host-and-domain upload query returns one row, the analyst reruns it without the final HAVING SUM(bytes_out) > 1000000. What is this test for?",
+    "options": [
+      "To check that the query still runs when no threshold is present",
+      "To see what the threshold removed and judge whether rows just below the cut look like the rows above it",
+      "To measure how much faster the query runs without aggregation",
+      "To convert the result from a precision measure to a recall measure"
+    ],
+    "correct": 1,
+    "explanation": "Removing the last filter exposes what it discarded; here two other single-host destinations appeared far below 1 MB, showing the cut is meaningful. If excluded rows resembled kept ones, the threshold would be arbitrary. It is a validity check, not a performance or syntax check.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A KQL detection fires when summarize dcount(user) by src_ip reaches 10 on a very large table. Some sprays against exactly 10 accounts are not alerted. What is the most likely reason?",
+    "options": [
+      "dcount() counts only users that succeeded, ignoring failures",
+      "summarize sorts the result, dropping rows past a default limit",
+      "dcount() returns an estimate on large data sets, so a count near the threshold may fall just below it",
+      "KQL treats src_ip as text, so addresses with leading zeros split into separate groups"
+    ],
+    "correct": 2,
+    "explanation": "KQL's dcount() is approximate on large data, which matters when the threshold sits close to the true count. It does not filter by outcome; the estimation error near the cut is the relevant caution from the lesson.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In an SPL pipeline, a host value filter in the initial search matches 'ws-104', but a later where clause comparing host to 'ws-104' returns nothing. What explains the difference?",
+    "options": [
+      "where can only compare numeric fields, so host comparisons always fail",
+      "The search command runs after where, so the field has not been extracted yet",
+      "SPL lower-cases all field values at index time, so where needs an upper-case literal",
+      "Field-value matching in search is not case-sensitive, while comparisons in where are"
+    ],
+    "correct": 3,
+    "explanation": "The same condition behaves differently in two places in one SPL pipeline: search matches values case-insensitively, where compares them case-sensitively, so 'ws-104' does not equal 'WS-104' in where. where handles strings; the issue is case.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An hourly bucket query shows WS-104 making 1 to 5 proxy requests an hour, except 14 of 37 in the 06 hour and 11 of 36 in the 07 hour. What is the correct conclusion?",
+    "options": [
+      "WS-104 is compromised, because a third of all proxy traffic is proof of beaconing",
+      "The proxy dropped other hosts' traffic in those hours, inflating WS-104's share",
+      "The 06 and 07 hours are where to look next; the buckets show when activity changed, not why",
+      "WS-104's user simply started work later than everyone else"
+    ],
+    "correct": 2,
+    "explanation": "Bucketing compares one entity with the estate over time and tells the analyst when to look; it does not explain the cause. Treating the spike as proof overstates the evidence, and the other explanations have no support in the data.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lesson extracts the domain with substr(url, 9, instr(substr(url, 9), '/') - 1). Why is this described as a teaching shortcut rather than a production method?",
+    "options": [
+      "It works only because every URL in the dataset starts with https:// and has a path; production SIEMs parse URLs into fields at ingest",
+      "It is slower than LIKE because it scans each URL twice",
+      "It returns the path instead of the host for URLs containing query strings",
+      "SQLite's substr counts from zero, so the result is shifted by one character on other platforms"
+    ],
+    "correct": 0,
+    "explanation": "The fixed offset of 9 assumes the eight-character 'https://' scheme and a trailing slash; http URLs or URLs without a path would break it. Production platforms parse URLs at ingest and those fields should be queried. SQLite's substr is 1-based, so the last option is wrong.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A windowed join uses julianday(w.ts) - julianday(p.ts) <= 15/1440.0 together with p.ts < w.ts. What relationship does this express?",
+    "options": [
+      "Proxy events up to 15 seconds before or after each Windows event",
+      "Proxy events within the 15 minutes before each Windows event",
+      "Proxy events in the same 15-minute bucket as each Windows event",
+      "Proxy events up to 15 hours before each Windows event"
+    ],
+    "correct": 1,
+    "explanation": "julianday() gives fractional days, and a day has 1,440 minutes, so 15/1440.0 is fifteen minutes; p.ts < w.ts makes it strictly before. It is a sliding window relative to each event, not a fixed bucket, and the unit is minutes, not seconds or hours.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Under the DPDP Act 2023's purpose limitation and on a shared SIEM, which practice for investigative proxy queries does the lesson recommend?",
+    "options": [
+      "Run broad searches over all history so no personal data has to be queried twice",
+      "Export full proxy logs to the analyst's workstation to avoid loading the SIEM",
+      "Mask user names in results, which removes the need for search auditing",
+      "Search for a defined purpose, return only the fields needed and time-bound every search"
+    ],
+    "correct": 3,
+    "explanation": "Proxy logs reveal what named employees browsed, so queries should serve a defined purpose and return minimal fields, on platforms that audit searches; time-bounding also stops unbounded queries starving scheduled detections. Broad or exported searches widen personal-data exposure.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A containment decision rests on the statement 'no other host contacted the beacon domain'. What makes that query result acceptable as evidence?",
+    "options": [
+      "The query is saved with the case together with its specification, absolute time range and run time, so it can be reproduced",
+      "The query was written in the platform's native language rather than SQL",
+      "The result was confirmed by a second analyst running a different, broader query",
+      "The query returned within the platform's performance limit"
+    ],
+    "correct": 0,
+    "explanation": "Queries are part of the evidence chain: a reviewer must be able to rerun exactly what produced the result. A second broader query may help, but without the saved query, its range and its run time, the original statement cannot be checked.",
+    "lesson": 7,
+    "difficulty": "medium"
+  }
+]

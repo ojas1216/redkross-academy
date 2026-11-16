@@ -1,0 +1,54 @@
+{
+  "C08-M04-L08-F1": {
+    "title": "Log lab method: four sources to one findings note",
+    "caption": "Each log source is baselined on its own before exceptions are joined on entities and time, scope is tested and the findings note is written.",
+    "alt": "Graph diagram, top to bottom. Four source boxes: Windows Security (logons, account changes, log clear) and Endpoint process (Sysmon) (process starts with parent) in blue, VPN (remote logons with source address) and Web proxy (requests, URL, bytes sent) in slate. Each has an arrow to its own orange box Baseline and exceptions, with sub-labels: which event IDs are unusual; which parent-child pairs are rare; which addresses fail across accounts; which domains, volumes and intervals stand out. All four baseline boxes have arrows to a violet box Merged timeline (join on host, user, address and time), which has an arrow to a green box Scope checks (other hosts? other accounts?), which has an arrow to the dark box Findings note (facts, confidence, gaps, actions).",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "w", "label": "Windows Security", "sub": "logons, account changes, log clear", "tone": "blue" },
+      { "id": "s", "label": "Endpoint process (Sysmon)", "sub": "process starts with parent", "tone": "blue" },
+      { "id": "v", "label": "VPN", "sub": "remote logons with source address", "tone": "slate" },
+      { "id": "p", "label": "Web proxy", "sub": "requests, URL, bytes sent", "tone": "slate" },
+      { "id": "bw", "label": "Baseline and exceptions", "sub": "which event IDs are unusual?", "tone": "orange" },
+      { "id": "bs", "label": "Baseline and exceptions", "sub": "which parent-child pairs are rare?", "tone": "orange" },
+      { "id": "bv", "label": "Baseline and exceptions", "sub": "which addresses fail across accounts?", "tone": "orange" },
+      { "id": "bp", "label": "Baseline and exceptions", "sub": "which domains, volumes, intervals stand out?", "tone": "orange" },
+      { "id": "t", "label": "Merged timeline", "sub": "join on host, user, address and time", "tone": "violet" },
+      { "id": "c", "label": "Scope checks", "sub": "other hosts? other accounts?", "tone": "green" },
+      { "id": "n", "label": "Findings note", "sub": "facts, confidence, gaps, actions", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "w", "to": "bw" },
+      { "from": "s", "to": "bs" },
+      { "from": "v", "to": "bv" },
+      { "from": "p", "to": "bp" },
+      { "from": "bw", "to": "t" },
+      { "from": "bs", "to": "t" },
+      { "from": "bv", "to": "t" },
+      { "from": "bp", "to": "t" },
+      { "from": "t", "to": "c" },
+      { "from": "c", "to": "n" }
+    ],
+    "note": "Sources meet only at the merged timeline, and only through shared entities."
+  },
+  "C08-M04-L08-F2": {
+    "title": "Findings register for the Banyan log analysis",
+    "caption": "Each finding with its single log source, the key evidence from the lab queries and the analyst's confidence.",
+    "alt": "Table with four columns: Finding, Source, Evidence, Confidence. Row 1: Look-alike document download; proxy; invoice.docm at 06:12, one host; High. Row 2: Office spawned hidden PowerShell; Sysmon; WINWORD to powershell.exe, encoded, 06:14; High. Row 3: Regular beacon to rare domain; proxy; 18 requests, 298 to 302 s gaps; Medium. Row 4: Privileged account created; Windows; 4720 and 4732 svc_update, 07:02 to 07:03; High. Row 5: Bulk upload; proxy; 48.2 MB to files-share-drop.example at 08:12; High. Row 6: Security log cleared; Windows; 1102 at 08:17; High. Row 7: VPN spray then success; VPN; 8 accounts failed, gopal success 06:46; Medium. Rows 1 to 5 are red or orange, row 6 dark, row 7 violet.",
+    "type": "table",
+    "columns": ["Finding", "Source", "Evidence", "Confidence"],
+    "rowTones": ["orange", "red", "red", "red", "red", "dark", "violet"],
+    "rows": [
+      ["Look-alike document download", "proxy", "invoice.docm at 06:12, one host", "High"],
+      ["Office spawned hidden PowerShell", "Sysmon", "WINWORD to powershell.exe, encoded, 06:14", "High"],
+      ["Regular beacon to rare domain", "proxy", "18 requests, 298 to 302 s gaps", "Medium"],
+      ["Privileged account created", "Windows", "4720 and 4732 svc_update, 07:02 to 07:03", "High"],
+      ["Bulk upload", "proxy", "48.2 MB to files-share-drop.example, 08:12", "High"],
+      ["Security log cleared", "Windows", "1102 at 08:17", "High"],
+      ["VPN spray then success", "VPN", "8 accounts failed; gopal success 06:46", "Medium"]
+    ],
+    "note": "Rows 1-6 share WS-104 and divya; row 7 shares no entity with them and stays a separate thread."
+  }
+}

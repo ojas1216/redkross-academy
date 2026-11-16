@@ -1,0 +1,112 @@
+{
+  "course": "C08",
+  "module": 4,
+  "title": "Log analysis",
+  "description": "Reading the logs an analyst meets every day - Windows events, Linux authentication, web server, firewall, DNS and proxy logs - recognising normal from suspicious in each, and writing precise queries across them, ending with a hands-on log analysis lab on the course dataset.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Windows event analysis",
+      "summary": "How to analyse Windows Security events rather than just recognise them: a seven-step reading method, actor-versus-target field reading, normal and suspicious patterns per event family, the four shapes of failed logons, and a worked analysis of the Banyan WS-104 chain with dwell gaps and absence checks.",
+      "objectives": [
+        "Apply a repeatable method (question, inventory, baseline, deviation, chain, absence, context) to a Windows alert",
+        "Distinguish the actor from the target in 4624, 4720, 4732 and 1102 events",
+        "Classify groups of failed logons as typing errors, stale credentials, brute force or password spraying",
+        "Reconstruct and interpret an event chain on one host using dwell gaps and peer baselines",
+        "State accurately what the absence of an event does and does not show"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Linux auth logs",
+      "summary": "Reading Linux authentication logs in auth.log, secure and the journal: the anatomy of a syslog line, how one SSH login appears across sshd, PAM and systemd-logind, sudo and account-tool lines, separating internet noise from targeted guessing, and a worked analysis of an illustrative compromised server.",
+      "objectives": [
+        "Interpret sshd, PAM, sudo, su, logind and account-tool lines field by field",
+        "Reconstruct an SSH session using the sshd PID and the logind session number",
+        "Separate background SSH noise from targeted guessing and from a success after failures",
+        "Extract failures, successes, sudo commands and account changes with grep, awk and journalctl",
+        "Identify the limits of auth.log evidence, such as SSH keys written as files"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Web server logs",
+      "summary": "How to read web server access and error logs as an analyst: the Combined Log Format field by field, status codes and response sizes, client addresses behind proxies and self-declared user agents, and how to recognise content discovery, path traversal and injection attempts and judge from the server's answer whether they succeeded, while ruling out benign look-alikes.",
+      "objectives": [
+        "Interpret each field of a Combined Log Format access-log line and of an nginx error-log line",
+        "Explain what each HTTP status class reveals about how far a suspicious request reached",
+        "Recognise content discovery, path traversal and injection attempts in encoded request lines",
+        "Distinguish scanning and injection attempts from crawlers, health checks, authorised scans and ordinary user input",
+        "Analyse an access log with command-line counts to reconstruct one source's activity and decide the next action"
+      ],
+      "minutes": 70
+    },
+    {
+      "n": 4,
+      "title": "Firewall logs",
+      "summary": "How to analyse firewall logs: stateful logging of decisions, drop versus reject, netfilter and session-log fields, tracing a host through source NAT, and recognising vertical scans, horizontal sweeps, blocked outbound attempts, beacons, large transfers and out-of-state drops against their benign look-alikes.",
+      "objectives": [
+        "Interpret netfilter log lines and next-generation firewall session records field by field",
+        "Explain how state tracking, logging configuration and drop or reject actions shape what a firewall records",
+        "Trace an external report about the public address back to an internal host through NAT session logs",
+        "Identify port scans, sweeps, blocked outbound attempts and beaconing from counts of ports, hosts, intervals and bytes",
+        "Separate suspicious connection patterns from background scanning, update traffic, backups and expired sessions"
+      ],
+      "minutes": 70
+    },
+    {
+      "n": 5,
+      "title": "DNS logs",
+      "summary": "How to read DNS resolver, sensor and endpoint DNS records, what normal DNS looks like, and how NXDOMAIN bursts, long high-entropy labels, many unique subdomains, TXT volume and resolver bypass reveal domain generation algorithms and DNS tunnelling from the defender's side.",
+      "objectives": [
+        "Interpret the fields of a DNS query record and pivot from name, answer and timestamp to other evidence",
+        "Explain how recursive resolution carries a query name to the zone's authoritative server and why that enables DNS tunnelling",
+        "Recognise DGA, tunnelling and resolver-bypass patterns and distinguish them from their benign look-alikes",
+        "Evaluate Shannon entropy and rarity as detection features using real output from the lab domains",
+        "Design DNS logging and egress controls that make resolver logs complete"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Proxy logs",
+      "summary": "A method for analysing web proxy logs: record anatomy and field pitfalls, what TLS inspection changes, and a six-question workflow (rarity, content, rhythm, volume, scope, endpoint pivot) applied with minisiem.py and hunt.py to the WS-104 beacon and upload in the lab dataset.",
+      "objectives": [
+        "Interpret proxy log fields, including byte direction, status-code origin and CONNECT records",
+        "Compare the evidence available with and without TLS inspection",
+        "Apply rarity, content, rhythm, volume and scope queries to proxy data with minisiem.py and hunt.py",
+        "Build a source-cited case timeline joining proxy and endpoint events",
+        "State conclusions from proxy evidence at the strength the evidence supports"
+      ],
+      "minutes": 65
+    },
+    {
+      "n": 7,
+      "title": "Query writing",
+      "summary": "Turning an analytical question into a precise, tested query: specification, type-safe and anchored conditions, half-open time ranges, grain, bounded joins, anti-joins and window functions, with real SQL on the Banyan dataset and SPL/KQL equivalents.",
+      "objectives": [
+        "Write a query specification (population, condition, grain, window, output) from an analytical question",
+        "Avoid false and missed matches caused by types, substrings, time boundaries and NULLs",
+        "Write bounded joins and NULL-safe anti-joins without fan-out errors",
+        "Use CTEs, time buckets and window functions such as LAG() to compare periods and measure intervals",
+        "Test a query against known positives and negatives and express its precision and recall"
+      ],
+      "minutes": 75
+    },
+    {
+      "n": 8,
+      "title": "Log lab",
+      "summary": "A guided multi-source analysis of the Banyan dataset: baseline Windows, endpoint, VPN and proxy logs separately, merge the exceptions into one timeline, run scope checks and write a findings note.",
+      "objectives": [
+        "Baseline Windows Security, Sysmon, VPN and proxy events with aggregation queries",
+        "Classify exceptions in each source as noise, suspicious or unexplained, with evidence",
+        "Build a merged timeline joined on host, user, address and time",
+        "Run scope checks and record their negative results and limits",
+        "Write a findings note that separates facts, confidence, gaps and recommended actions"
+      ],
+      "minutes": 90
+    }
+  ]
+}
