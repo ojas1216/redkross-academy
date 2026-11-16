@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Using triage.py, where R4 has (severity 3, confidence 0.5) and an unknown host falls back to criticality 2, what does priority('R4', 'UNKNOWN-9') return?",
+    "options": [
+      "3.0, because 3 x 0.5 x 2 is multiplied and rounded to one decimal place",
+      "4.5, because unknown hosts inherit the criticality of the most recent known host",
+      "0.0, because a host missing from ASSETS contributes a criticality of zero to the product",
+      "6.0, because unknown hosts are treated as criticality 4 until they are registered"
+    ],
+    "correct": 0,
+    "explanation": "priority() uses ASSETS.get(host, ('unknown asset', 2)), so an unregistered host gets criticality 2: 3 x 0.5 x 2 = 3.0. The kit does not treat unknown assets as high; that is a recommendation in the lesson, not the code's behaviour.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R2 (event at 06:46) and R1 (event at 06:14) both score 7.2, yet triage.py prints R2 first. What causes this?",
+    "options": [
+      "triage.py breaks ties by the newest event first, so the 06:46 VPN alert is placed above the older R1",
+      "sorted(..., reverse=True) compares the next tuple element, the rule-name string, so 'R2 ...' sorts above 'R1 ...'",
+      "R2's unrounded score is slightly higher than R1's, and the difference disappears only when printed",
+      "R2 involves an external address, and triage.py adds a hidden bonus to alerts from external sources"
+    ],
+    "correct": 1,
+    "explanation": "Python compares tuples element by element; with equal scores it compares the rule-name strings, and in reverse order R2 precedes R1. The tie is broken alphabetically, not by time. Both products are exactly 7.2, and no external-address bonus exists in priority().",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A newly deployed rule ships with confidence 0.0 by mistake. What happens under a multiplicative priority model, and what is the safeguard?",
+    "options": [
+      "Its alerts score as if confidence were 1.0, so a minimum value is unnecessary but a maximum is needed",
+      "Its alerts rise to the top, because a zero factor is treated as missing and the remaining factors are summed",
+      "Every alert from the rule scores 0 and sinks to the bottom, so models need floors such as a minimum confidence",
+      "The SIEM rejects the rule, because a multiplicative model cannot be evaluated when any factor equals zero"
+    ],
+    "correct": 2,
+    "explanation": "In a product, a zero erases everything: however severe, the alerts score 0. Multiplicative models therefore need floors, such as a documented default confidence for new rules and a minimum criticality for any asset.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC is choosing between the kit's product (severity x confidence x criticality) and a weighted sum of the same inputs. Which trade-off is stated correctly?",
+    "options": [
+      "A product lets several mediocre inputs add up to an alarming score, while a weighted sum cannot do so",
+      "A weighted sum always gives identical ordering to a product, so the choice affects only presentation",
+      "A product is preferred because it never produces ties, unlike a weighted sum on integer scales",
+      "A weighted sum stops one low input cancelling a high one, but several mediocre inputs can add up to an alarming score"
+    ],
+    "correct": 3,
+    "explanation": "In a weighted sum a High severity cannot be wiped out by a low factor, which some SOCs want, but mediocre factors accumulate. In a product each factor scales the others and ties are common on small scales; the kit itself shows a 7.2 tie.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Analysts on one shift close many genuine R3 alerts as 'false positive' to clear the queue quickly. What is the longer-term effect if confidence is measured as precision?",
+    "options": [
+      "R3's measured confidence falls, lowering the future priority of every alert it produces, including real ones",
+      "Nothing changes, because confidence is fixed by detection engineering when a rule is first written",
+      "R3's severity is automatically reduced, because the SIEM moves rules with many false positives down a level",
+      "R3's confidence rises, because a larger number of closed alerts makes the precision estimate more reliable"
+    ],
+    "correct": 0,
+    "explanation": "Precision is true positives divided by all dispositioned alerts, so careless false-positive closures depress it and push the rule's future alerts down the queue. Severity is a separate input and does not change from dispositions.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule has produced ten alerts in ninety days, one of them a true positive. A colleague wants to set its confidence to 0.1 immediately. What is the best assessment?",
+    "options": [
+      "Correct, because precision is exact once any true positive exists and needs no further evidence",
+      "The sample is too small for a reliable precision, so a documented default is better until more alerts accrue",
+      "Confidence should be set to 1.0, because the rule has been proven able to catch at least one real attack",
+      "Confidence should be set to 0.0, because nine false positives out of ten means the rule should be disabled"
+    ],
+    "correct": 1,
+    "explanation": "Precision from very few alerts is weak evidence; ten alerts with one true positive is noisy. A documented default is held until enough history accumulates. Setting 0.0 would also erase every future alert under a multiplicative model.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An alert arrives for host PAY-NEW-03, which is not in the CMDB. triage.py gives it criticality 2. Why does the lesson call this default 'arguable', and what is recommended?",
+    "options": [
+      "Because 2 is too high for unknown hosts, which are nearly always decommissioned test machines",
+      "Because the default should be 1, so that unregistered hosts never compete with known business assets",
+      "Because an unknown host may be a forgotten box, a new payment server or an intruder's device, so treat it as high and register it",
+      "Because unknown hosts should be excluded from scoring entirely until the CMDB team has classified them"
+    ],
+    "correct": 2,
+    "explanation": "Calling an unknown host average hides real uncertainty; it may be critical or even attacker-controlled. Many SOCs treat unknown assets as at least High criticality until classified and raise a task to register them.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "If the account that succeeded after the VPN spray had been divya (a payments approver) instead of gopal, how would the kit's priority() score that R2 alert, and why is that a problem?",
+    "options": [
+      "10.8, because priority() reads the USERS table and lifts alerts for payments approvers automatically",
+      "0.0, because priority() cannot score an account-based alert unless the account owns a registered host",
+      "12.0, because identity criticality is added on top of the asset criticality for any privileged account",
+      "It depends only on the host mapped to the account, so the score ignores what the compromised account can reach"
+    ],
+    "correct": 3,
+    "explanation": "priority() never reads USERS; R2 is scored with the criticality of the host mapped in PRIMARY_HOST. For credential compromise, what matters is what the account can reach, so the lesson recommends taking the higher of asset and identity criticality. The exact value depends on that host mapping.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The WS-104 queue lines score 10.8, 7.2, 5.4, 5.4, 4.5 and 3.6. Counting each rule only once per entity, what is the WS-104 entity risk?",
+    "options": [
+      "31.5",
+      "36.9",
+      "26.1",
+      "10.8"
+    ],
+    "correct": 0,
+    "explanation": "The raw sum is 36.9; the two R3 alerts come from the same rule, so de-duplication counts 5.4 once, giving 31.5. 10.8 is only the highest single alert, which is exactly what per-alert scoring is limited to.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should entity risk scores decay over time?",
+    "options": [
+      "Because SIEM storage limits require older alerts to be deleted before their risk can be counted",
+      "So that old activity does not keep an entity at the top of the queue for weeks after it was handled",
+      "Because older alerts have lower confidence by definition, so their severity must be reduced each day",
+      "So that the same rule firing repeatedly within a short window counts more heavily than a single alert"
+    ],
+    "correct": 1,
+    "explanation": "Decay prevents stale activity dominating the ranking long after it mattered. Repeated firing of one rule is handled by per-rule de-duplication, which works in the opposite direction to the last distractor.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R6 beacon_regular_small has low severity and confidence. How does entity risk scoring change the case for keeping it enabled?",
+    "options": [
+      "It does not; low-scoring rules should be disabled once entity scoring is in place to reduce the load",
+      "It forces R6 alerts to page an analyst individually, so they can no longer be missed in the queue",
+      "R6 can contribute risk quietly and surface only when other evidence accumulates on the same entity",
+      "It raises R6's base severity automatically, because aggregated rules are treated as High by default"
+    ],
+    "correct": 2,
+    "explanation": "Entity scoring lets weak rules stay on without each alert creating work: their scores add to the entity's risk and surface when corroborated. Severity is not changed by aggregation, and paging on each R6 alert is what entity scoring avoids.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For months, alerts have arrived faster than the SOC can work them, and items below a score of 4 are never opened before automatic closure. What does the lesson say is the honest response?",
+    "options": [
+      "Keep the current order, since low-scored items are only being deferred and will be reached in a quieter week",
+      "Lower the severity of the affected rules so that the queue statistics reflect what is actually being handled",
+      "Raise the confidence of the low rules so that their alerts climb above the cut-off and are eventually worked",
+      "Tune or retire the rules filling the tail, automate their handling or add capacity, instead of pretending they are handled"
+    ],
+    "correct": 3,
+    "explanation": "When arrivals persistently exceed capacity, the priority order becomes a decision about what will never be examined. The options are tuning, retiring, automating or adding capacity. Altering severity or confidence to fit capacity changes the facts, not the workload.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Medium alert scored 5.4 keeps being pushed down by a steady stream of 5.5-6.0 alerts and has waited nine hours. Which queue mechanism is designed for this?",
+    "options": [
+      "Ageing, which raises an item's effective priority the longer it waits so it cannot be starved",
+      "Deduplication, which merges the waiting alert into the newer alerts that keep arriving above it",
+      "Severity inflation, which lifts the waiting alert's base severity so that it outranks the newer items",
+      "Tie-breaking, which compares rule names so that the waiting alert is placed above alerts with equal scores"
+    ],
+    "correct": 0,
+    "explanation": "Ageing addresses starvation by increasing effective priority with waiting time, and it should be shown next to the score. Tie-breaking only applies to equal scores, and changing severity to move an item misuses the definition.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "With the SLA dashboard turning red, a shift lead suggests temporarily lowering R3's confidence to 0.3 so that its alerts fall below the cut-off. What is the correct objection?",
+    "options": [
+      "Confidence can only be changed by the CMDB owner, so the shift lead lacks authority over that value",
+      "Time pressure may change the order of work but must not alter severity or confidence, which are facts about alerts",
+      "Lowering confidence to 0.3 would have no effect, because priority() ignores confidence values below 0.5",
+      "The change is acceptable provided it is reversed at the end of the shift and noted in the handover report"
+    ],
+    "correct": 1,
+    "explanation": "Time and capacity are handled by ageing, deadline proximity and capacity decisions, not by editing inputs. Confidence reflects measured precision; manipulating it hides real alerts and corrupts future scores. Confidence is owned by detection engineering, not the CMDB, and priority() uses it at any value.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At 08:30 analyst B takes R2 (score 7.2) ahead of higher-scored WS-104 alerts. What makes this a legitimate override?",
+    "options": [
+      "R2 is the oldest alert in the queue, so the standard oldest-first rule requires it to be worked first",
+      "R2 has a higher base severity than every WS-104 alert, so it should have been ranked first anyway",
+      "A successful external login after a spray suggests a live session that quick, pre-authorised containment can cut off",
+      "Analyst B is more familiar with VPN alerts, and analysts should take the alert types they know best"
+    ],
+    "correct": 2,
+    "explanation": "The model cannot see that an external actor with valid credentials may still hold a session and that disabling the account is fast; that context justifies the override, with a written reason. R1 at 06:14 is older than R2, R5 shares R2's severity of 4, and choosing familiar work is an illegitimate reason.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why must the reason for working an alert out of score order be written down?",
+    "options": [
+      "Because SIEM products refuse to assign an alert to an analyst unless an override reason is supplied first",
+      "Because the written reason is used to recompute the rule's confidence after the alert has been closed",
+      "Because without a note the alert's SLA timer cannot be paused while the override is in progress",
+      "Because legitimate and illegitimate overrides look alike from outside, and the note lets a shift lead tell them apart"
+    ],
+    "correct": 3,
+    "explanation": "Picking easy alerts to improve closure counts looks the same as taking an urgent one from outside. The recorded reason makes overrides reviewable. Confidence comes from dispositions, not override notes.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R1 fired on WS-104 at 06:14; the VPN spray from 203.0.113.66 began at 06:42 and also targeted divya. How should the R2 case and the WS-104 case be handled?",
+    "options": [
+      "As separate cases that cross-reference each other, since the spray began after R1 and cannot have caused it",
+      "As a single merged case, because both involve divya and the spray must have delivered the malicious document",
+      "As unrelated cases with no link, because the two alerts were raised on different hosts by different rules",
+      "As one case led by R2, because the external spray is the root cause of everything seen on WS-104"
+    ],
+    "correct": 0,
+    "explanation": "The timeline rules out the spray causing the WS-104 activity, so they are different stories; but they touch the same person, so each case notes the other in case later evidence links them. Ignoring the shared target loses that thread.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A minisiem search of VPN events from one external address shows eight different users failing at seven-second intervals, then one of them succeeding four minutes later. What is the best interpretation?",
+    "options": [
+      "A single user mistyping a password repeatedly, followed by a successful login after a password reset",
+      "A password spray across many accounts followed by a successful login with valid credentials",
+      "A brute-force attack against one account, shown as eight failures before the correct password was found",
+      "A VPN concentrator health check, which cycles through test accounts at fixed intervals"
+    ],
+    "correct": 1,
+    "explanation": "Few attempts against many different accounts from one source, in a fixed rhythm, is the spray pattern; the later success means an outsider holds a valid account. Brute force targets one account with many guesses, which the varied usernames rule out.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which explicit tie-breaker order does the lesson recommend for alerts with equal priority scores?",
+    "options": [
+      "Rule name, then host name, then event time, so that the ordering is deterministic and reproducible",
+      "Severity, then asset criticality, then confidence, so that the score's own inputs decide among equals",
+      "Time waiting, then SLA deadline, then severity, so that equal items are ordered by risk and age",
+      "Newest event first, then the analyst's preference, so that the freshest evidence is always examined"
+    ],
+    "correct": 2,
+    "explanation": "Ties should be broken by waiting time, then SLA deadline, then severity. Sorting by rule name, as the kit effectively does, is deterministic but orders work by a label rather than risk or age.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A routine CMDB update mistakenly lowers a payment server's criticality from 3 to 1. Why does the lesson treat this as a security concern?",
+    "options": [
+      "Because the SIEM stops collecting logs from any asset whose criticality is set below 2",
+      "Because a criticality change automatically lowers the base severity of rules firing on that server",
+      "Because criticality changes disable entity risk scoring for the affected host until it is reclassified",
+      "Because every alert about the server silently drops in priority, so such changes should be logged and reviewed"
+    ],
+    "correct": 3,
+    "explanation": "Criticality multiplies every alert's score for that host, so a wrong value (accidental or malicious) pushes real alerts down. Changes to criticality and confidence should be reviewed like rule changes. Severity and log collection are not affected by the CMDB value.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC considers deriving priority from a lookup matrix of severity against criticality, using confidence only as a gate, similar to ITIL's impact-urgency grid. What is the main trade-off?",
+    "options": [
+      "It is easy to explain and audit, but coarse compared with a continuous score",
+      "It removes ties completely, but cannot be used once entity risk scoring is enabled",
+      "It is more precise than multiplication, but requires confidence to be measured hourly",
+      "It eliminates the need for asset criticality, but makes severity harder to define"
+    ],
+    "correct": 0,
+    "explanation": "Matrices are transparent and auditable but coarse, since many alerts land in the same cell. They still use criticality, and coarse cells actually produce more ties, not fewer.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R1 office_spawns_script fires often on developers' workstations where macros are part of normal work, but rarely and usually maliciously in Finance. How can the scoring model reflect this?",
+    "options": [
+      "Lower R1's base severity for everyone, because the developer alerts show the behaviour is usually harmless",
+      "Keep confidence per rule and per business unit, so the same rule carries lower confidence for developers",
+      "Raise the asset criticality of developer workstations, so that their R1 alerts are not drowned out",
+      "Suppress R1 globally and rely on entity risk scoring to surface any genuinely malicious documents"
+    ],
+    "correct": 1,
+    "explanation": "Confidence can depend on context as well as on the rule; keeping it per business unit expresses that developer alerts are less likely to be malicious without lowering severity, which describes harm if true, or distorting criticality.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Without an entity-grouping stage, what failure is most likely for the six WS-104 alerts?",
+    "options": [
+      "The alerts would all receive a score of zero, because ungrouped alerts lack an entity criticality value",
+      "The SIEM would merge them into one alert automatically, losing the individual event timestamps",
+      "Different analysts on different shifts each close one as suspicious with no further evidence, missing the chain",
+      "The R5 alert would be dropped from the queue, because only one alert per host can be shown at a time"
+    ],
+    "correct": 2,
+    "explanation": "Working alerts rather than entities splits an intrusion across people and shifts, so nobody sees the sequence. Grouping by host, account or source address puts the related alerts in front of one analyst.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a quiet intrusion on a finance server, a burst of hundreds of noisy alerts suddenly appears on unrelated hosts. Which defences from the lesson best protect against this being a distraction?",
+    "options": [
+      "Raising the confidence of every rule involved in the burst so that the queue reflects the increased activity",
+      "Lowering the criticality of the unrelated hosts so that their alerts fall to the bottom of the queue",
+      "Disabling the noisy rules until the burst ends, then re-enabling them once the queue has been cleared",
+      "Entity grouping, so the burst collapses into a few entities, and analysts who scan the queue beyond the top"
+    ],
+    "correct": 3,
+    "explanation": "An adversary can pull attention away with high-volume noise. Grouping by entity keeps the burst from crowding the queue, and analysts reading below the top items still spot the quieter intrusion. Editing confidence or criticality on the fly corrupts the model.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the prioritisation pipeline, analysts' dispositions feed back into rule confidence. What happens if this feedback loop is missing?",
+    "options": [
+      "Confidence values go stale, so the first scoring step's numbers gradually stop reflecting how rules really perform",
+      "The queue stops sorting altogether, because priority() needs a fresh confidence value for every new alert",
+      "Severity values start drifting upward, because dispositions are the only control on severity inflation",
+      "Entity risk scores can no longer be calculated, because they depend on the disposition of each alert"
+    ],
+    "correct": 0,
+    "explanation": "The feedback loop is the slowest in the pipeline: closures update confidence, which changes next week's scores. Without it the values set once become stale. Scoring and entity aggregation still run, just on outdated inputs.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

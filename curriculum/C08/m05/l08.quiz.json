@@ -1,0 +1,327 @@
+[
+  {
+    "q": "triage.py scores each hit as severity x confidence x asset criticality. A new rule has severity 3 and confidence 0.6 and fires on WS-107, whose criticality is 2. Where would it sit in the lab queue?",
+    "options": [
+      "At 3.6, level with R6 at the bottom of the queue",
+      "At 7.2, level with R1 and R2 in the middle of the queue",
+      "At 5.4, level with the two R3 hits",
+      "At 10.8, level with R5 at the top of the queue"
+    ],
+    "correct": 0,
+    "explanation": "3 x 0.6 x 2 = 3.6, the same score as R6 (2 x 0.6 x 3). 5.4 would need criticality 3 on this rule; checking the arithmetic by hand against RULE_META and ASSETS is how you learn to trust or question the queue.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R1 on WS-104 (criticality 3) and R2 on WS-107 (criticality 2) both score 7.2. What does this tell you about the two rules' entries in RULE_META?",
+    "options": [
+      "The two rules have identical severity and confidence, so the tie comes from the rules alone",
+      "R1's severity x confidence (2.4) is lower than R2's (3.6); the more critical asset makes up the difference",
+      "R1's severity x confidence must be higher than R2's, because R1 involves code execution",
+      "Nothing can be inferred, because the score also includes the intelligence feed's confidence"
+    ],
+    "correct": 1,
+    "explanation": "7.2 / 3 = 2.4 for R1 and 7.2 / 2 = 3.6 for R2 (R2 is severity 4 x confidence 0.9). Equal scores can hide different rule weightings. The intelligence feed is not part of the triage score at all.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The queue puts R5 log_cleared (10.8) first and five other WS-104 alerts below it. What working order does the lab recommend?",
+    "options": [
+      "Strictly by score from top to bottom, because priority already reflects the attack sequence",
+      "Lowest score first, because low-scored alerts are the ones most likely to be missed",
+      "Group all WS-104 alerts and close them together as one item without validating each",
+      "R5 first for urgency, then R2, then the WS-104 alerts in event-time order so each validation builds on the last"
+    ],
+    "correct": 3,
+    "explanation": "Queue order is about urgency, investigation order is about time. R5 is validated first because it may trigger escalation immediately, but the story is reconstructed forwards in time. The queue order was nearly the reverse of the attack: R5 was the last thing the attacker did.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The R6 beacon alert shows user=None (?). How should the analyst treat this in the note?",
+    "options": [
+      "As evidence that no user was logged on, so the beaconing came from a system process",
+      "As a reason to lower confidence in the alert, because a real beacon would always show a user",
+      "As a gap in the rule, which groups by host and URL and never selects a user, and record it as such",
+      "As an error in the dataset that requires re-copying the lab kit before continuing"
+    ],
+    "correct": 2,
+    "explanation": "The rule's query never selects the user column, so None is the absence of a field, not a finding. Reading it as \"no user logged on\" turns a gap into a fact; it says nothing about the beacon's validity.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On R1, R3, R4, R5 and R6 the helper prints ip=n/a. What does this mean?",
+    "options": [
+      "The rule's query did not select a source IP column, not that the activity had no IP",
+      "The events originated from inside the network and so have no external IP to classify",
+      "The IP was in a documentation range and has been hidden by the helper",
+      "The IP lookup failed because the intelligence feed was not loaded"
+    ],
+    "correct": 0,
+    "explanation": "n/a reflects what the rule returned: those rules do not select a source IP. Concluding that the activity was internal or IP-less would turn the helper's limitation into a finding.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A shift lead proposes a rule: \"Only investigate alerts scoring 5.0 or above; close the rest as low priority.\" Applied to this lab's queue, what would be lost?",
+    "options": [
+      "Nothing important, since R5, R1 and R2 already establish the compromise",
+      "The R3 account creation, so the persistence mechanism would go unrecorded",
+      "Only the R6 beacon, which is covered by the R1 alert on the same host anyway",
+      "R4 and R6, so the 48.2 MB upload and the command-and-control channel would never be validated"
+    ],
+    "correct": 3,
+    "explanation": "R4 scored 4.5 and R6 3.6, both under the cut-off, yet they reveal the probable exfiltration and the C2 beacon. R3 scored 5.4 and would survive. Priority orders the work; it must not decide what is ignored.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "hunt.py reports WS-104 -> cdn-telemetry-sync.example/api/v2/ping with n=18, mean_gap=300s, cv=0.004. Why does this make R6 one of the strongest alerts despite its 3.6 score?",
+    "options": [
+      "The low CV shows the requests were large, consistent with data exfiltration",
+      "The near-zero CV means machine-regular five-minute requests, starting just after PowerShell ran, to a domain on an ISAC-A C2 listing",
+      "Eighteen requests exceed the rule's threshold of eight, which automatically promotes the alert to high severity",
+      "A mean gap of 300 s matches the Windows default update interval, ruling out benign software"
+    ],
+    "correct": 1,
+    "explanation": "CV (standard deviation divided by mean) of 0.004 means almost no variation in the gaps: automated traffic. Corroborated by timing after the PowerShell start and an intelligence match (conf 85), it is strong evidence of C2. The score cannot know about such cross-source corroboration; CV says nothing about request size.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "hunt.py's H1 lists host/URL pairs with at least 8 requests and an interval CV below 0.2. A user's browser polls a news site 40 times with CV 0.9. Why is it not listed?",
+    "options": [
+      "Because news sites are on an allow-list built into hunt.py",
+      "Because 40 requests exceeds the maximum count the hunt considers suspicious",
+      "Because a CV of 0.9 means the gaps vary widely relative to their mean, so the traffic is not regular",
+      "Because CV is only computed for requests smaller than 1,000 bytes"
+    ],
+    "correct": 2,
+    "explanation": "H1's criterion is regularity: CV = standard deviation / mean of the gaps, and 0.9 is far above 0.2, typical of human-driven browsing. The hunt has no maximum count or byte filter described in the lab.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The queue contains two R3 new_local_admin hits on WS-104: event 4720 for svc_update at 07:02:00Z and event 4732 adding it to Administrators at 07:03:00Z. How should they be documented?",
+    "options": [
+      "One note covering both alert IDs, because create-then-elevate is a single activity",
+      "Two separate incidents, because each rule hit must be counted for queue metrics",
+      "Close the second hit as a duplicate without a note, since the first note covers the account",
+      "Merge them into the R5 note, because all three alerts were generated under divya's account"
+    ],
+    "correct": 0,
+    "explanation": "The two hits are one activity, so one note covers both. Counting two incidents inflates metrics; closing one as a duplicate without a note loses the group change, which is what made the account an administrator.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "SELECT COUNT(*) FROM events WHERE user='svc_update' returns 0. Which statement belongs in the R3 note?",
+    "options": [
+      "svc_update was never used, so the persistence attempt failed and the account can be closed as harmless",
+      "svc_update was created as a decoy, so further attacker activity will use a different account",
+      "The query is invalid because svc_update appears only in target_user, so the result should be discarded",
+      "No event in this dataset was performed by svc_update; this does not cover later activity, and the cleared Security log may hide events"
+    ],
+    "correct": 3,
+    "explanation": "A negative result is bounded by its data: this dataset's sources and time span, and a host whose Security log was cleared at 08:17:00Z. \"Never used\" overstates it. The query is valid for its purpose: it checks activity by the account, not activity on it.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Every alert in the queue was dispositioned as a true positive with high confidence except R4 large_upload, which was rated medium. Why?",
+    "options": [
+      "Because R4's priority score of 4.5 is below the threshold for high-confidence dispositions",
+      "Because the proxy recorded the size and destination of the upload but not its content",
+      "Because files-share-drop.example matched only an expired intelligence indicator",
+      "Because large uploads to file-sharing sites are routine for finance workstations"
+    ],
+    "correct": 1,
+    "explanation": "The evidence points to exfiltration (48.2 MB, a domain seen nowhere else, five minutes before the log clear), but what left the host is unknown, which keeps it at medium. Confidence follows the evidence, not the score; the expired indicator in the lab is 198.51.100.104, not this domain.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To validate R4, the analyst runs SELECT host, MAX(bytes_out) FROM events WHERE source='proxy' GROUP BY host ORDER BY 2 DESC. What does this query contribute?",
+    "options": [
+      "It confirms the upload's content type by comparing it with other hosts' uploads",
+      "It lists every upload made by WS-104 in time order for the timeline",
+      "It compares the upload with each host's largest request, showing 48,200,000 bytes against others under 4,000",
+      "It identifies which hosts contacted files-share-drop.example during the day"
+    ],
+    "correct": 2,
+    "explanation": "GROUP BY host returns each host's largest outbound request, giving an estate-wide baseline: WS-104's upload is about twelve thousand times larger than anything else. It neither orders events in time nor filters by destination domain.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "gopal's VPN credential is assessed as compromised at 06:46Z. At 13:33:00Z gopal logs in again from 198.51.100.104, which matches only an expired, confidence-40 open-feed indicator. What disposition fits the 13:33Z session?",
+    "options": [
+      "Undetermined: the expired indicator is not evidence on its own, but any session with a compromised credential is suspect until the user confirms it",
+      "Benign: the indicator has expired, so the address should be treated as clean and the session closed",
+      "Malicious with high confidence, because any match on an intelligence feed confirms attacker infrastructure",
+      "Out of scope, because the session occurred outside the 06:00-09:00Z window of the evidence export"
+    ],
+    "correct": 0,
+    "explanation": "ioc_match.py warns \"expired indicator still matches: review before acting\", so the match proves nothing, and the session could be gopal working from home. But once the credential is compromised, later sessions are suspect, so it stays undetermined pending confirmation. An export window does not define the scope of a case.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The CASE-0002 next steps say to contact gopal \"via manager by phone (not email)\" to confirm the 13:33Z session. What is the reasoning behind this channel?",
+    "options": [
+      "Phone calls are automatically recorded and so serve as evidence for the case",
+      "Company policy forbids SOC analysts from emailing staff directly about incidents",
+      "Email is slower, and the CERT-In six-hour deadline requires a faster response",
+      "With gopal's credential compromised, an attacker may be able to read or answer email sent to the account"
+    ],
+    "correct": 3,
+    "explanation": "If the credential is compromised, messages to that account may be read or answered by the attacker, so confirmation goes out of band through a trusted channel. The choice is about trust in the channel, not speed or recording.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "python evidence_export.py CASE-0002 WS-107 exports 10 proxy events and a verified hash. Why is that not sufficient evidence for CASE-0002?",
+    "options": [
+      "Because the export window ends at 09:00Z and gopal's laptop was not powered on before then",
+      "Because the case rests on VPN events, which carry no host and so are not in a host-based export; they must be saved and hashed separately",
+      "Because proxy events from WS-107 must be exported under CASE-0001, where the proxy activity was found",
+      "Because the export script refuses to hash files for hosts with criticality below 3"
+    ],
+    "correct": 1,
+    "explanation": "The export selects by host, and VPN events have no host field, so the actual basis of the case is missing. The lab saves the VPN query output to a file, hashes it and records the exact query because no custody entry exists for it.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two analysts save the same minisiem.py VPN search to a file, one on Windows and one on Linux, and get different SHA-256 hashes. What is the most likely cause and the right response?",
+    "options": [
+      "One file was tampered with; the case should be escalated as an evidence-integrity incident",
+      "sha256sum and Get-FileHash use different algorithms; re-hash both with the same tool",
+      "Python wrote CRLF line endings on Windows and LF on Linux; record the platform and method with each hash",
+      "The SIEM returns rows in random order; add ORDER BY to the query and re-run it"
+    ],
+    "correct": 2,
+    "explanation": "The content is the same but line endings differ, so the bytes and the hash differ. This is why an evidence reference records platform and method. Get-FileHash and sha256sum compute the same SHA-256 digest, and the lab query already orders by ts.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A learner's query SELECT ts, command_line FROM events WHERE source='sysmon' fails with \"no such column: command_line\". What should they do?",
+    "options": [
+      "Re-run python minisiem.py load, since the column is created only on a fresh load",
+      "Read the field from the stored JSON with json_extract(raw,'$.command_line')",
+      "Query the image column instead, which holds the full command line for Sysmon events",
+      "Re-copy the lab kit, because a missing column means the dataset has been modified"
+    ],
+    "correct": 1,
+    "explanation": "minisiem keeps common fields as columns and the rest only in the raw JSON column, so command_line must be extracted with json_extract. Reloading would not add the column; image holds the executable path, not its arguments.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Step 5 the analyst uses url NOT LIKE '%ping%' to hide the beacon. Lesson 7 warned that such a filter can silently drop events. Why is it safe in this query?",
+    "options": [
+      "Because SQLite treats NULL as an empty string in LIKE comparisons, so no rows are lost",
+      "Because the time range in the query excludes all events that lack a URL",
+      "Because NOT LIKE in minisiem is rewritten to include NULL values automatically",
+      "Because the query is restricted to source='proxy', where every event has a URL, so no NULL URLs exist to drop"
+    ],
+    "correct": 3,
+    "explanation": "A comparison with NULL is neither true nor false, so NOT LIKE drops rows with a NULL url. Restricting to proxy events, which all carry a URL, removes that risk. On the full table the same filter would hide Windows and Sysmon events.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A learner runs python minisiem.py load in their working folder and sees \"loaded 341 events\". What should they do before triaging?",
+    "options": [
+      "Re-copy the kit into a fresh folder, because the dataset has been modified and every later result may differ",
+      "Continue, because one extra event cannot change the triage queue or any hash",
+      "Run load a second time, since the first run appends to the table and the count settles on 340",
+      "Delete the most recent line of banyan_events.jsonl to bring the count back to 340"
+    ],
+    "correct": 0,
+    "explanation": "The original dataset loads 340 events; any other number means it was changed, and a stray event can alter the queue, query results and export hashes. load drops and recreates the table rather than appending, and hand-editing the dataset only adds uncertainty.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Six alerts are grouped into CASE-0001 on WS-104. Why is R2 placed in its own case, CASE-0002, rather than added to CASE-0001?",
+    "options": [
+      "Because VPN alerts always belong to the network team's case queue",
+      "Because R2 involves a different account and an external address, and no event links it to WS-104",
+      "Because R2's priority score is lower than R5's, and cases are grouped by score",
+      "Because CASE-0001 already has more than five alerts, the maximum per case"
+    ],
+    "correct": 1,
+    "explanation": "Cases group alerts that share entities and time. R2 shares neither host nor user with the WS-104 alerts, and no event connects them, so it gets its own case, cross-referenced as a possible link. Grouping is not based on score or case size.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "CASE-0001's notes cite the ISAC-A match for cdn-telemetry-sync.example (TLP:AMBER). CASE-0002's notes cite ISAC-A's entry for 203.0.113.66 (TLP:GREEN) and an expired open-feed indicator (TLP:CLEAR). Which labels do the case records carry?",
+    "options": [
+      "Both AMBER, because the two cases come from the same morning and the same SOC",
+      "Both CLEAR, because case records are internal documents and TLP applies only to feeds",
+      "CASE-0001 AMBER and CASE-0002 GREEN, each inheriting the most restrictive label of the enrichment it uses",
+      "CASE-0001 GREEN and CASE-0002 CLEAR, because labels are averaged across the enrichment used"
+    ],
+    "correct": 2,
+    "explanation": "Each note inherits the sharing label of the intelligence it contains: AMBER for CASE-0001, GREEN for CASE-0002 (its most restrictive item). Labelling CASE-0002 AMBER merely because it is cross-referenced would over-restrict it; ignoring labels would breach the source's terms.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The 1102 log-clear event at 08:17:00Z on WS-104 shows user divya. Which disposition statement is most defensible?",
+    "options": [
+      "TP, high confidence: the log clear ran under divya's account; whether divya personally did it is a separate, open question",
+      "TP, high confidence: divya cleared the Security log to hide her own activity and should be suspended",
+      "FP: users sometimes clear logs by accident, and divya is a payments approver with admin rights",
+      "Undetermined: a log clear cannot be judged without first decoding the PowerShell command"
+    ],
+    "correct": 0,
+    "explanation": "The user field shows the account context, not the person; code running in divya's session would produce the same record. A log clear after account creation on a user workstation is never routine, so TP is high confidence, but blaming divya turns an inference into a fact.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "hunt.py's H3 found no host other than WS-104 contacting the three suspicious domains. How should the scoping result appear in CASE-0001?",
+    "options": [
+      "As confirmation that the incident is fully contained to WS-104, closing the scoping task",
+      "As a reason to downgrade CASE-0001's severity, since only one host was affected",
+      "As evidence that the domains were not real attacker infrastructure, given the single host",
+      "As a negative result limited to proxied traffic: hosts whose traffic bypasses the proxy are not covered"
+    ],
+    "correct": 3,
+    "explanation": "H3 searched proxy data, so its negative result bounds the case only for traffic through the proxy. Recording it with that limit saves repeating the search without overstating it as containment or as grounds for downgrading.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R1 is dispositioned TP with high confidence. Which pair of independent facts supports that confidence?",
+    "options": [
+      "The 7.2 priority score and the payments-approver role of divya in the USERS table",
+      "The internal intelligence list entry and the fact that WINWORD.EXE is an Office binary",
+      "A proxy download of invoice.docm at 06:12:00Z and a Sysmon record at 06:14:00Z of Word starting hidden, encoded PowerShell",
+      "Eighteen beacon requests and the 48.2 MB upload later the same morning"
+    ],
+    "correct": 2,
+    "explanation": "High confidence comes from independent sources agreeing: the proxy shows the macro document arriving and Sysmon shows Word spawning hidden, encoded PowerShell two minutes later. Score and user role are enrichment, not validation; the beacon and upload support other alerts.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "CASE-0002's analysis states that what the 06:46Z VPN session accessed is unknown. Which next step addresses that gap?",
+    "options": [
+      "Re-run evidence_export.py for WS-107 with a wider time window to capture the session",
+      "Run hunt.py again to see whether the session produced beaconing traffic",
+      "Search the dataset's VPN events for destination fields recorded during the session",
+      "T2 requests the VPN session details for 06:46Z, such as the assigned IP and destinations, from the VPN platform"
+    ],
+    "correct": 3,
+    "explanation": "The VPN data in the SIEM has no destination fields, and a host export of WS-107 cannot contain VPN activity, so the answer must come from the VPN platform's session records. Searching the existing events again would only confirm the gap.",
+    "lesson": 8,
+    "difficulty": "hard"
+  }
+]

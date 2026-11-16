@@ -1,0 +1,48 @@
+{
+  "C08-M05-L08-F1": {
+    "title": "The triage lab route: one loop for every alert",
+    "caption": "Build and order the queue once, take every alert through enrich, validate, disposition and note, then group, export and summarise.",
+    "alt": "Top-to-bottom graph of eight boxes. Load + build queue (minisiem.py load; triage.py) leads to Order the work (urgency by score, story by time), then Enrich (asset, user, IP, ioc_match.py), Validate (raw events via minisiem.py search), Disposition (TP, BTP, FP or undetermined, with confidence) and Write the note (CHECKED, FOUND, ASSESS, NEXT). A dashed arrow labelled next alert runs from Write the note back to Enrich. A solid arrow labelled queue empty runs from Write the note to Group + scope (cases by shared entities; hunt.py H3), which leads to Export evidence + summary (SHA-256, custody, queue table), shown in dark.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "load", "label": "Load + build queue", "sub": "minisiem.py load; triage.py", "tone": "slate" },
+      { "id": "order", "label": "Order the work", "sub": "urgency by score, story by time", "tone": "violet" },
+      { "id": "enrich", "label": "Enrich", "sub": "asset, user, IP, ioc_match.py", "tone": "blue" },
+      { "id": "validate", "label": "Validate", "sub": "raw events via minisiem.py search", "tone": "orange" },
+      { "id": "disp", "label": "Disposition", "sub": "TP / BTP / FP / undetermined + confidence", "tone": "violet" },
+      { "id": "note", "label": "Write the note", "sub": "CHECKED, FOUND, ASSESS, NEXT", "tone": "green" },
+      { "id": "group", "label": "Group + scope", "sub": "cases by shared entities; hunt.py H3", "tone": "blue" },
+      { "id": "export", "label": "Export evidence + summary", "sub": "SHA-256, custody, queue table", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "load", "to": "order" },
+      { "from": "order", "to": "enrich" },
+      { "from": "enrich", "to": "validate" },
+      { "from": "validate", "to": "disp" },
+      { "from": "disp", "to": "note" },
+      { "from": "note", "to": "enrich", "label": "next alert", "dashed": true },
+      { "from": "note", "to": "group", "label": "queue empty" },
+      { "from": "group", "to": "export" }
+    ],
+    "note": "The two judgement steps (order and disposition) are the analyst's; every other step is backed by a kit command."
+  },
+  "C08-M05-L08-F2": {
+    "title": "The worked queue: deciding fact, disposition and case",
+    "caption": "Every alert from triage.py with the validated fact that decided it, in the helper's queue order.",
+    "alt": "Table with columns Alert, Score, Deciding fact, Disposition, Case. R5 log_cleared, 10.8, 1102 at 08:17Z, the only one in the data, TP high, CASE-0001. R2 vpn_spray_then_success, 7.2, 8 failures in 49 s then gopal success, TP high, CASE-0002. R1 office_spawns_script, 7.2, invoice.docm 06:12Z then hidden PowerShell 06:14Z, TP high, CASE-0001. R3 new_local_admin times two, 5.4, svc_update created and added to Administrators, TP high, one note, CASE-0001. R4 large_upload, 4.5, 48,200,000 bytes, other hosts under 4,000, TP medium, CASE-0001. R6 beacon_regular_small, 3.6, 18 requests, CV 0.004, ISAC-A conf 85, TP high, CASE-0001, shown in violet.",
+    "type": "table",
+    "columns": ["Alert", "Score", "Deciding fact", "Disposition", "Case"],
+    "rowTones": ["red", "red", "red", "red", "orange", "violet"],
+    "rows": [
+      ["R5 log_cleared", "10.8", "1102 at 08:17Z; only one in data", "TP, high", "CASE-0001"],
+      ["R2 vpn_spray_then_success", "7.2", "8 failures in 49 s, then gopal success", "TP, high", "CASE-0002"],
+      ["R1 office_spawns_script", "7.2", ".docm 06:12Z, hidden PowerShell 06:14Z", "TP, high", "CASE-0001"],
+      ["R3 new_local_admin (x2)", "5.4", "svc_update created + Administrators", "TP, high (one note)", "CASE-0001"],
+      ["R4 large_upload", "4.5", "48,200,000 B; other hosts < 4,000", "TP, medium", "CASE-0001"],
+      ["R6 beacon_regular_small", "3.6", "18 requests, CV 0.004; ISAC-A conf 85", "TP, high", "CASE-0001"]
+    ],
+    "note": "The lowest score in the queue was one of its strongest signals: priority orders the work, it does not decide what is ignored."
+  }
+}

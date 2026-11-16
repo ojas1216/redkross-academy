@@ -1,0 +1,157 @@
+{
+  "C08-M05-L01-F1": {
+    "title": "The Banyan SOC severity scale with rule anchors",
+    "caption": "Each severity level defined by its consequence if the alert is true, anchored with the lab kit's rules and the numeric value triage.py stores.",
+    "alt": "Table with columns Level, Definition (if the alert is true), Banyan rule anchors and Kit value. Critical, in red: active harm or loss of control now; none at rule level; case only. High, in orange: attacker foothold, credentials or evidence loss; R2 vpn_spray_then_success and R5 log_cleared; 4. Medium, in blue: suspicious execution, persistence or data movement; R1, R3 new_local_admin and R4 large_upload; 3. Low, in slate: weak or early signal, little harm alone; R6 beacon_regular_small; 2. Note: value 1 is reserved for informational detections that feed context, not the queue.",
+    "type": "table",
+    "columns": [
+      "Level",
+      "Definition (if the alert is true)",
+      "Banyan rule anchors",
+      "Kit value"
+    ],
+    "rowTones": [
+      "red",
+      "orange",
+      "blue",
+      "slate"
+    ],
+    "rows": [
+      [
+        "Critical",
+        "Active harm or loss of control now",
+        "None at rule level",
+        "Case only"
+      ],
+      [
+        "High",
+        "Attacker foothold, credentials or evidence loss",
+        "R2 vpn_spray_then_success, R5 log_cleared",
+        "4"
+      ],
+      [
+        "Medium",
+        "Suspicious execution, persistence or data movement",
+        "R1, R3 new_local_admin, R4 large_upload",
+        "3"
+      ],
+      [
+        "Low",
+        "Weak or early signal, little harm alone",
+        "R6 beacon_regular_small",
+        "2"
+      ]
+    ],
+    "note": "Value 1 is reserved for informational detections that feed context, not the queue."
+  },
+  "C08-M05-L01-F2": {
+    "title": "Base, alert and case severity: how a value is revised",
+    "caption": "A rule's base severity seeds each alert, triage raises, keeps or lowers it with a recorded reason, and the linked case receives its own severity.",
+    "alt": "Top-to-bottom decision graph. Rule base severity, set by detection engineering, leads to Alert created, which starts at base severity. This leads to a decision, Triage: do the facts match?, comparing with the rule's typical case. Three labelled branches leave it: raise to Raise (corroborated, succeeded, later stage, wider scope), keep to Keep (typical case, no new facts) and lower to Lower (approved change, blocked, test system). All three lead to Recorded reclassification (who, when, old, new, reason), which leads to Linked into a case, which leads to Case severity: combined consequence, may be Critical.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      {
+        "id": "b",
+        "label": "Rule base severity",
+        "sub": "set by detection engineering",
+        "tone": "slate"
+      },
+      {
+        "id": "a",
+        "label": "Alert created",
+        "sub": "starts at base severity",
+        "tone": "blue"
+      },
+      {
+        "id": "t",
+        "label": "Triage: do the facts match?",
+        "sub": "compare with the rule's typical case",
+        "tone": "violet",
+        "kind": "decision"
+      },
+      {
+        "id": "up",
+        "label": "Raise",
+        "sub": "corroborated, succeeded, later stage, wider scope",
+        "tone": "red"
+      },
+      {
+        "id": "k",
+        "label": "Keep",
+        "sub": "typical case, no new facts",
+        "tone": "blue"
+      },
+      {
+        "id": "dn",
+        "label": "Lower",
+        "sub": "approved change, blocked, test system",
+        "tone": "green"
+      },
+      {
+        "id": "r",
+        "label": "Recorded reclassification",
+        "sub": "who, when, old, new, reason",
+        "tone": "orange"
+      },
+      {
+        "id": "c",
+        "label": "Linked into a case",
+        "tone": "violet"
+      },
+      {
+        "id": "cs",
+        "label": "Case severity",
+        "sub": "combined consequence, may be Critical",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "b",
+        "to": "a"
+      },
+      {
+        "from": "a",
+        "to": "t"
+      },
+      {
+        "from": "t",
+        "to": "up",
+        "label": "raise"
+      },
+      {
+        "from": "t",
+        "to": "k",
+        "label": "keep"
+      },
+      {
+        "from": "t",
+        "to": "dn",
+        "label": "lower"
+      },
+      {
+        "from": "up",
+        "to": "r"
+      },
+      {
+        "from": "k",
+        "to": "r"
+      },
+      {
+        "from": "dn",
+        "to": "r"
+      },
+      {
+        "from": "r",
+        "to": "c"
+      },
+      {
+        "from": "c",
+        "to": "cs"
+      }
+    ],
+    "note": "Lowering because the queue is long or a deadline is near is not a valid reason.",
+    "fixedDir": true
+  }
+}

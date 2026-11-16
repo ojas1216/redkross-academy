@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The VPN log shows one failure for each of eight accounts from 203.0.113.66 at 06:42Z, then a success for gopal from the same address at 06:46Z. Which statement must be written in the note as an inference with a confidence level rather than as a fact?",
+    "options": [
+      "At 06:46:00Z the VPN logged a successful logon for gopal from 203.0.113.66",
+      "Between 06:42:00Z and 06:42:49Z the VPN logged eight failures from 203.0.113.66",
+      "The password for gopal was guessed by the address that ran the spray",
+      "The failures from 203.0.113.66 were logged seven seconds apart, one per account"
+    ],
+    "correct": 2,
+    "explanation": "The logs record failures and a success, not how the password was obtained; it could have been phished or reused rather than guessed, so the claim is a (strong) inference. The other three can be re-run with one query and are facts.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "triage.py prints the R2 VPN alert as host=WS-107 (sales laptop) user=gopal. How should a defensible note record the host?",
+    "options": [
+      "As the victim host in the timeline, because the triage helper attached it to the alert",
+      "As user gopal with primary device WS-107 per asset mapping, noting that VPN events carry no host",
+      "As unknown, and WS-107 should be left out of the case record entirely to avoid confusion",
+      "As the source host of the 06:46Z VPN session, confirmed by the helper's enrichment tables"
+    ],
+    "correct": 1,
+    "explanation": "WS-107 comes from the hard-coded PRIMARY_HOST lookup, not from the VPN event, so it is enrichment and must be labelled with its source. Dropping it entirely loses useful context; copying it into the timeline turns a lookup into a fact.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Banyan user says she opened an invoice \"just before lunch\". The proxy shows the download at 2026-11-03T06:12:00Z. How should the timeline line show the time?",
+    "options": [
+      "06:12:00Z (11:42 IST), keeping UTC first and adding local time because the user's account refers to it",
+      "11:42 IST only, because that is the time the user will recognise when interviewed",
+      "06:12 without a zone marker, since the case header already states that the SOC works in UTC",
+      "11:42:00Z, converting the time to IST but keeping the Z so that sorting still works"
+    ],
+    "correct": 0,
+    "explanation": "Every time is UTC with an explicit marker; local time may be added in brackets when it matters (IST is UTC+05:30, so 06:12Z is 11:42 IST). Writing 11:42 with a Z states a wrong UTC time, and an unmarked time is ambiguous.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A note ends: \"Contained. Closing as TP.\" A reviewer flags the word \"Contained\". What is missing that the Actions section should record?",
+    "options": [
+      "The confidence level that the containment worked, expressed as high, medium or low",
+      "The rule ID that triggered the alert and the priority score from the queue",
+      "A copy of the raw events that show the host was compromised before containment",
+      "What action was taken, by whom, who approved it and when, in UTC"
+    ],
+    "correct": 3,
+    "explanation": "Actions record what was done, by whom, approved by whom and when. \"Contained\" names none of these, so nobody can verify or reverse it. Confidence levels belong to inferences in the Analysis section, not to a record of actions.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a backlog in the log pipeline, an event's host time is 06:14:00Z but the SIEM index time is 07:31Z. An analyst builds the timeline from index times without saying so. What is the main risk?",
+    "options": [
+      "None, because index time is the more trustworthy clock and should always be preferred",
+      "The SHA-256 hash of the evidence export will change, invalidating the evidence reference",
+      "Events may be ordered and correlated wrongly, and a reader cannot tell which clock was used",
+      "The CERT-In six-hour reporting clock starts at index time, so the report becomes late"
+    ],
+    "correct": 2,
+    "explanation": "Event time, collector receipt time and index time can differ by seconds or hours; mixing them silently breaks ordering and correlation. The note must record which timestamp was used. Index time is not inherently more trustworthy, and it does not affect the hash of an existing export.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "To keep a timeline tidy, an analyst rounds all eighteen beacon request times to the nearest minute. Why is this a mistake for this case?",
+    "options": [
+      "Minute-level times cannot be written in ISO 8601 and so break sorting in the case tool",
+      "The second-level regularity of the requests is itself part of the evidence for beaconing",
+      "Rounding changes the SHA-256 hash of the exported evidence file stored in the case",
+      "CERT-In directions require every SOC record to keep timestamps to the millisecond"
+    ],
+    "correct": 1,
+    "explanation": "The lesson's rule is to keep the precision you were given: the machine-regular ~300 s gaps (CV 0.004) are what makes the traffic look like beaconing. Rounding the note does not alter the exported file's hash; it degrades the analysis.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A note says \"see attached export, 32 events on WS-104\". Which addition turns this into a usable evidence reference?",
+    "options": [
+      "A copy of all 32 events pasted into the note so the reader does not need the file",
+      "The analyst's confidence that the export is complete, with a short reason for it",
+      "The file name, location, SHA-256 hash, the query or method that produced it, and the custody entry",
+      "The priority score of each alert whose events appear in the exported file"
+    ],
+    "correct": 2,
+    "explanation": "An evidence reference lets a reader find the item again and prove it is unchanged: name, location, hash, method and custody. The note points to the evidence; pasting the events in does not show integrity and makes the note try to be the evidence.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Before writing the timeline, an analyst runs sha256sum -c SHA256SUMS in the case folder and sees \"WS-104_2026-11-03_events.jsonl: FAILED\". What does this mean and what should happen?",
+    "options": [
+      "The file differs from when the manifest was written; do not rely on it and record and investigate the mismatch",
+      "The manifest uses the wrong format for sha256sum, so the check should be repeated with Get-FileHash",
+      "The export missed some events; re-running the export with a wider window will fix the check",
+      "The file is unchanged but was moved; updating the path in custody.jsonl will make the check pass"
+    ],
+    "correct": 0,
+    "explanation": "-c recomputes the hash of the named file and compares it with the manifest; FAILED means the content changed (one changed character is enough). The item cannot be relied on until explained. Get-FileHash gives the same digest, so switching tools would not change the result.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For CASE-0002 an analyst runs evidence_export.py CASE-0002 WS-107 and gets 10 events, all proxy requests. The case rests on VPN logons. What should the evidence list do?",
+    "options": [
+      "List the 10-event export alone, since it is the hashed output of the approved export script",
+      "Re-run the export with the attacker's IP address in place of the host name to capture the VPN events",
+      "Omit the export and describe the VPN events in the analysis section instead",
+      "Add the VPN events as a separate item with the exact query and a hash of its saved output, and state the gap"
+    ],
+    "correct": 3,
+    "explanation": "The export selects by host and VPN events carry no host, so the case basis is missing from it. The VPN data needs its own reference (exact query plus hash) and the gap must be written down; an evidence list that silently omits a source is worse than one that names it.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two hours after writing a note, an analyst finds the first beacon request was at 06:17:00Z, not 06:19Z as recorded. What is the correct way to fix the record?",
+    "options": [
+      "Edit the original entry so that the case record shows only the correct time",
+      "Append a dated entry that corrects the earlier one, citing which entry and what changed",
+      "Delete the original entry and re-create it with the corrected time and the original note time",
+      "Leave the error, because a two-minute difference does not affect the disposition"
+    ],
+    "correct": 1,
+    "explanation": "Case notes are append-only: an explicit, dated correction preserves the fact that decisions may have been made on the earlier information. Editing or re-creating the entry hides what was believed at the time.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A note says only \"Checked WS-104 for non-beacon activity: nothing else\". The query actually run was SELECT ... FROM events WHERE host='WS-104' AND NOT (url LIKE '%ping%'). Why does the lesson insist on pasting the exact query?",
+    "options": [
+      "Because the filter drops every event whose url is NULL, including Windows and Sysmon events, and only the exact text reveals it",
+      "Because paraphrased queries cannot be re-run in minisiem.py, which accepts only SQL taken from case notes",
+      "Because the LIKE operator is case-sensitive in SQLite, so the paraphrase hides missed upper-case URLs",
+      "Because the query text is needed to compute the SHA-256 hash recorded in the evidence reference"
+    ],
+    "correct": 0,
+    "explanation": "In SQL a comparison with NULL is neither true nor false, so NOT (url LIKE ...) silently excludes events without a URL, which is every non-proxy event. A paraphrase hides this flaw; the exact query lets the next analyst spot it. The hash is computed from the file, not the query text.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst searched the proxy logs for any other host contacting the three suspicious domains and found nothing. How should this be recorded?",
+    "options": [
+      "It need not be recorded, because a note should list findings and an empty search found nothing",
+      "As \"no lateral spread\", closing the scoping question for the case",
+      "As a negative result with the exact search and its scope, noting that hosts bypassing the proxy would not appear",
+      "As a low-confidence inference that the attacker targeted only WS-104"
+    ],
+    "correct": 2,
+    "explanation": "A negative result is a finding: it saves the next analyst repeating the search and bounds the case, but only within the data searched. \"No lateral spread\" overstates it, because non-proxied traffic is not covered.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which NEXT line best serves the analyst who picks up the case at shift change?",
+    "options": [
+      "Further investigation required; escalated to the appropriate team for follow-up",
+      "Case is serious and needs attention from senior staff as soon as possible",
+      "Waiting on endpoint data; will continue next shift once more information is available",
+      "T2: decode the PowerShell command from endpoint data; IR lead: decide isolation of WS-104; T1: confirm the 06:46Z VPN use with gopal's manager"
+    ],
+    "correct": 3,
+    "explanation": "Next steps must be specific and owned, so the next analyst can continue without asking questions. The other options name neither the work nor who owns it; \"further investigation required\" is explicitly not a next step.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104 uploaded 48,200,000 bytes to files-share-drop.example, a domain seen nowhere else in the proxy data. Which analysis line follows the lesson's confidence vocabulary?",
+    "options": [
+      "Confirmed exfiltration of customer data (high): 48.2 MB sent to an unknown domain",
+      "Probable exfiltration (medium): 48.2 MB uploaded to a domain seen nowhere else in proxy data; content unknown",
+      "Possible exfiltration (low): large uploads are common and the proxy cannot tell us anything useful",
+      "Exfiltration: clearly malicious, given the size of the upload and the timing before the log clear"
+    ],
+    "correct": 1,
+    "explanation": "The evidence points one way but a key piece (the content) is missing, which is the definition of probable/medium, and the reason is stated. \"Confirmed ... customer data\" asserts content nobody has seen; \"clearly malicious\" gives confidence without a level or reason.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The spray against the VPN and the phishing on WS-104 happened on the same morning. No event connects them. How should the CASE-0001 analysis record the relationship?",
+    "options": [
+      "As a possible/low-confidence hypothesis that remains open, with the reason that no event links them",
+      "As a fact in the timeline, because both incidents fall within the same three-hour window",
+      "As probable/medium, because two attacks on one organisation in one morning are rarely unrelated",
+      "It should not be mentioned at all, since anything without evidence must stay out of the record"
+    ],
+    "correct": 0,
+    "explanation": "A plausible link that the evidence neither establishes nor contradicts is possible/low and stays a hypothesis. Upgrading it on coincidence alone, or writing it as a fact, could steer containment toward the VPN; leaving it out loses an open question the next analyst should know about.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A weak note says: \"Looks like she clicked a phishing mail this morning.\" The dataset shows a proxy GET of invoice.docm from banyan-payroll-update.example at 06:12:00Z. What is the main problem with \"phishing mail\"?",
+    "options": [
+      "It uses an informal tone that is unsuitable for a record that may be read by a regulator",
+      "It names the user, which breaches the rule on minimising personal data in case notes",
+      "It presents an inference as fact: the data shows a web download, and how the user reached the link is not recorded",
+      "It omits the SHA-256 hash of invoice.docm, which is needed before any delivery method is stated"
+    ],
+    "correct": 2,
+    "explanation": "The observed fact is a web download; an email as delivery vector is an inference (and the initial-access email is listed as not yet known). Naming the user involved is acceptable and needed; the error is stating an unobserved mechanism as fact.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "While working a case an analyst finds a PowerShell script on a share containing a plaintext service-account password. What belongs in the case note?",
+    "options": [
+      "The password value, so that IAM can confirm which credential to rotate",
+      "The first and last characters of the password, enough to identify it without exposing it fully",
+      "Nothing about the credential, because notes should not contain any sensitive information",
+      "That a credential for that account was exposed, where it was found, and a request to rotate it"
+    ],
+    "correct": 3,
+    "explanation": "Record that a secret was exposed and where, so it can be rotated, but never the value itself, not even partially. Omitting the exposure altogether would leave the credential unrotated.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A CASE-0001 analysis line cites the ISAC-A feed entry for cdn-telemetry-sync.example, which is labelled TLP:AMBER. The rest of the note uses only internal data. What sharing label applies to the note?",
+    "options": [
+      "TLP:CLEAR, because the SOC produced the note itself from its own logs",
+      "TLP:AMBER, because enrichment carries its sharing label forward into the note",
+      "TLP:GREEN, as a compromise between internal data and the AMBER feed entry",
+      "No label, because TLP applies only to intelligence feeds and not to case records"
+    ],
+    "correct": 1,
+    "explanation": "Sharing labels are carried forward: once AMBER intelligence is in the note, the note is AMBER. Downgrading to GREEN or CLEAR would allow sharing that the intelligence source did not permit.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "As CASE-0001 evolves over two days, which part of the record is it acceptable to rewrite rather than extend by appending?",
+    "options": [
+      "The Timeline, so that it reflects only the facts currently believed to be correct",
+      "The Analysis, replacing superseded hypotheses so that the next analyst is not confused",
+      "The Summary, which is kept current so that a manager can read it alone",
+      "The Evidence list, removing items whose hashes no longer verify"
+    ],
+    "correct": 2,
+    "explanation": "The Summary is the only section rewritten as the case evolves; everything else grows by appending. Changed inferences get new analysis entries rather than edits, so the record still shows what was believed when decisions were made.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson recommend entering hosts, accounts, domains and hashes as typed entities (observables) in the case platform rather than only in free text?",
+    "options": [
+      "Typed entities can be searched across cases automatically, so links to other cases surface",
+      "Typed entities are hashed by the platform, which replaces the need for evidence references",
+      "Free text in case platforms is not retained long enough to satisfy audit requirements",
+      "Typed entities are hidden from reviewers, which protects the personal data they contain"
+    ],
+    "correct": 0,
+    "explanation": "Structured observables are searchable across cases, which free text is not, so the next analyst can pivot on them. They do not replace hashed evidence references, which prove integrity of exported items.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer samples two closed R3 alerts. Note A is three lines: the hit was for the itadmin build account, it matches the documented suppression for change CHG-1042 valid to 2026-12-31, benign true positive, no action. Note B is two pages of narrative that never says what was checked. Which is defensible?",
+    "options": [
+      "Note A, because it states what was checked, the reason for the disposition and the outcome",
+      "Note B, because a longer narrative shows the analyst spent more effort on the alert",
+      "Neither, because benign true positives must always be escalated to Tier 2 before closure",
+      "Both equally, because the disposition label is the only part a reviewer actually checks"
+    ],
+    "correct": 0,
+    "explanation": "Length is a poor proxy for quality: Note A traces the closure to a documented change and suppression, so a reviewer can judge it. Note B cannot be checked because it never says what was examined, however long it is.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During triage an analyst finds that a firewall's clock runs four minutes ahead of the NTP-synchronised domain controllers, and has corrected the firewall times by four minutes in the timeline. What else should the note contain?",
+    "options": [
+      "Nothing further, because corrected times are now consistent and the offset no longer matters",
+      "The known clock offset, its size and source, and that the timeline times were corrected for it",
+      "A replacement of all firewall times with the domain controller times for the same events",
+      "A recommendation to discard the firewall data, since a drifting clock makes it unreliable as evidence"
+    ],
+    "correct": 1,
+    "explanation": "Known clock problems are recorded with the offset and whether you corrected for it, otherwise a reader comparing the timeline with the raw events sees unexplained differences. Drifting data is still usable evidence once the offset is documented; CERT-In's NTP synchronisation requirement exists to prevent such drift.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A CERT-In-reportable incident must be reported within six hours of being noticed. How do case notes make that obligation defensible later?",
+    "options": [
+      "By recording the priority score at the time of the first alert, which proves the urgency assessment",
+      "By including the full raw events in every note so that regulators can check them directly",
+      "By showing, in UTC, when the activity was first seen and what was known at each point",
+      "By closing each alert as soon as the incident report is filed, so the case shows no open items"
+    ],
+    "correct": 2,
+    "explanation": "The reporting clock can only be met, and later defended, if notes record in UTC when activity was first noticed and what was known then. Scores and pasted raw events do not establish when the SOC became aware.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A colleague asks how to decide quickly whether a statement in a note is a fact or an inference. Which test does the lesson give?",
+    "options": [
+      "Whether it has been confirmed by two analysts on the same shift",
+      "Whether it appears in the output of the triage helper or the intelligence matcher",
+      "Whether it carries a confidence word such as probable or possible",
+      "Whether someone could re-run a query or check an item to see it for themselves"
+    ],
+    "correct": 3,
+    "explanation": "A fact can be reproduced, for example with one minisiem.py search; an inference can only be argued. Tool output is not automatically fact either, as host=WS-107 shows, and a confidence word marks an inference but does not identify one that is missing it.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst drafts: \"User divya was careless and opened the attachment; her personal browsing history for the week is attached for context.\" What should change?",
+    "options": [
+      "Nothing, because the user's behaviour is directly relevant to how the compromise occurred",
+      "State neutrally that divya opened the file, and remove the browsing history, which the investigation does not need",
+      "Replace the username with \"a finance user\" everywhere, since names may never appear in case notes",
+      "Keep the browsing history but mark the note TLP:RED so that only the SOC can read it"
+    ],
+    "correct": 1,
+    "explanation": "Notes record facts neutrally (\"user divya opened the attachment\") and minimise personal data to what the investigation needs, which the DPDP Act 2023 also requires. Usernames needed for the case are fine; a sharing label does not justify collecting unnecessary personal data.",
+    "lesson": 7,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,112 @@
+{
+  "course": "C08",
+  "module": 5,
+  "title": "Alert triage",
+  "description": "The core analyst skill: deciding quickly and defensibly what each alert is. Severity and prioritisation, enrichment with context, validating whether an alert is real, handling false positives without blinding the SOC, escalation criteria, and case notes that another analyst can trust - practised in a hands-on triage lab.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Severity",
+      "summary": "What an alert's severity claims (harm if the alert is true), how a consequence-based scale is designed and anchored, how base, alert and case severity differ and are revised with recorded reasons, and an audit of the lab kit's rule severities.",
+      "objectives": [
+        "Distinguish severity from confidence and priority and explain the harm each level asserts",
+        "Design a consequence-based severity scale with definitions and anchoring rules",
+        "Justify a rule's base severity using intrusion stage, breadth, reversibility and what the behaviour touches",
+        "Reclassify an alert or case severity from triage evidence and record the reason",
+        "Audit the lab kit's RULE_META values against its Sigma rule levels and resolve a discrepancy"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Prioritization",
+      "summary": "How a SOC decides what to work next: decomposing the triage.py score, the effects of a multiplicative model, measuring confidence and maintaining criticality, tie-breaking, entity risk aggregation, time and capacity, and recorded analyst overrides.",
+      "objectives": [
+        "Decompose a priority score into severity, confidence and asset criticality and identify what it omits",
+        "Compare multiplicative, weighted-sum and matrix prioritisation models",
+        "Explain how the kit's sort breaks ties and define an explicit tie-breaker",
+        "Calculate entity risk for the Banyan queue with per-rule de-duplication",
+        "Justify and record an override of the score order using time and context"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Enrichment",
+      "summary": "How an analyst enriches an alert during triage: extracting its entities, adding asset, identity, network (geolocation and ASN), threat-intelligence and history context with provenance, interpreting ioc_match.py matches by validity, confidence and fit, and respecting privacy and operational limits on lookups.",
+      "objectives": [
+        "Identify the entities in an alert and the context source that answers each question about them",
+        "Enrich lab alerts with asset, identity and prevalence context using triage.py and minisiem.py searches, recording provenance",
+        "Interpret threat-intelligence matches, expired indicators and non-matches from ioc_match.py",
+        "Explain the limits of geolocation and ASN data as evidence",
+        "Apply privacy and operational limits to enrichment lookups"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "Validation",
+      "summary": "Testing whether an alert is real: stating its claim, reproducing the rule logic, reading the raw event, corroborating across independent sources, seeking refuting evidence and concluding confirmed, refuted or undetermined, practised on the Banyan R1 and R2 alerts with minisiem.py.",
+      "objectives": [
+        "Apply the six-step validation workflow to a SIEM alert",
+        "Reproduce a correlation rule's logic to expose its assumptions, thresholds and missing time windows",
+        "Use raw events to recover fields that the normalised view omits",
+        "Distinguish corroboration by independent sources from mere time alignment",
+        "Recognise query and evidence pitfalls such as NULL exclusions, time-zone errors and double counting"
+      ],
+      "minutes": 65
+    },
+    {
+      "n": 5,
+      "title": "False-positive handling",
+      "summary": "How to tell a false positive from a benign true positive, record false positives as tuning evidence, and write scoped suppressions with an owner, reason and enforced expiry, shown by running triage.py's CHG-1042 suppression and a deliberately over-wide one that hides the attacker's svc_update account.",
+      "objectives": [
+        "Classify a non-malicious alert as a false positive or a benign true positive by testing rule intent before authorisation",
+        "Write a false-positive closure record and tuning request that detection engineering can act on",
+        "Design a suppression scoped to one rule and the narrowest fields, with reason, reference, owner and expiry",
+        "Demonstrate in the lab how over-suppression and unenforced expiry create blind spots",
+        "Evaluate tuning options, preferring data and logic fixes and lower priority over hiding alerts"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Escalation criteria",
+      "summary": "Criteria for escalating a triaged alert (hard triggers, impact-based triggers, beyond-remit cases), how to escalate with acknowledged transfer of ownership, the fields an escalation must carry, and why the CERT-In six-hour reporting requirement makes the time noticed essential, applied to the WS-104 lab case.",
+      "objectives": [
+        "Apply hard-trigger and impact-based criteria to decide whether, how urgently and to whom an alert is escalated",
+        "Choose between hierarchical and functional escalation routes and complete a hand-off with recorded acknowledgement",
+        "Write a structured escalation stating what, so what, evidence, confidence, time noticed, done and need",
+        "Explain the CERT-In six-hour reporting requirement and the analyst's role in recording the time noticed and flagging reportability",
+        "Distinguish queue priority from escalation decisions using the lab triage queue"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 7,
+      "title": "Case notes",
+      "summary": "How to write case notes that another analyst, an incident handler and an auditor can trust: a fixed record structure, facts kept apart from inferences, UTC timestamps and evidence referenced by SHA-256 hash.",
+      "objectives": [
+        "Structure a case record into header, summary, entities, timeline, analysis, actions, evidence and disposition",
+        "Distinguish observed facts from inferences and state a confidence level for each inference",
+        "Record every time in UTC using ISO 8601 and explain why local or unmarked times corrupt timelines",
+        "Reference exported evidence by name, location, SHA-256 hash and method, and verify it with sha256sum",
+        "Rewrite a weak case note into one the next analyst and a reviewer can rely on"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "Triage lab",
+      "summary": "A hands-on lab that works the full triage.py queue on the Banyan dataset: prioritise, enrich, validate, disposition and document every alert, then group them into cases and export hashed evidence.",
+      "objectives": [
+        "Build and interpret a prioritised alert queue, including the fields the helper inferred rather than observed",
+        "Validate each alert against raw events with minisiem.py searches and the kit's intelligence and hunt outputs",
+        "Assign a disposition with a confidence level to every alert and group related alerts into cases",
+        "Export and verify case evidence with SHA-256 and record what the export does not contain",
+        "Write per-alert notes, case records and a queue summary from real lab output"
+      ],
+      "minutes": 90
+    }
+  ]
+}

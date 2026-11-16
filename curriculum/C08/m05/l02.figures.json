@@ -1,0 +1,108 @@
+{
+  "C08-M05-L02-F1": {
+    "title": "The triage.py queue decomposed into its inputs",
+    "caption": "Each line of the kit's queue shown as severity x confidence x asset criticality, with the time of the underlying rule hit.",
+    "alt": "Table with columns Alert, S x C x A, Score and Event (UTC). R5 log_cleared, 4 x 0.9 x 3, 10.8, 08:17 (red). R2 vpn_spray_then_success, 4 x 0.9 x 2, 7.2, 06:46 (orange). R1 office_spawns_script, 3 x 0.8 x 3, 7.2, 06:14 (orange). R3 new_local_admin, 3 x 0.6 x 3, 5.4, 07:02 (blue). R3 new_local_admin, 3 x 0.6 x 3, 5.4, 07:03 (blue). R4 large_upload, 3 x 0.5 x 3, 4.5, 08:12 (blue). R6 beacon_regular_small, 2 x 0.6 x 3, 3.6, 18 requests, no single time (slate). Note: R2 and R1 tie at 7.2 although R1's event is 32 minutes older.",
+    "type": "table",
+    "columns": [
+      "Alert",
+      "S x C x A",
+      "Score",
+      "Event (UTC)"
+    ],
+    "rowTones": [
+      "red",
+      "orange",
+      "orange",
+      "blue",
+      "blue",
+      "blue",
+      "slate"
+    ],
+    "rows": [
+      [
+        "R5 log_cleared",
+        "4 x 0.9 x 3",
+        "10.8",
+        "08:17"
+      ],
+      [
+        "R2 vpn_spray_then_success",
+        "4 x 0.9 x 2",
+        "7.2",
+        "06:46"
+      ],
+      [
+        "R1 office_spawns_script",
+        "3 x 0.8 x 3",
+        "7.2",
+        "06:14"
+      ],
+      [
+        "R3 new_local_admin",
+        "3 x 0.6 x 3",
+        "5.4",
+        "07:02"
+      ],
+      [
+        "R3 new_local_admin",
+        "3 x 0.6 x 3",
+        "5.4",
+        "07:03"
+      ],
+      [
+        "R4 large_upload",
+        "3 x 0.5 x 3",
+        "4.5",
+        "08:12"
+      ],
+      [
+        "R6 beacon_regular_small",
+        "2 x 0.6 x 3",
+        "3.6",
+        "18 requests, no single time"
+      ]
+    ],
+    "note": "R2 and R1 tie at 7.2 although R1's event is 32 minutes older."
+  },
+  "C08-M05-L02-F2": {
+    "title": "From scored alerts to the next case an analyst works",
+    "caption": "Per-alert scores are grouped by entity, aggregated into entity risk, adjusted for time and context, and finally chosen by an analyst, whose dispositions feed back into rule confidence.",
+    "alt": "Top-to-bottom flow of six steps. Score each alert: severity x confidence x criticality. Deduplicate and group by entity: host, account, source address. Entity risk: WS-104 6 alerts, gopal 1. Adjust for time: waiting time, SLA deadline. Adjust for context: campaign intel, account privilege, live access. Analyst takes the next case: override allowed, with a recorded reason. Note under the flow: analysts' dispositions update rule confidence, which changes next week's scores.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Score each alert",
+        "sub": "severity x confidence x criticality",
+        "tone": "slate"
+      },
+      {
+        "label": "Deduplicate and group by entity",
+        "sub": "host, account, source address",
+        "tone": "blue"
+      },
+      {
+        "label": "Entity risk",
+        "sub": "WS-104: 6 alerts, gopal: 1",
+        "tone": "violet"
+      },
+      {
+        "label": "Adjust for time",
+        "sub": "waiting time, SLA deadline",
+        "tone": "orange"
+      },
+      {
+        "label": "Adjust for context",
+        "sub": "campaign intel, account privilege, live access",
+        "tone": "orange"
+      },
+      {
+        "label": "Analyst takes the next case",
+        "sub": "override allowed, with a recorded reason",
+        "tone": "dark"
+      }
+    ],
+    "note": "Feedback: analysts' dispositions update rule confidence, which changes next week's scores."
+  }
+}

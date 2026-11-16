@@ -1,0 +1,53 @@
+{
+  "C08-M05-L07-F1": {
+    "title": "The eight sections of a defensible case record",
+    "caption": "What each section of a case record holds and which reader depends on it most.",
+    "alt": "Table with columns Section, What it records and Main reader. Header: case ID, title, severity, status, owner, UTC open and close; read by the queue and the SOC lead. Summary: three to five plain sentences, kept current; read by the manager and the next analyst. Entities: hosts, users, IPs, domains, hashes with roles; read by the next analyst, who pivots on them. Timeline (UTC): time, source, event, why it matters, facts only; read by the incident handler. Analysis: hypotheses, confidence, what was ruled out; read by the next analyst and reviewer. Actions: what was done, by whom, approved by whom, when; read by the incident lead and auditor. Evidence: item, location, SHA-256, method, custody; read by the auditor. Disposition plus next steps: label, one-line reason, owned next actions; read by everyone, in violet like Analysis.",
+    "type": "table",
+    "columns": ["Section", "What it records", "Main reader"],
+    "rowTones": ["slate", "blue", "blue", "orange", "violet", "green", "green", "violet"],
+    "rows": [
+      ["Header", "case ID, title, severity, status, owner, UTC open/close", "queue, SOC lead"],
+      ["Summary", "3-5 plain sentences, kept current", "manager, next analyst"],
+      ["Entities", "hosts, users, IPs, domains, hashes + role", "next analyst (pivots)"],
+      ["Timeline (UTC)", "time, source, event, why it matters: facts only", "incident handler"],
+      ["Analysis", "hypotheses, confidence, what was ruled out", "next analyst, reviewer"],
+      ["Actions", "what, who did it, who approved, when", "incident lead, auditor"],
+      ["Evidence", "item, location, SHA-256, method, custody", "auditor"],
+      ["Disposition + next steps", "label, one-line reason, owned next actions", "everyone"]
+    ],
+    "note": "Facts go in the timeline, reasoning in the analysis, proof in the evidence list; the disposition must follow from all three."
+  },
+  "C08-M05-L07-F2": {
+    "title": "Fact or inference: the Banyan alerts written both ways",
+    "caption": "Observations from the dataset beside the conclusions an analyst draws from them, each with a confidence level.",
+    "alt": "Two columns separated by vs. Left, green, Observed fact (cite the source): 06:14:00Z sysmon: WINWORD.EXE started hidden encoded PowerShell; 06:17-07:42Z proxy: 18 requests of 220 bytes, mean gap 300 s; 06:46:00Z vpn: gopal success from 203.0.113.66 after 8-account spray; 08:12:00Z proxy: bytes_out 48200000 to files-share-drop.example; no event links the VPN session to WS-104. Right, violet, Inference (state confidence): macro document executed code, high; command-and-control beaconing, high; gopal credential compromised, high, method unknown; probable exfiltration, medium, content unknown; VPN and phishing linked, hypothesis, low.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Observed fact (cite the source)",
+        "tone": "green",
+        "items": [
+          "06:14:00Z sysmon: WINWORD.EXE started hidden, encoded PowerShell",
+          "06:17-07:42Z proxy: 18 requests, 220 bytes, mean gap 300 s",
+          "06:46:00Z vpn: gopal success from 203.0.113.66 after 8-account spray",
+          "08:12:00Z proxy: bytes_out 48200000 to files-share-drop.example",
+          "No event links the VPN session to WS-104"
+        ]
+      },
+      {
+        "title": "Inference (state confidence)",
+        "tone": "violet",
+        "items": [
+          "Macro document executed code: high",
+          "Command-and-control beaconing: high",
+          "gopal credential compromised: high (method unknown)",
+          "Probable exfiltration: medium (content unknown)",
+          "VPN and phishing linked: hypothesis, low"
+        ]
+      }
+    ],
+    "note": "A fact can be re-run as a query; an inference can only be argued, so it must carry its confidence."
+  }
+}

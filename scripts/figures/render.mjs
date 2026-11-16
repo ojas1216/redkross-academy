@@ -491,7 +491,8 @@ function layoutTable(spec) {
     svg += `<rect x="${PAD}" y="${y}" width="4" height="${h}" rx="2" fill="${tone.accent}"/>`;
     let cx = PAD;
     cells.forEach((lines, i) => {
-      svg += textBlock(lines, cx + 14, y + 9 + 13.5, { size: 13.5, bold: i === 0, fill: i === 0 ? tone.text : INK, anchor: 'start', lh: 1.35 });
+      // rows are light, so the dark tone (white text) uses near-black for its label
+      svg += textBlock(lines, cx + 14, y + 9 + 13.5, { size: 13.5, bold: i === 0, fill: i === 0 ? (tone === TONES.dark ? '#111827' : tone.text) : INK, anchor: 'start', lh: 1.35 });
       cx += widths[i];
     });
     y += h + 4;

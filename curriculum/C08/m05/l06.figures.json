@@ -1,0 +1,53 @@
+{
+  "C08-M05-L06-F1": {
+    "title": "Escalation criteria: now, to Tier 2, or not at all",
+    "caption": "A triage finding is tested for hard triggers, then for potential impact, and any escalation is checked for a possible reporting obligation.",
+    "alt": "Decision graph, top to bottom. Triage finding (validated, enriched) leads to a violet decision box: Hard trigger present? (execution, privilege, tampering, exfil). Yes leads to the dark box Escalate now (page on-call, minutes). No leads to a second violet decision: High impact if real? (crown jewel, privileged, spreading). Yes or undetermined leads to the orange box Escalate to Tier 2 (case queue, within SLA). No leads to the green box Close or keep triaging (documented disposition). Escalate now leads to a third violet decision, Possibly reportable? (CERT-In incident types); a dashed arrow labelled if facts change also runs to it from Escalate to Tier 2. Yes leads to the red box Notify IR lead + legal POC (record time noticed).",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "f", "label": "Triage finding", "sub": "validated, enriched", "tone": "slate" },
+      { "id": "h", "label": "Hard trigger present?", "sub": "execution, privilege, tampering, exfil", "tone": "violet", "kind": "decision" },
+      { "id": "n", "label": "Escalate now", "sub": "page on-call, minutes", "tone": "dark" },
+      { "id": "u", "label": "High impact if real?", "sub": "crown jewel, privileged, spreading", "tone": "violet", "kind": "decision" },
+      { "id": "i", "label": "Escalate to Tier 2", "sub": "case queue, within SLA", "tone": "orange" },
+      { "id": "c", "label": "Close or keep triaging", "sub": "documented disposition", "tone": "green" },
+      { "id": "r", "label": "Possibly reportable?", "sub": "CERT-In incident types", "tone": "violet", "kind": "decision" },
+      { "id": "l", "label": "Notify IR lead + legal POC", "sub": "record time noticed", "tone": "red" }
+    ],
+    "edges": [
+      { "from": "f", "to": "h" },
+      { "from": "h", "to": "n", "label": "yes" },
+      { "from": "h", "to": "u", "label": "no" },
+      { "from": "u", "to": "i", "label": "yes or undetermined" },
+      { "from": "u", "to": "c", "label": "no" },
+      { "from": "n", "to": "r" },
+      { "from": "i", "to": "r", "label": "if facts change", "dashed": true },
+      { "from": "r", "to": "l", "label": "yes" }
+    ],
+    "note": "Escalate on likelihood and impact, not on certainty; the analyst flags reportability, legal decides it."
+  },
+  "C08-M05-L06-F2": {
+    "title": "An escalation as a hand-off of ownership",
+    "caption": "Illustrative message order for escalating the WS-104 case, from the Tier 1 page to a CERT-In report decided by the designated point of contact.",
+    "alt": "Sequence diagram with four lanes, left to right: Tier 1 analyst, On-call IR lead, CISO / legal POC, CERT-In. 1, analyst to IR lead: Page: SEV1 WS-104 + case link. 2, dashed reply: Ack 08:31Z, IR lead now owns the case. 3, analyst to IR lead: Escalation package, what, so what, evidence. 4, IR lead to CISO / legal POC: Possible reportable incident, noticed 08:25Z. 5, dashed reply from CISO / legal POC to IR lead: Decision: report; containment approved. 6, CISO / legal POC to CERT-In: Report within 6 h of noticing. 7, dashed, IR lead to analyst: Tasks: preserve evidence, watch gopal.",
+    "type": "sequence",
+    "actors": [
+      { "id": "a", "label": "Tier 1 analyst", "tone": "blue" },
+      { "id": "o", "label": "On-call IR lead", "tone": "orange" },
+      { "id": "p", "label": "CISO / legal POC", "sub": "designated point of contact", "tone": "violet" },
+      { "id": "c", "label": "CERT-In", "tone": "slate" }
+    ],
+    "messages": [
+      { "from": "a", "to": "o", "label": "Page: SEV1 WS-104 + case link" },
+      { "from": "o", "to": "a", "label": "Ack 08:31Z: IR lead owns the case", "dashed": true },
+      { "from": "a", "to": "o", "label": "Package: what, so what, evidence" },
+      { "from": "o", "to": "p", "label": "Possibly reportable, noticed 08:25Z" },
+      { "from": "p", "to": "o", "label": "Decision: report; containment approved", "dashed": true },
+      { "from": "p", "to": "c", "label": "Report within 6 h of noticing" },
+      { "from": "o", "to": "a", "label": "Tasks: preserve evidence, watch gopal", "dashed": true }
+    ],
+    "note": "Escalation is complete only when the receiver acknowledges ownership; times are illustrative."
+  }
+}

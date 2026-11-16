@@ -1,0 +1,67 @@
+{
+  "C08-M05-L05-F1": {
+    "title": "Classifying an alert: FP, benign TP, TP or undetermined",
+    "caption": "Two questions, asked in order, separate a false positive from a benign true positive and a true positive, each with its own next action.",
+    "alt": "Decision graph, top to bottom. An alert fired leads to a violet decision box: Did the rule match what it was written to detect? If no, the alert is a False positive (logic or data error), which leads to Close and raise a tuning ticket. If yes, a second violet decision box asks: Is the activity authorised, with evidence? If yes with a change or ticket reference, it is a Benign true positive, which leads to Close with the reference and consider a scoped suppression. If no, it is a True positive, which leads to Investigate or escalate. If the evidence is insufficient to answer either question, the alert is Undetermined, which leads to Record the gap and keep open or escalate.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "a", "label": "Alert fired", "sub": "rule, entities, raw events", "tone": "slate" },
+      { "id": "q1", "label": "Did the rule match its intent?", "sub": "what it was written to detect", "tone": "violet", "kind": "decision" },
+      { "id": "fp", "label": "False positive", "sub": "logic or data error", "tone": "orange" },
+      { "id": "q2", "label": "Is it authorised, with evidence?", "sub": "change, ticket, owner", "tone": "violet", "kind": "decision" },
+      { "id": "und", "label": "Undetermined", "sub": "evidence insufficient", "tone": "slate" },
+      { "id": "btp", "label": "Benign true positive", "sub": "real activity, approved", "tone": "green" },
+      { "id": "tp", "label": "True positive", "sub": "real and not authorised", "tone": "red" },
+      { "id": "fpa", "label": "Close + tuning ticket", "sub": "fix the cause", "tone": "blue" },
+      { "id": "unda", "label": "Record the gap", "sub": "keep open or escalate", "tone": "blue" },
+      { "id": "btpa", "label": "Close with the reference", "sub": "consider a scoped suppression", "tone": "blue" },
+      { "id": "tpa", "label": "Investigate or escalate", "sub": "Lesson 6 criteria", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "a", "to": "q1" },
+      { "from": "q1", "to": "fp", "label": "no" },
+      { "from": "q1", "to": "q2", "label": "yes" },
+      { "from": "q1", "to": "und", "label": "cannot tell", "dashed": true },
+      { "from": "q2", "to": "btp", "label": "yes" },
+      { "from": "q2", "to": "tp", "label": "no" },
+      { "from": "q2", "to": "und", "label": "cannot tell", "dashed": true },
+      { "from": "fp", "to": "fpa" },
+      { "from": "und", "to": "unda" },
+      { "from": "btp", "to": "btpa" },
+      { "from": "tp", "to": "tpa" }
+    ],
+    "note": "Authorisation must be proven by a record, never assumed from who the user is."
+  },
+  "C08-M05-L05-F2": {
+    "title": "Scoped suppression versus over-suppression in the lab",
+    "caption": "The same R3 rule run in a temporary copy of the kit with the kit's narrow suppression, and with an added host-wide one.",
+    "alt": "Comparison of two columns separated by vs. Left, green, Scoped: user = itadmin: entry R3, user, itadmin, reason CHG-1042, expiry 2026-12-31; suppresses only the BLD-01 build_runner event; both WS-104 svc_update alerts still queued at 5.4; owner, reason and expiry recorded. Right, red, Over-suppressed: host = WS-104: entry R3, host, WS-104, reason too noisy, no expiry; suppresses all three R3 events; the attacker's svc_update admin account disappears; no owner, no ticket, never expires.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Scoped: user = itadmin",
+        "tone": "green",
+        "items": [
+          "R3 / user / itadmin / CHG-1042 / 2026-12-31",
+          "Hides only BLD-01 build_runner",
+          "Both WS-104 svc_update alerts stay (5.4)",
+          "Owner, reason and expiry recorded"
+        ]
+      },
+      {
+        "title": "Over-suppressed: host = WS-104",
+        "tone": "red",
+        "items": [
+          "R3 / host / WS-104 / \"too noisy\" / none",
+          "Hides all three R3 events",
+          "Attacker's svc_update account vanishes",
+          "No owner, no ticket, never expires"
+        ]
+      }
+    ],
+    "note": "A suppression should be as narrow as the benign pattern it describes, and no wider."
+  }
+}

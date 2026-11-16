@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Reproducing `R2`'s join for `203.0.113.66` lists eight failed users, and one of them is `gopal`, whose failure at 06:42:42Z came four minutes before his successful login. What should the analyst note about the rule's count of eight?",
+    "options": [
+      "That the count is wrong and the rule actually saw only seven sprayed accounts",
+      "That gopal's failure proves he typed his own password wrongly before succeeding",
+      "That the count includes the user who later succeeded, which the analyst should know",
+      "That the rule double-counts each user, so the real number of accounts is four"
+    ],
+    "correct": 2,
+    "explanation": "The rule counts distinct failed users at or before the success, so gopal's own failure is one of the eight; that is reasonable for spraying but is a property of the logic to record. It does not make the count wrong, and seven other accounts were still tried.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "`R2` joins failures to a success with the condition `f.ts <= s.ts` and no other time limit. In a dataset covering several months, how could this rule produce a misleading alert?",
+    "options": [
+      "Scattered forgotten-password failures from one address over weeks could add up to five users and fire it",
+      "A success followed later by failures would fire it, because the comparison runs in both directions",
+      "Failures from different addresses would be merged, because the join ignores the source address",
+      "The rule would stop firing altogether once the database held more than one day of events"
+    ],
+    "correct": 0,
+    "explanation": "Without a window any earlier failure from the same address counts, so slow, unrelated failures, for example from a shared office NAT address, could reach the threshold. The join does match on src_ip, so failures from different addresses are not merged.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The eight failures behind `R2` fall within 49 seconds, exactly seven seconds apart, in alphabetical order of username. What does this pattern contribute to validation?",
+    "options": [
+      "It shows the VPN gateway logs failures in batches sorted by username before writing them",
+      "It shows the rule's missing time window has caused unrelated failures to be grouped together",
+      "It suggests eight staff mistyped passwords together after a scheduled password change",
+      "It is the signature of automation, which removes the doubt raised by the missing time window"
+    ],
+    "correct": 3,
+    "explanation": "Fixed spacing and alphabetical order are what a script produces, not colleagues mistyping, so on this data the absent window does not undermine the alert. A batch of mistakes after a password change would not be evenly spaced and alphabetical.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To check for activity on WS-104 other than beaconing, one analyst runs `NOT (url LIKE '%ping%')` and gets 31 events; another runs `(url IS NULL OR url NOT LIKE '%ping%')` and gets 40. What explains the nine-event difference?",
+    "options": [
+      "The first query is case-sensitive, so URLs containing PING in capitals were excluded",
+      "Events with no URL make the first condition unknown rather than true, so they are silently dropped",
+      "The second query counts beacon requests twice, once as NULL and once as a non-matching URL",
+      "The first query stops at the SIEM's default result limit, which the second query avoids"
+    ],
+    "correct": 1,
+    "explanation": "In SQL a comparison with NULL is neither true nor false, so the Windows and Sysmon events, which have no URL, fall out of the first query, including the 06:14Z PowerShell start. The second query does not double count; it explicitly lets the NULL rows back in.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst validating `R1` checks only the normalised columns (time, host, user, image, parent image) and writes that \"the PowerShell invocation looks ordinary.\" Why is this conclusion unsafe?",
+    "options": [
+      "The normalised image path is often wrong, so the parent process cannot be trusted either",
+      "Sysmon never records command lines, so no invocation detail is available from any view",
+      "The command line, showing a hidden, encoded script, exists only in the raw event",
+      "The normalised view hides the user field, so the analyst cannot tell who ran the script"
+    ],
+    "correct": 2,
+    "explanation": "minisiem.py keeps twelve common fields as columns and command_line is not one of them, so the decisive -NoP -W Hidden -EncodedCommand detail is visible only by selecting raw. Sysmon did record the command line; the normalised view simply dropped it.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The proxy records the `invoice.docm` download on WS-104 at 06:12Z, and Sysmon records Word starting PowerShell on the same host at 06:14Z. Why is this pair much stronger evidence than either event alone?",
+    "options": [
+      "They come from independent sources that cannot influence each other yet tell one story on one host",
+      "They come from the same SIEM, so the timestamps are guaranteed to share one clock",
+      "The proxy event confirms the PowerShell command was malicious by inspecting its content",
+      "Two events always outweigh one, regardless of which sources produced them"
+    ],
+    "correct": 0,
+    "explanation": "The proxy knows nothing of Sysmon and vice versa, so consistent records from both, on the same host within minutes, are hard to explain away or forge. Being stored in the same SIEM does not make sources independent or clocks reliable; independence comes from the systems that produced them.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The VPN spraying from `203.0.113.66` happened while WS-104 was beaconing. A draft case note says: \"The attacker who phished WS-104 also sprayed the VPN.\" How should this statement be handled?",
+    "options": [
+      "Keep it, since two attacks in the same morning against one company must share an actor",
+      "Delete it, since activity without a shared entity must never be mentioned in a case",
+      "Keep it, provided the spraying address also appears in the proxy logs for WS-104",
+      "Record it as a hypothesis, because the events align in time but share no entity"
+    ],
+    "correct": 3,
+    "explanation": "The VPN lane shares nothing with the WS-104 lanes except the time window, so a link is a hypothesis to test, recorded as such. Deleting it goes too far; a hypothesis is useful as long as it is labelled and not presented as a finding.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "`R3 new_local_admin` returns two hits on WS-104: event 4720 at 07:02Z and event 4732 at 07:03Z, both involving `svc_update`. How should the analyst validate them?",
+    "options": [
+      "As two separate incidents, since two different Windows event IDs were recorded",
+      "As one action: the account was created and then added to Administrators a minute later",
+      "As a duplicate log entry caused by the SIEM ingesting the same event twice",
+      "As a false positive, since creating an account does not itself grant privileges"
+    ],
+    "correct": 1,
+    "explanation": "The raw events show account creation followed by group addition, one story that the rule counts twice; validating it as one action avoids inflating the case. They are not duplicates, because the event IDs and times differ.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "`R6 beacon_regular_small` fires when a host makes ten or more requests to one URL with under 50 bytes of variation in size. What validation step is needed before calling a hit a beacon?",
+    "options": [
+      "Checking that the URL uses HTTPS, since command-and-control traffic is always encrypted",
+      "Checking that the bytes sent are exactly identical, since any variation rules out a beacon",
+      "Checking that the requests are evenly spaced in time, which the rule never tests",
+      "Checking that more than one host contacts the URL, since beacons spread across a network"
+    ],
+    "correct": 2,
+    "explanation": "The rule ignores intervals, so a dashboard that refreshes repeatedly with similar sizes could satisfy it; regular spacing is what turns a match into evidence of automated check-ins. Requiring identical sizes would add nothing about timing and would miss real beacons with small jitter.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst argues that the 06:14Z PowerShell start on WS-104 is suspicious because \"nobody is at work at six in the morning.\" Banyan's staff work in IST. What is the correct assessment?",
+    "options": [
+      "The event was at 11:44 IST, mid-morning, so the time is not suspicious in itself",
+      "The event was at 00:44 IST, after midnight, so the analyst understated the concern",
+      "The dataset uses local time, so 06:14 is genuinely early morning in the office",
+      "Time zone is irrelevant, because Sysmon timestamps are not reliable enough to use"
+    ],
+    "correct": 0,
+    "explanation": "The dataset is in UTC and IST is five and a half hours ahead, so 06:14Z is 11:44 in the office. Subtracting the offset instead of adding it gives the after-midnight answer, a common time-zone error.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Twenty-five minutes into validating an alert, the analyst has found suspicious signs but cannot obtain the endpoint data needed to confirm or refute it. The SOC's time box is 30 minutes. What is the appropriate outcome?",
+    "options": [
+      "Close the alert as refuted, since the missing data means nothing could be proven",
+      "Mark it confirmed, since suspicious signs justify assuming the worst case",
+      "Keep working on it beyond the time box until the endpoint data becomes available",
+      "Conclude undetermined, record what is missing, and escalate or hand it over"
+    ],
+    "correct": 3,
+    "explanation": "Undetermined is a legitimate conclusion when recorded with what is missing, and the case then moves on through escalation or hand-over. Calling it refuted would close a possibly real attack on the basis of absent evidence.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To find out whether `gopal` made the 06:46Z VPN connection himself, which approach is safest?",
+    "options": [
+      "Send him a chat message from the SOC account asking whether he used the VPN this morning",
+      "Call him on a known phone number or via the service desk and ask a neutral, specific question",
+      "Reply to his most recent email asking him to confirm his VPN activity in writing",
+      "Reset his password first and then ask him through his corporate chat account"
+    ],
+    "correct": 1,
+    "explanation": "If his credentials are compromised, the attacker may answer messages sent to his accounts, so a verified out-of-band channel and a neutral question are needed. A chat message from the SOC still lands in an account the attacker may control.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An alert shows a database administrator exporting a large customer table at night, and the only person who could explain it is that administrator. What should the analyst consider before contacting them?",
+    "options": [
+      "Whether the administrator's manager is available to sit in on the conversation",
+      "Whether the export is under the size limit at which contacting the user is required",
+      "Whether this could be deliberate misuse, in which case the playbook escalates without alerting them",
+      "Whether the administrator has received security awareness training this year"
+    ],
+    "correct": 2,
+    "explanation": "When the person you would ask could be the one misusing access, asking alerts them; insider-risk cases are escalated according to the playbook so HR and legal can be involved. Bringing in their manager still tips off the subject.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During validation of the WS-104 alerts, an analyst proposes logging in to the workstation remotely to \"have a quick look\" at running processes. Why is this inappropriate at the validation stage?",
+    "options": [
+      "It changes the host's state and may alert the attacker; host collection belongs to incident response",
+      "It is acceptable only if the analyst uses the user's own credentials to avoid creating new logs",
+      "It is unnecessary because the SIEM already stores a full memory image of every host",
+      "It is inappropriate only outside office hours, when users cannot be informed beforehand"
+    ],
+    "correct": 0,
+    "explanation": "Validation works from the SIEM's copy of the evidence; logging in alters the host and can tip off the attacker, so collection is left to incident response and evidence preservation. Using the user's credentials would make things worse by blurring who did what.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "While seeking refuting evidence for a suspicious script alert, an analyst finds a change ticket that describes exactly the observed activity. What should the analyst do before relying on it?",
+    "options": [
+      "Close the alert as benign, since a matching change ticket is the strongest refutation available",
+      "Ask the user who ran the script to confirm the ticket by replying in the same channel",
+      "Escalate the alert anyway, since change tickets are never accepted as refuting evidence",
+      "Check the ticket at its source, such as who raised and approved it and when"
+    ],
+    "correct": 3,
+    "explanation": "An attacker who knows how the SOC validates may plant refuting evidence, so it must be checked at its source as carefully as confirming evidence. Rejecting all tickets goes too far, since genuine change records are exactly how benign activity is shown.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the validation workflow, why is the raw event read before pivoting across other sources?",
+    "options": [
+      "Because the SIEM deletes raw events once a pivot query has been run against them",
+      "Because a pivot built on a mis-parsed or missing field produces a story on a false basis",
+      "Because pivots can only use fields that appear in the raw event and not the normalised view",
+      "Because reading raw events is faster, so it should be done while the alert is still fresh"
+    ],
+    "correct": 1,
+    "explanation": "If the host, user, time or a key field is wrong or missing in the normalised view, every pivot built on it inherits the error, so the alert's own evidence is verified first. Pivots in minisiem.py actually use the normalised columns, which is why those must be checked against raw.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At step 2 of validation, reproducing the rule shows it matched a process whose parent was a different program that merely had the target name as a substring. What follows?",
+    "options": [
+      "The analyst completes the pivot and refutation steps before deciding anything",
+      "The alert is escalated, since any rule match must be investigated in full",
+      "The alert is a false positive, and the later steps are unnecessary",
+      "The alert is a benign true positive, since the rule worked as designed"
+    ],
+    "correct": 2,
+    "explanation": "The workflow has an exit at every step: if the rule matched the wrong thing, the claim is false and there is nothing left to corroborate. It is not a benign true positive, because the rule did not detect the behaviour it was meant to detect.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Validation of an `R1`-style alert shows Word really did start PowerShell, and the application owner confirms it is an approved finance macro listed on the organisation's approved-macro register. How should the outcome be classified?",
+    "options": [
+      "As a benign true positive: the rule worked as designed and the activity was authorised",
+      "As a false positive: the alert should never have fired on approved activity",
+      "As undetermined: an owner's statement can never refute a detection",
+      "As confirmed: any script started by Office is malicious by definition"
+    ],
+    "correct": 0,
+    "explanation": "The first two validation questions passed, so the rule matched what it was meant to match; the third showed the activity was authorised, which is a benign true positive. Calling it a false positive misdescribes the rule, which did nothing wrong.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst runs a `LEFT JOIN` variant of `R2` that lists every successful VPN login with its count of preceding failures, and sees `gopal`'s 13:33Z session with 0 failures. What is the purpose of this check?",
+    "options": [
+      "To show that gopal's evening session was also part of the spraying campaign",
+      "To recover the country field, which the normal join drops from VPN events",
+      "To remove the rule's dependency on the source address for counting failures",
+      "To test the rule's negative case: a routine session correctly does not fire"
+    ],
+    "correct": 3,
+    "explanation": "Checking cases that should not fire shows whether the rule separates normal and suspicious activity on this data; here the routine session has zero failures and stays quiet. The country field is in the raw event and needs json_extract, not a different join.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The pivot on `gopal` shows him browsing through the office proxy from his workstation before and after the 06:46Z VPN success from an address of unknown location. What does this establish?",
+    "options": [
+      "Proof that gopal's account was compromised, so he need not be contacted at all",
+      "Strong corroboration that his credentials were used without him, still to be put to him safely",
+      "Proof that the VPN success was a logging error, since he could not be in two places at once",
+      "Nothing useful, because proxy and VPN events cannot be compared across different sources"
+    ],
+    "correct": 1,
+    "explanation": "A user working at an office desk rarely needs an external VPN session from an unknown location, so this strongly suggests credential misuse, but he might have used a personal device; that question is put to him through a verified channel while his credentials are treated as at risk. Calling it proof skips that refutation step.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "While validating `R1`, a pivot on WS-104 reveals the first request to `cdn-telemetry-sync.example` three minutes after the PowerShell start. According to the validation workflow, what happens next?",
+    "options": [
+      "The domain is noted in the conclusion of R1 and left for the threat-intelligence team",
+      "The domain is blocked immediately, since it appeared within minutes of the script start",
+      "The domain becomes a new claim, and the workflow restarts at step 1 for it",
+      "The domain is ignored, since R1 concerns process creation rather than network traffic"
+    ],
+    "correct": 2,
+    "explanation": "A new entity found during a pivot becomes its own claim to state, reproduce, corroborate and conclude, which is how the R6 beacon was validated. Blocking at once acts on a timing coincidence before the claim has been tested.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After the Security log on WS-104 is cleared at 08:17Z (event 1102), the SIEM holds no further Windows events from that host. How should the analyst interpret the empty lane afterwards?",
+    "options": [
+      "As possibly missing telemetry rather than proof that nothing more happened on the host",
+      "As evidence that the attacker left the host once the log had been cleared",
+      "As a sign the clearing failed, since a successful clear would also remove event 1102",
+      "As confirmation that the incident ended at 08:17Z and the case can be scoped to that time"
+    ],
+    "correct": 0,
+    "explanation": "An empty result means nothing until you know your query, time window and telemetry could have shown activity; after a log clear, a gap may mean missing records, not missing activity. Concluding that the attacker left reads the absence of evidence as evidence.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "`R1`'s SQL matches events whose lower-cased `parent_image` contains `winword.exe`. Why did the analyst read the raw event to confirm the full parent path was the Office installation's `WINWORD.EXE`?",
+    "options": [
+      "Because lower-casing the field can change the path and match a different drive letter",
+      "Because Sysmon records only the file name, so the full path must be reconstructed by hand",
+      "Because the rule matches only exact paths, so a renamed Word binary would never fire it",
+      "Because a substring match would also catch a different program whose name contains that string"
+    ],
+    "correct": 3,
+    "explanation": "A contains-test fires on any path with that substring, so confirming the real Office path rules out an impostor or unrelated program. The rule is the opposite of an exact-path match, which is exactly why the check is needed.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Validation notes for `R2` record that the rule has no time window and could fire on scattered failures over weeks, even though it fired correctly this time. What should happen to this observation?",
+    "options": [
+      "Nothing, since the rule produced a true positive and should be left unchanged",
+      "It should be fed back to detection engineering as evidence for adding a time window",
+      "The rule should be disabled until the analyst rewrites it during the same shift",
+      "It should be kept only in the analyst's personal notes to avoid criticising the rule author"
+    ],
+    "correct": 1,
+    "explanation": "Rule weaknesses found during validation are tuning evidence for detection engineering, even when the alert itself was correct. Disabling the rule would remove a detection that has just caught a real attack.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104 made 18 requests to `cdn-telemetry-sync.example` between 06:17:00Z and 07:42:02Z, each exactly 220 bytes, spaced about five minutes apart with only seconds of variation. Which feature most clearly separates this from a person browsing?",
+    "options": [
+      "The total of 18 requests, since people rarely visit one site more than ten times",
+      "The use of a path containing api, which only automated software ever requests",
+      "The fixed interval combined with an identical request size across every request",
+      "The start time shortly after the office opened, which is typical of scheduled tasks"
+    ],
+    "correct": 2,
+    "explanation": "A steady five-minute interval with a constant 220-byte size is what an automated check-in produces, and human browsing does not. A request count alone can be reached by a busy user or a refreshing page, which is why R6 needs the timing check.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

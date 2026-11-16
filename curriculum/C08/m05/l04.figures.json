@@ -1,0 +1,114 @@
+{
+  "C08-M05-L04-F1": {
+    "title": "The alert validation workflow",
+    "caption": "Six steps that test an alert's claim against the evidence; a new entity found on the way becomes a new claim.",
+    "alt": "Flow diagram, top to bottom: State the claim (R1: Word started PowerShell on WS-104); Reproduce the rule logic (re-run the query; check fields, thresholds, joins); Read the raw event (fields the normalised view dropped); Pivot across sources (same host, user or address within a time window); Seek refuting evidence (approved script, change ticket, owner); Conclude (confirmed, refuted or undetermined, with evidence). A side note beside Conclude reads: new entity found? it becomes a new claim: restart at step 1.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "State the claim",
+        "sub": "R1: Word started PowerShell on WS-104",
+        "tone": "slate"
+      },
+      {
+        "label": "Reproduce the rule logic",
+        "sub": "re-run the query; check fields, thresholds, joins",
+        "tone": "violet"
+      },
+      {
+        "label": "Read the raw event",
+        "sub": "fields the normalised view dropped",
+        "tone": "blue"
+      },
+      {
+        "label": "Pivot across sources",
+        "sub": "same host, user or address within a time window",
+        "tone": "orange"
+      },
+      {
+        "label": "Seek refuting evidence",
+        "sub": "approved script, change ticket, owner",
+        "tone": "green"
+      },
+      {
+        "label": "Conclude",
+        "sub": "confirmed, refuted or undetermined, with evidence",
+        "tone": "dark",
+        "side": "new entity found? it becomes a new claim: restart at step 1"
+      }
+    ],
+    "note": "Every step can end the workflow early: a rule that matched the wrong event is a false positive before any pivot."
+  },
+  "C08-M05-L04-F2": {
+    "title": "Corroboration across sources: 3 Nov 2026, 06:00-08:30 UTC",
+    "caption": "Validated events from four independent sources on one timeline, showing where they corroborate each other.",
+    "alt": "Timeline with four lanes from 06:00 to 08:30 UTC. Proxy: WS-104 has ticks at 06:12 (invoice.docm download), eighteen evenly spaced beacons from 06:17 to 07:42, and the 48.2 MB upload at 08:12. Sysmon: WS-104 has one tick at 06:14, Word starts PowerShell. Windows: WS-104 has ticks at 07:02 and 07:03 (4720 and 4732) and 08:17 (1102 log cleared). VPN: 203.0.113.66 has eight failures within 06:42 and a success as gopal at 06:46.",
+    "type": "ticks",
+    "axis": "3 Nov 2026, 06:00 to 08:30 UTC (11:30 to 14:00 IST)",
+    "series": [
+      {
+        "label": "Proxy: WS-104",
+        "times": [
+          0.08,
+          0.113,
+          0.147,
+          0.18,
+          0.213,
+          0.247,
+          0.28,
+          0.313,
+          0.347,
+          0.38,
+          0.413,
+          0.447,
+          0.48,
+          0.513,
+          0.547,
+          0.58,
+          0.613,
+          0.647,
+          0.68,
+          0.88
+        ],
+        "sub": "docm 06:12, 18 beacons 06:17-07:42, upload 08:12",
+        "tone": "orange"
+      },
+      {
+        "label": "Sysmon: WS-104",
+        "times": [
+          0.093
+        ],
+        "sub": "Word starts PowerShell 06:14",
+        "tone": "red"
+      },
+      {
+        "label": "Windows: WS-104",
+        "times": [
+          0.413,
+          0.42,
+          0.913
+        ],
+        "sub": "4720 + 4732 at 07:02-07:03, 1102 at 08:17",
+        "tone": "violet"
+      },
+      {
+        "label": "VPN: 203.0.113.66",
+        "times": [
+          0.28,
+          0.281,
+          0.282,
+          0.282,
+          0.283,
+          0.284,
+          0.285,
+          0.285,
+          0.307
+        ],
+        "sub": "8 failures at 06:42, success as gopal 06:46",
+        "tone": "blue"
+      }
+    ],
+    "note": "The three WS-104 lanes share a host and corroborate each other; the VPN lane shares only the time window, so any link to it is a hypothesis."
+  }
+}

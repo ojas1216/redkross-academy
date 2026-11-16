@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The triage helper prints `host=WS-107 (sales laptop)` for the `R2` VPN alert, yet the VPN events behind that alert carry no host field at all. How should the analyst record this host value in the case?",
+    "options": [
+      "As an assumption from a user-to-device mapping, to be confirmed through VPN client, DHCP or EDR records",
+      "As an observation, because the triage helper joined it directly from the alert's own event fields",
+      "As irrelevant, because VPN alerts are about addresses and accounts rather than about devices",
+      "As confirmed, because the sales laptop is the only device the inventory lists for that user"
+    ],
+    "correct": 0,
+    "explanation": "The helper filled WS-107 from its PRIMARY_HOST table, which maps users to their usual device; nothing in the VPN events observed that device. Treating it as confirmed because the inventory lists one device still confuses a usual mapping with evidence about this session.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the enriched triage queue, the `R6 beacon_regular_small` line shows `user=None (?)` while every other WS-104 line names `divya`. What is the correct reading of this gap?",
+    "options": [
+      "The beaconing ran under a system account, so no person was involved in that activity",
+      "The identity table is stale and must be rebuilt before the R6 alert can be triaged",
+      "The rule groups proxy events by host and URL, so its hit carries no user to enrich",
+      "The user field was deliberately removed from proxy events to protect personal data"
+    ],
+    "correct": 2,
+    "explanation": "R6 aggregates by host and URL, so the hit has no user value and the helper honestly prints None. Reading the gap as a system account confuses a missing field with evidence that no user was involved.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "`ioc_match.py` prints `EXPIRED ipv4 198.51.100.104 conf= 40 hits= 1 ... src=open feed`, and the matching event is `gopal`'s 13:33Z VPN session with country `IN`. What should the analyst do with this result?",
+    "options": [
+      "Block the address at the VPN gateway, since any match on a reported indicator is actionable",
+      "Treat it at most as a reason to look, since the indicator is old, weak and on shared hosting",
+      "Escalate gopal's evening session as a second compromise linked to the morning spraying",
+      "Ignore the line entirely, since expired indicators are removed from feeds automatically"
+    ],
+    "correct": 1,
+    "explanation": "The indicator's validity ended in June, it came from an open feed at confidence 40 and describes old scanning on shared hosting, and it lands on a routine login; the script itself says review before acting. Escalating it would treat a normal employee session as an attack on the strength of stale intelligence.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A vendor's sha256 indicator for the malicious `invoice.docm`, confidence 90, returns `no match` with zero hits against the Banyan events. What does this result tell the analyst?",
+    "options": [
+      "That the document on WS-104 was a different variant from the one the vendor reported",
+      "That the vendor's confidence was overstated and the indicator should be removed from the feed",
+      "That WS-104 never opened the malicious file, which lowers the priority of the R1 alert",
+      "Nothing yet, because the dataset holds no file hashes and so could never have matched"
+    ],
+    "correct": 3,
+    "explanation": "A non-match is only meaningful when the searched data could have contained the indicator; this dataset has no hash field at all. Concluding a different variant was used reads meaning into a lookup that had no chance of succeeding.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A prevalence query shows each of `banyan-payroll-update.example`, `cdn-telemetry-sync.example` and `files-share-drop.example` was reached by exactly one host, first seen within the same two hours. Why does this matter for triage?",
+    "options": [
+      "It proves the domains are malicious, so intelligence lookups for them are no longer needed",
+      "It shows the proxy only logs one host per domain, so the counts cannot be relied upon",
+      "It marks them as rare, newly seen entities, unlike domains the whole office reaches daily",
+      "It shows the domains are internal services that only the finance team is permitted to use"
+    ],
+    "correct": 2,
+    "explanation": "Low prevalence and a recent first-seen time make an entity more interesting, in contrast to mail.banyan.example which every workstation reaches. Rarity raises attention but does not prove maliciousness, so it does not replace intelligence or validation.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "While enriching the `R1` alert, a junior analyst proposes pasting `WS-104` and the username `divya` into a public reputation website to see whether anyone has reported them. What is the right response?",
+    "options": [
+      "Do not submit internal entities to public services; answer them from internal sources instead",
+      "Submit them, but only through a browser private window so that nothing is stored afterwards",
+      "Submit the hostname only, since usernames are personal data but hostnames are not sensitive",
+      "Submit them after the alert is confirmed, when the investigation no longer needs secrecy"
+    ],
+    "correct": 0,
+    "explanation": "Public services keep what is submitted and some expose it to others, so internal hostnames and usernames must never go there; the asset inventory, directory and SIEM history answer the questions. Submitting only the hostname still leaks internal names, so that compromise does not fix the problem.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst closes a suspicious-login alert with the note: \"Source IP geolocates to India, where the user lives, so the login was the user.\" What is the main flaw in this reasoning?",
+    "options": [
+      "Geolocation is only accurate for IPv6 addresses, so an IPv4 result should be discarded",
+      "The analyst should have used the ASN instead, which identifies the person behind an address",
+      "A login can only be attributed to a user after the address appears in a threat feed",
+      "Geolocation is an estimate, and VPNs, cloud and carrier-grade NAT break the address-person link"
+    ],
+    "correct": 3,
+    "explanation": "Shared infrastructure puts many unrelated users behind the same addresses and attackers can rent infrastructure in any country, so geolocation is a hint, not attribution. The ASN identifies the network operator, not the person, so it cannot fill that gap either.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst enriching the spraying address `203.0.113.66` gets no geolocation or ownership result from the lookup service. In this course dataset, what should the enriched record say about the address's location?",
+    "options": [
+      "The country of the organisation's VPN gateway, since the address connected through it",
+      "Unknown, while noting that the raw VPN events carry a synthetic country field of `??`",
+      "The country most often seen for spraying campaigns against the finance sector this year",
+      "The country of the user whose account succeeded, since the session belongs to that user"
+    ],
+    "correct": 1,
+    "explanation": "Documentation-range addresses have no real geolocation, so the honest value is unknown, and the dataset's own raw field also says ??. Filling in the user's country would invent a location and quietly assume the very thing triage is testing.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The `cdn-telemetry-sync.example` indicator from ISAC-A is marked TLP:AMBER. Which use of its context is consistent with that marking?",
+    "options": [
+      "Quoting it in the public status update that tells customers about the incident",
+      "Including it in the case notes and the internal escalation on a need-to-know basis",
+      "Posting it to a vendor support forum to ask whether the product detects the loader",
+      "Adding it to the SOC's public blog post on finance-sector phishing campaigns"
+    ],
+    "correct": 1,
+    "explanation": "TLP:AMBER allows sharing inside the organisation on a need-to-know basis, so case notes and internal escalation are fine. A vendor forum looks like a technical channel but is outside the organisation, so posting there breaks the marking.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC playbook queries the asset inventory, the directory and SIEM history before calling any external enrichment service. Which justification for this order is correct?",
+    "options": [
+      "External services require the internal results as input before they will answer a query",
+      "Internal sources are always more accurate than commercial feeds for external addresses",
+      "Regulations forbid any external lookup until internal sources have been exhausted first",
+      "Internal sources are cheap, private and specific, so external calls are kept to what remains"
+    ],
+    "correct": 3,
+    "explanation": "Internal lookups leak nothing and describe your own environment, so they come first and external lookups are made only for what they could not answer. Internal sources are not always more accurate about external addresses, which is why external enrichment still has a place.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "`R1` fires on a workstation that is missing from the asset inventory, so the triage helper gives it its default criticality of 2 and it sits below several WS-104 alerts. What should the analyst take from this?",
+    "options": [
+      "The unknown asset is a finding in itself, and the default criticality may understate the alert",
+      "The alert can wait, since unlisted devices are usually test machines of low business value",
+      "The default value is safe, because the helper picks the middle of the scale for missing assets",
+      "The alert should be suppressed until the asset owner registers the device in the inventory"
+    ],
+    "correct": 0,
+    "explanation": "A device nobody recorded is worth a question, and a default criticality is a guess that can push a real attack down the queue. Calling the middle value safe ignores that the device could be anything, including a critical server never entered.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two VPN logins for the same user both geolocate to the same country. One comes from a residential broadband provider, the other from a small hosting company's address range. Why is the network owner more informative here than the country?",
+    "options": [
+      "The hosting company's range proves the second login came from a criminal group",
+      "The broadband range proves the first login came from the user's own home network",
+      "It shows a change in the kind of network used, which is worth noting though not attribution",
+      "It identifies the person behind each address, which a country lookup never can"
+    ],
+    "correct": 2,
+    "explanation": "The ASN says what kind of operator announces the range, so a shift from home broadband to a hosting provider is a meaningful anomaly when the country is the same. It is still a hint: neither value proves who is behind the address.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "`ioc_match.py` reports `MATCH ipv4 203.0.113.66 conf= 60 hits= 9 src=ISAC-A`, and the nine hits are exactly the eight failures and one success behind `R2`. How much weight should this match carry?",
+    "options": [
+      "Enough to close the case as a confirmed attack by the group named in the ISAC report",
+      "None, because an indicator that only matches the alert's own events adds no information",
+      "Enough to block all VPN access from that country for the rest of the incident",
+      "It supports the R2 alert, but IP indicators are moderate evidence and do not show who is behind them"
+    ],
+    "correct": 3,
+    "explanation": "A confidence of 60 on an address is moderate, because addresses are cheap to change and often shared, so the match supports the alert without proving attribution. It is not worthless either: an independent community report about the same address raises likelihood.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Of the Banyan intelligence results, why does `cdn-telemetry-sync.example` (confidence 85, ISAC-A, finance-sector loader command-and-control) justify raising the priority of `R6` and `R1`?",
+    "options": [
+      "Because the domain matched 18 events, and match count is the main measure of indicator quality",
+      "Because high confidence, a fitting sector context and one-host prevalence all point the same way",
+      "Because AMBER-marked indicators are by definition more reliable than GREEN or CLEAR ones",
+      "Because any domain-type indicator outranks an IP indicator regardless of its confidence"
+    ],
+    "correct": 1,
+    "explanation": "The indicator is high-confidence, specific to finance-sector phishing which fits a microfinance company, and history shows only one host reaches it, so the evidence converges. The hit count reflects beacon frequency, not how good the indicator is.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "To learn more about a suspicious domain during triage, an analyst plans to browse to it from a corporate workstation and to scan the address that attacked the VPN. Why is this outside the limits of enrichment?",
+    "options": [
+      "Active contact can warn the attacker and touching third-party systems may be an offence",
+      "Browsing is acceptable, but scanning must wait until the alert has been formally confirmed",
+      "Both are acceptable if done from the SOC's own network rather than from a user workstation",
+      "Both are acceptable provided the results are recorded with their source and timestamp"
+    ],
+    "correct": 0,
+    "explanation": "Enrichment is passive: visiting, resolving or scanning can reveal that the SOC has noticed, and touching others' systems without authorisation can be an offence under the IT Act 2000. Recording provenance does not make an unauthorised active lookup acceptable.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For the `R1` alert involving `divya`, which set of identity attributes is appropriate for the analyst to pull into the case?",
+    "options": [
+      "Role, department and privilege level, plus her full HR file in case it explains motive",
+      "Her salary band and performance ratings, since these indicate how attractive a target she is",
+      "Role, department, privilege level and, if needed for escalation, her manager",
+      "Only her display name, because any further identity data breaches data protection law"
+    ],
+    "correct": 2,
+    "explanation": "Triage needs to know what the account can do and who to escalate to; anything beyond that turns enrichment into a profile of the employee, against the minimum-necessary principle of the DPDP Act 2023. Taking only the name goes too far the other way and loses the privilege context triage depends on.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After an incident, the SOC finds that a production database had been re-labelled as criticality 1 in the CMDB a week earlier by an account that did not belong to its owner. Which control would most directly have reduced this risk?",
+    "options": [
+      "Re-scoring every alert manually rather than using criticality from the inventory",
+      "Copying the CMDB into the SIEM each night so that analysts see the latest values",
+      "Restricting who can change criticality and logging and reviewing such changes",
+      "Raising every database's criticality to the maximum so that no change matters"
+    ],
+    "correct": 2,
+    "explanation": "Enrichment sources are part of the detection system, so changes to values that drive priority must be restricted and logged. Copying the CMDB faster would just deliver the tampered value to analysts sooner.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An address range was labelled \"trusted partner\" two years ago, and every alert from it is enriched into low priority. Nobody now remembers who added the label. What is the right way to manage such labels?",
+    "options": [
+      "Give each label an owner, a reason and an expiry date, as a suppression entry has",
+      "Keep the label, since partner traffic is lower risk than ordinary internet traffic",
+      "Remove partner labels completely and treat all partner traffic as hostile",
+      "Move the label into the threat feed so it is reviewed alongside other indicators"
+    ],
+    "correct": 0,
+    "explanation": "A trust label silently lowers priority for everything it covers, so it can hide an attack from a compromised partner; like a suppression it needs an owner, a reason and an expiry. Removing all such labels overcorrects and discards legitimate context.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Overnight, a single intelligence feed starts producing twenty times its usual number of matches, mostly against well-known business services. What is the most appropriate response?",
+    "options": [
+      "Escalate every new match, since a surge suggests a widespread campaign against the business",
+      "Lower the confidence threshold so that the extra matches are filtered from the triage queue",
+      "Delete the feed's historic indicators and re-import them from the source's archive",
+      "Treat the surge as an alert about the feed and review its quality before acting on matches"
+    ],
+    "correct": 3,
+    "explanation": "A careless or poisoned feed can make legitimate services look malicious and push the SOC to block its own business, so a sudden spike should itself be investigated. Escalating every match would amplify the feed's error.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst writes: \"R1 is malicious: the host is criticality 3 and the user is a payments approver.\" What is wrong with this conclusion?",
+    "options": [
+      "Criticality should be ignored for process-creation alerts, which only concern the endpoint",
+      "Enrichment shows how much the alert matters, not whether the activity happened or is malicious",
+      "A payments approver's workstation is routinely excluded from macro-execution rules",
+      "The conclusion is right, because high-impact alerts are treated as confirmed by default"
+    ],
+    "correct": 1,
+    "explanation": "Asset and identity context describe impact; whether Word really launched a malicious script is the validation question. Treating high-impact alerts as confirmed by default would escalate every false positive on important hosts.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two alerts each report a workstation contacting a newly registered domain. In the first, one host has contacted it; in the second, every workstation in the office has. Which dimension of enrichment differs most between them?",
+    "options": [
+      "Impact, because the domain's registration date sets the value of what could be lost",
+      "Likelihood, because a single contact proves the domain is malicious while many disprove it",
+      "Provenance, because the two counts come from different proxies with different retention",
+      "Scope, because prevalence shows whether the problem is one host or many"
+    ],
+    "correct": 3,
+    "explanation": "Prevalence answers scope: whether the activity is confined to one host or spread across the environment. It can inform likelihood too, but neither count proves or disproves maliciousness on its own.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The `banyan-payroll-update.example` indicator has source `internal`: Banyan's own team noted the look-alike domain when it was registered on 29 October. Why is such internal intelligence often especially valuable?",
+    "options": [
+      "It is about threats aimed at your own organisation, so its relevance is high",
+      "It is shared with the whole sector, so it has been checked by more analysts",
+      "It never expires, so analysts need not check its validity before acting",
+      "It carries a higher confidence score than any external source can assign"
+    ],
+    "correct": 0,
+    "explanation": "Internal intelligence describes threats aimed at you, such as a look-alike of your own name, so it fits the environment better than generic feeds. It still has a confidence and validity like any indicator; being internal does not exempt it from those checks.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC automates enrichment so that a playbook sends the entities of every new alert to an external reputation API. What risk does this create, and what reduces it?",
+    "options": [
+      "API rate limits may slow triage; caching every response for a year removes the problem",
+      "One badly written playbook can leak every alert's entities; use approved accounts, protected keys and a submission record",
+      "Automation removes the need for privacy checks, because no analyst sees the submitted data",
+      "External responses may arrive late; running the playbook only after escalation fixes it"
+    ],
+    "correct": 1,
+    "explanation": "Automation multiplies both value and risk: one faulty playbook can submit internal hostnames and usernames for every alert, so approved accounts, keys in a secrets manager and a record of submissions are needed. Claiming automation removes privacy checks gets it backwards, since the leak happens without anyone noticing.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the decision graph for interpreting an indicator match, why is the validity check placed before the confidence and source check?",
+    "options": [
+      "Because confidence is recalculated automatically whenever the validity date is extended",
+      "Because only valid indicators carry a TLP marking that permits them to be used in triage",
+      "Because an expired indicator's confidence is out of date by definition",
+      "Because validity is quicker to check, so it filters the queue before slower checks run"
+    ],
+    "correct": 2,
+    "explanation": "Once an indicator passes its valid_until date the source no longer vouches for it, so its confidence describes the past and cannot be weighed as if current. Speed of checking is not the reason; the order follows from what the confidence value means.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A night-shift analyst picks up an enriched alert showing `criticality 3` and `role: payments approver`, but the case does not say where either value came from or when it was last updated. What best practice was missed?",
+    "options": [
+      "Re-running enrichment at every hand-over so that values are always freshly fetched",
+      "Recording only values from external sources, since internal values are self-evident",
+      "Limiting enrichment to one source per entity so that provenance is never ambiguous",
+      "Recording the source and age of each enrichment value so others can judge its trust"
+    ],
+    "correct": 3,
+    "explanation": "Without provenance the next analyst cannot tell a current CMDB value from a stale entry or a guess; context without provenance is just a claim. Re-running enrichment at every hand-over wastes effort and still leaves no record of where values came from.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

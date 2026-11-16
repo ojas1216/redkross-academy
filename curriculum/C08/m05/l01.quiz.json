@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A colleague proposes lowering the base severity of R4 large_upload from 3 to 2 because most large uploads at Banyan turn out to be legitimate. What is the best response?",
+    "options": [
+      "Keep severity at 3, since exfiltration would be serious and irreversible, and express the doubt through the rule's confidence and tuning",
+      "Lower it to 2, because a rule whose alerts are usually benign should not occupy the same severity band as genuine threats",
+      "Lower it to 1 and treat it as informational, because the upload threshold already filters out most of the harmless traffic",
+      "Raise it to 4, because any rule that might detect exfiltration must sit at the top level whatever its false-positive rate"
+    ],
+    "correct": 0,
+    "explanation": "Severity answers 'how bad if true'; a true exfiltration is irreversible, so 3 stands. Noise belongs in confidence (0.5 in triage.py) and tuning. Lowering severity because a rule is noisy hides a dangerous behaviour at the bottom of the queue.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One alert shows an exploitation attempt against a CVSS 9.8 vulnerability on a server that was patched last month. Another shows a normal-looking VPN login with a password known to be stolen. How should their alert severities compare?",
+    "options": [
+      "The exploit attempt is more severe, because alert severity should inherit the CVSS base score of the targeted vulnerability",
+      "The stolen-credential login can be more severe: alert severity judges the consequence of the behaviour, and the patched attempt likely failed",
+      "Both should be rated equally High, because each represents an external actor attempting to gain access to the environment",
+      "Neither can be rated until confidence is known, because severity must be adjusted downward for unconfirmed alerts first"
+    ],
+    "correct": 1,
+    "explanation": "CVSS scores a vulnerability's properties, not what a detected behaviour achieved. A failed attempt on a patched host has low consequence, while a valid-credential login may be the start of an incident. Severity is judged as if the alert is true, independent of confidence.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R2 vpn_spray_then_success has base severity 4. A detection engineer adds a second rule that fires on the spray alone (five or more failing accounts from one source, no success). What base severity logic is most defensible for the new rule?",
+    "options": [
+      "The same value of 4, because both rules detect the same password-spraying technique from the same source address",
+      "A higher value than R2, because a spray seen early gives the SOC more time and is therefore the more important signal",
+      "A lower value than R2, because without a success the behaviour is only an attempt against the boundary, not credentials in an outsider's hands",
+      "No severity at all, because a spray without success cannot be a true positive and should therefore be suppressed outright"
+    ],
+    "correct": 2,
+    "explanation": "The consequence changes at the moment a login succeeds: R2 is rated 4 because valid credentials are compromised. A spray-only rule describes an attempt and sits lower, often feeding context. A failed spray is still a true positive of an attempt, so suppressing it outright is wrong.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the Banyan severity scale, the Critical row lists no rule anchors and has the kit value 'case only'. What is the main reason for this design?",
+    "options": [
+      "The minisiem engine cannot store a value above 4, so Critical must be tracked manually outside the lab kit",
+      "Critical alerts are handled by a separate incident team, so detection engineering is not permitted to assign them",
+      "Sigma has no critical level, so rules imported from Sigma could never be mapped to the top of the scale",
+      "A single detection rarely proves active harm, so Critical is reserved for case-level judgment, which keeps the top level rare and meaningful"
+    ],
+    "correct": 3,
+    "explanation": "Critical means active harm or loss of control now, which usually needs combined evidence from a case. Keeping it out of base severities prevents inflation. Sigma does define a critical level, so that distractor is factually wrong.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst raises an R1 alert on WS-104 from 3 to 4 'because WS-104 is a finance workstation'. The SOC uses triage.py's model, where priority() multiplies severity by asset criticality. What is the problem?",
+    "options": [
+      "The host's importance is counted twice: once in the raised severity and again by the criticality factor in the priority formula",
+      "R1 cannot be raised at all, because base severity set by detection engineering is fixed for every alert the rule creates",
+      "Raising severity is fine, but the analyst should also lower the asset criticality of WS-104 so the overall score stays stable",
+      "The change is only a problem if the confidence for R1 is below 0.5, which would make the raised value statistically unreliable"
+    ],
+    "correct": 0,
+    "explanation": "In the context-in-priority model, severity describes the behaviour and criticality is applied in priority(). Raising severity because of the host and then multiplying by criticality double counts the asset. Alert severity can be raised, but for facts about the behaviour, not the host.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During a rule review you find rk_office_spawns_shell.yml carries 'level: high' while RULE_META gives R1 a base severity of 3 (Medium in this module's mapping). What should the reviewer do?",
+    "options": [
+      "Leave both values as they are, since Sigma levels and SIEM severities are independent and never need to agree",
+      "Assess R1 against the SOC's own definitions, then either align the Sigma level or record why the difference is intentional",
+      "Always adopt the Sigma value, because community rule authors have seen the behaviour across many organisations",
+      "Average the two values into 3.5 so that both the SIEM and the case-management system show a compromise rating"
+    ],
+    "correct": 1,
+    "explanation": "Severity living in several places drifts, and analysts then see different values in different tools. The fix is a decision against the SOC's definitions, ideally a single source of truth, with the reasoning recorded. Copying community defaults unchanged describes an average organisation, not yours.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The WS-104 alerts individually range from 2 (R6) to 4 (R5), yet the WS-104 case is rated Critical. Which statement best justifies this?",
+    "options": [
+      "Case severity is always one level above the highest alert in the case, so a case containing an R5 alert becomes Critical",
+      "The case contains more than five alerts, and any case above that count is automatically promoted to the highest level",
+      "Together the alerts show a chain of execution, persistence, a large upload and evidence destruction on a payments approver's host",
+      "WS-104 has asset criticality 3, and any case on a criticality-3 host is rated Critical regardless of the alerts it holds"
+    ],
+    "correct": 2,
+    "explanation": "Case severity reflects the combined consequence: a document running PowerShell, a new account, beaconing, a 48.2 MB upload and a cleared log describe probable data theft with evidence destruction. It is not a fixed offset from the maximum, nor a count rule, nor driven by host criticality alone.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which of the following is a legitimate reason for an analyst to lower an alert's severity below the rule's base severity?",
+    "options": [
+      "The queue is very long and the alert's SLA timer is about to breach, so a lower level buys more time",
+      "The rule has a low confidence value, so its alerts are probably benign and deserve a lower severity",
+      "The alert fired at night, when fewer users are active and any consequence would therefore be smaller",
+      "An approved change record explains the behaviour, or there is evidence that the attempt was blocked"
+    ],
+    "correct": 3,
+    "explanation": "Lowering is justified by facts about this alert, such as an approved change, a blocked attempt or a test system. Queue length and deadlines are explicitly not legitimate reasons, and low confidence belongs in the confidence input rather than in severity.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The R3 alert at 07:02 shows divya, a payments approver, creating the account svc_update, 48 minutes after R1 fired on the same host. Which triage outcome is most defensible?",
+    "options": [
+      "Raise from 3 to 4 with a recorded note citing the out-of-role account creation and the earlier R1 alert, and link it to the WS-104 case",
+      "Keep at 3 without a note, because account creation is routine for administrators and the base severity already covers it",
+      "Lower to 2, because a single account creation does not prove persistence and the confidence of R3 is only 0.6",
+      "Raise directly to Critical, because any new account on a finance workstation is proof of active harm in progress"
+    ],
+    "correct": 0,
+    "explanation": "Corroboration on the same host and behaviour outside the user's role are both raise facts, and the change must be recorded with old and new values and the reason. Critical is a case-level judgment, so jumping the single alert to Critical overstates what it proves.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The kit's SUPPRESS list covers R3 alerts for the account itadmin under change CHG-1042, while the R3 alert for divya is raised. Why do two alerts from the same rule receive opposite treatment?",
+    "options": [
+      "Because itadmin's alerts have lower base severity than divya's, since base severity is assigned per user account",
+      "Because context explains itadmin's activity as approved work, while divya's account creation is out of role and corroborated",
+      "Because suppression applies only to alerts generated outside business hours, and itadmin worked during the night",
+      "Because R3 has two separate thresholds, one for administrators and one for ordinary users, built into the rule logic"
+    ],
+    "correct": 1,
+    "explanation": "The same detected behaviour is judged against its context: an approved change explains itadmin's activity, so it is suppressed, while divya's lacks any such explanation and has supporting evidence. Base severity belongs to the rule, not to a user.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At the end of a busy shift an analyst wants to downgrade a High case to Low, noting only 'looks benign'. Under the governance practice described in the lesson, what should happen?",
+    "options": [
+      "The analyst may proceed, because analysts own alert severity and may move it in either direction on their own judgment",
+      "The change should be blocked permanently, because a High case can only ever be closed by escalation to incident response",
+      "The downgrade needs a second person such as the shift lead and a specific recorded reason, since lowering is where incidents get lost",
+      "The analyst should leave the severity unchanged but close the case, because closure does not require a severity change"
+    ],
+    "correct": 2,
+    "explanation": "A common rule is that analysts may raise severity alone, but lowering High or Critical needs a second person and a recorded reason. Raising is cheap and safe; quiet downgrades are how real incidents get closed. Closing a High case without review sidesteps the same control.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The SIEM already holds a copy of WS-104's Security log, yet R5 log_cleared (event 1102) is rated High. What makes the behaviour severe?",
+    "options": [
+      "Clearing the log deletes the SIEM's copy as well, so all historical evidence for the host is lost from every system",
+      "Event 1102 is generated only by malware, so its presence is definitive proof that the host is compromised",
+      "Clearing the log stops the endpoint from sending any further events, so the host becomes permanently invisible",
+      "It implies an actor with administrative rights wants to hide activity, and the on-host history is lost irreversibly"
+    ],
+    "correct": 3,
+    "explanation": "Severity looks at what the event enables and implies: the actor already holds administrative rights and is destroying evidence, and on-host history cannot be reconstructed. The SIEM's collected copy is not deleted, and 1102 can also be produced by legitimate administration.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new rule detects a process that has never been seen in the Banyan estate before. An engineer argues it should be High 'because it is extremely rare'. What is wrong with this reasoning?",
+    "options": [
+      "Rarity is evidence about whether the alert is real, so it informs confidence; severity must come from the consequence if true",
+      "Rare events can never be severe, because attackers prefer common tools that blend into normal administrative activity",
+      "Rarity should lower severity, because rare behaviour produces few alerts and therefore needs little analyst attention",
+      "Rarity is only meaningful for network events, so a host-based process rule must take its severity from the vendor default"
+    ],
+    "correct": 0,
+    "explanation": "Severity is a judgment about consequence, not about how unusual the event is or how often it fires. Rarity supports the likelihood that the alert is true, which is confidence. A rare process could be harmless or dangerous; its consequence decides severity.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A misconfigured application triggers the same rule 500 times in ten minutes on one host. How should severity be handled?",
+    "options": [
+      "Raise the severity to the top level, since 500 alerts show that the behaviour is far more serious than a single occurrence",
+      "Deduplicate into one alert with a count; volume does not make one behaviour more severe, and if volume matters, write a rule for that pattern",
+      "Lower the rule's base severity permanently, since a rule able to fire 500 times is clearly mis-rated for the environment",
+      "Rate each of the 500 alerts separately, because every alert must keep its own independent severity and triage record"
+    ],
+    "correct": 1,
+    "explanation": "A burst is one behaviour seen many times. Treat it as one alert with a count. Where volume itself is meaningful, as in a password spray, a separate rule should detect that pattern. Permanently lowering base severity because of one misconfiguration confuses noise with consequence.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC manager wants to move from four to eight severity levels 'for more precision'. What is the strongest objection?",
+    "options": [
+      "Most SIEM products cannot store more than five severity values, so the extra levels would be silently truncated",
+      "Eight levels would require each rule to be rewritten in Sigma, which supports only the four standard severities",
+      "Many levels tend to produce arguments about adjacent levels rather than better decisions, so analysts agree less often",
+      "More levels would remove the need for confidence values, which would make priority calculation impossible"
+    ],
+    "correct": 2,
+    "explanation": "A scale is useful only if two analysts would pick the same level for the same alert. Beyond about five levels, the boundaries become arguable and consistency drops. Sigma actually defines five levels, so the distractor about Sigma is false.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which proposed definition of the High level best meets the guidance for a usable severity scale?",
+    "options": [
+      "High: serious alerts that need prompt attention from an experienced analyst on the current shift",
+      "High: any alert from a rule with confidence above 0.8 on a host with asset criticality of 3",
+      "High: alerts that the vendor marks as high, unless the shift lead decides that they look harmless",
+      "High: attacker has, or very likely has, execution or valid credentials inside; a blocked attempt is not High"
+    ],
+    "correct": 3,
+    "explanation": "A good definition states the consequence if true, so an analyst can test an alert against it, and says what the level is not. 'Serious' is untestable, the confidence-and-criticality version mixes in other inputs, and vendor defaults describe an average organisation.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "To quieten the queue, a team moves several noisy rules to the informational level. What risk does the lesson highlight, and how is it addressed?",
+    "options": [
+      "The rules may still detect real behaviour, so they should keep contributing to an entity risk score or a hunt",
+      "Informational alerts breach SLAs automatically, so each must still be acknowledged within fifteen minutes",
+      "Informational rules cannot be re-enabled later, so the detection logic should be exported before moving them",
+      "Moving rules to informational lowers their confidence, so their precision must be recalculated from scratch"
+    ],
+    "correct": 0,
+    "explanation": "Informational is not a dumping ground: a demoted rule can still be detecting real activity. If it no longer creates queue work, it should feed context such as an entity risk score or a hunt. The other options describe behaviour the lesson does not claim.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A quarterly review finds that 92% of alerts at the High level were closed as benign over the last three months. What does this most likely indicate?",
+    "options": [
+      "The High level is working correctly, because a cautious SOC should expect most High alerts to be benign",
+      "Severity inflation, or a confidence problem being expressed as severity, so rules at that level need review",
+      "The analysts are under-trained, because a benign rate that high can only result from wrong dispositions",
+      "The asset criticality values are wrong, because criticality is the main driver of how alerts are closed"
+    ],
+    "correct": 1,
+    "explanation": "Comparing the severity distribution with real dispositions is the recommended check; a level where most alerts close as benign suggests inflated base severities or noisy rules whose doubt should be in confidence. Analyst quality may be worth checking, but it is not the most likely explanation from this metric alone.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An intruder works slowly with legitimate administration tools and keeps uploads below the R4 threshold, so only Low alerts are produced. Which defence most directly counters this?",
+    "options": [
+      "Raise all Low rules to Medium, so that every alert they produce is guaranteed to be read by an analyst",
+      "Lower the R4 upload threshold to zero bytes, so that any upload at all generates a Medium alert",
+      "Aggregate Low and informational detections into a per-entity risk score so that weak signals on one host surface together",
+      "Disable Low rules entirely, since they are not read and only add storage cost to the SIEM"
+    ],
+    "correct": 2,
+    "explanation": "Adversaries who stay low are effectively exploiting the severity scale. Aggregating weak signals per user or host lets several Lows on one entity surface together. Raising every Low inflates the scale, and a zero threshold floods the queue.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "For the WS-104 incident, which impact questions drive the Critical rating?",
+    "options": [
+      "Functional impact, because the number of hosts affected determines how severe an incident is",
+      "Recoverability alone, because any incident that needs outside help is Critical by definition",
+      "Functional impact and host count, because one workstation compromised means business is stopped",
+      "Information impact and recoverability: a 48.2 MB upload from a payments approver and a cleared log"
+    ],
+    "correct": 3,
+    "explanation": "Functionally only one workstation is affected, but the potential data loss to an unfamiliar domain and the destroyed on-host log make information impact and recoverability severe. The lesson stresses that these, not the number of hosts, drive the rating.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why should severity reclassifications be written to the case system's audit log rather than only to an editable severity field?",
+    "options": [
+      "So the record cannot be rewritten after an incident and reviewers can see who changed what, when and why",
+      "So the SIEM can recompute rule confidence automatically every time an analyst edits a severity value",
+      "So the SLA timer restarts from zero whenever a severity is changed, giving the analyst a fresh deadline",
+      "So that analysts no longer need to write a reason, because the audit log captures the old and new values"
+    ],
+    "correct": 0,
+    "explanation": "The reclassification record is what makes severity trustworthy; protecting it in an audit log stops it being altered later and supports quality and post-incident review. The record still needs a reason, so the last distractor is wrong.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst argues that every alert at an earlier ATT&CK tactic must be less severe than every alert at a later one. Which counter-example from the lesson shows why this is only a heuristic?",
+    "options": [
+      "A cleared log is always the least severe event, because it happens at the end of an intrusion",
+      "A successful initial access on a domain controller outranks reconnaissance-stage noise anywhere",
+      "A beacon is more severe than exfiltration, because command and control precedes data theft",
+      "A password spray is more severe than a new local admin, because it targets many accounts"
+    ],
+    "correct": 1,
+    "explanation": "Later intrusion stages are usually more severe because more of the attacker's work is done, but what is touched also matters: initial access on a domain controller can outrank later-stage activity elsewhere. The other options misstate the stage ordering or the lesson's ratings.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In which situation is the 'context in severity' model, where the same rule yields High on a domain controller and Medium on a kiosk, most appropriate?",
+    "options": [
+      "When the SOC uses triage.py's priority() formula, which already multiplies by asset criticality",
+      "When the SOC wants severity statistics to be directly comparable across every host in the estate",
+      "When SLA commitments are written per severity level and must reflect business impact directly",
+      "When the CMDB is incomplete, so that asset criticality cannot be looked up during triage at all"
+    ],
+    "correct": 2,
+    "explanation": "Folding context into severity suits organisations whose SLA contract is defined by severity. Combining it with a formula that also multiplies by criticality double counts the asset, and comparable statistics across hosts are the advantage of the other model.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A password spray against the VPN and a technique requiring hands-on work on each individual host are both detected. Considering the breadth dimension only, which statement is correct?",
+    "options": [
+      "The hands-on technique has the larger breadth, because each compromised host gives deeper access",
+      "Breadth is identical, because each detection was triggered by a single source address",
+      "Breadth cannot be assessed for remote-access events, only for host-based endpoint telemetry",
+      "The spray has the larger potential blast radius, because it can be repeated cheaply across many accounts"
+    ],
+    "correct": 3,
+    "explanation": "Breadth asks how many accounts, hosts or departments a behaviour can reach. A behaviour that scales cheaply, such as spraying many VPN accounts, has a larger blast radius than one needing manual effort per host. Depth of access is a different dimension.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During triage an analyst decides an alert matches the rule's typical case and keeps its base severity. According to the severity lifecycle, what should happen?",
+    "options": [
+      "The decision to keep is noted in the triage record, because keeping the base value is also a decision",
+      "Nothing is recorded, because the reclassification log is only for alerts whose severity actually changed",
+      "The alert is automatically raised one level, because every triaged alert must move away from the base value",
+      "The rule's base severity is updated to match, because the analyst has just confirmed it is correct"
+    ],
+    "correct": 0,
+    "explanation": "In the lifecycle figure all three branches, including keep, pass through the recorded reclassification step. Base severity changes only through rule review, not because one alert matched its typical case.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

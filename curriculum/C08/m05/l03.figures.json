@@ -1,0 +1,67 @@
+{
+  "C08-M05-L03-F1": {
+    "title": "Enriching an alert during triage",
+    "caption": "How the entities of one rule hit pass a privacy check, are looked up in five context sources and become an enriched alert with provenance.",
+    "alt": "Graph, top to bottom. Alert: R2 vpn_spray_then_success leads to Extract entities (gopal, 203.0.113.66, 06:46Z), which leads to Privacy check (minimum data, internal sources first). The privacy check fans out to five sources: Asset (CMDB) with owner, function, criticality; Identity (IdP) with department, role, privilege; Network with internal or external, geo, ASN; Threat intel with ioc_match.py confidence and expiry; History with prior alerts, first seen, prevalence. All five feed Enriched alert, where each value carries its source and age.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "a", "label": "Alert: R2 vpn_spray_then_success", "sub": "rule hit from minisiem", "tone": "orange" },
+      { "id": "e", "label": "Extract entities", "sub": "gopal, 203.0.113.66, 06:46Z", "tone": "blue" },
+      { "id": "p", "label": "Privacy check", "sub": "minimum data, internal sources first", "tone": "violet" },
+      { "id": "s1", "label": "Asset (CMDB)", "sub": "owner, function, criticality", "tone": "slate" },
+      { "id": "s2", "label": "Identity (IdP)", "sub": "department, role, privilege", "tone": "slate" },
+      { "id": "s3", "label": "Network", "sub": "internal or external, geo, ASN", "tone": "slate" },
+      { "id": "s4", "label": "Threat intel", "sub": "ioc_match.py: confidence, expiry", "tone": "slate" },
+      { "id": "s5", "label": "History", "sub": "prior alerts, first seen, prevalence", "tone": "slate" },
+      { "id": "r", "label": "Enriched alert", "sub": "each value with its source and age", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "a", "to": "e" },
+      { "from": "e", "to": "p" },
+      { "from": "p", "to": "s1" },
+      { "from": "p", "to": "s2" },
+      { "from": "p", "to": "s3" },
+      { "from": "p", "to": "s4" },
+      { "from": "p", "to": "s5" },
+      { "from": "s1", "to": "r" },
+      { "from": "s2", "to": "r" },
+      { "from": "s3", "to": "r" },
+      { "from": "s4", "to": "r" },
+      { "from": "s5", "to": "r" }
+    ],
+    "note": "Enrichment adds context alongside the evidence; it never edits the event that fired."
+  },
+  "C08-M05-L03-F2": {
+    "title": "Interpreting an indicator lookup",
+    "caption": "The questions an analyst asks of each ioc_match.py result before it changes a triage decision.",
+    "alt": "Decision graph. Indicator lookup (ioc_match.py against minisiem events) has two outcomes. No match (sha256: the dataset holds no hashes) leads to Absence is not evidence (check telemetry coverage). A match leads to the decision Still valid on the as-of date? No leads to EXPIRED: review before acting (198.51.100.104 matches a routine VPN login), which has a dashed arrow to Validate in raw events. Yes leads to the decision Confidence, source, specificity? Low or shared leads to Weak: context only (low confidence, shared hosting), dashed to Validate in raw events. High and specific leads to Strong: raise priority (cdn-telemetry-sync.example, conf 85, ISAC-A), solid to Validate in raw events (Lesson 4).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "m", "label": "Indicator lookup", "sub": "ioc_match.py against minisiem events", "tone": "orange" },
+      { "id": "n", "label": "No match", "sub": "sha256: the dataset holds no hashes", "tone": "slate" },
+      { "id": "nm", "label": "Absence is not evidence", "sub": "check telemetry coverage", "tone": "violet" },
+      { "id": "v", "label": "Still valid on the as-of date?", "tone": "violet", "kind": "decision" },
+      { "id": "x", "label": "EXPIRED: review before acting", "sub": "198.51.100.104 matches a routine VPN login", "tone": "slate" },
+      { "id": "c", "label": "Confidence, source, specificity?", "tone": "violet", "kind": "decision" },
+      { "id": "lo", "label": "Weak: context only", "sub": "low confidence, shared hosting", "tone": "blue" },
+      { "id": "hi", "label": "Strong: raise priority", "sub": "cdn-telemetry-sync.example, conf 85, ISAC-A", "tone": "red" },
+      { "id": "val", "label": "Validate in raw events", "sub": "Lesson 4", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "m", "to": "n", "label": "0 hits" },
+      { "from": "n", "to": "nm" },
+      { "from": "m", "to": "v", "label": "hits" },
+      { "from": "v", "to": "x", "label": "no" },
+      { "from": "v", "to": "c", "label": "yes" },
+      { "from": "c", "to": "lo", "label": "low / shared" },
+      { "from": "c", "to": "hi", "label": "high, specific" },
+      { "from": "lo", "to": "val", "dashed": true },
+      { "from": "x", "to": "val", "dashed": true },
+      { "from": "hi", "to": "val" }
+    ],
+    "note": "A match is evidence weighted by validity, confidence and fit; it never closes an alert or opens an incident on its own."
+  }
+}

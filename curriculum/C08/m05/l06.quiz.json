@@ -1,0 +1,327 @@
+[
+  {
+    "q": "During a busy shift an analyst posts in the team chat: \"can someone look at WS-104? lots of alerts\". Two people react with a thumbs-up. Why has the case not been escalated?",
+    "options": [
+      "Because chat messages are not retained long enough to count as evidence for the case",
+      "Because no named receiver has accepted ownership through a channel they must watch, so the analyst still owns it",
+      "Because escalations must always be sent by email so that a written copy exists",
+      "Because the message did not include a priority score from the triage queue"
+    ],
+    "correct": 1,
+    "explanation": "Escalation is a transfer of ownership: a named receiver, an obligated channel, the evidence and an explicit acknowledgement. Reactions in chat are not acceptance. Email alone is not the requirement either; for urgent cases a page pointing to the case is.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst pages the on-call IR lead for a SEV1 case, but no acknowledgement arrives within the escalation SLA. What should happen next?",
+    "options": [
+      "Assume the IR lead has seen the page and begin containment on their behalf",
+      "Wait for the next shift handover, when the IR lead will be back at a desk",
+      "Follow the playbook: page the secondary on-call, then the SOC manager, while still owning the case",
+      "Close the page and reopen the case at a lower severity so that it fits the normal queue"
+    ],
+    "correct": 2,
+    "explanation": "Silence is not consent; it is a failed escalation, and ownership stays with the analyst until someone acknowledges. Taking containment decisions without authority, or waiting, both leave the case without a capable owner.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab queue the R6 beacon_regular_small alert on WS-104 has the lowest priority, 3.6. How should this affect the escalation decision?",
+    "options": [
+      "It should not: priority orders the work, but R6 shows a command-and-control pattern, which is a hard trigger",
+      "R6 should be escalated only if the higher-priority alerts on WS-104 turn out to be true positives",
+      "R6 should go to the Tier 2 case queue rather than to on-call because its score is below 5",
+      "R6 should be closed as noise unless its priority rises above the R4 upload alert"
+    ],
+    "correct": 0,
+    "explanation": "The decision is made on the criteria, not on queue position: 18 small regular requests to cdn-telemetry-sync.example indicate C2 and meet a hard trigger. Queue scores combine severity, confidence and criticality to order work; they are not escalation thresholds.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Five of the six alert types in the lab queue concern WS-104 and divya, and one concerns a VPN login as gopal. How should the analyst structure the escalation?",
+    "options": [
+      "Six separate pages, one per alert type, so that each rule owner can respond independently",
+      "One case covering all six alert types, stating as fact that the VPN spray caused the phishing",
+      "Two unrelated cases, because the alerts involve different users and different hosts",
+      "One case for WS-104 and divya, with a linked case for gopal's VPN login and the connection stated as a hypothesis"
+    ],
+    "correct": 3,
+    "explanation": "Related alerts are grouped into one case before escalating, so the receiver sees the story rather than six pages. The link to the VPN spray rests on timing only, so it is a linked case stated as a hypothesis, neither merged as fact nor treated as unrelated.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Tier 1 analyst's thirty-minute time-box expires on an unusual logon to a domain controller. The evidence is still inconclusive either way. What should the analyst do?",
+    "options": [
+      "Return the alert to the queue with notes, because undetermined alerts wait until more evidence arrives",
+      "Close it as undetermined, because the time-box defines the maximum effort for any alert",
+      "Escalate to Tier 2, because an undetermined alert on a crown-jewel asset meets the impact-based criteria",
+      "Page the CISO directly, because domain controllers are always handled as reportable incidents"
+    ],
+    "correct": 2,
+    "explanation": "For a high-impact entity, 'undetermined' is a reason to escalate rather than to wait; returning to the queue is the option for low-impact alerts. Paging the CISO skips the hierarchical route, and reportability is a separate later check.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The IR lead who owns the WS-104 case needs gopal's credentials reset and his VPN sessions reviewed. What kind of escalation is this request?",
+    "options": [
+      "Hierarchical, because it moves the case to a higher tier with more authority",
+      "Functional, because it goes across to the identity team, which owns that capability",
+      "Hierarchical, because only the CISO can approve resetting a user's credentials",
+      "Functional, because it hands ownership of the whole case to the identity team"
+    ],
+    "correct": 1,
+    "explanation": "Functional escalation moves expertise across to a specialist owner, here the identity team. Ownership of the case stays with the IR lead: one owner, many contributors, each request tracked in the case.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Evidence suggests a production database server is compromised, and the analyst believes it should be isolated immediately. The analyst has no authority to isolate production systems. What is the right move?",
+    "options": [
+      "Isolate it anyway and record the reason, since the evidence is strong and time matters",
+      "Wait until the investigation proves the compromise before mentioning isolation to anyone",
+      "Ask a colleague with the right privileges to isolate it informally and document it later",
+      "Escalate to the owner of that authority with the evidence and a recommendation to isolate"
+    ],
+    "correct": 3,
+    "explanation": "Actions beyond the analyst's remit are escalated: the analyst recommends and the authority owner decides. Acting without authority, or arranging it informally, bypasses accountability; waiting for proof delays a high-impact decision.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Triage of a data-access alert suggests that a senior executive may be copying customer records for personal use. How should the escalation be handled?",
+    "options": [
+      "Through the route the playbook names, often the SOC manager with HR or legal, on a need-to-know basis",
+      "Through the normal on-call page, copying the SOC distribution list so that every shift is aware",
+      "By contacting the executive first to give them a chance to explain before escalating",
+      "By posting the evidence in the incident channel so the investigation can start immediately"
+    ],
+    "correct": 0,
+    "explanation": "Insider and executive matters are sensitive: they follow the named route and are kept need-to-know. Wide distribution or contacting the subject may warn them and spread sensitive details.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The WS-104 evidence shows divya opened a malicious document and her workstation is compromised. Why should the escalation avoid email threads that include her?",
+    "options": [
+      "Because divya is the main suspect and must not learn that she is being investigated",
+      "Because her mailbox may be readable by the attacker, so the incident needs an out-of-band channel",
+      "Because email does not support attachments large enough to carry the case evidence",
+      "Because CERT-In requires incident communication to stay off corporate email systems"
+    ],
+    "correct": 1,
+    "explanation": "When normal channels may be compromised, discussing the incident there can tip off the attacker; that is why out-of-band communication is used. Divya is the victim of a phishing document, not presumed to be an insider.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new analyst is unsure how to build a SIEM query to check whether an alert's source address appears elsewhere, and considers escalating the alert to Tier 2. What does the lesson advise?",
+    "options": [
+      "Escalate it, because any doubt about an alert justifies handing it upward",
+      "Close the alert as undetermined, since the analyst cannot complete validation",
+      "Consult a colleague about the query; that is consultation, not a reason to escalate",
+      "Page on-call, because the tooling gap is itself a hard trigger for the SOC"
+    ],
+    "correct": 2,
+    "explanation": "Escalation is not a substitute for triage: uncertainty about a tool is solved by asking a colleague. The 'when in doubt, escalate' advice applies to doubt about a potentially serious alert, not to how to run a query.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The SOC first noticed a possibly reportable incident at 08:25Z. Assuming the CERT-In six-hour window starts then, which deadline should be written into the case?",
+    "options": [
+      "14:25Z, which is 19:55 IST",
+      "14:25Z, which is 08:55 IST",
+      "13:55Z, which is 19:25 IST",
+      "19:55Z, which is 14:25 IST"
+    ],
+    "correct": 0,
+    "explanation": "08:25Z plus six hours is 14:25Z, and IST is UTC+5:30, giving 19:55 IST. The last option swaps the zones: 19:55 is the IST time, not UTC. Writing both forms in the case avoids exactly that confusion.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A possibly reportable incident is noticed at 21:10Z on 3 November. What is the six-hour deadline, expressed in IST?",
+    "options": [
+      "02:40 IST on 4 November",
+      "03:10 IST on 4 November",
+      "08:40 IST on 3 November",
+      "08:40 IST on 4 November"
+    ],
+    "correct": 3,
+    "explanation": "21:10Z plus six hours is 03:10Z on 4 November; adding the 5:30 IST offset gives 08:40 IST on 4 November. 02:40 IST on 4 November is when the incident was noticed, not the deadline, and the deadline cannot fall on 3 November in IST.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst notices a likely compromise but spends four hours confirming every detail before escalating. If the incident turns out to be reportable to CERT-In, what is the main consequence?",
+    "options": [
+      "None, because the six-hour window starts when the compromise is confirmed by the analyst",
+      "The organisation has about two hours left for the legal decision and the report",
+      "The window restarts when the IR lead acknowledges the escalation, giving six more hours",
+      "The report can be filed late as long as the analyst's confirmation work is documented"
+    ],
+    "correct": 1,
+    "explanation": "The six hours run from noticing, not from certainty or containment, so four hours of confirmation leave only two for the POC and legal. Hard triggers exist partly to prevent this; acknowledgement does not reset the clock.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the WS-104 hand-off, who decides whether the incident is reported to CERT-In, and who sends the report?",
+    "options": [
+      "The Tier 1 analyst decides, because they noticed it first, and sends the report directly",
+      "The on-call IR lead decides and sends it, because they own the case after acknowledgement",
+      "CERT-In decides after receiving the analyst's case export, so no internal decision is needed",
+      "The designated point of contact with legal advice decides, and the report goes through that POC"
+    ],
+    "correct": 3,
+    "explanation": "Reporting authority and technical authority sit with different roles: the IR lead raises the question, the CISO / legal POC decides and reports, and the analyst flags and supplies the time noticed and facts. The analyst never contacts CERT-In directly.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case note written by a Tier 1 analyst reads: \"Probably not reportable; anyway we have 72 hours.\" What is the problem with it?",
+    "options": [
+      "It records an interpretation of legal obligations that belongs to accountable roles; the note should state facts and flags",
+      "It uses the wrong figure, and the correct fix is to replace 72 hours with six hours in the same note",
+      "It should have been written in the escalation's NEED field instead of in the case notes",
+      "It is acceptable as long as the IR lead countersigns the note before the shift ends"
+    ],
+    "correct": 0,
+    "explanation": "Analysts should not paraphrase or estimate legal obligations in case notes; an analyst's guess can mislead the decision. Correcting the number still leaves an analyst's legal interpretation in the record; the note should flag 'possibly reportable' and give the time noticed.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the WS-104 escalation, the CONFIDENCE line says the link between the VPN spray and WS-104 rests on timing only. What failure does stating this protect against?",
+    "options": [
+      "The receiver discarding the VPN evidence because it came from a different log source",
+      "The IR lead rejecting the escalation because its confidence is not high for every finding",
+      "A reasonable hypothesis being treated later as fact and sending the investigation down the wrong path",
+      "The CERT-In report being delayed until the two cases are proven to be connected"
+    ],
+    "correct": 2,
+    "explanation": "Separating confirmed facts from hypotheses keeps a plausible link from hardening into an assumption that misleads the investigation. The escalation still states high confidence that WS-104 is compromised; reporting does not wait for the link to be proven.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The WS-104 escalation's DONE line includes \"No containment taken.\" Why is recording this deliberate non-action important?",
+    "options": [
+      "It shows that the analyst followed the rule never to contain a host before CERT-In is notified",
+      "It proves that the evidence on WS-104 has not been altered by the SOC since the alert",
+      "It tells the CERT-In point of contact that the incident is still in the detection phase",
+      "It tells the receiver the host is still live, so containment remains an open, urgent decision"
+    ],
+    "correct": 3,
+    "explanation": "The receiver must know what has not been done: WS-104 is still live, which is why the NEED line asks for a containment decision within 30 minutes. There is no rule that containment waits for CERT-In, and non-action alone proves nothing about evidence integrity.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the escalation decision path, the 'Possibly reportable?' check comes after the decision to escalate, not before it. Why?",
+    "options": [
+      "Because only the CISO can open the reporting check, and the CISO is reached last",
+      "Because paging on-call should never be delayed while someone works out whether a regulator must be told",
+      "Because reportability can only be judged after containment has been completed",
+      "Because the time noticed is not recorded until the IR lead acknowledges the page"
+    ],
+    "correct": 1,
+    "explanation": "The most urgent cases leave the path immediately and are then checked for reportability; delaying the page for a legal question gives the attacker time. Reportability is not deferred until after containment; it travels early, right after the IR lead takes the case.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At 02:00 an analyst escalates a SEV1 case by sending an email to the IR lead and assigning a ticket to the IR queue. What is missing?",
+    "options": [
+      "A page or call that interrupts a human, pointing to the case rather than repeating it",
+      "A copy of the full evidence pasted into the email so the IR lead need not open the case",
+      "A second ticket in the identity team's queue so that two owners can work in parallel",
+      "A message to the affected user asking them to stop using the workstation until morning"
+    ],
+    "correct": 0,
+    "explanation": "The case system is the record, but urgency needs a paging channel; email or a ticket alone is not enough out of hours. The page should link to the case, not duplicate it, and parallel owners are a failure, not a remedy.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lab case the Security log on WS-104 was cleared at 08:17Z. Which CERT-In Directions requirements help keep the incident timeline credible despite this?",
+    "options": [
+      "Reporting within six hours and designating a point of contact for the organisation",
+      "Encrypting all endpoint logs and reporting each cleared log as a separate incident",
+      "Keeping ICT system logs for a rolling 180 days within India and synchronising clocks to specified NTP sources",
+      "Sending a copy of every Security log to CERT-In daily so that it holds an independent record"
+    ],
+    "correct": 2,
+    "explanation": "Retained logs and accurate clocks are what make a reported timeline trustworthy; a cleared local log shows why central collection matters. The six-hour and POC requirements concern reporting, not evidence integrity, and the Directions do not require daily log submission.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Further investigation shows that an escalated R4 upload went to an approved auditor's sharing site under a documented request. The analyst wants to lower the case's priority. How should this be done?",
+    "options": [
+      "Lower it quietly in the case system, since de-escalation does not change ownership",
+      "Leave it at the original priority, because escalated cases must never be downgraded",
+      "Close the case as a false positive and remove the escalation from the record",
+      "De-escalate openly: record the evidence and reason in the case and inform the owner"
+    ],
+    "correct": 3,
+    "explanation": "De-escalation is legitimate when new evidence shows a case is less serious, but it must be recorded and the owner informed, never silent. It is also a real, authorised event, so 'false positive' would be the wrong label.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Unsure who is free, an analyst separately sends the same urgent case to two Tier 2 analysts without telling either about the other. Why is this a problem?",
+    "options": [
+      "Because Tier 2 analysts may only receive cases through the IR lead",
+      "Because it creates two parallel owners, which is as bad as having none",
+      "Because the second escalation resets the escalation SLA for the case",
+      "Because cases with two receivers cannot be acknowledged in the case system"
+    ],
+    "correct": 1,
+    "explanation": "An escalation should end with one acknowledged owner; two people who each think they own the case may duplicate or contradict each other's work, or each assume the other is acting. The issue is ownership, not a system limitation or an SLA rule.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a holiday weekend, a page for a hard-trigger alert goes to a phone number belonging to someone who left the company months ago. Which defensive control has failed?",
+    "options": [
+      "24x7 coverage of hard triggers with escalation contacts that are tested regularly",
+      "Written escalation criteria in the playbook for each alert type",
+      "Out-of-band communication prepared in advance for compromised channels",
+      "Recording the time noticed in the case template in UTC and IST"
+    ],
+    "correct": 0,
+    "explanation": "Attackers favour nights, weekends and holidays when escalation is slowest, so on-call contacts must be tested; a page reaching a former employee is a failed control. The criteria may be perfectly written and still fail if the route does not reach a person.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A post-incident review wants to know whether the escalation path, rather than detection, slowed the response. Which measurements answer that most directly?",
+    "options": [
+      "The number of alerts per rule and the share closed as false positives",
+      "The time from the first malicious event to the alert firing in the SIEM",
+      "The time from trigger to escalation and from escalation to acknowledgement, checked against the SLA",
+      "The number of people copied on the escalation and the length of the package"
+    ],
+    "correct": 2,
+    "explanation": "Escalation SLAs measure trigger-to-escalation and escalation-to-acknowledgement times; the review also asks whether criteria were met earlier than the escalation happened. Event-to-alert time measures detection, and FP counts measure rule precision.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst validates that Word spawned PowerShell on a finance workstation two minutes after a .docm download, but has not yet worked out what the script did. What should the analyst do?",
+    "options": [
+      "Finish analysing the script first so that the escalation contains a confirmed account of its effect",
+      "Close the alert as a benign true positive if the user confirms they opened the document",
+      "Queue it for Tier 2 within the normal SLA, because no data has been seen leaving the host yet",
+      "Escalate now, because validated malicious execution is a hard trigger that does not wait for the full investigation"
+    ],
+    "correct": 3,
+    "explanation": "Hard triggers such as an Office application spawning a script interpreter are escalated as soon as they are validated; waiting for certainty only gives the attacker time and eats into any reporting window. A user opening the document is not authorisation for what it executed.",
+    "lesson": 6,
+    "difficulty": "hard"
+  }
+]
