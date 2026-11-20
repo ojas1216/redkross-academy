@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Why does the lab require Part A and Part B of the evidence pack to be kept separate?",
+    "options": [
+      "They have different provenance, and mixing them misleads",
+      "Part B records use a different time zone from Part A",
+      "Part A is executed output while Part B is a summary",
+      "Part B describes a later phase of the same Banyan event"
+    ],
+    "correct": 0,
+    "explanation": "Part A summarizes saved Banyan records. Part B is synthetic data authored for the lab, from an unrelated fictional segment. Using Part B values as Banyan baselines, for example, would present invented data as evidence. Neither part is executed output.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the model outcome for Case 1, the WS-104 thread?",
+    "options": [
+      "Benign at high confidence, explained by a change record",
+      "No-data, because there is no mail gateway evidence",
+      "Positive at high confidence, with data exfiltration now confirmed",
+      "Positive for escalation, moderate, conditional on prevalence"
+    ],
+    "correct": 3,
+    "explanation": "A download followed by an Office child process on the same host, and later outbound activity, supports escalation. Confidence is moderate because payload and delivery are unknown, and the finding depends on confirming that the destinations are rare in the saved rows. Missing mail data limits delivery questions, not the whole case.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In Part B, L06 shows WS-411 sending 51,300,000 bytes, and its baseline maximum is 26,500,000. Roughly how do they compare?",
+    "options": [
+      "About 1.2 times its previous maximum",
+      "About 1.9 times its previous maximum",
+      "About 2.6 times its previous maximum",
+      "About 3.1 times its previous maximum"
+    ],
+    "correct": 1,
+    "explanation": "51,300,000 divided by 26,500,000 is about 1.94, almost twice the previous maximum. That is a clear volume deviation, which is why Case 2 tests whether volume alone should decide the outcome.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is Case 2 benign even though WS-411's volume nearly doubled its previous maximum?",
+    "options": [
+      "Backup traffic is never relevant to a threat hunt",
+      "Transfers at around 01:00 UTC fall outside business hours and are ignored",
+      "All six hosts use the destination and a change record explains it",
+      "WS-411 is excluded from the peer group by the inventory"
+    ],
+    "correct": 2,
+    "explanation": "backup-vault.example is contacted nightly by all six hosts, so the destination is common, and CHG-SYN-2291 documents an expected one-time increase for WS-411 from 2026-10-20. Prevalence and dated enrichment together explain the deviation. Backup traffic and night-time transfers can still matter in other hunts.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the model outcome for Case 4, a connection between the gopal VPN authentication and WS-104?",
+    "options": [
+      "Positive, because both threads occurred that morning",
+      "Benign, because the threads involve different entities",
+      "Positive at low confidence, pending an inventory lookup",
+      "No-data, because no join key links the two threads"
+    ],
+    "correct": 3,
+    "explanation": "No shared host, identity or session field connects the records. Closeness in time is not evidence of a link, and inventory ownership would be enrichment. Different entities do not prove the threads are unrelated either, so the result is no-data, not benign.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Part A endpoint fact is timed only to the minute, 06:14. What is the consequence for Case 1?",
+    "options": [
+      "The gap after the 06:12:00 download is approximate",
+      "The endpoint event must be discarded as unreliable",
+      "The sequence must be reversed to match the proxy",
+      "The event must have occurred at exactly 06:14:00"
+    ],
+    "correct": 0,
+    "explanation": "With minute precision, the event falls somewhere in 06:14, so the gap after the download is about two minutes, not an exact figure. The order is still download first. Reduced precision limits the claim without making the record unusable.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the lab say about record identifiers for Part A facts?",
+    "options": [
+      "Assign identifiers P01 to P04 to the WS-104 rows",
+      "Use the identifiers listed in the evidence summary",
+      "Cite the summary, or cite exact lines in the saved log",
+      "Leave Part A facts uncited, since they come only from a summary"
+    ],
+    "correct": 2,
+    "explanation": "The lesson summary contains no row identifiers, so learners must not invent any. Facts are cited to the summary, and learners with access to the saved rows should confirm each fact and cite the real identifiers.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which condition must be confirmed in the saved Banyan rows before relying on the Case 1 finding?",
+    "options": [
+      "That mail logs show the file arriving before 06:12:00Z",
+      "That the endpoint host is WS-104 and destinations are rare",
+      "That gopal's VPN session reached WS-104 after 06:46:00Z",
+      "That the 48,200,000 bytes contained payroll records"
+    ],
+    "correct": 1,
+    "explanation": "The summary places the Office child process in the WS-104 thread but does not show the host field, and it does not report prevalence. Both conditions affect confidence. The other options need data the Banyan dataset does not contain.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What follow-up does the model finding give for Case 2?",
+    "options": [
+      "Escalate WS-411 to incident response for reimaging",
+      "Add backup-vault.example permanently to an allowlist",
+      "Request mail gateway logs for the backup window",
+      "Recheck that WS-411's next nightly volume returns to normal"
+    ],
+    "correct": 3,
+    "explanation": "The change record says the increase should happen once. Checking the next nightly volume confirms that the benign explanation holds. Permanent allowlisting would ignore the lesson on stale suppressions, and nothing calls for escalation.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does it mean that the lab is read-only and defensive?",
+    "options": [
+      "Learners analyze supplied records without contacting anything",
+      "Learners may run queries but cannot export any of the results",
+      "Learners may contact the .example domains to verify them",
+      "Learners can freely modify fixture rows to test their own hypotheses"
+    ],
+    "correct": 0,
+    "explanation": "The lab is a paper hunt over saved, fictional records. Learners do not reproduce activity, contact domains or addresses, or handle files. Queries are written as pseudocode and traced by hand rather than run.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How much of the 90-minute lab is allocated to Task 6, writing the hunt report?",
+    "options": [
+      "10 minutes",
+      "25 minutes",
+      "15 minutes",
+      "20 minutes"
+    ],
+    "correct": 1,
+    "explanation": "The plan is 10 minutes for hypotheses, 10 for data needs, 20 for queries, 10 for baselines, 15 for validation and 25 for the report. The report gets the largest share because it is where scope, provenance and reasoning are assessed.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A learner marks Case 2 positive because 51,300,000 bytes is nearly double WS-411's previous maximum. Which listed lab error is this?",
+    "options": [
+      "Merging the two Banyan threads into a single story",
+      "Reading a domain name as evidence of its content",
+      "Judging on volume alone, ignoring prevalence and enrichment",
+      "Inventing row identifiers for the summarized Banyan facts"
+    ],
+    "correct": 2,
+    "explanation": "The lab warns against closing or escalating Case 2 on volume alone. The destination is used by all six hosts, and a dated change record explains the increase. Size is one dimension, not a decision.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which data engineering handoff belongs with Case 3?",
+    "options": [
+      "Request mailbox audit logs for the gopal account",
+      "Request DHCP logs for the 203.0.113.66 address",
+      "Request proxy logs for the gopal session at 06:46",
+      "Request VPN session logging for later activity"
+    ],
+    "correct": 3,
+    "explanation": "The no-data part of Case 3 exists because VPN records contain no later session activity. Session logging would close that gap. DHCP covers internal addressing, not an external address, and proxy logs do not record VPN sessions.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does Case 3 split into parts 3a and 3b with different outcomes?",
+    "options": [
+      "One part has supporting records and the other has none",
+      "The two parts concern different source IP addresses",
+      "Part 3b was added after the lab had been scored",
+      "The rubric requires every case to have two parts"
+    ],
+    "correct": 0,
+    "explanation": "The authentication pattern is supported by the VPN summary, while post-authentication activity cannot be observed at all. Splitting shows that a positive finding and a visibility gap can coexist in one thread. Both parts involve 203.0.113.66.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Under the rubric, how is a report scored if it reaches the right outcomes but merges Part A and Part B provenance?",
+    "options": [
+      "Full marks, since the outcomes are what count most",
+      "A failing grade for the lab regardless of other criteria",
+      "Zero on every criterion listed in the rubric",
+      "No more than 2 on the relevant criterion"
+    ],
+    "correct": 3,
+    "explanation": "The rubric caps the relevant criterion at 2 when provenance is merged or confidence is overstated. It also says sound, documented reasoning with correct provenance can score well even with a different outcome, because reasoning matters as much as the label.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How long should the Summary section of the lab report be?",
+    "options": [
+      "No more than two sentences",
+      "No more than six sentences",
+      "No more than four sentences",
+      "No more than ten sentences"
+    ],
+    "correct": 1,
+    "explanation": "The summary gives the four cases, their outcomes and confidence in plain language in no more than six sentences. Detail belongs in the findings, limitations and handoff sections.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What carry-forward trigger does the model finding give for Case 4?",
+    "options": [
+      "Revisit when the WS-104 inventory owner is confirmed",
+      "Revisit after gopal's next successful VPN login",
+      "Revisit if records linking the VPN identity to a host appear",
+      "Revisit once mail gateway and mailbox audit data are added to the SIEM"
+    ],
+    "correct": 2,
+    "explanation": "The link question is blocked by the lack of a join key, so the trigger is data that would provide one, such as session, endpoint logon or identity provider records. Inventory ownership would still be enrichment, and mail data would not link a VPN identity to a host.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What spread of outcomes does the lab overview tell learners to expect across the four cases?",
+    "options": [
+      "One positive, one benign, two wholly or partly no-data",
+      "Four positives, since every case contains an anomaly",
+      "Two benign and two positive, with no no-data cases",
+      "Four no-data cases, since Banyan lacks mail logs"
+    ],
+    "correct": 0,
+    "explanation": "Case 1 is positive, Case 2 benign, Case 3 partly no-data and Case 4 no-data. The lab stresses that the goal is not to find something bad but to show each outcome follows from the records.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the word \"payroll\" in banyan-payroll-update.example not tell the analyst what was downloaded?",
+    "options": [
+      "The domain uses a reserved suffix that hides content",
+      "Payroll files are always too small to be significant",
+      "Proxy logs truncate domain names after a hyphen",
+      "A name is not evidence of what a download contained"
+    ],
+    "correct": 3,
+    "explanation": "Anyone can choose a domain name, and the dataset has no payload evidence. Treating names as content is one of the lab's listed errors. The .example suffix is used for fictional domains and hides nothing.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does lab rule 3 require?",
+    "options": [
+      "Read all records closely before writing any hypothesis",
+      "Write each hypothesis and refutation before close reading",
+      "Write hypotheses only after reading the model findings",
+      "Skip hypotheses for cases that look clearly benign"
+    ],
+    "correct": 1,
+    "explanation": "Writing the hypothesis and refuting evidence first is the module's main guard against confirmation bias. Reading the records closely first, or the model findings, would let the answer shape the question.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which baseline limitation does the Case 1 model finding record?",
+    "options": [
+      "The baseline uses the Part B synthetic peer values",
+      "The baseline covers 30 days of Banyan proxy data",
+      "The baseline is same-day only if no earlier dates exist",
+      "The baseline is built from the inventory's department labels for hosts"
+    ],
+    "correct": 2,
+    "explanation": "If the saved records hold only 2026-11-03, the only comparison available is across workstations on that day. Part B values must not be used for Banyan, and inventory labels define peers but are not a baseline of activity.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What note does the Case 2 model finding pass to detection engineering?",
+    "options": [
+      "Change-driven volume rises need owned, expiring suppressions",
+      "Backup destinations should be excluded from all hunts",
+      "Volume-only rules are sufficient for backup traffic",
+      "WS-411 should be permanently removed from the finance peer group"
+    ],
+    "correct": 0,
+    "explanation": "A volume rule would flag L06, but the increase is documented. A suppression process with an owner and an expiry date handles such cases without hiding future activity. Excluding backups from all hunts or removing WS-411 from its peers would create blind spots.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Case 1 model finding, what remains to be verified about the 18 cdn-telemetry-sync.example requests?",
+    "options": [
+      "Whether the requests carried payroll data outbound",
+      "Whether intervals are regular, by reading each timestamp",
+      "Whether gopal's VPN session generated the requests",
+      "Whether mail gateway logs show the domain inside a message body"
+    ],
+    "correct": 1,
+    "explanation": "The summary gives a start, an end and a count, which produce an average gap of about five minutes but say nothing about regularity. The individual timestamps settle that. Payload, VPN linkage and mail data are not available.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does lab rule 6 say about language in the report?",
+    "options": [
+      "Use \"malicious\" for any rare event to signal priority",
+      "Avoid using ATT&CK tactic names anywhere in the findings section",
+      "Rate every finding at moderate confidence by default",
+      "Avoid conclusion words unless the records support them"
+    ],
+    "correct": 3,
+    "explanation": "Calibrated language keeps claims in line with evidence. Words such as \"malicious,\" \"compromised\" and \"exfiltrated\" are conclusions and need support. Tactic names are acceptable when framed as hypotheses, and confidence depends on evidence, not a default.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which rubric criterion assesses keeping Part A and Part B separate, labeling claims and avoiding invented citations?",
+    "options": [
+      "Hypotheses and scope",
+      "Data and queries",
+      "Provenance and language",
+      "Outcomes and handoffs"
+    ],
+    "correct": 2,
+    "explanation": "The provenance and language criterion covers separation of evidence parts, OBSERVED, ENRICHMENT and INFERENCE labels, calibrated wording and honest citations. The other criteria cover hypotheses, data and queries, outcomes and handoffs.",
+    "lesson": 8,
+    "difficulty": "medium"
+  }
+]

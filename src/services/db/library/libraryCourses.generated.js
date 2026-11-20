@@ -4008,7 +4008,7 @@ export const LIBRARY_COURSES = [
    "70% on the course assessment",
    "capstone (investigation and shift report) rated at least Competent on every criterion"
   ],
-  "total_tokens_reward": 1100,
+  "total_tokens_reward": 1500,
   "milestone_cert": "RedKross Certificate of Completion - SOC Analyst and Security Operations",
   "lab_kit_url": "/downloads/labs/RedKross_C08_Lab_Kit.zip",
   "final_assessment": {
@@ -4017,7 +4017,7 @@ export const LIBRARY_COURSES = [
    "credential_title": "Certificate of Completion: SOC Analyst and Security Operations",
    "time_limit_minutes": 60,
    "passing_score": 70,
-   "total_questions": 40,
+   "total_questions": 50,
    "proctored": true,
    "token_bounty": 300,
    "skills_validated": [
@@ -4033,7 +4033,7 @@ export const LIBRARY_COURSES = [
    {
     "id": "mod_c08_1",
     "title": "Module 1: SOC operations",
-    "description": "Every day, an organisation's systems generate millions of events. Somewhere among them may be the first signs of an attack: an odd process on a laptop, a burst of failed logins, a small regular connection to an unknown domain.",
+    "description": "How a security operations centre is organised and run: the tiered team and its roles, how an alert moves from detection to closure, the analyst's daily workflow and shift handover, the service levels and metrics that measure the SOC, and the tooling that connects it all.",
     "order": 1,
     "quiz": {
      "id": "quiz_c08_m1",
@@ -4041,290 +4041,272 @@ export const LIBRARY_COURSES = [
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m1_orientation",
-      "title": "Course orientation: labs, safety and standards",
-      "duration": "15 mins",
+      "id": "les_c08_m01_l01",
+      "title": "1.1 SOC tiers",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "How the course labs work, the safety and authorisation rules, and the standards the course follows.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_orientation.md"
-     },
-     {
-      "id": "les_c08_m1_overview",
-      "title": "1.0 Module overview",
-      "duration": "15 mins",
-      "is_mandatory": true,
-      "summary": "Every day, an organisation's systems generate millions of events.",
+      "summary": "Why a SOC is organised in tiers, what Tier 1, Tier 2 and Tier 3 each own, how cases escalate up and lessons flow back down, and how functional teams and automation reshape the classic model.",
       "learning_objectives": [
-       "Explain the mission and functions of a SOC",
-       "Describe tiered and functional SOC models and the responsibilities of each role",
-       "Trace the alert lifecycle from generation to closure",
-       "Describe an analyst's shift workflow, handover and documentation",
-       "Interpret SOC metrics and their pitfalls",
-       "Compute basic SOC metrics from synthetic case data"
+       "Explain the SOC's mission and why a tiered structure is used to handle alert volume",
+       "Describe the responsibilities and decision rights of Tier 1, Tier 2, Tier 3 and the SOC lead",
+       "Apply written escalation criteria to decide whether a Tier 1 analyst should close or escalate an alert",
+       "Compare the classic tiered model with functional-team SOCs and automation",
+       "Interpret a prioritised Tier 1 queue from the course lab and group related alerts into a case"
       ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_overview.md"
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l01.md"
      },
      {
-      "id": "les_c08_m1_l01",
-      "title": "1.1 What a SOC does",
-      "duration": "40 mins",
+      "id": "les_c08_m01_l02",
+      "title": "1.2 Roles",
+      "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "MITRE's guide \"11 Strategies of a World-Class Cybersecurity Operations Center\" describes a SOC as a team primarily composed of security analysts organised to detect, analyse, respond to, report on and prevent cybersecurity incidents.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l01.md"
+      "summary": "The roles in and around a SOC: analysis and response roles, the engineering roles that keep detection working, the outside teams that hold authority to act, RACI matrices, and how roles are split with MSSP and MDR providers.",
+      "learning_objectives": [
+       "Describe the responsibilities and decision rights of analyst, shift lead, incident responder and specialist roles",
+       "Explain why detection, threat intelligence, SOAR and platform engineering roles are essential to a SOC",
+       "Identify the SOC's interfaces with IT operations, identity, legal and compliance, communications and external parties",
+       "Construct a RACI matrix with exactly one Accountable role per activity",
+       "Evaluate what an MSSP or MDR contract must specify about roles and responsibilities"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l02.md"
      },
      {
-      "id": "les_c08_m1_l02",
-      "title": "1.2 SOC models, tiers and roles",
-      "duration": "40 mins",
+      "id": "les_c08_m01_l03",
+      "title": "1.3 Alert lifecycle",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "2.2.1 Delivery models In-house full control and context; costly; hard to staff 24x7.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l02.md"
+      "summary": "Follows an alert from generation through queueing, triage, investigation, disposition, escalation and closure to feedback, using the Banyan lab queue to show why priority order is not event order.",
+      "learning_objectives": [
+       "Describe the eight stages of the alert lifecycle and the output of each",
+       "Distinguish true positive, benign true positive, false positive and undetermined dispositions and the action each requires",
+       "Explain alert states, ownership and acknowledged escalation in a case system",
+       "Group the minisiem and triage.py alerts into cases and reconstruct them in event-time order",
+       "Write a closure note that answers what happened, what evidence supports it, what was done and what should change"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l03.md"
      },
      {
-      "id": "les_c08_m1_l03",
-      "title": "1.3 The alert lifecycle",
-      "duration": "40 mins",
+      "id": "les_c08_m01_l04",
+      "title": "1.4 Analyst workflow",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "1.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l03.md"
+      "summary": "The analyst's shift as a repeatable workflow: orientation and log-source health checks, the per-alert loop, time boxes and early escalation, documentation as you go, evidence preservation and escalation notes.",
+      "learning_objectives": [
+       "Carry out start-of-shift orientation, including a log-source health check in minisiem",
+       "Apply a consistent per-alert loop inside a time box and escalate early when impact may be high",
+       "Write a defensible case note with UTC times, exact queries, evidence references and labelled assessments",
+       "Preserve case evidence with a hash and custody record using evidence_export.py",
+       "Recognise anchoring, confirmation bias and alert fatigue and the workflow habits that counter them"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l04.md"
      },
      {
-      "id": "les_c08_m1_l04",
-      "title": "1.4 The analyst workflow and shift handover",
-      "duration": "40 mins",
+      "id": "les_c08_m01_l05",
+      "title": "1.5 Shift handover",
+      "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "Start of shift: read the handover; check open cases, SIEM health (are all log sources reporting?), threat intelligence updates and change calendars.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l04.md"
+      "summary": "How a SOC transfers situational awareness, open work and case ownership from one shift to the next without losing anything, using a written note, a verbal briefing with read-back and acknowledged reassignment.",
+      "learning_objectives": [
+       "Explain why shift boundaries are a point of operational risk and the failure modes that cause handover gaps",
+       "Carry out a handover in the correct order: update cases, publish the note, brief with read-back, reassign and acknowledge ownership",
+       "Write a handover note using the seven-section template, separating facts from assessments",
+       "Check platform health with the course mini-SIEM and report it in a handover",
+       "Describe controls that make handover failures visible, such as alerts on unacknowledged critical cases"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l05.md"
      },
      {
-      "id": "les_c08_m1_l05",
-      "title": "1.5 SOC metrics",
-      "duration": "40 mins",
+      "id": "les_c08_m01_l06",
+      "title": "1.6 SLAs",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "MTTD mean time to detect (event to alert/notice).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l05.md"
+      "summary": "What a SOC service level agreement defines, how its timers start, stop, pause, warn and breach, how severity sets the targets, and how SLAs fit regulatory clocks such as CERT-In's six-hour reporting rule.",
+      "learning_objectives": [
+       "Distinguish an SLA from SLOs, OLAs, underpinning contracts and aggregate SOC metrics",
+       "Define start, stop and pause events for acknowledgement, triage, notification and resolution targets",
+       "Build a severity-based SLA matrix and apply it to cases in the queue",
+       "Check per-case SLA compliance from the lab kit's synthetic case data and interpret breaches",
+       "Identify ways SLAs are gamed and the quality controls that counter them"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l06.md"
      },
      {
-      "id": "les_c08_m1_l06",
-      "title": "1.6 Tools and the course dataset",
-      "duration": "40 mins",
+      "id": "les_c08_m01_l07",
+      "title": "1.7 Metrics",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Typical SOC toolset: SIEM (log search, correlation), EDR (endpoint detection and response), NDR/IDS (network detection), SOAR (automation), case management/ticketing, threat intelligence platform, sandbox.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_l06.md"
+      "summary": "How a SOC measures speed, quality, coverage and capacity, computing MTTA, MTTR and false-positive share from synthetic cases with soc_metrics.py and showing why the median and mean must be read together.",
+      "learning_objectives": [
+       "Define MTTD, MTTA, MTTR, false-positive share and coverage with explicit start and stop points",
+       "Compute MTTA and MTTR means and medians from case records using soc_metrics.py",
+       "Interpret the effect of outliers and identify the cases behind an average",
+       "Explain how metrics change behaviour and pair speed metrics with quality measures"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l07.md"
      },
      {
-      "id": "les_c08_m1_deepdive",
-      "title": "Technical deep dive: Computing SOC Metrics",
-      "duration": "40 mins",
+      "id": "les_c08_m01_l08",
+      "title": "1.8 SOC tooling map",
+      "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_deepdive.md"
-     },
-     {
-      "id": "les_c08_m1_cases",
-      "title": "Real-world case studies",
-      "duration": "30 mins",
-      "is_mandatory": true,
-      "summary": "Target, 2013 - alerts without effective response; (FICTIONAL TEACHING SCENARIO): The 2 a.m. handover gap",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_cases.md"
-     },
-     {
-      "id": "les_c08_m1_lab",
-      "title": "Hands-on practicals",
-      "duration": "65 mins",
-      "is_mandatory": true,
-      "summary": "Set up the course lab and explore the dataset; Metrics and a shift handover",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_lab.md"
-     },
-     {
-      "id": "les_c08_m1_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
-      "is_mandatory": true,
-      "summary": "Tiered SOC structure; Alert lifecycle; Mean versus median MTTA (execution-tested data)",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_visuals.md"
-     },
-     {
-      "id": "les_c08_m1_scenarios",
-      "title": "Scenario practice",
-      "duration": "20 mins",
-      "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_scenarios.md"
-     },
-     {
-      "id": "les_c08_m1_revision",
-      "title": "Revision",
-      "duration": "20 mins",
-      "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m1_revision.md"
+      "summary": "The SOC's tools as a connected system: telemetry and collection, SIEM, EDR and NDR, case management, SOAR and context sources, the data flows between them, and how each maps onto the course lab kit.",
+      "learning_objectives": [
+       "Describe the function of each major SOC tool category",
+       "Trace an alert across the tooling map from telemetry to closure and metrics",
+       "Build a tooling map with owners, health checks and failure impact for each integration",
+       "Explain how SOC tools are protected and how attempts to blind the SOC are detected",
+       "Map each course lab kit script to its real-world tool category"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m01_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_2",
-    "title": "Module 2: Telemetry foundations",
-    "description": "Telemetry is the data systems emit about what they are doing. A SOC can only detect what its telemetry records.",
+    "title": "Module 2: Telemetry",
+    "description": "The raw material of security operations: what endpoint, network, identity and cloud sources record, which event fields matter and how to read them, why timestamps and time zones make or break an investigation, and how collection pipelines move telemetry reliably into the SIEM.",
     "order": 2,
     "quiz": {
      "id": "quiz_c08_m2",
-     "title": "Module 2: Telemetry foundations - Assessment",
+     "title": "Module 2: Telemetry - Assessment",
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m2_overview",
-      "title": "2.0 Module overview",
-      "duration": "15 mins",
+      "id": "les_c08_m02_l01",
+      "title": "2.1 Endpoint logs",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Telemetry is the data systems emit about what they are doing.",
+      "summary": "What endpoints record about execution, change, access and their own defences: Windows Security and PowerShell logs, Sysmon, Linux auth logs and auditd, and EDR, read through the lab's WS-104 events.",
       "learning_objectives": [
-       "Describe endpoint, network and identity telemetry and what each shows",
-       "Identify key event fields for common sources",
-       "Normalise timestamps to UTC and explain time-zone and clock risks",
-       "Design a collection pipeline with reliability and integrity",
-       "Assess telemetry coverage against threats",
-       "Build a basic multi-source timeline"
+       "Explain what execution, change, access and defence evidence endpoint telemetry provides and why it complements network logs",
+       "Identify the core Windows Security, PowerShell and Sysmon event IDs and the fields each carries",
+       "Describe how audit policy, Sysmon configuration and forwarding decide which endpoint events reach the SIEM",
+       "Apply parent-child stacking to the lab dataset to isolate an anomalous process",
+       "Interpret a per-host endpoint timeline and recognise the gaps left by missing sources"
       ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_overview.md"
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l01.md"
      },
      {
-      "id": "les_c08_m2_l01",
-      "title": "2.1 Endpoint telemetry",
-      "duration": "40 mins",
+      "id": "les_c08_m02_l02",
+      "title": "2.2 Network logs",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Sources: Windows Security/System logs (Course 03 Module 7), PowerShell logs (4103/4104), Sysmon (process creation event 1 with command line and parent, network connection 3, file creation 11, registry 12-14 and others), Linux auth logs/jour",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_l01.md"
+      "summary": "What firewall, proxy, DNS, DHCP, flow, NSM/IDS and packet-capture telemetry record, how vantage points decide what is visible, what encryption hides, and how proxy metadata exposes a beacon and an exfiltration in the lab.",
+      "learning_objectives": [
+       "Describe the fields and limitations of firewall, proxy, DNS, flow, NSM/IDS and packet-capture telemetry",
+       "Explain how vantage-point placement determines which traffic paths are observed",
+       "Distinguish what TLS encryption hides from the metadata that remains visible",
+       "Attribute a network event to a host and user using DHCP and endpoint evidence",
+       "Analyse proxy logs from the lab for rare destinations, beaconing and large uploads"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l02.md"
      },
      {
-      "id": "les_c08_m2_l02",
-      "title": "2.2 Network telemetry",
-      "duration": "40 mins",
+      "id": "les_c08_m02_l03",
+      "title": "2.3 Identity logs",
+      "duration": "65 mins",
       "is_mandatory": true,
-      "summary": "Firewall logs allowed/denied connections (5-tuple).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_l02.md"
+      "summary": "How Windows and Active Directory authentication events, identity provider sign-in logs and VPN records show who authenticated, how, from where and with what result, read through the Banyan dataset's password spray.",
+      "learning_objectives": [
+       "Explain which machine writes 4624, 4625, 4768, 4769, 4771 and 4776 during a domain logon",
+       "Interpret logon types and common 4625 failure status codes",
+       "Describe the fields and categories of an identity provider sign-in log",
+       "Detect password spraying by counting distinct users per source in VPN logs",
+       "Distinguish benign authentication failures from attack patterns during triage"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l03.md"
      },
      {
-      "id": "les_c08_m2_l03",
-      "title": "2.3 Identity and cloud telemetry",
-      "duration": "40 mins",
+      "id": "les_c08_m02_l04",
+      "title": "2.4 Cloud logs",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Directory/IdP sign-ins, MFA results, risky sign-ins, account and group changes (Active Directory events, Entra ID sign-in logs).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_l03.md"
+      "summary": "How AWS CloudTrail, Azure Activity and resource logs and Google Cloud Audit Logs record control-plane and data-plane activity, what is collected by default, and how to read and route cloud audit records.",
+      "learning_objectives": [
+       "Distinguish control-plane from data-plane logging and explain why the difference matters",
+       "Read a CloudTrail record field by field and resolve assumed roles to the real identity",
+       "Compare the equivalent audit logs, default retention and SIEM routes in AWS, Azure and Google Cloud",
+       "Identify high-signal cloud events such as logging tampering, new credentials and permission changes",
+       "Assess cloud log coverage gaps and map cloud fields to a normalised schema"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l04.md"
      },
      {
-      "id": "les_c08_m2_l04",
-      "title": "2.4 Event fields and identifiers",
-      "duration": "40 mins",
+      "id": "les_c08_m02_l05",
+      "title": "2.5 Event fields",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Common fields: timestamp; source/provider; event type/ID; host; user (and domain/SID); source and destination IP and port; process image, command line, parent, process ID and GUID; URL/domain; outcome; bytes; rule or signature ID.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_l04.md"
+      "summary": "How to read security event fields correctly, why the same field name can mean different things in different sources, and how ECS-style normalisation gives every source one searchable vocabulary.",
+      "learning_objectives": [
+       "Classify the fields of an event into when, where, who, what, how, outcome and provenance families",
+       "Identify field-semantics traps such as perspective, subject versus target, placeholders and encoded values in the Banyan dataset",
+       "Choose stable identifiers for joining events across sources and explain when a time window is required",
+       "Map source-specific fields to ECS-style normalised names and justify each mapping",
+       "Run normalise_demo.py and interpret how normalisation links a firewall drop and a VPN login from the same address"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l05.md"
      },
      {
-      "id": "les_c08_m2_l05",
-      "title": "2.5 Timestamps and time zones",
-      "duration": "40 mins",
+      "id": "les_c08_m02_l06",
+      "title": "2.6 Timestamps",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Store and compare in UTC; display in local time if needed.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_l05.md"
+      "summary": "Why timestamps make or break an investigation: UTC versus local time (IST +05:30), ISO 8601 and other log formats, clock drift and NTP, event versus ingest time, and the pitfalls of ordering events.",
+      "learning_objectives": [
+       "Convert timestamps between IST and UTC and write them in ISO 8601 / RFC 3339 form",
+       "Explain why naive timestamps, classic syslog times and epoch values need explicit handling at ingestion",
+       "Describe clock drift, skew and NTP synchronisation, including the CERT-In requirement for NIC/NPL-traceable time",
+       "Distinguish event time from ingest time and explain how late-arriving events can evade scheduled rules",
+       "Build a correctly ordered multi-source timeline, accounting for precision, ties and cross-host skew"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l06.md"
      },
      {
-      "id": "les_c08_m2_l06",
-      "title": "2.6 Collection pipelines and coverage",
-      "duration": "40 mins",
+      "id": "les_c08_m02_l07",
+      "title": "2.7 Collection pipelines",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Pipeline stages: source -> collection (agent, syslog, API pull, WEF) -> transport (encrypted, buffered) -> parsing/normalisation -> storage (hot for search, cold for retention) -> analytics.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_l06.md"
+      "summary": "How collection pipelines move telemetry from source to SIEM: agent-based and agentless collection, WEF, syslog and Beats/Elastic Agent forwarders, buffering and delivery guarantees, parsing at ingest, and source-health monitoring to detect silent loss.",
+      "learning_objectives": [
+       "Explain the stages of a collection pipeline and how each can lose, delay or duplicate events",
+       "Compare agent-based and agentless collection and choose a method for each source type",
+       "Describe how WEF, syslog and Beats/Elastic Agent forward events and their reliability limits",
+       "Explain buffering, back-pressure and at-most-once versus at-least-once delivery",
+       "Design source-health checks for presence, volume, completeness and ingestion lag"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l07.md"
      },
      {
-      "id": "les_c08_m2_deepdive",
-      "title": "Technical deep dive: A First Timeline from the Dataset",
-      "duration": "45 mins",
+      "id": "les_c08_m02_l08",
+      "title": "2.8 Telemetry lab",
+      "duration": "75 mins",
       "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_deepdive.md"
-     },
-     {
-      "id": "les_c08_m2_cases",
-      "title": "Real-world case studies",
-      "duration": "30 mins",
-      "is_mandatory": true,
-      "summary": "Equifax, 2017 - a telemetry blind spot; (FICTIONAL TEACHING SCENARIO): The one-hour offset",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_cases.md"
-     },
-     {
-      "id": "les_c08_m2_lab",
-      "title": "Hands-on practicals",
-      "duration": "70 mins",
-      "is_mandatory": true,
-      "summary": "Build a multi-source timeline; Telemetry coverage map",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_lab.md"
-     },
-     {
-      "id": "les_c08_m2_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
-      "is_mandatory": true,
-      "summary": "Telemetry families; Collection pipeline; Same instant, two clocks",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_visuals.md"
-     },
-     {
-      "id": "les_c08_m2_scenarios",
-      "title": "Scenario practice",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_scenarios.md"
-     },
-     {
-      "id": "les_c08_m2_revision",
-      "title": "Revision",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m2_revision.md"
+      "summary": "A hands-on telemetry lab with the C08 kit: regenerate and hash the Banyan dataset, ingest it with minisiem.py, run source-health checks for inventory, volume, silence, per-host gaps and field completeness, watch normalise_demo.py parse two raw formats, and inject an outage, a malformed record and duplicates.",
+      "learning_objectives": [
+       "Regenerate and verify the lab dataset and confirm events written equal events loaded",
+       "Run source-health searches for inventory, hourly volume, silence and per-host gaps with minisiem.py",
+       "Interpret field-completeness results against a baseline, including placeholder values",
+       "Explain how normalise_demo.py converts a local-time syslog line and a JSON record into one UTC schema",
+       "Inject outage, parse-failure and duplicate faults and show which checks detect each"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m02_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_3",
     "title": "Module 3: SIEM fundamentals",
-    "description": "A security information and event management (SIEM) platform collects events from many sources, turns them into a consistent searchable form, correlates them to find patterns no single source shows, and presents dashboards and alerts. Commercial and open-source SIEMs differ in query languages and features (Splunk SPL, Microsoft Sentinel KQL, Elastic, Wazuh, Security Onion and others), but the concepts are the same.",
+    "description": "How a SIEM turns raw telemetry into answers: ingestion and parsing, normalisation to a common schema, correlation rules that join events across sources and time, dashboards and search for investigation, and retention that balances cost, compliance and forensic need - finishing with a hands-on SIEM lab.",
     "order": 3,
     "quiz": {
      "id": "quiz_c08_m3",
@@ -4332,895 +4314,1309 @@ export const LIBRARY_COURSES = [
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m3_overview",
-      "title": "3.0 Module overview",
-      "duration": "15 mins",
+      "id": "les_c08_m03_l01",
+      "title": "3.1 Ingestion",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "A security information and event management (SIEM) platform collects events from many sources, turns them into a consistent searchable form, correlates them to find patterns no single source shows, and presents dashboards and alerts.",
+      "summary": "What a SIEM does between receiving an event and making it searchable: receiving, event breaking, source labelling, event and ingest time, routing and indexing, with volume and cost decisions, explored by loading and deliberately breaking the Banyan dataset in minisiem.",
       "learning_objectives": [
-       "Explain ingestion, parsing, normalisation, enrichment, indexing and retention",
-       "Parse heterogeneous raw logs into a common schema",
-       "Write searches that filter, aggregate and join events",
-       "Explain and implement correlation rules across sources",
-       "Design useful dashboards and avoid misleading ones",
-       "Operate SIEM health checks"
+       "Describe the stages of SIEM ingestion and the filing decision each one makes",
+       "Compare how Splunk, Elastic, Microsoft Sentinel and Wazuh name the same ingestion stages",
+       "Explain why routing to an index or table is a retention, access and detection control",
+       "Estimate ingest volume from EPS and event size and assess the detection risk of volume reductions",
+       "Interpret minisiem load results, including duplicate and malformed-input failures"
       ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_overview.md"
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l01.md"
      },
      {
-      "id": "les_c08_m3_l01",
-      "title": "3.1 SIEM architecture",
-      "duration": "45 mins",
+      "id": "les_c08_m03_l02",
+      "title": "3.2 Parsing",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Components: collectors/forwarders; ingestion pipeline (parsing, normalisation, enrichment); storage and index (hot/warm/cold tiers); search engine and query language; analytics (correlation rules, anomaly models); alerting and case integrat",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_l01.md"
+      "summary": "How parsers turn raw syslog, key-value, CSV, JSON, XML and CEF records into typed fields, why positional patterns break, and how to build, test and monitor parsers that tag failures instead of losing events, shown by stress-testing the kit's firewall parser.",
+      "learning_objectives": [
+       "Match raw format families to suitable extraction techniques such as regex, grok, dissect, key-value and structured decoding",
+       "Explain how anchoring, greediness and backtracking affect regex parser correctness and performance",
+       "Diagnose parse failures from test-harness output and identify the assumption that failed",
+       "Design a parser that tags and keeps failed and partial events and exposes a failure metric",
+       "Apply golden-sample testing and defences against log injection and regex denial of service"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l02.md"
      },
      {
-      "id": "les_c08_m3_l02",
-      "title": "3.2 Ingestion and parsing",
-      "duration": "45 mins",
+      "id": "les_c08_m03_l03",
+      "title": "3.3 Normalization",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Raw logs arrive in many formats: syslog text, JSON, Windows XML, CSV, vendor formats.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_l02.md"
+      "summary": "How a SIEM maps many vendors' field names, values and event types onto one common schema (ECS concepts, field mapping) and adds asset, identity, geo and intelligence context through enrichment.",
+      "learning_objectives": [
+       "Explain why normalisation is needed and how ECS field sets, categorisation fields and other schemas (OCSF, CIM, ASIM) organise events",
+       "Write a field mapping for a new source, covering names, values, types, case, placeholders and time",
+       "Build and interpret a field coverage matrix to see which sources fill each correlation key",
+       "Design enrichment from asset, identity, geolocation and threat-intelligence sources, choosing ingest-time or search-time lookup",
+       "Identify normalisation and enrichment failures that create silent detection gaps"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l03.md"
      },
      {
-      "id": "les_c08_m3_l03",
-      "title": "3.3 Normalisation and enrichment",
-      "duration": "45 mins",
+      "id": "les_c08_m03_l04",
+      "title": "3.4 Correlation",
+      "duration": "65 mins",
       "is_mandatory": true,
-      "summary": "Normalisation maps source-specific names to a common schema so one search covers all sources.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_l03.md"
+      "summary": "How correlation rules join events across sources, time windows and shared entities, studied through the lab SIEM's six rules (R1-R6) and windowed, cross-source, entity-aggregation and absence variants.",
+      "learning_objectives": [
+       "Distinguish single-event, threshold, sequence, combination, absence and entity risk aggregation rules",
+       "Read a sequence rule line by line and explain its entity join, order condition, distinct count and threshold",
+       "Choose and test time windows, and explain the trade-offs of sliding and tumbling windows",
+       "Write a cross-source correlation query on a normalised entity and interpret its result",
+       "Explain how adversaries try to stay outside rule assumptions and how layered rules and preventive controls respond"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l04.md"
      },
      {
-      "id": "les_c08_m3_l04",
-      "title": "3.4 Searching",
-      "duration": "45 mins",
+      "id": "les_c08_m03_l05",
+      "title": "3.5 Dashboards",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Every SIEM language supports the same operations, shown here in SQL with rough equivalents: Filter WHERE source='vpn' AND outcome='failure' (SPL: source=vpn outcome=failure; KQL: | where ...)",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_l04.md"
+      "summary": "How to design purpose-driven SOC dashboards from operational questions, what to show and what to leave out, and why dashboards inform rather than detect, using real minisiem panels from the Banyan dataset.",
+      "learning_objectives": [
+       "Distinguish the three jobs of SOC dashboards and match dashboard families to their audiences",
+       "Design a panel from a question, audience, action, baseline, threshold and owner",
+       "Build queue, health, activity and top-N panels as minisiem queries and interpret their output",
+       "Explain why the Banyan intrusion hour is invisible on a volume chart and which panels to avoid",
+       "Assess dashboards for data exposure, search load, time-zone and integrity risks"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l05.md"
      },
      {
-      "id": "les_c08_m3_l05",
-      "title": "3.5 Correlation",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Correlation links events across time, sources and entities.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_l05.md"
-     },
-     {
-      "id": "les_c08_m3_l06",
-      "title": "3.6 Dashboards and SIEM health",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Dashboards should answer operational questions: open alerts by severity and age; top rules by volume (tuning candidates); log-source health (last event time per source); authentication failures over time; unusual outbound data.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_l06.md"
-     },
-     {
-      "id": "les_c08_m3_deepdive",
-      "title": "Technical deep dive: Minisiem Internals",
-      "duration": "50 mins",
-      "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_deepdive.md"
-     },
-     {
-      "id": "les_c08_m3_cases",
-      "title": "Real-world case studies",
-      "duration": "35 mins",
-      "is_mandatory": true,
-      "summary": "Customer audit logging in the 2023 Exchange Online intrusion; (FICTIONAL TEACHING SCENARIO): The parser update",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_cases.md"
-     },
-     {
-      "id": "les_c08_m3_lab",
-      "title": "Hands-on practicals",
+      "id": "les_c08_m03_l06",
+      "title": "3.6 Searching",
       "duration": "70 mins",
       "is_mandatory": true,
-      "summary": "Write searches and a correlation rule; Normalise a new source",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_lab.md"
+      "summary": "Query thinking for investigations: time ranges, filters, aggregations, stacking and pivoting across sources, practised with minisiem's SQL search over the Banyan dataset and related to pipeline languages such as SPL, KQL and ES|QL.",
+      "learning_objectives": [
+       "Apply the question, time range, filter, inspect, aggregate, pivot and record loop to an investigative question",
+       "Diagnose search errors caused by letter case, wildcards, null fields and time zones",
+       "Use COUNT DISTINCT, MIN/MAX, HAVING and stacking to find rare and regular values",
+       "Pivot on hosts, users and addresses across proxy, Sysmon, Windows and VPN events to scope an incident",
+       "Explain the security and privacy controls that SIEM search access requires"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l06.md"
      },
      {
-      "id": "les_c08_m3_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
+      "id": "les_c08_m03_l07",
+      "title": "3.7 Retention",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "SIEM data flow; Correlating by a shared entity; Query building blocks across languages",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_visuals.md"
+      "summary": "How long SIEM data is kept and where: hot, warm, cold and archive tiers, their cost, legal floors such as the CERT-In 180-day log retention and privacy ceilings, and the forensic value lost when retention is too short.",
+      "learning_objectives": [
+       "Explain the four purposes of telemetry retention and the minimum each sets",
+       "Describe how hot, warm, cold and archive tiers and lifecycle policies trade search speed for cost",
+       "Apply legal and regulatory requirements, including the CERT-In 180-day direction and DPDP limits, to a retention schedule",
+       "Demonstrate with the lab kit how a retention purge removes an intrusion's root cause and breaks lookback rules",
+       "Design a per-data-class retention schedule with protected, tested archives"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l07.md"
      },
      {
-      "id": "les_c08_m3_scenarios",
-      "title": "Scenario practice",
-      "duration": "25 mins",
+      "id": "les_c08_m03_l08",
+      "title": "3.8 SIEM lab (Wazuh, Elastic)",
+      "duration": "90 mins",
       "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_scenarios.md"
-     },
-     {
-      "id": "les_c08_m3_revision",
-      "title": "Revision",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m3_revision.md"
+      "summary": "A hands-on investigation in the course's minisiem: load and orient, run rules, pivot, write and test a cross-source correlation rule, build a timeline and dashboard panels, export hashed evidence, then map the exercise onto Wazuh and Elastic.",
+      "learning_objectives": [
+       "Run and interpret saved correlation rules over a multi-source dataset",
+       "Pivot from an alert by IP and host to reconstruct a cross-source incident timeline",
+       "Write and boundary-test a time-windowed correlation rule",
+       "Export case evidence with a SHA-256 hash and custody record",
+       "Map each lab stage onto the components of a Wazuh or Elastic single-node lab"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m03_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_4",
-    "title": "Module 4: Alert triage",
-    "description": "Triage is the decision, made many times a shift, about what an alert means and what happens next: close it, tune it, investigate further or escalate it as an incident. Good triage is fast without being careless.",
+    "title": "Module 4: Log analysis",
+    "description": "Reading the logs an analyst meets every day - Windows events, Linux authentication, web server, firewall, DNS and proxy logs - recognising normal from suspicious in each, and writing precise queries across them, ending with a hands-on log analysis lab on the course dataset.",
     "order": 4,
     "quiz": {
      "id": "quiz_c08_m4",
-     "title": "Module 4: Alert triage - Assessment",
+     "title": "Module 4: Log analysis - Assessment",
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m4_overview",
-      "title": "4.0 Module overview",
-      "duration": "15 mins",
+      "id": "les_c08_m04_l01",
+      "title": "4.1 Windows event analysis",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Triage is the decision, made many times a shift, about what an alert means and what happens next: close it, tune it, investigate further or escalate it as an incident.",
+      "summary": "How to analyse Windows Security events rather than just recognise them: a seven-step reading method, actor-versus-target field reading, normal and suspicious patterns per event family, the four shapes of failed logons, and a worked analysis of the Banyan WS-104 chain with dwell gaps and absence checks.",
       "learning_objectives": [
-       "Assign severity and priority using impact, confidence and asset context",
-       "Enrich alerts with asset, identity, network and history data",
-       "Validate alerts by gathering corroborating or refuting evidence",
-       "Classify outcomes (true positive, benign true positive, false positive)",
-       "Group related alerts into one case",
-       "Handle false positives through documented tuning and suppression with expiry"
+       "Apply a repeatable method (question, inventory, baseline, deviation, chain, absence, context) to a Windows alert",
+       "Distinguish the actor from the target in 4624, 4720, 4732 and 1102 events",
+       "Classify groups of failed logons as typing errors, stale credentials, brute force or password spraying",
+       "Reconstruct and interpret an event chain on one host using dwell gaps and peer baselines",
+       "State accurately what the absence of an event does and does not show"
       ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_overview.md"
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l01.md"
      },
      {
-      "id": "les_c08_m4_l01",
-      "title": "4.1 Severity versus priority",
-      "duration": "45 mins",
+      "id": "les_c08_m04_l02",
+      "title": "4.2 Linux auth logs",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Severity describes how bad the detected behaviour would be if it is real.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_l01.md"
+      "summary": "Reading Linux authentication logs in auth.log, secure and the journal: the anatomy of a syslog line, how one SSH login appears across sshd, PAM and systemd-logind, sudo and account-tool lines, separating internet noise from targeted guessing, and a worked analysis of an illustrative compromised server.",
+      "learning_objectives": [
+       "Interpret sshd, PAM, sudo, su, logind and account-tool lines field by field",
+       "Reconstruct an SSH session using the sshd PID and the logind session number",
+       "Separate background SSH noise from targeted guessing and from a success after failures",
+       "Extract failures, successes, sudo commands and account changes with grep, awk and journalctl",
+       "Identify the limits of auth.log evidence, such as SSH keys written as files"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l02.md"
      },
      {
-      "id": "les_c08_m4_l02",
-      "title": "4.2 A triage workflow",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "A repeatable workflow keeps quality consistent across analysts and shifts: 1.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_l02.md"
-     },
-     {
-      "id": "les_c08_m4_l03",
-      "title": "4.3 Enrichment",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Typical enrichment sources: Asset CMDB or asset inventory: owner, function, criticality, location, OS, internet exposure.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_l03.md"
-     },
-     {
-      "id": "les_c08_m4_l04",
-      "title": "4.4 Validation",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Validation means looking at the evidence behind an alert and asking what else would be true if the alert were real, and whether that is present.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_l04.md"
-     },
-     {
-      "id": "les_c08_m4_l05",
-      "title": "4.5 Dispositions and grouping",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Dispositions (names vary by SOC): True positive (TP) real malicious or policy-violating activity.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_l05.md"
-     },
-     {
-      "id": "les_c08_m4_l06",
-      "title": "4.6 False-positive handling and tuning",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Every false positive costs analyst time, and too many lead to alert fatigue, where real alerts are dismissed.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_l06.md"
-     },
-     {
-      "id": "les_c08_m4_deepdive",
-      "title": "Technical deep dive: Anatomy of the Triage Helper",
-      "duration": "50 mins",
-      "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_deepdive.md"
-     },
-     {
-      "id": "les_c08_m4_cases",
-      "title": "Real-world case studies",
-      "duration": "35 mins",
-      "is_mandatory": true,
-      "summary": "FireEye, 2020 - following up a \"routine\" alert; (FICTIONAL TEACHING SCENARIO): The muted rule",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_cases.md"
-     },
-     {
-      "id": "les_c08_m4_lab",
-      "title": "Hands-on practicals",
+      "id": "les_c08_m04_l03",
+      "title": "4.3 Web server logs",
       "duration": "70 mins",
       "is_mandatory": true,
-      "summary": "Triage the Banyan queue; Add grouping and a suppression review",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_lab.md"
+      "summary": "How to read web server access and error logs as an analyst: the Combined Log Format field by field, status codes and response sizes, client addresses behind proxies and self-declared user agents, and how to recognise content discovery, path traversal and injection attempts and judge from the server's answer whether they succeeded, while ruling out benign look-alikes.",
+      "learning_objectives": [
+       "Interpret each field of a Combined Log Format access-log line and of an nginx error-log line",
+       "Explain what each HTTP status class reveals about how far a suspicious request reached",
+       "Recognise content discovery, path traversal and injection attempts in encoded request lines",
+       "Distinguish scanning and injection attempts from crawlers, health checks, authorised scans and ordinary user input",
+       "Analyse an access log with command-line counts to reconstruct one source's activity and decide the next action"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l03.md"
      },
      {
-      "id": "les_c08_m4_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
+      "id": "les_c08_m04_l04",
+      "title": "4.4 Firewall logs",
+      "duration": "70 mins",
       "is_mandatory": true,
-      "summary": "Triage decision flow; Priority calculation; One case from many alerts",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_visuals.md"
+      "summary": "How to analyse firewall logs: stateful logging of decisions, drop versus reject, netfilter and session-log fields, tracing a host through source NAT, and recognising vertical scans, horizontal sweeps, blocked outbound attempts, beacons, large transfers and out-of-state drops against their benign look-alikes.",
+      "learning_objectives": [
+       "Interpret netfilter log lines and next-generation firewall session records field by field",
+       "Explain how state tracking, logging configuration and drop or reject actions shape what a firewall records",
+       "Trace an external report about the public address back to an internal host through NAT session logs",
+       "Identify port scans, sweeps, blocked outbound attempts and beaconing from counts of ports, hosts, intervals and bytes",
+       "Separate suspicious connection patterns from background scanning, update traffic, backups and expired sessions"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l04.md"
      },
      {
-      "id": "les_c08_m4_scenarios",
-      "title": "Scenario practice",
-      "duration": "25 mins",
+      "id": "les_c08_m04_l05",
+      "title": "4.5 DNS logs",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_scenarios.md"
+      "summary": "How to read DNS resolver, sensor and endpoint DNS records, what normal DNS looks like, and how NXDOMAIN bursts, long high-entropy labels, many unique subdomains, TXT volume and resolver bypass reveal domain generation algorithms and DNS tunnelling from the defender's side.",
+      "learning_objectives": [
+       "Interpret the fields of a DNS query record and pivot from name, answer and timestamp to other evidence",
+       "Explain how recursive resolution carries a query name to the zone's authoritative server and why that enables DNS tunnelling",
+       "Recognise DGA, tunnelling and resolver-bypass patterns and distinguish them from their benign look-alikes",
+       "Evaluate Shannon entropy and rarity as detection features using real output from the lab domains",
+       "Design DNS logging and egress controls that make resolver logs complete"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l05.md"
      },
      {
-      "id": "les_c08_m4_revision",
-      "title": "Revision",
-      "duration": "25 mins",
+      "id": "les_c08_m04_l06",
+      "title": "4.6 Proxy logs",
+      "duration": "65 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m4_revision.md"
+      "summary": "A method for analysing web proxy logs: record anatomy and field pitfalls, what TLS inspection changes, and a six-question workflow (rarity, content, rhythm, volume, scope, endpoint pivot) applied with minisiem.py and hunt.py to the WS-104 beacon and upload in the lab dataset.",
+      "learning_objectives": [
+       "Interpret proxy log fields, including byte direction, status-code origin and CONNECT records",
+       "Compare the evidence available with and without TLS inspection",
+       "Apply rarity, content, rhythm, volume and scope queries to proxy data with minisiem.py and hunt.py",
+       "Build a source-cited case timeline joining proxy and endpoint events",
+       "State conclusions from proxy evidence at the strength the evidence supports"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l06.md"
+     },
+     {
+      "id": "les_c08_m04_l07",
+      "title": "4.7 Query writing",
+      "duration": "75 mins",
+      "is_mandatory": true,
+      "summary": "Turning an analytical question into a precise, tested query: specification, type-safe and anchored conditions, half-open time ranges, grain, bounded joins, anti-joins and window functions, with real SQL on the Banyan dataset and SPL/KQL equivalents.",
+      "learning_objectives": [
+       "Write a query specification (population, condition, grain, window, output) from an analytical question",
+       "Avoid false and missed matches caused by types, substrings, time boundaries and NULLs",
+       "Write bounded joins and NULL-safe anti-joins without fan-out errors",
+       "Use CTEs, time buckets and window functions such as LAG() to compare periods and measure intervals",
+       "Test a query against known positives and negatives and express its precision and recall"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l07.md"
+     },
+     {
+      "id": "les_c08_m04_l08",
+      "title": "4.8 Log lab",
+      "duration": "90 mins",
+      "is_mandatory": true,
+      "summary": "A guided multi-source analysis of the Banyan dataset: baseline Windows, endpoint, VPN and proxy logs separately, merge the exceptions into one timeline, run scope checks and write a findings note.",
+      "learning_objectives": [
+       "Baseline Windows Security, Sysmon, VPN and proxy events with aggregation queries",
+       "Classify exceptions in each source as noise, suspicious or unexplained, with evidence",
+       "Build a merged timeline joined on host, user, address and time",
+       "Run scope checks and record their negative results and limits",
+       "Write a findings note that separates facts, confidence, gaps and recommended actions"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m04_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_5",
-    "title": "Module 5: Threat intelligence",
-    "description": "Threat intelligence is information about adversaries - their infrastructure, tools, behaviour and intent - that has been collected, analysed and put in context so that defenders can make better decisions. For a SOC analyst it appears mostly as indicators of compromise (IOCs) in feeds and as reports describing campaigns.",
+    "title": "Module 5: Alert triage",
+    "description": "The core analyst skill: deciding quickly and defensibly what each alert is. Severity and prioritisation, enrichment with context, validating whether an alert is real, handling false positives without blinding the SOC, escalation criteria, and case notes that another analyst can trust - practised in a hands-on triage lab.",
     "order": 5,
     "quiz": {
      "id": "quiz_c08_m5",
-     "title": "Module 5: Threat intelligence - Assessment",
+     "title": "Module 5: Alert triage - Assessment",
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m5_overview",
-      "title": "5.0 Module overview",
-      "duration": "15 mins",
+      "id": "les_c08_m05_l01",
+      "title": "5.1 Severity",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Threat intelligence is information about adversaries - their infrastructure, tools, behaviour and intent - that has been collected, analysed and put in context so that defenders can make better decisions.",
+      "summary": "What an alert's severity claims (harm if the alert is true), how a consequence-based scale is designed and anchored, how base, alert and case severity differ and are revised with recorded reasons, and an audit of the lab kit's rule severities.",
       "learning_objectives": [
-       "Classify IOC types and place them on the Pyramid of Pain",
-       "Evaluate indicator confidence, source reliability and expiry",
-       "Apply the Traffic Light Protocol (TLP 2.0) correctly",
-       "Describe STIX 2.1 objects and how intelligence is exchanged",
-       "Run an enrichment and matching workflow and interpret results",
-       "Explain the limitations of intelligence and IOC-based detection"
+       "Distinguish severity from confidence and priority and explain the harm each level asserts",
+       "Design a consequence-based severity scale with definitions and anchoring rules",
+       "Justify a rule's base severity using intrusion stage, breadth, reversibility and what the behaviour touches",
+       "Reclassify an alert or case severity from triage evidence and record the reason",
+       "Audit the lab kit's RULE_META values against its Sigma rule levels and resolve a discrepancy"
       ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_overview.md"
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l01.md"
      },
      {
-      "id": "les_c08_m5_l01",
-      "title": "5.1 Intelligence levels and the intelligence cycle",
-      "duration": "45 mins",
+      "id": "les_c08_m05_l02",
+      "title": "5.2 Prioritization",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Levels: Strategic trends and threats for leaders (which actors target our sector, why).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_l01.md"
+      "summary": "How a SOC decides what to work next: decomposing the triage.py score, the effects of a multiplicative model, measuring confidence and maintaining criticality, tie-breaking, entity risk aggregation, time and capacity, and recorded analyst overrides.",
+      "learning_objectives": [
+       "Decompose a priority score into severity, confidence and asset criticality and identify what it omits",
+       "Compare multiplicative, weighted-sum and matrix prioritisation models",
+       "Explain how the kit's sort breaks ties and define an explicit tie-breaker",
+       "Calculate entity risk for the Banyan queue with per-rule de-duplication",
+       "Justify and record an override of the score order using time and context"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l02.md"
      },
      {
-      "id": "les_c08_m5_l02",
-      "title": "5.2 IOC types and the Pyramid of Pain",
-      "duration": "45 mins",
+      "id": "les_c08_m05_l03",
+      "title": "5.3 Enrichment",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Common indicators: file hashes (MD5, SHA-1, SHA-256), IP addresses, domain names, URLs, email addresses and subjects, registry keys, file paths, mutex names, user-agent strings, certificate fingerprints, JA3/JA4-style TLS fingerprints.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_l02.md"
+      "summary": "How an analyst enriches an alert during triage: extracting its entities, adding asset, identity, network (geolocation and ASN), threat-intelligence and history context with provenance, interpreting ioc_match.py matches by validity, confidence and fit, and respecting privacy and operational limits on lookups.",
+      "learning_objectives": [
+       "Identify the entities in an alert and the context source that answers each question about them",
+       "Enrich lab alerts with asset, identity and prevalence context using triage.py and minisiem.py searches, recording provenance",
+       "Interpret threat-intelligence matches, expired indicators and non-matches from ioc_match.py",
+       "Explain the limits of geolocation and ASN data as evidence",
+       "Apply privacy and operational limits to enrichment lookups"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l03.md"
      },
      {
-      "id": "les_c08_m5_l03",
-      "title": "5.3 Confidence, reliability and expiry",
-      "duration": "45 mins",
+      "id": "les_c08_m05_l04",
+      "title": "5.4 Validation",
+      "duration": "65 mins",
       "is_mandatory": true,
-      "summary": "Every indicator should carry: Source and reliability who reported it and how good their past reporting has been (some teams use the Admiralty/NATO scale, A-F source reliability, 1-6 information credibility).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_l03.md"
+      "summary": "Testing whether an alert is real: stating its claim, reproducing the rule logic, reading the raw event, corroborating across independent sources, seeking refuting evidence and concluding confirmed, refuted or undetermined, practised on the Banyan R1 and R2 alerts with minisiem.py.",
+      "learning_objectives": [
+       "Apply the six-step validation workflow to a SIEM alert",
+       "Reproduce a correlation rule's logic to expose its assumptions, thresholds and missing time windows",
+       "Use raw events to recover fields that the normalised view omits",
+       "Distinguish corroboration by independent sources from mere time alignment",
+       "Recognise query and evidence pitfalls such as NULL exclusions, time-zone errors and double counting"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l04.md"
      },
      {
-      "id": "les_c08_m5_l04",
-      "title": "5.4 Sharing: TLP 2.0 and STIX 2.1",
-      "duration": "45 mins",
+      "id": "les_c08_m05_l05",
+      "title": "5.5 False-positive handling",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "The Traffic Light Protocol (TLP), maintained by FIRST, tells recipients how far they may share information.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_l04.md"
+      "summary": "How to tell a false positive from a benign true positive, record false positives as tuning evidence, and write scoped suppressions with an owner, reason and enforced expiry, shown by running triage.py's CHG-1042 suppression and a deliberately over-wide one that hides the attacker's svc_update account.",
+      "learning_objectives": [
+       "Classify a non-malicious alert as a false positive or a benign true positive by testing rule intent before authorisation",
+       "Write a false-positive closure record and tuning request that detection engineering can act on",
+       "Design a suppression scoped to one rule and the narrowest fields, with reason, reference, owner and expiry",
+       "Demonstrate in the lab how over-suppression and unenforced expiry create blind spots",
+       "Evaluate tuning options, preferring data and logic fixes and lower priority over hiding alerts"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l05.md"
      },
      {
-      "id": "les_c08_m5_l05",
-      "title": "5.5 The enrichment workflow",
-      "duration": "45 mins",
+      "id": "les_c08_m05_l06",
+      "title": "5.6 Escalation criteria",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "1.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_l05.md"
+      "summary": "Criteria for escalating a triaged alert (hard triggers, impact-based triggers, beyond-remit cases), how to escalate with acknowledged transfer of ownership, the fields an escalation must carry, and why the CERT-In six-hour reporting requirement makes the time noticed essential, applied to the WS-104 lab case.",
+      "learning_objectives": [
+       "Apply hard-trigger and impact-based criteria to decide whether, how urgently and to whom an alert is escalated",
+       "Choose between hierarchical and functional escalation routes and complete a hand-off with recorded acknowledgement",
+       "Write a structured escalation stating what, so what, evidence, confidence, time noticed, done and need",
+       "Explain the CERT-In six-hour reporting requirement and the analyst's role in recording the time noticed and flagging reportability",
+       "Distinguish queue priority from escalation decisions using the lab triage queue"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l06.md"
      },
      {
-      "id": "les_c08_m5_l06",
-      "title": "5.6 Intelligence limitations",
-      "duration": "45 mins",
+      "id": "les_c08_m05_l07",
+      "title": "5.7 Case notes",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "- Indicators are perishable; attackers rotate infrastructure, sometimes per victim. - Shared infrastructure (cloud, CDN, VPN providers, Tor exits) causes collateral matches. - Feeds overlap and repeat each other, making one report look like",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_l06.md"
+      "summary": "How to write case notes that another analyst, an incident handler and an auditor can trust: a fixed record structure, facts kept apart from inferences, UTC timestamps and evidence referenced by SHA-256 hash.",
+      "learning_objectives": [
+       "Structure a case record into header, summary, entities, timeline, analysis, actions, evidence and disposition",
+       "Distinguish observed facts from inferences and state a confidence level for each inference",
+       "Record every time in UTC using ISO 8601 and explain why local or unmarked times corrupt timelines",
+       "Reference exported evidence by name, location, SHA-256 hash and method, and verify it with sha256sum",
+       "Rewrite a weak case note into one the next analyst and a reviewer can rely on"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l07.md"
      },
      {
-      "id": "les_c08_m5_deepdive",
-      "title": "Technical deep dive: Matching Safely",
-      "duration": "50 mins",
+      "id": "les_c08_m05_l08",
+      "title": "5.8 Triage lab",
+      "duration": "90 mins",
       "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_deepdive.md"
-     },
-     {
-      "id": "les_c08_m5_cases",
-      "title": "Real-world case studies",
-      "duration": "35 mins",
-      "is_mandatory": true,
-      "summary": "FireEye red team tool countermeasures, 2020; (FICTIONAL TEACHING SCENARIO): The leaked AMBER report",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_cases.md"
-     },
-     {
-      "id": "les_c08_m5_lab",
-      "title": "Hands-on practicals",
-      "duration": "70 mins",
-      "is_mandatory": true,
-      "summary": "Match and assess a feed; Write a STIX-style indicator",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_lab.md"
-     },
-     {
-      "id": "les_c08_m5_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
-      "is_mandatory": true,
-      "summary": "The Pyramid of Pain; Intelligence enrichment workflow; Reading a match",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_visuals.md"
-     },
-     {
-      "id": "les_c08_m5_scenarios",
-      "title": "Scenario practice",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_scenarios.md"
-     },
-     {
-      "id": "les_c08_m5_revision",
-      "title": "Revision",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m5_revision.md"
+      "summary": "A hands-on lab that works the full triage.py queue on the Banyan dataset: prioritise, enrich, validate, disposition and document every alert, then group them into cases and export hashed evidence.",
+      "learning_objectives": [
+       "Build and interpret a prioritised alert queue, including the fields the helper inferred rather than observed",
+       "Validate each alert against raw events with minisiem.py searches and the kit's intelligence and hunt outputs",
+       "Assign a disposition with a confidence level to every alert and group related alerts into cases",
+       "Export and verify case evidence with SHA-256 and record what the export does not contain",
+       "Write per-alert notes, case records and a queue summary from real lab output"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m05_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_6",
-    "title": "Module 6: Detection engineering",
-    "description": "Detection engineering is the discipline of designing, building, testing, deploying and maintaining the logic that turns telemetry into alerts. It treats detections like software: written from requirements, version controlled, peer reviewed, tested against known-good and known-bad data, and measured in production.",
+    "title": "Module 6: Threat intelligence",
+    "description": "Threat intelligence as the SOC uses it: indicator types and their shelf life, confidence and source grading, enrichment workflows, MISP basics, feeds and their pitfalls, the limits of intelligence, and responsible sharing under TLP - ending with an intel lab on the course dataset.",
     "order": 6,
     "quiz": {
      "id": "quiz_c08_m6",
-     "title": "Module 6: Detection engineering - Assessment",
+     "title": "Module 6: Threat intelligence - Assessment",
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m6_overview",
-      "title": "6.0 Module overview",
-      "duration": "15 mins",
+      "id": "les_c08_m06_l01",
+      "title": "6.1 IOC types",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Detection engineering is the discipline of designing, building, testing, deploying and maintaining the logic that turns telemetry into alerts.",
+      "summary": "Classifies threat indicators as atomic, computed or behavioural, ranks them on the Pyramid of Pain and explains why each type has a different shelf life, using the C08 lab feed and rules.",
       "learning_objectives": [
-       "Describe the detection engineering lifecycle",
-       "Choose between signature, behavioural, threshold, anomaly and correlation logic",
-       "Write, validate and convert Sigma rules",
-       "Test detections with positive and negative cases",
-       "Map detections and data sources to ATT&CK and identify gaps",
-       "Document and maintain detections"
+       "Classify an indicator as atomic, computed or behavioural and name the field and log source it must match",
+       "Place indicator types on the Pyramid of Pain and explain the cost each imposes on an adversary",
+       "Estimate an indicator's shelf life from its type and set a sensible validity window",
+       "Interpret ioc_match.py output by indicator type, including expired and unmatchable indicators",
+       "Climb from a low-level indicator to durable artefact and behavioural detections"
       ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_overview.md"
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l01.md"
      },
      {
-      "id": "les_c08_m6_l01",
-      "title": "6.1 The detection lifecycle",
-      "duration": "45 mins",
+      "id": "les_c08_m06_l02",
+      "title": "6.2 Confidence",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "1.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l01.md"
+      "summary": "Grades intelligence with the Admiralty system, builds a local confidence score from producer confidence, corroboration and thresholds, and ages it by hard expiry or decay, using the C08 lab feed.",
+      "learning_objectives": [
+       "Distinguish producer confidence, source reliability and information credibility",
+       "Grade indicators with the Admiralty A-F / 1-6 system and justify each grade",
+       "Identify genuine corroboration and recognise circular reporting",
+       "Apply a local scoring policy and thresholds to decide block, alert or context only",
+       "Compare hard expiry with gradual decay and explain how age lowers the weight of a match"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l02.md"
      },
      {
-      "id": "les_c08_m6_l02",
-      "title": "6.2 Types of detection logic",
-      "duration": "45 mins",
+      "id": "les_c08_m06_l03",
+      "title": "6.3 Enrichment workflow",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Signature / atomic exact value match (hash, domain).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l02.md"
+      "summary": "Intelligence-driven enrichment as a repeatable pipeline: canonicalising and deduplicating entities, a privacy gate, a lookup cascade from internal sources to approved external services, caching with type-specific TTLs, rate-limit and failure handling, and provenance records, shown on the Banyan data and ioc_match.py.",
+      "learning_objectives": [
+       "Design an enrichment pipeline that extracts, canonicalises, gates, looks up, records and attaches intelligence context",
+       "Order a lookup cascade by cost and exposure and define when it stops",
+       "Specify a cache policy keyed on value and source, with type-specific and negative TTLs and validity re-checks",
+       "Handle rate limits, refusals and timeouts without recording missing answers as clean",
+       "Record provenance that makes an enrichment result reproducible and respects privacy and TLP"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l03.md"
      },
      {
-      "id": "les_c08_m6_l03",
-      "title": "6.3 Sigma rules",
-      "duration": "45 mins",
+      "id": "les_c08_m06_l04",
+      "title": "6.4 MISP basics",
+      "duration": "55 mins",
       "is_mandatory": true,
-      "summary": "Sigma is an open, generic YAML format for describing log-based detections, which tools such as pySigma and sigma-cli convert into SIEM-specific queries.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l03.md"
+      "summary": "The MISP data model and sharing mechanics: events, attributes and the IDS flag, objects, taxonomy tags, galaxy clusters, distribution levels and sharing groups, publishing, correlation and its control, sightings, feeds and automation, applied by modelling the Banyan case.",
+      "learning_objectives": [
+       "Explain how MISP organises intelligence into events, attributes, objects, tags and galaxy clusters",
+       "Choose attribute types, categories and IDS flags for indicators from a real case",
+       "Distinguish platform-enforced distribution and sharing groups from TLP handling instructions",
+       "Interpret correlations and control over-correlation with warninglists and exclusions",
+       "Use sightings and publishing review to share safely and return feedback to producers"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l04.md"
      },
      {
-      "id": "les_c08_m6_l04",
-      "title": "6.4 Testing detections",
-      "duration": "45 mins",
+      "id": "les_c08_m06_l05",
+      "title": "6.5 Feeds",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Treat detections as code with unit tests.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l04.md"
+      "summary": "Where threat intelligence feeds come from, the formats they arrive in, how to judge their quality, and how normalisation, deduplication, allowlisting, scoring and ageing keep them useful, shown on the lab feed on two dates.",
+      "learning_objectives": [
+       "Compare open, commercial, community/ISAC and internal intelligence sources by context, confidence and obligations",
+       "Explain how STIX 2.1 indicators and TAXII collections carry and transport feed content compared with CSV lists",
+       "Evaluate a feed against measurable quality criteria such as relevance, accuracy, uniqueness and terms",
+       "Apply normalisation, deduplication, allowlisting and scoring to indicators before they drive action",
+       "Interpret ioc_match.py output on two dates to separate an indicator's expiry from the evidence it already produced"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l05.md"
      },
      {
-      "id": "les_c08_m6_l05",
-      "title": "6.5 MITRE ATT&CK and mapping",
-      "duration": "45 mins",
+      "id": "les_c08_m06_l06",
+      "title": "6.6 Limitations",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "MITRE ATT&CK is a knowledge base of adversary tactics (goals) and techniques (how) based on real-world observations.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l05.md"
+      "summary": "What an indicator match can and cannot prove: stale indicators, collateral matches on shared infrastructure, telemetry gaps, circular reporting, attribution limits and bias, worked through an expired lab indicator matching routine VPN activity.",
+      "learning_objectives": [
+       "Distinguish expired from stale indicators and explain why each matters when reading a match",
+       "Assess an indicator match against shared infrastructure and the surrounding events before acting",
+       "Explain why no match can mean no data or new infrastructure, and how behaviour-based detection covers the gap",
+       "Identify circular reporting, attribution limits and cognitive bias in intelligence use",
+       "Write case judgements with explicit confidence that cite the evidence actually justifying the action"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l06.md"
      },
      {
-      "id": "les_c08_m6_l06",
-      "title": "6.6 Documentation and maintenance",
-      "duration": "45 mins",
+      "id": "les_c08_m06_l07",
+      "title": "6.7 Sharing",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Each detection should ship with: purpose and threat; logic explanation; data sources and required fields; ATT&CK mapping and version; severity and confidence rationale; known false positives; triage steps for analysts (what to check first);",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_l06.md"
+      "summary": "How a SOC shares intelligence responsibly: TLP 2.0 labels, ISACs and CERT-In, what to strip under the DPDP Act 2023, and the legal and contractual limits on a release.",
+      "learning_objectives": [
+       "Apply the five TLP 2.0 labels to incoming and outgoing intelligence, including combined products",
+       "Choose the right community or authority (ISAC, CERT-In, NCIIPC, source) for a given release",
+       "Summarise the CERT-In April 2022 reporting, log-retention and clock-synchronisation requirements",
+       "Identify and remove personal data and internal identifiers before sharing, in line with the DPDP Act 2023",
+       "Recognise feed-licence, contractual and legal limits that narrow a release"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l07.md"
      },
      {
-      "id": "les_c08_m6_deepdive",
-      "title": "Technical deep dive: From Sigma to Query",
-      "duration": "50 mins",
+      "id": "les_c08_m06_l08",
+      "title": "6.8 Intel lab",
+      "duration": "75 mins",
       "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_deepdive.md"
-     },
-     {
-      "id": "les_c08_m6_cases",
-      "title": "Real-world case studies",
-      "duration": "35 mins",
-      "is_mandatory": true,
-      "summary": "ATT&CK's 2026 restructuring - mappings age; (FICTIONAL TEACHING SCENARIO): The renamed binary",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_cases.md"
-     },
-     {
-      "id": "les_c08_m6_lab",
-      "title": "Hands-on practicals",
-      "duration": "70 mins",
-      "is_mandatory": true,
-      "summary": "Write, test and convert a Sigma rule; ATT&CK coverage review",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_lab.md"
-     },
-     {
-      "id": "les_c08_m6_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
-      "is_mandatory": true,
-      "summary": "Detection lifecycle; Sigma conversion pipeline; Storyline mapped to tactics",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_visuals.md"
-     },
-     {
-      "id": "les_c08_m6_scenarios",
-      "title": "Scenario practice",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_scenarios.md"
-     },
-     {
-      "id": "les_c08_m6_revision",
-      "title": "Revision",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m6_revision.md"
+      "summary": "Hands-on lab: match the course feed against the Banyan dataset, verify, grade and age each indicator, derive first-party indicators and release a checked TLP:GREEN note and a TLP:AMBER sighting.",
+      "learning_objectives": [
+       "Run ioc_match.py and verify each match in the raw events with minisiem.py",
+       "Grade indicators by source reliability and credibility, recording analyst overrides with reasons",
+       "Make ageing decisions that separate validity from confidence",
+       "Derive first-party indicators from an incident and set their validity",
+       "Write a shareable intel note that passes a pre-share check and respects every inherited TLP label"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m06_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_7",
-    "title": "Module 7: Incident handling",
-    "description": "Triage ends when an analyst decides that an alert, or a group of alerts, is an incident. Then the work changes.",
+    "title": "Module 7: Detection engineering",
+    "description": "Writing detections the SOC can trust: detection logic and its trade-offs, Sigma rules as portable detection-as-code, ATT&CK mapping, testing rules against known-good and known-bad data, tuning, finding coverage gaps and reviewing rules - ending with a hands-on detection lab on the course dataset.",
     "order": 7,
     "quiz": {
      "id": "quiz_c08_m7",
-     "title": "Module 7: Incident handling - Assessment",
+     "title": "Module 7: Detection engineering - Assessment",
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m7_overview",
-      "title": "7.0 Module overview",
-      "duration": "15 mins",
-      "is_mandatory": true,
-      "summary": "Triage ends when an analyst decides that an alert, or a group of alerts, is an incident.",
-      "learning_objectives": [
-       "Place SOC incident handling in NIST SP 800-61 Rev. 3 and the CSF 2.0 framing",
-       "Write a clear escalation using a standard structure",
-       "Identify stakeholders and reporting obligations, including CERT-In and DPDP",
-       "Recommend containment options and explain their trade-offs",
-       "Preserve and document evidence with hashes and chain of custody",
-       "Support recovery and post-incident lessons"
-      ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_overview.md"
-     },
-     {
-      "id": "les_c08_m7_l01",
-      "title": "7.1 Incident response frameworks",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "NIST SP 800-61 Rev.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l01.md"
-     },
-     {
-      "id": "les_c08_m7_l02",
-      "title": "7.2 Declaring and escalating",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Each organisation defines its own declaration criteria.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l02.md"
-     },
-     {
-      "id": "les_c08_m7_l03",
-      "title": "7.3 Communication and reporting obligations",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Communication principles: - Use out-of-band channels if email or chat may be compromised. - Share on a need-to-know basis, and keep a single incident log of decisions and times. - Separate facts from hypotheses. - Coordinate external statem",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l03.md"
-     },
-     {
-      "id": "les_c08_m7_l04",
-      "title": "7.4 Containment recommendations",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "SOC analysts usually recommend containment, and an authorised owner approves and executes it.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l04.md"
-     },
-     {
-      "id": "les_c08_m7_l05",
-      "title": "7.5 Evidence preservation",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Evidence must be collected so it can be trusted later: - Order of volatility: memory and network state are lost first, then running processes, then disk, then logs held centrally, which are more durable. - Integrity: hash every exported fil",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l05.md"
-     },
-     {
-      "id": "les_c08_m7_l06",
-      "title": "7.6 Recovery and lessons learned",
-      "duration": "45 mins",
-      "is_mandatory": true,
-      "summary": "Recovery means restoring systems from known-good sources (rebuild rather than \"clean\" a compromised host where feasible), monitoring closely for re-entry, and returning to normal operations in stages.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_l06.md"
-     },
-     {
-      "id": "les_c08_m7_deepdive",
-      "title": "Technical deep dive: Making Evidence Exports Defensible",
-      "duration": "50 mins",
-      "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_deepdive.md"
-     },
-     {
-      "id": "les_c08_m7_cases",
-      "title": "Real-world case studies",
-      "duration": "35 mins",
-      "is_mandatory": true,
-      "summary": "Colonial Pipeline, 2021 - containment and early notification; (FICTIONAL TEACHING SCENARIO): The helpful reboot",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_cases.md"
-     },
-     {
-      "id": "les_c08_m7_lab",
-      "title": "Hands-on practicals",
+      "id": "les_c08_m07_l01",
+      "title": "7.1 Detection logic",
       "duration": "70 mins",
       "is_mandatory": true,
-      "summary": "Escalate the Banyan incident; Export and verify evidence",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_lab.md"
+      "summary": "Signature, behavioural and anomaly detection logic, the precision-recall trade-off and the design questions to answer before writing a rule, using the kit's minisiem rules R1-R6.",
+      "learning_objectives": [
+       "Distinguish signature, behavioural and anomaly detection logic and the logical shapes that express them",
+       "Calculate precision and recall for rule variants run against the Banyan dataset",
+       "Identify the attacker-controlled values and legitimate look-alikes of a detection rule",
+       "Apply the five design questions to harden a rule such as R1 before it is written",
+       "Explain why detection families should be layered and how the base rate affects alert quality"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l01.md"
      },
      {
-      "id": "les_c08_m7_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
+      "id": "les_c08_m07_l02",
+      "title": "7.2 Sigma rules",
+      "duration": "75 mins",
       "is_mandatory": true,
-      "summary": "Escalation and decision flow; Containment options versus evidence and impact; Evidence integrity chain",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_visuals.md"
+      "summary": "The structure of a Sigma rule, how selections, modifiers and conditions match events, and how sigma-cli validates rules and converts them to Splunk queries through processing pipelines.",
+      "learning_objectives": [
+       "Describe the fields of a Sigma rule using the kit's two rules",
+       "Interpret selections, value lists, modifiers and conditions, including filters",
+       "Validate rules with sigma check and interpret its errors and issues",
+       "Convert rules to Splunk with and without a processing pipeline and explain the difference",
+       "Evaluate a rule's ATT&CK tags and exceptions for correctness and evasion risk"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l02.md"
      },
      {
-      "id": "les_c08_m7_scenarios",
-      "title": "Scenario practice",
-      "duration": "25 mins",
+      "id": "les_c08_m07_l03",
+      "title": "7.3 ATT&CK mapping",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_scenarios.md"
+      "summary": "How ATT&CK organises adversary behaviour into tactics, techniques, sub-techniques and procedures, and how to map detections and data sources to it and build an honest, versioned coverage matrix for the Banyan rules.",
+      "learning_objectives": [
+       "Explain the relationship between ATT&CK tactics, techniques, sub-techniques and procedures",
+       "Map a detection rule to the technique its observation actually supports, with version and rationale",
+       "Identify the data sources and fields each mapped technique depends on",
+       "Build a coverage matrix that separates data, rule and test status",
+       "Recognise mapping errors and coverage theatre, including unverified technique IDs in rule tags"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l03.md"
      },
      {
-      "id": "les_c08_m7_revision",
-      "title": "Revision",
-      "duration": "25 mins",
+      "id": "les_c08_m07_l04",
+      "title": "7.4 Rule testing",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m7_revision.md"
+      "summary": "Testing detections as code: positive, near-miss, boundary and regression cases with the kit's test_rules.py, two real defects found by negative cases, and where historical replay and end-to-end lab checks fit.",
+      "learning_objectives": [
+       "Design positive, near-miss and boundary test cases from a rule's decision points",
+       "Run and interpret the kit's unittest suite, including failure reports",
+       "Use failing tests to find and fix rule defects without losing true positives",
+       "Explain how tests guard tuning changes against silent regressions",
+       "Distinguish unit testing from historical replay and authorised end-to-end checks"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l04.md"
+     },
+     {
+      "id": "les_c08_m07_l05",
+      "title": "7.5 Tuning",
+      "duration": "65 mins",
+      "is_mandatory": true,
+      "summary": "How a detection engineer tunes a rule: measuring per-rule precision and volume, diagnosing whether noise comes from data, logic, numbers or an authorised instance, narrowing R6 instead of suppressing, setting thresholds and R2's window from evidence with tests as the guard, and controlling every change.",
+      "learning_objectives": [
+       "Measure a rule's precision and volume from dispositions and explain why precision says nothing about recall",
+       "Diagnose the cause of a noisy rule and choose between fixing data, narrowing logic, re-setting numbers and a scoped suppression",
+       "Run a threshold sweep on stored data and set thresholds and windows from baseline and attack-step evidence",
+       "Narrow a rule and update its unit tests so that the reason for the change is recorded and enforced",
+       "Apply a change-control path of reproduction, tests, replay, review, staged deployment and monitoring"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l05.md"
+     },
+     {
+      "id": "les_c08_m07_l06",
+      "title": "7.6 Coverage gaps",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "How to find and prioritise coverage gaps: telling data-source, field and scope gaps from logic gaps, proving the Banyan dataset's real gaps by query (no DNS or flow, Sysmon process events only until 06:14, an untraceable VPN session), and ranking gaps by the threat they hide in a gap register.",
+      "learning_objectives": [
+       "Distinguish data-source, field, scope and logic gaps and name the owner and fix for each",
+       "Measure what a SIEM actually collects per source, host and time period with inventory and scope queries",
+       "Identify the real coverage gaps in the Banyan dataset and the incident questions they leave unanswered",
+       "Prioritise gaps by likelihood, harm, compensating detections and cost, and record decisions in a gap register"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l06.md"
+     },
+     {
+      "id": "les_c08_m07_l07",
+      "title": "7.7 Rule review",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Review detections against a six-area peer review checklist and apply it to the course kit's two Sigma rules, raising real findings on severity, tests, data and ATT&CK tags.",
+      "learning_objectives": [
+       "Explain why rule review is needed even when automated gates and unit tests pass",
+       "Apply the six-area checklist (logic, data, tests, metadata, ATT&CK tags, severity) to a detection change",
+       "Identify inconsistencies between a Sigma rule, its SIEM translation and the triage configuration",
+       "Verify ATT&CK tags against a pinned ATT&CK version before raising or closing a finding",
+       "Write classified review findings that an author can act on"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l07.md"
+     },
+     {
+      "id": "les_c08_m07_l08",
+      "title": "7.8 Detection lab",
+      "duration": "90 mins",
+      "is_mandatory": true,
+      "summary": "Hands-on lab: design, implement, test, mutate and integrate a correlation rule that links a macro-document download to an Office-spawned shell on the Banyan dataset.",
+      "learning_objectives": [
+       "Turn a detection requirement into SQL logic and matching positive, negative and boundary tests",
+       "Run test_rules.py and minisiem.py rules and interpret the results",
+       "Diagnose and fix a time-window boundary bug exposed by a test",
+       "Integrate a new rule with triage metadata and confirm its queue position",
+       "Review your own rule with the six-area checklist, including its Sigma correlation version"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m07_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_8",
-    "title": "Module 8: Threat hunting and capstone",
-    "description": "Detections find what someone anticipated; threat hunting looks for what they did not. A hunt starts from a hypothesis - \"if an adversary were doing X here, we would see Y in our data\" - and tests it with searches and analysis, producing either findings, new detections or a documented \"not found with this data\".",
+    "title": "Module 8: Incident handling",
+    "description": "How a SOC analyst takes part in incident response: the incident response lifecycle, communication under pressure, giving containment advice, preserving evidence, the severity matrix, post-incident review and tabletop exercises - finishing with an incident response lab built on the course dataset.",
     "order": 8,
     "quiz": {
      "id": "quiz_c08_m8",
-     "title": "Module 8: Threat hunting and capstone - Assessment",
+     "title": "Module 8: Incident handling - Assessment",
      "pass_threshold": 70,
      "passing_score": 70,
      "duration_minutes": 15,
-     "total_questions": 10,
+     "total_questions": 20,
      "token_bounty": 100
     },
     "lessons": [
      {
-      "id": "les_c08_m8_overview",
-      "title": "8.0 Module overview",
-      "duration": "15 mins",
+      "id": "les_c08_m08_l01",
+      "title": "8.1 Incident response lifecycle",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Detections find what someone anticipated; threat hunting looks for what they did not.",
+      "summary": "How an incident moves through the NIST SP 800-61 lifecycle and its CSF 2.0 framing in Rev. 3, and what the SOC analyst does in each phase, traced through the Banyan intrusion.",
       "learning_objectives": [
-       "Formulate testable hunt hypotheses from intelligence, ATT&CK and environment knowledge",
-       "Identify data requirements and check they are met before hunting",
-       "Apply hunting techniques: searching, stacking, statistics, timeline and pivoting",
-       "Record hunt results, including negative results, and turn findings into detections",
-       "Write case documentation that another analyst can rely on",
-       "Write a SOC shift report"
+       "Describe the four phases of the NIST SP 800-61 Rev. 2 lifecycle and its feedback paths",
+       "Map the classic phases onto the CSF 2.0 Functions and Categories used by SP 800-61 Rev. 3",
+       "Explain the SOC analyst's responsibilities in preparation, analysis, containment and post-incident activity",
+       "Scope an incident from lab hunt output and state the telemetry the scope rests on",
+       "Place each Banyan alert and action in its lifecycle phase"
       ],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_overview.md"
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l01.md"
      },
      {
-      "id": "les_c08_m8_l01",
-      "title": "8.1 What hunting is and is not",
-      "duration": "45 mins",
+      "id": "les_c08_m08_l02",
+      "title": "8.2 Communication",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Threat hunting is proactive, human-led searching for threats that evaded existing detections.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_l01.md"
+      "summary": "Communicating during an incident: audiences, the incident log, status updates and cadence, out-of-band channels, need-to-know, and the facts the SOC supplies for CERT-In and other notifications.",
+      "learning_objectives": [
+       "Identify internal and external incident audiences and route communication through the IR lead and designated roles",
+       "Write technical and executive status updates from one incident log with confidence labels and a next-update time",
+       "Decide when to move to an out-of-band channel and apply need-to-know, codenames and TLP",
+       "Supply legal and the CERT-In point of contact with the time noticed, six-hour point and confidence-labelled facts"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l02.md"
      },
      {
-      "id": "les_c08_m8_l02",
-      "title": "8.2 Hypotheses and data requirements",
-      "duration": "45 mins",
+      "id": "les_c08_m08_l03",
+      "title": "8.3 Containment advice",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "A good hypothesis is specific, testable and tied to a threat: Weak: \"Look for bad things on endpoints.\"",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_l02.md"
+      "summary": "How a SOC analyst recommends short-term and long-term containment, weighs each action's harm reduction, evidence cost, business impact and tip-off risk, and applies it to WS-104, gopal and svc_update.",
+      "learning_objectives": [
+       "Compare host, account, network and persistence containment actions by their effect, cost and signal to the attacker",
+       "Distinguish short-term from long-term containment and give each measure an owner and end condition",
+       "Explain why all known footholds should be contained together and when to act immediately instead",
+       "Describe who recommends, approves, executes and verifies containment under a containment authority",
+       "Write and verify a containment recommendation for the Banyan incident from SIEM evidence"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l03.md"
      },
      {
-      "id": "les_c08_m8_l03",
-      "title": "8.3 Hunting techniques",
-      "duration": "45 mins",
+      "id": "les_c08_m08_l04",
+      "title": "8.4 Evidence preservation",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Searching look for specific values or patterns (known IOCs, command line fragments).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_l03.md"
+      "summary": "Preserving incident evidence in order of volatility, with SHA-256 integrity and a chain of custody, using the kit's evidence_export.py, plus log preservation, legal hold and Indian evidence law basics.",
+      "learning_objectives": [
+       "Apply the RFC 3227 order of volatility to a live compromised workstation",
+       "Explain what a SHA-256 match proves and what it does not",
+       "Export, verify and tamper-test log evidence with evidence_export.py and record its chain of custody",
+       "Identify limitations of an evidence tool and compensate with documented queries",
+       "Describe log preservation, legal hold and the SOC's role in them"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l04.md"
      },
      {
-      "id": "les_c08_m8_l04",
-      "title": "8.4 Hunt outcomes",
-      "duration": "45 mins",
+      "id": "les_c08_m08_l05",
+      "title": "8.5 Severity matrix",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Every hunt ends with one of: Finding malicious or policy-violating activity -> escalate (Module 7).",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_l04.md"
+      "summary": "How an incident's severity is derived, as distinct from alert severity: functional, information and recoverability impact, scope and urgency combined in a matrix with floor rules, applied to the Banyan cases and re-rated as evidence arrives.",
+      "learning_objectives": [
+       "Distinguish incident severity from alert severity and identify who owns each",
+       "Rate functional impact, information impact and recoverability using defined categories",
+       "Derive a base severity from impact and scope with a severity matrix and adjust it for urgency and floor rules",
+       "Apply the matrix to the Banyan cases, rating unknowns on the reasonable worst case and recording confidence",
+       "Separate severity of record from operating severity and from regulatory reportability"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l05.md"
      },
      {
-      "id": "les_c08_m8_l05",
-      "title": "8.5 Case documentation",
-      "duration": "45 mins",
+      "id": "les_c08_m08_l06",
+      "title": "8.6 Post-incident review",
+      "duration": "65 mins",
       "is_mandatory": true,
-      "summary": "A case record should let another analyst - or an auditor months later - understand what happened and why decisions were made, without asking you.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_l05.md"
+      "summary": "Running a blameless post-incident review of the Banyan incident: reconstructing the attacker and defender timeline from the dataset, separating root cause from contributing factors, writing owned and verifiable actions, and computing dwell time and related metrics from real timestamps.",
+      "learning_objectives": [
+       "Explain the principles of a blameless review and rewrite blameful findings as system findings",
+       "Reconstruct a sourced UTC timeline of attacker and defender activity from minisiem queries and the case record",
+       "Distinguish the root cause from contributing factors, each supported by evidence",
+       "Write action items with one owner, a due date and a verification method",
+       "Compute and interpret dwell time and related intervals from the dataset's timestamps"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l06.md"
      },
      {
-      "id": "les_c08_m8_l06",
-      "title": "8.6 The SOC shift report",
-      "duration": "45 mins",
+      "id": "les_c08_m08_l07",
+      "title": "8.7 Tabletop",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "A shift report hands over situational awareness at the end of a shift.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_l06.md"
+      "summary": "Designing, facilitating and evaluating a tabletop exercise - objectives, scenario, injects and the MSEL, roles, facilitation, hotwash and after-action report - with a ready-to-run Banyan Microfinance scenario that tests declaration, containment authority, the CERT-In deadline and out-of-band communication.",
+      "learning_objectives": [
+       "Distinguish a tabletop from seminars, drills, functional, full-scale and red or purple team exercises",
+       "Write evaluable exercise objectives and an MSEL with timed injects, expected actions and branches that do not depend on one decision",
+       "Facilitate a tabletop with role-directed questions, time management and a visible decision log",
+       "Evaluate an exercise through evaluator notes, a hotwash and an after-action report and improvement plan with owned actions",
+       "Run the Banyan tabletop and calculate the CERT-In deadline in UTC and IST"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l07.md"
      },
      {
-      "id": "les_c08_m8_deepdive",
-      "title": "Technical deep dive: Beacon Statistics",
-      "duration": "50 mins",
+      "id": "les_c08_m08_l08",
+      "title": "8.8 IR lab",
+      "duration": "90 mins",
       "is_mandatory": true,
-      "summary": "A worked, end-to-end technical walkthrough using the course lab.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_deepdive.md"
-     },
-     {
-      "id": "les_c08_m8_cases",
-      "title": "Real-world case studies",
-      "duration": "35 mins",
-      "is_mandatory": true,
-      "summary": "Volt Typhoon advisory, 2024 - hunting for living off the land; (FICTIONAL TEACHING SCENARIO): The negative hunt",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_cases.md"
-     },
-     {
-      "id": "les_c08_m8_lab",
-      "title": "Hands-on practicals",
-      "duration": "70 mins",
-      "is_mandatory": true,
-      "summary": "Run and document three hunts; Write the case record and shift report",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_lab.md"
-     },
-     {
-      "id": "les_c08_m8_visuals",
-      "title": "Visual guide",
-      "duration": "10 mins",
-      "is_mandatory": true,
-      "summary": "Hypothesis-driven hunt loop; Beacon regularity; Shift report structure",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_visuals.md"
-     },
-     {
-      "id": "les_c08_m8_scenarios",
-      "title": "Scenario practice",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Applied scenarios with model answers.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_scenarios.md"
-     },
-     {
-      "id": "les_c08_m8_revision",
-      "title": "Revision",
-      "duration": "25 mins",
-      "is_mandatory": true,
-      "summary": "Summary, key concepts, glossary and common mistakes.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m8_revision.md"
+      "summary": "Working the Banyan incident end to end with the C08 kit: declaring and starting the CERT-In clock, scoping with hunts and negative checks, building a reproducible timeline, writing ordered containment advice, assembling and verifying a hashed evidence package, and writing the incident report.",
+      "learning_objectives": [
+       "Declare an incident from a triaged queue and record the noticed time and CERT-In deadline in UTC and IST",
+       "Scope an incident with hunt.py and negative checks, stating the limit of each check",
+       "Build an incident timeline from one reproducible query and label each line as observed or inferred",
+       "Write ordered, owned, evidence-aware containment advice for both incident threads",
+       "Assemble an evidence package with evidence_export.py, rebuild and verify the SHA-256 manifest, and demonstrate tamper detection"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m08_l08.md"
      }
     ]
    },
    {
     "id": "mod_c08_9",
-    "title": "Course completion: revision, tasks and capstone",
-    "description": "Consolidate the course, complete the practical tasks and capstone, then sit the final assessment.",
+    "title": "Module 9: Phishing and malware triage",
+    "description": "Handling the alerts SOCs see most: suspicious emails and the malware they carry. Email header analysis, safe URL and attachment checks, sandbox use, handling user reports, signs of account compromise, containment and reporting - practised in a phishing triage lab, all from the defender's side.",
     "order": 9,
+    "quiz": {
+     "id": "quiz_c08_m9",
+     "title": "Module 9: Phishing and malware triage - Assessment",
+     "pass_threshold": 70,
+     "passing_score": 70,
+     "duration_minutes": 15,
+     "total_questions": 20,
+     "token_bounty": 100
+    },
     "lessons": [
      {
-      "id": "les_c08_m9_revision_guide",
-      "title": "Course revision guide",
-      "duration": "30 mins",
+      "id": "les_c08_m09_l01",
+      "title": "9.1 Email header analysis",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "The whole course in one revision pass.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m9_revision_guide.md"
+      "summary": "Interpret message headers and authenticate the source of each observation.",
+      "learning_objectives": [
+       "Identify trusted Received hops",
+       "Distinguish envelope, signing and visible From identities",
+       "Explain alignment and document next verification steps"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l01.md"
      },
      {
-      "id": "les_c08_m9_glossary",
-      "title": "Course glossary",
-      "duration": "15 mins",
+      "id": "les_c08_m09_l02",
+      "title": "9.2 URL and attachment checks",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Key terms used across the course.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m9_glossary.md"
+      "summary": "Triage suspicious links and attachments from preserved artifacts without opening them on an analyst workstation.",
+      "learning_objectives": [
+       "Separate display text from the recorded destination",
+       "Interpret static file metadata with its limitations",
+       "Route evidence to the approved analysis environment"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l02.md"
      },
      {
-      "id": "les_c08_m9_course_tasks",
-      "title": "Course practical tasks",
-      "duration": "3 hours",
+      "id": "les_c08_m09_l03",
+      "title": "9.3 Sandbox use",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Two integrative practical tasks across the course labs.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m9_course_tasks.md"
+      "summary": "Interpret sandbox observations with attention to coverage, privacy and provenance.",
+      "learning_objectives": [
+       "Trace observations to their monitoring source",
+       "Explain the limits of a single execution report",
+       "Make a policy-based decision about sample handling"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l03.md"
      },
      {
-      "id": "les_c08_m9_capstone",
-      "title": "Capstone: The Banyan Investigation and Shift Report",
-      "duration": "12 hours",
+      "id": "les_c08_m09_l04",
+      "title": "9.4 User reports",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "The capstone project brief, deliverables and rubric.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m9_capstone.md"
+      "summary": "Receive user-reported phishing and turn the initial report into an actionable incident record.",
+      "learning_objectives": [
+       "Preserve the original submission and record user actions",
+       "Prioritise reports by observed interaction and possible impact",
+       "Close the feedback loop with the reporter"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l04.md"
      },
      {
-      "id": "les_c08_m9_checklist",
-      "title": "Course completion checklist",
-      "duration": "10 mins",
+      "id": "les_c08_m09_l05",
+      "title": "9.5 Account compromise signs",
+      "duration": "60 mins",
       "is_mandatory": true,
-      "summary": "Everything you need to have done before the final assessment.",
-      "learning_objectives": [],
-      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m9_checklist.md"
+      "summary": "Correlate account activity across sign-in, mailbox, endpoint and network telemetry.",
+      "learning_objectives": [
+       "Distinguish deviations from confirmed compromise",
+       "Correlate account and device evidence across sources",
+       "Document gaps and justify escalation"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l05.md"
+     },
+     {
+      "id": "les_c08_m09_l06",
+      "title": "9.6 Containment",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Recommend and verify scoped containment for suspicious mail, accounts and endpoints.",
+      "learning_objectives": [
+       "Choose controls based on confirmed exposure and activity",
+       "Preserve evidence and obtain decision authority",
+       "Verify effective containment and record residual risks"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l06.md"
+     },
+     {
+      "id": "les_c08_m09_l07",
+      "title": "9.7 Reporting",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Write audience-appropriate phishing incident reports with clearly bounded claims.",
+      "learning_objectives": [
+       "Separate observed facts from assessments and scope limits",
+       "Present time-sensitive decisions with owners and evidence",
+       "Preserve the source record and adapt distribution to each audience"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l07.md"
+     },
+     {
+      "id": "les_c08_m09_l08",
+      "title": "9.8 Phishing lab",
+      "duration": "90 mins",
+      "is_mandatory": true,
+      "summary": "Apply the module workflow to Banyan's synthetic phishing case using the course kit.",
+      "learning_objectives": [
+       "Preserve and evaluate evidence from the fictional case",
+       "Infer bounded scope from the dataset",
+       "Produce a defensible containment recommendation and incident report"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m09_l08.md"
+     }
+    ]
+   },
+   {
+    "id": "mod_c08_10",
+    "title": "Module 10: Threat hunting",
+    "description": "Learners plan and run hypothesis-driven threat hunts against saved, fictional Banyan Microfinance records and small synthetic fixtures. They check data coverage, write read-only hunt queries, build baselines, frame hunts around ATT&CK behaviors, document scope and reasoning, and validate findings into positive, benign or no-data outcomes.",
+    "order": 10,
+    "quiz": {
+     "id": "quiz_c08_m10",
+     "title": "Module 10: Threat hunting - Assessment",
+     "pass_threshold": 70,
+     "passing_score": 70,
+     "duration_minutes": 15,
+     "total_questions": 20,
+     "token_bounty": 100
+    },
+    "lessons": [
+     {
+      "id": "les_c08_m10_l01",
+      "title": "10.1 Hypothesis design",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Turn a hunt trigger into a testable hypothesis that names a behavior, scope, observable predictions and the evidence that would refute it.",
+      "learning_objectives": [
+       "Write a hunt hypothesis that states a behavior, an entity scope, a time window and at least two observable predictions",
+       "Identify the refuting evidence for a given hypothesis before any data is examined",
+       "Rank three candidate hypotheses by impact, plausibility and data feasibility and justify the ranking",
+       "Rewrite an untestable or conclusion-shaped hypothesis into a falsifiable one"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l01.md"
+     },
+     {
+      "id": "les_c08_m10_l02",
+      "title": "10.2 Data needs",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Map each hypothesis prediction to the sources, fields, time coverage and quality it requires, and record what the hunt cannot see.",
+      "learning_objectives": [
+       "Build a data-needs matrix that links each hypothesis prediction to a source, required fields and time coverage",
+       "Classify a hunt question as answerable, partially answerable or unanswerable from a stated data inventory",
+       "Distinguish absence of evidence from evidence of absence when a source is missing or incomplete",
+       "Describe how clock skew, retention and missing join keys limit a hunt conclusion"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l02.md"
+     },
+     {
+      "id": "les_c08_m10_l03",
+      "title": "10.3 Hunt queries",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Design read-only hunt queries that stack, filter, window and join records on shared entities, then check them by hand against a small fixture.",
+      "learning_objectives": [
+       "Write pseudocode hunt queries using stacking, filtering, time windows and entity joins",
+       "Trace a query by hand over a synthetic fixture and state the exact rows it returns",
+       "Identify query defects such as time zone mismatch, null-field exclusion and join fan-out",
+       "Document a query with its purpose, inputs, assumptions and expected positive and negative results"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l03.md"
+     },
+     {
+      "id": "les_c08_m10_l04",
+      "title": "10.4 Baselines",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Establish what normal looks like using time windows, peer groups and frequency analysis, and judge whether an observation departs from it meaningfully.",
+      "learning_objectives": [
+       "Choose a baseline window and peer group appropriate to a stated hunt question",
+       "Use stacking and frequency counts to separate common, rare and first-seen values",
+       "Compare an observation to a baseline and explain whether the deviation is meaningful",
+       "Explain why a baseline describes the past and is not an allowlist of safe behavior"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l04.md"
+     },
+     {
+      "id": "les_c08_m10_l05",
+      "title": "10.5 ATT&CK-driven hunts",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Use ATT&CK as a shared vocabulary to move from adversary behaviors to observable records and hunt hypotheses without overclaiming technique matches.",
+      "learning_objectives": [
+       "Translate an ATT&CK tactic and behavior description into observable data predictions",
+       "Select hunt behaviors using threat relevance and data visibility rather than matrix coverage",
+       "Map an observation to ATT&CK with stated confidence and an alternative benign explanation",
+       "Explain why sequential tactic labels do not prove a connected intrusion"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l05.md"
+     },
+     {
+      "id": "les_c08_m10_l06",
+      "title": "10.6 Documentation",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Record hunts so another analyst can reproduce the scope, data, queries, results, confidence and limitations, including negative results.",
+      "learning_objectives": [
+       "Complete a hunt record with hypothesis, scope, data sources, queries, results and limitations",
+       "Write findings in calibrated language that separates source observations, enrichment and analyst inference",
+       "Cite evidence by source and record identifier so another analyst can reproduce a finding",
+       "Produce handoff notes for incident response and detection engineering from a hunt record"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l06.md"
+     },
+     {
+      "id": "les_c08_m10_l07",
+      "title": "10.7 Validation",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Test hunt findings and hunt queries: corroborate across sources, weigh benign explanations, check for false negatives and assign defensible outcomes.",
+      "learning_objectives": [
+       "Validate a hunt query against a seeded synthetic positive and a known negative",
+       "Corroborate a finding using independent sources and identify when sources are not independent",
+       "Assign a positive, benign or no-data outcome with a confidence level and justify it",
+       "Decide whether a validated finding should be escalated, closed or carried forward"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l07.md"
+     },
+     {
+      "id": "les_c08_m10_l08",
+      "title": "10.8 Hunt lab",
+      "duration": "90 mins",
+      "is_mandatory": true,
+      "summary": "Run a complete paper hunt over supplied saved records: form hypotheses, check data, trace queries, compare baselines, document scope and defend findings.",
+      "learning_objectives": [
+       "Form and prioritize hypotheses from the supplied Banyan and synthetic lab records",
+       "Trace hunt queries by hand and cite the exact records that support each result",
+       "Reach a defensible positive, benign or no-data outcome for each lab case",
+       "Write a scoped hunt report that separates observations, enrichment, inference and gaps"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m10_l08.md"
+     }
+    ]
+   },
+   {
+    "id": "mod_c08_11",
+    "title": "Module 11: SOC automation",
+    "description": "Operate defensive SOC automation as an auditable workflow: case management, orchestration, bounded enrichment, approval gates, metrics, and offline playbook testing.",
+    "order": 11,
+    "quiz": {
+     "id": "quiz_c08_m11",
+     "title": "Module 11: SOC automation - Assessment",
+     "pass_threshold": 70,
+     "passing_score": 70,
+     "duration_minutes": 15,
+     "total_questions": 20,
+     "token_bounty": 100
+    },
+    "lessons": [
+     {
+      "id": "les_c08_m11_l01",
+      "title": "11.1 SOAR concepts",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Learn how a SOC workflow turns inputs into observable, reviewable decisions.",
+      "learning_objectives": [
+       "Identify triggers, steps and results",
+       "Distinguish orchestration from automated action",
+       "Explain ownership, idempotence and safe failure"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l01.md"
+     },
+     {
+      "id": "les_c08_m11_l02",
+      "title": "11.2 TheHive and Cortex",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Relate alerts, cases and observables in TheHive to Cortex analysis and response responsibilities.",
+      "learning_objectives": [
+       "Distinguish an alert, case, task and observable",
+       "Interpret contextual analysis reports",
+       "Explain responder approval and result verification"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l02.md"
+     },
+     {
+      "id": "les_c08_m11_l03",
+      "title": "11.3 Shuffle workflows",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Design and review a Shuffle workflow using synthetic inputs and non-operational destinations.",
+      "learning_objectives": [
+       "Trace trigger data through actions and branches",
+       "Explain execution evidence and confidential fields",
+       "Test valid inputs, retries and skipped actions"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l03.md"
+     },
+     {
+      "id": "les_c08_m11_l04",
+      "title": "11.4 Approval gates",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Design a human gate that approves a specific defensive action with scoped authority.",
+      "learning_objectives": [
+       "Capture a complete approval request",
+       "Handle denials, expiration and changed scope",
+       "Verify approval and outcome independently"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l04.md"
+     },
+     {
+      "id": "les_c08_m11_l05",
+      "title": "11.5 Enrichment automation",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Build an enrichment workflow that records provenance, freshness and uncertainty.",
+      "learning_objectives": [
+       "Normalize a typed observable without losing the original",
+       "Apply approved data handling and cache boundaries",
+       "Distinguish no-match, stale, error and unknown"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l05.md"
+     },
+     {
+      "id": "les_c08_m11_l06",
+      "title": "11.6 Metrics",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Measure workflow performance and outcomes without mistaking automation volume for effectiveness.",
+      "learning_objectives": [
+       "Define comparable metric endpoints and denominators",
+       "Interpret queue, approval and verification metrics",
+       "Identify quality tradeoffs from cohort comparisons"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l06.md"
+     },
+     {
+      "id": "les_c08_m11_l07",
+      "title": "11.7 Safe playbooks",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Design playbooks with bounded authority, safe failure, duplicate handling and an audit trail.",
+      "learning_objectives": [
+       "Specify preconditions and safe failure states",
+       "Prevent duplicate side effects and stale approvals",
+       "Reconcile partial actions and plan recovery"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l07.md"
+     },
+     {
+      "id": "les_c08_m11_l08",
+      "title": "11.8 Automation lab",
+      "duration": "90 mins",
+      "is_mandatory": true,
+      "summary": "Test an offline automation playbook using a fictional case and check its outcome record.",
+      "learning_objectives": [
+       "Run a local fixture through the simulated workflow",
+       "Exercise duplicates, bad data and awaiting approval",
+       "Produce an audit and human handoff"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m11_l08.md"
+     }
+    ]
+   },
+   {
+    "id": "mod_c08_12",
+    "title": "Module 12: Capstone",
+    "description": "Complete a defensive SOC shift from synthetic alert triage through case investigations, detection review and a documented change of watch.",
+    "order": 12,
+    "quiz": {
+     "id": "quiz_c08_m12",
+     "title": "Module 12: Capstone - Assessment",
+     "pass_threshold": 70,
+     "passing_score": 70,
+     "duration_minutes": 15,
+     "total_questions": 20,
+     "token_bounty": 100
+    },
+    "lessons": [
+     {
+      "id": "les_c08_m12_l01",
+      "title": "12.1 Capstone: triage alerts 1-15",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Build a first-pass triage queue for the first 15 synthetic alerts and document priorities.",
+      "learning_objectives": [
+       "Read the case inputs and source fields",
+       "Prioritise alerts using impact and confidence",
+       "Record evidence and the next owned decision"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l01.md"
+     },
+     {
+      "id": "les_c08_m12_l02",
+      "title": "12.2 Capstone: triage alerts 16-30",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Complete triage for alerts 16?30 and reconcile the queue with the first batch.",
+      "learning_objectives": [
+       "Group duplicate items while preserving auditability",
+       "Record evidence gaps and independent leads",
+       "Hand off the complete queue with priorities"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l02.md"
+     },
+     {
+      "id": "les_c08_m12_l03",
+      "title": "12.3 Capstone: case 1",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Investigate the first capstone case and separate evidence of execution from unverified scope.",
+      "learning_objectives": [
+       "Construct a sourced chronology",
+       "Explain confirmed scope and remaining gaps",
+       "Propose and verify a simulated response"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l03.md"
+     },
+     {
+      "id": "les_c08_m12_l04",
+      "title": "12.4 Capstone: case 2",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Investigate the second capstone case using authentication evidence and identity context.",
+      "learning_objectives": [
+       "Interpret failed and successful authentication events",
+       "Distinguish identity findings from device attribution",
+       "Define an actionable risk handoff"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l04.md"
+     },
+     {
+      "id": "les_c08_m12_l05",
+      "title": "12.5 Capstone: case 3",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Investigate the third capstone case and decide whether verified benign context resolves the alert.",
+      "learning_objectives": [
+       "Test the benign hypothesis with independent records",
+       "Document the threshold for reopening",
+       "Separate closure from permanent suppression"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l05.md"
+     },
+     {
+      "id": "les_c08_m12_l06",
+      "title": "12.6 Capstone: detection 1",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Specify and test a defensive detection from the capstone evidence using offline fixtures.",
+      "learning_objectives": [
+       "State a relationship, window and grouping field",
+       "Exercise positive and negative fixture cases",
+       "Bound the coverage and downstream response"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l06.md"
+     },
+     {
+      "id": "les_c08_m12_l07",
+      "title": "12.7 Capstone: detection 2",
+      "duration": "60 mins",
+      "is_mandatory": true,
+      "summary": "Review a second capstone detection for context, duplicates and gaps.",
+      "learning_objectives": [
+       "Define expected signals and important false positives",
+       "Verify behaviour with controlled fixtures",
+       "Recommend tuning and review criteria"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l07.md"
+     },
+     {
+      "id": "les_c08_m12_l08",
+      "title": "12.8 Capstone: shift report",
+      "duration": "90 mins",
+      "is_mandatory": true,
+      "summary": "Write a shift report with decisions, evidence, operational risks and clear ownership.",
+      "learning_objectives": [
+       "Reconcile all capstone alert dispositions",
+       "Communicate actionable findings with confidence",
+       "Assign verification and next review to named roles"
+      ],
+      "content_url": "/course-content/crs_cyber_soc_08/les_c08_m12_l08.md"
      }
     ]
    }
-  ]
+  ],
+  "curriculum_version": 2
  },
  {
   "id": "crs_cyber_dfir_09",

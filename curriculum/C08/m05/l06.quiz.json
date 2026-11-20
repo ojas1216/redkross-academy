@@ -2,7 +2,7 @@
   {
     "q": "During a busy shift an analyst posts in the team chat: \"can someone look at WS-104? lots of alerts\". Two people react with a thumbs-up. Why has the case not been escalated?",
     "options": [
-      "Because chat messages are not retained long enough to count as evidence for the case",
+      "Because chat messages are not retained long enough to count as evidence for the case or for its formal escalation record",
       "Because no named receiver has accepted ownership through a channel they must watch, so the analyst still owns it",
       "Because escalations must always be sent by email so that a written copy exists",
       "Because the message did not include a priority score from the triage queue"
@@ -29,7 +29,7 @@
     "q": "In the lab queue the R6 beacon_regular_small alert on WS-104 has the lowest priority, 3.6. How should this affect the escalation decision?",
     "options": [
       "It should not: priority orders the work, but R6 shows a command-and-control pattern, which is a hard trigger",
-      "R6 should be escalated only if the higher-priority alerts on WS-104 turn out to be true positives",
+      "R6 should be escalated only if the higher-priority alerts on WS-104 turn out to be confirmed true positives first",
       "R6 should go to the Tier 2 case queue rather than to on-call because its score is below 5",
       "R6 should be closed as noise unless its priority rises above the R4 upload alert"
     ],
@@ -54,7 +54,7 @@
   {
     "q": "A Tier 1 analyst's thirty-minute time-box expires on an unusual logon to a domain controller. The evidence is still inconclusive either way. What should the analyst do?",
     "options": [
-      "Return the alert to the queue with notes, because undetermined alerts wait until more evidence arrives",
+      "Return the alert to the queue with notes, because undetermined alerts simply wait there until more evidence arrives",
       "Close it as undetermined, because the time-box defines the maximum effort for any alert",
       "Escalate to Tier 2, because an undetermined alert on a crown-jewel asset meets the impact-based criteria",
       "Page the CISO directly, because domain controllers are always handled as reportable incidents"
@@ -94,7 +94,7 @@
     "q": "Triage of a data-access alert suggests that a senior executive may be copying customer records for personal use. How should the escalation be handled?",
     "options": [
       "Through the route the playbook names, often the SOC manager with HR or legal, on a need-to-know basis",
-      "Through the normal on-call page, copying the SOC distribution list so that every shift is aware",
+      "Through the normal on-call page, copying the whole SOC distribution list so that every shift is kept aware",
       "By contacting the executive first to give them a chance to explain before escalating",
       "By posting the evidence in the incident channel so the investigation can start immediately"
     ],
@@ -173,7 +173,7 @@
     "options": [
       "The Tier 1 analyst decides, because they noticed it first, and sends the report directly",
       "The on-call IR lead decides and sends it, because they own the case after acknowledgement",
-      "CERT-In decides after receiving the analyst's case export, so no internal decision is needed",
+      "CERT-In decides after receiving the analyst's case export, so no internal reporting decision is needed at all",
       "The designated point of contact with legal advice decides, and the report goes through that POC"
     ],
     "correct": 3,
@@ -185,7 +185,7 @@
     "q": "A case note written by a Tier 1 analyst reads: \"Probably not reportable; anyway we have 72 hours.\" What is the problem with it?",
     "options": [
       "It records an interpretation of legal obligations that belongs to accountable roles; the note should state facts and flags",
-      "It uses the wrong figure, and the correct fix is to replace 72 hours with six hours in the same note",
+      "It uses the wrong figure, and the correct fix is simply to replace 72 hours with the six-hour window in the same case note",
       "It should have been written in the escalation's NEED field instead of in the case notes",
       "It is acceptable as long as the IR lead countersigns the note before the shift ends"
     ],
@@ -252,7 +252,7 @@
       "Reporting within six hours and designating a point of contact for the organisation",
       "Encrypting all endpoint logs and reporting each cleared log as a separate incident",
       "Keeping ICT system logs for a rolling 180 days within India and synchronising clocks to specified NTP sources",
-      "Sending a copy of every Security log to CERT-In daily so that it holds an independent record"
+      "Sending a copy of every Security log to CERT-In daily so that the regulator holds an independent record of each host"
     ],
     "correct": 2,
     "explanation": "Retained logs and accurate clocks are what make a reported timeline trustworthy; a cleared local log shows why central collection matters. The six-hour and POC requirements concern reporting, not evidence integrity, and the Directions do not require daily log submission.",
@@ -314,7 +314,7 @@
   {
     "q": "An analyst validates that Word spawned PowerShell on a finance workstation two minutes after a .docm download, but has not yet worked out what the script did. What should the analyst do?",
     "options": [
-      "Finish analysing the script first so that the escalation contains a confirmed account of its effect",
+      "Finish analysing the script first so that the escalation contains a confirmed and complete account of its effect on the host",
       "Close the alert as a benign true positive if the user confirms they opened the document",
       "Queue it for Tier 2 within the normal SLA, because no data has been seen leaving the host yet",
       "Escalate now, because validated malicious execution is a hard trigger that does not wait for the full investigation"

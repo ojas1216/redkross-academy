@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Which activity best defines a tabletop exercise?",
+    "options": [
+      "Operators execute active containment on production devices",
+      "Engineers test individual recovery commands against real endpoints",
+      "Trainers deliver a lecture without presenting decisions",
+      "Participants discuss decisions in a simulated incident"
+    ],
+    "correct": 3,
+    "explanation": "A tabletop uses facilitated discussion to exercise roles and assess how people make decisions together.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which exercise objective is easiest to score consistently?",
+    "options": [
+      "Name the containment approver and record a decision before the next inject",
+      "Improve teamwork and demonstrate familiarity with the response process",
+      "Ensure participants understand the organization's security operating model",
+      "Show that the exercise scenario represents real-world threats to the industry"
+    ],
+    "correct": 0,
+    "explanation": "A specific observable decision at a defined point can be scored.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The group declined host isolation before the next inject. What makes the next inject usable?",
+    "options": [
+      "It assumes the host was isolated and requires the players to revise their prior answer",
+      "It introduces evidence independent of the earlier decision or has prewritten branches",
+      "It waits until players accept the facilitator's preferred containment choice",
+      "It reveals the intended answer and removes the containment objective from scoring"
+    ],
+    "correct": 1,
+    "explanation": "Branches or decision-independent facts let the exercise continue without forcing a predetermined outcome.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in a master scenario events list?",
+    "options": [
+      "Only participant job titles and their direct contact numbers",
+      "The final action plan approved after all improvements have been verified",
+      "Timed injects, recipients, expected decisions, and contingency notes",
+      "Production credentials needed to execute the scenario without delay"
+    ],
+    "correct": 2,
+    "explanation": "The MSEL sequences and delivers events so evaluators can observe target decisions.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two participants give competing accounts of who can authorize a wipe. What should the facilitator do?",
+    "options": [
+      "Choose the more senior participant's answer so the exercise can keep moving",
+      "Override both answers and record the facilitator as the authority for the scenario",
+      "Allow both decisions as correct and omit the conflict from evaluator notes",
+      "Ask them to identify the owner in the response plan and document any ambiguity"
+    ],
+    "correct": 3,
+    "explanation": "Unclear authority is a finding to capture, while players should consult the plan.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the evaluator's role during an inject?",
+    "options": [
+      "Record observable actions and compare them with the objective",
+      "Prompt players with the intended answer when they hesitate",
+      "Approve each operational action proposed by the incident team",
+      "Rewrite the exercise objectives after hearing each response"
+    ],
+    "correct": 0,
+    "explanation": "Evaluators record what participants did and compare it with the objective without steering their decisions.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A live outage begins during the tabletop. Which safety control should apply?",
+    "options": [
+      "Treat the outage as a bonus inject and continue with the exercise run",
+      "Use the agreed stop phrase and pause play for the real incident",
+      "Ask the real incident lead to wait until the facilitator finishes the hotwash",
+      "Merge exercise and live case records to give participants more context"
+    ],
+    "correct": 1,
+    "explanation": "Agreed ground rules separate simulated activity from genuine response.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When is a hotwash most useful?",
+    "options": [
+      "Before the exercise starts to determine the conclusions",
+      "Only after every improvement has been implemented and retested",
+      "Immediately after play while decisions and friction are fresh",
+      "At the beginning of a live incident to confirm roles for the first time"
+    ],
+    "correct": 2,
+    "explanation": "A hotwash captures immediate reflections while the participants can still recall how they reached key decisions.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An evaluator records that nobody named a backup notification owner. What belongs in the improvement plan?",
+    "options": [
+      "Repeat the evaluator's observation in the report without assigning follow-up",
+      "Set a goal to improve communication before the next available meeting",
+      "Circulate an unassigned task asking participants to be more proactive next time",
+      "Assign one owner, a due date, and a retest of backup notification ownership"
+    ],
+    "correct": 3,
+    "explanation": "A measurable corrective action makes the observed gap traceable to closure.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which information should go into the live exercise decision log?",
+    "options": [
+      "The decision, its owner, simulated time, and stated rationale",
+      "Every private chat across all departments during the exercise",
+      "A detailed assessment of participants' long-term job performance",
+      "Only proposed decisions that matched the facilitator's answer key"
+    ],
+    "correct": 0,
+    "explanation": "The decision log preserves what was chosen and why.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Banyan exercise records notice at 08:30 UTC. Which time matches its six-hour scenario deadline?",
+    "options": [
+      "14:25 UTC, 19:55 IST",
+      "14:30 UTC, 20:00 IST",
+      "14:50 UTC, 20:20 IST",
+      "15:05 UTC, 20:35 IST"
+    ],
+    "correct": 1,
+    "explanation": "The scenario adds six hours to notice and converts UTC by adding five hours and thirty minutes.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A proxy records a large outbound upload. What should players tell legal?",
+    "options": [
+      "Report confirmed disclosure of customer data because the observed transfer was large",
+      "Omit the upload from all case communications until the exact file list is verified",
+      "Report the observed host, destination, time and size, and state that content is unknown",
+      "Treat the uploader's identity as confirmed solely from the destination and total size"
+    ],
+    "correct": 2,
+    "explanation": "Proxy metadata establishes transfer details, while it does not identify the contents.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The scenario introduces suspicion that participants' incident chat is compromised. Which response tests the intended control?",
+    "options": [
+      "Create a new thread on the same platform and invite everyone with incident access",
+      "Post the alternate contact details in the suspect chat and wait for replies there",
+      "Stop documenting decisions until the original application has been restored",
+      "Move coordination to the prearranged alternate channel and verify participant identities"
+    ],
+    "correct": 3,
+    "explanation": "An established out-of-band channel reduces reliance on the potentially compromised system.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the purpose of an optional contingency inject?",
+    "options": [
+      "Extend play when time permits without displacing primary objectives",
+      "Guarantee that the exercise always runs past its allotted time",
+      "Replace any decision that participants have reached independently",
+      "Let players carry out a real control change before the hotwash"
+    ],
+    "correct": 0,
+    "explanation": "An optional inject covers extra material after core objectives are exercised.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Executives request an immediate wipe while forensic evidence has yet to be preserved. What should the tabletop evaluate?",
+    "options": [
+      "Whether players always wipe the device immediately when a senior executive asks",
+      "Whether players identify authority, evidence impact, and a defensible containment alternative",
+      "Whether players can recite the entire forensic policy without discussing the decision",
+      "Whether players avoid recording the discussion to keep their options open afterward"
+    ],
+    "correct": 1,
+    "explanation": "The inject exercises authority, tradeoffs and decision documentation.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How does a tabletop differ from a functional exercise?",
+    "options": [
+      "The tabletop requires a production incident, while the functional exercise uses simulated evidence",
+      "The functional exercise is an instructor lecture, while the tabletop necessarily runs live integrations",
+      "The tabletop discusses choices, while the functional exercise practices coordinated operations",
+      "The functional exercise has no objectives, while the tabletop measures individual job performance"
+    ],
+    "correct": 2,
+    "explanation": "Discussion and simulated operational execution define different exercise formats.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Players seek more facts than the facilitator can confirm. How should the exercise handle the request?",
+    "options": [
+      "Invent reassuring answers so the planned decision sequence continues on time",
+      "Stop and rewrite previous injects until only one possible response remains",
+      "Give out the full later scenario to remove uncertainty for the players",
+      "Record the question, supply authorized scenario facts, and leave missing information unresolved"
+    ],
+    "correct": 3,
+    "explanation": "Incomplete information tests how participants decide and communicate uncertainty.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which participant should deliver a scheduled scenario message?",
+    "options": [
+      "The facilitator or assigned controller listed in the exercise plan",
+      "An evaluator who has already decided which player should act",
+      "Any player who needs additional information to support their argument",
+      "The executive who will approve the final exercise action register"
+    ],
+    "correct": 0,
+    "explanation": "A controller delivers injects consistently according to the exercise plan.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Legal enters only after several earlier injects. How should a facilitator make the notification decision testable?",
+    "options": [
+      "Reset the noticed time to legal's arrival so the new participant gets equal play time",
+      "Provide the relevant known facts and ask legal to clarify ownership and the deadline",
+      "Tell legal the conclusion reached in the last exercise and record the same result here",
+      "Skip the notification objective and score only technical containment decisions"
+    ],
+    "correct": 1,
+    "explanation": "Legal needs a concise factual handoff, while the original exercise clock stays intact.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A participant mentions a new media request in the scenario. What response shows communications ownership?",
+    "options": [
+      "Publish a preliminary attribution from the SOC's shared account to acknowledge the inquiry",
+      "Ask a tier-one analyst to issue the final statement from the exercise chat",
+      "Route the inquiry to the designated communications lead and record the handoff",
+      "Decline to document the inquiry until the communications team gives a full written response"
+    ],
+    "correct": 2,
+    "explanation": "Routing and logging preserve ownership while preventing uncoordinated statements.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which element should be kept separate from the AAR's assessment of facts?",
+    "options": [
+      "The timestamp of the observation made during the exercise",
+      "The benchmark used to evaluate participant performance",
+      "The evidence that shows which decisions players reached",
+      "The improvement plan with owners and verification dates"
+    ],
+    "correct": 3,
+    "explanation": "The assessment records findings, while the improvement plan tracks responses to them.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An exercise scorecard marks a decision completed, but it was reached after the simulated deadline. How should it be recorded?",
+    "options": [
+      "Record that the action occurred and separately record the missed timing criterion",
+      "Mark the objective as fully met because the decision was reached eventually",
+      "Delete the decision from the log because completion was too late to count",
+      "Move the deadline to the recorded decision time and rescore all injects"
+    ],
+    "correct": 0,
+    "explanation": "Observed action and timely action provide different evidence about performance.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why share only the starting situation with participants before play?",
+    "options": [
+      "It keeps players from knowing their roles or review objectives",
+      "It enables decisions using information revealed at the intended times",
+      "It lets the facilitator change conclusions without creating a record",
+      "It prevents evaluators from preparing an objective scoring rubric"
+    ],
+    "correct": 1,
+    "explanation": "Timed disclosure preserves the exercise's intended decision conditions.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An exercise finding says the alternate channel worked, but no one could verify a participant's identity. What should the next run test?",
+    "options": [
+      "Whether more unverified participants can join the same alternate channel",
+      "Whether participants can restore the original chat before the incident ends",
+      "A documented identity verification step before sharing sensitive case details",
+      "Whether the facilitator can finish an exercise without maintaining a decision log"
+    ],
+    "correct": 2,
+    "explanation": "Operational use of a backup channel includes knowing who is on it.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which observation indicates an exercise outcome can be compared across runs?",
+    "options": [
+      "The general impression that the latest exercise felt more realistic",
+      "The informal votes cast for the most engaging player in the scenario",
+      "The number of words in each participant's summary of the exercise",
+      "The elapsed time from first escalation to a recorded containment decision"
+    ],
+    "correct": 3,
+    "explanation": "Consistent event definitions and measured timestamps produce comparable results.",
+    "lesson": 7,
+    "difficulty": "medium"
+  }
+]

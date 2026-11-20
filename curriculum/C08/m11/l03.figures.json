@@ -1,0 +1,77 @@
+{
+  "C08-M11-L03-F1": {
+    "title": "Tracing a simulated Shuffle workflow",
+    "caption": "The run record shows whether a valid draft or a review reason was produced.",
+    "alt": "A manual input passes to validation. Valid inputs reach a training inventory lookup and case draft. Invalid inputs record a review reason without a case effect. Both paths reach execution review.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "t",
+        "label": "Manual synthetic input",
+        "sub": "Trigger and stable ID",
+        "tone": "slate"
+      },
+      {
+        "id": "v",
+        "label": "Validate input",
+        "sub": "Starting action",
+        "tone": "violet"
+      },
+      {
+        "id": "x",
+        "label": "Record review reason",
+        "sub": "No case effect",
+        "tone": "orange"
+      },
+      {
+        "id": "l",
+        "label": "Check training inventory",
+        "sub": "Found, unknown or unavailable",
+        "tone": "blue"
+      },
+      {
+        "id": "d",
+        "label": "Produce a case draft",
+        "sub": "Link evidence and owner status",
+        "tone": "green"
+      },
+      {
+        "id": "h",
+        "label": "Review execution history",
+        "sub": "Check branch and resulting state",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "t",
+        "to": "v"
+      },
+      {
+        "from": "v",
+        "to": "l",
+        "label": "Valid input"
+      },
+      {
+        "from": "v",
+        "to": "x",
+        "label": "Invalid input"
+      },
+      {
+        "from": "l",
+        "to": "d"
+      },
+      {
+        "from": "x",
+        "to": "h"
+      },
+      {
+        "from": "d",
+        "to": "h"
+      }
+    ],
+    "note": "Inspect taken and skipped steps against the expected case outcome."
+  }
+}

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Which condition selects failures for a success in the supplied test?",
+    "options": [
+      "Any address with events within the same approximate hour",
+      "Same identity only, regardless of source or occurrence times",
+      "Any repeated failure appearing after the successful authentication",
+      "Same source address, strictly earlier and within 300 seconds"
+    ],
+    "correct": 3,
+    "explanation": "The grouping and preceding time window define the exact predicate.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the exercise's minimum distinct count?",
+    "options": [
+      "Five successful identity records",
+      "Five attempts for one shared identity",
+      "Five distinct failed identities",
+      "Eight duplicate source receipts"
+    ],
+    "correct": 2,
+    "explanation": "The threshold concerns unique failed identities in the stated group.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Five failures are recorded for a single identity in the window. How many identities count toward this rule?",
+    "options": [
+      "Five, because each failure concerns the same observed address",
+      "One distinct identity, below the diversity threshold",
+      "Zero, because only successful identities can contribute",
+      "Five, but only if the same source event ID is repeated"
+    ],
+    "correct": 1,
+    "explanation": "The rule uses unique identity values rather than event volume.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which branch prints review_identity for the supplied fixture?",
+    "options": [
+      "STAFF-382 from 203.0.113.60 after eight distinct failures",
+      "STAFF-411 from 198.51.100.40 after one preceding failure",
+      "The duplicated v08 failure by itself without a success",
+      "Every recorded identity from both recorded addresses"
+    ],
+    "correct": 0,
+    "explanation": "Only the first observed success meets the bounded threshold.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A failure occurs exactly five minutes before the success. Does it meet the time condition?",
+    "options": [
+      "No, the rule excludes failures at precisely the boundary",
+      "No, only simultaneous authentication records can match",
+      "Yes only if it has the exact same event ID as the success",
+      "Yes, the 300-second boundary is included"
+    ],
+    "correct": 3,
+    "explanation": "The stated condition accepts a difference greater than zero and at most 300.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the printed duplicate count be for the given records?",
+    "options": [
+      "Eight because every failed identity shares an address",
+      "Two because two different successes are observed",
+      "One repeated receipt for the v08 event",
+      "Zero because the subsequent success uses a different identity"
+    ],
+    "correct": 2,
+    "explanation": "Exactly one failure row repeats an already-seen event ID.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A failed record has the same occurrence time as the success. Is it eligible?",
+    "options": [
+      "Yes. An equal timestamp proves the failure came first",
+      "No. It is not strictly preceding the success",
+      "Yes only when the success name appears elsewhere in the group",
+      "No because a simultaneous record always comes from a different tenant"
+    ],
+    "correct": 1,
+    "explanation": "The strict lower bound avoids inferring order from simultaneous timestamps.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which success falls below the threshold in the test?",
+    "options": [
+      "STAFF-411 has one distinct preceding failure for its group",
+      "STAFF-382 has eight distinct preceding failures for its group",
+      "Every successful authentication when an earlier event has a duplicate",
+      "Neither because a success is enough to make the rule fire"
+    ],
+    "correct": 0,
+    "explanation": "The second address has insufficient distinct failure identities.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Four eligible failures occur at address A and one at address B before a success at A. What is the count for A?",
+    "options": [
+      "Five because the events happened in the same service and window",
+      "One because only the other address's failure matters",
+      "Zero unless all five identities later authenticate successfully",
+      "Four distinct identities at the success's exact address"
+    ],
+    "correct": 3,
+    "explanation": "Grouping by source prevents pooling independent address clusters.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who should verify the flagged account's actual session context?",
+    "options": [
+      "The exercise script which already adjudicated all legitimacy",
+      "The endpoint operator using a separate device's isolation record",
+      "The authorised VPN and identity owners",
+      "The employee asked to reproduce a failed login for confirmation"
+    ],
+    "correct": 2,
+    "explanation": "The reviewed source owners can inspect the authentication and session evidence.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team adds a requirement that the successful identity must also appear in the failure set. What should it document?",
+    "options": [
+      "The previous behaviour remains identical even with distinct identities",
+      "A different rule goal and changed fixture expectation",
+      "A verified causal link between the endpoint and the VPN case",
+      "A removal of source grouping because the condition now covers all cases"
+    ],
+    "correct": 1,
+    "explanation": "The supplied positive intentionally has a successful identity outside the failed set.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the primary unit used to deduplicate this fixture?",
+    "options": [
+      "The source event identity",
+      "The display name of every affected employee",
+      "The successful identities? total number of active sessions",
+      "The date the training fixture was saved"
+    ],
+    "correct": 0,
+    "explanation": "A repeated delivery can share the same stable event identity.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Can seconds since midnight alone handle arbitrary multi-day windows?",
+    "options": [
+      "Yes, if events are grouped solely by one recorded address",
+      "Yes, if all local clocks have consistent minute ordering",
+      "No, because a configured five-minute window cannot be expressed in seconds",
+      "No. Use full timestamps with day boundaries in deployment"
+    ],
+    "correct": 3,
+    "explanation": "The miniature fixture uses one day, so day transitions require additional context.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What evidence class does the expanded Python fixture represent?",
+    "options": [
+      "An independently authorised provider audit for the paper case",
+      "A complete live extract of all observed authentication activity",
+      "Synthetic test records used to verify correlation logic",
+      "Verified client attribution for the FIN-21 endpoint incident"
+    ],
+    "correct": 2,
+    "explanation": "The code test does not contribute new evidence to the case.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A genuine late failure changes the calculated count after an earlier result was issued. What fits?",
+    "options": [
+      "Erase the initial evidence and pretend the new record was always available",
+      "Apply the late-data policy and preserve the earlier decision record",
+      "Treat any delayed source event as a duplicate without checking its ID",
+      "Ignore the revised scope because the first run had already completed"
+    ],
+    "correct": 1,
+    "explanation": "A corrected assessment should retain what was known and when.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which status should represent a permission failure retrieving provider activity?",
+    "options": [
+      "Unavailable to the reviewer, with an owned request",
+      "A completed no-match in every connected service",
+      "A confirmed clean session for the candidate identity",
+      "A negative threshold decision on properly collected telemetry"
+    ],
+    "correct": 0,
+    "explanation": "A permission gap does not supply an audit result.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A lower threshold increases candidate volume in a shared-egress environment. What should tuning evaluate?",
+    "options": [
+      "Only whether more rules now produce positive labels",
+      "Whether the raw authentication source can be avoided entirely",
+      "Whether every low-count case can be closed automatically",
+      "Review workload, missed signals and evidence quality"
+    ],
+    "correct": 3,
+    "explanation": "Thresholds trade sensitivity against review capacity and context.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which detail makes the output interpretable by a second analyst?",
+    "options": [
+      "Only the program's process exit code",
+      "The dashboard colour of the current team queue",
+      "Success time, address, identity and distinct count",
+      "The identity of whoever wrote the example code"
+    ],
+    "correct": 2,
+    "explanation": "The output identifies the tested scope and observed count.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two services use the same egress address. What should a real implementation consider?",
+    "options": [
+      "Combine separate sources automatically whenever IP strings match",
+      "Include the service or tenant scope in its grouping",
+      "Ignore the service because all timestamps already use UTC",
+      "Use only the greatest count from either service without provenance"
+    ],
+    "correct": 1,
+    "explanation": "A shared address is insufficient where service boundaries differ.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the earliest time eligible for the 08:14:00 success?",
+    "options": [
+      "08:09:00 on the same exercise date",
+      "08:08:59 because it is just before five minutes",
+      "08:14:00 because equal values are preceding",
+      "08:15:00 because the program sorts only by display order"
+    ],
+    "correct": 0,
+    "explanation": "Subtracting the configured 300-second limit from the success time gives 08:09:00.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An outcome value is unrecognized in a deployment. What should a tested parser do?",
+    "options": [
+      "Convert unknown outcomes to success so no events are missed",
+      "Treat every unexpected value as a clean completed search",
+      "Add all such rows to the failed set regardless of event type",
+      "Route input for repair or review without guessing success"
+    ],
+    "correct": 3,
+    "explanation": "Valid states must be distinguished from malformed data.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why preserve the grouped failure evidence beside the candidate?",
+    "options": [
+      "It grants authority to change the named account in any service",
+      "It allows the analyst to avoid checking independent source context",
+      "A reviewer can reproduce the count and time bounds",
+      "It proves all involved sessions were conducted by one attacker"
+    ],
+    "correct": 2,
+    "explanation": "Evidence references support verification of the actual rule condition.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A below-threshold result occurs in a case with other credible risk. What is justified?",
+    "options": [
+      "Close because the rule conclusively excludes all identity problems",
+      "Review other evidence without changing the threshold result",
+      "Raise its reported failure count to match the existing risk",
+      "Ignore other evidence because the same rule defines incident scope"
+    ],
+    "correct": 1,
+    "explanation": "This rule selects one pattern and cannot rule out broader risk.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What distinguishes sorting saved rows from a streaming deployment?",
+    "options": [
+      "Saved rows are available together; late inputs need a live policy",
+      "Saved rows include live provider audit without extra authorisation",
+      "Streaming removes all need for valid timestamps and source keys",
+      "Both automatically guarantee identical source coverage"
+    ],
+    "correct": 0,
+    "explanation": "Arrival order and retention can affect the live detector's results.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What should a qualifying result trigger in this lab?",
+    "options": [
+      "A live attempt to reproduce the authentication event",
+      "An automatic restriction on all member accounts",
+      "A definitive attribution to the payments workstation",
+      "An evidence-backed identity review"
+    ],
+    "correct": 3,
+    "explanation": "The classifier produces a review candidate and no protective operation.",
+    "lesson": 7,
+    "difficulty": "medium"
+  }
+]

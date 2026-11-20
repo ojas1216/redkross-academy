@@ -1,0 +1,17 @@
+{
+  "C08-M10-L03-F1": {
+    "title": "Hand trace of the rare-download join query",
+    "caption": "Synthetic fixture only. Each step narrows the records using one building block, and the null-host row is carried forward as unresolved instead of being dropped.",
+    "alt": "A top-to-bottom flow of six steps. Twelve synthetic proxy rows are stacked by domain to find two rare domains. Three proxy rows match those domains. One of them, P11, has a null host and is set aside as unresolved. The other two are joined to endpoint events on the same host with an Office parent within ten minutes after. Only proxy row P06 and endpoint row E01 meet every condition, producing one candidate pair for validation.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Scoped input", "sub": "12 proxy rows, 09:00-10:00 UTC", "tone": "slate" },
+      { "label": "Stack by domain", "sub": "2 domains on one host", "tone": "blue" },
+      { "label": "Rare-domain rows", "sub": "P06, P10, P11", "tone": "blue" },
+      { "label": "Unresolved", "sub": "P11 null host, needs IP mapping", "tone": "orange" },
+      { "label": "Join on host and time", "sub": "Office parent, 0-10 min after", "tone": "violet" },
+      { "label": "Candidate", "sub": "P06 + E01, needs validation", "tone": "green" }
+    ]
+  }
+}

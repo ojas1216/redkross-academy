@@ -1,0 +1,48 @@
+{
+  "C08-M11-L06-F1": {
+    "title": "Measure workflow stages and outcomes",
+    "caption": "Stages have different timestamps and need matching evidence for a useful operational metric.",
+    "alt": "Five rows describe intake receipt to assignment, approval request to decision, accepted action to observed effect, effect to verification, and quality audit against unique cases.",
+    "type": "table",
+    "columns": [
+      "Stage",
+      "Start",
+      "End or evidence"
+    ],
+    "rows": [
+      [
+        "Intake",
+        "Alert received",
+        "Case assigned"
+      ],
+      [
+        "Approval",
+        "Eligible request visible",
+        "Decision recorded"
+      ],
+      [
+        "Execution",
+        "Approved request accepted",
+        "Expected effect observed"
+      ],
+      [
+        "Verification",
+        "Effect observed",
+        "Scope and state verified"
+      ],
+      [
+        "Quality",
+        "Unique case sample",
+        "Rework, duplicates or gaps"
+      ]
+    ],
+    "rowTones": [
+      "blue",
+      "violet",
+      "orange",
+      "green",
+      "dark"
+    ],
+    "note": "Record pending work and the cutoff alongside completed-case metrics."
+  }
+}

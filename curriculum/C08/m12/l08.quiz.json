@@ -1,0 +1,327 @@
+[
+  {
+    "q": "At 08:32 the workstation isolation is verified and data content is unknown. How should the executive brief report it?",
+    "options": [
+      "State both verified control and unresolved impact",
+      "Treat verified isolation as proof that the data was harmless",
+      "Confirm the content based only on the number of transfer bytes",
+      "Say no action happened because impact is still uncertain"
+    ],
+    "correct": 0,
+    "explanation": "A verified control and an unresolved assessment can coexist.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How many total receipts should the shift report account for?",
+    "options": [
+      "Twenty-eight because duplicates cannot be counted in intake",
+      "Thirty-two because the duplicate receipts are added separately",
+      "Three because there are three case workstreams",
+      "Thirty including two explicit repeated receipts"
+    ],
+    "correct": 3,
+    "explanation": "Intake includes routine context, active findings and repeat deliveries.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reader asks whether the lab output gives the actual individual VPN failure IDs. How should the handoff respond?",
+    "options": [
+      "They are official provider audit records replacing the source summary",
+      "They substantiate every individual case actor without corroboration",
+      "Those IDs belong to synthetic detection tests only",
+      "They are administrative IDs for the verified endpoint control"
+    ],
+    "correct": 2,
+    "explanation": "Use the actual capstone source records for case claims.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does B23 establish for the next watch?",
+    "options": [
+      "Proof that an external notification was transmitted",
+      "A request to pass facts to the designated owner",
+      "An approved payment transaction change",
+      "A complete response to the user's identity investigation"
+    ],
+    "correct": 1,
+    "explanation": "The record marks a requested coordination step rather than a verified notice.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should the handoff change when its cutoff is moved to 08:28?",
+    "options": [
+      "Describe isolation as pending and exclude later knowledge",
+      "Keep the applied state because the later confirmation is known now",
+      "Remove evidence of an accepted request because policy did not yet apply",
+      "Keep all 08:29?08:32 records as though they were available earlier"
+    ],
+    "correct": 0,
+    "explanation": "A shift version reports only what was known by its cutoff.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which report entry belongs with the OPS-03 closure?",
+    "options": [
+      "A commitment to stop monitoring all similar activity permanently",
+      "The workstation's outbound amount as the reason for closure",
+      "A statement that the identity resolution removed the need to review it",
+      "The event ID, approved window and corroborating evidence"
+    ],
+    "correct": 3,
+    "explanation": "A scoped administrative closure has reproducible evidence and limits.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The next analyst assumes the FIN-21 control also contained the VPN session. What should the report clarify?",
+    "options": [
+      "The same control protects both services when their timestamps are close",
+      "The endpoint record proves the successful account never used other services",
+      "The separate identity lead has no verified session response",
+      "The VPN query can be dropped because the device was isolated"
+    ],
+    "correct": 2,
+    "explanation": "The endpoint and identity response effects require separate verification.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which status best fits the Finance workstream at cutoff?",
+    "options": [
+      "Verified payment reversal at 08:29 UTC",
+      "Transaction impact under review",
+      "A known confirmed inter-account transfer made by STAFF-382",
+      "Closed because a device policy applied successfully"
+    ],
+    "correct": 1,
+    "explanation": "B22 does not establish whether any payment changed.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What should a peer verify about the proxy scope result in the shift report?",
+    "options": [
+      "The three hostnames, available source and evaluated time window",
+      "An assertion that every endpoint was fully monitored",
+      "A complete list of all employee clicks in unrelated sources",
+      "The cause of the observed process based only on that negative result"
+    ],
+    "correct": 0,
+    "explanation": "The scope sentence must retain the limits supporting the negative.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What helps an open action survive a shift change?",
+    "options": [
+      "Only a general note to continue checking at some point",
+      "An instruction to repeat the earlier successful effect for assurance",
+      "A copied screenshot containing no current status or target",
+      "A named owner, review condition and evidence reference"
+    ],
+    "correct": 3,
+    "explanation": "Actionable handoffs tell the next team what decision is next.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new record contradicts an earlier effect claim. How should the brief be amended?",
+    "options": [
+      "Rewrite every earlier handoff without a correction note",
+      "Preserve the old claim and omit the contradictory evidence",
+      "Add a new version with evidence and its decision impact",
+      "Let each recipient infer different facts without updating the record"
+    ],
+    "correct": 2,
+    "explanation": "Versioned corrections retain knowledge history and current state.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in a restricted technical appendix?",
+    "options": [
+      "A public release of every employee identifier",
+      "Source pointers, time and scoped detection-test notes",
+      "Only the latest colour statuses for each case group",
+      "A completed claim for technical checks that were not attempted"
+    ],
+    "correct": 1,
+    "explanation": "A restricted appendix gives reviewers reproducible support for the brief.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An incoming lead wants to apply isolation to an additional asset. What can the shift brief authorise by itself?",
+    "options": [
+      "Only what the approved process records with the exact scope",
+      "Any further action involving similar domains during the same shift",
+      "Every action the outgoing author mentioned as a possibility",
+      "Changes to an unrelated asset already protected by another case"
+    ],
+    "correct": 0,
+    "explanation": "A handoff alone cannot expand a previously scoped approval.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does accounting for duplicate receipts preserve?",
+    "options": [
+      "Authority to reproduce the historical process on a live device",
+      "Two separate verified operating effects for every repeated row",
+      "A guarantee that new evidence can never arrive out of order",
+      "A complete intake history without inflating source events"
+    ],
+    "correct": 3,
+    "explanation": "Duplicate links keep evidence visible and preserve correct counting.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One detector uses synthetic expansion of the original aggregate. What is a valid appendix claim?",
+    "options": [
+      "It confirms the provider collected all actual individual records",
+      "It supplies new evidence that the paper case was an attack",
+      "It verifies branch logic under the stated fixture",
+      "It validates live production collection and response policy"
+    ],
+    "correct": 2,
+    "explanation": "Fixture evidence applies to the test rather than real collection scope.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which source limitation belongs with WKS-05?",
+    "options": [
+      "Verified endpoint isolation at 08:29 UTC",
+      "Delayed endpoint collection with a follow-up owner",
+      "A strong shared client link to STAFF-382",
+      "A matched log clear approved by CR-82 on that workstation"
+    ],
+    "correct": 1,
+    "explanation": "The health observation identifies a visibility concern and no compromise.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The report says thirty harmful alerts were closed. What needs correction?",
+    "options": [
+      "Count thirty receipts and explain distinct dispositions and open cases",
+      "Count only the two duplicate rows and remove the other records",
+      "Keep the total but classify every row as an urgent effect",
+      "Mark all active observations routine so the wording stays consistent"
+    ],
+    "correct": 0,
+    "explanation": "Receipt count and case closure measure different parts of the shift.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the next update time represent?",
+    "options": [
+      "A promise all mitigations are complete at that exact time",
+      "The time at which every source originally collected data",
+      "Verified closure for each pending external response action",
+      "A planned review point stated separately from observed events"
+    ],
+    "correct": 3,
+    "explanation": "A review schedule does not imply any particular conclusion.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A later authoritative mail trace arrives. Which part of the report can it revise?",
+    "options": [
+      "The already observed byte count in the earlier proxy event",
+      "The original cutoff at which the trace was unavailable",
+      "Delivery scope and linkage supported by its own evidence",
+      "The endpoint control time without a corresponding management record"
+    ],
+    "correct": 2,
+    "explanation": "New source observations update the claims they actually support.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which case currently has a scoped administrative closure?",
+    "options": [
+      "FIN-21's data impact assessment after isolation",
+      "OPS-03's reviewed O-401 under CR-82",
+      "STAFF-382's unverified provider activity",
+      "WKS-05's endpoint collection delay with missing data"
+    ],
+    "correct": 1,
+    "explanation": "The operation matches the approved scope and the operations owner corroborates it.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A peer cannot find who owns session verification. What should the author change?",
+    "options": [
+      "Name the authorised identity or VPN owner and needed records",
+      "Add raw unrelated employee details to the executive version",
+      "Mark the identity case closed until someone claims it",
+      "Assume it belongs to the endpoint team because they have an active case"
+    ],
+    "correct": 0,
+    "explanation": "Handoff quality depends on clear ownership and an evidence request.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should the visible classification of B27 be described?",
+    "options": [
+      "The same DNS event received twice under the same source ID",
+      "An observation inferred from B30 without its own source",
+      "The only proof that the VPN account controlled FIN-21",
+      "A distinct observation with earlier occurrence and later arrival"
+    ],
+    "correct": 3,
+    "explanation": "B27 has its own observed identity and time in the second batch.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An operator cites a completed detector test as proof of live coverage. What is the correct distinction?",
+    "options": [
+      "A representative fixture establishes complete coverage of every host",
+      "A valid test run guarantees no future data-quality failures",
+      "Test behaviour is verified; coverage and integration need separate evidence",
+      "The design may now ignore actual source and schema changes"
+    ],
+    "correct": 2,
+    "explanation": "The implementation and its scoped tests cannot replace deployment evidence.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an incoming analyst acknowledge during the exercise?",
+    "options": [
+      "A commitment to approve every outstanding request automatically",
+      "Ownership, key pending action and its evidence source",
+      "Exact knowledge of facts unavailable to the previous shift",
+      "A transfer of credentials for every unrelated case service"
+    ],
+    "correct": 1,
+    "explanation": "Acknowledgment checks that the handoff can support real decisions.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What makes the final capstone handoff defensible?",
+    "options": [
+      "Each claim is scoped, evidenced and linked to an owned decision",
+      "Each source record is considered proof of the same causal chain",
+      "Each unresolved question is removed so the report reads quickly",
+      "Each exercise result is presented as if already deployed"
+    ],
+    "correct": 0,
+    "explanation": "Accurate evidence and next actions matter more than unsupported certainty.",
+    "lesson": 8,
+    "difficulty": "medium"
+  }
+]

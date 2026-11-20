@@ -1,0 +1,233 @@
+{
+  "C08-M09-L03-F1": {
+    "title": "Where a sandbox report gets its evidence",
+    "caption": "The sandbox combines host and network observations into an assessment of one run.",
+    "alt": "A submitted sample passes through the controller to the analysis guest. Host monitoring produces the process tree and file and registry evidence. Network capture produces the network evidence. The verdict is derived from all four sections.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "s",
+        "label": "Submitted sample",
+        "sub": "File or URL and run options",
+        "tone": "slate"
+      },
+      {
+        "id": "c",
+        "label": "Controller",
+        "sub": "Queue and restore snapshot",
+        "tone": "violet"
+      },
+      {
+        "id": "g",
+        "label": "Analysis guest",
+        "sub": "Run under controlled conditions",
+        "tone": "blue"
+      },
+      {
+        "id": "h",
+        "label": "In-guest / hypervisor monitor",
+        "sub": "Processes, files, registry, APIs",
+        "tone": "orange"
+      },
+      {
+        "id": "n",
+        "label": "Network capture",
+        "sub": "DNS, HTTP/TLS, packet capture",
+        "tone": "orange"
+      },
+      {
+        "id": "p",
+        "label": "Process tree",
+        "sub": "",
+        "tone": "green"
+      },
+      {
+        "id": "f",
+        "label": "File activity",
+        "sub": "",
+        "tone": "green"
+      },
+      {
+        "id": "r",
+        "label": "Registry activity",
+        "sub": "",
+        "tone": "green"
+      },
+      {
+        "id": "w",
+        "label": "Network activity",
+        "sub": "",
+        "tone": "green"
+      },
+      {
+        "id": "v",
+        "label": "Signatures and verdict",
+        "sub": "Assessment derived from observations",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s",
+        "to": "c"
+      },
+      {
+        "from": "c",
+        "to": "g"
+      },
+      {
+        "from": "g",
+        "to": "h"
+      },
+      {
+        "from": "g",
+        "to": "n"
+      },
+      {
+        "from": "h",
+        "to": "p"
+      },
+      {
+        "from": "h",
+        "to": "f"
+      },
+      {
+        "from": "h",
+        "to": "r"
+      },
+      {
+        "from": "n",
+        "to": "w"
+      },
+      {
+        "from": "p",
+        "to": "v"
+      },
+      {
+        "from": "f",
+        "to": "v"
+      },
+      {
+        "from": "r",
+        "to": "v"
+      },
+      {
+        "from": "w",
+        "to": "v"
+      }
+    ],
+    "note": "Compare the verdict with the observations and the conditions of the run."
+  },
+  "C08-M09-L03-F2": {
+    "title": "Reviewing a sandbox submission",
+    "caption": "Sample handling depends on preceding investigation, data sensitivity and the intended service's sharing rules.",
+    "alt": "Check internal records for an existing conviction or analysis. When new analysis is required, treat unknown data sensitivity as sensitive. Use a permitted private environment for restricted material or escalate if unavailable. Record any submission in the case.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "s",
+        "label": "Suspicious file from a mailbox",
+        "sub": "",
+        "tone": "slate"
+      },
+      {
+        "id": "h",
+        "label": "Hash already classified?",
+        "sub": "Check internal cases first",
+        "tone": "violet",
+        "kind": "decision"
+      },
+      {
+        "id": "d",
+        "label": "Personal or business data inside?",
+        "sub": "Include uncertainty",
+        "tone": "violet",
+        "kind": "decision"
+      },
+      {
+        "id": "a",
+        "label": "Sharing terms allow public?",
+        "sub": "Policy, contract and markings",
+        "tone": "violet",
+        "kind": "decision"
+      },
+      {
+        "id": "e",
+        "label": "Use the existing report",
+        "sub": "",
+        "tone": "green"
+      },
+      {
+        "id": "p",
+        "label": "Private or contracted sandbox",
+        "sub": "Escalate if no approved private option",
+        "tone": "green"
+      },
+      {
+        "id": "u",
+        "label": "Approved public service",
+        "sub": "Assume submission is visible",
+        "tone": "orange"
+      },
+      {
+        "id": "r",
+        "label": "Record in the case",
+        "sub": "Where, when, why and by whom",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s",
+        "to": "h"
+      },
+      {
+        "from": "h",
+        "to": "e",
+        "label": "Yes"
+      },
+      {
+        "from": "h",
+        "to": "d",
+        "label": "No"
+      },
+      {
+        "from": "d",
+        "to": "p",
+        "label": "Yes or unsure"
+      },
+      {
+        "from": "d",
+        "to": "a",
+        "label": "No"
+      },
+      {
+        "from": "a",
+        "to": "p",
+        "label": "No"
+      },
+      {
+        "from": "a",
+        "to": "u",
+        "label": "Yes"
+      },
+      {
+        "from": "e",
+        "to": "r"
+      },
+      {
+        "from": "p",
+        "to": "r"
+      },
+      {
+        "from": "u",
+        "to": "r"
+      }
+    ],
+    "note": "Use only services approved for the data and sharing terms."
+  }
+}

@@ -16,7 +16,7 @@
     "q": "A 4688 event confirms that powershell.exe started on a workstation, but the Process Command Line field is empty. Which explanation fits best?",
     "options": [
       "PowerShell script block logging was disabled on the workstation",
-      "The process was started by a service rather than by a logged-on user",
+      "The process was started by a background service instead of a user with an interactive session",
       "The policy to include command lines in process creation events is off",
       "The event was truncated because the encoded command was too long"
     ],
@@ -57,7 +57,7 @@
       "The logon type, which separates interactive from network attempts",
       "The privileges list, which is filled in only for valid accounts",
       "The status and sub-status codes, such as 0xC000006A for a bad password",
-      "The parent process field, which shows which program sent the logon"
+      "The parent process field, which tells the analyst which program submitted the logon request to the operating system"
     ],
     "correct": 2,
     "explanation": "The status and sub-status codes explain why the logon failed; 0xC000006A means the name was valid and the password wrong, which distinguishes it from attempts against non-existent accounts. Logon type says how the attempt was made, not whether the account exists.",
@@ -106,7 +106,7 @@
   {
     "q": "On a Linux server, an administrator logged in over SSH as their own account and then used sudo and su to become root before running a command. Which value in the auditd record still identifies the human who originally logged in?",
     "options": [
-      "The effective user ID, which shows root after sudo",
+      "The effective user ID of the command, which reflects root after the privilege change",
       "The process ID of the shell that ran the command",
       "The audit user ID (auid), which survives sudo and su",
       "The session name written to the systemd journal"
@@ -133,7 +133,7 @@
     "q": "A team deploys Sysmon with a tuned configuration and expects suspicious process launches to be stopped or flagged on the host. What is wrong with that expectation?",
     "options": [
       "Sysmon blocks only processes that are listed in its exclude rules",
-      "Sysmon alerts only after its events reach the Windows Security log",
+      "Sysmon raises the alert once the event is copied into the Windows Security log and the host refreshes its audit policy",
       "Sysmon needs an EDR licence before it can raise any detections",
       "Sysmon is a sensor: it records activity but neither blocks nor alerts"
     ],
@@ -147,7 +147,7 @@
     "options": [
       "It removes duplicate events created when Sysmon and 4688 both fire",
       "It shows how widespread a pair is, so pairs unique to one host stand out",
-      "It corrects for process ID reuse, which inflates the total event count",
+      "It corrects the fleet-wide count for repeated process IDs, which otherwise makes identical launches look more common",
       "It weights each pair by how many users were logged on to each host"
     ],
     "correct": 1,
@@ -213,7 +213,7 @@
       "The user field is copied from the proxy and may name another person",
       "The user field is blank for every process started by a macro",
       "The event records a security context; malware in her session runs as her",
-      "Sysmon always records the account of the parent process's owner instead"
+      "The recorded name identifies the owner of the parent process, regardless of the child process's security context"
     ],
     "correct": 2,
     "explanation": "An event records the security context the process ran under, not the person at the keyboard, so malware launched from divya's session runs as divya. The user field is not taken from the proxy in endpoint events.",
@@ -226,7 +226,7 @@
       "EDR telemetry may age out and cannot be correlated with proxy or identity data",
       "EDR agents stop recording events once a SIEM forwarder is not present",
       "EDR consoles record only alerts and never keep raw process telemetry",
-      "EDR data is legally inadmissible unless it has first passed through a SIEM"
+      "EDR data may have to be copied manually during an investigation because it can only be admitted as evidence once indexed by a SIEM"
     ],
     "correct": 0,
     "explanation": "EDR consoles often keep raw telemetry for a limited period and in their own format, so it cannot be joined with network and identity sources. EDRs do keep raw telemetry, which is why the decision is about forwarding and retention.",
@@ -238,7 +238,7 @@
     "options": [
       "Sysmon refuses to load a configuration that has no exclude rules",
       "Unfiltered data can overwhelm collection and budgets and drown key events",
-      "auditd cannot record execve calls when other syscall rules are active",
+      "The audit subsystem prevents recording program execution once another system call category is enabled in the same policy",
       "Broad logging erases ProcessGuid values, breaking parent-child joins"
     ],
     "correct": 1,
@@ -264,7 +264,7 @@
     "options": [
       "In the audit policy, which must also enable Sysmon's own channel",
       "In the Sysmon driver, which records events only after a reboot",
-      "In the SIEM's parser, which discards events lacking a ProcessGuid",
+      "In the SIEM parser, which necessarily rejects the entire channel when a forwarded event is missing a process identifier",
       "In collection: the forwarder is not shipping that channel to the SIEM"
     ],
     "correct": 3,

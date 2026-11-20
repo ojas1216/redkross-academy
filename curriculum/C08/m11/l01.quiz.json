@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An analyst wants to automate case assignment and endpoint isolation in one step. What should be separated first?",
+    "options": [
+      "The case reference and evidence link into unrelated records",
+      "Routine preparation and consequential decision authority",
+      "The output of the inventory lookup and its timestamp",
+      "The live workflow and its recorded identity without any shared context"
+    ],
+    "correct": 1,
+    "explanation": "Preparation can be automated while a specific protective effect still needs authorisation.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement best describes orchestration in a SOC workflow?",
+    "options": [
+      "It coordinates information and work across steps or tools",
+      "It proves each connected system has completed its independent operation",
+      "It automatically transfers approval between operators on successive shifts",
+      "It is the same as the authorised effect of a defensive control"
+    ],
+    "correct": 0,
+    "explanation": "Orchestration describes coordination, whether its steps are manual or automated.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which system should preserve the incident decision and its owner?",
+    "options": [
+      "The event sender that originally generated an alert",
+      "The temporary cache that supplies a device's display name",
+      "The authentication library used by all connected service applications",
+      "The case system with references to supporting records"
+    ],
+    "correct": 3,
+    "explanation": "The case record is where investigators maintain decisions and ownership.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A timeout followed successful case creation. A retry arrives. What is the safest next check?",
+    "options": [
+      "Create a second draft and delete whichever one has an older timestamp",
+      "Ask the alert provider to issue a new identifier for the same event",
+      "Find the existing effect by its stable key",
+      "Treat the timeout as a guaranteed cancellation of downstream changes"
+    ],
+    "correct": 2,
+    "explanation": "A lost acknowledgment leaves the effect uncertain until reconciled.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which field distinguishes two receipts of the same intended intake?",
+    "options": [
+      "The timestamp recorded by the retry attempting assignment",
+      "A stable source event identifier",
+      "The business owner copied onto the escalation note",
+      "The current severity label shown in the case view"
+    ],
+    "correct": 1,
+    "explanation": "The original source identity remains consistent across delivery attempts.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An internal directory is unavailable during intake. Which state is accurate?",
+    "options": [
+      "Context unavailable; route the valid alert for review",
+      "No matching owner exists in the organisation's authoritative inventory",
+      "The alert is conclusively unrelated to any supported device",
+      "The case should be closed because enrichment did not finish"
+    ],
+    "correct": 0,
+    "explanation": "An unavailable lookup is different from a completed negative result.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the workflow contract define for malformed input?",
+    "options": [
+      "A placeholder value that always makes it eligible for downstream effects",
+      "A reason to remove all associated case records immediately",
+      "The exact process for renewing protection on an unverified asset",
+      "The validation result and manual review route"
+    ],
+    "correct": 3,
+    "explanation": "Unexpected inputs should have a reviewable outcome without expanding authority.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two legitimate observations name one device but have different source IDs. Why can both be retained?",
+    "options": [
+      "Any case can only preserve one source identifier at a time",
+      "Different IDs prove the security events are unrelated across all sources",
+      "They are distinct events even if one case holds them",
+      "One event should be discarded whenever inventory recognises a device"
+    ],
+    "correct": 2,
+    "explanation": "Deduplication targets repeated intent, while case correlation handles related observations.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which activity crosses an information boundary even though it changes no case state?",
+    "options": [
+      "Reading the permitted internal case's summary in the work queue",
+      "Submitting a restricted identifier to a lookup service",
+      "Linking two existing evidence references within one approved case",
+      "Checking local syntax on a fictional sample without opening a connection"
+    ],
+    "correct": 1,
+    "explanation": "A read-only operation can still disclose information to another service.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An engine reports completion after producing an approval request. What should the shift note say?",
+    "options": [
+      "Intake completed; decision and effect remain pending",
+      "Containment is verified because the workflow reached its final node",
+      "Approval automatically passed when the intake operation succeeded",
+      "The entire incident can close because the engine recorded a success state"
+    ],
+    "correct": 0,
+    "explanation": "Workflow completion and operational protection are separate states.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why include the workflow revision alongside case effects?",
+    "options": [
+      "To identify which device started the original observed event",
+      "To count every user who can view the case history",
+      "To prove the incident remained active until the next release",
+      "To reproduce which contract applied at the time"
+    ],
+    "correct": 3,
+    "explanation": "A revision lets reviewers trace changes in mapping and decision logic.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A stale alert is replayed days later. What should determine its effect?",
+    "options": [
+      "The same action as the original alert under any policy",
+      "The dashboard's highest displayed severity regardless of received date",
+      "The contract's freshness rules and current case context",
+      "The elapsed time from the alert's subject appearing in the queue"
+    ],
+    "correct": 2,
+    "explanation": "Old observations can remain useful without justifying the same action now.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the main benefit of a reason code plus a case note?",
+    "options": [
+      "Every run can report the same outcome to conceal sensitive facts",
+      "Counts can be grouped while preserving context for review",
+      "Analysts can stop recording source references when a situation is urgent",
+      "An owner can approve any operation without reading its scope"
+    ],
+    "correct": 1,
+    "explanation": "Structured reasons support metrics while contextual notes support decisions.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which result best demonstrates repeat-safe case creation?",
+    "options": [
+      "Two receipts return one verified case reference",
+      "Two execution IDs appear green in the engine dashboard",
+      "The repeat does not appear anywhere in the execution record",
+      "One case label applies to two separately created case objects"
+    ],
+    "correct": 0,
+    "explanation": "Repeat safety is proven by its effect, not the number of runs.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is a suitable first automation candidate for a novice SOC team?",
+    "options": [
+      "A broad production control change that varies by case",
+      "An anonymous approval channel for consequential actions",
+      "A public export of all case evidence to speed manual review",
+      "A narrow, tested internal inventory lookup"
+    ],
+    "correct": 3,
+    "explanation": "A well-defined, bounded repetitive task is easier to verify and govern.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The event record includes a free-form string naming a destination service. What should control the workflow destination?",
+    "options": [
+      "Whichever destination the event text asks the workflow to use",
+      "The queue used by the last unrelated successful run",
+      "Its reviewed configuration and the source contract",
+      "The interpretation chosen by the employee whose device was named"
+    ],
+    "correct": 2,
+    "explanation": "Untrusted input is data and cannot grant routing authority.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a case reference provide to the workflow reviewer?",
+    "options": [
+      "A permanent grant to operate every response service involved",
+      "A link to the corresponding decision and evidence record",
+      "A replacement for the source's actual event timestamp and identifier",
+      "A statement that all work associated with the alert is complete"
+    ],
+    "correct": 1,
+    "explanation": "Linked records let a reviewer reconstruct the evidence and state.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A lookup returns a device owner, but the source was not recently reviewed. How should the case use it?",
+    "options": [
+      "Record it as contextual and request confirmation before consequential action",
+      "Promote the lookup to verified device control authority for all services",
+      "Discard the original evidence because the context is newer than the alert",
+      "Assume a lack of any owner whenever a lookup is older than the event"
+    ],
+    "correct": 0,
+    "explanation": "Source provenance and freshness help determine the context's appropriate weight.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should persist if automated routing is paused for a repair?",
+    "options": [
+      "Only previously confirmed effects and their display names",
+      "Nothing until an administrator can restart the service",
+      "An automatic permission grant for the delayed operations",
+      "Incoming evidence and the manual review state"
+    ],
+    "correct": 3,
+    "explanation": "A pause should preserve work and evidence for safe handling.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What action suits an unknown result of a consequential change?",
+    "options": [
+      "Repeat it immediately until the engine reports success",
+      "Mark it failed solely because the client did not receive a receipt",
+      "Reconcile the effect through an approved source",
+      "Close the incident and record that protection must have succeeded"
+    ],
+    "correct": 2,
+    "explanation": "Uncertainty about the outcome needs reconciliation before another change.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why name an owner for manual review states?",
+    "options": [
+      "So all case outcomes use one generic label across environments",
+      "So unresolved work reaches someone authorised to resolve it",
+      "So the source service can remove records that require explanation",
+      "So pending events can automatically count as verified protection"
+    ],
+    "correct": 1,
+    "explanation": "Ownership makes a safe stop actionable rather than invisible.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A test input creates no case because it is outside approved scope. What is a successful result?",
+    "options": [
+      "The input is accounted for with no unauthorised effect",
+      "There is a new case regardless because all inputs must succeed",
+      "The run enters the case list under the most recent valid event",
+      "The system drops it without a record so metrics stay unchanged"
+    ],
+    "correct": 0,
+    "explanation": "A no-action branch can be correct when the reason is visible.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which evidence best proves an intended case draft exists?",
+    "options": [
+      "An inventory response naming the same general business unit",
+      "The fact that an alert appeared in a source application's history",
+      "A renderer preview of the message the workflow planned to send",
+      "The owning case system's verified record"
+    ],
+    "correct": 3,
+    "explanation": "A verified downstream record demonstrates the effect where it occurs.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A workflow is judged faster after ambiguous cases were removed from its comparison. What should the owner do?",
+    "options": [
+      "Publish the result immediately because average runtime is lower",
+      "Treat every removed case as a successful automatic routing",
+      "Compare eligible cohorts and preserve unresolved cases",
+      "Remove the comparison's date range and sample size to simplify it"
+    ],
+    "correct": 2,
+    "explanation": "Eligibility and unresolved cases affect interpretation of any reported improvement.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which responsibility applies to each new workflow version?",
+    "options": [
+      "Automatically inherit every permission ever held by earlier versions",
+      "Describe and test its expected branch outcomes",
+      "Delete records created by the old workflow so tests start cleanly",
+      "Ignore the recorded result as long as the configuration can be saved"
+    ],
+    "correct": 1,
+    "explanation": "Versioned expectations help reviewers check intended and unintended effects.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

@@ -68,7 +68,7 @@
     "q": "The outbound-bytes panel lists WS-104 with total_out 48,263,095 and max_out 48,200,000, while every other host is below 100 KB. Why is showing max_out beside total_out valuable here?",
     "options": [
       "It shows that almost all of the total came from one single request",
-      "It shows that WS-104 sent many medium uploads spread over the day",
+      "It shows that WS-104 sent several medium uploads over the day and reached the same total as one large transfer",
       "It shows that the proxy truncated large requests at a fixed size",
       "It shows that the total includes bytes received as well as sent"
     ],
@@ -145,7 +145,7 @@
   {
     "q": "Which combination of thresholds does the lesson recommend as a practical compromise for a SOC's dashboards?",
     "options": [
-      "Baselines for health and static limits for activity, set by vendors",
+      "Use per-source baselines for collection health and vendor-supplied static thresholds for business activity",
       "Static limits everywhere, with values reduced during night shifts",
       "A static floor for source health and reviewed baselines for activity",
       "Baselines everywhere, retrained automatically after each incident"
@@ -290,7 +290,7 @@
     "options": [
       "A volume chart of Windows events per hour on the wall display",
       "A management trend of incidents by category reviewed monthly",
-      "A threat-level gauge that turns amber when Windows volume drops",
+      "A threat gauge turns amber when Windows event volume drops and stays visible on the team's overview screen",
       "An owned health panel whose thresholds are also backed by alerts"
     ],
     "correct": 3,

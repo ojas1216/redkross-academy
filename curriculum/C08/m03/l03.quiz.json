@@ -4,7 +4,7 @@
     "options": [
       "The VPN stored the address under its own field name, so the search silently skipped it",
       "The VPN login was rejected at parse time because its JSON carried a UTC timestamp",
-      "The firewall events were indexed first, so later VPN events were hidden by the search",
+      "The firewall events were indexed first, and the search discarded later VPN events as duplicate records from the same address",
       "The search engine discards duplicate addresses that appear in more than one source"
     ],
     "correct": 0,
@@ -56,7 +56,7 @@
     "options": [
       "The dash is treated as one very busy address, creating a false cluster of events",
       "SQLite rejects the dash in a text column, so those ten events are never loaded",
-      "The events are classified as external, because the dash does not start with 10.",
+      "The classifier treats the dash as a routable external address because it cannot match one of the configured internal prefixes",
       "The rule ignores them, since a dash is read by SQL as a null value by default"
     ],
     "correct": 0,
@@ -199,7 +199,7 @@
     "options": [
       "Enrichment before normalisation makes events too large to store in the index",
       "Enrichment sources only accept UTC times, which parsing has not yet produced",
-      "Context lookups must run at search time, so they cannot occur in the pipeline",
+      "Asset and identity context must be retrieved at search time, since the collection pipeline cannot call a lookup before storing the record",
       "Lookups would need one key per vendor field name instead of one normalised key"
     ],
     "correct": 3,

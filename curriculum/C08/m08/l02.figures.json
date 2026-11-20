@@ -1,0 +1,53 @@
+{
+  "C08-M08-L02-F1": {
+    "title": "Incident communication: who speaks to whom",
+    "caption": "Facts flow from the SOC to the IR lead, who tailors them for each internal audience; only designated roles speak to external bodies.",
+    "alt": "Graph. SOC analyst (facts, timeline, time noticed) sends status, facts to the IR lead (owns the incident and its comms). The IR lead has arrows to IT ops, identity, network (specific actions); Executives, business owners (impact, decisions); Legal, compliance, DPO (facts for obligations); Affected users, help desk (instructions); and Corporate communications (with legal). Legal, compliance, DPO sends reportability advice to CISO / CERT-In POC, which sends report to CERT-In (within 6 h of noticing). Legal, compliance, DPO also has an arrow to Other regulators, Data Protection Board. Corporate communications sends approved statements to Customers, media. There is no arrow from the SOC analyst to any external body.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "soc", "label": "SOC analyst", "sub": "facts, timeline, time noticed", "tone": "blue" },
+      { "id": "ir", "label": "IR lead", "sub": "owns the incident and its comms", "tone": "dark" },
+      { "id": "ops", "label": "IT ops, identity, network", "sub": "specific actions", "tone": "orange" },
+      { "id": "ex", "label": "Executives, business owners", "sub": "impact, decisions", "tone": "violet" },
+      { "id": "lg", "label": "Legal, compliance, DPO", "sub": "facts for obligations", "tone": "violet" },
+      { "id": "us", "label": "Affected users, help desk", "sub": "instructions", "tone": "slate" },
+      { "id": "cc", "label": "Corporate communications", "sub": "with legal", "tone": "violet" },
+      { "id": "poc", "label": "CISO / CERT-In POC", "sub": "designated point of contact", "tone": "violet" },
+      { "id": "ci", "label": "CERT-In", "sub": "within 6 h of noticing", "tone": "slate" },
+      { "id": "rg", "label": "Other regulators, Data Protection Board", "tone": "slate" },
+      { "id": "cu", "label": "Customers, media", "tone": "slate" }
+    ],
+    "edges": [
+      { "from": "soc", "to": "ir", "label": "status, facts" },
+      { "from": "ir", "to": "ops" },
+      { "from": "ir", "to": "ex" },
+      { "from": "ir", "to": "lg" },
+      { "from": "ir", "to": "us" },
+      { "from": "ir", "to": "cc" },
+      { "from": "lg", "to": "poc", "label": "reportability advice" },
+      { "from": "poc", "to": "ci", "label": "report" },
+      { "from": "lg", "to": "rg" },
+      { "from": "cc", "to": "cu", "label": "approved statements" }
+    ],
+    "note": "The SOC never notifies an external body directly; its job is to make the designated roles' messages accurate and on time."
+  },
+  "C08-M08-L02-F2": {
+    "title": "The status update cycle",
+    "caption": "Each update is drawn from the incident log, separates fact from hypothesis, is tailored and reviewed, sent on a safe channel, logged, and followed by the next at the promised time.",
+    "alt": "Flow, top to bottom, seven steps. 1 Pull facts from the incident log (single source of truth). 2 Separate confirmed from hypothesis (label confidence). 3 Write the update (changes, state, actions, next update). 4 Tailor per audience (technical, executive, user). 5 Review (IR lead; legal for anything external). 6 Send on an approved channel (out-of-band if in-band may be compromised). 7 Log what was sent (to whom, when, which version). A dashed loop arrow labelled next update at the stated time, or sooner on a major change returns from the last step to the first.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Pull facts from the incident log", "sub": "single source of truth", "tone": "slate" },
+      { "label": "Separate confirmed from hypothesis", "sub": "label confidence", "tone": "blue" },
+      { "label": "Write the update", "sub": "changes, state, actions, next update", "tone": "orange" },
+      { "label": "Tailor per audience", "sub": "technical, executive, user", "tone": "violet" },
+      { "label": "Review", "sub": "IR lead; legal for anything external", "tone": "violet" },
+      { "label": "Send on an approved channel", "sub": "out-of-band if in-band may be compromised", "tone": "green" },
+      { "label": "Log what was sent", "sub": "to whom, when, which version", "tone": "dark" }
+    ],
+    "loop": { "label": "next update at the stated time, or sooner on a major change", "to": 0 },
+    "note": "A promised update time is a commitment: keep it even when there is little new to say."
+  }
+}

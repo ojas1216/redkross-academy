@@ -18,7 +18,7 @@
       "As the victim host in the timeline, because the triage helper attached it to the alert",
       "As user gopal with primary device WS-107 per asset mapping, noting that VPN events carry no host",
       "As unknown, and WS-107 should be left out of the case record entirely to avoid confusion",
-      "As the source host of the 06:46Z VPN session, confirmed by the helper's enrichment tables"
+      "As the source host of the 06:46Z VPN session, confirmed by the helper's enrichment tables and the VPN logs"
     ],
     "correct": 1,
     "explanation": "WS-107 comes from the hard-coded PRIMARY_HOST lookup, not from the VPN event, so it is enrichment and must be labelled with its source. Dropping it entirely loses useful context; copying it into the timeline turns a lookup into a fact.",
@@ -55,7 +55,7 @@
     "q": "During a backlog in the log pipeline, an event's host time is 06:14:00Z but the SIEM index time is 07:31Z. An analyst builds the timeline from index times without saying so. What is the main risk?",
     "options": [
       "None, because index time is the more trustworthy clock and should always be preferred",
-      "The SHA-256 hash of the evidence export will change, invalidating the evidence reference",
+      "The SHA-256 hash of the evidence export will change, invalidating the evidence reference recorded in the case",
       "Events may be ordered and correlated wrongly, and a reader cannot tell which clock was used",
       "The CERT-In six-hour reporting clock starts at index time, so the report becomes late"
     ],
@@ -96,7 +96,7 @@
       "The file differs from when the manifest was written; do not rely on it and record and investigate the mismatch",
       "The manifest uses the wrong format for sha256sum, so the check should be repeated with Get-FileHash",
       "The export missed some events; re-running the export with a wider window will fix the check",
-      "The file is unchanged but was moved; updating the path in custody.jsonl will make the check pass"
+      "The file is unchanged but was moved; updating its path in custody.jsonl and re-running the check will make it pass"
     ],
     "correct": 0,
     "explanation": "-c recomputes the hash of the named file and compares it with the manifest; FAILED means the content changed (one changed character is enough). The item cannot be relied on until explained. Get-FileHash gives the same digest, so switching tools would not change the result.",
@@ -186,7 +186,7 @@
     "options": [
       "As a possible/low-confidence hypothesis that remains open, with the reason that no event links them",
       "As a fact in the timeline, because both incidents fall within the same three-hour window",
-      "As probable/medium, because two attacks on one organisation in one morning are rarely unrelated",
+      "As probable/medium, because two attacks on one organisation in one morning are rarely unrelated, even with no linking event",
       "It should not be mentioned at all, since anything without evidence must stay out of the record"
     ],
     "correct": 0,

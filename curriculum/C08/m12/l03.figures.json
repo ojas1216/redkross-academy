@@ -1,0 +1,42 @@
+{
+  "C08-M12-L03-F1": {
+    "title": "FIN-21 evidence, interpretation and control",
+    "caption": "A scoped endpoint action can be verified while delivery and data impact remain under investigation.",
+    "alt": "Six ordered steps show a proxy document request, endpoint process event and later outbound transfer, a scoped endpoint assessment, isolation accepted pending at 08:27, applied at 08:29, and named follow-up for delivery and impact.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Proxy and process evidence",
+        "sub": "A02 at 08:01 and A01 at 08:03",
+        "tone": "blue"
+      },
+      {
+        "label": "Later network observations",
+        "sub": "DNS activity and A15 transfer",
+        "tone": "slate"
+      },
+      {
+        "label": "Assess endpoint risk",
+        "sub": "Preserve unknown file and transfer content",
+        "tone": "violet"
+      },
+      {
+        "label": "Isolation request accepted",
+        "sub": "B20 at 08:27, pending application",
+        "tone": "orange"
+      },
+      {
+        "label": "Isolation policy applied",
+        "sub": "B21 at 08:29, verified device ID",
+        "tone": "green"
+      },
+      {
+        "label": "Assign open questions",
+        "sub": "Endpoint, mail, Finance and notification owners",
+        "tone": "dark"
+      }
+    ],
+    "note": "Separate observed control state from unresolved incident scope."
+  }
+}

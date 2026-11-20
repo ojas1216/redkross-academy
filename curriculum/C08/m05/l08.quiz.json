@@ -42,7 +42,7 @@
     "q": "The R6 beacon alert shows user=None (?). How should the analyst treat this in the note?",
     "options": [
       "As evidence that no user was logged on, so the beaconing came from a system process",
-      "As a reason to lower confidence in the alert, because a real beacon would always show a user",
+      "As a reason to lower confidence in the alert, because a real beacon would always show the logged-on user",
       "As a gap in the rule, which groups by host and URL and never selects a user, and record it as such",
       "As an error in the dataset that requires re-copying the lab kit before continuing"
     ],
@@ -145,7 +145,7 @@
   {
     "q": "To validate R4, the analyst runs SELECT host, MAX(bytes_out) FROM events WHERE source='proxy' GROUP BY host ORDER BY 2 DESC. What does this query contribute?",
     "options": [
-      "It confirms the upload's content type by comparing it with other hosts' uploads",
+      "It confirms the upload's content type by comparing it with the request sizes of every other host's proxy uploads",
       "It lists every upload made by WS-104 in time order for the timeline",
       "It compares the upload with each host's largest request, showing 48,200,000 bytes against others under 4,000",
       "It identifies which hosts contacted files-share-drop.example during the day"
@@ -197,7 +197,7 @@
   {
     "q": "Two analysts save the same minisiem.py VPN search to a file, one on Windows and one on Linux, and get different SHA-256 hashes. What is the most likely cause and the right response?",
     "options": [
-      "One file was tampered with; the case should be escalated as an evidence-integrity incident",
+      "One of the two files was tampered with; the case should be escalated at once as an evidence-integrity incident",
       "sha256sum and Get-FileHash use different algorithms; re-hash both with the same tool",
       "Python wrote CRLF line endings on Windows and LF on Linux; record the platform and method with each hash",
       "The SIEM returns rows in random order; add ORDER BY to the query and re-run it"
@@ -238,7 +238,7 @@
     "options": [
       "Re-copy the kit into a fresh folder, because the dataset has been modified and every later result may differ",
       "Continue, because one extra event cannot change the triage queue or any hash",
-      "Run load a second time, since the first run appends to the table and the count settles on 340",
+      "Run load a second time, since the first run appends to the table and the count then settles back on the expected 340",
       "Delete the most recent line of banyan_events.jsonl to bring the count back to 340"
     ],
     "correct": 0,

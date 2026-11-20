@@ -3,7 +3,7 @@
     "q": "Reproducing `R2`'s join for `203.0.113.66` lists eight failed users, and one of them is `gopal`, whose failure at 06:42:42Z came four minutes before his successful login. What should the analyst note about the rule's count of eight?",
     "options": [
       "That the count is wrong and the rule actually saw only seven sprayed accounts",
-      "That gopal's failure proves he typed his own password wrongly before succeeding",
+      "That gopal's failure proves he typed his own password wrongly a few minutes before succeeding",
       "That the count includes the user who later succeeded, which the analyst should know",
       "That the rule double-counts each user, so the real number of accounts is four"
     ],
@@ -16,7 +16,7 @@
     "q": "`R2` joins failures to a success with the condition `f.ts <= s.ts` and no other time limit. In a dataset covering several months, how could this rule produce a misleading alert?",
     "options": [
       "Scattered forgotten-password failures from one address over weeks could add up to five users and fire it",
-      "A success followed later by failures would fire it, because the comparison runs in both directions",
+      "A success followed later by failures would fire it, because the time comparison runs in both directions at once",
       "Failures from different addresses would be merged, because the join ignores the source address",
       "The rule would stop firing altogether once the database held more than one day of events"
     ],
@@ -43,7 +43,7 @@
     "options": [
       "The first query is case-sensitive, so URLs containing PING in capitals were excluded",
       "Events with no URL make the first condition unknown rather than true, so they are silently dropped",
-      "The second query counts beacon requests twice, once as NULL and once as a non-matching URL",
+      "The second query counts beacon requests twice, once as NULL and once again as a non-matching URL value",
       "The first query stops at the SIEM's default result limit, which the second query avoids"
     ],
     "correct": 1,
@@ -69,7 +69,7 @@
     "options": [
       "They come from independent sources that cannot influence each other yet tell one story on one host",
       "They come from the same SIEM, so the timestamps are guaranteed to share one clock",
-      "The proxy event confirms the PowerShell command was malicious by inspecting its content",
+      "The proxy event confirms the PowerShell command was malicious by inspecting the content of the downloaded file",
       "Two events always outweigh one, regardless of which sources produced them"
     ],
     "correct": 0,
@@ -93,7 +93,7 @@
   {
     "q": "`R3 new_local_admin` returns two hits on WS-104: event 4720 at 07:02Z and event 4732 at 07:03Z, both involving `svc_update`. How should the analyst validate them?",
     "options": [
-      "As two separate incidents, since two different Windows event IDs were recorded",
+      "As two separate incidents, since two different Windows event IDs were recorded a minute apart on the host",
       "As one action: the account was created and then added to Administrators a minute later",
       "As a duplicate log entry caused by the SIEM ingesting the same event twice",
       "As a false positive, since creating an account does not itself grant privileges"
@@ -145,7 +145,7 @@
   {
     "q": "To find out whether `gopal` made the 06:46Z VPN connection himself, which approach is safest?",
     "options": [
-      "Send him a chat message from the SOC account asking whether he used the VPN this morning",
+      "Send him a chat message from the SOC account asking whether he personally used the VPN early this morning",
       "Call him on a known phone number or via the service desk and ask a neutral, specific question",
       "Reply to his most recent email asking him to confirm his VPN activity in writing",
       "Reset his password first and then ask him through his corporate chat account"
@@ -159,7 +159,7 @@
     "q": "An alert shows a database administrator exporting a large customer table at night, and the only person who could explain it is that administrator. What should the analyst consider before contacting them?",
     "options": [
       "Whether the administrator's manager is available to sit in on the conversation",
-      "Whether the export is under the size limit at which contacting the user is required",
+      "Whether the export is under the size limit below which contacting the user is required before any escalation",
       "Whether this could be deliberate misuse, in which case the playbook escalates without alerting them",
       "Whether the administrator has received security awareness training this year"
     ],
@@ -172,7 +172,7 @@
     "q": "During validation of the WS-104 alerts, an analyst proposes logging in to the workstation remotely to \"have a quick look\" at running processes. Why is this inappropriate at the validation stage?",
     "options": [
       "It changes the host's state and may alert the attacker; host collection belongs to incident response",
-      "It is acceptable only if the analyst uses the user's own credentials to avoid creating new logs",
+      "It is acceptable only if the analyst uses the user's own credentials, so that no new logon records are created",
       "It is unnecessary because the SIEM already stores a full memory image of every host",
       "It is inappropriate only outside office hours, when users cannot be informed beforehand"
     ],
@@ -251,7 +251,7 @@
     "options": [
       "Proof that gopal's account was compromised, so he need not be contacted at all",
       "Strong corroboration that his credentials were used without him, still to be put to him safely",
-      "Proof that the VPN success was a logging error, since he could not be in two places at once",
+      "Proof that the VPN success was a logging error, since he could not have been in two places at the same time",
       "Nothing useful, because proxy and VPN events cannot be compared across different sources"
     ],
     "correct": 1,
@@ -289,7 +289,7 @@
     "q": "`R1`'s SQL matches events whose lower-cased `parent_image` contains `winword.exe`. Why did the analyst read the raw event to confirm the full parent path was the Office installation's `WINWORD.EXE`?",
     "options": [
       "Because lower-casing the field can change the path and match a different drive letter",
-      "Because Sysmon records only the file name, so the full path must be reconstructed by hand",
+      "Because Sysmon records only the file name, so the full installation path must be reconstructed by hand",
       "Because the rule matches only exact paths, so a renamed Word binary would never fire it",
       "Because a substring match would also catch a different program whose name contains that string"
     ],

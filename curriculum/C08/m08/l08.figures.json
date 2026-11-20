@@ -1,0 +1,48 @@
+{
+  "C08-M08-L08-F1": {
+    "title": "IR lab route: from alert queue to incident report",
+    "caption": "The seven lab stages in the order the incident team needs them, with the kit tool or output behind each.",
+    "alt": "Top-to-bottom flow of seven stages: 1 Load + alert picture (minisiem.py load and rules, triage.py); 2 Declare + start clock (noticed 08:30 UTC, CERT-In deadline 14:30 UTC / 20:00 IST); 3 Scope (hunt.py plus negative checks); 4 Timeline (one merged query, 9 rows); 5 Containment advice (ordered, owned, evidence-aware); 6 Evidence package (evidence_export.py, rebuilt SHA256SUMS, sha256sum -c, tamper test); 7 Incident report.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "1 Load + alert picture", "sub": "minisiem.py load / rules, triage.py", "tone": "slate" },
+      { "label": "2 Declare + start clock", "sub": "noticed 08:30 UTC; CERT-In by 14:30 UTC / 20:00 IST", "tone": "violet" },
+      { "label": "3 Scope", "sub": "hunt.py H1-H3 + negative checks", "tone": "blue" },
+      { "label": "4 Timeline", "sub": "one merged query, 9 rows, 33 events", "tone": "blue" },
+      { "label": "5 Containment advice", "sub": "ordered, owned, evidence-aware", "tone": "orange" },
+      { "label": "6 Evidence package", "sub": "evidence_export.py, SHA256SUMS, sha256sum -c", "tone": "green" },
+      { "label": "7 Incident report", "sub": "facts, hypotheses, gaps, hashes", "tone": "dark" }
+    ],
+    "note": "The reporting clock runs from stage 2, so declaration comes before deep analysis."
+  },
+  "C08-M08-L08-F2": {
+    "title": "Banyan incident scope map: observed and hypothesised links",
+    "caption": "Every entity in scope, with observed links as solid arrows and the timing-only VPN link dashed.",
+    "alt": "Graph. banyan-payroll-update.example points to WS-104 / divya, labelled download 06:12. WS-104 points to cdn-telemetry-sync.example (18 beacons 06:17-07:42), to svc_update (local admin 07:02-07:03) and to files-share-drop.example (48.2 MB 08:12). 203.0.113.66 points to gopal VPN session, labelled spray, success 06:46. A dashed arrow from gopal VPN session to WS-104 is labelled link? timing only. Dashed arrows from No other hosts (H1-H3 negative) and from Telemetry gap (process data ends 06:14) point to WS-104.",
+    "type": "graph",
+    "dir": "LR",
+    "nodes": [
+      { "id": "phish", "label": "banyan-payroll-update.example", "sub": "served invoice.docm", "tone": "red" },
+      { "id": "ws", "label": "WS-104 / divya", "sub": "finance workstation, payments approver", "tone": "orange" },
+      { "id": "c2", "label": "cdn-telemetry-sync.example", "sub": "C2 beacon (ISAC-A, conf. 85)", "tone": "red" },
+      { "id": "adm", "label": "svc_update", "sub": "new local administrator", "tone": "red" },
+      { "id": "exf", "label": "files-share-drop.example", "sub": "content unknown", "tone": "red" },
+      { "id": "spray", "label": "203.0.113.66", "sub": "spray: 8 users failed", "tone": "red" },
+      { "id": "vpn", "label": "gopal VPN session", "sub": "activity not logged", "tone": "violet" },
+      { "id": "neg", "label": "No other hosts", "sub": "H1-H3 negative", "tone": "green" },
+      { "id": "gap", "label": "Telemetry gap", "sub": "process data ends 06:14", "tone": "slate" }
+    ],
+    "edges": [
+      { "from": "phish", "to": "ws", "label": "download 06:12" },
+      { "from": "ws", "to": "c2", "label": "18 beacons 06:17-07:42" },
+      { "from": "ws", "to": "adm", "label": "07:02-07:03" },
+      { "from": "ws", "to": "exf", "label": "48.2 MB 08:12" },
+      { "from": "spray", "to": "vpn", "label": "spray, success 06:46" },
+      { "from": "vpn", "to": "ws", "label": "link? timing only", "dashed": true },
+      { "from": "neg", "to": "ws", "dashed": true },
+      { "from": "gap", "to": "ws", "dashed": true }
+    ],
+    "note": "Contain both threads together, but report the VPN link as a hypothesis."
+  }
+}

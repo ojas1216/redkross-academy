@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A report with no detections ran for three minutes with no network. Which conclusion is defensible?",
+    "options": [
+      "The object is safe for all devices and recipient workflows",
+      "The lack of network shows the artifact contains no active content",
+      "The test proves the employee saw the same behaviour on their laptop",
+      "No relevant behaviour observed under those conditions"
+    ],
+    "correct": 3,
+    "explanation": "The setup and observation window limit what a quiet run establishes.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which sandbox report section shows parent and child processes?",
+    "options": [
+      "The appendix listing all permitted network destinations",
+      "The static file digest roster presented before execution",
+      "The process tree with image and parent fields",
+      "The scoring section that summarises classifier names"
+    ],
+    "correct": 2,
+    "explanation": "The process tree supplies execution relationships the verdict alone cannot show.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An internal hash match exists but the report concerns a different file build. What should be checked next?",
+    "options": [
+      "Whether the file's name resembles one in the approved report",
+      "Whether the exact bytes and report provenance match",
+      "Whether both reports used the same severity scale",
+      "Whether the employee received both files through the same gateway"
+    ],
+    "correct": 1,
+    "explanation": "A reproducible match needs the correct artifact and a traceable report.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the role of the controller before a new run?",
+    "options": [
+      "Queue the request and prepare a clean guest",
+      "Assign the case severity after analysing the business impact",
+      "Verify which employee read the original message",
+      "Replace the report evidence with a final classification"
+    ],
+    "correct": 0,
+    "explanation": "The controller coordinates the execution environment and scheduling.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A report says a sandbox made a DNS query but recorded no response. What is the appropriate claim?",
+    "options": [
+      "The operator returned a payload that the monitor could not identify",
+      "The sandbox confirmed subsequent credential entry at the destination",
+      "The network report proves the artifact had no ability to use DNS",
+      "A request was observed; remote behaviour remains unverified"
+    ],
+    "correct": 3,
+    "explanation": "An attempted lookup does not establish what a remote system returned.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why preserve the report's run identifier and settings?",
+    "options": [
+      "They verify that the same employee received all similar messages",
+      "They make it unnecessary to preserve any original file evidence",
+      "They make the scope of observations reviewable",
+      "They substitute for recording how the file was collected"
+    ],
+    "correct": 2,
+    "explanation": "A later analyst can identify the observed run and its limitations.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A potential invoice contains customer details. Which handling decision fits?",
+    "options": [
+      "Submit to any service that promises reports quickly",
+      "Use an approved restricted workflow or escalate",
+      "Remove the file's name and send the unchanged contents publicly",
+      "Treat retention terms as irrelevant if a verdict is urgently needed"
+    ],
+    "correct": 1,
+    "explanation": "Data inside the file can remain sensitive after superficial changes.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A verdict is high severity but has sparse observable evidence. What should the case note preserve?",
+    "options": [
+      "The classifier result, underlying observations and uncertainty",
+      "The classifier score as a conclusive statement of compromise",
+      "Only screenshots of the coloured result without the report ID",
+      "The report's final classification and no discussion of missing coverage"
+    ],
+    "correct": 0,
+    "explanation": "The verdict is an assessment whose supporting evidence matters.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which regulator-independent control applies to partner-shared evidence?",
+    "options": [
+      "Replace the sharing mark once an internal case is opened",
+      "Treat a public service as private when a submission page requires login",
+      "Assume the same access applies to an artifact and its public report",
+      "Observe the source's sharing restrictions and contract terms"
+    ],
+    "correct": 3,
+    "explanation": "Access and distribution restrictions follow the source and approved terms.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A report shows an Office process and a child script interpreter. How should the analyst use it?",
+    "options": [
+      "Copy it as proof that the suspected user's workstation executed the same chain",
+      "Assume a generic word processor label identifies the malicious document exactly",
+      "Check the relationship and corroborate with the affected device's logs",
+      "Treat it as evidence that every recipient opened their copy of the message"
+    ],
+    "correct": 2,
+    "explanation": "Sandbox observations concern the run and can guide endpoint corroboration.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a file activity section describe?",
+    "options": [
+      "The status of each message in the receiving user's mail client",
+      "Observed file creation, modification or deletion",
+      "Each unrelated file currently present on the employee's device",
+      "Whether the organisation can publish the file to a third-party service"
+    ],
+    "correct": 1,
+    "explanation": "It describes monitored effects inside the observed environment.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "When is an external digest lookup itself sensitive?",
+    "options": [
+      "When it could reveal interest in a distinctive restricted artifact",
+      "Only when digest length includes the complete original object",
+      "When two internal records already use different filenames",
+      "Never, because the lookup contains no direct file bytes"
+    ],
+    "correct": 0,
+    "explanation": "A lookup can disclose a unique association even without file content.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why restore an analysis guest between submissions?",
+    "options": [
+      "To cancel any business containment request raised from the earlier case",
+      "To regenerate the original messages delivered to employee accounts",
+      "To establish which third party controls each destination in the report",
+      "To reduce contamination across separate runs"
+    ],
+    "correct": 3,
+    "explanation": "A clean starting state helps attribute observations to the intended run.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A sandbox had no visibility into a particular system mechanism. What belongs in the result?",
+    "options": [
+      "A clean verdict for every activity that did not appear in the report",
+      "An assertion that the questionable activity must have occurred",
+      "A stated collection gap and a separate corroboration plan",
+      "A deletion of the monitoring details from the analyst's notes"
+    ],
+    "correct": 2,
+    "explanation": "Lack of monitoring limits the conclusions that absence can support.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A service allows private reports but unclear sample retention. What should the analyst do?",
+    "options": [
+      "Treat the login requirement as approval for all evidence classes",
+      "Check approval and retention terms before submission",
+      "Upload first and request privacy guidance only if the result is positive",
+      "Replace the original evidence ID to avoid associating the case with the upload"
+    ],
+    "correct": 1,
+    "explanation": "Authorization depends on the sample data and the service's actual terms.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which evidence relates directly to network activity in one run?",
+    "options": [
+      "Captured queries and connections from the observed guest",
+      "A filename selected by the person who submitted the sample",
+      "The visibility label on the metadata attached to the case record",
+      "The peer-review decision on whether containment should continue"
+    ],
+    "correct": 0,
+    "explanation": "Traffic capture records activity at the particular monitoring boundary.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst has a short quiet run and suspicious endpoint telemetry. How should they proceed?",
+    "options": [
+      "Close the case because dynamic analysis supersedes endpoint evidence",
+      "Reclassify the endpoint finding as a harmless training notification",
+      "Accept the document context only if another sandbox also finds no behaviour",
+      "Treat the run as inconclusive and investigate endpoint evidence"
+    ],
+    "correct": 3,
+    "explanation": "Independent device evidence may be more relevant to actual exposure.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an analyst prioritise when reading a verdict?",
+    "options": [
+      "Rank it by the colour used in the summary widget",
+      "Compare the number of pages in competing vendor reports",
+      "Link it to the underlying observed events",
+      "Copy only the highest score into the executive case line"
+    ],
+    "correct": 2,
+    "explanation": "Underlying events let the analyst judge what supports the assessment.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A restricted artifact already has a reviewed internal report. What is the least-exposing first step?",
+    "options": [
+      "Submit a new public copy to obtain an independent score immediately",
+      "Use the report after checking its artifact and context",
+      "Send the sample to each analyst for a separate workstation review",
+      "Forward the report externally before checking its sharing permission"
+    ],
+    "correct": 1,
+    "explanation": "Prior evidence can answer the analytical question without new disclosure.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A test had controlled simulated responses. What limitation should be documented?",
+    "options": [
+      "It does not establish what a real service would return",
+      "It proves the live destination would always behave the same way",
+      "It cannot record a request unless the actual destination is visited",
+      "It confirms the attachment executed on the recipient's endpoint"
+    ],
+    "correct": 0,
+    "explanation": "Simulated response conditions belong to the test and constrain inference.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which result would be recorded as registry evidence?",
+    "options": [
+      "A report title copied from an earlier case or vendor portal",
+      "A clicked-link statement given by a payments approver",
+      "A query string preserved during static URL examination",
+      "A value change observed in the guest by the monitor"
+    ],
+    "correct": 3,
+    "explanation": "The registry section records observed key and value changes.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two runs disagree and used different guest images. What is the best comparison?",
+    "options": [
+      "Average the scores and use the mean as the only finding",
+      "Ignore configuration and trust the verdict recorded most recently",
+      "Compare input identity, environment and observations for each run",
+      "Compare the attachment names and retain only the more severe result"
+    ],
+    "correct": 2,
+    "explanation": "Differences in both environment and evidence can explain divergent results.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the case record contain after approved submission?",
+    "options": [
+      "Only the resulting classifier label copied into the case subject",
+      "The service, artifact, reason, timestamp and submitting role",
+      "Only the approval thread without the related evidence identifier",
+      "A link to the service login page without any run identifier"
+    ],
+    "correct": 1,
+    "explanation": "Submission records support custody, reproducibility and data review.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A document exhibits no activity in the guest and the gateway trace is suspicious. What next?",
+    "options": [
+      "Preserve the quiet result and review the independent evidence",
+      "Release the document because the guest recorded no process launch",
+      "Treat the trace and sandbox results as proof of the same file behaviour",
+      "Wait for a user to open the document again on their regular device"
+    ],
+    "correct": 0,
+    "explanation": "A sandbox result is one input and observed delivery context remains relevant.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which audience should receive the full restricted report?",
+    "options": [
+      "Every employee who might have seen a similar subject line",
+      "Any external recipient requesting proof of the final case result",
+      "The original distribution list of the suspicious message",
+      "The authorised investigators who need its details"
+    ],
+    "correct": 3,
+    "explanation": "Report details can expose the artifact, environment or individuals involved.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

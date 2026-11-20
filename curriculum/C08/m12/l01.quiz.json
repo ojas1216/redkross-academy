@@ -1,0 +1,327 @@
+[
+  {
+    "q": "How should A06 be counted after reviewing its source event identity?",
+    "options": [
+      "A second confirmed endpoint occurrence on the same device",
+      "A duplicate receipt linked to the original A01 observation",
+      "A separate office incident with the same assigned priority",
+      "An invalid alert that can be removed from all accounting"
+    ],
+    "correct": 1,
+    "explanation": "Both receipts share E-301, so one source observation is represented twice.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which row records the observed parent and child process relationship?",
+    "options": [
+      "A01 from the endpoint source",
+      "A02 from the equipment's outbound proxy log",
+      "A03 from a resolver observation for FIN-21",
+      "A11 from the historical reputation system"
+    ],
+    "correct": 0,
+    "explanation": "Parent-child execution belongs to the endpoint process record.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What should accompany the eight-million-byte transfer in a briefing?",
+    "options": [
+      "The exact payments changed by the recipient who sent it",
+      "A claim that the transfer contained all customer information",
+      "The number of employees whose records were necessarily disclosed",
+      "Its asset, destination, time and unknown content"
+    ],
+    "correct": 3,
+    "explanation": "A15 records transfer metadata without identifying any file or data subject.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which source directly supports the file request at 08:01?",
+    "options": [
+      "The endpoint event repeated by A06",
+      "The history of the approved backup operation A08",
+      "The proxy observation in A02",
+      "The inventory reconciliation result available in A14"
+    ],
+    "correct": 2,
+    "explanation": "A02 identifies the requested file and the named proxy source.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst says A01 proves statement.docm caused execution. What should a reviewer change?",
+    "options": [
+      "Remove the process observation because the file contents are unavailable",
+      "Label the file-to-process link as an assessment",
+      "Assume the proxy event establishes the process parent and child fields",
+      "Treat all names in the timeline as verified document authors"
+    ],
+    "correct": 1,
+    "explanation": "A shared asset and timing support review without proving the exact document link.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does A07 need a collection owner?",
+    "options": [
+      "Its delay limits visibility for WKS-05",
+      "It confirms an unauthorised effect on FIN-21",
+      "It supplies the device key for the VPN success",
+      "It records the approved start of maintenance on OPS-03"
+    ],
+    "correct": 0,
+    "explanation": "A health signal describes delayed telemetry and a need to verify coverage.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A09 names a suspicious message and A10 shows an automated preview. Which interaction is established?",
+    "options": [
+      "The employee clicked because a gateway visited the same destination",
+      "The finance team approved a transfer after viewing the message",
+      "The reporter executed the file on the payments workstation",
+      "A service preview; employee click remains unverified"
+    ],
+    "correct": 3,
+    "explanation": "These distinct observations do not establish human link navigation.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which legitimate source supports A08's initial disposition?",
+    "options": [
+      "The condition in a scanner's latest security report",
+      "The unverified click record for a payment-review employee",
+      "The matching approved backup job BK-16",
+      "The finding that another endpoint source is delayed"
+    ],
+    "correct": 2,
+    "explanation": "A matching job establishes context for the observed snapshot.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The queue sorts A01 before A02 although A02 occurred earlier. What should the timeline use?",
+    "options": [
+      "The visible ID order as the only event chronology",
+      "Occurrence time while preserving intake order separately",
+      "A single time copied from the ticket that grouped them",
+      "The timestamp of the last reviewed administrative task"
+    ],
+    "correct": 1,
+    "explanation": "Event chronology and analyst knowledge may follow different orders.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who should verify the reported FIN-21 process relationship?",
+    "options": [
+      "The authorised endpoint owner using sensor evidence",
+      "The identity reviewer based only on shared VPN egress",
+      "The finance owner using transaction history alone",
+      "The mail administrator based on the preview timestamp alone"
+    ],
+    "correct": 0,
+    "explanation": "The endpoint source and owner can corroborate execution and device scope.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A13 says maintenance is planned. Which claim is appropriate at this cutoff?",
+    "options": [
+      "The log clear is already verified and authorised in every respect",
+      "The SOC can disable future log monitoring across affected hosts",
+      "All later operations in the window are confirmed legitimate",
+      "A lead to locate approved scope and execution evidence"
+    ],
+    "correct": 3,
+    "explanation": "A planned window does not establish authority for a specific observed operation.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a first-pass line identify for an urgent item?",
+    "options": [
+      "Only the vendor severity rank and its display colour",
+      "Only the employee's organisational name from the latest inventory",
+      "The observed risk, requested action and responsible owner",
+      "A description of an action as already completed without evidence"
+    ],
+    "correct": 2,
+    "explanation": "Triage should support a specific and accountable next decision.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A04 and A05 share an address near the FIN-21 events. What does that justify?",
+    "options": [
+      "A conclusion that STAFF-382 caused the workstation activity",
+      "A distinct identity review; linkage needs independent evidence",
+      "A single merged incident with identical observed device identities",
+      "Reducing urgent review because both observations appeared on the same date"
+    ],
+    "correct": 1,
+    "explanation": "Time and authentication address alone do not link an endpoint case.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why preserve source event IDs with the worksheet?",
+    "options": [
+      "They allow a peer to trace the receipt and observation",
+      "They make the worksheet's case labels equivalent to complete evidence",
+      "They establish how every employee responded to the reported message",
+      "They indicate why the author of a record chose its displayed severity"
+    ],
+    "correct": 0,
+    "explanation": "Traceable identities help a reviewer reproduce the decision and account for repeated receipts.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A12 has no occurrence time or verified device. What should happen?",
+    "options": [
+      "Assign it to FIN-21 because the queue shows it close by",
+      "Use the first intake time as its verified occurrence",
+      "Close it as routine without acknowledging the missing attribution",
+      "Record an input gap and request source repair"
+    ],
+    "correct": 3,
+    "explanation": "Poor provenance requires review rather than a guessed entity.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which evidence directly supports one observed DNS lookup?",
+    "options": [
+      "A15's total outbound byte count in the separate proxy record",
+      "A09's screenshot, which contains no observed resolver event",
+      "A03 for relay-health.example from FIN-21",
+      "A05's success from the recorded VPN address"
+    ],
+    "correct": 2,
+    "explanation": "A03 supplies one bounded DNS observation at a stated time.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A11 labels a name at low confidence based on old records. How should it affect A03?",
+    "options": [
+      "Treat the name's present use as conclusively harmful",
+      "Attach it as context and test independent current evidence",
+      "Cancel any local review if the historical source later changes",
+      "Count both sources as independent proof of employee action"
+    ],
+    "correct": 1,
+    "explanation": "History informs investigation without resolving present activity or attribution.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the first-pass acceptance checklist count?",
+    "options": [
+      "Fifteen supplied identifiers with a disposition each",
+      "Fifteen separate incidents that all need urgent intervention",
+      "Fourteen endpoint events after deleting the duplicate receipt",
+      "Only cases for which the final investigation is already complete"
+    ],
+    "correct": 0,
+    "explanation": "Intake accounting includes routine, repeated and unresolved records.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How would absence of A15 at the first cutoff affect the report?",
+    "options": [
+      "Discard the earlier process event until the upload is observed",
+      "Claim the transfer was known earlier because a later analysis found it",
+      "Only open the case if the later proxy result is conclusive",
+      "Retain the initial endpoint lead and add impact evidence when available"
+    ],
+    "correct": 3,
+    "explanation": "New facts can change assessment without rewriting earlier knowledge.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which row's job does the inventory review establish on its own?",
+    "options": [
+      "Approval of the unexpected running process on the payments host",
+      "Legitimacy of the later successful VPN session on a different account",
+      "Routine reconciliation with no observed asset changes",
+      "Proof that collection was complete for every endpoint that day"
+    ],
+    "correct": 2,
+    "explanation": "A14 speaks to its own work and does not validate unrelated observations.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A lead wants to name a user as the VPN operator from a source account label. What is the correct response?",
+    "options": [
+      "Confirm the person whenever an account label appears in source records",
+      "State the account and request attributable session evidence",
+      "Identify the operator by the workstation's normal asset assignment",
+      "Merge employee and account identity because their display names match"
+    ],
+    "correct": 1,
+    "explanation": "Account attribution does not establish the human who performed the action.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is an example of a useful evidence-gap handoff?",
+    "options": [
+      "Name the delayed source, interval and collection owner",
+      "Copy only the word unknown without a source or question",
+      "Close the case and omit the gap from the shift record",
+      "Estimate a confirmed user action from adjacent reports"
+    ],
+    "correct": 0,
+    "explanation": "A named owner and bounded question make the gap actionable.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does linking A02 to A01 preserve that deduplicating it would lose?",
+    "options": [
+      "The second receipt of an identical endpoint event",
+      "Proof that the message delivery and process were one source event",
+      "The ability to guess an earlier event time for missing telemetry",
+      "A separate proxy observation about the same host"
+    ],
+    "correct": 3,
+    "explanation": "Different sources and events contribute distinct evidence to the case.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which factor differentiates urgent from routine work in the stated scheme?",
+    "options": [
+      "The length of the product-generated case title",
+      "The event identifier's position in alphabetical order",
+      "Evidence, likely impact and the need for prompt review",
+      "The number of people who have seen the raw alert"
+    ],
+    "correct": 2,
+    "explanation": "Prioritisation uses credible evidence, impact and whether a responder should act soon.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does the training exercise ask students to do?",
+    "options": [
+      "Visit every supplied domain to verify current content",
+      "Analyse the paper records and prepare bounded decisions",
+      "Execute the reported process to see whether malware starts",
+      "Apply real endpoint controls to confirm the case model"
+    ],
+    "correct": 1,
+    "explanation": "The goal is defensible analysis of the supplied fictional observations.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

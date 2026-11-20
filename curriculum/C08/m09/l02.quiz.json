@@ -1,0 +1,327 @@
+[
+  {
+    "q": "What is the best starting material for static link examination?",
+    "options": [
+      "The received mail opened in a normal browser tab",
+      "An image of the employee's current shortcut to the message",
+      "The preserved artifact viewed through the approved tool",
+      "A forwarded description with the destination guessed from the label"
+    ],
+    "correct": 2,
+    "explanation": "The approved view preserves provenance and avoids ordinary interaction with content.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A security gateway fetches the destination seconds after receipt. What belongs in the interaction field?",
+    "options": [
+      "The recipient clicked before their email application synced",
+      "Automated request observed; user action unknown",
+      "A user device submitted information to the destination immediately",
+      "The lack of browser telemetry proves the case involves no interaction"
+    ],
+    "correct": 1,
+    "explanation": "Scanner traffic is different evidence from a recipient action.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the analyst compare first for a misleading link label?",
+    "options": [
+      "The displayed text and the recorded destination",
+      "The certificate expiry for the expected and observed services",
+      "The number of slashes in the two addresses shown",
+      "The email subject when it appears in two separate folders"
+    ],
+    "correct": 0,
+    "explanation": "The displayed text can differ from what the message actually references.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An offline parser cannot separate a malformed URL. What is a defensible record?",
+    "options": [
+      "Assign the hostname from the longest familiar string in the address",
+      "Assume the link was never used because parsing failed",
+      "Replace the full value with a spelling supplied by the reporter",
+      "Preserve the original and mark parsing as unresolved"
+    ],
+    "correct": 3,
+    "explanation": "A parser failure is a limitation, and guessed fields weaken provenance.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which part is the starting point for identifying a URL's destination operator?",
+    "options": [
+      "The text before the URL in the email",
+      "The contents of a predictable query parameter",
+      "The parsed host or authority",
+      "The name of the requesting browser's process"
+    ],
+    "correct": 2,
+    "explanation": "The host identifies the destination being considered for independent verification.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A gateway rewrites links through a protective service. What should a reviewer preserve?",
+    "options": [
+      "Just the public hostname of the organisation's rewrite service",
+      "The original and rewrite identities with source context",
+      "Only the rewritten field once it becomes searchable in the logs",
+      "The employee's recollection of the destination to replace the recorded URI"
+    ],
+    "correct": 1,
+    "explanation": "Preserving both states helps interpret what the employee and gateway saw.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why keep the raw path and query in restricted evidence?",
+    "options": [
+      "They can contain recipient-specific or business identifiers",
+      "They are always cryptographically necessary to calculate file hashes",
+      "They reveal the author of the email even without trace records",
+      "They let every employee see the same version of the case"
+    ],
+    "correct": 0,
+    "explanation": "The raw value may expose sensitive data even in a simple link.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A file-type recogniser and the MIME label disagree. What should the case say?",
+    "options": [
+      "Trust the sender's MIME label because it controls message encoding",
+      "Discard the metadata mismatch if the attachment has the expected name",
+      "Label the document harmless if the file classifier returns a generic container",
+      "Record both observations and request review of the file structure"
+    ],
+    "correct": 3,
+    "explanation": "The label and byte-oriented classifier measure different aspects of the object.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What can a SHA-256 match support during case grouping?",
+    "options": [
+      "The two attachments were opened by their recipients at the same time",
+      "The sender of both messages had permission to use that From address",
+      "Two collected byte streams match the same digest",
+      "The copied filenames are the ones that originally appeared in both messages"
+    ],
+    "correct": 2,
+    "explanation": "An exact byte match is useful for grouping while provenance remains separate.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A file is absent in internal hash lookups. Which conclusion is warranted?",
+    "options": [
+      "The file is benign even though the reputation system has no entry",
+      "No matching record was found in those lookups",
+      "The file is definitely new to every recipient in the organisation",
+      "The attachment's MIME label must be incorrect for this format"
+    ],
+    "correct": 1,
+    "explanation": "Lookup coverage and history bound the meaning of a negative result.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an analyst record for a reputation lookup?",
+    "options": [
+      "The result, source, timestamp and queried value",
+      "The result copied into the final ticket without the service's name",
+      "An indicator score unqualified by date or input value",
+      "The analyst's confidence without any details of the search"
+    ],
+    "correct": 0,
+    "explanation": "A traceable entry lets a reviewer assess relevance and freshness.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A screenshot names an archive but the actual bytes are unavailable. What can be recorded?",
+    "options": [
+      "The file digest calculated from the visible characters of its name",
+      "The attachment type as if confirmed by static analysis",
+      "The result of an attachment scan run against a different file",
+      "The visible name and the missing inspection evidence"
+    ],
+    "correct": 3,
+    "explanation": "The screenshot can support a reported name, not byte-level findings.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the safest way to verify an unfamiliar invoice portal?",
+    "options": [
+      "Follow the message's own help link and ask for their usual hostname",
+      "Ask the employee to re-open the page on the device used originally",
+      "Check with an approved owner through a known channel",
+      "Compare the company name in the URL with the subject of the email"
+    ],
+    "correct": 2,
+    "explanation": "Independent business verification avoids relying on information supplied by the message.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An employee confirms entering a work password while the attachment is still unclassified. What takes priority?",
+    "options": [
+      "A complete malware verdict before the identity team is informed",
+      "Prompt identity handoff on the reported exposure",
+      "A second test of the same page using the employee's work credentials",
+      "A final classification of every related email before isolating the case"
+    ],
+    "correct": 1,
+    "explanation": "Identity risk can justify action while the artifact investigation continues.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A DNS request and no browser session event are available. What can the analyst say?",
+    "options": [
+      "The name was looked up; user navigation remains unverified",
+      "The address was visited by the employee named in the original mail",
+      "The request confirms the exact document and query fields retrieved",
+      "The DNS request proves no user entered any information on the page"
+    ],
+    "correct": 0,
+    "explanation": "A name lookup has limited specificity about a user's actions.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should an approved redacted link view be labeled?",
+    "options": [
+      "As the original even after omission of the query and path",
+      "As a final externally shareable record without further review",
+      "As a replacement for the underlying evidence in the case system",
+      "As a derivative referencing the preserved evidence ID"
+    ],
+    "correct": 3,
+    "explanation": "A derivative must stay traceable to the original record.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A file was found in an archive by an approved workflow. How should its digest be recorded?",
+    "options": [
+      "Keep only the archive hash and assign it to every child item",
+      "Apply the extracted file's digest to the original message instead",
+      "Give the extracted item its own digest and source reference",
+      "Use the most recent filename as the identifier for every copy"
+    ],
+    "correct": 2,
+    "explanation": "Each object has its own bytes and an extraction relationship worth preserving.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which filename finding warrants cautious follow-up rather than a verdict?",
+    "options": [
+      "The file has already been confirmed to be the required internal report",
+      "The name resembles a routine invoice but is unexpected",
+      "The business owner independently confirmed the exact authorized delivery",
+      "Trusted gateway evidence shows the item was held before delivery"
+    ],
+    "correct": 1,
+    "explanation": "An unexpected artifact needs verification without implying that compromise occurred.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The user says they opened the attachment. Endpoint telemetry shows a later process start. What should be assessed next?",
+    "options": [
+      "Whether the process evidence actually links to the attachment",
+      "Whether the alert's time can be replaced with the recipient's estimate",
+      "Whether the file name alone establishes the process's malicious nature",
+      "Whether the user remembers exactly which technical process was created"
+    ],
+    "correct": 0,
+    "explanation": "A time sequence is useful, but causality needs corroborating evidence.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should the original email be preserved before derivation?",
+    "options": [
+      "It ensures the displayed link must always match the raw destination",
+      "It makes other telemetry unnecessary for decisions about user exposure",
+      "It allows the analyst to omit source identifiers from their notes",
+      "It remains available for provenance and later review"
+    ],
+    "correct": 3,
+    "explanation": "A stable source lets multiple investigations reproduce observations.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A container is encrypted and policy forbids opening it through the standard viewer. What is the right handoff?",
+    "options": [
+      "Open the container in the regular workstation tool to test its contents",
+      "Report all contents as inspected on the strength of the container type",
+      "Route preserved evidence and its current limits to the specialist",
+      "Delete the encrypted object because the initial static workflow cannot inspect it"
+    ],
+    "correct": 2,
+    "explanation": "The authorised specialist can decide what further work is permitted.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does an ordinary file extension establish on its own?",
+    "options": [
+      "That every byte conforms to the claimed application format",
+      "How the name presents the file's expected type",
+      "Whether the object can be delivered by a mail gateway",
+      "Whether the application opened the file in the recipient's session"
+    ],
+    "correct": 1,
+    "explanation": "A naming convention does not authenticate the underlying file structure.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A destination looks unusual, but a trusted owner confirms it serves an approved workflow. What should be retained?",
+    "options": [
+      "The original discrepancy and the independent verification",
+      "Only the original suspicion so the case status cannot change later",
+      "The employee's approval of the unfamiliar site in place of service ownership",
+      "The label shown in the message as proof that all activity was benign"
+    ],
+    "correct": 0,
+    "explanation": "Document the new evidence and how it affected the current assessment.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which handoff is most useful when artifact classification remains uncertain?",
+    "options": [
+      "A screenshot with no case identifier or indication of the source",
+      "The attachment resent to an analyst's ordinary email account",
+      "A note saying investigation continues without a specific next action",
+      "Evidence pointer, uncertainty, proposed check and owner"
+    ],
+    "correct": 3,
+    "explanation": "An owned next check keeps an uncertain case actionable.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which change most clearly shifts a case toward endpoint investigation?",
+    "options": [
+      "The email sender changed the spelling of a department name",
+      "A second user reported an identical subject without opening it",
+      "A documented process event on the relevant workstation",
+      "The gateway labeled the attachment with a generic media type"
+    ],
+    "correct": 2,
+    "explanation": "An observed process changes the evidence about possible device activity.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

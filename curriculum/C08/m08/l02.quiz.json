@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A department head whose team is not affected asks to be added to the HERON core update list 'just to stay informed'. How should the IR lead decide?",
+    "options": [
+      "Add them, because wider awareness reduces rumours while the incident runs",
+      "Ask what they will decide or do with the information; if nothing, they do not need it yet",
+      "Add them to the core list, but strip hostnames and indicators from the copy that they receive",
+      "Refuse, because only the SOC and the IR lead may receive incident updates"
+    ],
+    "correct": 1,
+    "explanation": "Audiences are defined by what they must decide or do; with no answer, they do not need the information yet. Refusing everyone outside the SOC goes too far: executives, legal and action teams all legitimately receive updates.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The log says: 48,200,000 bytes uploaded 08:12Z to files-share-drop.example; content not yet known. Which wording is best for the executive update?",
+    "options": [
+      "A small amount of data may have left the network; there is no sign it was sensitive",
+      "48.2 MB was exfiltrated over HTTPS to files-share-drop.example at 13:42 IST",
+      "No customer data was lost; the transfer went to an external file-sharing site",
+      "About 48 MB left the network to an unknown file-sharing site; content not yet known"
+    ],
+    "correct": 3,
+    "explanation": "Tailoring changes language and detail but never the facts: the executive version states the size in plain terms and keeps the biggest unknown explicit. 'No sign it was sensitive' and 'no customer data was lost' soften an unknown into reassurance the evidence does not support.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "WS-104 was isolated at 09:05Z and no beacon has been seen since, but the endpoint sweep of other hosts is still pending. Which status-update sentence is accurate?",
+    "options": [
+      "The known command-and-control channel has stopped since WS-104 was isolated at 09:05Z; scoping continues",
+      "The incident is now fully contained: WS-104 was isolated at 09:05Z and the beacon has stopped for good",
+      "The attacker has been removed from the network following isolation at 09:05Z",
+      "No further risk is expected; the remaining work is limited to collecting evidence"
+    ],
+    "correct": 0,
+    "explanation": "'Contained' is a strong word that scoping does not yet support; the accurate sentence states what is known and that scoping continues. Early reassurance becomes a false statement to retract if a second host is found.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The 10:30Z HERON update is due, but nothing material has changed since 09:30Z. What should the author do?",
+    "options": [
+      "Skip this update and send the next one when there is real news to report",
+      "Delay the update until the endpoint sweep result arrives later in the morning",
+      "Send 'no material change' at 10:30Z with the time of the next update",
+      "Ask the IR lead to suspend the cadence until the facts start changing again"
+    ],
+    "correct": 2,
+    "explanation": "The promised time lets everyone stop asking; missing it, even with no news, damages trust and brings interruptions. A 'no material change' update with the next time is a valid update; delaying for the sweep breaks the promise just the same.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At 09:50Z the SOC finds a second host beaconing to the case domain. The next scheduled update is at 10:30Z. What should the analyst do?",
+    "options": [
+      "Tell the IR lead at once; a major change triggers an update outside the cadence",
+      "Include it in the 10:30Z update so that the agreed cadence is respected",
+      "Email the core list directly from the SOC so that everyone learns immediately",
+      "Wait until the second host is fully scoped so that the update is never retracted"
+    ],
+    "correct": 0,
+    "explanation": "A significant change such as a second infected host triggers an immediate update outside the cadence, coordinated through the IR lead. Emailing the list directly bypasses the hub and may use a channel the attacker can read.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which finding most strongly requires moving all incident communication off the corporate mail and chat platform?",
+    "options": [
+      "A new local administrator account appearing on a single workstation",
+      "Evidence that the attacker holds an identity-provider administrator account",
+      "A password-spray success against one standard user's VPN account from an external address",
+      "A malicious document opened by a user in the finance department"
+    ],
+    "correct": 1,
+    "explanation": "An attacker with administrative access to the identity provider or tenant can read anyone's mail and chat, so in-band channels are no longer safe for anyone. A local admin account on one workstation does not by itself prove tenant compromise.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After declaration, the IR lead creates a new chat space outside the corporate tenant and emails the join codes to the working group from corporate mail. What is wrong with this?",
+    "options": [
+      "Nothing, because the chat platform itself is outside the corporate tenant",
+      "Nothing, provided the invitations go only to the named core list",
+      "Sending join codes in-band lets an attacker reading mail learn of the channel or join it",
+      "Only that messages on external chat platforms cannot be used as evidence in the incident log"
+    ],
+    "correct": 2,
+    "explanation": "An out-of-band channel must be prepared in advance, and join codes must not travel through possibly compromised systems. Restricting the recipient list does not help if the attacker can read the sender's or a recipient's mailbox.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "divya, the user whose session ran the malicious document, must be told to stop using WS-104 and expect a replacement. How should she be contacted?",
+    "options": [
+      "By email to her corporate mailbox, marked confidential and urgent",
+      "By a message to WS-104 through the EDR console before it is isolated",
+      "By adding her to the out-of-band bridge so that she can follow the investigation as it unfolds",
+      "By phone, through her manager, with verbal instructions not to use or delete anything"
+    ],
+    "correct": 3,
+    "explanation": "Affected devices and accounts must never carry incident communication, and the user needs instructions, not investigative detail. Adding her to the bridge gives her far more than she needs to act.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The network team offers to block the beacon domain immediately, but WS-104's isolation is scheduled for an hour from now. There is no sign of ongoing destructive activity. What should the IR lead decide?",
+    "options": [
+      "Block now, because every minute of beaconing raises the amount of data lost",
+      "Block now and tell divya by email so that she stops using the laptop meanwhile",
+      "Block the beacon domain now but leave the upload domain open so the team can watch the attacker",
+      "Hold the block and run it together with isolation, because an early block warns the attacker"
+    ],
+    "correct": 3,
+    "explanation": "Changing visible things before containment is coordinated tips off the attacker while their foothold is still live; communication and containment timing are planned together. The data-loss argument would matter if serious harm were ongoing, which the scenario rules out.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which ticket title is the best choice for the network team's block request in the Banyan incident?",
+    "options": [
+      "Block files-share-drop.example - finance data theft",
+      "HERON: block two domains and one address (list attached)",
+      "WS-104 compromise - block attacker domains urgently",
+      "Finance laptop hacked - network blocks needed today"
+    ],
+    "correct": 1,
+    "explanation": "A codename and a neutral description give the network team what it needs to act without revealing the incident's nature to anyone browsing the queue. Naming the host or 'data theft' discloses sensitive detail in an ordinary ticket.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The ISAC shared the indicator cdn-telemetry-sync.example under TLP:AMBER. Corporate communications wants to name the domain in a public statement. What is the correct position?",
+    "options": [
+      "Not allowed: TLP:AMBER limits sharing to the recipient organisation and its clients on a need-to-know basis",
+      "Allowed, because an indicator loses its sensitivity once the incident is contained",
+      "Allowed, provided the statement credits the ISAC as the source of the indicator",
+      "Not allowed: TLP:AMBER restricts the indicator to the specific named individuals who originally received it"
+    ],
+    "correct": 0,
+    "explanation": "TLP:AMBER permits sharing within the recipient's organisation and with its clients on a need-to-know basis, so it must not appear in a public statement. Restriction to named individuals describes TLP:RED, which is stricter than AMBER.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A reportable incident is noticed at 21:10Z. What is the CERT-In six-hour point, in UTC and IST (UTC+05:30)?",
+    "options": [
+      "03:10Z the next day, which is 09:10 IST",
+      "03:10Z the next day, which is 21:40 IST",
+      "03:10Z the next day, which is 08:40 IST",
+      "02:40Z the next day, which is 08:10 IST"
+    ],
+    "correct": 2,
+    "explanation": "21:10Z plus six hours is 03:10Z the following day; adding 5 hours 30 minutes gives 08:40 IST. The 09:10 IST option adds six hours instead of five and a half to the UTC time.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Tier 2 analyst wants to hold back the time noticed from legal until the content of the upload is confirmed, 'so that we only report correct facts'. Why is this wrong?",
+    "options": [
+      "It is not wrong; legal only needs the time once the investigation has ended",
+      "The deadline runs from noticing, so holding facts back consumes the reporting window",
+      "The deadline runs from the first malicious event, which has already passed anyway",
+      "CERT-In requires the SOC to file directly, so legal does not need the time at all"
+    ],
+    "correct": 1,
+    "explanation": "The six-hour window runs from noticing, not from the end of the investigation, so the time noticed and confidence-labelled facts must go to legal and the POC at once. The clock does not start at the first malicious event, and the SOC does not file the report itself.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In Banyan, who sends the report to CERT-In?",
+    "options": [
+      "The SOC analyst who noticed the incident, to save as much time as possible",
+      "The IR lead, because the IR lead owns every incident communication",
+      "Legal, because legal assesses whether the incident is reportable",
+      "The designated point of contact, using the facts the SOC supplied"
+    ],
+    "correct": 3,
+    "explanation": "Reports to CERT-In go through the organisation's designated POC, on reportability advice from legal and with facts from the SOC. Legal decides whether the incident is reportable, but the POC is the authorised voice to CERT-In.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which of these incident log entries follows the lesson's style for the log?",
+    "options": [
+      "Around 09:20 someone checked and the beacon seems to have stopped, maybe reset gopal too?",
+      "09:20Z SOC-T2 FACT Beacon stopped and attacker gone; recommend closing HERON today.",
+      "09:20Z SOC-T2 FACT No requests to cdn-telemetry-sync.example since 09:05Z (proxy).",
+      "09:20Z FACT/DECISION No beacon since isolation; IR lead agreed to keep the blocks."
+    ],
+    "correct": 2,
+    "explanation": "Each entry should have a UTC time, an author and one label, and a fact should give its source. 'Attacker gone' adds an inference to the fact, and a combined FACT/DECISION entry with no author mixes two kinds of entry.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two analysts write executive updates from their own chat notes, and the executives receive two different figures for the size of the upload. Which practice prevents this?",
+    "options": [
+      "Drawing every update from the single incident log and changing only the wording per audience",
+      "Assigning a separate analyst to write each audience's update in parallel",
+      "Sending the full technical update to every audience so that nothing is ever reworded or simplified",
+      "Inviting the executives onto the bridge so that they hear the facts first-hand"
+    ],
+    "correct": 0,
+    "explanation": "One incident log is the single source of truth; updates are pulled from it, never from memory or chat, and tailoring changes presentation, not facts. Sending the technical version to everyone avoids rewording but fails executives, who need impact and decisions in plain language.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The content of the 48 MB upload may decide whether the Digital Personal Data Protection Act, 2023 requires notice to the Data Protection Board. Who decides this, and what is the SOC's part?",
+    "options": [
+      "The SOC decides, because only the SOC can see what the upload contained",
+      "Legal and the data protection function decide; the SOC works to establish and report the content",
+      "Nobody yet, because DPDP duties apply only after the investigation has closed",
+      "The CERT-In POC decides, because filing the CERT-In report also notifies the Data Protection Board"
+    ],
+    "correct": 1,
+    "explanation": "Whether and how the DPDP Act applies is assessed by legal and the data protection function; the SOC supplies facts, states unknowns and updates them when the content becomes known. The SOC never estimates legal obligations itself.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Update 2 says 'No other host seen contacting case domains (proxy telemetry; endpoint sweep pending)'. Why does the bracketed qualifier belong in the update?",
+    "options": [
+      "To show legal which team is responsible if the statement is later found wrong",
+      "To satisfy a CERT-In format rule that each fact must name its data source",
+      "To tell readers what the conclusion rests on and what could still change it",
+      "To signal to executives that the SOC disagrees with the IR lead's scope"
+    ],
+    "correct": 2,
+    "explanation": "'None found' in proxy records does not prove no other host is compromised, so the update states its basis and the pending check; that keeps it accurate and lets readers judge confidence. It is about confidence labelling, not assigning blame.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A message apparently from the IR lead appears in the incident chat asking a system administrator to 'disable the EDR agent on WS-104 for testing'. What should the administrator do?",
+    "options": [
+      "Comply quickly, since the IR lead owns all decisions in the incident",
+      "Comply, provided the action is recorded in the incident log with the time and the requester's name",
+      "Ignore it, because EDR settings are never changed during an incident",
+      "Confirm through a known channel before acting, as for any change to a security control"
+    ],
+    "correct": 3,
+    "explanation": "Attackers exploit incident confusion with impersonation, so instructions affecting security controls are confirmed through a known channel. Ignoring it outright is wrong too: a genuine instruction could exist, and the attempt itself should be reported.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During HERON, which observation would most strongly suggest that the attacker is watching the investigation?",
+    "options": [
+      "A new mailbox forwarding rule appearing on divya's account during the incident",
+      "A rise in the number of messages on the out-of-band bridge chat",
+      "Help-desk calls from finance staff about slow laptops that morning",
+      "Executives forwarding the executive summary to their deputies"
+    ],
+    "correct": 0,
+    "explanation": "The SOC monitors the incident itself, and a new forwarding rule on a compromised user's mailbox is a strong sign of an attacker reading mail. Executives forwarding the summary is a need-to-know problem, but it does not point to the attacker.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the HERON communication plan brief the help desk with a routing script before WS-104 is isolated?",
+    "options": [
+      "So that it can reset divya's password straight away when she phones",
+      "So that related calls go to IR and staff do not 'fix' affected machines and destroy evidence",
+      "So that it can tell callers what data the attacker took from the network",
+      "So that it can reimage WS-104 as soon as the network team confirms the device has been isolated"
+    ],
+    "correct": 1,
+    "explanation": "A forgotten help desk can destroy evidence with a well-meaning reboot or fix, so it needs a script that routes related calls to the IR team. Resetting the password is the identity team's coordinated action, not something the help desk should do on its own.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Before applying the blocks, the network lead asks for the name of the finance user whose laptop is involved. How should the IR lead respond?",
+    "options": [
+      "Give the name, because action teams need the whole story to act correctly",
+      "Give no context at all, because need-to-know means action teams act without it",
+      "Give the name only if the network lead is already on the core distribution list",
+      "Give the domains and address with enough context to act; the user's identity is not needed"
+    ],
+    "correct": 3,
+    "explanation": "Action teams get what they need to act, not the whole story, and the user is a victim until proven otherwise. Need-to-know is not secrecy, so withholding all context goes too far: the team must still understand enough to apply the blocks correctly.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The IR lead decides on the out-of-band phone bridge to isolate WS-104. How should that decision be recorded?",
+    "options": [
+      "Not at all, since out-of-band channels are meant to leave no record",
+      "Only if a regulator later questions the timing of the isolation",
+      "In the incident log, with the time and the IR lead as decision-maker",
+      "Only in the bridge platform's call history, which serves as the log"
+    ],
+    "correct": 2,
+    "explanation": "Out of band does not mean off the record; bridge decisions go into the single incident log under the name of the person who made them. A platform's call history is not the authoritative, labelled incident record.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An unfamiliar voice joins the HERON phone bridge, introducing themselves as a new member of the identity team. What should the bridge lead do?",
+    "options": [
+      "Verify the person by calling back on a known number before continuing",
+      "Ask them to state the codename, since only real participants know HERON",
+      "Let them stay but avoid sensitive details until they have spoken",
+      "Close the bridge and create a new one, emailing fresh join codes"
+    ],
+    "correct": 0,
+    "explanation": "Out-of-band channels must be identity-checked, and a call-back on a known number verifies the person. An attacker with mail access may already know the codename and that the bridge exists, so knowing 'HERON' proves nothing.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After WS-104 is rebuilt, the team tells divya and the head of finance that service has been restored. Which CSF 2.0 Category does this communication belong to?",
+    "options": [
+      "RS.CO, Incident Response Reporting and Communication",
+      "RC.CO, Incident Recovery Communication",
+      "RS.MA, Incident Management",
+      "RC.RP, Incident Recovery Plan Execution"
+    ],
+    "correct": 1,
+    "explanation": "Communication appears twice in CSF 2.0: RS.CO during response and RC.CO during recovery. Telling people that restored service is back is recovery communication; RC.RP covers the restoration work itself, not the messages about it.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

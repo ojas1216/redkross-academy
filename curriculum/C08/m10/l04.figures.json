@@ -1,0 +1,17 @@
+{
+  "C08-M10-L04-F1": {
+    "title": "Comparing one observation on several baseline dimensions",
+    "caption": "Synthetic data. WS-303's 52.0 MB transfer looks ordinary against the peer maximum but deviates on its own history and on destination rarity.",
+    "alt": "A table with four columns: comparison, baseline value, observed value and reading. Against its own median of 7.0 MB and its own maximum of 18.5 MB, WS-303's 52.0 MB is new behavior. Against the peer maximum of 61.0 MB it looks ordinary, but that peak came from a month-end upload, so the comparison misleads on its own. No peer contacted the destination, so it is rare. Together the comparisons support escalation for validation.",
+    "type": "table",
+    "columns": ["Comparison", "Baseline", "Observed", "Reading"],
+    "rows": [
+      ["Own median", "7.0 MB", "52.0 MB", "About 7.4x median"],
+      ["Own maximum", "18.5 MB", "52.0 MB", "New high for host"],
+      ["Peer maximum", "61.0 MB", "52.0 MB", "Misleading: month-end peak"],
+      ["Peer prevalence", "0 of 6 peers", "1 host", "Rare destination"],
+      ["Combined", "Two dimensions", "Both deviate", "Escalate for validation"]
+    ],
+    "rowTones": ["orange", "orange", "slate", "orange", "green"]
+  }
+}

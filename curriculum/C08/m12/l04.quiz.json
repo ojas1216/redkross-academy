@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A04 counts failed identities but does not name them. What is defensible about STAFF-382?",
+    "options": [
+      "Its success is observed; inclusion in the failed set is unconfirmed",
+      "It definitely failed once because the same address later succeeded",
+      "It is the identified person responsible for all the earlier attempts",
+      "The source confirmed eight other successful logins from that workstation"
+    ],
+    "correct": 0,
+    "explanation": "The failure summary and success have different levels of detail.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How many distinct failed identities does A04 report?",
+    "options": [
+      "One repeated identity over the entire shift",
+      "Nine identities because the success must be counted too",
+      "Eight successful sessions attributed to the same device",
+      "Eight distinct identities during the indicated interval"
+    ],
+    "correct": 3,
+    "explanation": "A04 is an aggregate of distinct failed accounts.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which source would best establish what a later session did?",
+    "options": [
+      "The identity label copied into a separate workstation process alert",
+      "A statement that the employee commonly works from a laptop",
+      "Authorised session or resource audit tied to its identifier",
+      "A known egress description for a different event"
+    ],
+    "correct": 2,
+    "explanation": "Subsequent actions require an actual session or resource evidence link.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When does A05 show the successful authentication?",
+    "options": [
+      "08:11 UTC at the end of the aggregated failures",
+      "08:14 UTC from the same recorded VPN source",
+      "08:23 UTC during a different operations event",
+      "08:29 UTC alongside the endpoint management update"
+    ],
+    "correct": 1,
+    "explanation": "The successful account record is distinct from the failure interval.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst lacks permission to read the provider audit. Which state applies?",
+    "options": [
+      "Unavailable to this reviewer, with an owner request",
+      "A completed search found no activity in any provider service",
+      "The provider confirmed the successful action was approved",
+      "The account had no active session since no result appeared"
+    ],
+    "correct": 0,
+    "explanation": "Lack of access is an evidence gap, not a result.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the identity escalation include?",
+    "options": [
+      "The credentials entered by the observed user",
+      "A claim that every failed identity was compromised",
+      "The FIN-21 asset ID listed as the verified VPN client",
+      "Account, source address, times and failure count"
+    ],
+    "correct": 3,
+    "explanation": "A bounded request gives the authorised team directly relevant observations.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The same source is recognised as corporate egress. Does this alone clear the activity?",
+    "options": [
+      "Yes, a recognised address proves every user's action legitimate",
+      "Yes, because shared infrastructure authenticates everyone by default",
+      "No. Verify whether the pattern and success were authorised",
+      "No, because any shared address proves one employee was compromised"
+    ],
+    "correct": 2,
+    "explanation": "Egress context explains address appearance but does not verify the session.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why keep the endpoint thread separate from the VPN lead?",
+    "options": [
+      "The VPN success occurs on a different date entirely",
+      "There is no verified shared entity in the supplied evidence",
+      "The workstation has no evidence of related suspicious behaviour",
+      "A confirmed matching client ID proves they must be separate"
+    ],
+    "correct": 1,
+    "explanation": "Separate ownership preserves accurate scope pending a corroborated relationship.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The user denies logging on through a trusted channel. How should this enter the case?",
+    "options": [
+      "Record their statement and seek corroborating session evidence",
+      "Declare the affected endpoint actor identified without further evidence",
+      "Ignore the statement because only detector output may be relevant",
+      "Ask the account to submit its current password to establish identity"
+    ],
+    "correct": 0,
+    "explanation": "A reported denial adds context without proving exact device or later actions.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the documented address in the original case cluster?",
+    "options": [
+      "198.51.100.40 in the unrelated observation B26",
+      "The host name assigned to the OPS-03 device",
+      "The endpoint's assigned case identifier E-301",
+      "203.0.113.60 in A04 and A05"
+    ],
+    "correct": 3,
+    "explanation": "The same observed address permits a bounded authentication correlation.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What would be stronger evidence linking the VPN and workstation cases?",
+    "options": [
+      "Close timing across the two observations alone",
+      "The same reviewer manually prioritising both cases",
+      "A verified common client or session identifier",
+      "Identical words in the report's executive title"
+    ],
+    "correct": 2,
+    "explanation": "A corroborated shared entity links the observations more directly than occurrence in the same window.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should B26 appear in the identity worksheet?",
+    "options": [
+      "Another unique failed account from the original address group",
+      "A separate one-failure observation for another source context",
+      "A record proving later STAFF-382 activity was authorised",
+      "A duplicate receipt of the exact A05 VPN success"
+    ],
+    "correct": 1,
+    "explanation": "The source and account differ from the original cluster.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "If a provider audit confirms resource use, what can change?",
+    "options": [
+      "The assessed scope for the verified resource and session",
+      "The conclusion that every connected service was accessed",
+      "The original source count from the A04 failure summary",
+      "The identity of the desktop operator regardless of device evidence"
+    ],
+    "correct": 0,
+    "explanation": "New evidence can substantiate specific later activity without broadening further automatically.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does source address evidence identify by itself?",
+    "options": [
+      "The physical location and identity of the human operator",
+      "Every device registered to the organisation's account",
+      "The contents of data requested after login",
+      "The address observed at the authentication boundary"
+    ],
+    "correct": 3,
+    "explanation": "Addresses often require egress and client context to interpret.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An inventory entry names a usual workstation for STAFF-382. How should it be used?",
+    "options": [
+      "As proof the workstation made the observed VPN connection",
+      "As authority to isolate any enrolled device with the same owner",
+      "As context distinct from a source-observed client",
+      "As replacement for the original source and time of authentication"
+    ],
+    "correct": 2,
+    "explanation": "Inventory association cannot fill missing client attribution by itself.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who owns verification of the suspicious VPN success?",
+    "options": [
+      "The mail team using only original message headers",
+      "The authorised VPN and identity responders",
+      "The endpoint lead based solely on another device's isolation",
+      "The Finance case owner through approved payment records alone"
+    ],
+    "correct": 1,
+    "explanation": "Those owners can examine legitimacy and the actual session context.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An approved protective request is pending. What should the assessment say?",
+    "options": [
+      "Track the request separately from evidence of legitimacy",
+      "Declare the original session legitimate because someone approved a response",
+      "Show that the original actor is known from the acknowledgement",
+      "Close the case once any owner receives the request"
+    ],
+    "correct": 0,
+    "explanation": "Response progress and analysis of the underlying event answer different questions.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is a suitable aim for employee follow-up?",
+    "options": [
+      "Collect a live authentication factor from the employee",
+      "Ask the employee to recreate the suspicious login attempt",
+      "List employees who used unrelated access services that day",
+      "Confirm whether the reported time and service were expected"
+    ],
+    "correct": 3,
+    "explanation": "A trusted contact can supply context without collecting secrets.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A change record describes legitimate cluster testing. What should the analyst compare before closure?",
+    "options": [
+      "Only whether the change used the same general security terminology",
+      "Who wrote the first unrelated alert during the morning",
+      "Exact address, identities or scope, timing and success context",
+      "Whether every other endpoint report received a low severity label"
+    ],
+    "correct": 2,
+    "explanation": "A plausible explanation must corroborate the relevant facts.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How is a completed no-match different from B24?",
+    "options": [
+      "It confirms access was denied to the analyst",
+      "It is an actual searched result with a scope",
+      "It substitutes a requested search for a verified source response",
+      "It proves the session was illegitimate even if no event was found"
+    ],
+    "correct": 1,
+    "explanation": "B24 describes a permission limitation before a result exists.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the effect of adding B25 to A04's count?",
+    "options": [
+      "It contaminates the group with a different context",
+      "It correctly counts a new failure for the original source",
+      "It proves the source threshold is addressed by a legitimate login",
+      "It shows that all observed identities accessed the same workstation"
+    ],
+    "correct": 0,
+    "explanation": "B25 is a routine success with independent source context.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an identity finding specify while data remains incomplete?",
+    "options": [
+      "A full compromise chain and final legal impact",
+      "Every user whose username exists in the staff directory",
+      "A device action performed without the required owner",
+      "The suspected risk and a concrete next verification"
+    ],
+    "correct": 3,
+    "explanation": "An actionable handoff does not require filling unverified fields.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lead wants to protect the identity despite incomplete actor attribution. Which reasoning fits?",
+    "options": [
+      "Protective work requires naming the person at the keyboard first",
+      "Authority follows directly from the count of authentication failures",
+      "Risk can justify scoped action under approved authority",
+      "The case can only be considered once its link to FIN-21 is proven"
+    ],
+    "correct": 2,
+    "explanation": "Protective decisions and causal attribution are distinct and can progress separately.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the handoff request about session controls if they are applied?",
+    "options": [
+      "Assurance that every resource was protected without verification",
+      "Evidence of effect and its specific service scope",
+      "A name change for the worksheet's observed success row",
+      "A rule to remove the observed records as soon as the action starts"
+    ],
+    "correct": 1,
+    "explanation": "The case needs verification of actual protection in each relevant service.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is a fair conclusion about affected accounts from A04 alone?",
+    "options": [
+      "Eight had recorded failures, with no success detail in the summary",
+      "Every failed account was controlled by the same operator",
+      "The failure count equals the number of disclosed credentials",
+      "The successful account initiated each of the failures"
+    ],
+    "correct": 0,
+    "explanation": "Failed authentication counts do not directly measure compromise or access.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

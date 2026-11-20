@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A successful VPN authentication follows failures across eight identities. Which statement fits the evidence?",
+    "options": [
+      "The successful account definitely operated the compromised endpoint",
+      "The pattern warrants identity investigation",
+      "The source proves all eight affected accounts admitted the same user",
+      "The available evidence verifies what services the account used afterwards"
+    ],
+    "correct": 1,
+    "explanation": "The pattern is suspicious but does not establish later session activity.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which source can show an added authenticator method?",
+    "options": [
+      "The identity provider's audit log",
+      "The proxy request log for the user's usual workstation",
+      "A forwarded mail subject recorded in a user report",
+      "The endpoint process tree for a different computer"
+    ],
+    "correct": 0,
+    "explanation": "Authentication method changes belong to identity administration telemetry.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An impossible-travel alert coincides with new corporate VPN egress. What should the analyst check before escalating?",
+    "options": [
+      "Whether the user owns a passport valid for international travel",
+      "Whether the proxy assigns a severity to every browser request",
+      "Whether all other users have recently changed their preferred time zones",
+      "Whether the observed address matches known VPN egress"
+    ],
+    "correct": 3,
+    "explanation": "A known corporate egress point can explain an apparent location change without physical travel.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What can a primary host lookup contribute to a VPN alert?",
+    "options": [
+      "The observed client device from the original VPN event",
+      "A direct attestation of the session activities after login",
+      "An inventory association to investigate",
+      "Independent verification of the user's physical location"
+    ],
+    "correct": 2,
+    "explanation": "An inventory relationship is enrichment and has separate provenance.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An unexpected mailbox rule appears after an anomalous sign-in. What does their timing justify?",
+    "options": [
+      "Assume every mail message was forwarded before checking the rules",
+      "Escalate with both records and seek corroboration",
+      "Treat temporal order as proof of attacker identity and intention",
+      "Dismiss the sign-in when no workstation process alert fired simultaneously"
+    ],
+    "correct": 1,
+    "explanation": "Correlated deviations raise concern while leaving particular impacts to verify.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which evidence can confirm a new mailbox forwarding change?",
+    "options": [
+      "A matching mailbox administration audit event",
+      "A generic endpoint alert naming a browser process",
+      "The location printed in a VPN authentication summary",
+      "The original mail's Internet Message-ID without other records"
+    ],
+    "correct": 0,
+    "explanation": "Mailbox changes need evidence from the service or its audit trail.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The dataset has no cloud identity logs. What should a negative MFA-change claim say?",
+    "options": [
+      "MFA changes did not occur because the SIEM has no events",
+      "No affected account uses multifactor authentication in the scenario",
+      "A successful VPN login identifies which authenticator was registered",
+      "MFA changes could not be checked from these sources"
+    ],
+    "correct": 3,
+    "explanation": "A missing source is a coverage gap and supports no negative conclusion.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does logon type add to a Windows authentication record?",
+    "options": [
+      "A certificate proving the person's identity for the entire session",
+      "A complete list of all files the session read or created",
+      "Context about how the account logged on",
+      "The public identity of any mail sender associated with the workstation"
+    ],
+    "correct": 2,
+    "explanation": "The type helps evaluate whether authentication fits normal use.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An employee expects a new phone registration and there is a matching service desk ticket. What changes?",
+    "options": [
+      "Every earlier authentication from that account becomes authorised automatically",
+      "The registration has an explanation; investigate remaining anomalies separately",
+      "The service desk record proves there were no suspicious mailbox actions",
+      "The anomalous VPN session should be attributed to the endpoint without a source"
+    ],
+    "correct": 1,
+    "explanation": "Evidence explaining one signal does not automatically explain the whole case.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a sign-in baseline useful to an analyst?",
+    "options": [
+      "It describes ordinary devices, times and locations for comparison",
+      "It makes geographically distant authentications impossible to record",
+      "It guarantees every user has the same normal working pattern",
+      "It removes the need for a record of administrative changes"
+    ],
+    "correct": 0,
+    "explanation": "A baseline helps distinguish ordinary activity from meaningful deviation.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A successful sign-in has no later resource audit or session log. What can be reported?",
+    "options": [
+      "No data was accessed because the session had no reported follow-up",
+      "The session definitely entered all business applications after login",
+      "The success proves the approved employee personally controlled the client",
+      "Authentication succeeded; later activity is unknown"
+    ],
+    "correct": 3,
+    "explanation": "An authentication outcome cannot establish actions in the missing sources.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An employee denies a new authenticator but answers from the affected mailbox. What should the SOC do?",
+    "options": [
+      "Treat the reply as strong proof that the employee's session is safe",
+      "Send the employee a new challenge to the suspicious authenticator",
+      "Verify through an independently known channel",
+      "Assume that no verification is needed because the report contains their name"
+    ],
+    "correct": 2,
+    "explanation": "A possibly affected channel is weak evidence of the correspondent's identity.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which observation is most relevant to possible mailbox persistence?",
+    "options": [
+      "A routine personal bookmark added in an unrelated browser",
+      "An unexplained new forwarding or delegate setting",
+      "The date displayed in a trusted security team's press release",
+      "A proxy count from a host absent from the account's history"
+    ],
+    "correct": 1,
+    "explanation": "Forwarding and delegation can preserve access to mail independently.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What should a case say about an endpoint's routine activity after the VPN anomaly?",
+    "options": [
+      "That the observed endpoint scope has no further signal in the interval checked",
+      "That the VPN session originated on the endpoint because its activity continued",
+      "That the entire organisation contained the account automatically at login",
+      "That the entity is cleared since the assigned endpoint has routine traffic"
+    ],
+    "correct": 0,
+    "explanation": "Routine observations on one device do not resolve a separate identity event.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The same address appears on eight failed users and one success four minutes later. What should a reviewer verify first?",
+    "options": [
+      "Whether all accounts used the same password based on timestamps alone",
+      "Whether the same user sent every suspicious message in the campaign",
+      "Whether the address has ever appeared on any unrelated customer invoice",
+      "Source context, authentication details and the affected identity"
+    ],
+    "correct": 3,
+    "explanation": "Those checks test the actual scope and significance of the authentication pattern.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the central distinction in an account compromise review?",
+    "options": [
+      "A login always establishes the person and exact state of the session",
+      "Endpoint process logs always identify an account's registered methods",
+      "Account activity can be recorded without establishing who acted",
+      "Mail audits are sufficient to explain all remote access decisions"
+    ],
+    "correct": 2,
+    "explanation": "Records attribute activity to an identity or session with varying confidence.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Authorised administrator activity looks anomalous against a saved baseline. Which record best resolves it?",
+    "options": [
+      "A dashboard screenshot from the first day the baseline was created",
+      "An independently matched change record with actor, action and time",
+      "A general assurance that administrators use unusual tools sometimes",
+      "An unrelated helpdesk ticket naming the same business department"
+    ],
+    "correct": 1,
+    "explanation": "A matching approved change supplies context for the observed action.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which signal belongs in the provider audit request?",
+    "options": [
+      "A relevant change in registered authentication methods",
+      "The count of bytes in an unrelated proxy transfer",
+      "The apparent greeting in the suspicious message body",
+      "The way a requester opened a local photocopy of the invoice"
+    ],
+    "correct": 0,
+    "explanation": "The provider owns records of method enrollment and changes.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which observation would best link the VPN and workstation threads?",
+    "options": [
+      "Both occurring on the same morning in the fixture",
+      "Matching internal alert priorities assigned to both threads",
+      "The fact that both devices appear in the same analyst's notes",
+      "A verified shared client or session identifier in relevant sources"
+    ],
+    "correct": 3,
+    "explanation": "A shared corroborating entity supports linkage more directly than coincidence.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the useful output of investigating an anomalous sign-in?",
+    "options": [
+      "An accusation based on a time-zone difference without records",
+      "An unqualified normal verdict because no file was attached",
+      "An observation, confidence, evidence gap and next owner",
+      "A final report that omits what sources were searched"
+    ],
+    "correct": 2,
+    "explanation": "Documented limits help the next owner continue verification without assuming more than the evidence shows.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What would show that a forwarding change is an authorised exception?",
+    "options": [
+      "A similar name visible in another employee's forwarded subject",
+      "A matching approved request and verification by the mailbox owner",
+      "A provider response saying the setting syntactically exists",
+      "The absence of a desktop alert from the assigned workstation"
+    ],
+    "correct": 1,
+    "explanation": "The approval record and service owner's verification together support legitimate intent for the observed change.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is an appropriate use of contextual proxy records in this lesson?",
+    "options": [
+      "Support a scoped comparison of usual device activity",
+      "Infer every authentication factor accepted by a remote service",
+      "Determine the credential entered in a third-party identity process",
+      "Replace any authorised mailbox administrator's source logs"
+    ],
+    "correct": 0,
+    "explanation": "Proxy telemetry can add device context while leaving identity gaps.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why should an analyst verify source addresses against known proxy or gateway infrastructure?",
+    "options": [
+      "Every shared address identifies exactly one employee session",
+      "Approved proxies remove the need to preserve actual log records",
+      "Checking infrastructure lets the analyst infer the complete region of origin",
+      "Shared egress can change apparent location or client attribution"
+    ],
+    "correct": 3,
+    "explanation": "Address evidence needs context before inferring a device or physical path.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which identity action should remain distinct from confirming the incident?",
+    "options": [
+      "Rewriting old source records to agree with the proposed assessment",
+      "Declaring all sessions malicious when the first alert is received",
+      "Revoking a suspect session under the approved response plan",
+      "Changing the owner's ordinary device record to match an alert's risk score"
+    ],
+    "correct": 2,
+    "explanation": "Protective response may be appropriate while the assessment remains provisional.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What should the SOC ask when a new delegate is unexplained?",
+    "options": [
+      "Which lookalike domain was in the latest mail subject",
+      "Who approved it, when and with what scope",
+      "When a different employee last used the shared proxy",
+      "Which screenshots of other inboxes can replace the audit event"
+    ],
+    "correct": 1,
+    "explanation": "Delegate permission is an account change with approval context to verify.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "C08-M09-L02-F1": {
+    "title": "Triage a link or attachment from evidence",
+    "caption": "Static observations and activity evidence support separate containment and analysis decisions.",
+    "alt": "The workflow starts by preserving the original report. A static record captures the link or attachment. The analyst compares the object with trusted context and checks separately for user or system activity. The decision is routed to the authorised owner and the evidence and next action go into the case.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Preserve the original",
+        "sub": "Record acquisition and evidence ID",
+        "tone": "slate"
+      },
+      {
+        "label": "Make a static artifact record",
+        "sub": "Link destination or file metadata",
+        "tone": "blue"
+      },
+      {
+        "label": "Compare with trusted context",
+        "sub": "Check expectations and existing findings",
+        "tone": "violet"
+      },
+      {
+        "label": "Assess activity separately",
+        "sub": "Distinguish previews from user actions",
+        "tone": "orange"
+      },
+      {
+        "label": "Route the next decision",
+        "sub": "Preserve the rationale and assign an owner",
+        "tone": "dark"
+      }
+    ],
+    "note": "Maintain separate findings about the object and its effects."
+  }
+}

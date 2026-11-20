@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In one week Banyan has three true positives: a phishing wave stopped at the proxy, a cryptocurrency miner on a developer laptop, and the WS-104 intrusion. High alerts could have raised all three. Why can alert severity alone not tell them apart?",
+    "options": [
+      "Alert severity is assigned by the detection engineer, so it cannot be changed once the rule is deployed",
+      "Alert severity is calculated from the number of hosts involved, which is similar in all three cases",
+      "Alert severity rates one detected behaviour before investigation, not the consequences of the whole case",
+      "Alert severity only becomes meaningful after the case has been closed and reviewed by the IR lead"
+    ],
+    "correct": 2,
+    "explanation": "An alert rating describes a single behaviour and is fixed before scoping and forensics reveal what the incident has done to the organisation. Host count is not the basis of alert severity, and it is scope, not alert severity, that counts breadth.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Tier 2 analyst who built the WS-104 timeline thinks the incident is SEV2; the incident lead thinks SEV1. How should the playbook resolve this?",
+    "options": [
+      "The analyst proposes a rating with reasons, and the incident lead, accountable for the response, decides",
+      "The analyst's rating stands, because the analyst knows the evidence better than anyone else in the SOC",
+      "The higher of the two ratings is recorded automatically, so that disagreement can never under-rate",
+      "The designated point of contact decides, because severity determines whether CERT-In is informed"
+    ],
+    "correct": 0,
+    "explanation": "The incident lead owns incident severity; the analyst contributes a reasoned proposal because they know the evidence best. The point of contact owns reportability, which is a separate decision from severity.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A ransomware attack encrypts every server but no data is taken. The incident lead scores functional 4, information 1 and recoverability 3. What impact level does the Banyan playbook give?",
+    "options": [
+      "Significant (3), because the average of the three scores rounds to three",
+      "Severe (4), because the impact level is the highest of the three scores",
+      "Limited (2), because two of the three dimensions are below the top level",
+      "Significant (3), because recoverability is weighted above functional impact"
+    ],
+    "correct": 1,
+    "explanation": "The Banyan playbook takes the highest of the three levels, so functional 4 makes the impact Severe. Averaging would give about 2.7 and dilute the dimension that is catastrophic.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Incident A scores 3 on functional, information and recoverability. Incident B scores information 4, functional 1 and recoverability 1. Which statement about the two incidents is correct under the Banyan playbook?",
+    "options": [
+      "A is rated higher because its total of 9 exceeds B's total of 6, showing broader harm",
+      "Both are rated Significant, because the playbook averages and rounds the three scores",
+      "A is rated higher because it touches all three dimensions while B touches only one of them",
+      "B is Severe and A is Significant, because the worst single dimension sets the impact level"
+    ],
+    "correct": 3,
+    "explanation": "Taking the highest value makes B Severe and A Significant. Summing would rank A first only because more dimensions are touched, which is exactly the distortion the 'highest of three' rule avoids.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An attacker session is confirmed on a file server holding loan files, but logs show no reads, copies or changes of data. Which Banyan information-impact level fits?",
+    "options": [
+      "Level 1, because there is no evidence that any information was accessed, changed or removed",
+      "Level 3, because removal of sensitive data is possible even though it is only weakly evidenced",
+      "Level 2, because information was exposed to the attacker but nothing shows removal or change",
+      "Level 4, because the server holds personal and financial data about the company's borrowers"
+    ],
+    "correct": 2,
+    "explanation": "An attacker session on a system holding data is exposure without evidence of removal, which is level 2. Level 4 requires removal or change confirmed or strongly indicated; the sensitivity of the data alone does not meet it.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104 has a cleared Security log, a new local administrator account and a history of external connections. Why does this push recoverability to Extended rather than Regular?",
+    "options": [
+      "The host cannot be cleaned with confidence: it needs a rebuild and possibly forensic help to find what else was touched",
+      "The host is a single workstation, so recovery depends only on reimaging from the standard build in the usual time",
+      "The cleared log means the CERT-In report must wait until the missing events have been fully reconstructed",
+      "The new account can simply be deleted, so recovery time stays predictable with the SOC's existing resources"
+    ],
+    "correct": 0,
+    "explanation": "Evidence destruction and persistence mean the host's state cannot be trusted; rebuilding and outside help make recovery less predictable. Deleting the account treats a symptom and ignores whatever else the attacker changed.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A single domain controller is confirmed compromised; no other host is involved. Which scope band does the Banyan playbook apply, and why?",
+    "options": [
+      "Contained, because the host count is one and scope is measured by the number of hosts or accounts",
+      "Several, because the domain controller is used by more than one team and therefore spans departments",
+      "Contained at first, moving to Widespread only after a scoping hunt finds more than ten affected hosts",
+      "Widespread, because it provides identity for everyone and the playbook lists such systems by name"
+    ],
+    "correct": 3,
+    "explanation": "The playbook treats critical services such as the identity provider as Widespread regardless of host count, and lists them by name so the decision does not depend on memory. Counting hosts would badly under-rate it.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An incident is rated Severe and Contained, and the attacker still holds an unrevoked administrator account. Which severity of record results, before floor rules are checked?",
+    "options": [
+      "SEV2, because urgency affects only the operating severity and never the severity of record",
+      "SEV1, because the matrix gives SEV2 and Immediate urgency raises it by one level",
+      "SEV2, because Contained scope caps every Severe incident at the matrix base value",
+      "SEV3, because a contained incident is reduced by one level when only one host is affected"
+    ],
+    "correct": 1,
+    "explanation": "Severe and Contained gives a base of SEV2; live attacker privilege is Immediate urgency, which raises the result one level to SEV1. Only Deferred urgency is restricted to the operating severity.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A phishing wave reaches 400 mailboxes across every department, but the proxy blocked every click and no code ran. What does the structure of the Banyan matrix say about its rating?",
+    "options": [
+      "It reaches SEV1 because the Widespread column raises any incident that spans several departments",
+      "It is rated SEV2 because scope and impact carry equal weight, so the wide reach offsets low impact",
+      "It stays low: no cell in the Minimal row reaches SEV2, so breadth alone cannot make it serious",
+      "It is unrated until forensics confirm that none of the 400 recipients entered any credentials"
+    ],
+    "correct": 2,
+    "explanation": "The matrix bounds scope's influence: the Minimal row never reaches SEV2, however wide the reach. Treating breadth as equal to impact is the 'count the hosts' error.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "WS-104 has been isolated, accounts disabled and sessions revoked, and containment has been verified. The SOC manager wants to stand down the night shift. What does the playbook allow?",
+    "options": [
+      "Lower the operating severity with a recorded reason, while the severity of record stays SEV1",
+      "Lower the severity of record to SEV2, since Deferred urgency removes the one-level increase",
+      "Keep both values at SEV1 until the post-incident review formally closes the incident record",
+      "Close the incident as SEV3, since only eradication, recovery and the review now remain open"
+    ],
+    "correct": 0,
+    "explanation": "Deferred urgency may lower only the operating severity, which governs staffing and cadence, and only with a recorded reason. Lowering the severity of record would make the incident look smaller in every later report.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An alert is marked critical, but the affected workstation is isolated and no business disruption is known. What should determine incident severity?",
+    "options": [
+      "The maximum priority among all alerts linked to the asset",
+      "The incident matrix, supported by observed scope and impact",
+      "The effective severity of the isolation task in the work queue",
+      "The classification configured for that particular endpoint rule"
+    ],
+    "correct": 1,
+    "explanation": "Alert priority drives triage, while incident severity reflects the case.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which dimension captures whether a service can return without external help?",
+    "options": [
+      "Information impact",
+      "Scope of affected users",
+      "Recoverability",
+      "Functional impact on service delivery"
+    ],
+    "correct": 2,
+    "explanation": "Recoverability describes the effort and resources needed to restore operations.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Customer records may have been exposed, while the service stayed online. Which dimension is directly implicated by the possible exposure?",
+    "options": [
+      "Functional impact, because uptime was measured",
+      "Recoverability, based on replacement hardware needs",
+      "Detection confidence, based on the queue priority alone",
+      "Information impact, with confidence stated"
+    ],
+    "correct": 3,
+    "explanation": "Possible exposure affects information even when availability is intact.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new confirmed case crosses a documented mandatory severity floor. How should the lead apply the matrix?",
+    "options": [
+      "Apply at least the floor and record its trigger",
+      "Use the base matrix rating without considering policy",
+      "Average the base rating and the required floor rating",
+      "Wait for a fresh alert before revising the case rating"
+    ],
+    "correct": 0,
+    "explanation": "A floor establishes the lowest permitted severity when its trigger is met.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The operating severity drops after isolation. How should the incident history be represented?",
+    "options": [
+      "Replace earlier ratings with the current operating level",
+      "Record the change and preserve the severity of record",
+      "Keep the highest operating level until all actions close",
+      "Remove the severity of record after containment succeeds"
+    ],
+    "correct": 1,
+    "explanation": "Current urgency and historical severity serve different purposes.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which information best describes incident scope?",
+    "options": [
+      "The number of options in the escalation policy",
+      "The seniority of the analyst who opened the case",
+      "The affected hosts, identities, and business units",
+      "The age of the oldest rule in the alert catalogue"
+    ],
+    "correct": 2,
+    "explanation": "Scope records how broadly the incident extends across assets, identities, and organizational units.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A suspected second identity may be affected, but identity logs are delayed. How should the provisional rating handle this?",
+    "options": [
+      "Assume only the confirmed device is involved until case closure",
+      "Label every identity compromised because telemetry is incomplete",
+      "Use the average severity assigned to prior identity incidents",
+      "Record a reasonable worst case and the evidentiary gap"
+    ],
+    "correct": 3,
+    "explanation": "A provisional severity can protect against plausible harm while expressing uncertainty.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team has confirmed the total set of affected systems. Which change could still increase urgency?",
+    "options": [
+      "Evidence that harmful activity is ongoing and escalation cannot wait",
+      "Corrections to the spelling of all affected host names in the report",
+      "A new dashboard view that groups the same assets by owner",
+      "A shorter description of the same event in the ticket queue"
+    ],
+    "correct": 0,
+    "explanation": "Fast-moving damage can increase urgency without expanding the affected set.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which evidence most directly demonstrates functional impact?",
+    "options": [
+      "The analyst has low confidence in a matched indicator",
+      "A required business service is unavailable to its users",
+      "The affected host runs a signed operating system image",
+      "The notification draft names the incident commander"
+    ],
+    "correct": 1,
+    "explanation": "Functional impact describes how the organization can deliver its services.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A second analyst disputes a provisional rating. What makes a reassessment defensible?",
+    "options": [
+      "Publish the lowest disputed rating immediately in the incident channel",
+      "Retain the initial score even after its evidence has been disproved",
+      "Record new facts, matrix inputs, confidence, and the approving lead",
+      "Require each analyst to submit a numeric vote and average the result"
+    ],
+    "correct": 2,
+    "explanation": "The record should show how evidence and policy produced the revised rating.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which output should the SOC send alongside a severity recommendation?",
+    "options": [
+      "A notification decision copied from the last incident review",
+      "A confidential speculation attributed to an unnamed observer",
+      "A raw list of alerts sorted by the labels assigned by sensors",
+      "Supporting facts, plausible impact, uncertainties, and scope"
+    ],
+    "correct": 3,
+    "explanation": "Decision makers need the evidence and assumptions behind the case rating.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The same affected workstation hosts payroll during a payout window and a test service on other days. Why can the functional rating differ?",
+    "options": [
+      "Business dependency and timing change the impact of losing it",
+      "The risk matrix uses a new answer position after each review",
+      "Each incident must receive a different rating regardless of effect",
+      "The owner of the machine changes the technical alert classification"
+    ],
+    "correct": 0,
+    "explanation": "Functional impact depends on what operations rely on at that time.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An incident has low current operating severity. Does that settle external reportability?",
+    "options": [
+      "Yes, if the alert queue contains no high-priority items",
+      "No. Route the facts to the designated reporting owner",
+      "Yes, once staff have restored normal service availability",
+      "No, because every case automatically requires identical notices"
+    ],
+    "correct": 1,
+    "explanation": "Notification duties are evaluated independently of internal severity.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the role of the impact-by-scope matrix?",
+    "options": [
+      "It directly estimates lost revenue from the list of alerts",
+      "It replaces the need to assess whether harm is ongoing",
+      "It provides the base severity before documented adjustments",
+      "It sets the legal reporting deadline for every event class"
+    ],
+    "correct": 2,
+    "explanation": "The matrix is the starting point for urgency and floor adjustments.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which case update warrants a prompt operating severity review?",
+    "options": [
+      "The case title has been standardized to match the ticket format",
+      "The incoming shift prefers a shorter label for the current severity level",
+      "An unrelated low-priority alert was resolved in a separate queue",
+      "New evidence links the case to a critical service that remains exposed"
+    ],
+    "correct": 3,
+    "explanation": "A newly exposed critical service changes the impact and urgency assumptions.",
+    "lesson": 5,
+    "difficulty": "hard"
+  }
+]

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In the Lesson 3 stack, sync-relay.example shows 2 rows but only 1 distinct host. What causes the mismatch?",
+    "options": [
+      "P11 has a null host, which a distinct count excludes",
+      "WS-203 contacted the domain twice within ten minutes",
+      "The stack counted rows from outside the hunt window",
+      "The engine treats host names as case-sensitive values"
+    ],
+    "correct": 0,
+    "explanation": "P10 is from WS-203 and P11 has a null host with only an IP address. Most engines leave nulls out of distinct counts, so P11 counts as a row but not as a host. Keeping row counts beside host counts exposes this.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which measure is usually most appropriate when stacking for rarity?",
+    "options": [
+      "Total rows per value, since higher volume shows greater importance",
+      "Total bytes per value, since size signals a transfer",
+      "Distinct hosts per value, with row count kept as a check",
+      "Average request time per value across the window"
+    ],
+    "correct": 2,
+    "explanation": "Rarity is about how many entities show a value, which distinct hosts measures. One busy host can produce many rows for a value, so row count alone misleads, but it is still worth keeping because it exposes null-field effects.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does E03, an EXCEL.EXE parent starting splwow64.exe on WS-204, not appear in the join result?",
+    "options": [
+      "EXCEL.EXE is not in the list of Office parent images",
+      "E03 occurred outside the 09:00 to 10:00 UTC window",
+      "The join excludes it because splwow64.exe is allowlisted",
+      "WS-204 has no matching rare-domain request"
+    ],
+    "correct": 3,
+    "explanation": "The join starts from proxy rows to rare domains. WS-204 contacted only portal.example and updates.example, both common, so no WS-204 proxy row qualifies. EXCEL.EXE is in the parent list, and the query has no allowlist.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which endpoint fixture rows does the Office-parent filter alone return?",
+    "options": [
+      "E01 and E04",
+      "E01 and E03",
+      "E01, E03 and E04",
+      "E03 and E04"
+    ],
+    "correct": 1,
+    "explanation": "E01 has WINWORD.EXE as parent and E03 has EXCEL.EXE as parent. In E04, WINWORD.EXE is the child of explorer.exe, so the parent filter does not match it.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "If all WS-203 proxy rows were joined to WS-203 endpoint rows on host alone, with no time window, how many pairs would result?",
+    "options": [
+      "One pair, P06 with E01",
+      "Two pairs, P06 and P10 with E01",
+      "Three pairs, P03, P06 and P10 with E01",
+      "Four pairs, including P11 with E01"
+    ],
+    "correct": 2,
+    "explanation": "WS-203 has three proxy rows, P03, P06 and P10, and one endpoint row, E01. A host-only join pairs each with E01, giving three pairs, two of them meaningless. P11 has a null host and cannot join. This is join fan-out.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should a \"within 10 minutes\" condition state a direction for a download-then-execution hypothesis?",
+    "options": [
+      "Query engines reject windows that lack an explicit direction",
+      "An absolute window also matches processes that came first",
+      "Directional windows always return more candidate rows",
+      "Direction matters only when the sources use local time"
+    ],
+    "correct": 1,
+    "explanation": "The hypothesis predicts execution after the download. An absolute difference would also match a process that started before the download, which contradicts the hypothesis and inflates results.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Suppose the endpoint source had written local time two hours ahead of UTC. What would happen to the P06 and E01 join?",
+    "options": [
+      "E01 would fall outside P06's window and the query would miss it",
+      "E01 would match P10 instead, creating a false positive",
+      "The join would still match because the hosts are identical",
+      "The query would raise an error about mismatched time zones"
+    ],
+    "correct": 0,
+    "explanation": "E01 would read 11:11:30, well past P06's 09:10:00 to 09:20:00 window and also past P10's window. The query would return nothing, and an analyst might wrongly report a negative. Engines rarely warn about this.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should proxy row P11, a null-host request to sync-relay.example from 10.20.5.77, be recorded?",
+    "options": [
+      "Dropped, since rows without a host are parser errors",
+      "Assigned to WS-203, since it shares the same domain",
+      "Marked benign because no endpoint event joins to it",
+      "Kept as unresolved until the address can be mapped"
+    ],
+    "correct": 3,
+    "explanation": "P11 is a second source of traffic to a rare domain, but the query cannot say which host sent it. Resolving it needs a DHCP or asset mapping for 09:45 UTC. Dropping it or assuming a host would hide or invent evidence.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A synthetic row E05 is added on WS-203 at 09:08:00 with parent WINWORD.EXE. Which version of the join matches E05 to P06?",
+    "options": [
+      "Both versions, since E05 is within ten minutes of P06",
+      "Only the directional version, since E05 is on WS-203",
+      "Only the absolute-difference version, since E05 comes first",
+      "Neither version, since invoice-viewer.example is not rare"
+    ],
+    "correct": 2,
+    "explanation": "E05 is two minutes before P06. An absolute window of 10 minutes matches it, but the directional window of 0 to 10 minutes after the download does not. invoice-viewer.example is rare, so the stack does pass it.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson combine filters with stacking or joins rather than reporting filter results alone?",
+    "options": [
+      "The filter also matches routine print helpers",
+      "Filters cannot be applied to endpoint process data directly",
+      "Stacking and joins remove the need to choose a time range",
+      "Joins guarantee that every returned row is malicious"
+    ],
+    "correct": 0,
+    "explanation": "The Office-parent filter returns E03, a routine printing helper, as well as E01. Adding a rare-download condition through a join removes routine cases. Joins make results more specific but do not establish malice.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A source writes \"winword.exe\" and the filter expects \"WINWORD.EXE\" on a case-sensitive engine. What is the likely result?",
+    "options": [
+      "The filter matches, since process names ignore case",
+      "The engine returns an error identifying the mismatch",
+      "Only rows with mixed-case names are returned",
+      "The case mismatch hides a genuine match"
+    ],
+    "correct": 3,
+    "explanation": "A case-sensitive comparison fails without warning, so the query returns no rows. An analyst who does not check would treat this as a negative result. Normalize case explicitly or confirm the engine's default, and record the choice.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How does a hunt query differ from a detection rule in purpose?",
+    "options": [
+      "A hunt query must keep false positives low enough for a queue",
+      "A hunt query may return a set of candidates for human review",
+      "A hunt query runs continuously and is tuned over many months",
+      "A hunt query is only valid once it is deployed to production"
+    ],
+    "correct": 1,
+    "explanation": "Hunt queries run a few times and are judged by whether they answer the hypothesis clearly, so a manageable candidate set for review is acceptable. Low false-positive rates, continuous running and long tuning describe detection rules.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which domains does the rarity step return in the Lesson 3 fixture, with a threshold of one distinct host or fewer?",
+    "options": [
+      "invoice-viewer.example and updates.example",
+      "sync-relay.example and portal.example",
+      "invoice-viewer.example and sync-relay.example",
+      "invoice-viewer.example only, since sync-relay has two rows"
+    ],
+    "correct": 2,
+    "explanation": "invoice-viewer.example has one row from WS-203. sync-relay.example has two rows, but one has a null host, so its distinct host count is 1. updates.example and portal.example are seen on four and five hosts.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should every hunt query state explicit start and end times?",
+    "options": [
+      "Platforms reject queries that do not specify both bounds",
+      "Explicit time ranges always make hunt queries run noticeably faster",
+      "Start and end times are needed to compute distinct counts",
+      "Platform defaults can change between runs and alter results"
+    ],
+    "correct": 3,
+    "explanation": "A query without a stated range runs over whatever the platform default is, which may change. Explicit bounds make the query reproducible on the same saved data and make the scope clear to reviewers.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why are the expected positive and expected negative valuable parts of query documentation?",
+    "options": [
+      "They let a reviewer check the query on seeded examples first",
+      "They remove the need to trace the query over a fixture",
+      "They define the alert threshold used once the rule is live",
+      "They prove the query has no false negatives in production"
+    ],
+    "correct": 0,
+    "explanation": "A described positive and negative let a reviewer confirm the query matches what it should and excludes what it should, before trusting it on real data. They support hand tracing rather than replacing it, and they cannot prove the absence of false negatives.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How does the lesson describe the status of its example queries and results?",
+    "options": [
+      "Executed against a live SIEM and shown with real output",
+      "Written in one vendor's query language so they can be imported directly",
+      "Read-only pseudocode traced by hand over a synthetic fixture",
+      "Detection rules already tuned for production alerting"
+    ],
+    "correct": 2,
+    "explanation": "The lesson states that no query was executed against a live system. Results are traced by hand over synthetic records so any learner can check them on paper. The neutral pseudocode keeps the logic platform-independent.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Before relying on the join query's reading of the Banyan WS-104 facts, what should a learner confirm in the saved rows?",
+    "options": [
+      "That the proxy recorded 48,200,000 bytes at 06:12:00Z",
+      "That the endpoint row's host is WS-104 and the domain is rare",
+      "That the VPN success for gopal precedes the proxy download",
+      "That cdn-telemetry-sync.example appears in the mail logs"
+    ],
+    "correct": 1,
+    "explanation": "The summary does not show the endpoint row's host field or the domain's prevalence among workstations that day, and the join depends on both. The 48,200,000 bytes relate to the 08:12:00Z request, and there are no mail logs.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson list over-specific indicators as a query defect?",
+    "options": [
+      "Indicators slow queries down because they require joins",
+      "Indicators cannot be stored as text in pseudocode queries",
+      "Indicators always produce far more false positives than behavior queries",
+      "Matching one reported domain misses the same behavior elsewhere"
+    ],
+    "correct": 3,
+    "explanation": "A query that filters only on one domain or filename finds only that indicator and misses the same behavior with different infrastructure. Indicators work best as supplementary filters on a behavior-level query.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On large real datasets, what is the main harm of join fan-out?",
+    "options": [
+      "Huge result sets that hide the meaningful pairs",
+      "Rows with null hosts being silently dropped",
+      "Events from different days being merged as one",
+      "Distinct host counts falling below their true value"
+    ],
+    "correct": 0,
+    "explanation": "Joining on host without a time window pairs every row on a host with every other row on that host. In the fixture this turns one meaningful pair into three; on real data it can produce millions of rows. Null dropping and distinct-count effects are separate defects.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the single P06 and E01 result of the join query represent?",
+    "options": [
+      "A confirmed compromise of WS-203 by a malicious document",
+      "Proof that invoice-viewer.example delivered malware",
+      "A candidate pair that still needs validation",
+      "A benign outcome, since only one pair was found"
+    ],
+    "correct": 2,
+    "explanation": "The query shows a rare download followed by an Office child process on the same host within the window. It does not show file content, delivery or harm. The result moves to validation before any outcome is assigned.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does proxy row P10, WS-203 to sync-relay.example at 09:40:00, not produce a match?",
+    "options": [
+      "sync-relay.example is not treated as rare by the stack",
+      "No Office child event follows on WS-203 within ten minutes",
+      "Its 3,400,000 bytes exceed the join's volume threshold",
+      "P10 has a null host and cannot join to endpoint rows"
+    ],
+    "correct": 1,
+    "explanation": "P10 passes the rarity step, but the only WS-203 endpoint row is E01 at 09:11:30, well before 09:40:00. The query has no volume threshold, and it is P11, not P10, that has a null host.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Over the synthetic VPN fixture, what does a query for three or more distinct failed identities per address in 10 minutes return?",
+    "options": [
+      "198.51.100.23, with three failures for amara",
+      "Both addresses, since each has a later success",
+      "192.0.2.140, with five distinct failed identities",
+      "192.0.2.140, with four distinct failed identities"
+    ],
+    "correct": 3,
+    "explanation": "192.0.2.140 has failures for lee, ines, tomas and rui, four distinct identities, followed by a success for noor. 198.51.100.23 has two failures, both for amara, so it has one distinct identity.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is 198.51.100.23 excluded by the distinct-failed-identity VPN query?",
+    "options": [
+      "Its failures happened outside the ten-minute window",
+      "Its success came before any of its failures",
+      "It has one distinct failed identity, not three or more",
+      "Its address is in a documentation range and ignored"
+    ],
+    "correct": 2,
+    "explanation": "Both failures from 198.51.100.23 are for amara, so the distinct count is 1. That pattern, followed by a success for the same identity, fits a mistyped password more than guessing across accounts. Both fixture addresses are documentation addresses.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which set of items does the lesson list as the minimum record for documenting a hunt query?",
+    "options": [
+      "Purpose, inputs, assumptions, expected results, limits and version",
+      "Author, runtime, row count and the name of the SIEM vendor",
+      "Alert severity, routing queue and suppression schedule",
+      "Only the query text, since it explains itself when rerun"
+    ],
+    "correct": 0,
+    "explanation": "These items let another analyst rerun the query and expect the same result, and let a reviewer check it against seeded examples. Severity and routing belong to detection rules, and query text alone omits assumptions and known limits.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the join query compare lower(e.host) with lower(p.host)?",
+    "options": [
+      "Lowercasing speeds up joins on large proxy datasets",
+      "It stops case differences from breaking the host match",
+      "It is needed so null hosts can join to endpoint rows",
+      "It converts local timestamps into UTC automatically"
+    ],
+    "correct": 1,
+    "explanation": "Sources may write hostnames in different cases. Normalizing both sides prevents a case-sensitive engine from missing real matches. Lowercasing has no effect on nulls or time zones.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Why rebuild the triage queue before drawing a conclusion in the lab?",
+    "options": [
+      "It reproduces alerts from the defined exercise dataset",
+      "It automatically confirms the cause of each highlighted event",
+      "It establishes that every asset in the organization was monitored",
+      "It replaces the need to document how the incident was noticed"
+    ],
+    "correct": 0,
+    "explanation": "Rebuilding the queue gives an auditable starting point for triage.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The hunt reports no other hosts with the same observed pattern. What can the analyst conclude?",
+    "options": [
+      "No other host can have been affected anywhere on the corporate network",
+      "The search found no matching hosts in the selected telemetry and time window",
+      "All events from the affected subnet were ingested with complete coverage",
+      "The suspected case qualifies for closure without collecting endpoint evidence"
+    ],
+    "correct": 1,
+    "explanation": "Negative results are bounded by the query and available visibility.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A case report labels the upload as confirmed exposure of payroll records. Which rewrite is defensible?",
+    "options": [
+      "Payroll records were disclosed because the upload destination was unfamiliar",
+      "No sensitive information could have left because contents were not logged",
+      "A transfer of 48.2 MB was observed, while its contents remain unknown",
+      "The recorded upload shows which file types the remote receiver retained"
+    ],
+    "correct": 2,
+    "explanation": "Transfer metadata does not establish the payload's contents.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the purpose of labeling timeline entries observed or inferred?",
+    "options": [
+      "It grants inferred entries a higher evidentiary status than source records",
+      "It lets reviewers skip any event that has not been assigned a verdict",
+      "It replaces the need for timestamps and source labels in the incident report",
+      "It lets reviewers distinguish recorded events from analyst conclusions"
+    ],
+    "correct": 3,
+    "explanation": "Labels preserve the difference between what a record shows and what it suggests.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst wants to merge the endpoint and VPN threads into one confirmed causal chain. What should the lead require?",
+    "options": [
+      "Evidence linking the two threads, with the current relationship logged as a hypothesis",
+      "Agreement from both queue owners that a single case would be simpler to manage",
+      "A sufficiently close time window even if there is no shared supporting evidence",
+      "A matching alert severity on both threads before marking the account compromised"
+    ],
+    "correct": 0,
+    "explanation": "Temporal overlap supports investigation, while a confirmed link needs corroboration.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why coordinate endpoint isolation with the identity response?",
+    "options": [
+      "It allows all teams to skip recording the effective time of each action",
+      "It reduces the time that an identified access path remains open",
+      "It keeps the queue from receiving new alarms after the exercise closes",
+      "It makes later verification unnecessary because all teams acted together"
+    ],
+    "correct": 1,
+    "explanation": "Coordination closes related paths promptly and each control still needs verification.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who should receive the noticed time and factual summary for the reporting decision?",
+    "options": [
+      "All employees and contractors through a company-wide emergency broadcast",
+      "The owner of the original source alert regardless of incident role",
+      "The designated legal or reporting owner through the case workflow",
+      "The student who entered the timestamp into the mock incident register"
+    ],
+    "correct": 2,
+    "explanation": "The SOC provides a factual handoff to the responsible reporting role.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does recomputing a mismatched digest on a working copy establish?",
+    "options": [
+      "The analyst who changed the file can be identified from the digest alone",
+      "The exported source record was fabricated before the first collection",
+      "The revised file is acceptable because its new digest is internally consistent",
+      "The current bytes differ from the bytes represented by the saved digest"
+    ],
+    "correct": 3,
+    "explanation": "A hash mismatch signals changed bytes but does not explain who changed them or why.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why check an evidence package after adding the analyst's timeline file?",
+    "options": [
+      "So the manifest covers the finalized files being delivered",
+      "So the new timeline can replace the original evidence everywhere",
+      "So the incident ticket can be closed without a custody entry",
+      "So a matching digest can identify which timeline observations were inferred"
+    ],
+    "correct": 0,
+    "explanation": "Files added after an initial export need to be covered by final package verification.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The analyst changes a test copy to demonstrate tamper detection. What should happen to the original package?",
+    "options": [
+      "Replace the original with the test copy after recording the expected error",
+      "Keep the original intact and verify it independently",
+      "Update the original manifest to contain the intentionally modified copy's digest",
+      "Remove the original after collecting a screenshot of the failed verification"
+    ],
+    "correct": 1,
+    "explanation": "A tamper test belongs on a copy, with the deliverable preserved.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a merged timeline reproducible across reviewers?",
+    "options": [
+      "A screenshot of the latest triage dashboard alone",
+      "A remote analyst recollection of the observed ordering",
+      "A documented query, dataset and time range",
+      "A single summary sentence in the closure note"
+    ],
+    "correct": 2,
+    "explanation": "The input and query let another reviewer regenerate the underlying rows.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should the incident report handle uncertain attribution to a specific person?",
+    "options": [
+      "Treat account ownership as conclusive evidence of who performed each action",
+      "Use the employee's name in the executive summary before identity logs are reviewed",
+      "Discard all records associated with the account until attribution is resolved",
+      "Describe the observed account activity and record any actor attribution as unresolved"
+    ],
+    "correct": 3,
+    "explanation": "Records identify an account or session more readily than the person behind it.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An endpoint can be isolated from the network through the approved management tool. Why does the exercise prefer this to powering it off?",
+    "options": [
+      "It limits network access while preserving live memory for authorized collection",
+      "It guarantees that all in-memory evidence has already been sent to the SIEM",
+      "It removes the need to identify the incident lead and the executing team",
+      "It cancels any requirement to maintain custody documentation for the endpoint"
+    ],
+    "correct": 0,
+    "explanation": "Isolation can reduce harm without the same immediate loss of volatile state.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which note belongs next to each containment recommendation?",
+    "options": [
+      "The surname of the student who ran the training lab last",
+      "The executing owner, dependency, and evidence impact",
+      "The next scheduled feature release for the course website",
+      "The longest description of an unrelated control being evaluated"
+    ],
+    "correct": 1,
+    "explanation": "Containment advice should be actionable and make tradeoffs visible.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A block rule begins matching traffic from a different machine. What should the SOC do with that observation?",
+    "options": [
+      "Treat it as proof that the existing endpoint isolation failed completely",
+      "Remove the rule and delete the alert to avoid duplicate incident records",
+      "Preserve it and investigate the machine as a potential additional lead",
+      "Close the case because the block rule is absorbing all remaining risk"
+    ],
+    "correct": 2,
+    "explanation": "A new match may widen the investigation and needs independent context.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The incident ticket is ready for a shift change. What supports effective handoff?",
+    "options": [
+      "A chronological copy of chat messages without decisions or owners",
+      "Only the names of reports created by everyone on the previous shift",
+      "The archived raw export without a case summary or follow-up steps",
+      "Current scope, open hypotheses, deadlines, and next actions"
+    ],
+    "correct": 3,
+    "explanation": "A handoff makes unresolved work, ownership, and timing clear.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The analyst notices the case record uses the tabletop's 08:30 UTC. Which lab deadline should be entered?",
+    "options": [
+      "14:30 UTC and 20:00 IST, based on exercise notice",
+      "14:25 UTC and 19:55 IST, based on the review exercise",
+      "14:50 UTC and 20:20 IST, based on the legal handoff",
+      "15:05 UTC and 20:35 IST, based on the isolate decision"
+    ],
+    "correct": 0,
+    "explanation": "This exercise measures from its own notice record rather than an earlier example.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a successful manifest check allow the analyst to report?",
+    "options": [
+      "The initial export contains every relevant event from the incident",
+      "The delivered files match the recorded digests",
+      "The timeline's inferences are independently proven by the export",
+      "The evidence has no privacy restrictions after transfer to another team"
+    ],
+    "correct": 1,
+    "explanation": "Hash verification confirms file integrity relative to the manifest.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A negative VPN check excludes the relevant subnet. What is the best correction?",
+    "options": [
+      "Broaden the incident to every monitored account because the first check was flawed",
+      "Leave the original result intact and describe it as a complete search",
+      "Rerun it with the intended scope and amend the bounded finding",
+      "Merge it with a positive proxy result and treat the combined output as exhaustive"
+    ],
+    "correct": 2,
+    "explanation": "The intended coverage needs a corresponding query and clearly revised record.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the proper environment for the incident-handling lab?",
+    "options": [
+      "A corporate SOC queue that contains live investigatory records",
+      "A personal mailbox with actual suspicious messages awaiting review",
+      "The production system used by the exercise's vendor partner",
+      "An isolated exercise environment with the provided dataset"
+    ],
+    "correct": 3,
+    "explanation": "The course lab uses its controlled dataset rather than real systems.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer wants to see how a finding moved from a raw event to the final report. What should the analyst provide?",
+    "options": [
+      "The source reference, timeline row, and supporting reasoning for the finding",
+      "The final conclusion and a screenshot of the completed quiz results",
+      "The root-cause label and a revised chart without any record identifiers",
+      "An unsigned copy of a different incident that used the same terminology"
+    ],
+    "correct": 0,
+    "explanation": "Traceability lets reviewers follow evidence through interpretation to the conclusion.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Before declaring a contained path closed, what should the analyst check?",
+    "options": [
+      "Whether the ticket assigned to the team was marked as started",
+      "Evidence that the control took effect in the intended scope",
+      "Whether the mitigation appears in every version of the training notes",
+      "Whether the case title accurately shows the current course module name"
+    ],
+    "correct": 1,
+    "explanation": "Closure requires evidence of effective containment within the target scope.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Identity logs show a successful VPN session after a series of failures. What is the appropriate report entry?",
+    "options": [
+      "Confirm the user committed the endpoint activity because the login is close in time",
+      "Treat the successful authentication as proof that no compromise occurred",
+      "Record the successful session and investigate whether the related account was compromised",
+      "Exclude the authentication record until it can be mapped to a workstation process"
+    ],
+    "correct": 2,
+    "explanation": "The success is observed, while account compromise and linkage need evidence.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which exercise output documents facts, confidence, and proposed response in one place?",
+    "options": [
+      "The original event dataset",
+      "The hash manifest alone",
+      "The lab setup checklist",
+      "The incident report"
+    ],
+    "correct": 3,
+    "explanation": "The incident report synthesizes evidence, gaps, and next actions for decision makers.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The case owner asks whether scoping should wait for a full forensic image before notifying legal. How should the SOC respond?",
+    "options": [
+      "Send the timed factual handoff now and update it as evidence improves",
+      "Wait until every possibility is resolved before giving legal the noticed time",
+      "Send only the forensic image once available because it contains the complete case record",
+      "Start the reporting clock when the image is complete to give legal verified facts"
+    ],
+    "correct": 0,
+    "explanation": "The reporting handoff can proceed in parallel with scoping and collection.",
+    "lesson": 8,
+    "difficulty": "hard"
+  }
+]

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "At 08:28, which isolation status is supported for FIN-21?",
+    "options": [
+      "Applied at the time the request was accepted",
+      "Expired because the later confirmation had not arrived",
+      "Accepted and pending application according to B20",
+      "Verified by the observed outbound transfer earlier in the shift"
+    ],
+    "correct": 2,
+    "explanation": "At that cutoff B21 was not yet available to confirm application.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which record confirms isolation applied to the verified device?",
+    "options": [
+      "B22 from Finance during transaction review",
+      "B21 from endpoint management at 08:29",
+      "B23 requesting a facts handoff to the notification owner",
+      "B20 accepting an action but leaving it pending"
+    ],
+    "correct": 1,
+    "explanation": "B21 states the applied control and its exact target.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What makes B27 evidence rather than a duplicate?",
+    "options": [
+      "It has its own source event ID and occurrence time",
+      "It arrives in a later group even though the source identity is identical",
+      "It uses the same domain as the first lookup and must be a copy",
+      "It concerns the same severity classification as the endpoint process"
+    ],
+    "correct": 0,
+    "explanation": "A related name does not make a different source event a repeat.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which record is B28 a duplicate of?",
+    "options": [
+      "B17's authorised maintenance change CR-82",
+      "B18's verified archive record for the window",
+      "B19's confirmation from the operations owner",
+      "B16's event O-401 on OPS-03"
+    ],
+    "correct": 3,
+    "explanation": "The repeated receipt carries the same underlying audit event identity.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement correctly summarises B30's negative result?",
+    "options": [
+      "No other device was affected anywhere during the shift",
+      "No other employee received the message or opened its file",
+      "No second host matched the checked proxy names and window",
+      "No distinct VPN session took place outside the observed endpoint"
+    ],
+    "correct": 2,
+    "explanation": "The negative is meaningful only within the selected proxy evidence.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What did B24 actually establish for the identity case?",
+    "options": [
+      "No resource use happened after the observed authentication",
+      "The analyst could not access provider session activity",
+      "The successful account requested isolation of the endpoint",
+      "A completed audit with no matching session identifiers"
+    ],
+    "correct": 1,
+    "explanation": "The record concerns availability to the reviewer rather than search results.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "B16 records a log clear. What combined evidence supports the specific benign disposition?",
+    "options": [
+      "Scoped approval, owner corroboration and forwarded archive",
+      "The initial maintenance notice without any matching operation recorded",
+      "A different device's routine backup confirmation during the same shift",
+      "A duplicate receipt confirming that two administrative events happened"
+    ],
+    "correct": 0,
+    "explanation": "These records establish scope, actual work and available preserved visibility.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What are the counts for the supplied queue?",
+    "options": [
+      "Twenty-eight receipts after dropping all unresolved observations",
+      "Thirty separate confirmed incidents across the three workstreams",
+      "Thirty harmful alerts plus two excluded duplicate receipts",
+      "Thirty receipts including two explicitly repeated events"
+    ],
+    "correct": 3,
+    "explanation": "The two duplicate receipts are part of the total of thirty.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should an earlier pending state be stored after B21 arrives?",
+    "options": [
+      "Replace the earlier record so it looks like isolation was always applied",
+      "Count B20 and B21 as two independently confirmed protective changes",
+      "Retain it as history and record the new verified state",
+      "Remove B21 from the record to preserve the first report"
+    ],
+    "correct": 2,
+    "explanation": "A later verified effect updates current state without changing earlier evidence.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which item belongs to an inventory or source-data owner?",
+    "options": [
+      "B21's already verified response effect on FIN-21",
+      "B29's unresolved host key",
+      "B18's retained archive for the reviewed maintenance task",
+      "B17's approved maintenance record with a matching asset"
+    ],
+    "correct": 1,
+    "explanation": "An unresolved identifier requires source mapping and verification.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A counterfactual approval lists OPS-04, but the event names OPS-03. What follows?",
+    "options": [
+      "Reconcile the mismatch and request verified authority",
+      "Close because the assets have similar names and job functions",
+      "Treat the original approval as authority to change all operations devices",
+      "Delete the original event so only the approved asset remains in the report"
+    ],
+    "correct": 0,
+    "explanation": "The approved scope does not automatically follow a similar asset label.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which observation describes the transaction question at cutoff?",
+    "options": [
+      "A confirmed payment change attributable to the endpoint event",
+      "A transaction fully reversed by Finance at 08:29 UTC",
+      "A known clean outcome because the isolation policy applied",
+      "Review underway without an independently established change"
+    ],
+    "correct": 3,
+    "explanation": "B22 records a review, separate from any verified payment outcome.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the most important limit of B23 for a shift report?",
+    "options": [
+      "It is an official external receipt confirming that notice was delivered",
+      "It resolves every legal obligation as soon as the case lead asks",
+      "It requests a handoff; it does not verify transmission",
+      "It establishes that notification was rejected by the receiving authority"
+    ],
+    "correct": 2,
+    "explanation": "A coordination request is not a verified external result.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What interval describes the two endpoint control records?",
+    "options": [
+      "Three minutes from DNS lookup to effective workstation isolation",
+      "Two minutes from accepted request to applied state",
+      "Ten minutes from application of the policy to its first request",
+      "Twenty-six minutes from confirmed delivery to withheld transaction"
+    ],
+    "correct": 1,
+    "explanation": "The records show 08:27 acceptance and 08:29 application.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why keep B25 apart from the initial VPN cluster?",
+    "options": [
+      "It involves another identity and known corporate egress",
+      "It conclusively proves the earlier success was authorised as well",
+      "All authentication events with nearby timestamps are duplicates",
+      "It is evidence about the workstation process in a different source"
+    ],
+    "correct": 0,
+    "explanation": "There is no corroborated grouping key linking that routine observation.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What helps the next shift account for every row?",
+    "options": [
+      "A list that drops routine items once active cases are known",
+      "A summary that merges every alert about the same asset",
+      "A ranking by urgency without showing evidence or context",
+      "One disposition with the source ID and linkage or owner"
+    ],
+    "correct": 3,
+    "explanation": "Complete intake tracking needs a traceable disposition for each receipt.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which pair illustrates a source limitation versus completed negative search?",
+    "options": [
+      "B20 pending application and B21 verified isolation on FIN-21",
+      "B16 observed log clear and B28 a retry of its delivery",
+      "B24 unavailable audit and B30 checked proxy scope",
+      "B17 approved change and B19 confirmation of authorised work"
+    ],
+    "correct": 2,
+    "explanation": "The first shows no completed search and the second has bounded results.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When was B27 observed in the exercise timeline?",
+    "options": [
+      "08:32 UTC simply because it entered after B26",
+      "08:06 UTC despite later arrival in the second batch",
+      "08:23 UTC because it shares the context of B28",
+      "08:29 UTC because it supports FIN-21's isolation status"
+    ],
+    "correct": 1,
+    "explanation": "Use the observation time for chronology and preserve its separate arrival.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why are B25 and B26 poor explanations for A04 and A05?",
+    "options": [
+      "The observations use different relevant identities or source context",
+      "They show an exact match for the suspicious authentication",
+      "They prove the identity owner performed a complete provider search",
+      "They indicate a control effect that occurred before the original failures"
+    ],
+    "correct": 0,
+    "explanation": "Independent observations do not explain the cluster by proximity alone.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which conclusion should remain open after FIN-21 isolation?",
+    "options": [
+      "Whether the management system said the policy applied at 08:29",
+      "Whether B28 repeats the OPS-03 Security log clear",
+      "Whether the packet count was captured in a proxy record",
+      "Whether the transfer involved sensitive data or changed payments"
+    ],
+    "correct": 3,
+    "explanation": "Endpoint protection does not settle business or information impact.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A later review expands the proxy window and finds a second host. How is B30 handled?",
+    "options": [
+      "Replace B30 retroactively as if it checked the later dataset",
+      "Treat the new host as a duplicate because B30 said no second match",
+      "Keep its original limit and add the later scoped finding",
+      "Discard one of the proxy searches so the reports cannot disagree"
+    ],
+    "correct": 2,
+    "explanation": "Different population and time boundaries can yield different valid results.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is a suitable reopen condition for O-401's disposition?",
+    "options": [
+      "Any later review of the already confirmed duplicate receipt",
+      "A new mismatch about asset, operation or approved window",
+      "The existence of an archived log file for the approved interval",
+      "The initial case being reported during a scheduled weekday shift"
+    ],
+    "correct": 1,
+    "explanation": "A reopen condition identifies evidence that changes the original explanation.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the safest way to combine arrival and occurrence in a shift brief?",
+    "options": [
+      "Use occurrence for chronology and arrival for what was known",
+      "Use arrival as the occurrence time for all delayed records",
+      "Keep only the earlier timestamp if two times differ",
+      "Do not include later evidence describing an earlier occurrence"
+    ],
+    "correct": 0,
+    "explanation": "Both times answer different review questions and should remain visible.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which action helps a new analyst verify the second batch?",
+    "options": [
+      "Read only the current priority labels without opening the worksheet",
+      "Delete contradictions so all cases reach the same final disposition",
+      "Re-run any protective action whose effect was already verified",
+      "Trace three case states to exact supporting rows"
+    ],
+    "correct": 3,
+    "explanation": "Evidence links make the handoff useful and preserve state.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What category best describes B30 in the reconciliation?",
+    "options": [
+      "An unsupported identity activity result with no real source",
+      "A second verified protective action affecting several devices",
+      "A documented negative search in available proxy evidence",
+      "An administrative approval to widen endpoint containment"
+    ],
+    "correct": 2,
+    "explanation": "A completed scoped check is useful without proving universal absence.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,96 @@
+{
+  "course": "C08",
+  "module": 9,
+  "title": "Phishing and malware triage",
+  "description": "Handling the alerts SOCs see most: suspicious emails and the malware they carry. Email header analysis, safe URL and attachment checks, sandbox use, handling user reports, signs of account compromise, containment and reporting - practised in a phishing triage lab, all from the defender's side.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Email header analysis",
+      "summary": "Interpret message headers and authenticate the source of each observation.",
+      "objectives": [
+        "Identify trusted Received hops",
+        "Distinguish envelope, signing and visible From identities",
+        "Explain alignment and document next verification steps"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "URL and attachment checks",
+      "summary": "Triage suspicious links and attachments from preserved artifacts without opening them on an analyst workstation.",
+      "objectives": [
+        "Separate display text from the recorded destination",
+        "Interpret static file metadata with its limitations",
+        "Route evidence to the approved analysis environment"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Sandbox use",
+      "summary": "Interpret sandbox observations with attention to coverage, privacy and provenance.",
+      "objectives": [
+        "Trace observations to their monitoring source",
+        "Explain the limits of a single execution report",
+        "Make a policy-based decision about sample handling"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "User reports",
+      "summary": "Receive user-reported phishing and turn the initial report into an actionable incident record.",
+      "objectives": [
+        "Preserve the original submission and record user actions",
+        "Prioritise reports by observed interaction and possible impact",
+        "Close the feedback loop with the reporter"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 5,
+      "title": "Account compromise signs",
+      "summary": "Correlate account activity across sign-in, mailbox, endpoint and network telemetry.",
+      "objectives": [
+        "Distinguish deviations from confirmed compromise",
+        "Correlate account and device evidence across sources",
+        "Document gaps and justify escalation"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Containment",
+      "summary": "Recommend and verify scoped containment for suspicious mail, accounts and endpoints.",
+      "objectives": [
+        "Choose controls based on confirmed exposure and activity",
+        "Preserve evidence and obtain decision authority",
+        "Verify effective containment and record residual risks"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 7,
+      "title": "Reporting",
+      "summary": "Write audience-appropriate phishing incident reports with clearly bounded claims.",
+      "objectives": [
+        "Separate observed facts from assessments and scope limits",
+        "Present time-sensitive decisions with owners and evidence",
+        "Preserve the source record and adapt distribution to each audience"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "Phishing lab",
+      "summary": "Apply the module workflow to Banyan's synthetic phishing case using the course kit.",
+      "objectives": [
+        "Preserve and evaluate evidence from the fictional case",
+        "Infer bounded scope from the dataset",
+        "Produce a defensible containment recommendation and incident report"
+      ],
+      "minutes": 90
+    }
+  ]
+}

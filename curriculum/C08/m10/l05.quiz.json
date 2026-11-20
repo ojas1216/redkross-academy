@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In ATT&CK, what does a tactic describe?",
+    "options": [
+      "Specific tools an adversary installs on a host",
+      "Indicators such as domains and file hashes",
+      "The adversary's goal at a stage of activity",
+      "Detection rules mapped to each data source"
+    ],
+    "correct": 2,
+    "explanation": "Tactics such as Credential Access or Exfiltration describe what the adversary is trying to achieve. Techniques under each tactic describe how. Tools and indicators are more specific and change more easily, and detection rules are the defender's own artifacts.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson avoid citing ATT&CK technique identifiers?",
+    "options": [
+      "IDs are restricted to licensed ATT&CK subscribers",
+      "IDs apply only to cloud environments, not Windows",
+      "IDs reveal attack steps that could be misused",
+      "IDs change between versions and must be checked"
+    ],
+    "correct": 3,
+    "explanation": "Technique names and IDs are revised between ATT&CK versions, and quoting them from memory risks teaching outdated labels. Analysts should look up the current entry and record the version used. ATT&CK is publicly available and covers many platforms.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the order of the translation chain the lesson uses for ATT&CK-driven hunts?",
+    "options": [
+      "Tactic, behavior, observable, data source, hypothesis",
+      "Hypothesis, tactic, data source, behavior, observable",
+      "Data source, observable, tactic, hypothesis, behavior",
+      "Behavior, tactic, hypothesis, observable, data source"
+    ],
+    "correct": 0,
+    "explanation": "The chain narrows from the adversary goal to a specific behavior, then to what it leaves in records, then to where those records live, and finally to a testable local statement. Each link is a point where the hunt can stop early.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For a highly relevant behavior, the translation chain stops at link four, the data source. What does that mean?",
+    "options": [
+      "The behavior is not relevant to the organization",
+      "No available source records the observable, which is a gap",
+      "The hypothesis is supported and should be escalated",
+      "The tactic was mapped incorrectly and must be redone"
+    ],
+    "correct": 1,
+    "explanation": "Stopping at the data-source link means the behavior is relevant and its observable is defined, but nothing in the inventory records it. That is a collection priority and a useful result, not evidence for or against the behavior.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which three factors should guide the choice of ATT&CK behaviors to hunt?",
+    "options": [
+      "Threat relevance, data visibility and detection gaps",
+      "Matrix coverage, tool count and alert volume",
+      "Technique age, vendor support and query speed",
+      "Analyst preference, license cost and heat-map color choice"
+    ],
+    "correct": 0,
+    "explanation": "Relevance asks whether the behavior is reported against similar organizations, visibility asks whether local data records it, and detection gaps ask whether existing rules already cover it. Trying to cover the whole matrix spreads effort too thin.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is a green cell on an ATT&CK coverage heat map easy to misread?",
+    "options": [
+      "Green cells usually mean a technique has been retired",
+      "Colors on most heat maps are assigned by the vendor, not the team",
+      "Green always means the behavior was observed in the network",
+      "One narrow rule can color it while variants go uncovered"
+    ],
+    "correct": 3,
+    "explanation": "A technique may be colored as covered because one rule catches one tool or procedure, while the broader behavior has many variants. The lesson treats heat maps as conversation starters and asks hunt records to name the exact variant tested.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which observable is written at the behavior level for document-driven execution?",
+    "options": [
+      "A specific word processor launching one interpreter with one argument",
+      "Any process started on a workstation during the hunt window",
+      "An Office parent of a non-routine process shortly after a download",
+      "Any network request made by an Office application that day"
+    ],
+    "correct": 2,
+    "explanation": "The behavior-level observable catches variants across Office applications and child processes, while the download timing and non-routine condition keep it discriminating. The first option is tool-level and misses variants, and the others have almost no discriminating power.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does a behavior-level observable depend on a local baseline?",
+    "options": [
+      "ATT&CK requires baselines before a technique can be cited",
+      "The baseline shows which instances are routine locally",
+      "Baselines replace the need for a refuting prediction",
+      "Only baselines can identify the adversary's tactic"
+    ],
+    "correct": 1,
+    "explanation": "ATT&CK suggests the behavior, but many instances of it, such as an Office application starting a print helper, are routine. The baseline separates ordinary local instances from unusual ones. Refuting evidence is still needed.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Banyan download followed by an Office child process on WS-104 suggests hypotheses under which tactics?",
+    "options": [
+      "Initial Access and Execution",
+      "Exfiltration and Impact",
+      "Credential Access and Discovery",
+      "Lateral Movement and Collection"
+    ],
+    "correct": 0,
+    "explanation": "A file arriving and then a document application starting another process is the pattern of document-driven execution, framed as Initial Access and Execution hypotheses. These are candidate tactics to test, not findings.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Where in the translation chain does a hypothesis about the gopal session's activity after 06:46:00Z end?",
+    "options": [
+      "At link one, because no tactic fits the behavior",
+      "At link two, because the behavior is unclear",
+      "At link five, with a positive outcome",
+      "At link four, with a no-data outcome"
+    ],
+    "correct": 3,
+    "explanation": "The tactic, behavior and observable can all be stated, but no source in the inventory records VPN session activity. The chain stops at the data-source link, and the outcome is no-data with a recorded gap.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which is a plausible benign alternative for the 18 WS-104 requests to cdn-telemetry-sync.example?",
+    "options": [
+      "A user manually refreshing a web page 18 times",
+      "A legitimate agent from installed software",
+      "A failed VPN reconnection from 203.0.113.66",
+      "A printing helper started by an Office application"
+    ],
+    "correct": 1,
+    "explanation": "Many legitimate products send periodic telemetry, and that would produce repeated requests to one domain. A prevalence check across workstations tests it. VPN events and printing helpers do not produce proxy requests to that domain.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why do sequential ATT&CK tactic labels not prove that observations form one connected intrusion?",
+    "options": [
+      "ATT&CK forbids mapping more than one tactic per incident",
+      "Tactics must always occur in exactly the order shown in the matrix",
+      "Intrusions skip or reorder tactics and unrelated events cluster",
+      "Each tactic requires a different analyst to confirm it"
+    ],
+    "correct": 2,
+    "explanation": "The matrix layout is not a timeline. Real intrusions skip, repeat or reorder tactics, and unrelated events often fall close in time. A connection needs a shared entity in the records, not a tidy sequence of labels.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which three practices does the lesson give for mapping observations back to ATT&CK honestly?",
+    "options": [
+      "State confidence, state a benign alternative, map behaviors",
+      "Cite IDs from memory, map each event, omit alternatives",
+      "Map to all plausible tactics, rate each high, skip reasons",
+      "Use heat-map colors, map tools, and confirm the attribution"
+    ],
+    "correct": 0,
+    "explanation": "Confidence with a reason, a stated benign alternative, and mapping patterns rather than single events keep a mapping a hypothesis rather than a verdict. They also make it useful to detection engineering and incident response.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is the WS-104 download-then-Office-child mapping to Execution given moderate rather than high confidence?",
+    "options": [
+      "Proxy and endpoint sources are not independent of each other",
+      "The Office child process occurred before the download",
+      "Without payload or command-line evidence, high is unjustified",
+      "ATT&CK does not describe document-driven execution at all"
+    ],
+    "correct": 2,
+    "explanation": "Two independent sources agree on host and order, which supports moderate confidence. But the dataset has no payload evidence and the summary gives no command line, so the benign helper alternative cannot be fully ruled out. The reported order is download first.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the mapping \"Proxy row 118: Exfiltration\" fall short?",
+    "options": [
+      "It cites a row identifier instead of a summary count",
+      "It uses a tactic name where a current technique identifier belongs",
+      "It should have mapped to Command and Control instead",
+      "It maps one event with no behavior, confidence or alternative"
+    ],
+    "correct": 3,
+    "explanation": "A single event is not a technique. The rewrite in the lesson describes the pattern (volume and rarity), gives moderate confidence with reasons, notes that content is unknown and names a benign alternative. Citing a row is good practice.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The WS-104 events all share one host. Does that prove they are causally connected?",
+    "options": [
+      "Yes, a shared host is proof that the events are causally linked",
+      "No; it is a real link that strengthens but does not settle it",
+      "No; shared hosts are irrelevant to connecting events at all",
+      "Yes, provided all the events fall on the same calendar day"
+    ],
+    "correct": 1,
+    "explanation": "A shared host is a genuine entity link, unlike the VPN thread, which has none. But a workstation can carry unrelated activity within two hours, so the sequence strengthens the hypothesis without proving causation.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the shared-egress benign alternative for the VPN thread mean?",
+    "options": [
+      "Several legitimate users reach the VPN through one address",
+      "The VPN appliance logged the same failure eight times",
+      "gopal reset the password and then retried from home",
+      "The address belongs to an internal Banyan workstation"
+    ],
+    "correct": 0,
+    "explanation": "A partner site or hotel network can put many users behind one external address, and several mistyped passwords would then appear from that address. Testing it needs historical VPN data. 203.0.113.66 is an external documentation address.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A draft says \"Kill chain complete: Initial Access via VPN, Execution on WS-209, Exfiltration to sync-relay.example.\" How should it be handled?",
+    "options": [
+      "Kept, because three tactics in order indicate one intrusion",
+      "Rewritten to add a current technique ID for each of the three stages",
+      "Kept, provided all three observations fall on the same morning",
+      "Split into separate observations with the link marked untested"
+    ],
+    "correct": 3,
+    "explanation": "Unless a shared entity connects the VPN identity to WS-209, the three observations are separate. Adding technique IDs or noting that they share a morning does not create a link. Each observation should carry its own confidence.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How valuable is hunting a behavior for which a mature, tested detection rule already exists?",
+    "options": [
+      "It is the highest priority, since the behavior is proven",
+      "It is required before the rule can stay in production",
+      "It usually adds little compared with uncovered behaviors",
+      "It should replace the rule with a manual weekly query"
+    ],
+    "correct": 2,
+    "explanation": "Detection gaps are one of the three selection factors. Hunting where no rule exists can find activity and produce a detection candidate, while hunting a well-covered behavior mostly repeats what the rule does.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is a Command and Control hypothesis for the 18 cdn-telemetry-sync.example requests rated low confidence?",
+    "options": [
+      "Proxy logs cannot record repeated requests reliably",
+      "Prevalence and individual intervals have not been checked",
+      "Command and Control hypotheses require endpoint data",
+      "The requests occurred after the large outbound transfer"
+    ],
+    "correct": 1,
+    "explanation": "The pattern only becomes meaningful if the domain is rare among peers and the intervals are regular, and neither has been verified from the saved rows. The requests ran from 06:17:00Z to 07:42:02Z, before the 08:12:00Z transfer.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an analyst do when recording an ATT&CK technique citation in a hunt record?",
+    "options": [
+      "Look up the current entry and record the ATT&CK version",
+      "Cite the technique ID from memory to save time during the hunt",
+      "Use the ID from the oldest report to keep consistency",
+      "Omit the tactic, since the technique implies it fully"
+    ],
+    "correct": 0,
+    "explanation": "Recording the version alongside a looked-up citation keeps the mapping accurate and lets later readers understand it even after ATT&CK changes. Citing from memory or from old reports risks outdated labels.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why should an analyst not jump straight from the tactic \"Credential Access\" to writing a query?",
+    "options": [
+      "Tactic-level queries are blocked by most SIEM platforms",
+      "The query is either too broad or silently assumes one behavior",
+      "Credential Access has no observable behaviors to query",
+      "Queries must be written before the tactic is chosen"
+    ],
+    "correct": 1,
+    "explanation": "A tactic covers many behaviors. A query written from it either matches far too much or quietly targets one behavior without saying so. Writing the behavior and observable first makes that choice visible and reviewable.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the Banyan inventory, which source records the observable for guessing passwords across many accounts?",
+    "options": [
+      "Sysmon process creation events",
+      "Proxy request logs",
+      "Mailbox audit logs",
+      "VPN authentication records"
+    ],
+    "correct": 3,
+    "explanation": "Failures across distinct identities from one source address appear in authentication logs with source, identity and result fields. The Banyan VPN records provide these. Mailbox audit data is not in the dataset.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which mapping of the Banyan VPN pattern, eight distinct failed identities followed by a gopal success, is most defensible?",
+    "options": [
+      "Credential Access, high confidence, attacker confirmed",
+      "Exfiltration, moderate confidence, data loss likely",
+      "Credential Access, moderate, shared egress not ruled out",
+      "Initial Access via WS-104, high confidence, link shown"
+    ],
+    "correct": 2,
+    "explanation": "The pattern fits guessing across accounts, but the shared-egress alternative has not been tested, so moderate confidence is appropriate. Nothing in the VPN data shows data loss, and no shared entity links it to WS-104.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson describe each adversary behavior only in terms of what it leaves in saved records?",
+    "options": [
+      "Hunting needs observables, not instructions for the behavior",
+      "ATT&CK entries contain no description of the behaviors",
+      "Saved records are the only place behaviors are defined",
+      "Describing behaviors fully would break the ATT&CK terms of use"
+    ],
+    "correct": 0,
+    "explanation": "A hunter needs to recognize a behavior in data: its fields, values, timing and prevalence. How to carry out the behavior adds nothing to that and is outside a defensive lesson. ATT&CK itself does describe behaviors and is freely usable.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

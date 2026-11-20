@@ -1,0 +1,111 @@
+{
+  "course": "C08",
+  "module": 8,
+  "title": "Incident handling",
+  "description": "How a SOC analyst takes part in incident response: the incident response lifecycle, communication under pressure, giving containment advice, preserving evidence, the severity matrix, post-incident review and tabletop exercises - finishing with an incident response lab built on the course dataset.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Incident response lifecycle",
+      "summary": "How an incident moves through the NIST SP 800-61 lifecycle and its CSF 2.0 framing in Rev. 3, and what the SOC analyst does in each phase, traced through the Banyan intrusion.",
+      "objectives": [
+        "Describe the four phases of the NIST SP 800-61 Rev. 2 lifecycle and its feedback paths",
+        "Map the classic phases onto the CSF 2.0 Functions and Categories used by SP 800-61 Rev. 3",
+        "Explain the SOC analyst's responsibilities in preparation, analysis, containment and post-incident activity",
+        "Scope an incident from lab hunt output and state the telemetry the scope rests on",
+        "Place each Banyan alert and action in its lifecycle phase"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Communication",
+      "summary": "Communicating during an incident: audiences, the incident log, status updates and cadence, out-of-band channels, need-to-know, and the facts the SOC supplies for CERT-In and other notifications.",
+      "objectives": [
+        "Identify internal and external incident audiences and route communication through the IR lead and designated roles",
+        "Write technical and executive status updates from one incident log with confidence labels and a next-update time",
+        "Decide when to move to an out-of-band channel and apply need-to-know, codenames and TLP",
+        "Supply legal and the CERT-In point of contact with the time noticed, six-hour point and confidence-labelled facts"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Containment advice",
+      "summary": "How a SOC analyst recommends short-term and long-term containment, weighs each action's harm reduction, evidence cost, business impact and tip-off risk, and applies it to WS-104, gopal and svc_update.",
+      "objectives": [
+        "Compare host, account, network and persistence containment actions by their effect, cost and signal to the attacker",
+        "Distinguish short-term from long-term containment and give each measure an owner and end condition",
+        "Explain why all known footholds should be contained together and when to act immediately instead",
+        "Describe who recommends, approves, executes and verifies containment under a containment authority",
+        "Write and verify a containment recommendation for the Banyan incident from SIEM evidence"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "Evidence preservation",
+      "summary": "Preserving incident evidence in order of volatility, with SHA-256 integrity and a chain of custody, using the kit's evidence_export.py, plus log preservation, legal hold and Indian evidence law basics.",
+      "objectives": [
+        "Apply the RFC 3227 order of volatility to a live compromised workstation",
+        "Explain what a SHA-256 match proves and what it does not",
+        "Export, verify and tamper-test log evidence with evidence_export.py and record its chain of custody",
+        "Identify limitations of an evidence tool and compensate with documented queries",
+        "Describe log preservation, legal hold and the SOC's role in them"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 5,
+      "title": "Severity matrix",
+      "summary": "How an incident's severity is derived, as distinct from alert severity: functional, information and recoverability impact, scope and urgency combined in a matrix with floor rules, applied to the Banyan cases and re-rated as evidence arrives.",
+      "objectives": [
+        "Distinguish incident severity from alert severity and identify who owns each",
+        "Rate functional impact, information impact and recoverability using defined categories",
+        "Derive a base severity from impact and scope with a severity matrix and adjust it for urgency and floor rules",
+        "Apply the matrix to the Banyan cases, rating unknowns on the reasonable worst case and recording confidence",
+        "Separate severity of record from operating severity and from regulatory reportability"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Post-incident review",
+      "summary": "Running a blameless post-incident review of the Banyan incident: reconstructing the attacker and defender timeline from the dataset, separating root cause from contributing factors, writing owned and verifiable actions, and computing dwell time and related metrics from real timestamps.",
+      "objectives": [
+        "Explain the principles of a blameless review and rewrite blameful findings as system findings",
+        "Reconstruct a sourced UTC timeline of attacker and defender activity from minisiem queries and the case record",
+        "Distinguish the root cause from contributing factors, each supported by evidence",
+        "Write action items with one owner, a due date and a verification method",
+        "Compute and interpret dwell time and related intervals from the dataset's timestamps"
+      ],
+      "minutes": 65
+    },
+    {
+      "n": 7,
+      "title": "Tabletop",
+      "summary": "Designing, facilitating and evaluating a tabletop exercise - objectives, scenario, injects and the MSEL, roles, facilitation, hotwash and after-action report - with a ready-to-run Banyan Microfinance scenario that tests declaration, containment authority, the CERT-In deadline and out-of-band communication.",
+      "objectives": [
+        "Distinguish a tabletop from seminars, drills, functional, full-scale and red or purple team exercises",
+        "Write evaluable exercise objectives and an MSEL with timed injects, expected actions and branches that do not depend on one decision",
+        "Facilitate a tabletop with role-directed questions, time management and a visible decision log",
+        "Evaluate an exercise through evaluator notes, a hotwash and an after-action report and improvement plan with owned actions",
+        "Run the Banyan tabletop and calculate the CERT-In deadline in UTC and IST"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "IR lab",
+      "summary": "Working the Banyan incident end to end with the C08 kit: declaring and starting the CERT-In clock, scoping with hunts and negative checks, building a reproducible timeline, writing ordered containment advice, assembling and verifying a hashed evidence package, and writing the incident report.",
+      "objectives": [
+        "Declare an incident from a triaged queue and record the noticed time and CERT-In deadline in UTC and IST",
+        "Scope an incident with hunt.py and negative checks, stating the limit of each check",
+        "Build an incident timeline from one reproducible query and label each line as observed or inferred",
+        "Write ordered, owned, evidence-aware containment advice for both incident threads",
+        "Assemble an evidence package with evidence_export.py, rebuild and verify the SHA-256 manifest, and demonstrate tamper detection"
+      ],
+      "minutes": 90
+    }
+  ]
+}

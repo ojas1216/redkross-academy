@@ -1,0 +1,327 @@
+[
+  {
+    "q": "What does the one-task assertion verify in the supplied experiment?",
+    "options": [
+      "The given six fixed inputs produce one local effect",
+      "The full production approval service authenticates every responder",
+      "Any repeated event remains idempotent across a service restart",
+      "Network isolation was applied to a real endpoint once"
+    ],
+    "correct": 0,
+    "explanation": "The simulator checks one in-memory run over fictional data.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why predict expected results before running the program?",
+    "options": [
+      "To create a case even when the fixture has no stable ID",
+      "To make every outcome match the last observed run without review",
+      "To avoid inspecting the script's output during review",
+      "To compare actual behaviour against a stated contract"
+    ],
+    "correct": 3,
+    "explanation": "Predictions make it easier to spot surprising or incorrect results.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The out-of-scope target's fixture says approved. Why does it still produce no task?",
+    "options": [
+      "The training system assumes every unfamiliar target already has a task",
+      "Approval validity is determined by whether a result uses a dash",
+      "The permitted target check blocks it before evaluating approval",
+      "All input labels are treated as synonyms for the original target"
+    ],
+    "correct": 2,
+    "explanation": "Approval for a record cannot make an unapproved scope eligible.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What data identifies a stable mock effect in this script?",
+    "options": [
+      "The current line number in the displayed audit trail",
+      "The event, target and training operation tuple",
+      "The random user name of whoever opened the worksheet",
+      "The total number of cases received before the current one"
+    ],
+    "correct": 1,
+    "explanation": "The tuple distinguishes the specific intended training task.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A return code says the script succeeded but the last four rows unexpectedly show IDs. What next?",
+    "options": [
+      "Treat the branch results as wrong despite the process status",
+      "Accept the run because the program ended without a runtime error",
+      "Count the displayed IDs as independent approvals",
+      "Change the worksheet expected values to match the live output"
+    ],
+    "correct": 0,
+    "explanation": "The test should verify both effect identity and individual branch output.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which row creates T-001 in the original run?",
+    "options": [
+      "The denied A-19 receipt for LAB-42 in the same fixture",
+      "The A-18 receipt waiting for an approver's response",
+      "The repeated A-17 after T-001 already exists",
+      "The first approved A-17 receipt for LAB-41"
+    ],
+    "correct": 3,
+    "explanation": "The first eligible record creates the only new training task.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A later input is valid and has a different event ID for the same target. What follows under the current effect key?",
+    "options": [
+      "It must link to A-17 because its target shares a name",
+      "It is automatically out of scope because LAB-41 was seen",
+      "It can create a distinct training task",
+      "It always lacks approval because another event used that target"
+    ],
+    "correct": 2,
+    "explanation": "A different event ID changes the tuple even when the target is shared.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which fixture row remains waiting for a decision?",
+    "options": [
+      "A-20 whose target is outside the approved set",
+      "A-18 for the allowed LAB-43 target",
+      "The event-less receipt for LAB-41 that lacks its identity",
+      "A-19 whose decision is already a denial"
+    ],
+    "correct": 1,
+    "explanation": "A-18 is eligible input with a pending approval state.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Running the unchanged script again reports one new task. What does that say about persistence?",
+    "options": [
+      "Its local state resets between process runs",
+      "The original training task was persisted and discovered across restarts",
+      "The case service successfully deleted the prior training task",
+      "The new run performed a protective action on the same live asset"
+    ],
+    "correct": 0,
+    "explanation": "The in-memory dictionary is initialised empty in each execution.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a dash in the task ID field indicate?",
+    "options": [
+      "A verified deletion of an existing task from a case service",
+      "A change that must complete without any additional evidence",
+      "A synthetic account approval that applies to all future operations",
+      "No task reference for that audited input"
+    ],
+    "correct": 3,
+    "explanation": "Stopped or pending branches have no training task.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The worksheet counts two effects because A-17 has two rows. How should it be corrected?",
+    "options": [
+      "Remove the repeat receipt so every audit row creates a task",
+      "Count every approved fixture even if no effect could occur",
+      "Count the distinct task ID and retain both receipt rows",
+      "Create a new real case task to make the original count match"
+    ],
+    "correct": 2,
+    "explanation": "Multiple receipts can refer to one effect without making another.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a lab completion statement identify?",
+    "options": [
+      "The names and credentials of all real workflow operators",
+      "The fixed inputs, observed result and simulator limits",
+      "The production service's exact authority in the real team",
+      "A claim that every future integration will behave identically"
+    ],
+    "correct": 1,
+    "explanation": "A narrow statement ties evidence to the conditions actually tested.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A misspelled status enters the current script. What happens finding-wise?",
+    "options": [
+      "No task; the generic not-approved state needs interpretation",
+      "It becomes approved because it is neither denied nor pending",
+      "It becomes an existing task whenever the asset label was used earlier",
+      "It retries until the fixture provides an approved version"
+    ],
+    "correct": 0,
+    "explanation": "Unknown values cannot cause an effect, but logging their reason can improve.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the intended role of the two review-input rows?",
+    "options": [
+      "Demonstrate two approvals for the same accepted target",
+      "Prove that all tasks were sent through a public connector",
+      "Supply two alternate sites for an unauthorised fallback lookup",
+      "Show two invalid inputs stop without effects"
+    ],
+    "correct": 3,
+    "explanation": "Invalid scope and missing identity need review instead of a change.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A paper variation loses acknowledgment after a possible remote effect. Which status fits?",
+    "options": [
+      "No effect confirmed solely from the missing receipt",
+      "Verified effect inferred from the approving role's decision",
+      "Effect unknown, with a reconciliation owner",
+      "Newly authorised repeat request before inspecting the target"
+    ],
+    "correct": 2,
+    "explanation": "The missing acknowledgment leaves the result unresolved until a permitted check can confirm the actual effect.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which dependency would production restart-safe handling require?",
+    "options": [
+      "A local dictionary recreated for every new process",
+      "Persistent effect history or authoritative reconciliation",
+      "A new random key that differs for duplicate events",
+      "A count of approved requests shown only on one worker"
+    ],
+    "correct": 1,
+    "explanation": "A durable record is needed to distinguish existing effects after a restart.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The revised version reports one task but the pending fixture was logged as denied. What changed?",
+    "options": [
+      "The overall effect count passed but branch reporting regressed",
+      "The whole test passed because pending and denial are equivalent",
+      "The expected count should increase to include unresolved decisions",
+      "The denial is validated by the case effect's existence elsewhere"
+    ],
+    "correct": 0,
+    "explanation": "Audit states must distinguish different decisions even when neither creates an effect.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a peer check for A-20 specifically?",
+    "options": [
+      "It used the same approved target as both prior A-17 receipts",
+      "Its effect ID was printed in the first line of the script",
+      "The denial code proves that every target was independently reviewed",
+      "The target was rejected and no task exists"
+    ],
+    "correct": 3,
+    "explanation": "The out-of-scope target must remain blocked independently of its status.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The class wants to compare versions with renamed statuses. What preserves comparability?",
+    "options": [
+      "Treat different labels as automatically equivalent if they appear on the same row",
+      "Change the number of samples until both final counts are equal",
+      "Map states deliberately and keep original fixture expectations",
+      "Remove the audit states and compare only the time the scripts finished"
+    ],
+    "correct": 2,
+    "explanation": "The mapping must preserve different conditions and effects for comparison.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What information accompanies pending approval in a real handoff?",
+    "options": [
+      "The unverified claim that protection already took effect",
+      "The responsible role, decision location and review timing",
+      "The original notification with no access to current decision status",
+      "The case owner's personal confirmation code for use by later shifts"
+    ],
+    "correct": 1,
+    "explanation": "A pending record needs an actionable decision route.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab result is summarised as six defensive actions executed. What should replace it?",
+    "options": [
+      "Six inputs audited and one training task created",
+      "All invalid and denied actions were executed but not logged",
+      "Three effects because three records included the approved value",
+      "Six verified protective effects because each row printed a status"
+    ],
+    "correct": 0,
+    "explanation": "Audit rows count inputs and do not each indicate a state change.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which check goes beyond the task count alone?",
+    "options": [
+      "Check that every line uses the same console indentation",
+      "Verify the last run printed exactly one copy of the source code",
+      "Guess the meaning of the outcome from the data order alone",
+      "Confirm the expected status and ID for each input"
+    ],
+    "correct": 3,
+    "explanation": "Per-input expectations reveal branch and mapping regressions that can leave the total effect count unchanged.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A peer asks whether an approved status from an incident can be trusted directly in production. What is the answer?",
+    "options": [
+      "Accept any text that matches the simulator's approved value",
+      "Allow the source to grant authority for new targets itself",
+      "Verify against a trusted decision, authority and scope",
+      "Assume the case has an authorised approval whenever an ID exists"
+    ],
+    "correct": 2,
+    "explanation": "The fixture models authority and does not implement authorisation.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a reviewer retain to reproduce this experiment?",
+    "options": [
+      "Only a screenshot showing one favourable task count",
+      "The exact script version, fixture and observed output",
+      "The production connector passwords used in another training run",
+      "The name of a different service supporting the same workflow concept"
+    ],
+    "correct": 1,
+    "explanation": "A reviewer needs the tested input and execution evidence.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which exercise variation tests prevention of unstated approval states?",
+    "options": [
+      "Replace a pending status with an unknown value and check zero tasks",
+      "Change the display order of the output table only",
+      "Repeat a context explanation without changing any input",
+      "Choose a live device to test whether reaction timing improves"
+    ],
+    "correct": 0,
+    "explanation": "The proposed variation checks a concrete rejected-state behaviour.",
+    "lesson": 8,
+    "difficulty": "medium"
+  }
+]

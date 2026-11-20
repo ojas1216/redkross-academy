@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An analyst reviews every candidate row a query returned and finds each one benign. What has not yet been validated?",
+    "options": [
+      "The benign explanations for each of the reviewed rows",
+      "The confidence level assigned to each benign finding",
+      "The query, which may have missed rows entirely",
+      "The hunt record format used for documenting results"
+    ],
+    "correct": 2,
+    "explanation": "Reviewing returned rows validates findings, not the query. If a time zone or null-field defect caused the query to miss rows, a thorough review of what it returned is still incomplete. Query validation is a separate step.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a seeded positive check confirm about a hunt query?",
+    "options": [
+      "That the query excludes routine cases it should ignore",
+      "That the query matches a case known to be a positive",
+      "That the source covers every host in the hunt scope",
+      "That thresholds behave correctly at their exact edges"
+    ],
+    "correct": 1,
+    "explanation": "A seeded positive shows the query can find what it is designed to find. Excluding routine cases is the known-negative check, coverage is the coverage check, and edge behavior is the boundary check.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A proxy log and a firewall log both record the same outbound connection. What do they jointly support?",
+    "options": [
+      "Independent evidence that the transfer was exfiltration",
+      "High confidence that the destination is malicious",
+      "Two separate observations of the process that connected",
+      "That the connection happened, and little beyond that"
+    ],
+    "correct": 3,
+    "explanation": "Both logs see the same connection at the same network boundary, so they are not independent for any claim beyond its occurrence. Neither records which process made the connection. Counting them as two sources would inflate confidence.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which row in the Lesson 3 fixture serves as the known negative for the rare-download join?",
+    "options": [
+      "E03, an Office child on a host with no rare download",
+      "P06 with E01, a rare download followed by an Office child",
+      "P11, a null-host request to a rare destination",
+      "P10, a large transfer to sync-relay.example"
+    ],
+    "correct": 0,
+    "explanation": "E03 resembles a positive because it has an Office parent, but WS-204 made no rare download, so the query should exclude it. If the query returned E03, its rarity or join condition would be broken. P06 with E01 is the seeded positive.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Synthetic row E06 is on WS-203 at exactly 09:20:00 with parent WINWORD.EXE. P06 is at 09:10:00, and the query uses \"less than or equal to plus 10 minutes.\" What happens?",
+    "options": [
+      "Not matched, because the window excludes its upper bound",
+      "Not matched, because E06 lacks an Office parent image",
+      "Matched, because the upper bound is inclusive as written",
+      "Matched only if the absolute-difference version is used"
+    ],
+    "correct": 2,
+    "explanation": "09:20:00 equals 09:10:00 plus ten minutes, and the condition includes equality, so E06 matches. A team that wanted an exclusive bound would need to change the query and record the choice. Boundary checks exist to catch exactly this.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In synthetic Case 1, the seeded positive fails because endpoint timestamps are two hours ahead of UTC. What is the outcome for the original zero-result hunt?",
+    "options": [
+      "Benign, since the earlier search found nothing at all",
+      "Positive, since a failed check implies hidden activity",
+      "Benign at low confidence, pending another reviewer",
+      "No-data until the query is corrected and rerun"
+    ],
+    "correct": 3,
+    "explanation": "A query that cannot match a known positive could not have found real activity, so its empty result says nothing. The hunt has not tested the hypothesis and is no-data until fixed. A failed check does not imply activity either.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which pair of sources is reasonably independent for corroboration?",
+    "options": [
+      "A proxy log and a SIEM alert built from that proxy log",
+      "A proxy log and an endpoint process creation log",
+      "A proxy log and a firewall log of the same connection",
+      "Two copies of one proxy log held in separate archives"
+    ],
+    "correct": 1,
+    "explanation": "Proxy and endpoint sources observe activity through different mechanisms, network requests and process starts, so agreement between them is meaningful. The other pairs derive from the same observation or record the same event at the same point.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The shared-egress explanation for 203.0.113.66 cannot be checked because no historical VPN data exists. How does that affect the finding?",
+    "options": [
+      "Confidence is lowered, but the outcome is not made benign",
+      "The outcome becomes benign until the data is available",
+      "The outcome becomes no-data for the whole VPN thread",
+      "The alternative can be ignored since it was not tested"
+    ],
+    "correct": 0,
+    "explanation": "An untestable benign explanation stays open and is recorded as such, which lowers confidence. It does not confirm innocence, and it does not erase the observed failure pattern, which is still supported by records.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a coverage check involve during query validation?",
+    "options": [
+      "Confirming the query matches a seeded positive record",
+      "Testing whether thresholds behave at exact boundary values",
+      "Counting in-scope records and nulls before filtering",
+      "Asking a peer to argue for the opposite outcome"
+    ],
+    "correct": 2,
+    "explanation": "Counting the scoped input and null key fields shows whether the query is seeing the expected population. Missing hosts or many nulls indicate the query or source is incomplete. The other options describe the seeded positive, boundary checks and peer review.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should outcomes be assigned to the Banyan VPN thread?",
+    "options": [
+      "Pattern positive at moderate confidence; session question no-data",
+      "Pattern benign; session question positive at low confidence",
+      "One outcome for the whole thread: positive at high confidence",
+      "Pattern no-data; session question benign at moderate confidence"
+    ],
+    "correct": 0,
+    "explanation": "The authentication pattern has supporting records, eight distinct failed identities and a gopal success, with shared egress still open. Post-authentication activity has no data at all. A single outcome would hide that difference.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What do false-negative checks most often change?",
+    "options": [
+      "A positive outcome into a benign outcome",
+      "The confidence scale the team uses",
+      "The hypothesis wording after the fact",
+      "The scope of the finding"
+    ],
+    "correct": 3,
+    "explanation": "False-negative checks rarely overturn a positive, but they often show that more entities may be involved, for example an unresolved address alongside a confirmed host. The finding's scope is adjusted accordingly.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In synthetic Case 3, an Office application starts an unusual child process on WS-210. Why is the finding benign?",
+    "options": [
+      "Office add-ins can never start child processes on hosts",
+      "A change record and full peer prevalence explain it",
+      "The query failed its seeded positive check that day",
+      "The child process ran for less than one minute"
+    ],
+    "correct": 1,
+    "explanation": "A change record documents a sanctioned add-in deployment that morning, and the same parent-child pair appears on every finance workstation in the hour. The change record is enrichment and the prevalence is observation, and together they confirm the benign explanation.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A VPN query uses a threshold of three distinct failed identities in ten minutes. Which false-negative risk applies?",
+    "options": [
+      "Sources with four failures exceed the threshold",
+      "Successes from the same address are excluded",
+      "A slower pattern can stay under the threshold",
+      "Distinct identities are counted more than once"
+    ],
+    "correct": 2,
+    "explanation": "Guessing spread over a longer period could produce fewer than three distinct failures in any ten-minute window and never be returned. Checking how many sources had two failures shows how close others came.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When should a positive hunt finding be escalated to incident response?",
+    "options": [
+      "After incident response itself confirms the hypothesis",
+      "Without waiting for certainty, once validated",
+      "Only when confidence is rated as high",
+      "Only after a second hunt has repeated the same result"
+    ],
+    "correct": 1,
+    "explanation": "Hunting rarely reaches certainty, and incident response has tools and authority the hunter lacks. Moderate- or high-confidence positives go to incident response with the record and citations. Waiting delays response.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How does carrying a hunt forward differ from leaving it open indefinitely?",
+    "options": [
+      "It has a named trigger for revisiting and an owner",
+      "It closes the hunt formally and archives all of its evidence",
+      "It upgrades the finding to high confidence",
+      "It removes the hunt from the documentation"
+    ],
+    "correct": 0,
+    "explanation": "Carrying forward attaches a specific condition, such as session logs becoming available, and an owner. Without those, a hunt drifts and is never revisited. It is used for no-data or low-confidence results.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In corroboration, what does testing additional predictions mean?",
+    "options": [
+      "Rerunning the original query on a different day",
+      "Asking the user whether they opened the document",
+      "Replacing the original hypothesis with a broader version of it",
+      "Checking other observations the hypothesis implies"
+    ],
+    "correct": 3,
+    "explanation": "A good hypothesis predicts more than the first query tests, such as a new file written before the process started. Checking those, where data allows, adds independent support or reveals a gap.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In synthetic Case 2, WS-208's 40 MB transfer is called high confidence, \"confirmed by proxy and firewall logs.\" What should the reviewer do?",
+    "options": [
+      "Raise confidence to high, since two logs agree on it",
+      "Change the outcome to benign, since the logs duplicate",
+      "Lower to moderate until an independent source is checked",
+      "Close the hunt, since the transfer has now been fully confirmed"
+    ],
+    "correct": 2,
+    "explanation": "The two logs show the connection happened but are not independent evidence of exfiltration. An independent source, such as endpoint data showing which program connected, is needed for higher confidence. Duplicate logging does not make the transfer benign.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which reviewer habit does the lesson recommend during peer review?",
+    "options": [
+      "Rerun every query on a larger dataset before agreeing",
+      "Check only the outcome line to save review time",
+      "Assign confidence independently without reading reasons",
+      "Try to argue for the opposite outcome"
+    ],
+    "correct": 3,
+    "explanation": "If a reviewer can make a reasonable case that a positive is benign, or the reverse, the record needs more evidence or lower confidence. This tests the reasoning directly rather than only the format.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "When is a hunt outcome correctly assigned as benign?",
+    "options": [
+      "A validated query found nothing in adequate scope, or a benign cause was confirmed",
+      "The query returned no rows, whatever its validation or coverage",
+      "The analyst believes the behavior is unlikely in the environment",
+      "Every benign alternative was considered in discussion, even though none of them was checked"
+    ],
+    "correct": 0,
+    "explanation": "Benign requires either a trustworthy negative, meaning a validated query over adequate coverage, or a benign explanation supported by evidence. An unvalidated empty result, analyst belief or unchecked alternatives are not enough.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which list contains benign explanations the lesson names as common in hunting?",
+    "options": [
+      "Attribution, motive, capability and intent",
+      "Scheduled activity, user error and shared infrastructure",
+      "Execution, persistence and lateral movement",
+      "Retention limits, ingest delays and index size on the SIEM"
+    ],
+    "correct": 1,
+    "explanation": "The lesson lists scheduled or sanctioned activity, known business tools, user error, shared infrastructure and data artifacts. The other options describe adversary characteristics, tactics or platform properties.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the exercise, what evidence would support a shared-egress explanation for 192.0.2.140?",
+    "options": [
+      "A single success for noor at 07:03:30",
+      "Four distinct failures recorded within roughly one minute of each other",
+      "Historical successes for many identities from that address",
+      "The address being in a documentation range"
+    ],
+    "correct": 2,
+    "explanation": "A genuine shared egress would show many identities succeeding from the address over time, not only a short burst of failures. The fixture contains no such history, so the alternative stays unchecked. Documentation ranges are used for all fictional addresses.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a boundary check test?",
+    "options": [
+      "The edges of time windows and thresholds",
+      "Whether the sources are independent",
+      "Whether benign causes were documented",
+      "Whether the report uses calibrated words"
+    ],
+    "correct": 0,
+    "explanation": "Boundary checks ask whether an event exactly at a window edge or exactly at a threshold behaves as intended. Inclusive versus exclusive bounds and off-by-one errors change results at the margin.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How does unresolved row P11 affect the WS-203 rare-download finding?",
+    "options": [
+      "It confirms WS-203 sent both rare-domain transfers",
+      "It turns the WS-203 finding into a benign outcome",
+      "It must be dropped because it cannot be joined",
+      "The finding's scope may be wider than one host"
+    ],
+    "correct": 3,
+    "explanation": "P11 is a second source of traffic to sync-relay.example from 10.20.5.77, which cannot be mapped to a host without DHCP data. It may be another host, so the finding should note one confirmed host and one unresolved address.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should accompany the closure of a benign hunt finding?",
+    "options": [
+      "Deletion of the related queries and evidence",
+      "Its scope statement and any rule candidate",
+      "An escalation note to incident response",
+      "A trigger for revisiting when data arrives"
+    ],
+    "correct": 1,
+    "explanation": "A closed benign hunt keeps its scope statement so others know what was tested, and any detection gap it revealed goes to detection engineering as a rule candidate. Triggers belong to carry-forward, and escalation to positives.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "According to the lesson, what happens to the three outcomes during validation?",
+    "options": [
+      "They are predicted, before any data is examined",
+      "They are mapped to the current ATT&CK technique identifiers",
+      "They are actually assigned, after checks are complete",
+      "They are converted into production detection rules"
+    ],
+    "correct": 2,
+    "explanation": "A query returning rows does not make a hypothesis positive, and an empty result does not make it benign. Outcomes are assigned only after the query and the finding have both been validated.",
+    "lesson": 7,
+    "difficulty": "medium"
+  }
+]

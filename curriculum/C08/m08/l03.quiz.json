@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The identity team resets gopal's password after the Banyan spray success, but the SIEM still shows VPN activity from 203.0.113.66 under his name twenty minutes later. What is the most likely gap in the containment?",
+    "options": [
+      "The reset was applied to the directory but not replicated to the VPN appliance yet",
+      "The already-authenticated VPN session and issued tokens were never revoked or ended",
+      "The attacker had captured the new password because divya's workstation was not isolated",
+      "The VPN logs record the original login time, so later rows are a replay of old events"
+    ],
+    "correct": 1,
+    "explanation": "A reset stops the old password working for new sign-ins but does not necessarily end sessions that are already authenticated, so the VPN session and tokens must be terminated and revoked in the same action. Replication delay would affect new sign-ins, not explain an existing session continuing.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst proposes isolating WS-104 at 09:00Z, then resetting gopal and divya at 10:00Z once the identity team is free. Why does the lesson treat this plan as flawed?",
+    "options": [
+      "Isolation should always follow account actions, so the reset must happen first instead",
+      "The identity team cannot act on accounts belonging to a host that is already isolated",
+      "An hour between actions exceeds the containment window that NIST SP 800-61 prescribes",
+      "The visible isolation warns the attacker while the credential footholds remain open"
+    ],
+    "correct": 3,
+    "explanation": "Containing one foothold while others stay open tells the attacker which part of their access was found and leaves them a route to accelerate, migrate or destroy evidence; known footholds should be contained together. NIST does not prescribe a fixed window, and reversing the order would simply give the warning from the other side.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "svc_update was created on WS-104 (event 4720) and added to the local Administrators group (4732). The identity team offers to disable it in the central directory. What should the analyst say?",
+    "options": [
+      "It is a local account, so it must be disabled on the host through the EDR or management channel",
+      "Directory disablement is correct, but it must be followed by a forced group-policy refresh on WS-104",
+      "It should be deleted from the directory instead, since deletion is cleaner than disabling it",
+      "It should be left untouched until eradication, because changing it would tip the attacker off"
+    ],
+    "correct": 0,
+    "explanation": "A local account lives only in that machine's account database, so central directory action does nothing to it; it is disabled on the host and the same name is hunted for on other hosts. Leaving it active keeps the attacker's way back in, and deleting it would lose its history.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During containment the team must neutralise svc_update. Why does the lesson recommend disabling rather than deleting it at this stage?",
+    "options": [
+      "Deletion would trigger event 1102 and erase the remaining Security log on the workstation",
+      "Disabled accounts cannot be re-enabled by an attacker who still holds local administrator rights",
+      "Disabling keeps the creation record, group memberships and profile available for investigation",
+      "Deletion is only possible after the host has been rebuilt from a known-good image in recovery"
+    ],
+    "correct": 2,
+    "explanation": "A disabled account retains the records the investigation needs, while a deleted one loses them; full removal belongs to eradication after evidence is captured. Deleting an account does not clear the Security log, and a disabled account can be re-enabled by an administrator, so that distractor overstates its strength.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Ransomware is actively encrypting a file share from a server with no EDR agent, and every minute adds damage. Which containment choice does the lesson support?",
+    "options": [
+      "Wait for forensics to capture memory, because volatile evidence outweighs further encryption",
+      "Block the ransomware's known domains at the proxy and leave the server running for analysis",
+      "Power off or disconnect the server now, accepting lost volatile evidence to stop the harm",
+      "Reset all administrator passwords first so that the encryption process loses its permissions"
+    ],
+    "correct": 2,
+    "explanation": "Powering off is rarely the right first choice, but ongoing destruction is the stated exception: when every minute running costs more than the evidence is worth, stopping the harm comes first. Domain blocks do not stop local encryption, and waiting for capture lets the damage grow.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does blocking the three Banyan attacker domains at the proxy and DNS resolver, with block logging enabled, also help scoping?",
+    "options": [
+      "Any other host that tries to reach those destinations shows up in the block logs",
+      "The blocks force the beacon on WS-104 to reveal its fallback domains in the proxy logs",
+      "Block logging records the full content of the attempted uploads for later impact review",
+      "The resolver returns the attacker's real server addresses, which can then be traced"
+    ],
+    "correct": 0,
+    "explanation": "Network blocks apply to every host at once, and logged block hits reveal hosts not yet known to be compromised. Nothing in a block forces malware to disclose other infrastructure; an attacker with other domains may simply switch, which is the weakness of indicator-based blocking.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement best distinguishes short-term from long-term containment as the lesson defines them?",
+    "options": [
+      "Short-term containment is done by the SOC; long-term containment is done only by forensic specialists",
+      "Short-term containment removes persistence; long-term containment rebuilds systems from clean images",
+      "Short-term containment covers hosts; long-term containment covers accounts, domains and networks",
+      "Short-term stops immediate harm fast; long-term keeps the business safe until rebuild"
+    ],
+    "correct": 3,
+    "explanation": "Short-term containment uses fast, usually reversible actions to stop harm now, while long-term containment covers the days until eradication and recovery are complete. Removing persistence and rebuilding are eradication and recovery work, not the two containment stages.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A long-term containment measure at Banyan is a temporary conditional access policy requiring step-up authentication for finance accounts. What does the lesson say every such measure needs?",
+    "options": [
+      "Approval from the business owner, who holds a veto over any measure affecting finance",
+      "An owner and an end condition, so the temporary measure does not become permanent debt",
+      "A signed legal hold, because temporary policies change the evidence held by identity systems",
+      "A matching detection rule, so the measure can be removed automatically when alerts stop"
+    ],
+    "correct": 1,
+    "explanation": "Long-term containment measures are temporary by definition, so each needs an owner and an end condition or it becomes permanent technical debt. Business owners are consulted on timing and workarounds but do not usually hold a veto over stopping harm.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At 08:12Z WS-104 uploaded 48.2 MB to files-share-drop.example. If the SOC had noticed the upload while it was still running, how would the recommended order change?",
+    "options": [
+      "Isolate WS-104 immediately, accept the tip-off risk, then coordinate the other actions straight after",
+      "Keep the coordinated window but shorten it, because the upload is already recorded in the proxy",
+      "Block only files-share-drop.example and wait, so the attacker does not notice the response",
+      "Power off WS-104, because a running upload means volatile evidence no longer has any value"
+    ],
+    "correct": 0,
+    "explanation": "Coordination is for the minutes you have, not a reason to wait: with data actively leaving, the active foothold is contained at once and the rest follows immediately. Power-off is reserved for destruction that cannot be stopped another way; EDR isolation stops the upload while keeping memory.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Banyan VPN session from 203.0.113.66 and the WS-104 activity overlap in time but share no host or address. How should the recommendation treat the link between them?",
+    "options": [
+      "As proven, because divya's account appears in the spray list and also ran the WS-104 payload",
+      "As irrelevant, because only footholds on the same host need to be contained in one window",
+      "As a separate foothold in the same window, with the link stated as an open question",
+      "As a false positive, because gopal's later success from 198.51.100.104 shows a genuine user"
+    ],
+    "correct": 2,
+    "explanation": "The evidence does not connect the two, so the VPN session is a separate foothold contained alongside WS-104, and the link is stated as unproven to stop a hypothesis being read as a finding. divya's spray attempt failed, so her appearance in the list does not prove a connection.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A tier-1 analyst wants to isolate the CFO's laptop through EDR right away, but is unsure whether the containment authority pre-authorises it. What does the lesson advise?",
+    "options": [
+      "Isolate it anyway, because EDR isolation is reversible and therefore always pre-authorised",
+      "Ask the CFO directly by email whether a short interruption to their work is acceptable",
+      "Wait until the post-incident review clarifies the authority, then act on its conclusion",
+      "Treat it as not pre-authorised: recommend it, state the time pressure and escalate"
+    ],
+    "correct": 3,
+    "explanation": "When unsure, the analyst treats the action as needing approval, because a short wait rarely decides an incident while an unauthorised outage of a critical user can become an incident itself. Isolating a critical user's device is listed as needing incident lead approval, and emailing a possibly compromised user risks tipping off.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Banyan's head of finance objects that disabling divya, a payments approver, will stop a payment run. In the lesson's model, what role does the business owner play?",
+    "options": [
+      "The owner holds a veto and may postpone containment until the payment run has completed",
+      "The owner is consulted on timing and workarounds, such as a deputy approving payments",
+      "The owner executes the account changes, because finance administers its own approvers",
+      "The owner has no role, because containment decisions belong only to the security team"
+    ],
+    "correct": 1,
+    "explanation": "Business owners are consulted where an action stops a process; they shape timing and workarounds and own continuity, but do not usually veto stopping active harm. The identity team, not finance, executes account actions.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the lesson's comparison of containment options, which pairing correctly describes why wiping and reimaging WS-104 is not part of the Banyan containment recommendation?",
+    "options": [
+      "It stops the attacker poorly on that host, and its business impact is lower than isolation",
+      "It sends a weak tip-off signal, so it should be saved for the end of the coordinated window",
+      "It keeps very little evidence, and belongs to recovery once evidence has been captured",
+      "It cannot be executed remotely, so it needs the user to bring the device to IT operations"
+    ],
+    "correct": 2,
+    "explanation": "Wipe and reimage stops the attacker on that host but rates very low for evidence and high for impact, so it is reserved for after collection, as a recovery step. It is rated as a strong signal, not a weak one, and it stops the attacker well on the host.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is EDR network isolation, rather than switch-port or VLAN isolation, the preferred first action for WS-104?",
+    "options": [
+      "It keeps the host running and reachable through the EDR console for live collection",
+      "It blocks the attacker's local administrator account as well as the host's network traffic",
+      "It sends no signal to the attacker, because the beacon keeps reaching the attacker's server",
+      "It cuts the management channel too, which prevents the attacker using the EDR for access"
+    ],
+    "correct": 0,
+    "explanation": "EDR isolation blocks all traffic except the management console, so memory and processes are preserved and investigators can still reach the host; switch-port or VLAN isolation usually also cuts that channel. A beacon that stops checking in is noticeable, so isolation does send a signal.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which set of actions does the lesson place in the silent preparation before the coordinated Banyan containment window?",
+    "options": [
+      "Resetting divya first, blocking the domains, and asking IT operations to reboot WS-104 cleanly",
+      "Confirming out-of-band channels, exporting logs, briefing executors and arranging a payments workaround",
+      "Emailing gopal and divya about the investigation and asking them to stop using their accounts",
+      "Blocking 203.0.113.66 at the VPN, then watching whether the attacker changes source address"
+    ],
+    "correct": 1,
+    "explanation": "Only steps that send no signal happen before the window: out-of-band confirmation, log export, briefing executors by phone or bridge, and the finance workaround. Account resets and IP blocks are visible to the attacker, and emailing compromised users is a classic tip-off.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A mature team proposes delaying containment for a day to observe the Banyan attacker and map more infrastructure. According to the lesson, who may make that decision and when is it inappropriate?",
+    "options": [
+      "The analyst who knows the evidence best; it is inappropriate only if the attacker is already dormant",
+      "The network team that would apply the blocks; it is inappropriate when indicators are still unknown",
+      "The SOC manager under pre-authorisation; it is inappropriate when no law-enforcement request exists",
+      "The incident lead with legal and business owners; it is inappropriate while data is leaving or harm continues"
+    ],
+    "correct": 3,
+    "explanation": "Deliberately leaving an intruder active is a decision for the incident lead with legal and business owners, sometimes at law enforcement's request, and not appropriate when harm is ongoing. It is never an analyst-alone decision, and a law-enforcement request is a possible reason, not a precondition.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After the Banyan window closes, IT ops replies that every action is done. What must happen before the analyst can call the footholds contained?",
+    "options": [
+      "The incident lead must sign the post-incident review, which formally closes containment",
+      "The domain blocks must be removed, so that normal traffic can confirm the beacon has gone",
+      "Verification in the SIEM and EDR console that the beacon, sign-ins and VPN access have stopped",
+      "Eradication must be completed, because containment is only confirmed by a rebuilt host"
+    ],
+    "correct": 2,
+    "explanation": "An action approved but not confirmed is not yet containment: the analyst checks for successful requests to the domains, VPN authentication from 203.0.113.66, unexpected sign-ins by gopal or divya, and the EDR isolation status. Eradication and the review come later and are separate phases.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the containment verification, the SIEM shows several blocked proxy requests from WS-104 to cdn-telemetry-sync.example after the window. How should the analyst read this?",
+    "options": [
+      "As expected and useful block hits, provided no request to the domain actually succeeded",
+      "As proof that EDR isolation failed, so WS-104 must be powered off immediately",
+      "As a sign that the attacker has migrated, so the domain block can safely be removed",
+      "As a logging error, because an isolated host cannot generate any proxy events at all"
+    ],
+    "correct": 0,
+    "explanation": "The lesson notes that block hits are expected and useful during verification; what would show incomplete containment is a successful request to the blocked domains. Blocked attempts do not prove isolation failed, and removing the block would reopen the channel.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Banyan containment recommendation ends with 'Decision requested within 15 minutes'. Which purpose of a good recommendation does this line serve?",
+    "options": [
+      "It sets the maximum time NIST allows between detection and the start of containment",
+      "It makes the decision easy and time-bound, so the incident lead can approve in one reply",
+      "It authorises the analyst to execute the actions alone if no reply arrives in that time",
+      "It informs the attacker's likely dwell time, which the business owner needs for planning"
+    ],
+    "correct": 1,
+    "explanation": "The analyst's job is to make the decision easy: name action, target, impact, evidence consideration and owner, and ask for a decision by a stated time. A deadline does not convert a non-pre-authorised action into one the analyst may take alone, and NIST sets no such limit.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which of the lesson's criteria from NIST SP 800-61 Rev. 2 is most directly at stake when choosing EDR isolation over power-off for WS-104?",
+    "options": [
+      "Duration, because isolation is a permanent solution whereas power-off is an emergency step",
+      "Effectiveness, because power-off only partly contains a host that has a live C2 channel",
+      "Time and resources, because isolation needs no staff while power-off needs a site visit",
+      "The need to preserve evidence, because isolation keeps memory that power-off destroys"
+    ],
+    "correct": 3,
+    "explanation": "Both actions stop the host's network activity; the difference that drives the choice is evidence, since power-off destroys memory, processes and network state. Power-off is not partial containment, and isolation is a short-term, reversible action rather than a permanent solution.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "gopal's VPN history shows a success from 203.0.113.66 at 06:46Z and another from 198.51.100.104 (country IN) at 13:33Z. What practical consequence does the lesson draw for containing his account?",
+    "options": [
+      "Only the 06:46Z session needs ending, because the later session proves the account is clean",
+      "The 13:33Z session must be the attacker too, so gopal's laptop WS-107 should be reimaged",
+      "The reset may interrupt the genuine gopal, who must be contacted and given new credentials out of band",
+      "The account should be left active so that the attacker's next sign-in can be traced to its source"
+    ],
+    "correct": 2,
+    "explanation": "The later success may be the real user working remotely, so containment will interrupt a genuine person who must be reached by phone and re-credentialed out of band. A legitimate later session does not clean the account, and nothing in the evidence links WS-107 to the intrusion.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the VPN query, eight different accounts fail from 203.0.113.66 at seven-second intervals, one attempt each, followed by gopal's success four minutes later. Which interpretation fits the lesson?",
+    "options": [
+      "Password spraying (T1110.003) ending in a valid credential, a foothold to contain",
+      "A brute-force attack on one account, so locking gopal alone fully contains the activity",
+      "A misconfigured VPN client retrying cached credentials, so no containment is required",
+      "Credential stuffing from a breach list, so only accounts present in that list need resets"
+    ],
+    "correct": 0,
+    "explanation": "One attempt per account across many accounts at regular intervals is the shape of spraying, and the later success gives the attacker a valid credential with remote access. Brute force targets one account with many attempts, which is not what the rows show.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "divya's account ran the WS-104 payload and is recorded as creating svc_update. The identity team resets her password and revokes her sessions. What does the lesson's foothold table warn about this action?",
+    "options": [
+      "It must be delayed until after eradication, because the reset would erase the 4720 event",
+      "It does not clean WS-104, so the host still needs isolation and its own evidence collection",
+      "It also disables svc_update automatically, because that account was created by divya's session",
+      "It is unnecessary once WS-104 is isolated, since her credential cannot be used from elsewhere"
+    ],
+    "correct": 1,
+    "explanation": "The table notes that the reset does not clean WS-104: the host remains compromised and needs isolation and collection. A credential reset has no effect on a separately created local account, and an isolated host does not stop a stolen credential being used from another device.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Among the lesson's four attacker reactions to being tipped off, which one is the main reason defenders can declare victory too early?",
+    "options": [
+      "Acceleration, because the attacker takes all reachable data before access is lost entirely",
+      "Destruction of evidence, because cleared logs hide the attacker's earlier activity on hosts",
+      "Migration, because the attacker visibly moves to a new domain that defenders then block",
+      "Dormancy, because the attacker goes quiet on known footholds while keeping a hidden one"
+    ],
+    "correct": 3,
+    "explanation": "Dormancy means silence on the known footholds while a hidden one stays open, which makes containment look complete when it is not. Migration is also a move to an unknown foothold, but the lesson ties premature victory specifically to dormancy.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the recommendation-to-verification sequence, why does the SOC analyst appear at both the start and the end of the exchange?",
+    "options": [
+      "Because the analyst holds the containment authority and must both approve and execute",
+      "Because the business owner requires the analyst to sign off any workaround it arranges",
+      "Because the analyst knows which indicators should go silent and can query the SIEM to confirm it",
+      "Because the executors cannot record action times, so the analyst logs them on their behalf"
+    ],
+    "correct": 2,
+    "explanation": "The analyst understands the evidence, so they write the recommendation and then verify that the beacon has stopped and no further sign-ins occurred. The incident lead, not the analyst, holds the authority, and executors report the time of each action themselves.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

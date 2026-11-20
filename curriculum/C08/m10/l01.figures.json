@@ -1,0 +1,18 @@
+{
+  "C08-M10-L01-F1": {
+    "title": "From hunt trigger to testable hypothesis",
+    "caption": "Refuting evidence and a feasibility check come before any data is examined, and every hypothesis ends in one of three outcomes.",
+    "alt": "A top-to-bottom flow of seven steps. A hunt trigger becomes a behavior statement, then gains an entity and time scope, then a list of observable predictions tied to sources. Next comes writing refuting evidence before looking at data, then a feasibility check on whether the needed sources exist. The final step shows three possible outcomes: positive, benign, or no-data, where no-data follows when required sources are missing.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Trigger", "sub": "Intel, anomaly, change, prior incident", "tone": "slate" },
+      { "label": "Behavior", "sub": "What a system would do", "tone": "blue" },
+      { "label": "Scope", "sub": "Entities and UTC window", "tone": "blue" },
+      { "label": "Predictions", "sub": "Two or more, each tied to a source", "tone": "violet" },
+      { "label": "Refuting evidence", "sub": "Written before data is pulled", "tone": "orange" },
+      { "label": "Feasibility check", "sub": "Sources missing leads to no-data", "tone": "dark" },
+      { "label": "Outcome", "sub": "Positive, benign or no-data", "tone": "green" }
+    ]
+  }
+}

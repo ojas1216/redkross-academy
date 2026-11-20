@@ -1,0 +1,327 @@
+[
+  {
+    "q": "What is the main product of data needs analysis in a hunt?",
+    "options": [
+      "A ranked list of hypotheses ordered by business impact",
+      "A set of tuned detection rules for each data source",
+      "A matrix showing, per prediction, whether the hunt can answer it",
+      "A list of hosts that should be reimaged before hunting"
+    ],
+    "correct": 2,
+    "explanation": "The data-needs matrix links each prediction to a source, fields, coverage and join keys, and marks it answerable, partial or unanswerable. Ranking hypotheses is a separate step, and detection rules come later, if at all.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Proxy retention is 14 days, but a hypothesis predicts a domain \"first seen in the last 30 days.\" How should the analyst proceed?",
+    "options": [
+      "Test first seen in 14 days and record the reduced baseline as a limitation",
+      "Report the 30-day first-seen result, since 14 days is close enough",
+      "Mark every destination as first seen because the history is incomplete",
+      "Abandon the hunt because proxy retention is shorter than planned"
+    ],
+    "correct": 0,
+    "explanation": "A baseline cannot be longer than retention. The question is partly answerable over the shorter period, and the limitation must be recorded. Reporting a 30-day result would be wrong, and marking everything first seen would make the result meaningless.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which inventory matches the saved Banyan dataset?",
+    "options": [
+      "340 rows: 284 proxy, 33 Windows, 13 Sysmon and 10 VPN",
+      "340 rows: 284 proxy, 33 Sysmon, 13 Windows and 10 VPN",
+      "340 rows: 284 proxy, 33 Sysmon, 13 VPN and 10 Windows",
+      "348 rows: 284 proxy, 33 Sysmon, 21 Windows and 10 VPN"
+    ],
+    "correct": 1,
+    "explanation": "The lab JSON Lines file contains 340 rows: 284 proxy, 33 Sysmon, 13 Windows and 10 VPN. Knowing the inventory, including what it lacks, is the first step in deciding which questions can be answered.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which result is evidence of absence rather than absence of evidence?",
+    "options": [
+      "A VPN search for file share access after 06:46:00Z returns nothing",
+      "A mail search for invoice attachments returns nothing in the SIEM",
+      "A cloud audit search for gopal sign-ins returns no matching events",
+      "A query validated on the WS-104 request finds no other host at that domain"
+    ],
+    "correct": 3,
+    "explanation": "Evidence of absence requires a source that could have recorded a positive and a query shown to find one. Proxy data covers the workstations, and the query matched the known WS-104 request. The other searches target data that is missing from the Banyan inventory.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should the question \"What did WS-104 send to files-share-drop.example?\" be classified?",
+    "options": [
+      "Answerable, because the proxy records the outbound byte count",
+      "Partially answerable: volume is visible, but content is not",
+      "Unanswerable, because the proxy has no record of the request",
+      "Answerable, if inventory enrichment shows the host's department"
+    ],
+    "correct": 1,
+    "explanation": "The proxy records 48,200,000 outbound bytes, which answers how much, but there is no payload evidence, so what was sent is unknown. Enrichment about the department cannot reveal content.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One source records only internal IP addresses, while the endpoint source records hostnames. What is needed to join them reliably?",
+    "options": [
+      "An ingest-time field to align the records by arrival order",
+      "A threat intelligence feed listing the internal addresses",
+      "A DHCP or asset mapping that is valid for the event time",
+      "A static list of addresses exported from last year's audit"
+    ],
+    "correct": 2,
+    "explanation": "IP addresses move between hosts, so the mapping must be valid at the time of the event. A year-old static list may be wrong, ingest time does not identify hosts, and intelligence feeds do not cover internal addressing.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which timestamp should be used to sequence events across sources?",
+    "options": [
+      "Event time; ingest time is useful for spotting collection delays",
+      "Ingest time, because it is set by one central SIEM clock",
+      "Whichever is earlier, so that no event is ever missed",
+      "An average of the two, so clock skew cancels out between sources"
+    ],
+    "correct": 0,
+    "explanation": "Event time reflects when the activity occurred. Ingest time reflects when the record arrived, which can lag unevenly across sources. Ingest time is still useful for finding collection delays.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst links the 06:46:00Z gopal VPN success to the 08:12:00Z WS-104 transfer because both happened that morning. Why is this link invalid?",
+    "options": [
+      "The transfer happened too long after the authentication to matter",
+      "VPN timestamps are in local time while proxy times are in UTC",
+      "The VPN success came from a documentation-range address",
+      "Temporal proximity is not a join key, and no shared field exists"
+    ],
+    "correct": 3,
+    "explanation": "The VPN records have no endpoint identifier, and nothing in the proxy or endpoint records references the VPN identity. Events being close in time does not connect them. The brief gives all times in UTC, so a time zone mismatch is not the issue.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An asset inventory associates WS-104 with a named user. How should that be used in the hunt?",
+    "options": [
+      "As a source observation that the user was at WS-104 that day",
+      "As dated enrichment, not as evidence the user used WS-104 then",
+      "As a join key linking the user's VPN session to WS-104",
+      "As proof that the VPN identity and the host belong together"
+    ],
+    "correct": 1,
+    "explanation": "Inventory describes the organization's records about a host, not activity observed on 2026-11-03. The brief requires inventory associations to be shown as enrichment. Using them to create a link the event data lacks would overstate the evidence.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The endpoint agent runs on about 90 percent of workstations, and a hunt finds no Office child processes. Which statement is accurate?",
+    "options": [
+      "No Office child processes occurred on any workstation in scope",
+      "The hunt is invalid and must be discarded until coverage is full",
+      "The behavior was not observed on the roughly 90 percent with agents",
+      "The 10 percent without agents can be treated as clear by inference"
+    ],
+    "correct": 2,
+    "explanation": "Population coverage limits what the result covers. The negative applies only to hosts that send data. The hunt is still useful, but its scope statement must reflect the coverage, and hosts without agents cannot be inferred clear.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A hypothesis predicts a download preceded execution by about two minutes. How much clock skew between sources can it tolerate?",
+    "options": [
+      "Up to about a minute, since the order would still hold",
+      "Up to five minutes, since both events fall within one hour",
+      "Any amount, since proxy and endpoint clocks never matter",
+      "None at all, since any skew invalidates cross-source order"
+    ],
+    "correct": 0,
+    "explanation": "Skew matters when it is comparable to the predicted gap. A minute of skew leaves a two-minute order intact. Five minutes could reverse it. Small skew is normal and does not invalidate sequencing on its own.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Sysmon configuration logs process creation but excludes network connections. Which coverage dimension does this gap affect?",
+    "options": [
+      "Population coverage",
+      "Event coverage",
+      "Field coverage",
+      "Temporal coverage"
+    ],
+    "correct": 1,
+    "explanation": "Event coverage is about which event types a source records. The agent may be on every host with all fields populated for the events it does log, but network connection events are not collected, so predictions needing them cannot be tested from this source.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is \"we have endpoint data\" an inadequate coverage statement?",
+    "options": [
+      "It does not name the vendor that produced the agent",
+      "It should be phrased as a share of total log volume",
+      "It omits the SIEM license tier used to store the data",
+      "It omits population, event, field and time coverage"
+    ],
+    "correct": 3,
+    "explanation": "Coverage varies along those four dimensions, and any one of them can make a prediction untestable. A useful statement says which hosts, which events, which fields and which period, and notes known gaps.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Endpoint retention is 7 days, and the hypothesis concerns a download-then-execution sequence 10 days ago. What is the outcome for the full hypothesis?",
+    "options": [
+      "Positive, if the proxy half of the sequence is present",
+      "Benign, because no endpoint events were returned",
+      "No-data, because the endpoint half cannot be tested",
+      "Partial positive, reported from the proxy half alone"
+    ],
+    "correct": 2,
+    "explanation": "The sequence requires both halves. With no endpoint data for that date, the execution prediction cannot be tested, so the hypothesis is no-data. Reporting the proxy half as if it settled the question would overstate the result.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which hunt question is unanswerable with the Banyan inventory?",
+    "options": [
+      "How many distinct identities failed VPN from 203.0.113.66?",
+      "Was the file WS-104 downloaded delivered by email?",
+      "Did WS-104 request banyan-payroll-update.example?",
+      "How many bytes did WS-104 send at 08:12:00Z?"
+    ],
+    "correct": 1,
+    "explanation": "The dataset has no mail gateway or mailbox audit data, so delivery by email cannot be observed. The other questions are answerable from VPN or proxy records.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Proxy logs leave the user field empty for unauthenticated requests. What happens to a hunt that filters on a specific user?",
+    "options": [
+      "It silently misses unauthenticated requests unless nulls are handled",
+      "It returns unauthenticated requests under a default user value",
+      "It fails with an error that alerts the analyst to the empty field",
+      "It returns the same result, because hosts identify every request"
+    ],
+    "correct": 0,
+    "explanation": "Filters drop rows where the filtered field is null, usually without warning. The analyst should check how many rows have nulls in key fields and handle them deliberately, for example by also querying on host.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A collector outage covered two hours inside the hunt window. What should the hunt record say?",
+    "options": [
+      "The result can be extrapolated across the missing period",
+      "The whole hunt must be discarded and rescheduled later",
+      "The outage window can be treated as having no activity",
+      "The hunt cannot speak to those two hours, and says so"
+    ],
+    "correct": 3,
+    "explanation": "Temporal coverage gaps limit the conclusion to the covered periods. The rest of the window can still be tested. Treating the gap as quiet, or extrapolating into it, would claim knowledge the data does not support.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should \"Did the identity that authenticated from 203.0.113.66 use WS-104?\" be classified, and why?",
+    "options": [
+      "Answerable, because both events occurred on 2026-11-03",
+      "Partially answerable, using the inventory owner of WS-104",
+      "Unanswerable, because no join key links VPN and WS-104 records",
+      "Answerable, by matching the VPN address to the proxy source IP"
+    ],
+    "correct": 2,
+    "explanation": "The VPN records have no endpoint identifier, and 203.0.113.66 is an external address, not WS-104's internal proxy source. Sharing a date is not a link, and inventory ownership is enrichment that cannot show use at that time.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson recommend tying each visibility gap to a specific hunting question?",
+    "options": [
+      "It removes the need to document the gap anywhere in the hunt record",
+      "It makes the case for collection by showing what the gap blocks",
+      "It allows the hunt to be reported as a negative result",
+      "It shows the gap is temporary and needs no follow-up"
+    ],
+    "correct": 1,
+    "explanation": "A gap described only as a missing source is easy to deprioritize. A gap that names the question it blocks, such as testing sector-reported document delivery, gives data engineering a concrete reason to collect.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A query returns events from a host the analyst had marked as outside source coverage. What should happen next?",
+    "options": [
+      "Correct the coverage statement in the matrix before concluding",
+      "Discard those events, since the host was declared out of scope",
+      "Treat the events as suspicious because the host should be silent",
+      "Proceed with conclusions, since coverage matters only for empty results"
+    ],
+    "correct": 0,
+    "explanation": "Unexpected events show that the coverage statement was wrong. Every conclusion that depends on coverage, positive or negative, should be rechecked against the corrected matrix. Discarding the events would hide real data.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why must an endpoint source populate the parent image field for an Office child-process hypothesis?",
+    "options": [
+      "Parent fields are required for the SIEM to index process events",
+      "Without it, the hunt cannot apply a time window to processes",
+      "Without it, a process cannot be matched to any proxy request",
+      "Without it, the source cannot show which process started the child"
+    ],
+    "correct": 3,
+    "explanation": "The prediction is about the relationship between parent and child. A source that records process creation without the parent cannot test it, even though the source exists. Time windows and host joins rely on other fields.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "No DNS logs exist, and a hypothesis predicts a host resolved a rare domain and then connected to it. What does the lesson recommend?",
+    "options": [
+      "Infer resolution from the proxy request and mark that half answerable",
+      "Ask whether resolution adds discriminating power, and drop it if not",
+      "Report the full hypothesis as benign since no resolution appears",
+      "Substitute firewall logs, which record the resolution step as well"
+    ],
+    "correct": 1,
+    "explanation": "The resolution half cannot be tested without DNS data, but the request is visible in proxy logs. If resolution adds little discrimination beyond the request, removing it keeps the hypothesis testable. Inferring it would claim an unobserved event, and firewall logs do not record DNS resolution as such.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the main risk of mixing local time and UTC across sources?",
+    "options": [
+      "Queries will fail to run on most SIEM platforms",
+      "Byte counts will be scaled by the time zone offset",
+      "A sequence can appear reversed or be invented",
+      "Hosts will be assigned to the wrong peer group"
+    ],
+    "correct": 2,
+    "explanation": "An offset of hours can place a later event before an earlier one, or create an apparent sequence between unrelated events. Normalizing all sources to UTC, and stating that this was done, prevents it.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which pair of conditions does the lesson require before an empty result counts as evidence of absence?",
+    "options": [
+      "The right source and fields, plus a query shown to find a known positive",
+      "A large enough dataset, plus a query that returns zero rows quickly",
+      "A recent intelligence report, plus no matches for its indicators",
+      "An empty result, plus a reviewer who agrees the behavior is unlikely"
+    ],
+    "correct": 0,
+    "explanation": "The analyst must show the search could have found a positive. That needs a source with the right fields and coverage, and a query validated against a known positive. Dataset size, fast execution and reviewer opinion do not establish that.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which source would record whether an Office application started a child process?",
+    "options": [
+      "Proxy logs, which record destination domains and bytes",
+      "VPN authentication logs, which record source addresses",
+      "Firewall logs, which record addresses and ports",
+      "Endpoint process creation events with parent image"
+    ],
+    "correct": 3,
+    "explanation": "Only endpoint process data, such as Sysmon process creation with the parent image field, observes which process started another. Network sources see traffic and authentication sources see logons, not process relationships.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

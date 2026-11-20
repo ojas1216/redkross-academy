@@ -301,16 +301,16 @@ export const LIBRARY_SPECS = [
     "quizId": "quiz_c08_m1",
     "title": "Module 1: SOC operations - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    },
    {
     "number": 2,
     "quizId": "quiz_c08_m2",
-    "title": "Module 2: Telemetry foundations - Assessment",
+    "title": "Module 2: Telemetry - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    },
@@ -319,52 +319,88 @@ export const LIBRARY_SPECS = [
     "quizId": "quiz_c08_m3",
     "title": "Module 3: SIEM fundamentals - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    },
    {
     "number": 4,
     "quizId": "quiz_c08_m4",
-    "title": "Module 4: Alert triage - Assessment",
+    "title": "Module 4: Log analysis - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    },
    {
     "number": 5,
     "quizId": "quiz_c08_m5",
-    "title": "Module 5: Threat intelligence - Assessment",
+    "title": "Module 5: Alert triage - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    },
    {
     "number": 6,
     "quizId": "quiz_c08_m6",
-    "title": "Module 6: Detection engineering - Assessment",
+    "title": "Module 6: Threat intelligence - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    },
    {
     "number": 7,
     "quizId": "quiz_c08_m7",
-    "title": "Module 7: Incident handling - Assessment",
+    "title": "Module 7: Detection engineering - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    },
    {
     "number": 8,
     "quizId": "quiz_c08_m8",
-    "title": "Module 8: Threat hunting and capstone - Assessment",
+    "title": "Module 8: Incident handling - Assessment",
     "passingScore": 70,
-    "count": 10,
+    "count": 20,
+    "timeLimitMinutes": 15,
+    "tokenBounty": 100
+   },
+   {
+    "number": 9,
+    "quizId": "quiz_c08_m9",
+    "title": "Module 9: Phishing and malware triage - Assessment",
+    "passingScore": 70,
+    "count": 20,
+    "timeLimitMinutes": 15,
+    "tokenBounty": 100
+   },
+   {
+    "number": 10,
+    "quizId": "quiz_c08_m10",
+    "title": "Module 10: Threat hunting - Assessment",
+    "passingScore": 70,
+    "count": 20,
+    "timeLimitMinutes": 15,
+    "tokenBounty": 100
+   },
+   {
+    "number": 11,
+    "quizId": "quiz_c08_m11",
+    "title": "Module 11: SOC automation - Assessment",
+    "passingScore": 70,
+    "count": 20,
+    "timeLimitMinutes": 15,
+    "tokenBounty": 100
+   },
+   {
+    "number": 12,
+    "quizId": "quiz_c08_m12",
+    "title": "Module 12: Capstone - Assessment",
+    "passingScore": 70,
+    "count": 20,
     "timeLimitMinutes": 15,
     "tokenBounty": 100
    }
@@ -373,8 +409,9 @@ export const LIBRARY_SPECS = [
    "id": "exam_c08_final",
    "title": "SOC Analyst and Security Operations - Final Assessment",
    "passingScore": 70,
-   "count": 40,
+   "count": 50,
    "fromModules": 20,
+   "selection": "combined",
    "timeLimitMinutes": 60,
    "tokenBounty": 300,
    "credentialTitle": "Certificate of Completion: SOC Analyst and Security Operations",

@@ -1,0 +1,17 @@
+{
+  "C08-M10-L07-F1": {
+    "title": "Validation gates before an outcome is assigned",
+    "caption": "A failed query check stops interpretation. Benign explanations most often change the outcome, and false-negative checks most often change scope.",
+    "alt": "A top-to-bottom flow of six steps. First, the query is checked with a seeded positive, a known negative, coverage and boundaries, and a failure stops the flow. Second, independent sources are checked for agreement, without counting the same event twice. Third, plausible benign explanations are tested with evidence. Fourth, false negatives such as variants, thresholds and unresolved rows are checked, which can widen scope. Fifth, an outcome of positive, benign or no-data is assigned with a confidence level. Finally, the result is escalated, closed, or carried forward with a trigger.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Query check", "sub": "Seeded positive, negative, coverage, bounds", "tone": "violet" },
+      { "label": "Corroboration", "sub": "Independent sources only", "tone": "blue" },
+      { "label": "Benign explanations", "sub": "Test with evidence or record as open", "tone": "orange" },
+      { "label": "False-negative check", "sub": "Variants, thresholds, unresolved rows", "tone": "slate" },
+      { "label": "Outcome and confidence", "sub": "Positive, benign or no-data", "tone": "dark" },
+      { "label": "Action", "sub": "Escalate, close or carry forward", "tone": "green" }
+    ]
+  }
+}

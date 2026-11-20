@@ -1,0 +1,96 @@
+{
+  "course": "C08",
+  "module": 12,
+  "title": "Capstone",
+  "description": "Complete a defensive SOC shift from synthetic alert triage through case investigations, detection review and a documented change of watch.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Capstone: triage alerts 1-15",
+      "summary": "Build a first-pass triage queue for the first 15 synthetic alerts and document priorities.",
+      "objectives": [
+        "Read the case inputs and source fields",
+        "Prioritise alerts using impact and confidence",
+        "Record evidence and the next owned decision"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Capstone: triage alerts 16-30",
+      "summary": "Complete triage for alerts 16?30 and reconcile the queue with the first batch.",
+      "objectives": [
+        "Group duplicate items while preserving auditability",
+        "Record evidence gaps and independent leads",
+        "Hand off the complete queue with priorities"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Capstone: case 1",
+      "summary": "Investigate the first capstone case and separate evidence of execution from unverified scope.",
+      "objectives": [
+        "Construct a sourced chronology",
+        "Explain confirmed scope and remaining gaps",
+        "Propose and verify a simulated response"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "Capstone: case 2",
+      "summary": "Investigate the second capstone case using authentication evidence and identity context.",
+      "objectives": [
+        "Interpret failed and successful authentication events",
+        "Distinguish identity findings from device attribution",
+        "Define an actionable risk handoff"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 5,
+      "title": "Capstone: case 3",
+      "summary": "Investigate the third capstone case and decide whether verified benign context resolves the alert.",
+      "objectives": [
+        "Test the benign hypothesis with independent records",
+        "Document the threshold for reopening",
+        "Separate closure from permanent suppression"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Capstone: detection 1",
+      "summary": "Specify and test a defensive detection from the capstone evidence using offline fixtures.",
+      "objectives": [
+        "State a relationship, window and grouping field",
+        "Exercise positive and negative fixture cases",
+        "Bound the coverage and downstream response"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 7,
+      "title": "Capstone: detection 2",
+      "summary": "Review a second capstone detection for context, duplicates and gaps.",
+      "objectives": [
+        "Define expected signals and important false positives",
+        "Verify behaviour with controlled fixtures",
+        "Recommend tuning and review criteria"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "Capstone: shift report",
+      "summary": "Write a shift report with decisions, evidence, operational risks and clear ownership.",
+      "objectives": [
+        "Reconcile all capstone alert dispositions",
+        "Communicate actionable findings with confidence",
+        "Assign verification and next review to named roles"
+      ],
+      "minutes": 90
+    }
+  ]
+}

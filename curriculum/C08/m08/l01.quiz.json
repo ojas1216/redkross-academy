@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The VPN log shows a burst of 40 failed logons for one account from an external address, with no successful logon. How should this activity be classified under the lifecycle's terminology?",
+    "options": [
+      "An adverse event that warrants triage; it becomes an incident only when an authorised role declares one",
+      "An incident, because any activity that threatens an account's confidentiality is by definition an incident",
+      "A routine event, because no logon succeeded and therefore no harm occurred",
+      "An indicator that an incident has already occurred on the VPN gateway itself"
+    ],
+    "correct": 0,
+    "explanation": "A failed-logon burst has potential for harm, which makes it an adverse event; incident status is a recorded declaration by the role the policy names, not a property of a single alert. Calling it an incident floods the IR process with triage-level work.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "While WS-104 is being isolated, a responder finds a second beacon domain in the workstation's memory that the SOC had not seen before. What should happen next?",
+    "options": [
+      "Continue eradication as planned and hunt for the new domain during the post-incident review",
+      "Block the new domain immediately and close the incident once the beacons stop",
+      "Return to analysis: hunt for the new domain across all hosts before eradication continues",
+      "Rebuild WS-104 at once so that the second channel is removed together with the disk"
+    ],
+    "correct": 2,
+    "explanation": "This is the lifecycle's 'new indicators, rescope' feedback path: a new indicator found during containment sends the team back to analysis so that other hosts using it are found. Blocking it and closing assumes WS-104 is the only host involved, which nobody has checked.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which of the following is a precursor rather than an indicator in the SP 800-61 Rev. 2 sense?",
+    "options": [
+      "Word starting PowerShell on a finance workstation shortly after a download",
+      "A sector advisory that payroll-themed phishing is targeting microfinance companies",
+      "A 48 MB upload from a workstation to a look-alike file-sharing domain",
+      "A new local administrator account created on a finance workstation outside change hours"
+    ],
+    "correct": 1,
+    "explanation": "A precursor warns that an incident may happen in future; the advisory describes a threat, not activity already seen in your environment. The other three are indicators that something may already be happening; a specific precursor can still be acted on, for example by watching for look-alike payroll domains.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Analysts see files on a shared file server being encrypted, and the encryption is spreading to more shares by the minute. The IR lead asks whether containment should wait until scoping is finished. What is the right advice?",
+    "options": [
+      "Wait, because containing before scoping always tips off the attacker and loses other footholds",
+      "Wait until the hunt searches confirm whether any other hosts are involved in the activity",
+      "Take and hash a full disk image first, then contain once the evidence is preserved",
+      "Contain now, because serious ongoing harm outweighs the benefit of scoping first"
+    ],
+    "correct": 3,
+    "explanation": "Scope before containing is the default, but the lesson names active encryption as the exception where containment cannot wait. Preserving evidence matters, but it must never delay stopping serious harm, so imaging first is the wrong order here.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The hunt script reports no other hosts contacting the case domains and shows the Word-to-PowerShell pair on only one host. Which scoping statement should the analyst give the IR lead?",
+    "options": [
+      "No other host is affected, so containment can safely be limited to WS-104",
+      "Within the telemetry available, the endpoint compromise appears limited to WS-104",
+      "The hunt proves that no other device on the network ever contacted the case domains",
+      "Scope cannot be stated at all until every host has been forensically imaged"
+    ],
+    "correct": 1,
+    "explanation": "A scoping statement is only as good as the telemetry behind it, so it must name its basis. 'No other host is affected' overstates what proxy and process records can show; refusing to state any scope until every host is imaged would stall a decision the IR lead needs.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A Tier 2 analyst is certain that a case is a serious intrusion. Who should record the decision that it is an incident?",
+    "options": [
+      "The role named in the IR policy, usually the IR lead, based on the analyst's facts",
+      "The analyst who opened the first alert, because they know the evidence best",
+      "The SIEM, automatically, once the case priority score passes a set threshold",
+      "The legal team, because the declaration may start a regulatory reporting clock running"
+    ],
+    "correct": 0,
+    "explanation": "Declaration commits people and money and may start clocks, so the IR policy assigns it to a named role; the analyst supplies the facts and the time noticed. Legal assesses reportability, but it does not normally own the decision that a case is an incident.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In Banyan, the malicious document was downloaded at 06:12Z and, in the illustrative SOC times, the incident was noticed at 08:25Z. What is the gap and what does it represent?",
+    "options": [
+      "73 minutes; it measures how long containment took once the incident was declared",
+      "133 minutes; it measures how long the analyst took to escalate the case to the IR lead",
+      "73 minutes; it is the attacker's free time between initial access and detection",
+      "133 minutes; it is the attacker's free time before the SOC noticed the activity"
+    ],
+    "correct": 3,
+    "explanation": "06:12Z to 08:25Z is 2 hours 13 minutes, or 133 minutes, during which the upload and log clearing had already happened. It is time between first malicious activity and noticing, not escalation or containment time; reducing it is the aim of most SOC improvement work.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The attacker cleared the Security log on WS-104 at 08:17Z (event ID 1102), yet the analysts could still reconstruct the earlier activity. Why?",
+    "options": [
+      "Event ID 1102 records every deleted entry, so the cleared events can be restored from it",
+      "The R5 rule fired before the clearing and quarantined a protected copy of the log file on the host",
+      "The earlier events had already been forwarded to central logging before the log was cleared",
+      "The attacker cleared only the System log, so the Security log on the host stayed intact"
+    ],
+    "correct": 2,
+    "explanation": "Centralised telemetry, built during preparation, meant the events had left the host before 08:17Z. Event 1102 only records that the log was cleared; it does not contain the deleted entries.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "For Banyan, the analyst recommends isolating WS-104, blocking both domains and the spraying address, and resetting both accounts as one coordinated set rather than one at a time. What is the main reason?",
+    "options": [
+      "Each action needs separate approval, and one combined request is approved much more quickly",
+      "The SOC executes all containment itself, and one EDR job is simpler to run than several",
+      "Containing one foothold while another stays open warns the attacker and leaves a way back",
+      "The CERT-In report must list every containment action taken within one log entry"
+    ],
+    "correct": 2,
+    "explanation": "Piecemeal containment tells the attacker they have been seen while a second foothold (here gopal's VPN access) remains usable. The SOC normally advises rather than executes containment, so the EDR job option misdescribes its role.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104 was isolated at 09:05Z. At 09:20Z the analyst re-runs the proxy search and still sees regular requests to cdn-telemetry-sync.example. What is the correct interpretation?",
+    "options": [
+      "Either the isolation failed or another host is infected; the scope must be re-examined",
+      "The proxy logs are probably delayed, so recheck only after the next status update",
+      "The domain block failed, but the isolation of WS-104 can still be marked as verified",
+      "The requests are cached lookups that continue briefly and can be ignored after isolation"
+    ],
+    "correct": 0,
+    "explanation": "Verification means the detecting search should go quiet after the action; continuing beacons mean isolation did not work or a second host is beaconing, which sends the team back to analysis. Assuming log delay, without checking which host the requests came from, risks missing a second foothold.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Evidence from WS-104 has been exported and hashed, and the IR lead now asks how the workstation should be returned to service. What should the analyst recommend?",
+    "options": [
+      "Remove the malware and the svc_update account, then return the cleaned device to divya for use",
+      "Rebuild it from a known-good image, then watch closely for the case indicators on its return",
+      "Rebuild it at once to get the user working, and recover any evidence later from backups",
+      "Return it after a full antivirus scan reports clean, keeping it isolated for one more day"
+    ],
+    "correct": 1,
+    "explanation": "Recovery should rebuild from known-good state rather than 'clean' a compromised machine, because unknown persistence may survive cleaning, and a returning host is a re-entry risk that needs close monitoring. Rebuilding before preserving evidence destroys what scoping and any legal process need.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The svc_update account and the malware have been removed from WS-104. What else must eradication include for this incident to be complete?",
+    "options": [
+      "Deleting the Banyan events from the SIEM so that the case can be formally closed",
+      "Blocking every file-sharing service across the organisation on a permanent basis",
+      "Re-enabling the Security log on WS-104 and restoring all of the cleared entries from a backup",
+      "Fixing the weaknesses used: macro-enabled internet documents and a guessable VPN password"
+    ],
+    "correct": 3,
+    "explanation": "Eradication removes the attacker's presence and the weakness they used to get in; otherwise the same route works again. Re-enabling logging is useful hardening, but it does not close the entry points the attacker actually used.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the post-incident review, the team notes that the beacon rule R6 had the lowest priority score in the queue (3.6) although it showed command and control. What is the appropriate outcome?",
+    "options": [
+      "A tracked detection-tuning change that feeds back into Preparation for the next incident",
+      "Retiring R6 entirely, since the other five rules detected the incident without its help anyway",
+      "Lowering the priority of R1 so that R6 appears relatively higher in future queues",
+      "Accepting the score, because beaconing alerts are by nature low-severity findings"
+    ],
+    "correct": 0,
+    "explanation": "The 'improvements' arrow runs from Post-Incident Activity to Preparation; an under-prioritised C2 alert is a tuning lesson to act on. Lowering R1 would just hide a different true positive rather than fix R6's scoring.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "triage.py prints a priority score from base severity, rule confidence and asset criticality. Two alerts come from the same rule, one on a finance workstation and one on a low-criticality kiosk. Which scores higher?",
+    "options": [
+      "Both score the same, because the score depends only on the rule that fired",
+      "The kiosk, because low-criticality devices are the easiest for attackers to use",
+      "The finance workstation, because asset criticality multiplies into the score",
+      "Neither is fixed; the Tier 1 analyst sets each score by hand during triage"
+    ],
+    "correct": 2,
+    "explanation": "The score multiplies base severity by rule confidence and asset criticality, so the same rule on a more critical asset scores higher; this is why the asset table lifts every WS-104 alert. The score is calculated by the script, not set by hand.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Hunt H1 reports: WS-104 https://cdn-telemetry-sync.example/api/v2/ping n=18 mean_gap=300s cv=0.004. What does the cv value tell the analyst?",
+    "options": [
+      "The requests are rare and irregular, which is typical of a person browsing to the site by hand",
+      "Only 0.4 percent of the requests reached the domain and the rest were blocked",
+      "The gaps between requests vary by about 0.4 seconds on average from 300 seconds",
+      "The gaps between requests are almost perfectly regular, typical of automated beaconing"
+    ],
+    "correct": 3,
+    "explanation": "The coefficient of variation is the standard deviation divided by the mean; 0.004 means near-identical gaps of about 300 seconds, the signature of a timer-driven beacon. It is a ratio, not seconds: 0.004 of 300 s is a deviation of about 1.2 s, not 0.4 s.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Hunt H2 reports: WINWORD.EXE -> powershell.exe hosts=1 n=1. How does this output help scoping?",
+    "options": [
+      "It proves that PowerShell was never run on any other host for any purpose",
+      "It shows the Word-to-PowerShell pattern appears on only one host in the telemetry",
+      "It shows that Word launched PowerShell once on each of the hosts examined",
+      "It identifies the malicious document's hash so it can be blocked at the gateway"
+    ],
+    "correct": 1,
+    "explanation": "H2 lists parent-child pairs seen on only one host; this one occurred once, on one host, which supports limiting the endpoint scope to WS-104. It says nothing about PowerShell started by other parents, so it does not prove PowerShell was never used elsewhere.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A policy reviewer asks where containment and eradication sit in the CSF 2.0 structure used by SP 800-61 Rev. 3. Which answer is correct?",
+    "options": [
+      "Mainly in RS.MI, Incident Mitigation, in the Respond Function",
+      "Mainly in RC.RP, Incident Recovery Plan Execution, in Recover",
+      "Mainly in DE.AE, Adverse Event Analysis, in the Detect Function",
+      "Mainly in RS.MA, Incident Management, in the Respond Function"
+    ],
+    "correct": 0,
+    "explanation": "Rev. 3 places containment and eradication mainly in RS.MI. RS.MA covers managing and coordinating the incident, which is close, but it is not where the actions that stop harm and remove the attacker are placed.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During the incident, an analyst notices that the 06:42Z spray failures raised no alert; only the 06:46Z success did. Under the Rev. 3 framing, what should be done with this observation?",
+    "options": [
+      "Hold it for the post-incident meeting, which is where Rev. 3 places lessons learned",
+      "Put it in the next RS.CO status update so that executives can decide on a fix",
+      "Report it to CERT-In, because gaps in detection coverage must be notified",
+      "Record it now as an input to Improvement (ID.IM), since improvement runs throughout"
+    ],
+    "correct": 3,
+    "explanation": "Rev. 3 moves lessons learned out of a single closing phase: observations from Detect, Respond and Recover feed ID.IM as soon as they are noticed. Holding it for the final review is the Rev. 2 habit the new framing is designed to change.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement about NIST SP 800-61 Revisions 2 and 3 is accurate?",
+    "options": [
+      "Rev. 3 adds a fifth phase called Govern in front of the four Rev. 2 phases",
+      "Rev. 2 remains the current NIST guidance, and Rev. 3 is an optional draft profile",
+      "Rev. 3 supersedes Rev. 2 and frames incident response within the CSF 2.0 Functions",
+      "Rev. 3 retires the phase vocabulary, so playbooks must stop using 'containment'"
+    ],
+    "correct": 2,
+    "explanation": "Rev. 3 (April 2025) supersedes Rev. 2 and describes incident response through the six CSF 2.0 Functions. The classic phase names remain useful working vocabulary, so playbooks need not drop them; citing Rev. 2 as current NIST is the error.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At 02:00 local time, the night shift confirms command and control from a payments approver's laptop, but nobody on shift is authorised to approve isolating it, so isolation waits until 09:00. Which CSF 2.0 Function holds the root gap, and what fixes it?",
+    "options": [
+      "Detect; add a rule that raises beaconing alerts to the highest priority in the queue",
+      "Govern; agree in advance who may authorise containment out of hours, and record it",
+      "Recover; keep a spare laptop ready so that isolation does not stop payment approvals",
+      "Respond; train analysts to isolate hosts themselves without waiting for any approval"
+    ],
+    "correct": 1,
+    "explanation": "Detection worked; the delay came from unclear authority, which is a Govern gap that shows up as delay in Respond. Letting analysts act without approval removes the control instead of fixing the missing pre-agreed authority.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which mapping of a Banyan activity to a CSF 2.0 Category is correct?",
+    "options": [
+      "Building the timeline and scoping the hosts: RS.AN, Incident Analysis",
+      "Rebuilding WS-104 from a known-good image: RS.MI, Incident Mitigation",
+      "Rule R1 firing on WS-104 in the alert queue: DE.AE, Adverse Event Analysis",
+      "Telling executives the status during response: RC.CO, Recovery Communication"
+    ],
+    "correct": 0,
+    "explanation": "Timeline and scoping are incident analysis, RS.AN. Rebuilding is RC.RP, R1 firing is continuous monitoring (DE.CM), and status communication during response is RS.CO, with RC.CO reserved for recovery communication.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The IR lead asks the SOC analyst to 'take care of containment' for Banyan. In most organisations, what does the analyst's work in this phase consist of?",
+    "options": [
+      "Isolating hosts and disabling accounts directly from the SIEM console",
+      "Handing the case to IT operations and pausing monitoring until recovery",
+      "Advising on what to contain and in what order, preserving evidence and verifying actions",
+      "Drafting the CERT-In report, since containment is executed entirely by IT"
+    ],
+    "correct": 2,
+    "explanation": "IT operations, identity and network teams normally execute containment on the IR lead's authority; the SOC advises, preserves evidence where safe and verifies each action by re-running its searches. Pausing monitoring would remove the verification and re-entry watch.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During an ordinary shift with no open incident, an analyst notices that a proxy log source has been silent for two days and that a playbook lists a contact who has left the company. Where does reporting these fit in the lifecycle?",
+    "options": [
+      "Outside the lifecycle, since no incident has been declared yet",
+      "Detection and Analysis, because the silent source is an indicator of compromise",
+      "Post-Incident Activity, because both are lessons learned from a previous case",
+      "Preparation, because the gaps would slow the handling of the next incident"
+    ],
+    "correct": 3,
+    "explanation": "Preparation is continuous SOC work, and reporting telemetry or contact gaps is part of it. A silent source might deserve a check, but on its own it is a coverage gap, not evidence of an intrusion.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-104 is isolated and the beacon has stopped. The identity team is ready to delete svc_update and IT is ready to reimage the disk, but the raw events have not yet been exported. What order should the analyst advise?",
+    "options": [
+      "Reimage first, since recovery restores the business fastest and evidence can wait",
+      "Export and hash the raw events, then remove svc_update and rebuild the workstation",
+      "Delete svc_update first, because the unauthorised account is still a live threat",
+      "Postpone all eradication until the post-incident review has been completed"
+    ],
+    "correct": 1,
+    "explanation": "With harm already stopped by isolation, evidence should be preserved before eradication and rebuild change it. Deleting the account first sounds urgent, but on an isolated host it gains little and loses evidence of how it was created and used.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An attacker keeps both a workstation implant and a compromised VPN account, expecting defenders to contain the first and miss the second. Which practice counters this most directly?",
+    "options": [
+      "Scoping across all telemetry before acting, then containing every foothold together",
+      "Rebuilding the first compromised host as soon as it has been identified",
+      "Increasing the status update cadence so that leadership notices sooner",
+      "Retaining logs for 180 days so that the second foothold can be found later"
+    ],
+    "correct": 0,
+    "explanation": "Multiple footholds defeat piecemeal containment; scoping first and then containing as a coordinated set closes them together. Long log retention helps later investigation but does nothing to stop the attacker using the second foothold now.",
+    "lesson": 1,
+    "difficulty": "hard"
+  }
+]

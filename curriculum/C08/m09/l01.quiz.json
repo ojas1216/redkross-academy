@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An analyst sees conflicting authentication fields above and below the external relay trace. Which evidence should decide the case note?",
+    "options": [
+      "The first field with separate SPF and DKIM results",
+      "The known receiving gateway's recorded evaluation",
+      "The authentication field closest to the visible From address",
+      "The result whose evaluator name resembles the relay domain"
+    ],
+    "correct": 1,
+    "explanation": "Use a validated service identifier and the receiving trust boundary.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The MX and mailbox store assign different queue IDs to one message. How should a search request record this?",
+    "options": [
+      "Give each queue ID with its issuing system",
+      "Use the shorter ID as the canonical index across all mail systems",
+      "Compare the two IDs and keep the one that matches Message-ID",
+      "Ask the sender for its own queue ID before searching internal logs"
+    ],
+    "correct": 0,
+    "explanation": "Each queue identifier is local to the system that issued it.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "SPF passes for an envelope identity and DKIM passes for another unrelated domain. Both differ from visible From. What follows?",
+    "options": [
+      "Two independent passes satisfy the visible domain's requirement",
+      "The signature's result takes precedence over domain comparison",
+      "The envelope check automatically authenticates the displayed author",
+      "Neither passing identity establishes DMARC alignment"
+    ],
+    "correct": 3,
+    "explanation": "DMARC needs a passing authentication result aligned with the visible From.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which field is central when checking DKIM alignment?",
+    "options": [
+      "The recipient domain attached to the SMTP envelope",
+      "The name appearing in parentheses after the inbound peer",
+      "The signing domain in the DKIM d= field",
+      "The service name that gave the signature selector its label"
+    ],
+    "correct": 2,
+    "explanation": "The signing domain is compared with the visible From domain.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does a trusted SPF pass directly support?",
+    "options": [
+      "Legitimacy of the sender's requested financial transaction",
+      "Authorisation for the evaluated sender identity",
+      "Integrity of all attachments as delivered by the relay",
+      "Identity of the employee who composed the message"
+    ],
+    "correct": 1,
+    "explanation": "SPF connects a sending system to the identity evaluated by the receiver.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A vendor confirms the sender platform is authorised but denies the payment change. What should the SOC do?",
+    "options": [
+      "Keep the technical result and escalate the business request",
+      "Close the case because the sender platform was independently verified",
+      "Reclassify every header result as failed because the invoice was disputed",
+      "Wait for the email platform to identify the human sender before contacting Finance"
+    ],
+    "correct": 0,
+    "explanation": "The business claim needs its own verification independent of authentication.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In a prepended Received chain, which hop appears highest?",
+    "options": [
+      "The first submission recorded by the sender's mail provider",
+      "The connection that used the strongest transport method",
+      "The first hop to assign a message queue identifier",
+      "The most recent recorded mail handoff"
+    ],
+    "correct": 3,
+    "explanation": "A receiving server adds its own trace entry above existing ones.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The only record for the apparent original client is below the trusted inbound hop. How should it appear in the report?",
+    "options": [
+      "As a verified source address for the individual sender",
+      "As an internal relay decision verified by its recipient time",
+      "As an external relay claim needing corroboration",
+      "As the organisation's own observation of sender activity"
+    ],
+    "correct": 2,
+    "explanation": "The receiving organisation can substantiate its own inbound peer directly.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why preserve the exact From and Reply-To values?",
+    "options": [
+      "They authenticate the same business identity in two independent ways",
+      "They describe different fields an investigator may compare",
+      "They determine whether a delivered message reached a folder successfully",
+      "They are the two queue identifiers assigned by the receiving system"
+    ],
+    "correct": 1,
+    "explanation": "The reply destination can differ from the address shown to the reader.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A mail service rewrote the message before delivery and SPF failed on forwarding. What should a reviewer check?",
+    "options": [
+      "The receiving evaluation and other aligned authentication evidence",
+      "Whether the sending provider now publishes a different business portal name",
+      "Whether the mailbox client's current theme shows the sender's domain",
+      "Whether message delivery proves the forwarding source is always authorised"
+    ],
+    "correct": 0,
+    "explanation": "Forwarding changes the connecting system and can affect SPF.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the strongest source for a historical authentication verdict?",
+    "options": [
+      "The sender domain's current DNS published several months later",
+      "A comparison with the latest invoice delivered to a different mailbox",
+      "The visible From field extracted from an ordinary screenshot",
+      "The trusted evaluator's record from receipt"
+    ],
+    "correct": 3,
+    "explanation": "Receiver records reflect what the evaluator observed at the relevant time.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An employee sends a screenshot but no preserved original. Which judgment is still defensible?",
+    "options": [
+      "The screenshot establishes the route from the sender to the MX",
+      "The From display proves who controlled the sending account",
+      "The image shows a claim but omits trace provenance",
+      "The screenshot shows any authentication result the server must have recorded"
+    ],
+    "correct": 2,
+    "explanation": "Client presentation cannot substitute for a trusted original or trace.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which data supports searching the internal gateway trace?",
+    "options": [
+      "The name of the user's local mail folder and its icon",
+      "The gateway's own queue ID and receipt time",
+      "The label that appeared in the email client's preview panel",
+      "The digital signature's selector without an associated message identity"
+    ],
+    "correct": 1,
+    "explanation": "The queue ID is meaningful when paired with the issuing gateway.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Authentication-Results names a trusted host, but the header appears outside the expected trusted trace. What next?",
+    "options": [
+      "Confirm the verdict from the trusted evaluator's records",
+      "Accept the result because the evaluator string matches the local host",
+      "Use other headers supplied by the same relay to confirm its result",
+      "Reject the message automatically based on the field's display position alone"
+    ],
+    "correct": 0,
+    "explanation": "A claimed service identifier by itself does not demonstrate trustworthy provenance.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why record the specific d= identity after a pass?",
+    "options": [
+      "A signature identifies all individuals who handled the message",
+      "The signing identity determines which mailbox has already clicked",
+      "The d= field supplies the receipt time for the visible From domain",
+      "A signature authenticates a particular signing domain"
+    ],
+    "correct": 3,
+    "explanation": "Naming the identity explains what the successful validation actually addresses.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The vendor accepts replies through a third-party address. What resolves uncertainty about a Reply-To mismatch?",
+    "options": [
+      "Reply to the message and ask the sender to validate its address",
+      "Compare addresses visually and assume any similar spelling is sufficient",
+      "Confirm the expected service using an independent trusted channel",
+      "Ask a second recipient whether their email client shows a reply button"
+    ],
+    "correct": 2,
+    "explanation": "A known channel can verify the relationship independently of the artifact.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A new review groups four deliveries on Message-ID alone. What makes the grouping stronger?",
+    "options": [
+      "Evidence that the subject appears unchanged in every screenshot",
+      "Trusted trace, recipients, timing and associated identifiers",
+      "Confirmation that the mail client displays the same sender name",
+      "The same general invoice motif in the visible body of each message"
+    ],
+    "correct": 1,
+    "explanation": "Sender-supplied identifiers are stronger when corroborated by internal evidence.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The domain policy in the preserved result reports p=none after a failure. What can the analyst infer?",
+    "options": [
+      "The policy requests no DMARC-specific disposition action",
+      "The receiving gateway must deliver every failing message to the inbox",
+      "The visible sender is authorised if the gateway did not reject",
+      "The outbound signing domain changed the receiver's security policy"
+    ],
+    "correct": 0,
+    "explanation": "Receiver decisions can include local controls beyond the reported domain policy.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does an authenticated encrypted hop establish on its own?",
+    "options": [
+      "The real-world identity of the employee who typed the message",
+      "That the business instructions are known to the receiving organisation",
+      "That every earlier hop was controlled by the same mail operator",
+      "Something about that hop's transport and submission"
+    ],
+    "correct": 3,
+    "explanation": "Transport observations do not substantiate unrelated identity and content claims.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What belongs in the body of a defensible header case note?",
+    "options": [
+      "A final attribution without referencing the original preserved item",
+      "Only the result of the latest domain lookup by the analyst",
+      "Observed values, evidence sources and open questions",
+      "A copy of the message subject with the automatically assigned priority"
+    ],
+    "correct": 2,
+    "explanation": "The next reviewer needs provenance and a clear account of uncertainty.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two internal logs differ by two seconds. What is the most useful first explanation to test?",
+    "options": [
+      "The message was replaced by the external sender during handoff",
+      "Queue processing and source clock behaviour",
+      "The visible domain belongs to the identity recorded by SPF",
+      "The originally supplied timestamp establishes the exact transport latency"
+    ],
+    "correct": 1,
+    "explanation": "Clock behaviour and normal queueing are relevant before inferring tampering.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which record can independently corroborate the claimed business instructions?",
+    "options": [
+      "A known vendor contact listed in approved procurement records",
+      "A telephone number presented inside the disputed email's footer",
+      "The gateway's log of accepting the email for inspection",
+      "The result of comparing the email subject against other delivery subjects"
+    ],
+    "correct": 0,
+    "explanation": "Independently maintained business contacts are not sourced from the disputed message.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A passing DKIM result is aligned with visible From, while SPF has an unrelated pass. Which interpretation fits?",
+    "options": [
+      "DMARC needs both passes to align with the visible domain",
+      "The other SPF pass invalidates the aligned signature result",
+      "The result depends only on whichever authentication field appears first",
+      "The aligned DKIM pass can satisfy DMARC"
+    ],
+    "correct": 3,
+    "explanation": "One passing aligned mechanism can satisfy DMARC's authentication check.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an analyst preserve when noting a From mismatch?",
+    "options": [
+      "The visible display name while deleting the compared signature fields",
+      "Only the message's reply destination and the current inbox folder",
+      "The original message and the trusted evaluation's values",
+      "A recast header with the fields reordered to match the report"
+    ],
+    "correct": 2,
+    "explanation": "The source record enables later review of the original values and provenance.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which finding is directly supported by the example MX line?",
+    "options": [
+      "The individual identified by From composed the original payment request",
+      "The receiving gateway observed its connecting peer",
+      "The invoice was approved through the finance team's billing system",
+      "The recipient interacted with the attachment after receiving the message"
+    ],
+    "correct": 1,
+    "explanation": "An inbound transport record identifies the observed peer at that hop.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

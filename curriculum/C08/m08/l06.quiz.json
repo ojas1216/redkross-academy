@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Two teams disagree about why the first useful alert sat unread. What should the review establish before assigning a corrective action?",
+    "options": [
+      "Who opened the ticket and when, which queue received it, and how that queue was staffed",
+      "Whose name appeared on the published shift roster and whether their previous reviews noted delays",
+      "Whether the alert's technical details were identical to those in other incidents that month",
+      "Whether an executive has already accepted the final incident summary and severity rating"
+    ],
+    "correct": 0,
+    "explanation": "A sourced timeline and the actual queue conditions expose the delay mechanism.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a post-incident review blameless and still accountable?",
+    "options": [
+      "It assigns equal responsibility to every participating team and rotates future incident leads",
+      "It examines the conditions behind decisions and assigns concrete improvements to owners",
+      "It publishes participant names and asks each individual to document a personal improvement",
+      "It omits disputed decisions and shares only the undisputed recovery steps with leadership"
+    ],
+    "correct": 1,
+    "explanation": "The review studies decisions in context and creates accountability for future corrective work.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The case record says 08:25Z was when the SOC noticed the incident. The first observed malicious event was 06:12Z. What belongs in the review?",
+    "options": [
+      "131 minutes from the earliest rule match to the time captured in the case record",
+      "125 minutes bounded by the first and last recorded malicious activity in the dataset",
+      "133 minutes from the first observed malicious event to the recorded notice time",
+      "Six hours from the time the SOC noticed the activity to the reporting deadline"
+    ],
+    "correct": 2,
+    "explanation": "Dwell time uses the first observed malicious event and the notice time.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An investigator finds an earlier event consistent with the incident, but cannot yet link it to the case. How should the timeline change?",
+    "options": [
+      "Replace the start time and label the revised duration as the only reliable measure in the report",
+      "Remove the candidate from the review and discard the supporting record until a later incident confirms it",
+      "Change the notice time by the same amount to keep comparisons with the prior dashboard stable",
+      "Record it as a candidate with its source and preserve the current dwell calculation pending corroboration"
+    ],
+    "correct": 3,
+    "explanation": "Separate uncertain evidence from the confirmed incident window until corroboration is available.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which entry gives a later reader the clearest basis to reproduce a timeline finding?",
+    "options": [
+      "A UTC timestamp, a source record identifier, and a clear observation label",
+      "A local timestamp, a manager's recollection, and the severity of the incident",
+      "The current ticket status, a dashboard image, and the review facilitator's initials",
+      "The alert subject line, the workstation owner's name, and the title of the shift report"
+    ],
+    "correct": 0,
+    "explanation": "A common time base and a specific source make the observation reproducible.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A process event is recorded at 06:14Z. A reviewer says it was triggered by the document downloaded at 06:12Z. How should these statements be recorded?",
+    "options": [
+      "Record the process event and document link as confirmed because the timestamps are close together",
+      "Record the process event as observed and label the claimed link to the document as inferred",
+      "Record the document link as observed and treat the logged process start as an unverified inference",
+      "Combine the statements into a single confirmed event so the report contains fewer timeline rows"
+    ],
+    "correct": 1,
+    "explanation": "Temporal order supports a hypothesis, while a causal link requires independent evidence.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which owner assignment gives an action item the clearest accountability?",
+    "options": [
+      "List every team that receives the queue and let the teams choose their own completion dates",
+      "Assign the action to the incident channel and close it when nobody raises a further concern",
+      "Assign one accountable queue owner, a due date, and a replay-based acceptance check",
+      "Split accountability equally among all responders and use the next tabletop as a provisional deadline"
+    ],
+    "correct": 2,
+    "explanation": "An individual owner, a deadline, and a test make closure independently verifiable.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A remediation ticket says the alert route was changed. What evidence best supports closing the corresponding review action?",
+    "options": [
+      "The routing administrator marks the configuration ticket as implemented and forwards a screenshot",
+      "The next shift report shows a shorter queue, without identifying which alerts reached the duty analyst",
+      "The old route is present in the change log and the new route has a descriptive name",
+      "A controlled replay produces a ticket in the right queue and the duty analyst acknowledges it on time"
+    ],
+    "correct": 3,
+    "explanation": "A replay through the actual workflow verifies delivery and acknowledgment at the intended boundary.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The team knows the incident notice time and recovery time but never recorded when isolation took effect. How should time to contain be shown?",
+    "options": [
+      "Unavailable, with the missing effective-isolation timestamp and the evidence needed to recover it",
+      "Equal to time to recover, because recovery necessarily includes all effective containment actions",
+      "Equal to time to acknowledge, because acknowledgment indicates ownership of the entire containment plan",
+      "Zero minutes, with a note that containment was complete before the next scheduled status update"
+    ],
+    "correct": 0,
+    "explanation": "A metric needs evidence for both endpoints and recovery does not establish when isolation took effect.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which wording most directly turns individual blame into a system finding?",
+    "options": [
+      "The primary reviewer should pay more attention to high-priority alerts during future shifts",
+      "The overnight queue had no assigned backup when its primary reviewer was unavailable",
+      "The overnight analyst was careless and needs extra supervision whenever case volume rises",
+      "The shift manager should remind responders that missing an urgent alert is unacceptable"
+    ],
+    "correct": 1,
+    "explanation": "The backup coverage finding identifies a condition the organization can fix and verify.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A dashboard tracks the delay from a rule match at 06:14Z to notice at 08:25Z. What is the proper interpretation?",
+    "options": [
+      "133 minutes of dwell, since any matching event establishes the beginning of observed activity",
+      "125 minutes of active span, since the acknowledgment timestamp closes the measurement window",
+      "131 minutes of match-to-notice delay, a different measure from the full dwell interval",
+      "Six minutes to acknowledge, because the incident lead took ownership at 08:31Z"
+    ],
+    "correct": 2,
+    "explanation": "The rule match is two minutes after the first observed malicious event.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A report combines detection telemetry and the incident ticket into one timeline. What preserves the distinction between the two lanes?",
+    "options": [
+      "Normalize all times to UTC and group the entire sequence under the incident declaration",
+      "Deduplicate records by minute and keep the row that carries the highest severity in that minute",
+      "Use the ticket history as the main timeline and put the telemetry rows in an unsorted attachment",
+      "Label malicious activity and defender decisions separately while retaining a common UTC axis"
+    ],
+    "correct": 3,
+    "explanation": "Separate lanes show what happened and when the team learned or acted.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which document should the facilitator bring to a post-incident review?",
+    "options": [
+      "A provisional sourced timeline, the incident decision record, and a list of uncertainties",
+      "A polished causal account, preassigned actions, and a slide ranking responders by performance",
+      "A generic incident template, a blank attendance register, and the org chart for the SOC",
+      "A recovery dashboard, a list of host owners, and the executive presentation from the prior incident"
+    ],
+    "correct": 0,
+    "explanation": "The facilitator brings evidence and unresolved questions for participants to test and extend.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A stakeholder claims missing endpoint alerts were the root cause of the initial compromise. What is the best response?",
+    "options": [
+      "Classify the alert absence as the only root cause because it delayed the beginning of containment",
+      "Separate the entry mechanism from the missed detection opportunity and identify evidence for each",
+      "Describe both mechanisms as established facts so each can be assigned to a responsible team",
+      "Remove endpoint alerting from the review because monitoring begins after the initial compromise"
+    ],
+    "correct": 1,
+    "explanation": "An entry mechanism and a detection gap can both matter while requiring distinct evidence and actions.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which action is both specific and measurable in a post-incident report?",
+    "options": [
+      "The SOC should improve overnight monitoring and send management a progress summary each month",
+      "The team should be more proactive when new high-severity alerts arrive outside business hours",
+      "By Friday, the queue lead will verify overnight coverage with a scheduled test alert",
+      "The operations group should update its documentation when the updated monitoring roadmap is approved"
+    ],
+    "correct": 2,
+    "explanation": "The proposed owner, date, and test define an observable acceptance condition.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The first responder worked from a stale dashboard during the incident. What question best supports a useful review?",
+    "options": [
+      "Why did the responder use the stale dashboard even though analysts later reconstructed the correct sequence?",
+      "Which incident responder would have reached the right conclusion if given the same stale information?",
+      "Who last approved the dashboard design, and when should their role in the incident be escalated?",
+      "What signals showed dashboard freshness at the time, and what alternatives were available to that responder?"
+    ],
+    "correct": 3,
+    "explanation": "Reconstruct the information available at decision time to identify actionable interface or process gaps.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An action has no due date but has a named owner and a detailed proposed fix. What is still missing?",
+    "options": [
+      "A scheduled commitment that lets the review owner track whether the fix is overdue",
+      "A second accountable owner from a separate team who can take over the implementation",
+      "An additional description of the incident's every event before the action can enter the tracker",
+      "A new incident identifier separate from the parent case and the individual implementation ticket"
+    ],
+    "correct": 0,
+    "explanation": "Without a date the owner and reviewers cannot consistently track delivery.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One team quotes a 133-minute dwell time as exact. What qualification matters for the Banyan exercise?",
+    "options": [
+      "The interval begins at the first rule match and ends when the containment team completes recovery",
+      "The start is the first malicious event observed in the available data and the notice time comes from the exercise case record",
+      "The measured endpoint is the reporting deadline, regardless of whether the notification was actually sent",
+      "The interval assumes all missing endpoint records occurred after the first known detection opportunity"
+    ],
+    "correct": 1,
+    "explanation": "The earliest observed record and the exercise notice timestamp bound what the exercise can measure.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which question belongs in the report's impact section rather than its action register?",
+    "options": [
+      "Who owns the upcoming queue change and when must it be tested?",
+      "When will a follow-up replay be scheduled and who will collect the output?",
+      "What services, data, and users were affected, and with what confidence?",
+      "Which team will verify completion and who approves any deadline extension?"
+    ],
+    "correct": 2,
+    "explanation": "The impact section records what the incident affected and the confidence in that assessment.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two sources log times in UTC and IST. How should a reviewer avoid ordering their events incorrectly?",
+    "options": [
+      "Convert UTC entries to whatever timezone the ticket browser currently displays and discard the preserved source offset",
+      "Sort the rows by their written clock values and use the ticket order to resolve obvious discrepancies",
+      "Round each row to the nearest hour and infer order from the severity attached to each event",
+      "Convert both to UTC for comparison and retain the original timestamps and offsets in the evidence record"
+    ],
+    "correct": 3,
+    "explanation": "Canonical timestamps allow valid sorting and original values preserve the evidence trail.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the most appropriate way to present an unresolved causal claim in the final review?",
+    "options": [
+      "State it as a hypothesis, explain what supports it, and name the missing evidence",
+      "Present it as the likely root cause and remove the uncertainty from the executive version",
+      "Keep it out of the review entirely until all responders agree on how the incident started",
+      "Put it in the action register as a verified issue and reopen the timeline if it proves incorrect"
+    ],
+    "correct": 0,
+    "explanation": "An explicit hypothesis preserves the reasoning without overstating what the available records establish.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A ticket was opened at 08:25Z and its incident lead acknowledged it at 08:31Z. What interval can these records establish?",
+    "options": [
+      "Six minutes from first rule match to acknowledgment, because both records describe the same alert",
+      "Six minutes from notice to acknowledgment, if the case identifies ticket creation as notice",
+      "Six minutes from first malicious activity to declaration, because the ticket opens the incident clock",
+      "Six minutes to contain, provided the lead was authorized to approve endpoint isolation at acknowledgment"
+    ],
+    "correct": 1,
+    "explanation": "The record supports the interval between notice and acknowledgment given those event definitions.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A review committee wants to close an action because the change shipped. What should it check first?",
+    "options": [
+      "Whether the team shipped other changes in the same deployment that affected ticket categories",
+      "Whether the incident was assigned a new severity by the operational manager after recovery",
+      "Whether the agreed verification shows the intended change works in the relevant workflow",
+      "Whether the action owner gave the same completion date in both the technical and executive summaries"
+    ],
+    "correct": 2,
+    "explanation": "Implementation alone does not demonstrate that the intended control works.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An executive asks whether faster notice would have prevented the whole incident. What can the review responsibly conclude?",
+    "options": [
+      "Earlier notice would necessarily have prevented the initial event because the responder could have contained it immediately",
+      "Earlier notice would always have prevented every later event once a matching rule had appeared in the dataset",
+      "Earlier notice cannot have helped because the observed active span and dwell time are different intervals",
+      "Earlier notice may have enabled earlier response, but any prevented impact is a counterfactual requiring stated assumptions"
+    ],
+    "correct": 3,
+    "explanation": "A timeline shows opportunities, while a hypothetical outcome depends on response timing and effectiveness.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a review report useful to the next shift after the immediate incident has ended?",
+    "options": [
+      "A concise timeline, residual risks, and owned actions with clear verification criteria",
+      "A complete copy of all raw records, open chat threads, and shift rosters in chronological order",
+      "A one-line root cause, an incident severity number, and links to previous executive reports",
+      "A list of approved containment decisions, with no indication of remaining risks or follow-up tasks"
+    ],
+    "correct": 0,
+    "explanation": "The next shift needs a usable record of what happened and what still requires attention.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

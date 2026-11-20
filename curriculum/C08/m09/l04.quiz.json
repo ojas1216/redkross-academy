@@ -1,0 +1,327 @@
+[
+  {
+    "q": "What is the first useful response to a user who reports suspicious mail?",
+    "options": [
+      "Acknowledge receipt and give a trusted follow-up route",
+      "Ask the user to reply to the suspicious sender for confirmation",
+      "Promise that the message is harmless because it was reported",
+      "Require the user to reopen the link before receiving a case number"
+    ],
+    "correct": 0,
+    "explanation": "A clear acknowledgment keeps the user informed and preserves evidence.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reporter says the email was opened. What should the analyst clarify?",
+    "options": [
+      "Whether they want the case assigned to the department manager",
+      "Whether the mail system has a title that can be read aloud",
+      "Whether the reported file name can be replaced by the ticket number",
+      "Whether they viewed the message or opened its file"
+    ],
+    "correct": 3,
+    "explanation": "The word opened may refer to materially different activity.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A user volunteers their actual password during intake. What is the right action?",
+    "options": [
+      "Ask the user to enter the password verbatim in the ticket",
+      "Use the value to calculate an identifier for sharing with colleagues",
+      "Stop secret collection and route the reported exposure",
+      "Replace the value with a question about verifying it on the original page"
+    ],
+    "correct": 2,
+    "explanation": "Capture the kind of exposure and involve the authorised identity owner.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which report route best supports preserving original mail?",
+    "options": [
+      "An ordinary forward to an external address suggested in the message",
+      "The organisation's supported report button or authorised export",
+      "A call in which the analyst guesses every header field",
+      "A screenshot attached after the original message is deleted"
+    ],
+    "correct": 1,
+    "explanation": "A supported route can preserve the message structure and essential metadata.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two recipients report copies of one suspected campaign. One entered credentials. What is the right record?",
+    "options": [
+      "Group related records and keep each exposure separately",
+      "Merge the submissions and keep only the first employee's actions",
+      "Open one undifferentiated credential incident for every possible recipient",
+      "Treat duplicate reports as noise after recording the shared subject"
+    ],
+    "correct": 0,
+    "explanation": "Campaign linkage does not erase individual evidence or ownership.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What distinguishes a reported time from a ticket-created time?",
+    "options": [
+      "The reported time automatically determines when the case system stored the record",
+      "The ticket's creation time proves exactly when the user clicked",
+      "The two time fields should be merged whenever either is approximate",
+      "The reported time describes the event as recalled"
+    ],
+    "correct": 3,
+    "explanation": "The source and meaning of each time matter to later investigation.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An employee reports approving an unexpected sign-in prompt. What should happen before attachment classification finishes?",
+    "options": [
+      "Wait for the mail team to classify all matching attachments first",
+      "Request the employee's security code to reproduce the approval",
+      "Escalate to the identity owner with the action and time",
+      "Use the sender's contact details to confirm the prompt was expected"
+    ],
+    "correct": 2,
+    "explanation": "A reported approval can warrant prompt response independent of message classification.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What do two reports with the same subject establish?",
+    "options": [
+      "That the exact same raw message reached both recipients",
+      "A possible relationship that needs corroboration",
+      "That both recipient devices opened the same attachment",
+      "That one employee's account sent every related copy"
+    ],
+    "correct": 1,
+    "explanation": "Common subject lines provide a lead rather than establishing identity.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A gateway saw automated previews but a user also reports clicking. What should the analyst do?",
+    "options": [
+      "Keep both records and seek corroborating device evidence",
+      "Discard the user's statement because automated traffic is present",
+      "Count the previews as separate confirmations of employee clicks",
+      "Replace the reporter's approximate time with the first preview timestamp"
+    ],
+    "correct": 0,
+    "explanation": "Service activity does not cancel or independently validate a human report.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an acknowledgment ask the reporter to avoid?",
+    "options": [
+      "Using any recognised reporting channels for follow-up",
+      "Keeping a note of what they did and when it happened",
+      "Waiting for direction from an authorised responder",
+      "Reopening the suspicious content while the case is reviewed"
+    ],
+    "correct": 3,
+    "explanation": "Avoiding renewed interaction protects both the employee and the evidence.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The message asks a user to call a number to contact IT. Which route should the SOC recommend?",
+    "options": [
+      "The message number after checking its area code matches local support",
+      "The first number shown in the employee's recent call list",
+      "The independently published IT or incident desk contact",
+      "The sender's mobile number as long as another employee can dial it"
+    ],
+    "correct": 2,
+    "explanation": "A known route avoids relying on a potentially misleading contact.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement belongs in the reported-action field?",
+    "options": [
+      "The SOC proves compromise because the employee seemed anxious",
+      "The employee reports clicking at approximately 08:06 UTC",
+      "The gateway logged a preview, so the employee must have approved a prompt",
+      "A colleague expects the invoice is fake, based only on its font"
+    ],
+    "correct": 1,
+    "explanation": "The field records what the reporter said and its certainty.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A user initiated a payment and no unusual process was observed. What takes priority?",
+    "options": [
+      "Contact the authorised Finance and incident owners promptly",
+      "Wait until endpoint monitoring detects a suspicious application",
+      "Treat absence of an endpoint signal as proof of no business impact",
+      "Direct the mail team to issue a company-wide technical attribution"
+    ],
+    "correct": 0,
+    "explanation": "Financial consequences can be urgent without an observed malware event.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A private phone screenshot includes unrelated personal notifications. What is the appropriate intake choice?",
+    "options": [
+      "Upload the full screenshot to the ticket as the default response",
+      "Ask for every conversation from the same personal phone",
+      "Discard the report entirely because it came from a non-work device",
+      "Seek necessary fields through the approved collection route"
+    ],
+    "correct": 3,
+    "explanation": "Collect the information the case needs while respecting the approved scope.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which question is best in the first intake conversation?",
+    "options": [
+      "Why did you fail to identify the phishing message?",
+      "Which malware family owned the sender's suspicious account?",
+      "What did you see and do next?",
+      "How can you guarantee that nothing compromised your device?"
+    ],
+    "correct": 2,
+    "explanation": "Neutral questions elicit actionable observations without asking for analysis.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An account may be under investigation. How should follow-up identity be verified?",
+    "options": [
+      "Rely on replies from the mailbox through which the suspicious activity arrived",
+      "Use an approved independent channel and record the route",
+      "Assume the person using the displayed account name is always authorised",
+      "Ask the reporter to return to the same link to resume the conversation"
+    ],
+    "correct": 1,
+    "explanation": "A separate channel lowers dependence on a potentially affected account.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What information helps a reviewer improve the reporting process?",
+    "options": [
+      "Acknowledgment and handoff times with defined endpoints",
+      "The identity of every employee presented in an unrestricted report",
+      "The volume of deleted mail without any indication of reporting channel",
+      "A count of screenshots received without context or comparison"
+    ],
+    "correct": 0,
+    "explanation": "Defined timings help identify delays and improve routing.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A later technical log refines a reporter's approximate time. How should the case be updated?",
+    "options": [
+      "Overwrite the person's statement with the technical record everywhere",
+      "Remove the technical record because it does not exactly match the estimate",
+      "Round both timestamps to the ticket date and omit how they were obtained",
+      "Record both times with their sources and explain the refinement"
+    ],
+    "correct": 3,
+    "explanation": "Source-labeled entries help reviewers follow the change in confidence.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which factor can improve accessibility of a reporting route?",
+    "options": [
+      "Require a desktop-only plugin as the sole reporting route",
+      "Hide instructions until an employee uses the report button",
+      "Offer keyboard-accessible and supported fallback channels",
+      "Require copying the full original into every support channel"
+    ],
+    "correct": 2,
+    "explanation": "A route should be available to staff in the ways they work.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reported call shows a familiar number in caller ID. What can be recorded?",
+    "options": [
+      "The identity of the caller as verified by the displayed number",
+      "The displayed number, reported context and actions",
+      "The original network route taken by the call without provider records",
+      "A verified payment request because the number looked familiar"
+    ],
+    "correct": 1,
+    "explanation": "Caller ID is an observation and does not establish who called.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should be retained when linking duplicate reports?",
+    "options": [
+      "The individual report sources, times and exposure details",
+      "Only the combined ticket number for all reported events",
+      "Only the last recorded subject from the mail gateway",
+      "The action of the person who made the earliest report"
+    ],
+    "correct": 0,
+    "explanation": "Individual exposure can differ across otherwise related deliveries.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A supported route cannot preserve the original on mobile. What should the SOC do?",
+    "options": [
+      "Reject the report until the employee activates every suspicious object again",
+      "Treat the mobile screenshot as a full RFC message export",
+      "Require the employee to install an unrelated unapproved analysis tool",
+      "Accept the initial report and arrange authorised acquisition"
+    ],
+    "correct": 3,
+    "explanation": "Start protective response while documenting the acquisition limitation.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An employee has forgotten the time of a possible interaction. What helps later scoping?",
+    "options": [
+      "Use the ticket creation time and present it as the verified click time",
+      "Remove the interaction field until the employee supplies an exact second",
+      "Record an approximate interval and relevant work context",
+      "Use the first available gateway timestamp regardless of the reported activity"
+    ],
+    "correct": 2,
+    "explanation": "A bounded estimate is clearer than a precise but unsupported value.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the purpose of a closure update to a reporter?",
+    "options": [
+      "Reveal the identities of all other reporters who received the message",
+      "State any remaining action and share permitted findings",
+      "Repeat the suspicious content and provide its original active links",
+      "Publish the full ongoing incident timeline without access restrictions"
+    ],
+    "correct": 1,
+    "explanation": "A brief update supports trust and gives an action if needed.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should a report with no interaction and a suspicious original be handled?",
+    "options": [
+      "Preserve it and assess delivery and classification",
+      "Ignore it because individual compromise has not been demonstrated",
+      "Automatically disable every account listed in the message body",
+      "Require the reporter to retrieve additional examples by following the link"
+    ],
+    "correct": 0,
+    "explanation": "The original can reveal additional exposure even without interaction.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

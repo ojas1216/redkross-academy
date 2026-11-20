@@ -82,7 +82,7 @@
     "options": [
       "As routine, because services restart under their configured account after patching",
       "As a cached logon, because type 10 means no domain controller could be reached",
-      "As a scheduled task run, because type 10 records batch jobs using stored credentials",
+      "As a scheduled job launched using a stored credential, because Windows records that job category as logon type 10",
       "As a Remote Desktop session by a service identity, a baseline deviation to investigate"
     ],
     "correct": 3,
@@ -109,7 +109,7 @@
       "No action is needed, because MFA held and the attacker never obtained a session",
       "Block the source address and keep monitoring, since no account was compromised",
       "Treat the password as compromised: reset it and contact the user by another channel",
-      "Disable MFA prompts for that user temporarily to stop the fatigue being exploited"
+      "Pause MFA challenges temporarily and monitor the next password-only attempt to see whether it comes from the same network"
     ],
     "correct": 2,
     "explanation": "Passing the first factor proves someone knows the password, and repeated prompts suggest MFA request generation (T1621). Even though MFA held, the password must be reset and the user contacted separately; blocking the address alone leaves the known password in use.",
@@ -185,7 +185,7 @@
     "q": "In your copy of the kit you raise rule R2's distinct-user threshold from 5 to 9 and rerun the rules. Why does the 203.0.113.66 hit disappear?",
     "options": [
       "Only eight distinct users failed from that address before gopal's success",
-      "The rule now requires nine failures for the same user before any success",
+      "The rule now counts nine failures for one user before accepting any subsequent successful login",
       "SQLite rejects HAVING thresholds larger than the number of VPN events",
       "Gopal's own failure no longer counts once the threshold exceeds eight"
     ],
@@ -197,7 +197,7 @@
   {
     "q": "The Banyan query reads logon_type and status with json_extract(raw, ...) because they are not normalised SIEM columns. What broader lesson does this illustrate?",
     "options": [
-      "Normalised columns should be dropped once json_extract can read the raw record",
+      "Drop the normalized columns once the same records have been loaded as raw JSON, since every correlation can perform ad hoc extraction",
       "Logon type and status are too low-value to normalise in an identity pipeline",
       "A field not normalised at ingestion is recoverable only if the raw event was kept",
       "SQLite cannot index JSON, so identity fields must always be queried from raw"
@@ -236,7 +236,7 @@
   {
     "q": "A Linux server's deploy account has authenticated only with SSH keys for a year. Today auth.log shows \"Accepted password for deploy\" from an unfamiliar address. Why is this significant?",
     "options": [
-      "Password logins are always malicious on Linux, whatever the account baseline",
+      "The unfamiliar address establishes malicious access even if the server has previously permitted password logins",
       "It indicates a non-existent user, which SSH reports as Accepted password",
       "The authentication method changed from key to password, breaking the baseline",
       "It shows the account was locked out and then unlocked by an administrator"
@@ -301,7 +301,7 @@
   {
     "q": "After a VPN spray ends in one account's compromise, which pair of controls most reduces the chance of the same attack succeeding again?",
     "options": [
-      "Blocking the spraying address and lowering the per-account lockout threshold",
+      "Block the observed source address and use a lower per-account lockout threshold to prevent repeated failures against one user",
       "Requiring MFA on the VPN and enforcing a banned-password list for all accounts",
       "Geo-blocking unplaced countries and shortening VPN session lifetimes",
       "Alerting on every VPN failure and renaming accounts to non-guessable names"

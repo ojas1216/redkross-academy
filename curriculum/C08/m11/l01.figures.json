@@ -1,0 +1,42 @@
+{
+  "C08-M11-L01-F1": {
+    "title": "An auditable SOC intake workflow",
+    "caption": "A stable source key and linked case record carry the alert from receipt to any separately authorised action.",
+    "alt": "Six ordered steps show receipt, validation and stable event identity, internal context, creating or linking a case, human approval where needed, and verification of the resulting effect.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Receive the alert",
+        "sub": "Record the source and event ID",
+        "tone": "slate"
+      },
+      {
+        "label": "Validate and deduplicate",
+        "sub": "Check required fields and stable identity",
+        "tone": "blue"
+      },
+      {
+        "label": "Add approved context",
+        "sub": "Include lookup status and provenance",
+        "tone": "violet"
+      },
+      {
+        "label": "Create or link a case",
+        "sub": "Preserve the source and workflow references",
+        "tone": "green"
+      },
+      {
+        "label": "Request approval if required",
+        "sub": "Scope any consequential change",
+        "tone": "orange"
+      },
+      {
+        "label": "Record and verify the outcome",
+        "sub": "Keep unknown effects open for review",
+        "tone": "dark"
+      }
+    ],
+    "note": "Linked records make the decision and its outcome reviewable."
+  }
+}

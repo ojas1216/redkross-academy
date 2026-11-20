@@ -1,0 +1,36 @@
+{
+  "C08-M09-L08-F1": {
+    "title": "Banyan triage evidence and decision owners",
+    "caption": "The workstation and VPN leads are actionable, and missing mail evidence remains a recorded gap.",
+    "alt": "Table showing WS-104 proxy and process events routed to endpoint response, a VPN success after failures routed to identity investigation, and absent mail data routed to a request for original and trace.",
+    "type": "table",
+    "columns": [
+      "Case thread",
+      "Available evidence",
+      "Decision owner"
+    ],
+    "rows": [
+      [
+        "WS-104",
+        "Proxy and endpoint events",
+        "Endpoint responder"
+      ],
+      [
+        "VPN identity",
+        "Failures then success from one source",
+        "VPN and identity owner"
+      ],
+      [
+        "Mail delivery",
+        "No original or gateway trace in fixture",
+        "Mail administrator"
+      ]
+    ],
+    "rowTones": [
+      "orange",
+      "violet",
+      "slate"
+    ],
+    "note": "Record a gap before making a claim outside a source's coverage."
+  }
+}

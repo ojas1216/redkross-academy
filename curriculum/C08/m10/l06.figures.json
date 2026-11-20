@@ -1,0 +1,22 @@
+{
+  "C08-M10-L06-F1": {
+    "title": "Hunt record sections and common omissions",
+    "caption": "Planning sections constrain what the execution sections test, and conclusion sections make the hunt usable by other teams.",
+    "alt": "A table with three columns: section, must contain, and common omission. Planning sections are trigger, hypothesis, scope and data coverage. Execution sections are queries and results, where the usual omissions are paraphrasing queries instead of copying them and leaving out unmatched or unresolved rows. Conclusion sections are analysis, outcome, limitations and handoffs, where the usual omissions are unlabeled claims, a missing confidence level, unstated data gaps and a single handoff that is not tailored to each audience.",
+    "type": "table",
+    "columns": ["Section", "Must contain", "Common omission"],
+    "rows": [
+      ["Trigger", "Reason and reference", "No reference"],
+      ["Hypothesis", "Predictions and refutation", "Written after results"],
+      ["Scope", "Entities, UTC window, exclusions", "Data vs priority exclusions"],
+      ["Data and coverage", "Sources, fields, gaps", "Coverage stated as yes or no"],
+      ["Queries", "Full text and version", "Paraphrased query"],
+      ["Results", "Counts and citations", "Unmatched rows left out"],
+      ["Analysis", "Labeled claims", "Mixed observation and inference"],
+      ["Outcome", "Result and confidence", "No confidence reason"],
+      ["Limitations", "Gaps and consequences", "Gaps not stated"],
+      ["Handoffs", "Per-audience actions", "One generic note"]
+    ],
+    "rowTones": ["blue", "blue", "blue", "blue", "violet", "violet", "green", "green", "green", "green"]
+  }
+}

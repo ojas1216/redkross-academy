@@ -1,0 +1,327 @@
+[
+  {
+    "q": "What is the exact pair used in the process exercise?",
+    "options": [
+      "Any two processes that start on the observed device",
+      "A script parent followed by any Office process later",
+      "Office parent and script-interpreter child",
+      "Either Office or a script in any proxy source"
+    ],
+    "correct": 2,
+    "explanation": "Both categories must appear in the recorded relationship.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which fixture row directly matches the intended category pair and source?",
+    "options": [
+      "P3 with a viewer as the child",
+      "P1 for FIN-21 with source event E-301",
+      "P4 with management as the parent",
+      "P6 with a proxy source label instead of endpoint"
+    ],
+    "correct": 1,
+    "explanation": "P1 has the eligible source and both matching categories.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "P6 has matching categories but an unsupported source. How should it be handled?",
+    "options": [
+      "Record unsupported source without a process candidate",
+      "Treat the pair as evidence because the two string fields match",
+      "Mark it as a verified clean endpoint finding",
+      "Group it with P1 solely because the asset name matches"
+    ],
+    "correct": 0,
+    "explanation": "Proxy values do not establish a sensor-observed process relationship.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which row is the exercise's duplicate receipt?",
+    "options": [
+      "P3 with a separate identity and category combination",
+      "P5 with no available asset identity",
+      "P6 using a distinct data source for its values",
+      "P2 with the same source event identity as P1"
+    ],
+    "correct": 3,
+    "explanation": "The duplicate shares source and event ID with the positive row.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A valid Office and script event occur close in time but no parent link is recorded. What follows?",
+    "options": [
+      "Count the relationship automatically when both share a host",
+      "Assume the latest process is the earlier one?s parent",
+      "Do not infer a paired event from time alone",
+      "Create a protective action without needing endpoint evidence"
+    ],
+    "correct": 2,
+    "explanation": "The rule depends on the observed relationship, not a temporal guess.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should P5 produce when its asset field is blank?",
+    "options": [
+      "A confirmed match with no device or evidence reference",
+      "An input-review result rather than a case on a guessed host",
+      "A duplicate classification for the last recorded endpoint",
+      "A no-match result that clears every device from scope"
+    ],
+    "correct": 1,
+    "explanation": "Missing identity prevents scoped attribution and requires review.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two endpoint collectors use the same local event ID. What might the deployment add to its duplicate key?",
+    "options": [
+      "The source instance or verified identity scope",
+      "The same unqualified event ID from both resources",
+      "Only the earliest local display time on a dashboard",
+      "The last observed asset label even if the sensor changes"
+    ],
+    "correct": 0,
+    "explanation": "A key must respect where the source guarantees uniqueness.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why do P3 and P4 use different controls?",
+    "options": [
+      "Both are identical repeats of an already selected event",
+      "Both verify that unrelated proxy rows are useful endpoint source evidence",
+      "Each substitutes missing metadata for a real process pairing",
+      "Each changes one side of the target pair"
+    ],
+    "correct": 3,
+    "explanation": "The separate negatives help test the requirement for both sides.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A legitimate application produces a matching pair. What can the detector still support?",
+    "options": [
+      "Automatic isolation whenever the matching pair is observed",
+      "A universal conclusion that every document with that parent is harmful",
+      "A candidate with context for review, not a final verdict",
+      "Permanent dismissal of all observations that use the same process categories"
+    ],
+    "correct": 2,
+    "explanation": "Benign context can explain a candidate without invalidating its observed relationship.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How many new process-pair candidates does the supplied fixture produce?",
+    "options": [
+      "Two new candidates because both matching rows count",
+      "One new candidate and one linked repeat",
+      "Three new candidates including unsupported source",
+      "Six candidates because every row represents activity"
+    ],
+    "correct": 1,
+    "explanation": "Only P1 qualifies as a new review result.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WKS-05 has no timely sensor coverage. Can the no-match total clear it?",
+    "options": [
+      "No. The source coverage gap remains open",
+      "Yes, the rule would have found the pair irrespective of coverage",
+      "Yes, valid negatives from other hosts establish this device's state",
+      "No, because every delayed sensor proves that the device is affected"
+    ],
+    "correct": 0,
+    "explanation": "A detector can only evaluate eligible collected records.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a no-category-pair result mean?",
+    "options": [
+      "The device is entirely safe across every monitoring source",
+      "The organisation has no affected users in the row's department",
+      "The source declined the workflow's authority to operate a control",
+      "The evaluated row does not match this rule's pair"
+    ],
+    "correct": 3,
+    "explanation": "An eligible negative is limited to the tested condition.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team changes category mapping for approved viewers. What is a good regression check?",
+    "options": [
+      "Drop the old positive because the mapper now changed",
+      "Check only the fixture's row count to confirm detection quality",
+      "Keep P1 matching and P3 as a negative",
+      "Compare scores without inspecting the new category values"
+    ],
+    "correct": 2,
+    "explanation": "Mapping tests need both the intended positive and a benign comparison.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Where do the chosen process categories come from in the lab?",
+    "options": [
+      "A live process that students must execute before testing",
+      "Already normalised fields in fictional records",
+      "A scanner that reads every active application on the workstation",
+      "The exact contents of the file requested at 08:01 UTC"
+    ],
+    "correct": 1,
+    "explanation": "The test consumes provided labels and does not generate the observed behaviour.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A test run passes, but the production mapping is unverified. What can be claimed?",
+    "options": [
+      "The fixture logic passes; mapping and collection still need review",
+      "The production detector is fully validated because the sample outcome matches",
+      "No need to review actual sensor field meaning after a test success",
+      "The script verified full device coverage in a live environment"
+    ],
+    "correct": 0,
+    "explanation": "A fixed fixture proves its own contract and not deploy-time assumptions.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an eligible candidate name in its output?",
+    "options": [
+      "Only the generic severity colour and lesson title",
+      "Every other process on the device without a source",
+      "The suspected document author inferred from a workstation label",
+      "Observed asset, categories and source event reference"
+    ],
+    "correct": 3,
+    "explanation": "Source references let a reviewer substantiate the actual match.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two records share an event ID but contradict the observed fields. What fits?",
+    "options": [
+      "Treat the later record as always correct regardless of provenance",
+      "Create two verified compromises without checking their source IDs",
+      "Route for reconciliation rather than silently dropping one",
+      "Modify the source records until they agree with the first status"
+    ],
+    "correct": 2,
+    "explanation": "The toy assumes stable facts, so contradictions need separate review.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why add a distinct positive event on another fictional asset?",
+    "options": [
+      "Allow the original event source to select multiple operating controls",
+      "Test that real new observations are not lost as repeats",
+      "Demonstrate an unapproved effect outside the course fixture",
+      "Make the detector accept any proxy record as endpoint evidence"
+    ],
+    "correct": 1,
+    "explanation": "A new event should remain visible even with the same category pair.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What would a separate proxy-process correlation need to define?",
+    "options": [
+      "Its verified join fields, interval and supported sources",
+      "Only the exact text of the claim typed by the reviewer",
+      "The rule's name in the monitoring system without an event key",
+      "The longest filename on the endpoint from another incident"
+    ],
+    "correct": 0,
+    "explanation": "A cross-source correlation requires its own evidence contract.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which status is valid for P4?",
+    "options": [
+      "Unsupported source because management has no proper owner",
+      "Duplicate receipt of the Office-to-script positive event",
+      "A case candidate inferred from the script child alone",
+      "No pair match because the parent is management"
+    ],
+    "correct": 3,
+    "explanation": "This endpoint row has the wrong parent category for the rule.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A detector omits unsupported and missing rows from accounting. What matters?",
+    "options": [
+      "Accept the count because unexpected inputs never affect operations",
+      "Infer they all produced independently verified no-match results",
+      "Record their limits separately so they cannot look like negatives",
+      "Replace their source IDs with an unrelated reviewed alert"
+    ],
+    "correct": 2,
+    "explanation": "Visibility limitations and input errors differ from valid negative observations.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the worksheet preserve the actual case evidence separately?",
+    "options": [
+      "The test recreates equivalent live conduct on the payments device",
+      "The detection fixture tests logic and adds no operational observation",
+      "The lab output proves exactly which document caused the observed process",
+      "The rule's reported outcomes override source events automatically"
+    ],
+    "correct": 1,
+    "explanation": "Test rows and supplied case records serve different evidence purposes.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule comparison shows only successful candidate rows. What else needs testing?",
+    "options": [
+      "Invalid data, repeats, negatives and unsupported sources",
+      "Different graphic colours for the case results",
+      "The process on a real target to establish a second positive",
+      "An alternate alert name for the only matching record"
+    ],
+    "correct": 0,
+    "explanation": "Complete acceptance requires evidence beyond the positive path.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who reviews corroborating context for a qualifying process pair?",
+    "options": [
+      "The scripted condition without independent evidence",
+      "The employee asked to execute the suspicious object again",
+      "Any unrelated observer without access to source records",
+      "The authorised endpoint owner and case analyst"
+    ],
+    "correct": 3,
+    "explanation": "The candidate hands off evidence for authorised investigation.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should the code exercise be executed?",
+    "options": [
+      "Against the named workstation through a live connection",
+      "Against all connected targets without source restrictions",
+      "Locally over the supplied fictional event array",
+      "By triggering the observed parent and child behaviour"
+    ],
+    "correct": 2,
+    "explanation": "The offline program classifies records and makes no system changes.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

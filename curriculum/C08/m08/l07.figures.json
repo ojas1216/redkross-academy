@@ -1,0 +1,40 @@
+{
+  "C08-M08-L07-F1": {
+    "title": "The tabletop exercise lifecycle",
+    "caption": "Seven steps from evaluable objectives to an owned improvement plan, with the improvements feeding the next exercise.",
+    "alt": "Top-to-bottom flow of seven steps: 1 Set objectives, 2 Scope + participants, 3 Scenario + MSEL, 4 Roles + ground rules, 5 Facilitate, 6 Hotwash, 7 AAR + improvement plan. A dashed feedback arrow runs from step 7 back to step 1, labelled improvement actions are tested in the next exercise.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "1 Set objectives", "sub": "3-5 capabilities, each with a test", "tone": "violet" },
+      { "label": "2 Scope + participants", "sub": "who plays, what is simulated", "tone": "slate" },
+      { "label": "3 Scenario + MSEL", "sub": "storyline, timed injects, expected actions", "tone": "blue" },
+      { "label": "4 Roles + ground rules", "sub": "facilitator, players, evaluators, controller", "tone": "blue" },
+      { "label": "5 Facilitate", "sub": "release injects, ask by role, log decisions", "tone": "orange" },
+      { "label": "6 Hotwash", "sub": "immediate debrief: strengths, gaps, changes", "tone": "green" },
+      { "label": "7 AAR + improvement plan", "sub": "each gap gets an owner and a date", "tone": "dark" }
+    ],
+    "loop": { "label": "improvement actions are tested in the next exercise", "to": 0 },
+    "note": "Design happens in steps 1-4, before players see anything; value is only realised at step 7."
+  }
+  ,
+  "C08-M08-L07-F2": {
+    "title": "Banyan tabletop: the master scenario events list",
+    "caption": "Eight timed injects for the Banyan tabletop, from the triage queue to an expired indicator, and the decision each one tests.",
+    "alt": "Table with columns #, Scenario time, Inject and Decision tested. 1, 08:30 UTC / 14:00 IST, triage queue with R5 10.8 and R2 7.2, declare and page. 2, 08:45 / 14:15, six-part SOC escalation, approve isolation of WS-104. 3, 08:50 / 14:20, legal asks about reporting, CERT-In deadline 14:30 UTC / 20:00 IST. 4, 09:05 / 14:35, Head of Finance demands a wipe, evidence versus business. 5, 09:20 / 14:50, gopal's VPN login after spray, contain the account too. 6, 09:35 / 15:05, IT chat may be read, move out of band. 7, 09:50 / 15:20, customer asks about a forum post, approved statement. C1, 13:40 / 19:10, expired indicator matches, weak lead only.",
+    "type": "table",
+    "columns": ["#", "Scenario time", "Inject", "Decision tested"],
+    "rowTones": ["blue", "blue", "orange", "orange", "red", "red", "violet", "slate"],
+    "rows": [
+      ["1", "08:30 UTC / 14:00 IST", "Triage queue: R5 10.8, R2 7.2", "Declare? Severity? Who is paged?"],
+      ["2", "08:45 / 14:15", "Six-part SOC escalation", "Who approves isolating WS-104?"],
+      ["3", "08:50 / 14:20", "Legal: must we report?", "CERT-In by 14:30 UTC / 20:00 IST"],
+      ["4", "09:05 / 14:35", "Head of Finance: wipe it now", "Evidence vs business workaround"],
+      ["5", "09:20 / 14:50", "gopal VPN login after spray", "Contain the account at the same time?"],
+      ["6", "09:35 / 15:05", "IT chat may be read", "Move to out-of-band channel"],
+      ["7", "09:50 / 15:20", "Customer asks about forum post", "Who approves a statement?"],
+      ["C1", "13:40 / 19:10", "Expired IOC 198.51.100.104", "Weak lead, not confirmation"]
+    ],
+    "note": "Evidence first, then pressure, then widening scope; injects 5 (statement), 6 and 7 are exercise-only events."
+  }
+}

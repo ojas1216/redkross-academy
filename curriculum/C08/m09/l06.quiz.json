@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The mailbox search matches a broad subject used for legitimate invoices. What should the lead request before wide quarantine?",
+    "options": [
+      "Purge every matching subject and preserve only the newest recipient",
+      "Block the sender address without checking shared service ownership",
+      "Validate a narrower scope with trusted message identifiers",
+      "Close the case because legitimate subjects cannot be matched to harmful mail"
+    ],
+    "correct": 2,
+    "explanation": "Recipient, time and trace identifiers reduce unnecessary business impact.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which owner should verify effective endpoint isolation?",
+    "options": [
+      "The recipient by repeating the original suspicious interaction",
+      "The authorised endpoint responder through management and telemetry",
+      "The mail administrator based solely on a quarantine status",
+      "The finance approver once the related transaction is processed"
+    ],
+    "correct": 1,
+    "explanation": "Endpoint state needs confirmation from a source that observes it.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An isolation request is pending because the device is offline. What belongs in the handoff?",
+    "options": [
+      "Isolation requested; effective state unverified",
+      "Isolation verified because no traffic is currently observed",
+      "Isolation complete once the ticket says the action is assigned",
+      "No need for verification until the workstation is returned to service"
+    ],
+    "correct": 0,
+    "explanation": "A queued request is different from the resulting endpoint state.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which action best addresses continuing access by an existing session?",
+    "options": [
+      "A deletion of the suspicious email from one mailbox",
+      "An update of the subject line in the incident report",
+      "A promise to review the employee's statement at closure",
+      "An authorised session action verified in the relevant service"
+    ],
+    "correct": 3,
+    "explanation": "Session controls address an access path distinct from mail delivery.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "New evidence reveals an urgent harmful action while optional data collection is pending. How should the lead reason?",
+    "options": [
+      "Wait for full collection before considering a protective response",
+      "Discard the current case record and start a new one after recovery",
+      "Weigh immediate protection and document any evidence impact",
+      "Complete all preventive changes without recording their authority"
+    ],
+    "correct": 2,
+    "explanation": "Urgency can justify action while the rationale and lost visibility are recorded.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in a temporary containment review plan?",
+    "options": [
+      "An indefinite expiry with no named decision maker",
+      "An owner, end condition and verification schedule",
+      "A broad guarantee that no services will be affected",
+      "A general record of who first noticed the message subject"
+    ],
+    "correct": 1,
+    "explanation": "Temporary controls should be evaluated deliberately rather than left in place.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The identity owner confirms action in the primary service but not a dependent application. What should the case record?",
+    "options": [
+      "Verified primary action and a separate open dependency",
+      "All access removed because the primary owner reported completion",
+      "Only the dependent app and no record of the completed step",
+      "No result until every service has exactly the same access policy"
+    ],
+    "correct": 0,
+    "explanation": "Tracking the two results separately identifies the possible access path that still needs verification.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A domain is hosted on shared infrastructure. Which issue deserves review before a broad restriction?",
+    "options": [
+      "The identity of the first employee who viewed the alert dashboard",
+      "The number of words used to describe the restriction in the ticket",
+      "Whether all previous invoices used the same template layout",
+      "Potential impact to legitimate applications sharing the destination"
+    ],
+    "correct": 3,
+    "explanation": "Scope and business cost matter when many services use infrastructure.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a containment action reversible and reviewable?",
+    "options": [
+      "Allow every report reader to request changes at any time",
+      "Use the latest severe alert as the only restoration signal",
+      "Define restoration criteria and the responsible owner",
+      "Remove the original justification once the action completes"
+    ],
+    "correct": 2,
+    "explanation": "An explicit restoration rule helps the lead manage unintended effects.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer finds the case lists five quarantines but the service confirms only four. What should happen?",
+    "options": [
+      "Accept the planned count as the final count in the executive summary",
+      "Reconcile the unmatched item and leave its exposure open",
+      "Change the service record to match the incident plan before review",
+      "Reopen all four confirmed actions as though none ever occurred"
+    ],
+    "correct": 1,
+    "explanation": "Reconciliation exposes the delivery whose containment still needs an owner and outcome check.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which team verifies a suspected change of payee details?",
+    "options": [
+      "Finance through its independently maintained approval channel",
+      "The mail delivery scanner through its URL preview logs",
+      "The endpoint owner through the laptop's process history alone",
+      "The employee by replying directly to the disputed message"
+    ],
+    "correct": 0,
+    "explanation": "Finance owns the transactions and has a trusted validation route.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A proxy transfer shows a byte count but no payload. Which recommendation is defensible?",
+    "options": [
+      "Declare a confirmed disclosure of specific payroll records",
+      "Restore all systems because the transfer remains unnamed",
+      "Isolate every employee who has previously used the same proxy",
+      "Preserve metadata and request verification of affected data"
+    ],
+    "correct": 3,
+    "explanation": "Observed transfer details support investigation but do not identify content.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which information should accompany an isolation recommendation?",
+    "options": [
+      "The requester's team name without any affected asset or observation",
+      "The entire directory of unrelated devices managed by the organisation",
+      "Target, evidence, impact, approver and verification method",
+      "A diagram of the mail system with no operational decision or approval"
+    ],
+    "correct": 2,
+    "explanation": "A bounded action makes authority and success criteria clear.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The VPN logging does not identify the remote client. What should containment advice avoid?",
+    "options": [
+      "Asking the VPN owner for authoritative session and source context",
+      "Treating the user's assigned laptop as the observed VPN client",
+      "Recording the three fields directly present in the authentication event",
+      "Preserving the difference between a suspicion and a confirmed finding"
+    ],
+    "correct": 1,
+    "explanation": "Inventory correlation does not establish the originating client.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should happen to a specimen before confirmed destructive mail action when feasible?",
+    "options": [
+      "Preserve it with the approved chain of custody",
+      "Restore it to all mailboxes for independent examination",
+      "Remove its source references to simplify the case report",
+      "Publish it so every recipient has an identical copy"
+    ],
+    "correct": 0,
+    "explanation": "Preservation keeps the evidence available for authorised review.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the best proof that a protective mail action reached the intended set?",
+    "options": [
+      "A log showing when the analyst first drafted the recommendation",
+      "A severity increase in the endpoint protection tool after the request",
+      "A screenshot of the search pattern before the owner submitted it",
+      "A disposition check reconciled to the target message list"
+    ],
+    "correct": 3,
+    "explanation": "The outcome must be verified against the planned scope.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the main function of a containment decision record?",
+    "options": [
+      "Replace all raw evidence once the initial action is submitted",
+      "Determine the final legal notification deadline by severity alone",
+      "Track evidence, approval, effect and follow-up",
+      "Collect every opinion in the incident channel without a conclusion"
+    ],
+    "correct": 2,
+    "explanation": "A record allows the next reviewer to reconstruct and verify action.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The current control caused an unrelated service outage. What should the lead do?",
+    "options": [
+      "Leave the control indefinitely until reports of disruption stop",
+      "Assess rollback impact and document an alternative control",
+      "Discard the mitigation history after the operator restores service",
+      "Ask affected staff to manage access independently outside the approved process"
+    ],
+    "correct": 1,
+    "explanation": "Rollback and alternative protection should be owned and documented.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the SOC verify if a compromised session may outlive a password change?",
+    "options": [
+      "Which services acknowledged revocation and which access paths remain",
+      "Whether the user can remember the exact content of the suspicious email",
+      "Whether the original message has the same attachments as older reports",
+      "Whether access to all services can be assumed closed after the password event"
+    ],
+    "correct": 0,
+    "explanation": "Session behaviour depends on the service and relevant token handling.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why preserve the difference between isolation and recovery?",
+    "options": [
+      "Isolation means every related business process has already resumed",
+      "Recovery is the same change request as initial quarantine",
+      "Containment permanently closes the need for incident staffing",
+      "A contained device still needs an authorised restoration decision"
+    ],
+    "correct": 3,
+    "explanation": "Containment limits harm and does not establish recovery conditions.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The mail owner and identity responder can act in parallel. What should the lead coordinate?",
+    "options": [
+      "A rule that both teams must always wait for every step to be sequential",
+      "A common assumption that success in one system proves the other is protected",
+      "Order, communication and the evidence dependencies between actions",
+      "A shared inbox for unredacted evidence without access restrictions"
+    ],
+    "correct": 2,
+    "explanation": "Coordinating the work prevents conflicting instructions and records any evidence affected by response.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which shift note is most useful for outstanding containment?",
+    "options": [
+      "The case title as agreed before either team performed its response",
+      "Effective actions, remaining risk, owners and next reviews",
+      "A list of every chat participant without the action outcome",
+      "Only the report's first detection time and final severity label"
+    ],
+    "correct": 1,
+    "explanation": "The incoming shift needs to know what works and what still needs verification.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A second host now contacts a destination after the first is isolated. What should the SOC do?",
+    "options": [
+      "Preserve the observation and reassess scope with the owner",
+      "Assume first-host isolation failed even though the records identify another host",
+      "Reverse the existing isolation to prevent a duplicate check",
+      "Close the case because the new record is outside the original plan"
+    ],
+    "correct": 0,
+    "explanation": "A new entity can expand scope without invalidating an earlier verified action.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the purpose of a scoped verification check?",
+    "options": [
+      "Allow collection from any system without further authority",
+      "Require the affected user to reproduce the unsafe action",
+      "Show that an operator opened the incident ticket at least once",
+      "Confirm the expected effect with relevant evidence"
+    ],
+    "correct": 3,
+    "explanation": "A verification question connects the change to its actual effect.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement properly describes a recommendation only?",
+    "options": [
+      "WS-104 was isolated at the moment the recommendation was drafted",
+      "Endpoint management confirmed the outcome although no action was sent",
+      "The lead was asked to approve isolation for WS-104",
+      "The operating risk ended when the analyst assigned the ticket"
+    ],
+    "correct": 2,
+    "explanation": "A paper recommendation does not establish approval or execution.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "C08-M12-L05-F1": {
+    "title": "Verify the OPS-03 maintenance explanation",
+    "caption": "The disposition rests on agreement between the observed event, approved change and independent evidence.",
+    "alt": "Rows compare OPS-03 with CR-82, the 08:23 event with its authorised interval, the specified action with the operations confirmation, and the forwarded archive with expected visibility. O-401 can close for that specific scope.",
+    "type": "table",
+    "columns": [
+      "Check",
+      "Observed evidence",
+      "Corroborating record"
+    ],
+    "rows": [
+      [
+        "Asset",
+        "OPS-03 in B16",
+        "OPS-03 in CR-82"
+      ],
+      [
+        "Time",
+        "08:23 UTC",
+        "08:20?08:30 window"
+      ],
+      [
+        "Action",
+        "Security log clear",
+        "Approved step and owner confirmation"
+      ],
+      [
+        "Visibility",
+        "Expected source copies",
+        "Forwarded archive verified"
+      ],
+      [
+        "Disposition",
+        "O-401 only",
+        "Reopen if scope or evidence changes"
+      ]
+    ],
+    "rowTones": [
+      "blue",
+      "blue",
+      "violet",
+      "green",
+      "dark"
+    ],
+    "note": "A one-case closure does not suppress future signals."
+  }
+}

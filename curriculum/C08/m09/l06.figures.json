@@ -1,0 +1,41 @@
+{
+  "C08-M09-L06-F1": {
+    "title": "Containment from request to verification",
+    "caption": "A scoped, approved action is complete when its outcome is evidenced and remaining risk has an owner.",
+    "alt": "Five connected boxes show evidence and risk, a scoped and approved action, preservation and execution, outcome verification and recording residual risk. A feedback arrow returns remaining exposures to scoping.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Record risk and evidence",
+        "sub": "Artifact, identity, device or business process",
+        "tone": "slate"
+      },
+      {
+        "label": "Scope and approve",
+        "sub": "Name the owner, target and expected effect",
+        "tone": "violet"
+      },
+      {
+        "label": "Preserve and execute",
+        "sub": "Capture evidence and log the request",
+        "tone": "blue"
+      },
+      {
+        "label": "Verify the outcome",
+        "sub": "Check the effect through a relevant source",
+        "tone": "orange"
+      },
+      {
+        "label": "Record remaining risk",
+        "sub": "Assign review and recovery actions",
+        "tone": "dark"
+      }
+    ],
+    "loop": {
+      "label": "Reassess when evidence changes",
+      "to": 1
+    },
+    "note": "A completed request and a verified outcome answer separate questions."
+  }
+}

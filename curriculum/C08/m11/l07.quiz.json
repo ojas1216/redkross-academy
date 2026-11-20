@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A state-changing step times out and the approved effect might already exist. What happens before any repeat?",
+    "options": [
+      "Send the operation again and rely on the newest result",
+      "Treat the remote service as having rejected the request",
+      "Drop the action record and start a different workflow for the same intent",
+      "Reconcile by the stable effect identity"
+    ],
+    "correct": 3,
+    "explanation": "A timeout can hide a successful effect and does not prove failure.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a safe playbook define first?",
+    "options": [
+      "The full set of actions a connector could technically perform",
+      "The default severity for every alert from unrelated sources",
+      "The intended effect, boundaries and authority",
+      "A presentation label for the latest workflow revision"
+    ],
+    "correct": 2,
+    "explanation": "A bounded purpose gives every following step an explicit operating context.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A notification fails after a training task was verified. What is the proper recovery?",
+    "options": [
+      "Run the entire workflow again to create another task",
+      "Keep the task and retry or hand off just the notification",
+      "Remove the existing task because one related step failed",
+      "Assume the reviewer was informed when the task was created"
+    ],
+    "correct": 1,
+    "explanation": "Partial completion is reconciled by individual effect, not whole-run status.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes an effect key useful for a duplicate check?",
+    "options": [
+      "It represents the same intended change across attempts",
+      "It is a separate random value assigned to each delivery",
+      "It matches the display label of any related asset",
+      "It includes the current network response time by default"
+    ],
+    "correct": 0,
+    "explanation": "A stable intent key lets the system identify repeat effects.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A service returns a target identifier different from the approved target. What should the workflow do?",
+    "options": [
+      "Accept the effect because the response contained any target value",
+      "Replace the approval record with the returned target to make it match",
+      "Apply the same change to the original target without checking the first effect",
+      "Stop later changes and record the mismatch for review"
+    ],
+    "correct": 3,
+    "explanation": "A successful receipt cannot establish a valid effect on an unapproved object.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which playbook outcome is valid even when it produces no change?",
+    "options": [
+      "Silent removal of unresolved events from the audit trail",
+      "An assumed failure that needs no evidence or follow-up",
+      "A scoped review with an explicit reason and owner",
+      "A restarted workflow that creates new effects for the same request"
+    ],
+    "correct": 2,
+    "explanation": "Stopping with a review state can be an intended safe result.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Both an inventory lookup and an approval check are unavailable. Which could allow partial progress?",
+    "options": [
+      "Record both failures as successful checks to avoid losing the case",
+      "Continue approved case preparation and stop the gated change",
+      "Approve the step automatically because neither dependency made a decision",
+      "Discard all work and remove the record of the original input"
+    ],
+    "correct": 1,
+    "explanation": "Preparation can proceed in a bounded way while authority is still unverified.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a recovery note name after a partial failure?",
+    "options": [
+      "Known effects, unresolved outcomes and responsible owners",
+      "Only the latest status colour of the entire workflow",
+      "Every unreviewed credential used by unrelated integrations",
+      "The original plan without any updated observations"
+    ],
+    "correct": 0,
+    "explanation": "Recovery depends on knowing which effects actually occurred and who handles the rest.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A pause is set due to incorrect downstream routing. What should happen to valid incoming alerts?",
+    "options": [
+      "Drop them until the owner restarts the automation",
+      "Mark them all complete because the workflow is paused",
+      "Replay them later without checking for earlier effects",
+      "Preserve them and route time-sensitive work for manual review"
+    ],
+    "correct": 3,
+    "explanation": "A pause can stop state changes while preserving legitimate work.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in each audit entry for a consequential operation?",
+    "options": [
+      "A single summary saying that the automation owner was available",
+      "A copy of every credential used during approval",
+      "Decision reference, version, scope, effect identity and outcome",
+      "The entire source event store even if the action used one record"
+    ],
+    "correct": 2,
+    "explanation": "Reviewers need the inputs and results of the particular action.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The proposed change cannot be fully reversed after information is disclosed. What should the plan address?",
+    "options": [
+      "A blanket promise that a rollback restores all prior state",
+      "Prevention and review of the irreversible consequence",
+      "Preservation of a wider permission for future emergency use",
+      "The ability to delete the log showing which information left"
+    ],
+    "correct": 1,
+    "explanation": "A recovery plan must account for effects outside its ability to undo.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why separate training from operational permissions?",
+    "options": [
+      "So a simulated test cannot accidentally affect real assets",
+      "So all integration credentials can be identical across environments",
+      "So trained operators do not need to review production changes",
+      "So validation can accept any scope supplied by the exercise input"
+    ],
+    "correct": 0,
+    "explanation": "Isolation should be enforced by scope and credentials, not just labels.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A repeated input has a different timestamp but the same authorised operation. What should be verified?",
+    "options": [
+      "Whether the timestamps sort into different calendar minutes",
+      "Whether the original case was created by a different operator",
+      "Whether the newer audit entry can overwrite the older evidence",
+      "Whether the existing effect answers the same intent"
+    ],
+    "correct": 3,
+    "explanation": "A new receipt time alone does not create a new intended effect.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the best purpose of a retry limit?",
+    "options": [
+      "Ensure every approved action retries until it eventually executes",
+      "Prevent any analyst from seeing failures while the queue is busy",
+      "Contain temporary recovery attempts and expose persistent failure",
+      "Convert an unknown outcome into a successful status after several tries"
+    ],
+    "correct": 2,
+    "explanation": "Bounded recovery and accountable review avoid indefinite unsafe repetition.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A verified effect lacks a required approval reference. How should this be handled?",
+    "options": [
+      "Accept the result because the technical effect is already complete",
+      "Investigate it as an unexpected control outcome",
+      "Assign the latest available approval even if it concerns another case",
+      "Treat the missing reference as unrelated to operating scope"
+    ],
+    "correct": 1,
+    "explanation": "Verification does not excuse missing authority for a gated action.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which outcome should a malformed target produce?",
+    "options": [
+      "Input review without a state change",
+      "An effect on the closest matching display name",
+      "A successful change under the last known approval",
+      "A different default operation that tolerates missing scope"
+    ],
+    "correct": 0,
+    "explanation": "The actual target is a prerequisite for the specific approved effect.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An effect was never started before the workflow paused. What does resuming require?",
+    "options": [
+      "Apply it automatically because it appeared before the pause",
+      "Rewrite it with a new effect identity to bypass prior review",
+      "Remove it from the case and silently confirm it was completed",
+      "Check whether its scope and authorisation are still current"
+    ],
+    "correct": 3,
+    "explanation": "Elapsed time and case changes can invalidate an earlier plan.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who should own a safe playbook's design and changes?",
+    "options": [
+      "Any end user who originally noticed a case event",
+      "The environment with the highest number of executed actions",
+      "A designated workflow owner with review responsibilities",
+      "The first tool whose result appears in the run history"
+    ],
+    "correct": 2,
+    "explanation": "Ownership makes testing, repair and permission changes accountable.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An approved request was accepted but no outcome has appeared. What should a case note distinguish?",
+    "options": [
+      "The severity assigned to the case from the name of the workflow",
+      "An acknowledged request from a verified effect",
+      "The prior version of the test fixture from the future upgrade date",
+      "The operating label from the address displayed by the incident report"
+    ],
+    "correct": 1,
+    "explanation": "Acceptance does not confirm that the target has applied the change.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should be preserved after an unexpected branch failure?",
+    "options": [
+      "The reason, case reference and state already observed",
+      "Only the planned effects that now seem likely",
+      "A replaced input whose values fit the desired outcome",
+      "A copied successful result from an unrelated execution"
+    ],
+    "correct": 0,
+    "explanation": "Evidence of failure is needed to continue or reconcile safely.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A source repeatedly sends invalid data after a mapping change. What is the safest repair approach?",
+    "options": [
+      "Disable validation until the queue becomes smaller",
+      "Accept every new value by assuming it is authorised",
+      "Ask the source to overwrite old records so they no longer fail",
+      "Pause affected effects and test a reviewed mapping with original fixtures"
+    ],
+    "correct": 3,
+    "explanation": "Repair should preserve the safety boundary and regression evidence.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What need does a separate restoration decision address?",
+    "options": [
+      "Permission for any employee to reverse every response operation",
+      "Automatic erasure of all case history on return to service",
+      "Accountability for ending or compensating a protective change",
+      "Avoiding any record of how the change affected evidence"
+    ],
+    "correct": 2,
+    "explanation": "Restoration can affect real systems and needs its own verified criteria.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two effects have the same case and target but different approved scopes. What helps preserve them correctly?",
+    "options": [
+      "Force them to share one key because the case is the same",
+      "Identify each distinct intent in its effect identity",
+      "Treat both as duplicate receipts if display names match",
+      "Assign all effects based on who happened to be on shift"
+    ],
+    "correct": 1,
+    "explanation": "An effect key should include distinctions important to the actual operation.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why test both denied and verified paths?",
+    "options": [
+      "To confirm the boundary and the intended allowed result",
+      "To guarantee the workflow must always make a state change",
+      "To remove manual ownership from the application review",
+      "To classify any delayed service as untrustworthy automatically"
+    ],
+    "correct": 0,
+    "explanation": "Negative and positive tests together show what the workflow permits.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which role decides whether a paused protective action still makes sense?",
+    "options": [
+      "The queue scheduler because its timestamps are newer",
+      "The first service able to run the action without review",
+      "The most recent participant to look at the alert title",
+      "The authorised incident lead using current context"
+    ],
+    "correct": 3,
+    "explanation": "An operational decision needs current case scope and accountable authority.",
+    "lesson": 7,
+    "difficulty": "medium"
+  }
+]

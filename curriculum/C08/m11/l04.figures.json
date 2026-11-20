@@ -1,0 +1,81 @@
+{
+  "C08-M11-L04-F1": {
+    "title": "From approval request to verified effect",
+    "caption": "A valid approval permits a scoped action only after a fresh precondition check.",
+    "alt": "A scoped request waits for an authorised decision. Denied or expired decisions are recorded without changing state. An approval goes through a scope and duplicate check. A changed scope returns for new approval; valid work proceeds to requested and verified effect.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "r",
+        "label": "Scoped case request",
+        "sub": "Action, target and expiry",
+        "tone": "slate"
+      },
+      {
+        "id": "p",
+        "label": "Decision pending",
+        "sub": "Authorised role reviews",
+        "tone": "violet"
+      },
+      {
+        "id": "d",
+        "label": "Record denied or expired",
+        "sub": "Keep response owner informed",
+        "tone": "orange"
+      },
+      {
+        "id": "c",
+        "label": "Recheck approval and scope",
+        "sub": "Current target and known effects",
+        "tone": "violet"
+      },
+      {
+        "id": "a",
+        "label": "Request and verify approved effect",
+        "sub": "Record target system evidence",
+        "tone": "green"
+      },
+      {
+        "id": "n",
+        "label": "New decision needed",
+        "sub": "Updated scope or stale request",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "r",
+        "to": "p"
+      },
+      {
+        "from": "p",
+        "to": "d",
+        "label": "Denied or expired"
+      },
+      {
+        "from": "p",
+        "to": "c",
+        "label": "Approved"
+      },
+      {
+        "from": "c",
+        "to": "a",
+        "label": "Still valid"
+      },
+      {
+        "from": "c",
+        "to": "n",
+        "label": "No longer valid"
+      },
+      {
+        "from": "n",
+        "to": "r",
+        "label": "Review new request",
+        "dashed": true
+      }
+    ],
+    "note": "Approval, action request and verified effect each need a record."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "C08-M12-L01-F1": {
+    "title": "First-pass triage for the incoming shift",
+    "caption": "Record each source row and give the supported next decision an owner.",
+    "alt": "Five steps show preserving alert identity and source, screening for duplicates, assessing risk and confidence, recording a disposition, and assigning next verification.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Preserve the source record",
+        "sub": "ID, time, entity and observation",
+        "tone": "slate"
+      },
+      {
+        "label": "Check for a repeated receipt",
+        "sub": "Distinguish related new evidence",
+        "tone": "blue"
+      },
+      {
+        "label": "Assess urgency and confidence",
+        "sub": "Use scoped facts and business impact",
+        "tone": "violet"
+      },
+      {
+        "label": "Record the disposition",
+        "sub": "Priority, case reference and rationale",
+        "tone": "orange"
+      },
+      {
+        "label": "Assign the next check",
+        "sub": "Evidence needed, owner and cutoff",
+        "tone": "dark"
+      }
+    ],
+    "note": "A queue can be complete even while case decisions remain open."
+  }
+}

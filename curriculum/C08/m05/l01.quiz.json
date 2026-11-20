@@ -3,7 +3,7 @@
     "q": "A colleague proposes lowering the base severity of R4 large_upload from 3 to 2 because most large uploads at Banyan turn out to be legitimate. What is the best response?",
     "options": [
       "Keep severity at 3, since exfiltration would be serious and irreversible, and express the doubt through the rule's confidence and tuning",
-      "Lower it to 2, because a rule whose alerts are usually benign should not occupy the same severity band as genuine threats",
+      "Lower it to 2, because a rule whose alerts are usually benign should not occupy the same severity band as genuine, confirmed threats in the queue",
       "Lower it to 1 and treat it as informational, because the upload threshold already filters out most of the harmless traffic",
       "Raise it to 4, because any rule that might detect exfiltration must sit at the top level whatever its false-positive rate"
     ],
@@ -15,8 +15,8 @@
   {
     "q": "One alert shows an exploitation attempt against a CVSS 9.8 vulnerability on a server that was patched last month. Another shows a normal-looking VPN login with a password known to be stolen. How should their alert severities compare?",
     "options": [
-      "The exploit attempt is more severe, because alert severity should inherit the CVSS base score of the targeted vulnerability",
-      "The stolen-credential login can be more severe: alert severity judges the consequence of the behaviour, and the patched attempt likely failed",
+      "The exploit attempt is more severe, because alert severity should always inherit the CVSS base score of whichever vulnerability was targeted",
+      "The stolen-credential login can be more severe: severity judges the consequence of the behaviour, and the patched attempt likely failed",
       "Both should be rated equally High, because each represents an external actor attempting to gain access to the environment",
       "Neither can be rated until confidence is known, because severity must be adjusted downward for unconfirmed alerts first"
     ],
@@ -29,7 +29,7 @@
     "q": "R2 vpn_spray_then_success has base severity 4. A detection engineer adds a second rule that fires on the spray alone (five or more failing accounts from one source, no success). What base severity logic is most defensible for the new rule?",
     "options": [
       "The same value of 4, because both rules detect the same password-spraying technique from the same source address",
-      "A higher value than R2, because a spray seen early gives the SOC more time and is therefore the more important signal",
+      "A higher value than R2, because a spray seen early gives the SOC more time to respond and is therefore the more important and urgent signal to act on",
       "A lower value than R2, because without a success the behaviour is only an attempt against the boundary, not credentials in an outsider's hands",
       "No severity at all, because a spray without success cannot be a true positive and should therefore be suppressed outright"
     ],
@@ -42,7 +42,7 @@
     "q": "In the Banyan severity scale, the Critical row lists no rule anchors and has the kit value 'case only'. What is the main reason for this design?",
     "options": [
       "The minisiem engine cannot store a value above 4, so Critical must be tracked manually outside the lab kit",
-      "Critical alerts are handled by a separate incident team, so detection engineering is not permitted to assign them",
+      "Critical alerts are handled by a separate incident team, so detection engineering is not permitted to assign that level to any rule it writes",
       "Sigma has no critical level, so rules imported from Sigma could never be mapped to the top of the scale",
       "A single detection rarely proves active harm, so Critical is reserved for case-level judgment, which keeps the top level rare and meaningful"
     ],
@@ -56,7 +56,7 @@
     "options": [
       "The host's importance is counted twice: once in the raised severity and again by the criticality factor in the priority formula",
       "R1 cannot be raised at all, because base severity set by detection engineering is fixed for every alert the rule creates",
-      "Raising severity is fine, but the analyst should also lower the asset criticality of WS-104 so the overall score stays stable",
+      "Raising severity is fine, but the analyst should also lower the asset criticality of WS-104 so that the overall priority score stays stable",
       "The change is only a problem if the confidence for R1 is below 0.5, which would make the raised value statistically unreliable"
     ],
     "correct": 0,
@@ -107,7 +107,7 @@
     "q": "The R3 alert at 07:02 shows divya, a payments approver, creating the account svc_update, 48 minutes after R1 fired on the same host. Which triage outcome is most defensible?",
     "options": [
       "Raise from 3 to 4 with a recorded note citing the out-of-role account creation and the earlier R1 alert, and link it to the WS-104 case",
-      "Keep at 3 without a note, because account creation is routine for administrators and the base severity already covers it",
+      "Keep at 3 without a note, because account creation is routine for administrators on any host and the base severity already covers that risk",
       "Lower to 2, because a single account creation does not prove persistence and the confidence of R3 is only 0.6",
       "Raise directly to Critical, because any new account on a finance workstation is proof of active harm in progress"
     ],
@@ -122,7 +122,7 @@
       "Because itadmin's alerts have lower base severity than divya's, since base severity is assigned per user account",
       "Because context explains itadmin's activity as approved work, while divya's account creation is out of role and corroborated",
       "Because suppression applies only to alerts generated outside business hours, and itadmin worked during the night",
-      "Because R3 has two separate thresholds, one for administrators and one for ordinary users, built into the rule logic"
+      "Because R3 has two separate thresholds, one for administrators and one for ordinary users, built directly into the rule's detection logic"
     ],
     "correct": 1,
     "explanation": "The same detected behaviour is judged against its context: an approved change explains itadmin's activity, so it is suppressed, while divya's lacks any such explanation and has supporting evidence. Base severity belongs to the rule, not to a user.",
@@ -133,7 +133,7 @@
     "q": "At the end of a busy shift an analyst wants to downgrade a High case to Low, noting only 'looks benign'. Under the governance practice described in the lesson, what should happen?",
     "options": [
       "The analyst may proceed, because analysts own alert severity and may move it in either direction on their own judgment",
-      "The change should be blocked permanently, because a High case can only ever be closed by escalation to incident response",
+      "The change should be blocked permanently, because a High case can only ever be closed by formal escalation to the incident response team",
       "The downgrade needs a second person such as the shift lead and a specific recorded reason, since lowering is where incidents get lost",
       "The analyst should leave the severity unchanged but close the case, because closure does not require a severity change"
     ],
@@ -161,7 +161,7 @@
       "Rarity is evidence about whether the alert is real, so it informs confidence; severity must come from the consequence if true",
       "Rare events can never be severe, because attackers prefer common tools that blend into normal administrative activity",
       "Rarity should lower severity, because rare behaviour produces few alerts and therefore needs little analyst attention",
-      "Rarity is only meaningful for network events, so a host-based process rule must take its severity from the vendor default"
+      "Rarity is only meaningful for network events, so a host-based process rule must take its severity from the vendor's default rating instead"
     ],
     "correct": 0,
     "explanation": "Severity is a judgment about consequence, not about how unusual the event is or how often it fires. Rarity supports the likelihood that the alert is true, which is confidence. A rare process could be harmless or dangerous; its consequence decides severity.",
@@ -171,7 +171,7 @@
   {
     "q": "A misconfigured application triggers the same rule 500 times in ten minutes on one host. How should severity be handled?",
     "options": [
-      "Raise the severity to the top level, since 500 alerts show that the behaviour is far more serious than a single occurrence",
+      "Raise the severity to the top level, since 500 alerts in ten minutes show that the behaviour is far more serious than a single occurrence would be",
       "Deduplicate into one alert with a count; volume does not make one behaviour more severe, and if volume matters, write a rule for that pattern",
       "Lower the rule's base severity permanently, since a rule able to fire 500 times is clearly mis-rated for the environment",
       "Rate each of the 500 alerts separately, because every alert must keep its own independent severity and triage record"
@@ -236,7 +236,7 @@
   {
     "q": "An intruder works slowly with legitimate administration tools and keeps uploads below the R4 threshold, so only Low alerts are produced. Which defence most directly counters this?",
     "options": [
-      "Raise all Low rules to Medium, so that every alert they produce is guaranteed to be read by an analyst",
+      "Raise all Low rules to Medium, so that every alert they produce is guaranteed to be read by an analyst before the shift ends",
       "Lower the R4 upload threshold to zero bytes, so that any upload at all generates a Medium alert",
       "Aggregate Low and informational detections into a per-entity risk score so that weak signals on one host surface together",
       "Disable Low rules entirely, since they are not read and only add storage cost to the SIEM"

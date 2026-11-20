@@ -1,0 +1,17 @@
+{
+  "C08-M10-L05-F1": {
+    "title": "Mapping Banyan observations to ATT&CK tactics with confidence",
+    "caption": "Candidate tactics are hypotheses, not findings. No technique IDs are listed; verify any citation against the current ATT&CK version.",
+    "alt": "A table with four columns: observation, candidate tactic, confidence and benign alternative. The WS-104 download followed by an Office child process maps to Execution at moderate confidence, with a routine helper process as the alternative. Repeated requests to cdn-telemetry-sync.example map to Command and Control at low confidence, pending a prevalence check. The large transfer maps to Exfiltration at moderate confidence with content unknown. Eight failed VPN identities map to Credential Access at moderate confidence, with a shared egress address as the alternative. A final row shows that a link between gopal and WS-104 is unsupported because no shared entity exists.",
+    "type": "table",
+    "columns": ["Observation", "Candidate tactic", "Confidence", "Benign alternative"],
+    "rows": [
+      ["Download then Office child", "Execution", "Moderate", "Routine helper process"],
+      ["18 requests to one domain", "Command and Control", "Low, pending baseline", "Legitimate agent"],
+      ["48,200,000 bytes out", "Exfiltration", "Moderate, content unknown", "Sanctioned file share"],
+      ["8 failed VPN identities", "Credential Access", "Moderate", "Shared egress address"],
+      ["gopal linked to WS-104", "None", "Unsupported", "No shared entity"]
+    ],
+    "rowTones": ["orange", "slate", "orange", "orange", "red"]
+  }
+}

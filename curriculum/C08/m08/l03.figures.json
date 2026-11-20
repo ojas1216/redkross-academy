@@ -1,0 +1,41 @@
+{
+  "C08-M08-L03-F1": {
+    "title": "Containment options: what each one stops, keeps, costs and signals",
+    "caption": "Six common containment actions rated on stopping the attacker, keeping evidence, business impact and how strongly they alert the attacker.",
+    "alt": "Table with five columns: Action, Stops attacker, Keeps evidence, Business impact, Tip-off signal. Row 1, green: EDR network isolation; high (that host); high (host stays on); medium; noticeable. Row 2, green: Block domain / IP; partial; high; low; low. Row 3, green: Disable + revoke sessions; high (credentials); high; medium; strong. Row 4, orange: Disable persistence account; partial (way back in); high (account kept); low; medium. Row 5, red: Power off; high; low (memory lost); high; strong. Row 6, red: Wipe and reimage; high (that host); very low; high; strong.",
+    "type": "table",
+    "columns": ["Action", "Stops attacker", "Keeps evidence", "Business impact", "Tip-off signal"],
+    "rowTones": ["green", "green", "green", "orange", "red", "red"],
+    "rows": [
+      ["EDR network isolation", "High (that host)", "High (host stays on)", "Medium", "Noticeable"],
+      ["Block domain / IP", "Partial", "High", "Low", "Low"],
+      ["Disable + revoke sessions", "High (credentials)", "High", "Medium", "Strong"],
+      ["Disable persistence account", "Partial (way back in)", "High (account kept)", "Low", "Medium"],
+      ["Power off", "High", "Low (memory lost)", "High", "Strong"],
+      ["Wipe and reimage", "High (that host)", "Very low", "High", "Strong"]
+    ],
+    "note": "No single action wins on every column: combine the green rows, and time the signalling actions together."
+  },
+  "C08-M08-L03-F2": {
+    "title": "One containment decision: recommend, approve, execute, verify",
+    "caption": "The analyst recommends and verifies, the incident lead decides, the business owner provides the workaround and operations teams execute.",
+    "alt": "Sequence diagram with four lanes, left to right: SOC analyst (orange), Incident lead (dark), Business owner (blue, head of finance), IT ops / identity (green). 1, analyst to incident lead: Recommendation: actions, order, impact. 2, incident lead to business owner: Impact: payments approver offline. 3, dashed reply from business owner to incident lead: Workaround: deputy approves payments. 4, dashed, incident lead to analyst: Approved: execute together. 5, incident lead to IT ops / identity: Execute: isolate, block, disable, revoke. 6, dashed, IT ops / identity to analyst: Done + time of each action. 7, analyst to incident lead: Verified: no beacon, no sign-ins.",
+    "type": "sequence",
+    "actors": [
+      { "id": "a", "label": "SOC analyst", "sub": "recommends, verifies", "tone": "orange" },
+      { "id": "l", "label": "Incident lead", "sub": "containment authority", "tone": "dark" },
+      { "id": "b", "label": "Business owner", "sub": "head of finance", "tone": "blue" },
+      { "id": "o", "label": "IT ops / identity", "sub": "executes", "tone": "green" }
+    ],
+    "messages": [
+      { "from": "a", "to": "l", "label": "Recommendation: actions, order, impact" },
+      { "from": "l", "to": "b", "label": "Impact: payments approver offline" },
+      { "from": "b", "to": "l", "label": "Workaround: deputy approves payments", "dashed": true },
+      { "from": "l", "to": "a", "label": "Approved: execute together", "dashed": true },
+      { "from": "l", "to": "o", "label": "Execute: isolate, block, disable, revoke" },
+      { "from": "o", "to": "a", "label": "Done + time of each action", "dashed": true },
+      { "from": "a", "to": "l", "label": "Verified: no beacon, no sign-ins" }
+    ],
+    "note": "Every arrow is recorded with a UTC time in the incident log."
+  }
+}

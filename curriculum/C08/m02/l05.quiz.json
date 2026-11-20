@@ -197,7 +197,7 @@
   {
     "q": "In a copy of the lab script, the firewall parser is called with tz=timezone.utc instead of IST. What happens to the investigation?",
     "options": [
-      "The drop is stamped 01:16:21Z, before the VPN login, which reveals that the firewall saw the attacker first",
+      "The event shifts to 01:16:21Z, before the VPN login, so the recorded order would suggest the firewall saw the connection attempt first",
       "The drop is stamped 12:16:21Z, five and a half hours after the VPN login, and the link between them disappears",
       "Nothing changes, because the parser converts every time to UTC whatever offset it is given",
       "The script fails with an error, because a syslog line cannot be parsed without its own zone"
@@ -289,7 +289,7 @@
     "q": "Module 3's correlation rule links the proxy download of invoice.docm to the Sysmon event at 06:14 UTC in which WINWORD.EXE launches powershell.exe. Which fields make that link?",
     "options": [
       "The shared src_ip, because both the proxy and Sysmon events record it",
-      "The url field, because Sysmon records the document's download location",
+      "The full document URL and download path, which the endpoint event copies from the original proxy request",
       "The Sysmon ProcessGuid, which the proxy also records for each request",
       "The shared host WS-104 and user divya, together with the short time gap"
     ],

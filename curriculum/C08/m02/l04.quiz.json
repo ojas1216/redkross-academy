@@ -43,7 +43,7 @@
     "options": [
       "The record is corrupt and should be excluded from the investigation timeline",
       "The caller hid its address with a proxy, which is a sign of defence evasion",
-      "The call came from inside a VPC, which CloudTrail always reports by service name",
+      "It represents a private VPC endpoint whose actual address CloudTrail replaces with the service name in every record",
       "An AWS service made the request on the principal's behalf, so no address is given"
     ],
     "correct": 3,
@@ -145,7 +145,7 @@
   {
     "q": "Months after an incident, a defence lawyer claims the CloudTrail log files presented were edited after the fact. Which feature lets the investigator answer this?",
     "options": [
-      "Event history, because its 90-day console view cannot be changed by customers",
+      "The ninety-day Event history view, which provides a comparable integrity guarantee for evidence stored in any external archive",
       "Log file integrity validation, whose signed hourly digests hold each file's hash",
       "Multi-region trails, because duplicate copies exist in every enabled region",
       "CloudTrail Insights, which flags unusual changes in the volume of log files"
@@ -185,7 +185,7 @@
     "q": "The pipeline identity ci-deploy calls CreateAccessKey for the user finance-reports from 203.0.113.80 via the CLI, and it succeeds. Which reading and follow-up is best?",
     "options": [
       "Likely persistence via a second credential; trace every later use of the new key ID",
-      "Routine key rotation by the pipeline; confirm the old key was disabled afterwards",
+      "Treat the pipeline as the expected rotation owner and check only whether the previous key was disabled on schedule",
       "A failed escalation attempt; check errorCode for AccessDenied on related calls",
       "Data exposure of finance reports; review PutBucketPolicy calls by finance-reports"
     ],
@@ -197,7 +197,7 @@
   {
     "q": "Your SIEM maps CloudTrail into ECS fields. Why should the original JSON record still be retained?",
     "options": [
-      "ECS cannot store timestamps in UTC, so eventTime must be read from the raw JSON",
+      "The normalized schema requires timestamps without their source time zone, so eventTime can only be understood from the raw JSON",
       "The raw record is needed to compute cloud.provider, which ECS cannot hold",
       "Fields such as requestParameters and sessionContext rarely survive normalisation",
       "ECS discards sourceIPAddress, so address pivots work only on the raw record"
@@ -237,7 +237,7 @@
     "q": "In Google Cloud you need to find who changed a project's IAM policy with SetIamPolicy last month. Which logName suffix should your query filter on?",
     "options": [
       "cloudaudit.googleapis.com%2Fdata_access, because IAM policies are user data",
-      "cloudaudit.googleapis.com%2Fpolicy, because Policy Denied covers IAM policy changes",
+      "cloudaudit.googleapis.com%2Fpolicy, since a policy-change operation automatically appears in Policy Denied even when it succeeds",
       "cloudaudit.googleapis.com%2Factivity, because changing configuration is Admin Activity",
       "cloudaudit.googleapis.com%2Fsystem_event, because IAM changes are made by Google"
     ],

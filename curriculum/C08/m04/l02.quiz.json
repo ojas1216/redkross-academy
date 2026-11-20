@@ -2,7 +2,7 @@
   {
     "q": "On one SSH server, source A fails as invalid users admin, oracle and test, once each. Source B fails five times as finance_etl, a real service account specific to the organisation. Neither succeeds. Which source shows targeting, and why?",
     "options": [
-      "Source A, because trying more distinct names indicates a wider, organised campaign",
+      "Source A, because trying more distinct user names indicates a wider, organised campaign",
       "Neither source, because no Accepted line appears for either of the two addresses",
       "Source B, because guessing a real, organisation-specific name implies inside knowledge",
       "Both equally, because each source produced failed password lines on the same server"
@@ -16,7 +16,7 @@
     "q": "An analyst wants every line belonging to one SSH connection that ended with a [preauth] message. Which value reliably joins those lines?",
     "options": [
       "The PID of the sshd child process that handled the connection",
-      "The session number assigned to the login by systemd-logind",
+      "The session number assigned to the login by systemd-logind on the server",
       "The uid recorded in the pam_unix session opened line for it",
       "The listening port of the parent sshd process on the server"
     ],
@@ -94,7 +94,7 @@
     "q": "The sudo log shows 'deploy : ... COMMAND=/bin/bash' at 09:10. At 09:24 a useradd 'new user' line appears from the same terminal, but there is no sudo line for useradd. What explains the missing sudo line?",
     "options": [
       "useradd logs only through PAM, so sudo suppresses its own line for it",
-      "The sudo line was compressed into a 'message repeated' line by rsyslog",
+      "The sudo line was compressed into a 'message repeated' line by rsyslog on the host",
       "useradd needs no privilege when it is run from an interactive terminal",
       "Commands typed inside a root shell started via sudo are not logged by sudo"
     ],
@@ -108,7 +108,7 @@
     "options": [
       "A public key written into the account's authorized_keys allows login and leaves no line in auth.log",
       "Linux accounts created by useradd receive a default password that is not written to auth.log",
-      "passwd lines are written only to the journal, never to auth.log, so the search could not find them",
+      "passwd lines are written only to the journal, never to auth.log, so the grep search could not find them",
       "Accounts in the sudo group can log in without any password when they connect from a local terminal"
     ],
     "correct": 0,
@@ -171,7 +171,7 @@
   {
     "q": "For a journal-based detection of account creation, why filter on _COMM=useradd rather than on the syslog identifier with -t useradd?",
     "options": [
-      "_COMM includes the full command line, while the identifier holds only the name",
+      "_COMM includes the full command line, while the identifier holds only the program name",
       "_COMM is the only field that the journal includes in its JSON output format",
       "_COMM filters faster because it is stored in the classic syslog header line",
       "_COMM is recorded by the journal itself, while the identifier is set by the sender"
@@ -238,7 +238,7 @@
     "options": [
       "Blocking tools cannot read auth.log on servers whose logs are kept in the journal",
       "Blocking an address also blocks legitimate administrators sharing that address",
-      "Blocking tools require PasswordAuthentication to be disabled before they will work",
+      "Blocking tools require PasswordAuthentication to be disabled on the server before they will work",
       "Blocking does nothing against a correct password, such as web-01's success at try four"
     ],
     "correct": 3,
@@ -302,7 +302,7 @@
     "q": "Which pair of Linux log lines is the closest counterpart to a Windows 4720 followed by a 4732 adding the new account to Administrators?",
     "options": [
       "sshd 'Accepted' followed by systemd-logind 'New session'",
-      "su 'session opened for user root' followed by a sudo command",
+      "su 'session opened for user root' followed by a sudo command from that shell",
       "useradd 'new user' followed by usermod adding it to group sudo",
       "passwd 'password changed' followed by a 'session closed' line"
     ],

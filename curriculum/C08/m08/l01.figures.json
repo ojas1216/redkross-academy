@@ -1,0 +1,49 @@
+{
+  "C08-M08-L01-F1": {
+    "title": "The NIST SP 800-61 Rev. 2 incident response lifecycle",
+    "caption": "Four phases with two feedback paths: containment sends new indicators back to analysis, and post-incident lessons improve preparation.",
+    "alt": "Graph, left to right. Preparation (people, tools, playbooks, telemetry) leads to Detection and Analysis (alerts, triage, scoping, declare), which leads to Containment, Eradication and Recovery (stop harm, remove attacker, restore), which leads to Post-Incident Activity (lessons learned, evidence retention). A dashed arrow labelled new indicators, rescope runs from Containment, Eradication and Recovery back to Detection and Analysis. A dashed arrow labelled improvements runs from Post-Incident Activity back to Preparation.",
+    "type": "graph",
+    "dir": "LR",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "p", "label": "Preparation", "sub": "people, tools, playbooks, telemetry", "tone": "slate" },
+      { "id": "d", "label": "Detection and Analysis", "sub": "alerts, triage, scoping, declare", "tone": "blue" },
+      { "id": "c", "label": "Containment, Eradication and Recovery", "sub": "stop harm, remove attacker, restore", "tone": "orange" },
+      { "id": "r", "label": "Post-Incident Activity", "sub": "lessons learned, evidence retention", "tone": "green" }
+    ],
+    "edges": [
+      { "from": "p", "to": "d" },
+      { "from": "d", "to": "c" },
+      { "from": "c", "to": "d", "label": "new indicators, rescope", "dashed": true },
+      { "from": "c", "to": "r" },
+      { "from": "r", "to": "p", "label": "improvements", "dashed": true }
+    ],
+    "note": "Analysis and containment alternate until the scope stops growing; every incident feeds back into preparation."
+  },
+  "C08-M08-L01-F2": {
+    "title": "SP 800-61 Rev. 3: incident response in CSF 2.0 terms",
+    "caption": "Rev. 3 places preparation in Govern, Identify and Protect, response in Detect, Respond and Recover, and lessons learned in Identify's Improvement category.",
+    "alt": "Graph, top to bottom. A slate box Preparation (Govern, Identify, Protect) leads to a blue box Detect (DE.CM monitoring, DE.AE adverse event analysis), which leads to an orange box Respond (RS.MA, RS.AN, RS.CO, RS.MI), which leads to a green box Recover (RC.RP plan execution, RC.CO communication). Dashed arrows labelled lessons learned run from Detect, Respond and Recover to a violet box Improvement (ID.IM, inside Identify). A dashed arrow labelled improve all functions runs from Improvement back to Preparation.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "p", "label": "Preparation", "sub": "Govern, Identify, Protect", "tone": "slate" },
+      { "id": "d", "label": "Detect", "sub": "DE.CM monitoring, DE.AE adverse event analysis", "tone": "blue" },
+      { "id": "rs", "label": "Respond", "sub": "RS.MA, RS.AN, RS.CO, RS.MI", "tone": "orange" },
+      { "id": "rc", "label": "Recover", "sub": "RC.RP plan execution, RC.CO communication", "tone": "green" },
+      { "id": "im", "label": "Improvement", "sub": "ID.IM, inside Identify", "tone": "violet" }
+    ],
+    "edges": [
+      { "from": "p", "to": "d" },
+      { "from": "d", "to": "rs" },
+      { "from": "rs", "to": "rc" },
+      { "from": "d", "to": "im", "label": "lessons learned", "dashed": true },
+      { "from": "rs", "to": "im", "label": "lessons learned", "dashed": true },
+      { "from": "rc", "to": "im", "label": "lessons learned", "dashed": true },
+      { "from": "im", "to": "p", "label": "improve all functions", "dashed": true }
+    ],
+    "note": "Same work, different framing: incident response becomes part of risk management, and learning happens during the incident, not only after it."
+  }
+}

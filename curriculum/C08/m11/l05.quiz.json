@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An alert contains a full URL with a recipient-specific query. Which data should an approved hostname lookup receive?",
+    "options": [
+      "The complete query string and employee account for context",
+      "Only the permitted normalised hostname",
+      "The entire preserved message to establish provenance in the external service",
+      "The original URL plus every related request to make the result comprehensive"
+    ],
+    "correct": 1,
+    "explanation": "The approved question only requires the hostname and should minimise disclosure.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs beside the normalised observable in the case?",
+    "options": [
+      "An original evidence reference and the transformation used",
+      "The credentials used by the source collector for other services",
+      "A replacement of the original field with the lookup result",
+      "A guarantee that differently typed values have identical meanings"
+    ],
+    "correct": 0,
+    "explanation": "Normalisation should be traceable and preserve access to original evidence.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A cache entry was read yesterday but originally updated six months ago. Which time matters for interpreting current relevance?",
+    "options": [
+      "Only the recent retrieval timestamp recorded by the cache",
+      "Only the time the current analyst opened the investigation",
+      "The timestamp attached to a different lookup with the same label",
+      "Both the source freshness and local read time"
+    ],
+    "correct": 3,
+    "explanation": "A recent read can still contain old information from its source.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which source typically answers who owns a device administratively?",
+    "options": [
+      "Historical intelligence on all domains the device might contact",
+      "The destination website's publicly visible support address",
+      "The approved asset directory with a stable device key",
+      "The output of an unrelated file digest classification job"
+    ],
+    "correct": 2,
+    "explanation": "A source must have authority for the particular context question.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A denied request returned an empty structure. Which result should be recorded?",
+    "options": [
+      "Confirmed no record exists because no fields were returned",
+      "Policy or access denial, not a completed no-match",
+      "A completed benign disposition for every affected asset",
+      "A stale match because the denied request probably had a prior result"
+    ],
+    "correct": 1,
+    "explanation": "An empty value can arise from policy failure without any search.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which fields help distinguish reusable cache entries?",
+    "options": [
+      "Value type, key, source and permitted scope",
+      "Only the first visible part of the observable's display name",
+      "The ticket assignee's name regardless of lookup type",
+      "The latest risk number without source or age information"
+    ],
+    "correct": 0,
+    "explanation": "Type and policy affect whether a cached response can be reused.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two reputation results both reuse the same published feed. How should the analyst weigh them?",
+    "options": [
+      "Treat two results as twice the confidence even if they reuse the same record",
+      "Discard both because there are multiple entries for one observation",
+      "Merge them into one verified local outcome without any source references",
+      "Record shared provenance rather than counting independent confirmation"
+    ],
+    "correct": 3,
+    "explanation": "Several reports based on one source do not become independent evidence.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a completed no-match mean?",
+    "options": [
+      "The observable is verified benign across every environment",
+      "The original alert was definitely generated in error",
+      "No matching record in the named search scope",
+      "A connector failed before the source could answer"
+    ],
+    "correct": 2,
+    "explanation": "A negative search is bounded by its source and inputs.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case context field has been corrected from the wrong team to the actual owner. What should be retained?",
+    "options": [
+      "Only the corrected value with all earlier decisions overwritten",
+      "The original lookup, repair time and verification",
+      "The alert's initial score with no association to the routing delay",
+      "An unrelated old case proving the same person owned every asset"
+    ],
+    "correct": 1,
+    "explanation": "Both records explain the original routing and the correction.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When is a digest an appropriate lookup key?",
+    "options": [
+      "When checking an exact-bytes match in an approved source",
+      "When verifying which employee opened the message on their device",
+      "When measuring the network use of an unrelated device at the same time",
+      "When identifying topic similarity between any two files"
+    ],
+    "correct": 0,
+    "explanation": "A digest supports exact identification under the relevant provenance.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A changed policy forbids sharing a previously approved context class. What needs review?",
+    "options": [
+      "Only digest entries that have never been reused",
+      "The font and layout of the previous review form",
+      "Nothing, because a cache always has permanent reuse rights",
+      "Cached copies and their distribution under the new policy"
+    ],
+    "correct": 3,
+    "explanation": "A policy change can affect retained data and later sharing decisions.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a retry limit on an approved lookup achieve?",
+    "options": [
+      "Hide persistent failures from the team that owns the service",
+      "Convert unavailable responses into verified benign classifications",
+      "Handle transient errors without creating endless work",
+      "Permit any case to select an alternative unapproved provider"
+    ],
+    "correct": 2,
+    "explanation": "Bounded retries can recover from short interruptions and still escalate a persistent failure.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The device owner is shown only as of the current day. How should an analyst report ownership during a past incident?",
+    "options": [
+      "Retroactively assign current ownership to every prior occurrence",
+      "State the historical gap and seek a time-relevant record",
+      "Infer historical ownership from the device label's visual similarity",
+      "Treat the present lookup as proof the directory never changed"
+    ],
+    "correct": 1,
+    "explanation": "A current-state source does not establish past assignment.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is enrichment used for in decision-making?",
+    "options": [
+      "Add context to evidence and guide next checks",
+      "Replace the source record for every reviewed observation",
+      "Authorise any action that follows a high-confidence lookup",
+      "Confirm impact without asking the actual service owner"
+    ],
+    "correct": 0,
+    "explanation": "Context is useful when linked to the question it can answer.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A digest match supports an ordinary file, but endpoint evidence remains suspicious. What should be recorded?",
+    "options": [
+      "Close as benign because a digest always disproves a process alert",
+      "Change the digest value to fit the current process assessment",
+      "Remove the process evidence because it has an older timestamp",
+      "Keep the match and investigate the process context separately"
+    ],
+    "correct": 3,
+    "explanation": "Artifact identity and process behaviour answer different questions.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is an untyped string a weak enrichment input?",
+    "options": [
+      "All sources interpret the same display text in an identical way",
+      "The case can no longer link to an original source record",
+      "The lookup may interpret the value in the wrong domain",
+      "A cache cannot store any value that has a stable reference"
+    ],
+    "correct": 2,
+    "explanation": "Types select appropriate parsing, source and comparison rules.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A provider accepts file uploads but the case has only approved identifier sharing. What is a valid design?",
+    "options": [
+      "Upload the file because the service supports the feature",
+      "Use a permitted minimal lookup or send to review",
+      "Submit the raw file under a different name without review",
+      "Use the provider whenever the internal index is unavailable"
+    ],
+    "correct": 1,
+    "explanation": "The provider's capability does not establish approval for the data.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which response state should be distinct from stale match?",
+    "options": [
+      "Source error or unavailable lookup",
+      "A matching cached result whose historical reference is preserved",
+      "An approved fresh query with its current timestamp",
+      "A valid partial result with a documented original type"
+    ],
+    "correct": 0,
+    "explanation": "A stale match has historical evidence; an error may have none.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two cases share a key but differ in audience. What allows reuse?",
+    "options": [
+      "Matching lookup text alone even when one record is restricted",
+      "Transfer of the earlier case's full permissions to the later reader",
+      "A short cache time-to-live without any information policy",
+      "Permission for the result and audience plus matching relevance"
+    ],
+    "correct": 3,
+    "explanation": "Reuse depends on both evidence context and sharing scope.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a connector owner check before it sends data?",
+    "options": [
+      "Only whether the case title fits on one line",
+      "The number of unrelated active users in the integration",
+      "Approved source, value type and minimum permitted fields",
+      "Whether its run status will use the organisation's brand colours"
+    ],
+    "correct": 2,
+    "explanation": "Boundary checks constrain what can be shared and with whom.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A cached no-match is used in a time-sensitive incident. Which question matters most?",
+    "options": [
+      "Whether the earlier result was displayed to the same analyst",
+      "Whether the current evidence requires an approved fresh check",
+      "Whether the lookup's source has the longest available retention name",
+      "Whether the approved connector was added early in the workflow design"
+    ],
+    "correct": 1,
+    "explanation": "Fresh evidence may materially differ from an older negative result.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a case-enrichment record reproducible?",
+    "options": [
+      "Query key, source, result, time and freshness",
+      "A verdict copied alone into a chat message for the lead",
+      "The case's severity label without a data source",
+      "The employee name whose device was observed in the source"
+    ],
+    "correct": 0,
+    "explanation": "These details let another reviewer understand the actual lookup.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The observed identifier is valid but unclear in the available schema. What should happen before a lookup?",
+    "options": [
+      "Convert it to a hostname by dropping its unfamiliar part",
+      "Choose a random allowed source and see which results return",
+      "Treat it as a public value regardless of the source context",
+      "Flag uncertainty and retain the original instead of guessing"
+    ],
+    "correct": 3,
+    "explanation": "Incorrect normalisation can change the observable and create unsupported findings.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which state should the audit log show when a needed lookup is forbidden?",
+    "options": [
+      "Completed with a matching benign result",
+      "Verified absence from all approved sources",
+      "Skipped by policy with a review owner",
+      "A public submission awaiting external analysis"
+    ],
+    "correct": 2,
+    "explanation": "The audit should capture why it did not send the data.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Who should own a discrepancy about directory field meaning?",
+    "options": [
+      "A service that has never retrieved the original field",
+      "The source owner with input from the case reviewer",
+      "The workflow's most frequently executed unrelated branch",
+      "Any report reader who prefers the newer display interpretation"
+    ],
+    "correct": 1,
+    "explanation": "Source ownership helps resolve definitions and effective time.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

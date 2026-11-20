@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Which four jobs does the lesson say hunt documentation must do?",
+    "options": [
+      "Make hunts faster, cheaper, shorter and simpler",
+      "Make hunts reproducible, reviewable, actionable and cumulative",
+      "Make hunts automated, alerting, scheduled and suppressed",
+      "Make hunts confidential, digitally signed, archived and encrypted"
+    ],
+    "correct": 1,
+    "explanation": "Reproducible means another analyst can rerun it, reviewable means a peer can check the reasoning, actionable means other teams can act on it, and cumulative means hunt records build up a picture of what has been tested over time.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the main problem with the sentence \"Finance user's workstation downloaded a malicious invoice and ran a command shell\"?",
+    "options": [
+      "It mixes enrichment, observation and inference without labels",
+      "It uses a workstation name instead of the user's full identity",
+      "It should list the technique identifier for the command shell",
+      "It is too short to count as a finding in a hunt record section"
+    ],
+    "correct": 0,
+    "explanation": "Asset records may identify the assigned department. Proxy and process records can show a request and a shell starting. Calling the file an invoice, declaring it malicious, and linking the request to execution all require supporting evidence.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement is an enrichment claim?",
+    "options": [
+      "Proxy row P06: WS-203 requested invoice-viewer.example at 09:10:00Z",
+      "The Office child process was probably triggered by the download",
+      "Asset inventory dated 2026-10-01 lists WS-203 in finance",
+      "Sysmon row E01: WINWORD.EXE started cmd.exe on WS-203"
+    ],
+    "correct": 2,
+    "explanation": "The inventory did not observe the event; it adds context from another reference, with a date. The proxy and Sysmon rows are source observations, and the \"probably triggered\" sentence is an analyst inference.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should the outbound byte count recorded by the Banyan proxy to files-share-drop.example be written in a hunt record?",
+    "options": [
+      "48 MB of payroll data exfiltrated by the attacker to a drop site",
+      "48 MB exfiltrated from WS-104, content still under investigation",
+      "Confirmed data theft of 48,200,000 bytes from WS-104",
+      "48,200,000 outbound bytes recorded by the proxy; content unknown"
+    ],
+    "correct": 3,
+    "explanation": "The proxy observed volume only. \"Exfiltrated\" and \"theft\" assert intent and content the data does not show, and \"payroll\" borrows meaning from a domain name. The correct version states the observation and the gap.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When does the lesson consider the word \"confirmed\" appropriate?",
+    "options": [
+      "Whenever two log sources record the same connection",
+      "Only when the evidence leaves no reasonable alternative",
+      "Whenever a validated query returns at least one row",
+      "Whenever the analyst's confidence is rated moderate"
+    ],
+    "correct": 1,
+    "explanation": "\"Confirmed\" is reserved for evidence that rules out reasonable alternatives, which is rare in hunting and usually needs incident response work. Two logs of the same connection, a returned row or moderate confidence all leave alternatives open.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lesson’s Banyan summary gives counts and timestamps but no row identifiers. How should a hunt record cite those facts?",
+    "options": [
+      "Assign sequential identifiers so each fact can be referenced",
+      "Omit citations for summary facts, since none are available",
+      "Cite the summary and note row identifiers are not yet cited",
+      "Use the identifiers from the synthetic Lesson 3 fixture"
+    ],
+    "correct": 2,
+    "explanation": "Inventing identifiers would make the record look more precise than its evidence. Leaving facts uncited hides their source. The honest citation names the summary and records that row-level citation is still outstanding. Synthetic fixture IDs belong to different data.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should negative hunt results be documented?",
+    "options": [
+      "They give a scoped statement that prevents duplicate work",
+      "They are required before any detection rule is retired",
+      "They prove the behavior cannot occur in the environment",
+      "They are needed to calculate each analyst's hunt count"
+    ],
+    "correct": 0,
+    "explanation": "A documented negative says the behavior was not observed in a stated population, window and set of sources with a validated query. That lets teams prioritize and avoid repeating work. It does not prove the behavior can never occur.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer notices that a record's hypothesis appears to have been written after the results. Why is this a concern?",
+    "options": [
+      "Hypotheses must always be shorter than results sections",
+      "It means the query was not validated against a positive",
+      "It violates the requirement to use ATT&CK vocabulary",
+      "It suggests the hunt was shaped to fit what was found"
+    ],
+    "correct": 3,
+    "explanation": "The planning sections are meant to constrain what the queries test and how results are read. A hypothesis written to match the results gives no protection against confirmation bias. Query validation is a separate check.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which handoff content best serves detection engineering?",
+    "options": [
+      "Entity, time window, citations, confidence and unknowns",
+      "Behavior, query, expected results and false-positive sources",
+      "Outcome, business impact and counts of hunts per outcome",
+      "The specific missing source and the hunting question it blocked"
+    ],
+    "correct": 1,
+    "explanation": "Detection engineering turns hunt queries into rule candidates, so it needs the behavior, the query, expected positive and negative, and known false-positive sources. The other options suit incident response, management and data engineering.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the worked record HUNT-SYN-0007 list P10, E03 and P11 in its results?",
+    "options": [
+      "They are additional positive findings needing escalation",
+      "They are rows excluded from scope for priority reasons",
+      "They show what was set aside or left unresolved",
+      "They are duplicate rows removed during normalization"
+    ],
+    "correct": 2,
+    "explanation": "P10 and E03 did not match, and P11 could not be assigned to a host. Listing them lets reviewers see that the analyst considered and set aside other candidates and that one row remains open. Leaving them out is a common omission.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a documented no-data result name?",
+    "options": [
+      "The analyst who ran the hunt and the date it closed",
+      "The ATT&CK tactic and technique that the gap corresponds to",
+      "A benign explanation for why the data was missing",
+      "The missing source, the blocked question and the effect"
+    ],
+    "correct": 3,
+    "explanation": "A no-data result is a finding about visibility. Naming the source, the question it blocked and the consequence for the conclusion makes the gap actionable, and it avoids implying either guilt or innocence.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Under the lesson's confidence scheme, which description matches moderate confidence?",
+    "options": [
+      "Sources agree, but a plausible alternative remains open",
+      "Only one weak signal supports the hypothesis so far",
+      "Independent sources agree and alternatives are ruled out",
+      "The analyst feels fairly sure based on past experience"
+    ],
+    "correct": 0,
+    "explanation": "The lesson defines high as independent agreement with alternatives ruled out, moderate as agreement with at least one plausible alternative open, and low as one source or weak signal. Confidence rests on evidence, not on analyst feeling.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should queries appear in a hunt record?",
+    "options": [
+      "Summarized in a sentence so non-technical readers can follow",
+      "Copied in full as text with a version label",
+      "Linked to the SIEM's saved search without the text",
+      "Omitted when they returned zero rows"
+    ],
+    "correct": 1,
+    "explanation": "A paraphrase or a link to a saved search that may change cannot be rerun reliably. Copying the full text with a version makes the hunt reproducible. Zero-result queries are included, because they support negative findings.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Excerpt A says the attacker \"pivoted to WS-104.\" What is the specific problem with that clause?",
+    "options": [
+      "Pivot is not an ATT&CK tactic and must be replaced",
+      "WS-104 should have been named using its inventory owner instead",
+      "The time of the pivot was not stated in UTC format",
+      "It asserts a link that no shared entity in the records supports"
+    ],
+    "correct": 3,
+    "explanation": "The VPN records have no endpoint identifier and nothing connects the VPN identity to WS-104. Stating a pivot invents that connection. Naming the inventory owner would add enrichment, not evidence of a link.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which handoff content does incident response need most?",
+    "options": [
+      "Baseline methodology in detail and peer group rationale",
+      "Query tuning suggestions and false-positive sources",
+      "Entity, time window, citations, confidence and unknowns",
+      "A count of hunts closed per outcome over the quarter"
+    ],
+    "correct": 2,
+    "explanation": "Incident response needs to know what to look at, when, on what evidence, how confident the hunter is and what is still unknown. Tuning notes go to detection engineering, and outcome counts go to management.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is Excerpt B a better report of the Banyan VPN thread than Excerpt A?",
+    "options": [
+      "Every claim is typed, sourced and bounded",
+      "It names the attacker and their likely motive",
+      "It merges both threads into a single timeline",
+      "It rates every finding at high confidence"
+    ],
+    "correct": 0,
+    "explanation": "Excerpt B states the observations with their source, labels the inference as \"consistent with,\" names an open benign alternative, records the session gap and says no shared entity links the threads. It avoids attribution, merging and inflated confidence.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What distinction must the scope section of a hunt record make about exclusions?",
+    "options": [
+      "Hosts owned by finance versus hosts owned by IT",
+      "Exclusions made for data reasons versus priority reasons",
+      "Events recorded in UTC versus events in local time",
+      "Rows taken from proxy logs versus rows taken from endpoint logs"
+    ],
+    "correct": 1,
+    "explanation": "An entity excluded because no data exists is a visibility gap, while one excluded for priority could have been tested. Readers need to know which, so they do not mistake a data gap for a deliberate, safe exclusion.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson label inventory enrichment with its export date, for example 2026-10-01?",
+    "options": [
+      "Dates are required for the SIEM to index enrichment",
+      "Inventory exports older than a week are always invalid",
+      "Enrichment can be stale, so readers need to know its age",
+      "The date converts enrichment into a source observation"
+    ],
+    "correct": 2,
+    "explanation": "Inventories go out of date, and a host may have been reassigned since the export. The date lets readers judge how much weight to give it. Dating enrichment does not turn it into an observation.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the citation for a zero-result query include?",
+    "options": [
+      "Only the statement that nothing was found",
+      "The analyst's opinion of why nothing appeared",
+      "A list of the hosts the analyst assumed were clear of activity",
+      "Query text, range, validation and the empty result"
+    ],
+    "correct": 3,
+    "explanation": "An empty result is only meaningful if the reader can see what was searched, over what period, and that the query was shown capable of finding a positive. Without those, the zero result cannot be trusted.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which data engineering handoff does the lesson consider most persuasive?",
+    "options": [
+      "No DHCP logs: could not map 10.20.5.77 for a rare-domain transfer",
+      "Please add DHCP logs to the SIEM when budget allows this year",
+      "DHCP logs are a best practice that most security frameworks recommend",
+      "Hunt HUNT-SYN-0007 closed; see the record for further details"
+    ],
+    "correct": 0,
+    "explanation": "Tying the gap to the specific question it blocked shows the cost of not collecting. Generic requests and best-practice appeals are easy to postpone, and pointing to the whole record makes data engineering dig for the relevant detail.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When do words like \"malicious,\" \"compromised\" and \"exfiltrated\" belong in a hunt record?",
+    "options": [
+      "Whenever the analyst suspects them, to signal urgency",
+      "Only when evidence supports them, with a citation",
+      "Never, since hunt records must avoid all conclusions",
+      "Only in the summary, never in the findings section"
+    ],
+    "correct": 1,
+    "explanation": "These are conclusion words. They are acceptable when the evidence supports them and a citation shows why. Using them on suspicion overstates findings, but hunt records can contain supported conclusions.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which sentence correctly records the Banyan no-data result for the gopal session?",
+    "options": [
+      "The gopal session was most likely used maliciously after 06:46:00Z",
+      "No suspicious activity of any kind followed the gopal authentication at 06:46:00Z",
+      "The gopal session activity is clean according to the VPN records",
+      "Whether the gopal session accessed resources could not be determined"
+    ],
+    "correct": 3,
+    "explanation": "The VPN records contain no later session activity, so nothing can be said either way. The other options turn missing data into a guilty or innocent conclusion. The full lesson version also names the gap and notes that no other source records VPN sessions.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which phrase fits a validated query that returned no results within a stated scope?",
+    "options": [
+      "Not observed, within the stated scope",
+      "Confirmed absent from all hosts",
+      "Cleared and marked as safe",
+      "Supported by the empty result set"
+    ],
+    "correct": 0,
+    "explanation": "\"Not observed\" with scope states exactly what the evidence shows. \"Confirmed absent\" and \"cleared\" go beyond the scope and sources tested, and \"supported\" is the term for evidence that fits a hypothesis.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does HUNT-SYN-0007 assign moderate rather than high confidence?",
+    "options": [
+      "Only one source recorded any part of the proposed sequence of events",
+      "The Office child process preceded the rare download",
+      "Two sources agree, but file content and command line are unknown",
+      "No reviewer was assigned before the hunt was closed"
+    ],
+    "correct": 2,
+    "explanation": "Proxy and endpoint sources agree on host and order, which supports more than low confidence. But E01 has no command line and file content is unknown, so a benign explanation cannot be fully ruled out. The download did come first.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson recommend separate handoff notes for each audience?",
+    "options": [
+      "Each team stores records in a separate ticket system",
+      "Each audience can act without rereading the whole record",
+      "Combined handoffs violate data protection requirements",
+      "Separate notes double the number of closed hunts reported"
+    ],
+    "correct": 1,
+    "explanation": "Incident response, detection engineering, data engineering and management need different details. Short, targeted notes let each act quickly on the part that concerns them, while the full record remains available.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A Shuffle run starts but many fields arrive as empty strings. What should the workflow inspect first?",
+    "options": [
+      "The production deployment of the associated endpoint agent",
+      "The description of the last operator who edited the canvas",
+      "The count of completed actions in unrelated executions",
+      "The input contract and the validation action's actual inputs"
+    ],
+    "correct": 3,
+    "explanation": "A run can start correctly while its contents fail validation.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the relationship between trigger and starting action?",
+    "options": [
+      "Both are independent actions that always produce separate case records",
+      "The starting action always runs only after the workflow has finished",
+      "The trigger initiates the run; the action first processes its input",
+      "The trigger is a final result that confirms the approved effect"
+    ],
+    "correct": 2,
+    "explanation": "They describe initiation and the first executed operation respectively.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two branches both create a case when a high-priority device lacks a known owner. What change fits the design?",
+    "options": [
+      "Keep both writers and ask the incoming shift to remove duplicates",
+      "Use one case-writing step and merge contextual results",
+      "Delete every high-priority event with unresolved owner information",
+      "Make the case subject identical so two records count as one"
+    ],
+    "correct": 1,
+    "explanation": "One effect owner and explicit branching help prevent duplicate drafts.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should an inventory lookup receive in the fictional example?",
+    "options": [
+      "Only the approved asset identifier and necessary context",
+      "The original email attachments and every recipient's profile",
+      "The credentials used to browse the workflow's complete history",
+      "A second copy of the trigger regardless of what the lookup needs"
+    ],
+    "correct": 0,
+    "explanation": "Minimal inputs keep behaviour and permissions easier to review.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The condition sees the literal text false instead of a Boolean. What is a robust branch design?",
+    "options": [
+      "Assume any nonempty field means the original condition was approved",
+      "Treat the incoming record's display label as an authorisation token",
+      "Choose whichever branch has run most successfully for past inputs",
+      "Test states and types explicitly before permitting the operation"
+    ],
+    "correct": 3,
+    "explanation": "Loose comparisons can treat unexpected data as a permitted value.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why record the saved workflow revision with a test run?",
+    "options": [
+      "To give all past executions the newest set of steps retroactively",
+      "To replace the need for a stable identifier on each input record",
+      "To identify the configuration that produced the result",
+      "To make the outcome depend on the canvas colour scheme"
+    ],
+    "correct": 2,
+    "explanation": "Saved revisions let reviewers connect evidence to the actual executed configuration.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The new draft names the wrong team although the lookup returned the right owner. Which step deserves inspection first?",
+    "options": [
+      "The source alert's ordering relative to a totally unrelated case",
+      "The mapping from lookup output to the draft fields",
+      "The network configuration of the user's endpoint after the incident",
+      "The version of the original mail client that displayed the alert"
+    ],
+    "correct": 1,
+    "explanation": "Trace the last known correct value through the next transformation.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a skipped action expected in run history?",
+    "options": [
+      "Its recorded condition did not apply to that execution",
+      "An operator deleted it from the originally saved version afterward",
+      "The action's visible label matched an unrelated app name",
+      "A second event used the same asset ID during a different shift"
+    ],
+    "correct": 0,
+    "explanation": "Skipping can be a correct branch outcome with a reviewable reason.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A valid identifier is absent from the training inventory. How should this differ from invalid syntax?",
+    "options": [
+      "Always drop the input because a known owner is mandatory in every workflow",
+      "Rewrite the incoming identifier to the nearest familiar value",
+      "Treat an unresolved owner as evidence that the original event is false",
+      "Record unresolved context while processing the valid input according to policy"
+    ],
+    "correct": 3,
+    "explanation": "Valid source data and missing enrichment present distinct conditions.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which field belongs in reviewed workflow configuration?",
+    "options": [
+      "A user-supplied title arriving in the current trigger record",
+      "The time of the most recent event to appear in the worksheet",
+      "The approved destination queue for normal case drafts",
+      "The sender display name copied from one suspicious message"
+    ],
+    "correct": 2,
+    "explanation": "Configuration owns stable operating boundaries rather than input-specific data.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A duplicate arrives before the first case draft becomes visible. What must the regression check demonstrate?",
+    "options": [
+      "The engine reports at least one successful colour status",
+      "Only one effect survives the overlapping requests",
+      "The duplicate is always delivered after the initial run finishes",
+      "Each run generates a new case title sorted by receipt time"
+    ],
+    "correct": 1,
+    "explanation": "Concurrency can cause duplicates without an authoritative identity check.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the execution history let a reviewer inspect?",
+    "options": [
+      "Run input reference, actions taken and the resulting state",
+      "Only the number of users allowed to edit the canvas",
+      "The names of all unrelated incidents managed by the team",
+      "A list of saved workflows with no connection to specific runs"
+    ],
+    "correct": 0,
+    "explanation": "Run-level evidence allows reconstruction of the particular result.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A timeout left a draft task possibly created. What is the prudent next route?",
+    "options": [
+      "Repeat the full workflow and use whichever task ID appears latest",
+      "Declare the task never existed because the execution view lacks a result",
+      "Remove the original input and create a new record solely to bypass the retry check",
+      "Check the existing effect through its stable case key"
+    ],
+    "correct": 3,
+    "explanation": "A missing receipt is uncertainty about the effect rather than proof of absence.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What result is expected from a missing event identifier?",
+    "options": [
+      "A new draft using the latest unrelated event ID",
+      "A silent dismissal that leaves no evidence of receipt",
+      "A review result without a guessed case draft",
+      "An automatic retry that adds the device ID as a synthetic event"
+    ],
+    "correct": 2,
+    "explanation": "Invalid source identity should stop the effect and remain reviewable.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A connector fails before completing an owner lookup. What should a workflow report?",
+    "options": [
+      "The asset was confirmed not registered by the directory",
+      "Lookup unavailable, with an explicit owner follow-up",
+      "The event belongs to the last known owner for any prior asset",
+      "The alert no longer needs case review because enrichment failed"
+    ],
+    "correct": 1,
+    "explanation": "Failure to complete a search is different from a negative result.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the lab's recommended source for test data?",
+    "options": [
+      "A small manual record with fictional values",
+      "An unreviewed export of real employee data",
+      "A live connector that can contact production targets",
+      "A public workflow trigger accepting unrelated inputs"
+    ],
+    "correct": 0,
+    "explanation": "A controlled fixture lets students predict and verify each branch safely.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What should be checked when a static setting and an input field have similar names?",
+    "options": [
+      "The input automatically overrides the setting if it arrived more recently",
+      "Both sources can freely select credentials in any connected account",
+      "The workflow uses whichever field has the longer current value",
+      "Only reviewed settings determine permitted destinations and scope"
+    ],
+    "correct": 3,
+    "explanation": "Separating configuration from run input protects the approved boundary.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why give the synthetic run sheet a test key?",
+    "options": [
+      "To supersede the case system's official object identifier",
+      "To let the second reviewer publish an unrelated saved workflow",
+      "To connect the input, expected outcome and observed run",
+      "To hide whether other operators worked on the same fixture"
+    ],
+    "correct": 2,
+    "explanation": "A stable test reference makes outcome comparison reproducible.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A workflow change alters the interpretation of existing IDs. Which review prevents unexpected merges?",
+    "options": [
+      "Allow every format by converting all incoming IDs to the same number",
+      "Test older and newer formats under the stated mapping contract",
+      "Ignore earlier records once the new version can be saved",
+      "Use names instead of identifiers for prior and current assets"
+    ],
+    "correct": 1,
+    "explanation": "Compatibility tests show whether different records still retain their identity.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the appropriate effect of a paper workflow's draft action?",
+    "options": [
+      "A local text result for review",
+      "A remote device policy change requiring production authority",
+      "A real case notification sent through an external connector",
+      "An automatic permission grant to every role in the exercise"
+    ],
+    "correct": 0,
+    "explanation": "The paper design demonstrates workflow reasoning without real side effects.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A run waits at a manual decision. How is that distinct from an integration failure?",
+    "options": [
+      "The workflow engine has already applied every downstream change",
+      "The source failed to deliver an event so there is no case context",
+      "The action must be retried immediately to bypass the pause",
+      "The step is intentionally pending with an owner and next action"
+    ],
+    "correct": 3,
+    "explanation": "A well-designed wait state records the dependency and who can resolve it.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What validates a route through the canvas in practice?",
+    "options": [
+      "A screenshot made before the version being tested was saved",
+      "The number of connectors in the approved architecture diagram",
+      "The observed branch decisions and output for the saved run",
+      "A code comment explaining that every result should be valid"
+    ],
+    "correct": 2,
+    "explanation": "Execution evidence should match the specified path and case effect.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The same valid test now generates a draft with an omitted source reference. What is the correct response?",
+    "options": [
+      "Accept it because the run succeeds and the owner field is present",
+      "Treat it as a regression in traceability and fix the mapping",
+      "Rewrite the original fixture's alert so it never had a source ID",
+      "Compare only event counts so missing fields cannot cause a mismatch"
+    ],
+    "correct": 1,
+    "explanation": "A successful run is only useful if its output meets the contract.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which objective should a permissions review address?",
+    "options": [
+      "Keep test, authoring and operational authority appropriately scoped",
+      "Give every draft viewer the ability to edit live connections",
+      "Store all reusable secrets in the case handoff for convenience",
+      "Permit one action to operate on every environment by default"
+    ],
+    "correct": 0,
+    "explanation": "Permissions should follow the role and authorised operating purpose.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the point of comparing the same fixture across revisions?",
+    "options": [
+      "Make each version test only its easiest branch",
+      "Use separate synthetic input types so comparisons cannot overlap",
+      "Confirm that all dashboards have the same visual design",
+      "Verify intended differences against a stable input"
+    ],
+    "correct": 3,
+    "explanation": "Holding the fixture stable makes actual behaviour changes easier to identify.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In the synthetic baseline, WS-303 sends 52.0 MB while the peer maximum is 61.0 MB. Why is an \"above the peer maximum\" threshold weak here?",
+    "options": [
+      "The peer maximum is too low to catch any real transfer events",
+      "WS-303 has the highest median, so it should be excluded from peers",
+      "Peer maxima are always computed from the mean rather than the median",
+      "The peer max comes from a month-end upload, a cyclic spike"
+    ],
+    "correct": 3,
+    "explanation": "WS-305's 61.0 MB came from a month-end report upload. A single volume threshold set by that cyclic peak lets any transfer up to 61 MB pass, including WS-303's, which is far above its own history and goes to a destination no peer used.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which three questions does a baseline need to answer?",
+    "options": [
+      "Who attacked, when they attacked, and what they took",
+      "Normal for whom, over what period, and by what measure",
+      "Which rule fired, which queue received it, and who closed it",
+      "Which hosts are safe, which are risky, and which to block"
+    ],
+    "correct": 1,
+    "explanation": "A baseline is defined by its population (peer group), its window, and its metric. Without all three, a statement that something is unusual cannot be checked or reproduced. Baselines describe behavior; they do not label hosts as safe.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why should the baseline window and the hunt window not overlap?",
+    "options": [
+      "The behavior under test would help define its own normal",
+      "Overlapping windows double the storage cost of every query",
+      "Baseline windows must always be exactly 30 days in length",
+      "Overlap makes it impossible to compute any distinct counts"
+    ],
+    "correct": 0,
+    "explanation": "If the period being tested is inside the baseline, the suspected activity becomes part of what is called normal, which dampens the very deviation the hunt is looking for. Window length depends on cycles and retention, not a fixed 30 days.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What can comparing a host only with its own history not tell the analyst?",
+    "options": [
+      "Whether the host's behavior changed recently",
+      "Whether today's volume exceeds its previous maximum",
+      "Whether a behavior is rare across the organization",
+      "Whether the host has contacted a destination before"
+    ],
+    "correct": 2,
+    "explanation": "Own-history baselines detect change on that host. They cannot show prevalence across similar hosts, so a host that has always done something strange looks normal to itself. That is why the lesson pairs own history with a peer group.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "If the saved Banyan records cover only 2026-11-03, which baseline is defensible for the WS-104 transfer?",
+    "options": [
+      "A 30-day historical baseline built from the proxy records",
+      "The synthetic WS-301 to WS-306 peer values from this lesson",
+      "A baseline drawn from inventory ownership of each workstation",
+      "A same-day peer comparison across workstations present"
+    ],
+    "correct": 3,
+    "explanation": "With one day of data, no historical baseline exists. Synthetic lesson values are not Banyan data and must not be used as its baseline. A same-day comparison across workstations in the saved proxy data is the available option, with its limits stated.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson prefer medians and percentiles over means for outbound volume?",
+    "options": [
+      "A few large legitimate values inflate the mean and spread",
+      "Medians can be computed without any historical data at all",
+      "Percentiles automatically remove month-end spikes from the data",
+      "Means cannot be calculated on byte counts in most SIEM tools"
+    ],
+    "correct": 0,
+    "explanation": "Volume distributions are heavily skewed. A handful of legitimate large uploads pull the mean and standard deviation upward, making real anomalies look ordinary. Medians and upper percentiles describe typical and high-but-normal values more robustly.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "You have only a count of 18 WS-104 requests and the first and last timestamps for connections to cdn-telemetry-sync.example from 06:17:00Z to 07:42:02Z. Which statement is supported?",
+    "options": [
+      "The requests were sent at precisely five-minute intervals",
+      "The average gap is about five minutes, but regularity is unknown",
+      "The domain is a legitimate telemetry service, judging by its name",
+      "The requests prove that WS-104 was beaconing to an external control server"
+    ],
+    "correct": 1,
+    "explanation": "85 minutes and 2 seconds over 17 intervals averages about five minutes, but an average says nothing about whether individual gaps are regular. That needs each timestamp. Domain names say nothing about legitimacy, and the pattern alone proves nothing.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which metric is the main measure of rarity?",
+    "options": [
+      "Volume, measured in total bytes per value",
+      "Frequency, measured in rows per value",
+      "Prevalence, measured in distinct entities per value",
+      "Timing, measured as the hour of day each value first occurs"
+    ],
+    "correct": 2,
+    "explanation": "Rarity is about how few entities show a value. One host can generate many rows, so frequency alone can make a rare value look common, or a common one look rare. Volume and timing answer different questions.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson say a baseline is not an allowlist?",
+    "options": [
+      "Baselines are built from data too recent to be trusted",
+      "Allowlists are only valid for destinations, not processes",
+      "Baselines must be approved by management before use",
+      "Pre-existing adversary activity can be part of normal"
+    ],
+    "correct": 3,
+    "explanation": "A baseline describes what happened, not whether it was safe. If an adversary was already present during the baseline window, their activity is part of it. Common behavior lowers suspicion for one host's anomaly but does not clear the behavior itself.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which is the best peer group for a finance workstation?",
+    "options": [
+      "Every device in the organization, including servers",
+      "Other finance workstations on the same software image",
+      "Only that workstation's own history over the past year",
+      "Workstations in the same building regardless of role"
+    ],
+    "correct": 1,
+    "explanation": "Peers should share role, software build and usage pattern. Mixing in servers hides workstation anomalies behind server volumes. Own history is a separate baseline, and location alone does not make devices comparable.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the exercise, WS-306 sends 31.0 MB to a destination no peer contacted. How should it be classified?",
+    "options": [
+      "Deviates on multiple dimensions and should be validated",
+      "Consistent with baseline, because it is below the peer max",
+      "Deviates on one dimension only, so it is low priority",
+      "Benign, because WS-306 is on the standard finance image"
+    ],
+    "correct": 0,
+    "explanation": "31.0 MB is over five times WS-306's 5.9 MB median and about two and a half times its 12.3 MB maximum, and the destination is rare. Two independent deviations justify validation. Being below a cyclic peer peak and running a standard image do not explain it.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should observation D, WS-305 sending 58.0 MB on a month-end date, be compared with previous month-end dates?",
+    "options": [
+      "Month-end data is stored in a separate archive",
+      "WS-305 is excluded from the peer group on other days",
+      "Month-end volumes are always lower than the median",
+      "Cyclic peaks should be compared with like days"
+    ],
+    "correct": 3,
+    "explanation": "Comparing a month-end day with an average day makes a known cycle look anomalous. Against WS-305's previous month-end peak of 61.0 MB and a destination all peers use, D is consistent with the baseline.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WS-303's own median is 7.0 MB. Roughly how does the 52.0 MB observation compare?",
+    "options": [
+      "About 3.0 times its median",
+      "About 5.2 times its median",
+      "About 7.4 times its median",
+      "About 9.6 times its median"
+    ],
+    "correct": 2,
+    "explanation": "52.0 divided by 7.0 is about 7.4. It is also nearly three times WS-303's previous maximum of 18.5 MB, so the observation is new behavior for the host on both own-history comparisons.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the word \"telemetry\" in a domain name not help decide whether it is legitimate?",
+    "options": [
+      "Names containing cdn are only ever used by content delivery networks",
+      "A name says nothing about legitimacy; prevalence matters more",
+      "Telemetry domains are always blocked at the proxy anyway",
+      "Domains with hyphens cannot be stacked reliably by host"
+    ],
+    "correct": 1,
+    "explanation": "Anyone can register a name that sounds legitimate. Prevalence among peers is far more informative: a domain contacted by many workstations is likely a real service, while one contacted by only one host gets no reassurance from its name.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Proxy retention is 14 days, but the baseline is described as 30 days. What goes wrong?",
+    "options": [
+      "Values seen only in days 15 to 30 will appear first-seen",
+      "Rare values will appear common because of duplication",
+      "The baseline will double-count each host's activity",
+      "The median will be calculated over seven days only"
+    ],
+    "correct": 0,
+    "explanation": "A baseline cannot see past retention. Anything last seen more than 14 days ago looks new, so a first-seen analysis will flag values that are in fact familiar. The baseline must be stated as 14 days.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which wording does the lesson recommend when an observation matches the baseline?",
+    "options": [
+      "Confirmed normal for this host",
+      "Safe and approved for this host",
+      "Cleared and added to the allowlist",
+      "Consistent with the peer baseline"
+    ],
+    "correct": 3,
+    "explanation": "A baseline describes the past and cannot certify safety. \"Consistent with the peer baseline\" states what was compared without claiming the behavior is harmless or approved.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the exercise, WS-304 sends 0.4 MB to a destination no peer contacted. What is the best reading?",
+    "options": [
+      "Deviates on multiple dimensions and needs urgent escalation to IR",
+      "Consistent with baseline, since the destination is common",
+      "Deviates on one dimension, low priority without another signal",
+      "Benign, because small transfers cannot carry useful data"
+    ],
+    "correct": 2,
+    "explanation": "The destination is rare, but the volume is far below WS-304's median. One deviation in the long tail is common and usually benign. It becomes interesting if another signal, such as an unusual process, appears. Small transfers can still matter, so it is not dismissed as benign.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Peer group membership was decided from an asset inventory. How should that be documented?",
+    "options": [
+      "As enrichment with a date, since inventories go stale",
+      "As a source observation recorded by the proxy logs",
+      "As an analyst inference that needs no source cited",
+      "As a permanent attribute of the host that never needs review"
+    ],
+    "correct": 0,
+    "explanation": "Inventory is context, not an observation of activity, and it can be out of date. A misfiled host distorts the peer baseline, so the membership source and its date should be visible to reviewers.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An observation is new for the host and rare among peers. How does it compare with one that fails only one of those comparisons?",
+    "options": [
+      "Less interesting, since the two baselines may disagree",
+      "More interesting than one failing only one comparison",
+      "Automatically confirmed as malicious by both baselines",
+      "Equally interesting as one that fails a single comparison"
+    ],
+    "correct": 1,
+    "explanation": "Own history and peer prevalence are separate dimensions. An observation that departs on both is much harder to explain innocently than one that departs on one. It still needs validation; baselines do not confirm malice.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the main risk of a baseline window that is only a few days long?",
+    "options": [
+      "Including outdated behavior from before software changes",
+      "Exceeding retention and making values look first-seen",
+      "Doubling storage needs for each baseline computation",
+      "Missing weekly and monthly cycles such as month-end jobs"
+    ],
+    "correct": 3,
+    "explanation": "Short windows reflect current behavior but miss cycles, so a month-end job looks anomalous if the baseline covers only mid-month days. Outdated behavior is the risk of long windows, and exceeding retention is a problem with windows that are too long.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "For the Banyan files-share-drop.example transfer, which statement could a defensible baseline make after checking the saved rows?",
+    "options": [
+      "That WS-104 had never contacted the destination before",
+      "That the transfer was abnormal for WS-104's assigned user",
+      "Whether any other workstation contacted it that same day",
+      "That the transferred content was sensitive payroll data"
+    ],
+    "correct": 2,
+    "explanation": "Same-day prevalence is testable from the saved proxy data. Earlier dates may not be in the records, there is no user history, and there is no payload evidence, so the other statements go beyond what a baseline can show.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the lesson mean by the long tail of a stacked distribution?",
+    "options": [
+      "Values seen on only one or two entities, most of them benign",
+      "Values seen on every entity, which are always safe",
+      "Values with the largest byte counts in the window",
+      "Values that appear only at the end of the time window"
+    ],
+    "correct": 0,
+    "explanation": "Most distributions have a short head of common values and a long tail of rare ones. Hunts look in the tail, but most tail values, such as one-off portals, are benign, so the hypothesis decides which tail values matter.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why should periodic hunts also examine the head of the distribution, not only rare values?",
+    "options": [
+      "The head contains the largest transfers by byte count",
+      "Widespread or long-present activity hides among common values",
+      "Head values are the only ones that carry reliable event timestamps",
+      "The tail is too small to provide statistically useful counts"
+    ],
+    "correct": 1,
+    "explanation": "Activity that is widespread or present throughout the baseline window looks normal to deviation-based hunts. Looking at common items, such as common processes with unusual parents, offsets that blind spot.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should every suppression derived from a baseline have?",
+    "options": [
+      "A permanent status so it is not removed by mistake",
+      "Approval from the vendor of each suppressed service",
+      "A threshold of at least 30 days of prior observation",
+      "An owner, a reason and a review date"
+    ],
+    "correct": 3,
+    "explanation": "Destinations and services change over time. A suppression added because something was common months ago may now hide activity. An owner, a reason and a review date keep suppressions accountable and current.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the exercise, WS-301 sends 13.5 MB to a destination all six peers use. How should it be classified?",
+    "options": [
+      "Deviates on volume, since 13.5 MB is above its median",
+      "Deviates on destination, since all peers share it",
+      "Consistent with baseline: under its maximum, common destination",
+      "Unclassifiable without a 30-day historical baseline"
+    ],
+    "correct": 2,
+    "explanation": "13.5 MB is above WS-301's 6.1 MB median but below its 14.0 MB maximum, so it is within its own observed range, and the destination is common. Being above the median alone is not a meaningful deviation, and the 14-day baseline is adequate.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

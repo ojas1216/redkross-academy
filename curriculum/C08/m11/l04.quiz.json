@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An approval names one device, but later evidence identifies a different device. What should the workflow do?",
+    "options": [
+      "Return for a new scoped decision",
+      "Apply the original decision because the case number did not change",
+      "Choose both devices to preserve the responder's original intent",
+      "Use the original approval if the display name resembles the new one"
+    ],
+    "correct": 0,
+    "explanation": "The original decision binds the proposed effect to its explicit target.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which two states should the gate record separately?",
+    "options": [
+      "Time the case opened and the same time expressed in UTC",
+      "Workflow app name and displayed page name for that app",
+      "Incident type and a duplicate label from the same form",
+      "Authorised decision and verified operational effect"
+    ],
+    "correct": 3,
+    "explanation": "Authority to act and evidence of the effect answer different questions.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The approver replies before expiry but execution happens afterward under current-authority rules. What should happen?",
+    "options": [
+      "Apply it because approval was seen at some point before expiry",
+      "Extend the approval automatically to cover the current target state",
+      "Obtain renewed authority before any execution",
+      "Close the case and assume no protective action is now justified"
+    ],
+    "correct": 2,
+    "explanation": "The action needs a valid decision at the point specified by policy.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a protective request sufficiently scoped?",
+    "options": [
+      "A verbal instruction to change anything that looks related",
+      "A specific target, effect, evidence and expiry",
+      "An urgent alert title and the owner's informal department label",
+      "A list of available actions without identifying the one intended"
+    ],
+    "correct": 1,
+    "explanation": "Clear scope lets the approver see exactly what permission means.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A pending decision receives no reply within the review window. What is a safe result?",
+    "options": [
+      "Record expiry and route the unresolved risk",
+      "Proceed automatically because there was no objection",
+      "Treat the lack of reply as proof the risk was eliminated",
+      "Use the permit issued for an earlier case action instead"
+    ],
+    "correct": 0,
+    "explanation": "Silence is not authority and can require a separate escalation.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which actor verifies the effect of the approved change?",
+    "options": [
+      "The alert source without access to the target service",
+      "An unrelated person who only saw the original notification",
+      "The report template that displays the decision badge",
+      "The authorised owner using the relevant target evidence"
+    ],
+    "correct": 3,
+    "explanation": "Effect verification needs evidence of the resulting state.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An approved request expands from two mail items to twenty after a search rerun. What needs review?",
+    "options": [
+      "Only the room where the earlier approval was entered",
+      "A revised display label that keeps the same original authority",
+      "A fresh decision covering the expanded match set",
+      "A check that all twenty share a similar filename or subject"
+    ],
+    "correct": 2,
+    "explanation": "Approval cannot be reused for a materially broader effect.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What helps verify an approver's authority in the exercise design?",
+    "options": [
+      "An email footer containing the words incident lead",
+      "A decision recorded through an approved authenticated mechanism",
+      "A forwarded image of a response from an unknown source",
+      "A workflow comment saying an operator can act in emergencies"
+    ],
+    "correct": 1,
+    "explanation": "The record should establish the person and their relevant scope.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The user who requests a change is ineligible to approve it. What should the gate enforce?",
+    "options": [
+      "The separation required by the approval policy",
+      "Permission because request submission demonstrates good intent",
+      "Automatic authority after the request has been open for some time",
+      "A new priority value that allows the same user to decide"
+    ],
+    "correct": 0,
+    "explanation": "Approval role and eligibility must be checked separately from authorship.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why include a verification method in the request?",
+    "options": [
+      "It lets the workflow ignore the target once the action is accepted",
+      "It makes the approval time equal to the start time of the effect",
+      "It removes the need for response records after a successful decision",
+      "It defines how the expected effect can be confirmed"
+    ],
+    "correct": 3,
+    "explanation": "The verification plan links approval intent to observable outcome.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The downstream owner confirms only half the requested scope changed. What should the record say?",
+    "options": [
+      "Mark the whole request complete because part of it reached the service",
+      "Cancel the verified effect from the audit so status remains uniform",
+      "Verify the affected part and keep the remainder unresolved",
+      "Replace the original scope with the completed subset after the fact"
+    ],
+    "correct": 2,
+    "explanation": "Partially applied effects need distinct evidence and remaining ownership.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a denial record contain?",
+    "options": [
+      "The credentials of the actor who might perform the action later",
+      "A reason and a route for unresolved risk where appropriate",
+      "The technical result that would have happened if the action ran",
+      "A default grant to apply the same outcome on another target"
+    ],
+    "correct": 1,
+    "explanation": "A denial can guide review without authorising the proposed step.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An emergency occurs outside normal approval hours. What determines any alternate route?",
+    "options": [
+      "The organisation's documented emergency authority",
+      "The largest impact estimate submitted by the workflow author",
+      "The presence of several failed validation messages in the queue",
+      "Any individual analyst's preference about speed versus documentation"
+    ],
+    "correct": 0,
+    "explanation": "An emergency route still needs clear authority and a record of the scoped decision.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which detail should an oncoming approver see in the pending queue?",
+    "options": [
+      "Every sensitive case attachment in the general queue summary",
+      "Only a permanent link to the initial notification",
+      "The final response result before anyone has made the decision",
+      "Current request state, action, owner and expiry"
+    ],
+    "correct": 3,
+    "explanation": "A pending view should show actionable state and retain access boundaries.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should missing or malformed approval data be handled?",
+    "options": [
+      "Select approved as the most helpful default value",
+      "Operate on the most recent target while waiting for clarification",
+      "Stop the action and record review needed",
+      "Skip all future approval checks when the data error repeats"
+    ],
+    "correct": 2,
+    "explanation": "Technical uncertainty cannot substitute for an authorised decision.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a low-impact automated intake usually do when it only prepares a request?",
+    "options": [
+      "Apply every requested change before the draft reaches the approver",
+      "Record a draft for authorised review if policy permits",
+      "Allow the alert to select its own downstream control credentials",
+      "Erase the receipt when the case remains undecided"
+    ],
+    "correct": 1,
+    "explanation": "Preparation can be permitted without allowing consequential effects.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The same approved request is delivered twice. How is a duplicate effect prevented?",
+    "options": [
+      "Recheck the stable effect reference before changing state",
+      "Treat every new delivery timestamp as a distinct approval",
+      "Assume the first attempt did not reach the service",
+      "Request two independent protective changes so both receipts finish"
+    ],
+    "correct": 0,
+    "explanation": "Multiple deliveries may represent the same authorised operation.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs with the rationale for an approval?",
+    "options": [
+      "Only the case label because evidence is optional for a decision",
+      "The identities of unrelated employees drawn from similar incidents",
+      "A statement that every action can be completely undone",
+      "The evidence, anticipated scope and operational impact"
+    ],
+    "correct": 3,
+    "explanation": "Reviewers need enough context to judge benefit, risk and scope.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A notification says approved, but the case's live request is now cancelled. Which state controls action?",
+    "options": [
+      "The earlier text in the notification because it was received first",
+      "The dashboard's last successful result for a nearby case",
+      "The current authorised request state",
+      "The responder's assessment that action could be useful anyway"
+    ],
+    "correct": 2,
+    "explanation": "The notification is historical evidence; the live gate can invalidate permission.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a paper test use to represent the protected target?",
+    "options": [
+      "A production endpoint that other teams are using",
+      "A fictional ID and a mocked control outcome",
+      "A real employee's active access session",
+      "A live connector with broad write privileges"
+    ],
+    "correct": 1,
+    "explanation": "Synthetic state gives sufficient evidence for training without production changes.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The first approved action depends on a step that remains unverified. What result is appropriate?",
+    "options": [
+      "Keep execution pending until its prerequisite is established",
+      "Apply it immediately because every approved action ignores dependencies",
+      "Operate using the later action's approval instead of confirming the prerequisite",
+      "Treat a pending dependency as a standard decline of the visible request"
+    ],
+    "correct": 0,
+    "explanation": "Authority does not remove operational or evidentiary preconditions.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why link a decision to a request revision?",
+    "options": [
+      "It allows later requests to inherit unrelated approval",
+      "It records the name of the interface used to style the request",
+      "It removes the need to preserve scope and evidence",
+      "It identifies the exact proposal the person reviewed"
+    ],
+    "correct": 3,
+    "explanation": "Revision binding helps detect changes before the existing approval is used.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A denial arrived under the wrong case identifier. What can be concluded?",
+    "options": [
+      "The current request is denied because an unrelated record says denied",
+      "Convert the wrong-case decision into permission for the current operation",
+      "Reconcile the reference before applying it to this request",
+      "Close both cases because neither can be reliably evaluated"
+    ],
+    "correct": 2,
+    "explanation": "A decision only applies when its case and scoped request can be verified.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What gives approvers a practical alternative to broad exposure of artifacts?",
+    "options": [
+      "A copy of every raw record in a broadly distributed approval message",
+      "A short scoped summary with a restricted evidence reference",
+      "A shared worksheet containing unrelated credentials and contexts",
+      "A full unredacted report sent before deciding whether it is needed"
+    ],
+    "correct": 1,
+    "explanation": "A restricted reference provides detail to eligible reviewers when needed.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which lesson exercise tests consideration of updated scope?",
+    "options": [
+      "Change the target after a mock approval and check for a safe stop",
+      "Rotate the colours of the approval progress badge in the example",
+      "Run the same calculation several times without changing any input",
+      "Move the existing approval message to a different display folder"
+    ],
+    "correct": 0,
+    "explanation": "The test verifies whether the gate detects an unapproved material change.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

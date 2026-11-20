@@ -17,8 +17,8 @@
     "options": [
       "Add a scoped suppression for R4 on the affected host until the parser can be reviewed next quarter",
       "Raise the R4 byte threshold so that the inflated values no longer cross it on ordinary downloads",
-      "Close it as a false positive and request a fix to the parser mapping, since every rule and investigator using bytes_out is misled",
-      "Close it as a benign true positive because the transfer really happened and was initiated by the user"
+      "Close it as a false positive and request a parser mapping fix, since every rule and investigator using bytes_out is misled",
+      "Close it as a benign true positive because the transfer really happened, was initiated by the user and matched the rule's intent"
     ],
     "correct": 2,
     "explanation": "The rule matched bad data, so it is a false positive whose cause is in normalisation; fixing the data corrects R4 and every other consumer of the field. A suppression or threshold change would only hide the symptom for one rule while the wrong field keeps misleading other detections and investigations.",
@@ -30,7 +30,7 @@
     "options": [
       "The number of times the heartbeat has fired this week, since recurring hits are always benign",
       "The written statement of the rule's intent, because the disposition depends on what the rule was meant to detect",
-      "The asset criticality of the host, because low-criticality hosts produce benign true positives by definition",
+      "The asset criticality of the host, because low-criticality hosts produce benign true positives by definition, whatever the rule",
       "The seniority of the analysts, because disposition labels are a matter of SOC convention only"
     ],
     "correct": 1,
@@ -41,7 +41,7 @@
   {
     "q": "Why does the classification method ask whether the rule matched its intent before asking whether the activity was authorised?",
     "options": [
-      "Because authorisation records are stored in the SIEM and are faster to check than the rule logic",
+      "Because authorisation records are stored in the SIEM and are faster to check than reading through the rule logic",
       "Because a benign true positive must always be converted into a permanent exclusion in the rule",
       "Because detection engineering only accepts tuning requests that include an authorisation check",
       "Because it stops trusted actors' real events being called false, and the two outcomes need different fixes"
@@ -57,7 +57,7 @@
       "False positive, because the rule should not fire on servers that have a named owner",
       "Benign true positive, because server owners routinely make group changes during maintenance",
       "Undetermined, with the missing authorisation evidence recorded and the case kept open or escalated",
-      "True positive closed with no further action, because the owner cannot be asked before next week"
+      "True positive closed with no further action, because the owner cannot be asked about the change before next week"
     ],
     "correct": 2,
     "explanation": "The rule matched its intent, but there is no record to prove authorisation and no way to obtain one yet, so the evidence is insufficient: undetermined, recording what is missing. Benign requires a record, and an unconfirmed real event must not be closed without action.",
@@ -69,7 +69,7 @@
     "options": [
       "As dead configuration to review: either the benign activity stopped, or it now arrives under a different field value",
       "As proof that the suppression is working perfectly, since no build-account alerts reached the queue",
-      "As a parser fault, because a suppression that never prints a line means the user field is not loaded",
+      "As a parser fault, because a suppression that never prints a line proves the user field is not being loaded from the events at all",
       "As safe to make permanent, because a suppression that never matches can never hide an attacker"
     ],
     "correct": 0,
@@ -93,7 +93,7 @@
   {
     "q": "In the over-suppression run, an analyst adds (\"R3\", \"host\", \"WS-104\", \"too noisy\", \"\"). Other WS-104 alerts still reach the queue. What is the most serious consequence for the investigation?",
     "options": [
-      "The R5 log_cleared alert drops in priority because R3 no longer contributes to the host score",
+      "The R5 log_cleared alert drops in priority because R3 no longer contributes to the WS-104 host's combined entity risk score",
       "The persistence step disappears, so the case cannot explain continued access and clean-up may leave svc_update in place",
       "The BLD-01 build account alert reappears because two entries for the same rule conflict",
       "The suppressed lines are no longer printed, so there is no trace of what the entry hid"
@@ -120,7 +120,7 @@
     "q": "With expiry enforced through date.fromisoformat(exp), the host-wide entry with an empty expiry makes the script stop with ValueError as soon as it checks an R3 hit on WS-104. Why is this behaviour desirable?",
     "options": [
       "It enforces a stricter contract in which a suppression without a valid expiry cannot take effect at all",
-      "It converts the empty expiry into today's date, so the entry expires automatically at midnight",
+      "It converts the empty expiry into today's date, so the entry quietly expires on its own at midnight tonight",
       "It hides all R3 alerts until the error is fixed, which prevents duplicate pages to on-call",
       "It removes the host entry from the list permanently and records the change in version control"
     ],
@@ -161,7 +161,7 @@
       "Because lowering priority also lowers the rule's false-positive count in the SOC metrics",
       "Because a low-priority alert can still be found and examined, while a suppressed one never reaches an analyst",
       "Because suppressions cannot be scoped to a group of hosts, only to a single host name",
-      "Because priority changes do not need review, while suppressions must pass the four-eyes principle"
+      "Because priority changes do not need any review, while every suppression must first pass the four-eyes principle"
     ],
     "correct": 1,
     "explanation": "Reducing confidence or recording low asset criticality moves the alert down the queue without hiding it, so a curious analyst can still find it. Both kinds of change should be reviewed; the point is visibility, not the approval process.",
@@ -200,7 +200,7 @@
       "Raise a tuning request with the evidence; engineering reproduces it, tests against stored FPs and known TPs, and deploys through review",
       "Edit the production rule immediately, since the analyst holds the best evidence about the misfire",
       "Add a suppression for the affected pattern now and mention the flaw at the next shift handover",
-      "Close all future hits from the rule as false positives until the rule owner is available to change it"
+      "Close all future hits from the rule as false positives until the rule owner is available to review the evidence and change the condition"
     ],
     "correct": 0,
     "explanation": "The analyst supplies the evidence, but the change is tested against both the false positive and known true positives and deployed through review, then confirmed in the queue. Silent edits or ad-hoc suppressions skip testing and can remove real coverage.",
@@ -210,7 +210,7 @@
   {
     "q": "A rule that produced about thirty alerts a day suddenly produces none for three days, with no announced change. What should the SOC conclude?",
     "options": [
-      "The environment has become safer, so the rule's threshold can be lowered to restore volume",
+      "The environment has become safer, so the rule's threshold can be lowered to restore its usual volume of about thirty a day",
       "Nothing, because only increases in alert volume indicate a problem with a detection",
       "The rule has reached its tuning goal and can be moved to a lower review cadence",
       "The drop needs investigation, since a new suppression, a broken parser or a stopped log source can each cause it"
@@ -237,7 +237,7 @@
     "q": "Why should a suppression record each match it suppresses rather than silently drop the alert?",
     "options": [
       "So that a hunter or investigator can still find the evidence if the suppressed account or pattern is later abused",
-      "So that the suppressed alert can be re-raised automatically when the analyst queue is empty",
+      "So that the suppressed alert can be re-raised automatically into the queue whenever the analyst queue is otherwise empty",
       "So that the rule's precision metric includes suppressed hits as true positives",
       "So that the reason and expiry fields are printed on screen each time the rule runs"
     ],
@@ -277,7 +277,7 @@
     "options": [
       "A host entry would hide the macro's hits but also R5 and R4 hits; SUPPRESS cannot name a rule",
       "A host entry would hide every R1 hit on WS-104, including real phishing; each SUPPRESS entry compares only one field",
-      "A host entry would never match because R1 output lacks a host field; SUPPRESS supports only user",
+      "A host entry would never match because R1 output lacks a host field; the kit's SUPPRESS design supports only the user field",
       "A host entry would hide only future hits; SUPPRESS cannot apply to alerts already in the queue"
     ],
     "correct": 1,
@@ -289,7 +289,7 @@
     "q": "The BLD-01 itadmin event from the lab recurs, but CHG-1042 was closed in October. How should it now be classified?",
     "options": [
       "False positive, because the change ticket no longer matches the rule's intent",
-      "Benign true positive, because the suppression entry still lists CHG-1042 as the reference",
+      "Benign true positive, because the suppression entry still lists CHG-1042 as its reference and the account is a known build account",
       "Not benign: without a current authorisation record it is a true positive or undetermined, and the owner is asked",
       "Benign true positive, because the same build account performed the same action as before"
     ],
@@ -317,7 +317,7 @@
       "Attackers living off the land use the same tools as administrators, so a process name alone hides their activity too",
       "Process names are not normalised by the parser, so the condition would never match anything",
       "PowerShell alerts are always true positives and must never be classified as noise",
-      "The suppression would also hide events from unrelated rules that mention PowerShell"
+      "The suppression would also hide events from unrelated rules that mention PowerShell anywhere in their command-line field"
     ],
     "correct": 0,
     "explanation": "Wide conditions such as a process name alone match legitimate and malicious use equally, which is exactly what living-off-the-land techniques exploit. A suppression is scoped to its rule, so it would not hide other rules' alerts; the problem is how much of this rule it hides.",

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The proxy saw a request, but the same domain was automatically previewed. What should the case report say?",
+    "options": [
+      "The user clicked because the domain appears in the proxy log",
+      "The message was delivered to any identity in the DNS record",
+      "The preview proves the user's account was not affected",
+      "Interaction remains unverified pending attributed evidence"
+    ],
+    "correct": 3,
+    "explanation": "A request can be automated and needs context before attributing it.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in an executive incident update?",
+    "options": [
+      "A raw unredacted export of every event in the case",
+      "Only the internal file hash for the incomplete original message",
+      "Business impact, decisions and the next update time",
+      "A full list of login failures with no operating implications"
+    ],
+    "correct": 2,
+    "explanation": "Executives need impact and actionable decisions without unnecessary evidence details.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The report says 40 users were compromised based on 40 deliveries. What is the strongest correction?",
+    "options": [
+      "Change the count to 39 to reflect likely duplicate messages",
+      "Report delivery count and assess interaction or compromise separately",
+      "Assume compromise for any mailbox that has a valid corporate identity",
+      "Omit the delivery count until the case is ready for public release"
+    ],
+    "correct": 1,
+    "explanation": "Evidence of delivery supports a different claim from compromise.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a technical handoff include alongside the timeline?",
+    "options": [
+      "Source references, scope and open checks",
+      "Only the highest incident priority and its colour",
+      "A shortened account of whatever arrived first in the team's inbox",
+      "The management report without the data behind its conclusions"
+    ],
+    "correct": 0,
+    "explanation": "The next analyst needs enough detail to reproduce observations and verify actions.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A 48.2 MB upload appears in a proxy event. Which update is accurate?",
+    "options": [
+      "The upload confirms exactly 48.2 MB of payroll records were disclosed",
+      "The proxy record names the data subject of each file that left the system",
+      "The case contains no evidence of data movement because payloads were not logged",
+      "The transfer is observed; its contents are unknown"
+    ],
+    "correct": 3,
+    "explanation": "Byte count and destination identify transfer metadata without naming the content.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should a finding qualified by a narrow search be written?",
+    "options": [
+      "State that the whole organisation has no additional exposure",
+      "List the number beside an unqualified incident closure decision",
+      "Name the source, search boundary and result",
+      "Use only a rewrite of the original alert's severity text"
+    ],
+    "correct": 2,
+    "explanation": "The search limits constrain what the result can support.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst's earlier assessment is disproved by new records. What should the report do?",
+    "options": [
+      "Silently rewrite the earlier judgment in every distributed copy",
+      "Retain the earlier version and explain the revision",
+      "Discard the new evidence to preserve a consistent timeline",
+      "Remove the timestamps so readers cannot see the discrepancy"
+    ],
+    "correct": 1,
+    "explanation": "Versioning shows what was known and why the conclusion changed.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is a useful role of an evidence appendix?",
+    "options": [
+      "Locate source material and custody references",
+      "Publish restricted artifacts in the executive distribution list",
+      "Replace the incident action register with file names",
+      "Summarise the case's severity in a single colour"
+    ],
+    "correct": 0,
+    "explanation": "The appendix supports reproducibility and a separate controlled evidence record.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A suspected external notification might be required. What should the SOC record?",
+    "options": [
+      "A legal conclusion inferred directly from internal severity",
+      "The SOC's final verdict copied from a prior unrelated incident",
+      "The technical team's plan to send the report without authorisation",
+      "The facts handed to the designated owner and their decision status"
+    ],
+    "correct": 3,
+    "explanation": "Designated owners determine obligations using evidence and applicable requirements.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which wording clearly marks an assessment?",
+    "options": [
+      "A 48.2 MB transfer was recorded by the proxy at 08:12Z",
+      "The gateway accepted the message at the timestamp on the trace",
+      "The sequence is consistent with compromise, with stated confidence",
+      "The case reference was created by the service desk system"
+    ],
+    "correct": 2,
+    "explanation": "The phrase indicates an interpretation whose confidence should be stated.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two record sets have different visibility boundaries. How can the report avoid combining their negatives incorrectly?",
+    "options": [
+      "Use the broadest time filter and apply it to all sources implicitly",
+      "State each scope and result with its source",
+      "State that source diversity proves every kind of activity was covered",
+      "Label all missing observations as a single confirmed negative finding"
+    ],
+    "correct": 1,
+    "explanation": "One source's coverage cannot replace the other's evidence limits.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which report belongs in a restricted case system?",
+    "options": [
+      "The detailed record containing sensitive evidence references",
+      "The public-facing message approved for general distribution",
+      "An anonymised summary presenting approved aggregate rates",
+      "The generic article explaining how to report suspicious mail"
+    ],
+    "correct": 0,
+    "explanation": "The full case detail requires access appropriate to its contents.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A review sees a logon success close in time to an endpoint event, with no shared entity. What should the report do?",
+    "options": [
+      "State each thread was performed by a single attacker because times overlap",
+      "Delete the identity record so the endpoint case appears simpler",
+      "Combine the two actions into one verified fact without a source",
+      "Treat linkage as a hypothesis and assign its verification"
+    ],
+    "correct": 3,
+    "explanation": "Temporal overlap can justify inquiry without establishing attribution.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why preserve UTC in a case chronology?",
+    "options": [
+      "It makes the user's recollection more precise than the source records",
+      "It records when every system ingested the event without extra fields",
+      "It gives logs and reviewers a common time reference",
+      "It converts observations and inferences into the same kind of evidence"
+    ],
+    "correct": 2,
+    "explanation": "A consistent time base helps reviewers compare different sources.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A report has a distribution marking. What else governs external release?",
+    "options": [
+      "The marking by itself authorises immediate release to anyone",
+      "The approved access, sharing and release process",
+      "The number of executives who have already opened the document",
+      "The recipient's claim that a similar report was shared previously"
+    ],
+    "correct": 1,
+    "explanation": "Distribution markings do not replace authorization or applicable sharing duties.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does an action register need for follow-up?",
+    "options": [
+      "A decision or status, an owner and a review time",
+      "The sender address of every lookalike message in chronological order",
+      "An unsigned final report with no remaining actions listed",
+      "An internal risk label without the change that was requested"
+    ],
+    "correct": 0,
+    "explanation": "Action details let readers track what remains and who owns it.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case says an endpoint block is achieved, but the only record is an assigned task. What should change?",
+    "options": [
+      "Keep it complete because an operator was named",
+      "Change the scope from endpoint to mail quarantine",
+      "Remove the request so the action register contains only closed items",
+      "Report the action as pending verification"
+    ],
+    "correct": 3,
+    "explanation": "Assignment does not provide evidence that the intended protection took effect.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a peer be able to do with a timeline?",
+    "options": [
+      "Reconstruct an employee's exact intentions from a timestamp alone",
+      "Infer the financial loss directly from every ordered event",
+      "Trace an observation to its source record",
+      "Identify the responsible legal authority from the alert's colour"
+    ],
+    "correct": 2,
+    "explanation": "Provenance lets a reviewer verify observed facts and their order.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which sentence gives the best actionable bottom line?",
+    "options": [
+      "Something strange happened, and the SOC will check its tools again soon",
+      "WS-104 shows suspicious execution; endpoint lead to verify isolation by 09:10Z",
+      "Case 41 includes several logs, some of which appear important in isolation",
+      "An employee may be involved; update all lists when consensus is reached"
+    ],
+    "correct": 1,
+    "explanation": "A useful bottom line identifies the risk, owner, decision and timing.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which individual-level detail is usually unnecessary in a metric report?",
+    "options": [
+      "The names associated with individual recipient actions",
+      "The measured interval and the definitions of its endpoints",
+      "The aggregate number of reports in the period reviewed",
+      "The source used to calculate the indicator being reported"
+    ],
+    "correct": 0,
+    "explanation": "Aggregate reporting can convey process performance without identifying people.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The draft calls traffic from a sandbox detonation an observed company endpoint click. What is the correction?",
+    "options": [
+      "Attribute the request to any user who works in the target department",
+      "Count both the sandbox and employee as the same user interaction",
+      "Remove the sandbox's run identifier after reporting the click",
+      "Record the sandbox observation and separate it from device evidence"
+    ],
+    "correct": 3,
+    "explanation": "The source of activity determines which interaction it can substantiate.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What evidence supports the delivery rung most directly?",
+    "options": [
+      "A security team screenshot showing a visually similar message",
+      "A user name displayed in the sender's note",
+      "A trusted trace showing completed receipt by the mailbox",
+      "An endpoint alert that lacks any message context"
+    ],
+    "correct": 2,
+    "explanation": "Trusted mail disposition can distinguish delivery from rejection or holding.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A full report has urgent facts and restricted raw artifacts. How should a wider update be prepared?",
+    "options": [
+      "Attach every artifact so the recipients can draw their own conclusions",
+      "Use approved facts with sensitive details omitted and owner review",
+      "Send live links and the original artifact across all departments",
+      "Replace the evidence with unsupported conclusions to avoid a restriction"
+    ],
+    "correct": 1,
+    "explanation": "An audience-appropriate derivative can preserve meaning without expanding evidence access.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What purpose does a next-update time serve?",
+    "options": [
+      "It sets a clear expectation for new findings or decisions",
+      "It proves that response measures will finish by that exact second",
+      "It identifies the earliest technical event in the investigation",
+      "It substitutes for assigning owners to the open decisions"
+    ],
+    "correct": 0,
+    "explanation": "A reporting cadence reduces uncertainty while investigation continues.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Who should assess an applicable notification obligation?",
+    "options": [
+      "Any analyst who first saw the source event in a dashboard",
+      "The sender of the reported email requesting acknowledgment",
+      "The operator who ran the last artifact analysis job",
+      "The person designated by the organisation's reporting process"
+    ],
+    "correct": 3,
+    "explanation": "The SOC supplies facts and routes the assessment to the assigned owner.",
+    "lesson": 7,
+    "difficulty": "medium"
+  }
+]

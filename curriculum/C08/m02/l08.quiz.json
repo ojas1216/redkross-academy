@@ -236,7 +236,7 @@
   {
     "q": "The five duplicated events in Drill C are proxy events from the 07:00 hour. Which kind of detection or metric do they affect most?",
     "options": [
-      "A single-event rule that fires on any Security log clear (event ID 1102)",
+      "A single-event rule that fires on any Security log clear, even when the endpoint forwards the same record twice",
       "A rule that alerts on any new administrator account being created",
       "A silence check comparing each source's last-seen time with a threshold",
       "A count of proxy requests per host per hour, which over-reports that hour"

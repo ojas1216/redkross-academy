@@ -3,7 +3,7 @@
     "q": "The triage helper prints `host=WS-107 (sales laptop)` for the `R2` VPN alert, yet the VPN events behind that alert carry no host field at all. How should the analyst record this host value in the case?",
     "options": [
       "As an assumption from a user-to-device mapping, to be confirmed through VPN client, DHCP or EDR records",
-      "As an observation, because the triage helper joined it directly from the alert's own event fields",
+      "As an observation, because the triage helper joined it directly from the alert's own event fields and VPN records",
       "As irrelevant, because VPN alerts are about addresses and accounts rather than about devices",
       "As confirmed, because the sales laptop is the only device the inventory lists for that user"
     ],
@@ -28,7 +28,7 @@
   {
     "q": "`ioc_match.py` prints `EXPIRED ipv4 198.51.100.104 conf= 40 hits= 1 ... src=open feed`, and the matching event is `gopal`'s 13:33Z VPN session with country `IN`. What should the analyst do with this result?",
     "options": [
-      "Block the address at the VPN gateway, since any match on a reported indicator is actionable",
+      "Block the address at the VPN gateway, since any match on a reported indicator is actionable on its own",
       "Treat it at most as a reason to look, since the indicator is old, weak and on shared hosting",
       "Escalate gopal's evening session as a second compromise linked to the morning spraying",
       "Ignore the line entirely, since expired indicators are removed from feeds automatically"
@@ -68,7 +68,7 @@
     "q": "While enriching the `R1` alert, a junior analyst proposes pasting `WS-104` and the username `divya` into a public reputation website to see whether anyone has reported them. What is the right response?",
     "options": [
       "Do not submit internal entities to public services; answer them from internal sources instead",
-      "Submit them, but only through a browser private window so that nothing is stored afterwards",
+      "Submit them, but only through a browser private window so that nothing about the lookup is stored afterwards",
       "Submit the hostname only, since usernames are personal data but hostnames are not sensitive",
       "Submit them after the alert is confirmed, when the investigation no longer needs secrecy"
     ],
@@ -81,7 +81,7 @@
     "q": "An analyst closes a suspicious-login alert with the note: \"Source IP geolocates to India, where the user lives, so the login was the user.\" What is the main flaw in this reasoning?",
     "options": [
       "Geolocation is only accurate for IPv6 addresses, so an IPv4 result should be discarded",
-      "The analyst should have used the ASN instead, which identifies the person behind an address",
+      "The analyst should have used the ASN instead, which reliably identifies the person behind an address",
       "A login can only be attributed to a user after the address appears in a threat feed",
       "Geolocation is an estimate, and VPNs, cloud and carrier-grade NAT break the address-person link"
     ],
@@ -119,7 +119,7 @@
   {
     "q": "A SOC playbook queries the asset inventory, the directory and SIEM history before calling any external enrichment service. Which justification for this order is correct?",
     "options": [
-      "External services require the internal results as input before they will answer a query",
+      "External services require the internal inventory and directory results as input before they will answer a query",
       "Internal sources are always more accurate than commercial feeds for external addresses",
       "Regulations forbid any external lookup until internal sources have been exhausted first",
       "Internal sources are cheap, private and specific, so external calls are kept to what remains"
@@ -146,7 +146,7 @@
     "q": "Two VPN logins for the same user both geolocate to the same country. One comes from a residential broadband provider, the other from a small hosting company's address range. Why is the network owner more informative here than the country?",
     "options": [
       "The hosting company's range proves the second login came from a criminal group",
-      "The broadband range proves the first login came from the user's own home network",
+      "The broadband range proves the first login came from the user's own home network and so must be legitimate",
       "It shows a change in the kind of network used, which is worth noting though not attribution",
       "It identifies the person behind each address, which a country lookup never can"
     ],
@@ -171,7 +171,7 @@
   {
     "q": "Of the Banyan intelligence results, why does `cdn-telemetry-sync.example` (confidence 85, ISAC-A, finance-sector loader command-and-control) justify raising the priority of `R6` and `R1`?",
     "options": [
-      "Because the domain matched 18 events, and match count is the main measure of indicator quality",
+      "Because the domain matched 18 events, and match count is the main measure of an indicator's overall quality",
       "Because high confidence, a fitting sector context and one-host prevalence all point the same way",
       "Because AMBER-marked indicators are by definition more reliable than GREEN or CLEAR ones",
       "Because any domain-type indicator outranks an IP indicator regardless of its confidence"
@@ -249,7 +249,7 @@
   {
     "q": "An analyst writes: \"R1 is malicious: the host is criticality 3 and the user is a payments approver.\" What is wrong with this conclusion?",
     "options": [
-      "Criticality should be ignored for process-creation alerts, which only concern the endpoint",
+      "Criticality should be ignored for process-creation alerts, which concern only the endpoint and not the business",
       "Enrichment shows how much the alert matters, not whether the activity happened or is malicious",
       "A payments approver's workstation is routinely excluded from macro-execution rules",
       "The conclusion is right, because high-impact alerts are treated as confirmed by default"
@@ -276,7 +276,7 @@
     "q": "The `banyan-payroll-update.example` indicator has source `internal`: Banyan's own team noted the look-alike domain when it was registered on 29 October. Why is such internal intelligence often especially valuable?",
     "options": [
       "It is about threats aimed at your own organisation, so its relevance is high",
-      "It is shared with the whole sector, so it has been checked by more analysts",
+      "It is shared with the whole sector, so it has been checked by many more analysts",
       "It never expires, so analysts need not check its validity before acting",
       "It carries a higher confidence score than any external source can assign"
     ],

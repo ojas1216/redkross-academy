@@ -1,0 +1,48 @@
+{
+  "C08-M12-L06-F1": {
+    "title": "Validate one observed process pair",
+    "caption": "Source and identity checks precede a bounded review decision.",
+    "alt": "Five rows check endpoint source, required identities, duplicate receipts, exact parent and child categories, and an analyst review or documented no-match result.",
+    "type": "table",
+    "columns": [
+      "Check",
+      "Expected input",
+      "Result if unmet"
+    ],
+    "rows": [
+      [
+        "Source",
+        "Endpoint process event",
+        "Unsupported source"
+      ],
+      [
+        "Required fields",
+        "Asset, event, parent and child",
+        "Input review"
+      ],
+      [
+        "Repeat check",
+        "New source event ID",
+        "Link existing receipt"
+      ],
+      [
+        "Relationship",
+        "Office parent and script child",
+        "No pair match"
+      ],
+      [
+        "Triage",
+        "Evidence-backed candidate",
+        "No automatic action"
+      ]
+    ],
+    "rowTones": [
+      "slate",
+      "blue",
+      "violet",
+      "orange",
+      "dark"
+    ],
+    "note": "Review the recorded relationship. The detector does not run or reproduce it."
+  }
+}

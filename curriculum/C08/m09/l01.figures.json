@@ -1,0 +1,157 @@
+{
+  "C08-M09-L01-F1": {
+    "title": "How each hop writes a Received header",
+    "caption": "Each receiving server prepends a Received line. The last delivery hop is therefore at the top.",
+    "alt": "Sequence diagram with four lanes, left to right: Sending client at 198.51.100.23 (red), out.mailer.example.net at 203.0.113.45 (slate), mx1.example.com at 192.0.2.10 (blue) and mbox.example.com, the mailbox store (green). First the sending client submits the message to out.mailer.example.net with authenticated ESMTPSA at 06:08:09; that server prepends Received header 3. Next out.mailer.example.net relays to mx1.example.com over ESMTPS at 06:08:12; mx1 prepends Received header 2 and adds Authentication-Results. Then mx1.example.com hands the message to mbox.example.com at 06:08:14; mbox prepends Received header 1 and Return-Path. The note explains that headers 1 and 2 were written by the receiving organisation's own servers and header 3 by the sender's side, so only 1 and 2 can be trusted.",
+    "type": "sequence",
+    "actors": [
+      {
+        "id": "c",
+        "label": "Sending client",
+        "sub": "198.51.100.23",
+        "tone": "red"
+      },
+      {
+        "id": "o",
+        "label": "out.mailer.example.net",
+        "sub": "203.0.113.45 (sender's relay)",
+        "tone": "slate"
+      },
+      {
+        "id": "m",
+        "label": "mx1.example.com",
+        "sub": "192.0.2.10 (our MX)",
+        "tone": "blue"
+      },
+      {
+        "id": "b",
+        "label": "mbox.example.com",
+        "sub": "mailbox store",
+        "tone": "green"
+      }
+    ],
+    "messages": [
+      {
+        "from": "c",
+        "to": "o",
+        "label": "06:08:09 ESMTPSA submit: relay writes Received 3"
+      },
+      {
+        "from": "o",
+        "to": "m",
+        "label": "06:08:12 ESMTPS: MX writes Received 2 + Auth-Results"
+      },
+      {
+        "from": "m",
+        "to": "b",
+        "label": "06:08:14 ESMTPS: store writes Received 1 + Return-Path"
+      }
+    ],
+    "note": "Read top to bottom for newest to oldest; trust only the lines your own servers wrote (Received 1 and 2 here)."
+  },
+  "C08-M09-L01-F2": {
+    "title": "Why SPF and DKIM pass but DMARC fails",
+    "caption": "DMARC needs a pass that is aligned with the visible From domain; in the specimen both passes belong to mailer.example.net, not example.org.",
+    "alt": "Graph, top to bottom. A dark box Visible From: ap@example.org (the domain DMARC protects) sits at the top. Below it two branches. Left branch: a blue box SPF check (envelope MAIL FROM mailer.example.net, sending IP 203.0.113.45) leads to a green box spf=pass (for mailer.example.net), which leads to a red box Not aligned (mailer.example.net is not example.org). Right branch: a blue box DKIM check (signature d=mailer.example.net, s=s1) leads to a green box dkim=pass (for mailer.example.net), which also leads to the red Not aligned box. Not aligned leads to a red box dmarc=fail (header.from=example.org), which leads to a violet box Policy p=none (domain owner asks for no action), which leads to an orange box Delivered to the inbox (analyst must judge the rest).",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "f",
+        "label": "Visible From: ap@example.org",
+        "sub": "the domain DMARC protects",
+        "tone": "dark"
+      },
+      {
+        "id": "s",
+        "label": "SPF check",
+        "sub": "MAIL FROM mailer.example.net, IP 203.0.113.45",
+        "tone": "blue"
+      },
+      {
+        "id": "d",
+        "label": "DKIM check",
+        "sub": "signature d=mailer.example.net, s=s1",
+        "tone": "blue"
+      },
+      {
+        "id": "sp",
+        "label": "spf=pass",
+        "sub": "for mailer.example.net",
+        "tone": "green"
+      },
+      {
+        "id": "dp",
+        "label": "dkim=pass",
+        "sub": "for mailer.example.net",
+        "tone": "green"
+      },
+      {
+        "id": "na",
+        "label": "Not aligned",
+        "sub": "mailer.example.net is not example.org",
+        "tone": "red"
+      },
+      {
+        "id": "x",
+        "label": "dmarc=fail",
+        "sub": "header.from=example.org",
+        "tone": "red"
+      },
+      {
+        "id": "p",
+        "label": "Policy p=none",
+        "sub": "domain owner asks for no action",
+        "tone": "violet"
+      },
+      {
+        "id": "i",
+        "label": "Delivered to the inbox",
+        "sub": "analyst must judge the rest",
+        "tone": "orange"
+      }
+    ],
+    "edges": [
+      {
+        "from": "f",
+        "to": "s"
+      },
+      {
+        "from": "f",
+        "to": "d"
+      },
+      {
+        "from": "s",
+        "to": "sp"
+      },
+      {
+        "from": "d",
+        "to": "dp"
+      },
+      {
+        "from": "sp",
+        "to": "na",
+        "label": "compare with From"
+      },
+      {
+        "from": "dp",
+        "to": "na",
+        "label": "compare with From"
+      },
+      {
+        "from": "na",
+        "to": "x"
+      },
+      {
+        "from": "x",
+        "to": "p"
+      },
+      {
+        "from": "p",
+        "to": "i"
+      }
+    ],
+    "note": "A passing result concerns the checked identity. Alignment compares that domain with the visible From domain."
+  }
+}

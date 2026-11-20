@@ -1,0 +1,42 @@
+{
+  "C08-M12-L08-F1": {
+    "title": "Shift handoff by case and decision owner",
+    "caption": "The oncoming team can see verified protection, unresolved identity risk, scoped closure and follow-up tasks.",
+    "alt": "Four rows describe FIN-21 isolated at 08:29 with impact review pending, STAFF-382 identity review with missing session evidence, OPS-03 closed for one approved event, and visibility and notification follow-up.",
+    "type": "table",
+    "columns": [
+      "Workstream",
+      "State at cutoff",
+      "Next action"
+    ],
+    "rows": [
+      [
+        "FIN-21",
+        "Isolation applied at 08:29",
+        "Verify delivery, data and payment impact"
+      ],
+      [
+        "STAFF-382",
+        "Suspicious VPN success under review",
+        "Authorised session and client check"
+      ],
+      [
+        "OPS-03",
+        "O-401 closed under CR-82",
+        "Review new events if scope changes"
+      ],
+      [
+        "Cross-case",
+        "Visibility and notification tasks open",
+        "Assign owners and record outcome"
+      ]
+    ],
+    "rowTones": [
+      "green",
+      "orange",
+      "blue",
+      "dark"
+    ],
+    "note": "Share the current state, its source and the next decision."
+  }
+}

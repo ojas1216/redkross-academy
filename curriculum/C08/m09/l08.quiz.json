@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The exact-host proxy search returns eighteen rows for one destination and one source host. What is supported?",
+    "options": [
+      "One host has eighteen matching proxy records",
+      "Eighteen employees interacted with the suspicious destination",
+      "Eighteen mailbox deliveries were confirmed by the dataset",
+      "One person necessarily initiated every request on that host"
+    ],
+    "correct": 0,
+    "explanation": "Counts are event records grouped by observed host and are not counts of people.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What fixture is used for the lab's scope check?",
+    "options": [
+      "A live export from a public URL classification service",
+      "A real staff member's current email and browsing history",
+      "A newly fabricated mail gateway trace for the course",
+      "The C08 saved Banyan JSON Lines events"
+    ],
+    "correct": 3,
+    "explanation": "The lab uses the existing fictional records in the course kit.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The proxy search finds no other host for three domains. Which claim belongs in the report?",
+    "options": [
+      "No additional device was affected by any activity that day",
+      "The associated message reached one and only one mailbox",
+      "No additional host matched those domains in the fixture",
+      "The exact source of every unaudited request has been verified"
+    ],
+    "correct": 2,
+    "explanation": "Results describe the selected query and available collection only.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the lab script do with URL values?",
+    "options": [
+      "Fetch the known destinations and record current responses",
+      "Parse saved text to compare hostnames",
+      "Send the observed URL values to a public reputation platform",
+      "Launch a browser session for every URL in the fixture"
+    ],
+    "correct": 1,
+    "explanation": "URL parsing is local text processing and does not contact the sites.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The original message is missing. What do the proxy and endpoint records support?",
+    "options": [
+      "An endpoint lead with unresolved mail origin and delivery scope",
+      "A reconstructed original header and a confirmed sender identity",
+      "An exact list of mailboxes where the object was delivered",
+      "A confirmed campaign count based solely on endpoint events"
+    ],
+    "correct": 0,
+    "explanation": "An endpoint observation cannot establish a missing mail delivery history.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which source shows the Office child process at 06:14Z?",
+    "options": [
+      "The VPN gateway's later successful login record",
+      "The recipient's presumed mail delivery summary",
+      "The outbound proxy transfer at 08:12Z",
+      "The Sysmon process event for WS-104"
+    ],
+    "correct": 3,
+    "explanation": "The process relationship is directly represented by endpoint telemetry.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lab retain the VPN thread alongside but distinct from WS-104?",
+    "options": [
+      "It proves a different actor because all times are in UTC",
+      "The endpoint had no unusual related process telemetry",
+      "The evidence supplies no corroborated linking entity",
+      "The successful authentication conclusively verifies the same device"
+    ],
+    "correct": 2,
+    "explanation": "The record supports separate investigation while association remains unconfirmed.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the VPN record at 06:46 UTC show?",
+    "options": [
+      "A completed session recording every command the account used",
+      "A successful authentication for gopal from the selected address",
+      "A verified device identifier matching gopal's assigned workstation",
+      "A message disposition for a payroll invoice in the user's mailbox"
+    ],
+    "correct": 1,
+    "explanation": "The supplied source shows an authentication outcome and relevant context.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab shows 48,200,000 outbound bytes. What should be written about the data content?",
+    "options": [
+      "Unknown; the proxy log records transfer metadata",
+      "Confirmed to be the complete payroll data set for the organisation",
+      "Established by the name of the earlier downloaded file",
+      "Known to be harmless because the log records only a number"
+    ],
+    "correct": 0,
+    "explanation": "Metadata does not directly identify what content was transferred.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why keep the source filename and query with the case worksheet?",
+    "options": [
+      "So the fixture can be changed to match every case finding",
+      "So the student can omit timestamps and asset relationships",
+      "So trust in the observations becomes independent of data provenance",
+      "So a reviewer can reproduce the scope check"
+    ],
+    "correct": 3,
+    "explanation": "Reproducibility requires the material and method used to obtain the result.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer finds five deliveries in a later independent simulation. How should the lab handoff change?",
+    "options": [
+      "Replace the earlier proxy count with the new delivery count",
+      "Count the blocked message as an endpoint compromise",
+      "Add the delivery evidence without altering the prior proxy result",
+      "Delete the earlier evidence to avoid maintaining multiple time ranges"
+    ],
+    "correct": 2,
+    "explanation": "Additional evidence changes delivery scope without changing observed proxy matches.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What best supports an audit of the isolation recommendation?",
+    "options": [
+      "The student's planned workstation name without source or owner",
+      "The approving role, target, rationale and outcome check",
+      "A reference to query output without a proposed action or confirmation",
+      "A screenshot of the lesson with no incident decision details"
+    ],
+    "correct": 1,
+    "explanation": "A reviewable response proposal describes who decides and how success is checked.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A second analyst sees routine usage of the account's usual laptop. What does this establish about the VPN lead?",
+    "options": [
+      "It limits findings about the laptop but does not resolve the session",
+      "It identifies which laptop initiated the authentication success",
+      "It proves that all available authentication events were authorised",
+      "It confirms the VPN and endpoint incidents are separate actors"
+    ],
+    "correct": 0,
+    "explanation": "Routine events on one device do not identify the VPN client.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why use UTC in both the worksheet and lab output?",
+    "options": [
+      "To assign the incident's severity without considering scope or impact",
+      "To record when the present-day student first acquired every observation",
+      "To remove the need to distinguish event time and time noticed",
+      "To compare event times consistently across available sources"
+    ],
+    "correct": 3,
+    "explanation": "A shared time reference avoids misordering independent records.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The scoping script produces zero results for a hostname expected in this exercise. What should the analyst check first?",
+    "options": [
+      "Whether the hostname now resolves to a routable public address",
+      "Whether to change the query until any host is returned",
+      "Fixture identity, meaningful field names and expected query scope",
+      "Whether the current gateway has blocked all versions of the course"
+    ],
+    "correct": 2,
+    "explanation": "A reproducible check starts with the right data and schema.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which reply best routes the missing mail evidence?",
+    "options": [
+      "Ask an employee to recreate a message from the topic and attachment filename",
+      "Ask the authorised mail owner for the original and trusted trace",
+      "Generate a realistic header and treat it as the delivered source",
+      "Use the VPN log to infer the mail sender's authentication service"
+    ],
+    "correct": 1,
+    "explanation": "The mail owner can provide evidence that the existing fixture lacks.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer proposes saying the byte count shows a known data breach. What change is defensible?",
+    "options": [
+      "State the observed transfer and ask for corroboration about contents",
+      "Raise the count to include every unrelated request on the host",
+      "Describe the upload as proof that the original email caused the incident",
+      "Treat the event as insignificant because no mail record exists"
+    ],
+    "correct": 0,
+    "explanation": "Report the observed transfer and leave impact within the evidence boundary.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What connects the primary proxy and process observations most directly?",
+    "options": [
+      "The same external user on VPN and the same endpoint event ID",
+      "The same hour and similar visual display fields alone",
+      "An apparent match between unrelated report severity scores",
+      "The same observed workstation and meaningful time sequence"
+    ],
+    "correct": 3,
+    "explanation": "A common observed asset makes correlation appropriate while causality still needs evidence.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The analyst would like to record the named user as the confirmed attacker. How should it be worded?",
+    "options": [
+      "Use the name associated with the case owner to identify the actor",
+      "Treat a high severity label as sufficient basis for naming an actor",
+      "Attribute the relevant activity to observed accounts and devices",
+      "Treat the account record as conclusive evidence of a person's actions"
+    ],
+    "correct": 2,
+    "explanation": "Account and device identifiers do not alone establish an actor's identity.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What can a checksum of the input fixture verify?",
+    "options": [
+      "Whether all real-world events were collected by the organisation",
+      "Whether a later copy matches the recorded bytes",
+      "Who first composed the original suspicious email at the observed time",
+      "Whether the proxy source captured the exact transferred content"
+    ],
+    "correct": 1,
+    "explanation": "A digest supports integrity checking and does not establish coverage.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The simulated action has no execution record. How should the handoff state its status?",
+    "options": [
+      "Proposed, with approval and verification still pending",
+      "Already effective because the reviewer agreed with the recommendation",
+      "Completed in the exercise because the device exists in the fixture",
+      "Verified based on the latest proxy result before the decision was made"
+    ],
+    "correct": 0,
+    "explanation": "A written recommendation is a different deliverable from effective action.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the Windows log clear event contribute?",
+    "options": [
+      "A complete proof that all earlier evidence was deleted everywhere",
+      "The identity of the sender of the suspicious original message",
+      "A record of which payload the remote server returned",
+      "An observed event and a reason to check later visibility"
+    ],
+    "correct": 3,
+    "explanation": "The event is relevant to the device record and later evidence gaps.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An authorised mail trace shows a second mailbox only had a preview request. How should the update treat that?",
+    "options": [
+      "Count the second recipient as a confirmed click automatically",
+      "Alter the previous device search to include the mail service as a user",
+      "Record service activity and leave human interaction unresolved",
+      "Assume automatic preview establishes proof that no user acted"
+    ],
+    "correct": 2,
+    "explanation": "A preview describes service activity and cannot settle human action.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which point belongs in the user-facing management summary?",
+    "options": [
+      "Every raw JSON object with all available account identifiers",
+      "Known risk, significant uncertainties and requested decisions",
+      "The entire Python scope script without its findings",
+      "The exact contents of the transfer inferred from its file size"
+    ],
+    "correct": 1,
+    "explanation": "Management updates should support action without overstating evidence.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which distinct record should not be mistaken for event time?",
+    "options": [
+      "The time the student first noticed a row during the exercise",
+      "The occurrence timestamp supplied by the proxy field",
+      "The event timestamp recorded by the VPN data source",
+      "The Windows record's timestamp for the Security log clear"
+    ],
+    "correct": 0,
+    "explanation": "Review time is separate from the exercise's recorded incident chronology.",
+    "lesson": 8,
+    "difficulty": "medium"
+  }
+]

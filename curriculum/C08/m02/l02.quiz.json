@@ -68,7 +68,7 @@
     "q": "To save storage, a firewall logs every denied connection but only a sample of allowed ones. Why is this especially damaging for incident investigation?",
     "options": [
       "The connections of an attack that succeeded are exactly the ones not recorded",
-      "Denied connections cannot be correlated without the matching allowed ones",
+      "Denied connections lose their meaning without a paired allowed event for every source and destination recorded by the firewall",
       "Sampling changes the rule numbers recorded in the denied connection logs",
       "Allowed connections are needed to compute the NAT table for denied ones"
     ],
@@ -95,7 +95,7 @@
     "options": [
       "Inspect all traffic without exception, since partial inspection creates blind spots",
       "Treat it as a privacy and legal decision, exempting categories such as banking and health",
-      "Inspect only traffic to internal servers, since external sites use certificate pinning",
+      "Inspect only internal traffic and exempt external endpoints as a group because external services may use certificate pinning",
       "Avoid inspection entirely, since SNI already reveals the full URL of each request"
     ],
     "correct": 1,
@@ -173,7 +173,7 @@
     "options": [
       "As confirmed compromise, because signature matches are exact by design",
       "As raw telemetry equivalent to a flow record for the same connection",
-      "As low value, because encrypted traffic makes IDS signatures unreliable",
+      "As low confidence until the analyst confirms whether the traffic was encrypted when the sensor captured it",
       "As someone else's detection logic that still needs validation as an alert"
     ],
     "correct": 3,
@@ -236,7 +236,7 @@
   {
     "q": "In a proxy log, which pattern best suggests exfiltration rather than ordinary use?",
     "options": [
-      "Many small downloads from a content delivery network during working hours",
+      "Many small inbound downloads from the same content delivery network during normal working hours",
       "A large response received by a host from a software update server",
       "Repeated failed requests with status 404 to a single internal web server",
       "An unusually large volume sent from an internal host to a rare destination"
@@ -304,7 +304,7 @@
       "The download came from the company's own payroll system and is routine",
       "A look-alike domain served a macro-enabled document that then ran PowerShell",
       "The PowerShell process downloaded the document after Word had been opened",
-      "The proxy blocked the document, so the PowerShell event is unrelated to it"
+      "The proxy prevented the document from reaching the host, so the later Office process is unrelated to the web request"
     ],
     "correct": 1,
     "explanation": "The domain imitates the company's name, the .docm extension is a macro-enabled document, and Word starting PowerShell two minutes later fits a phishing download followed by macro execution. The order of events rules out PowerShell fetching the document.",

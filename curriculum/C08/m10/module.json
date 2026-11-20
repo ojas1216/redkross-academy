@@ -1,0 +1,104 @@
+{
+  "course": "C08",
+  "module": 10,
+  "title": "Threat hunting",
+  "description": "Learners plan and run hypothesis-driven threat hunts against saved, fictional Banyan Microfinance records and small synthetic fixtures. They check data coverage, write read-only hunt queries, build baselines, frame hunts around ATT&CK behaviors, document scope and reasoning, and validate findings into positive, benign or no-data outcomes.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Hypothesis design",
+      "summary": "Turn a hunt trigger into a testable hypothesis that names a behavior, scope, observable predictions and the evidence that would refute it.",
+      "objectives": [
+        "Write a hunt hypothesis that states a behavior, an entity scope, a time window and at least two observable predictions",
+        "Identify the refuting evidence for a given hypothesis before any data is examined",
+        "Rank three candidate hypotheses by impact, plausibility and data feasibility and justify the ranking",
+        "Rewrite an untestable or conclusion-shaped hypothesis into a falsifiable one"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Data needs",
+      "summary": "Map each hypothesis prediction to the sources, fields, time coverage and quality it requires, and record what the hunt cannot see.",
+      "objectives": [
+        "Build a data-needs matrix that links each hypothesis prediction to a source, required fields and time coverage",
+        "Classify a hunt question as answerable, partially answerable or unanswerable from a stated data inventory",
+        "Distinguish absence of evidence from evidence of absence when a source is missing or incomplete",
+        "Describe how clock skew, retention and missing join keys limit a hunt conclusion"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Hunt queries",
+      "summary": "Design read-only hunt queries that stack, filter, window and join records on shared entities, then check them by hand against a small fixture.",
+      "objectives": [
+        "Write pseudocode hunt queries using stacking, filtering, time windows and entity joins",
+        "Trace a query by hand over a synthetic fixture and state the exact rows it returns",
+        "Identify query defects such as time zone mismatch, null-field exclusion and join fan-out",
+        "Document a query with its purpose, inputs, assumptions and expected positive and negative results"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "Baselines",
+      "summary": "Establish what normal looks like using time windows, peer groups and frequency analysis, and judge whether an observation departs from it meaningfully.",
+      "objectives": [
+        "Choose a baseline window and peer group appropriate to a stated hunt question",
+        "Use stacking and frequency counts to separate common, rare and first-seen values",
+        "Compare an observation to a baseline and explain whether the deviation is meaningful",
+        "Explain why a baseline describes the past and is not an allowlist of safe behavior"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 5,
+      "title": "ATT&CK-driven hunts",
+      "summary": "Use ATT&CK as a shared vocabulary to move from adversary behaviors to observable records and hunt hypotheses without overclaiming technique matches.",
+      "objectives": [
+        "Translate an ATT&CK tactic and behavior description into observable data predictions",
+        "Select hunt behaviors using threat relevance and data visibility rather than matrix coverage",
+        "Map an observation to ATT&CK with stated confidence and an alternative benign explanation",
+        "Explain why sequential tactic labels do not prove a connected intrusion"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Documentation",
+      "summary": "Record hunts so another analyst can reproduce the scope, data, queries, results, confidence and limitations, including negative results.",
+      "objectives": [
+        "Complete a hunt record with hypothesis, scope, data sources, queries, results and limitations",
+        "Write findings in calibrated language that separates source observations, enrichment and analyst inference",
+        "Cite evidence by source and record identifier so another analyst can reproduce a finding",
+        "Produce handoff notes for incident response and detection engineering from a hunt record"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 7,
+      "title": "Validation",
+      "summary": "Test hunt findings and hunt queries: corroborate across sources, weigh benign explanations, check for false negatives and assign defensible outcomes.",
+      "objectives": [
+        "Validate a hunt query against a seeded synthetic positive and a known negative",
+        "Corroborate a finding using independent sources and identify when sources are not independent",
+        "Assign a positive, benign or no-data outcome with a confidence level and justify it",
+        "Decide whether a validated finding should be escalated, closed or carried forward"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "Hunt lab",
+      "summary": "Run a complete paper hunt over supplied saved records: form hypotheses, check data, trace queries, compare baselines, document scope and defend findings.",
+      "objectives": [
+        "Form and prioritize hypotheses from the supplied Banyan and synthetic lab records",
+        "Trace hunt queries by hand and cite the exact records that support each result",
+        "Reach a defensible positive, benign or no-data outcome for each lab case",
+        "Write a scoped hunt report that separates observations, enrichment, inference and gaps"
+      ],
+      "minutes": 90
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "C08-M09-L07-F1": {
+    "title": "Evidence needed for phishing scope claims",
+    "caption": "Record the strongest claim supported by the available sources for each asset or identity.",
+    "alt": "Four rows compare the evidence for delivered, user interaction, executed and compromised. The sources are message trace, user or session evidence, endpoint process telemetry, and corroborating security records. The table lists blocked delivery, automated previews, routine processes and unlinked events as limitations.",
+    "type": "table",
+    "columns": [
+      "Claim",
+      "Evidence",
+      "Check before reporting"
+    ],
+    "rows": [
+      [
+        "Delivered",
+        "Trusted message trace",
+        "Exclude held or rejected mail"
+      ],
+      [
+        "User interaction",
+        "User statement or qualified session event",
+        "Separate automated preview"
+      ],
+      [
+        "Executed",
+        "Endpoint process or file evidence",
+        "Link activity to the artifact"
+      ],
+      [
+        "Compromised",
+        "Corroborating endpoint or identity evidence",
+        "State confidence and visibility"
+      ]
+    ],
+    "rowTones": [
+      "blue",
+      "violet",
+      "orange",
+      "dark"
+    ],
+    "note": "Report the strongest supported claim and its limits."
+  }
+}

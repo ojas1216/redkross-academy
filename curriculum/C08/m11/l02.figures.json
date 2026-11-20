@@ -1,0 +1,94 @@
+{
+  "C08-M11-L02-F1": {
+    "title": "TheHive case and Cortex responsibilities",
+    "caption": "Cortex returns context and action reports to the case, which retains the evidence and approval history.",
+    "alt": "A source alert links to a case and an observable. An approved analyzer reports back to the case for interpretation. The case owner may approve a responder action whose result is also recorded in the case.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "a",
+        "label": "Source alert",
+        "sub": "Stable source reference",
+        "tone": "slate"
+      },
+      {
+        "id": "c",
+        "label": "TheHive case",
+        "sub": "Evidence, tasks and decisions",
+        "tone": "blue"
+      },
+      {
+        "id": "o",
+        "label": "Typed observable",
+        "sub": "Preserved source and scope",
+        "tone": "violet"
+      },
+      {
+        "id": "x",
+        "label": "Cortex analyzer",
+        "sub": "Approved analysis",
+        "tone": "green"
+      },
+      {
+        "id": "r",
+        "label": "Interpret returned report",
+        "sub": "Review provenance and coverage",
+        "tone": "dark"
+      },
+      {
+        "id": "p",
+        "label": "Approval if required",
+        "sub": "Exact action and target",
+        "tone": "orange"
+      },
+      {
+        "id": "y",
+        "label": "Cortex responder",
+        "sub": "Return outcome and verify effect",
+        "tone": "green"
+      }
+    ],
+    "edges": [
+      {
+        "from": "a",
+        "to": "c"
+      },
+      {
+        "from": "c",
+        "to": "o"
+      },
+      {
+        "from": "o",
+        "to": "x"
+      },
+      {
+        "from": "x",
+        "to": "r",
+        "label": "Analysis report"
+      },
+      {
+        "from": "r",
+        "to": "c",
+        "label": "Record context",
+        "dashed": true
+      },
+      {
+        "from": "r",
+        "to": "p"
+      },
+      {
+        "from": "p",
+        "to": "y"
+      },
+      {
+        "from": "y",
+        "to": "c",
+        "label": "Record outcome",
+        "dashed": true
+      }
+    ],
+    "note": "The case holds decisions and source references. Reports support those decisions."
+  }
+}

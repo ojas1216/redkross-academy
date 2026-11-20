@@ -1,0 +1,89 @@
+{
+  "C08-M11-L07-F1": {
+    "title": "Safe playbook checks at each boundary",
+    "caption": "Scope, authority, effect identity and verification constrain every consequential path.",
+    "alt": "A workflow validates its scope, verifies current authority, checks for a prior effect, and runs a permitted step only when necessary. Existing verified effects link to the case. Failed or unknown checks route to human review.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "s",
+        "label": "Validate scope and preconditions",
+        "sub": "Source, target and intended effect",
+        "tone": "slate"
+      },
+      {
+        "id": "a",
+        "label": "Check current authority",
+        "sub": "Action, approval and expiry",
+        "tone": "violet"
+      },
+      {
+        "id": "k",
+        "label": "Look up the intended effect",
+        "sub": "Stable effect identity",
+        "tone": "blue"
+      },
+      {
+        "id": "e",
+        "label": "Run the permitted step",
+        "sub": "Record the resulting state",
+        "tone": "green"
+      },
+      {
+        "id": "v",
+        "label": "Verify and link the result",
+        "sub": "Retain outcome evidence",
+        "tone": "dark"
+      },
+      {
+        "id": "r",
+        "label": "Route for human review",
+        "sub": "State reason and owner",
+        "tone": "orange"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s",
+        "to": "a"
+      },
+      {
+        "from": "s",
+        "to": "r",
+        "label": "Invalid"
+      },
+      {
+        "from": "a",
+        "to": "k",
+        "label": "Permitted"
+      },
+      {
+        "from": "a",
+        "to": "r",
+        "label": "No current authority"
+      },
+      {
+        "from": "k",
+        "to": "e",
+        "label": "New effect"
+      },
+      {
+        "from": "k",
+        "to": "v",
+        "label": "Already verified"
+      },
+      {
+        "from": "k",
+        "to": "r",
+        "label": "Uncertain"
+      },
+      {
+        "from": "e",
+        "to": "v"
+      }
+    ],
+    "note": "Unknown effects stay open for reconciliation."
+  }
+}

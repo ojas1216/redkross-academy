@@ -15,7 +15,7 @@
   {
     "q": "R2 (event at 06:46) and R1 (event at 06:14) both score 7.2, yet triage.py prints R2 first. What causes this?",
     "options": [
-      "triage.py breaks ties by the newest event first, so the 06:46 VPN alert is placed above the older R1",
+      "triage.py breaks equal scores by the newest event timestamp first, so the 06:46 VPN alert is placed above the older R1 alert",
       "sorted(..., reverse=True) compares the next tuple element, the rule-name string, so 'R2 ...' sorts above 'R1 ...'",
       "R2's unrounded score is slightly higher than R1's, and the difference disappears only when printed",
       "R2 involves an external address, and triage.py adds a hidden bonus to alerts from external sources"
@@ -29,7 +29,7 @@
     "q": "A newly deployed rule ships with confidence 0.0 by mistake. What happens under a multiplicative priority model, and what is the safeguard?",
     "options": [
       "Its alerts score as if confidence were 1.0, so a minimum value is unnecessary but a maximum is needed",
-      "Its alerts rise to the top, because a zero factor is treated as missing and the remaining factors are summed",
+      "Its alerts rise to the top, because a zero factor is treated as missing data and the remaining factors are simply summed instead",
       "Every alert from the rule scores 0 and sinks to the bottom, so models need floors such as a minimum confidence",
       "The SIEM rejects the rule, because a multiplicative model cannot be evaluated when any factor equals zero"
     ],
@@ -41,7 +41,7 @@
   {
     "q": "A SOC is choosing between the kit's product (severity x confidence x criticality) and a weighted sum of the same inputs. Which trade-off is stated correctly?",
     "options": [
-      "A product lets several mediocre inputs add up to an alarming score, while a weighted sum cannot do so",
+      "A product lets several mediocre inputs add up to an alarming score, while a weighted sum lets one low input cancel all the others",
       "A weighted sum always gives identical ordering to a product, so the choice affects only presentation",
       "A product is preferred because it never produces ties, unlike a weighted sum on integer scales",
       "A weighted sum stops one low input cancelling a high one, but several mediocre inputs can add up to an alarming score"
@@ -56,7 +56,7 @@
     "options": [
       "R3's measured confidence falls, lowering the future priority of every alert it produces, including real ones",
       "Nothing changes, because confidence is fixed by detection engineering when a rule is first written",
-      "R3's severity is automatically reduced, because the SIEM moves rules with many false positives down a level",
+      "R3's severity is automatically reduced, because the SIEM moves rules with many false positives down one severity level each quarter",
       "R3's confidence rises, because a larger number of closed alerts makes the precision estimate more reliable"
     ],
     "correct": 0,
@@ -70,7 +70,7 @@
       "Correct, because precision is exact once any true positive exists and needs no further evidence",
       "The sample is too small for a reliable precision, so a documented default is better until more alerts accrue",
       "Confidence should be set to 1.0, because the rule has been proven able to catch at least one real attack",
-      "Confidence should be set to 0.0, because nine false positives out of ten means the rule should be disabled"
+      "Confidence should be set to 0.0, because nine false positives out of ten alerts means the rule is useless and should be disabled"
     ],
     "correct": 1,
     "explanation": "Precision from very few alerts is weak evidence; ten alerts with one true positive is noisy. A documented default is held until enough history accumulates. Setting 0.0 would also erase every future alert under a multiplicative model.",
@@ -95,7 +95,7 @@
     "options": [
       "10.8, because priority() reads the USERS table and lifts alerts for payments approvers automatically",
       "0.0, because priority() cannot score an account-based alert unless the account owns a registered host",
-      "12.0, because identity criticality is added on top of the asset criticality for any privileged account",
+      "12.0, because identity criticality is added on top of the asset criticality whenever the account is a privileged one",
       "It depends only on the host mapped to the account, so the score ignores what the compromised account can reach"
     ],
     "correct": 3,
@@ -145,7 +145,7 @@
   {
     "q": "For months, alerts have arrived faster than the SOC can work them, and items below a score of 4 are never opened before automatic closure. What does the lesson say is the honest response?",
     "options": [
-      "Keep the current order, since low-scored items are only being deferred and will be reached in a quieter week",
+      "Keep the current order, since low-scored items are only being deferred and will be reached and worked properly in a quieter week",
       "Lower the severity of the affected rules so that the queue statistics reflect what is actually being handled",
       "Raise the confidence of the low rules so that their alerts climb above the cut-off and are eventually worked",
       "Tune or retire the rules filling the tail, automate their handling or add capacity, instead of pretending they are handled"
@@ -174,7 +174,7 @@
       "Confidence can only be changed by the CMDB owner, so the shift lead lacks authority over that value",
       "Time pressure may change the order of work but must not alter severity or confidence, which are facts about alerts",
       "Lowering confidence to 0.3 would have no effect, because priority() ignores confidence values below 0.5",
-      "The change is acceptable provided it is reversed at the end of the shift and noted in the handover report"
+      "The change is acceptable provided it is reversed at the end of the shift and clearly noted in the handover report for the next lead"
     ],
     "correct": 1,
     "explanation": "Time and capacity are handled by ageing, deadline proximity and capacity decisions, not by editing inputs. Confidence reflects measured precision; manipulating it hides real alerts and corrupts future scores. Confidence is owned by detection engineering, not the CMDB, and priority() uses it at any value.",
@@ -184,7 +184,7 @@
   {
     "q": "At 08:30 analyst B takes R2 (score 7.2) ahead of higher-scored WS-104 alerts. What makes this a legitimate override?",
     "options": [
-      "R2 is the oldest alert in the queue, so the standard oldest-first rule requires it to be worked first",
+      "R2 is the oldest alert in the queue, so the standard oldest-first rule requires it to be worked before any of the WS-104 alerts",
       "R2 has a higher base severity than every WS-104 alert, so it should have been ranked first anyway",
       "A successful external login after a spray suggests a live session that quick, pre-authorised containment can cut off",
       "Analyst B is more familiar with VPN alerts, and analysts should take the alert types they know best"
@@ -251,7 +251,7 @@
     "options": [
       "Because the SIEM stops collecting logs from any asset whose criticality is set below 2",
       "Because a criticality change automatically lowers the base severity of rules firing on that server",
-      "Because criticality changes disable entity risk scoring for the affected host until it is reclassified",
+      "Because criticality changes disable entity risk scoring for the affected host until the CMDB team has reclassified it",
       "Because every alert about the server silently drops in priority, so such changes should be logged and reviewed"
     ],
     "correct": 3,
@@ -315,7 +315,7 @@
     "q": "In the prioritisation pipeline, analysts' dispositions feed back into rule confidence. What happens if this feedback loop is missing?",
     "options": [
       "Confidence values go stale, so the first scoring step's numbers gradually stop reflecting how rules really perform",
-      "The queue stops sorting altogether, because priority() needs a fresh confidence value for every new alert",
+      "The queue stops sorting altogether, because priority() needs a fresh confidence value computed for every new alert it receives",
       "Severity values start drifting upward, because dispositions are the only control on severity inflation",
       "Entity risk scores can no longer be calculated, because they depend on the disposition of each alert"
     ],

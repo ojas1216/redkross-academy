@@ -70,7 +70,7 @@
       "It fires twice, once for each bucket the eight failures touch",
       "It may never fire, because the burst can split four and four across buckets",
       "It fires once, because a tumbling window slides to cover the full burst",
-      "It fires late, because buckets are evaluated only once the hour has closed"
+      "It fires late, because the first partial bucket remains open and is evaluated only after the hour closes"
     ],
     "correct": 1,
     "explanation": "Tumbling buckets split a burst that straddles a boundary, so neither 06:40-06:50 nor 06:50-07:00 may reach five users. It is a sliding window, not a tumbling one, that moves with each event and avoids the boundary problem.",
@@ -107,7 +107,7 @@
     "q": "The VPN spray and gopal's login (06:42-06:46) overlap in time with the WS-104 intrusion. What may an analyst conclude from the data alone?",
     "options": [
       "Nothing links them yet; they share no entity, so a link needs other evidence",
-      "They are one attack, since both happened on the same morning in one network",
+      "Both belong to a single incident because they happened on the same morning and in the same network segment",
       "The spray compromised WS-104, because divya was one of the sprayed accounts",
       "They are unrelated, because VPN events cannot ever be correlated with hosts"
     ],
@@ -263,7 +263,7 @@
     "q": "In the Banyan storyline, which preventive control would remove the scenario behind R1 at its source rather than detect it afterwards?",
     "options": [
       "Application control that stops Office from starting script interpreters",
-      "Multi-factor authentication on the VPN for every remote access account",
+      "Require MFA on the VPN for every remote account and record the authentication result in the SIEM",
       "A proxy block on uploads larger than 10,000,000 bytes to unknown sites",
       "Forwarding the Security log so that a local clear cannot destroy it"
     ],

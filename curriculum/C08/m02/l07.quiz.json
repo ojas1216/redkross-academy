@@ -31,7 +31,7 @@
       "Clock skew on the host made six events appear to fall inside the five-minute window",
       "At-least-once delivery re-sent events whose acknowledgements were lost, storing some twice",
       "The parser split each failure into two events because of a changed log format",
-      "UDP transport dropped the success events, so failures looked more frequent than they were"
+      "Success events were lost during the interruption, reducing the total number of distinct attempts visible to the rule engine"
     ],
     "correct": 1,
     "explanation": "An agent that retries until acknowledged will re-send events whose acknowledgement was lost, so some are stored twice and counting rules over-count. Clock skew would move events in time but could not raise six events to ten.",
@@ -93,7 +93,7 @@
   {
     "q": "A SOC collects an identity provider's audit records with an API poller. Which failure mode is characteristic of this collection method?",
     "options": [
-      "A broken agent upgrade silences the provider's servers until it is rolled back",
+      "An endpoint agent upgrade can silence the provider's servers until every installation is rolled back by the SOC collection team",
       "Packets are dropped in transit because the protocol has no acknowledgement",
       "Provider throttling or publication delay makes the poller fall behind, adding lag",
       "The provider's local log wraps before the forwarding subscription is renewed"
@@ -304,7 +304,7 @@
       "By sending over UDP with a buffer large enough that no packet is ever dropped",
       "By switching from UDP to TCP, which guarantees each event is stored only once",
       "By using at-least-once delivery plus de-duplication on a stable event identifier",
-      "By using at-most-once delivery and retrying each event a fixed number of times"
+      "Use at-most-once delivery and retry each event a fixed number of times without writing a durable event identifier at the receiver"
     ],
     "correct": 2,
     "explanation": "End-to-end exactly-once is hard, so pipelines retry until acknowledged and then remove duplicates using a stable event ID. TCP makes the connection reliable but cannot stop a retry after a lost acknowledgement from storing an event twice.",
@@ -316,7 +316,7 @@
     "options": [
       "A backlog is building in a buffer, which will turn into loss if the buffer fills",
       "The server's events are being duplicated by an at-least-once forwarder",
-      "The parser has stopped extracting the timestamp field from the server's events",
+      "The timestamp parser stopped extracting occurrence times and reliably replaced them with a fixed delay added at indexing time",
       "The server has been quiet, and the lag reflects its normal overnight interval"
     ],
     "correct": 0,

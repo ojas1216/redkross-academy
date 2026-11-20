@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Thirteen deliveries include three repeats and nine of ten eligible alerts are routed. What is confirmed routing coverage among eligible alerts?",
+    "options": [
+      "Nine out of thirteen because all delivery attempts count",
+      "Ten out of thirteen because every unique alert was eligible",
+      "Nine out of ten at the stated cutoff",
+      "Thirteen out of thirteen because every receipt was recorded"
+    ],
+    "correct": 2,
+    "explanation": "The denominator is eligible unique work for this metric.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which two timestamps define the stated intake interval?",
+    "options": [
+      "Event occurrence and the analyst's final closing note",
+      "Alert receipt and confirmed case assignment",
+      "Approval denial and the first external notification",
+      "First endpoint observation and next calendar review"
+    ],
+    "correct": 1,
+    "explanation": "An intake metric measures elapsed time to owning case work.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A pending case has no verification timestamp. How does it enter the latency report?",
+    "options": [
+      "Keep it visible as open and report its age separately",
+      "Give it zero verification latency and include it as finished",
+      "Drop it and omit pending counts from the report entirely",
+      "Assign the average completion time and present it as verified"
+    ],
+    "correct": 0,
+    "explanation": "Incomplete observations need separate counts rather than invented finish times.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a run count directly measure?",
+    "options": [
+      "The number of unique verified protective effects in all services",
+      "Every incident that was conclusively closed in its final report",
+      "Current risk for the affected business with no other information",
+      "Execution activity, including eligible retries where recorded"
+    ],
+    "correct": 3,
+    "explanation": "Run volume describes engine work and can include multiple attempts.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One action is verified; another is approved but unverified. One further request was denied. What is the verified rate among approved requests?",
+    "options": [
+      "One of three because all proposed scopes count",
+      "Two of three because two decisions were approved",
+      "One of two approved requests",
+      "Two of two because the workflow requested both steps"
+    ],
+    "correct": 2,
+    "explanation": "The rate's denominator includes approved requests and the numerator verified effects.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How can an analyst help compare reports across schema changes?",
+    "options": [
+      "Reuse the same chart even if its endpoints changed",
+      "State metric definitions and applicable schema revisions",
+      "Treat altered source values as historical facts without a note",
+      "Average unrelated versions into a single date-free estimate"
+    ],
+    "correct": 1,
+    "explanation": "Versioned definitions show whether historical measurements are comparable.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Case assignment time fell after unresolved assets were excluded. What should be disclosed?",
+    "options": [
+      "The eligibility change and its coverage effect",
+      "A reliable improvement across all formerly eligible cases",
+      "Proof that the platform remediated every unresolved asset",
+      "Only the median speed for the retained group with no context"
+    ],
+    "correct": 0,
+    "explanation": "A narrowed denominator can make performance look better without improving coverage.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the response lead see in a pending-work view?",
+    "options": [
+      "Unredacted employee information from every alert source",
+      "Only the total of successful runs in unrelated environments",
+      "A ranked set of cases with no link to operational responsibility",
+      "Age, owner and verification state of open work"
+    ],
+    "correct": 3,
+    "explanation": "The lead needs actionable open items and their owners.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An audit checks five complete records and excludes one malformed routed case. What is the risk?",
+    "options": [
+      "The verified protective action rate necessarily improves in every case",
+      "The duplicate delivery count automatically becomes zero that day",
+      "Completeness looks higher because a failure was filtered out",
+      "The missing review no longer needs an owner because it was not exported"
+    ],
+    "correct": 2,
+    "explanation": "An eligibility filter can hide the very cases a quality metric should measure.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the median of 2, 3, 4, 9 and 25 minutes equal?",
+    "options": [
+      "Eight point six minutes from averaging all five values",
+      "Four minutes for the five finished cases",
+      "Nine minutes because it is closest to the average value",
+      "Twenty-five minutes because it is the longest finished interval"
+    ],
+    "correct": 1,
+    "explanation": "The middle value in the ordered completed sample is four.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A dashboard counts duplicate actions together with legitimate new effects. What correction is needed?",
+    "options": [
+      "Distinguish unique intended effects from repeats and delivery attempts",
+      "Increase the reporting interval until the duplicate records are less visible",
+      "Keep verified duplicate effects because every success improves coverage",
+      "Deduct all repeated inputs from the count of incoming workload"
+    ],
+    "correct": 0,
+    "explanation": "The categories answer different process and integrity questions.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a verification timestamp useful?",
+    "options": [
+      "It is identical to the time a request reached the approval queue",
+      "It determines which employees may view the original case details",
+      "It marks the first time the analyst wrote a proposed action",
+      "It records when relevant evidence confirmed the intended state"
+    ],
+    "correct": 3,
+    "explanation": "The timestamp should describe a concrete verification event.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A start time is later than a recorded finish. What should the analyst do?",
+    "options": [
+      "Replace the interval with zero to avoid an anomalous value",
+      "Treat negative values as evidence that the workflow was faster",
+      "Investigate timestamp sources, ordering and clock consistency",
+      "Average with longer cases to conceal the timestamp problem"
+    ],
+    "correct": 2,
+    "explanation": "An impossible interval is a data-quality signal worth investigating.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which outcome should a quality audit investigate even if uncommon?",
+    "options": [
+      "A valid case review finished under the expected time interval",
+      "A verified effect outside the approved scope",
+      "An eligible request deliberately logged as denied by the case lead",
+      "An audit field that displays the same time in UTC consistently"
+    ],
+    "correct": 1,
+    "explanation": "Unapproved effects are control failures, regardless of aggregate throughput.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Training runs and live cases appear in one latency view. What should the analyst change?",
+    "options": [
+      "Separate environments or define comparable cohorts explicitly",
+      "Use the training runs to estimate performance for all live controls",
+      "Count only the fastest environment since it has better response time",
+      "Discard environment fields now that the executions can be compared visually"
+    ],
+    "correct": 0,
+    "explanation": "Different conditions make directly combined performance claims misleading.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does a measurement need a cutoff time?",
+    "options": [
+      "To make every action finish exactly before its scheduled review",
+      "To guarantee later evidence does not modify an operational decision",
+      "To categorise every record based on a different local time convention",
+      "To interpret pending states and reproduce the population"
+    ],
+    "correct": 3,
+    "explanation": "A cutoff states which facts were known for the report.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Request time stayed stable, but verification got slower. Which bottleneck should the owner investigate?",
+    "options": [
+      "Whether adoption of the original trigger started before alert receipt",
+      "How rapidly the case system changes the affected host's display name",
+      "What happens between observed effect and confirmation",
+      "Why the organisation received fewer repeated events in unrelated cases"
+    ],
+    "correct": 2,
+    "explanation": "Separate intervals help locate which stage actually changed.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the mean of 2, 3, 4, 9 and 25 minutes?",
+    "options": [
+      "Four minutes because it is the middle observation",
+      "Eight point six minutes across five finished cases",
+      "Nine point four minutes using the next observed request count",
+      "Twenty-five minutes from the largest completed result"
+    ],
+    "correct": 1,
+    "explanation": "The five times total forty-three minutes, divided by five.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After the cutoff, the last pending case is assigned. How should reports handle it?",
+    "options": [
+      "Keep the earlier state and report the assignment in the later period",
+      "Change the old report to claim the case was assigned before its cutoff",
+      "Remove the new assignment because the initial report was already approved",
+      "Treat the extra elapsed time as an error regardless of the later timestamp"
+    ],
+    "correct": 0,
+    "explanation": "Each report should reflect the facts at its own cutoff.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which measure complements a shift's time-to-close figure?",
+    "options": [
+      "The number of characters in its average case title",
+      "The font size of labels in the case reporting dashboard",
+      "The number of article views for the general security policy",
+      "Reopened cases or unresolved verification at closure"
+    ],
+    "correct": 3,
+    "explanation": "Quality measures help detect incentives to close before results are verified.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Automation throughput increased while eligible alerts abandoned due to invalid ownership rose. What should be reported?",
+    "options": [
+      "A clear improvement based only on the number of runs",
+      "A reduction in incident impact based on the abandonment rate",
+      "Both efficiency and coverage tradeoffs with comparable populations",
+      "No result because competing measurements cannot coexist"
+    ],
+    "correct": 2,
+    "explanation": "A useful report surfaces tradeoffs so owners can act on them.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which field helps a metric owner diagnose an unexplained branch change?",
+    "options": [
+      "The full private artifact copied into all reports",
+      "A fixed reason code and workflow version",
+      "A priority colour that changes across dashboard themes",
+      "A title using the analyst's local date with no timezone"
+    ],
+    "correct": 1,
+    "explanation": "Stable diagnostics can be traced back to cases and process changes.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A revised metric combines requested and verified timestamps. What is needed before comparison?",
+    "options": [
+      "Define the new interval and disclose broken comparability",
+      "Extend the earlier comparison period until values are equivalent",
+      "Use both fields as identical events throughout historical reports",
+      "Assign old values to whichever endpoint has the faster result"
+    ],
+    "correct": 0,
+    "explanation": "An interval with different endpoints can give the impression of a performance change that did not occur.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in an aggregate governance report?",
+    "options": [
+      "Every user identifier included in each affected case",
+      "Unredacted evidence regardless of audience and purpose",
+      "A set of execution credentials used to reproduce live actions",
+      "Counts, definitions and appropriate privacy boundaries"
+    ],
+    "correct": 3,
+    "explanation": "Aggregates should communicate quality without exposing details unnecessarily.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What question should a metric answer before publication?",
+    "options": [
+      "Can every result be represented as a green status?",
+      "Can the date range be omitted to reduce the report length?",
+      "Which decision and accountable owner does it support?",
+      "Does it avoid every mention of unresolved work?"
+    ],
+    "correct": 2,
+    "explanation": "Useful metrics help an owner choose a justified next action.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

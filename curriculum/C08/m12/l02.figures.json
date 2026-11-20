@@ -1,0 +1,48 @@
+{
+  "C08-M12-L02-F1": {
+    "title": "Reconcile the second intake batch",
+    "caption": "Later records can link, add evidence, confirm a response or raise a separate review task.",
+    "alt": "Five categories show exact duplicates linked to original evidence, new observations added to a case, requests logged as pending, verified effects recorded, and unresolved records routed to an owner.",
+    "type": "table",
+    "columns": [
+      "Record type",
+      "Example",
+      "Worksheet action"
+    ],
+    "rows": [
+      [
+        "Exact repeat",
+        "B28 repeats O-401",
+        "Link duplicate receipt"
+      ],
+      [
+        "New related event",
+        "B27 DNS observation",
+        "Add distinct evidence"
+      ],
+      [
+        "Request accepted",
+        "B20 pending isolation",
+        "Record pending state"
+      ],
+      [
+        "Effect applied",
+        "B21 verified asset",
+        "Update control status"
+      ],
+      [
+        "Unavailable audit",
+        "B24 session data",
+        "Assign evidence request"
+      ]
+    ],
+    "rowTones": [
+      "slate",
+      "blue",
+      "violet",
+      "green",
+      "orange"
+    ],
+    "note": "A source timestamp and its arrival order can differ."
+  }
+}

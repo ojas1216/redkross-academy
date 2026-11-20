@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A01 and A02 name the same device. What supports their association without proving causation?",
+    "options": [
+      "The repeated delivery of their identical process identity",
+      "The earlier authorised operation on the backup host",
+      "The known identity of whoever operated the VPN session",
+      "The common asset and meaningful time order"
+    ],
+    "correct": 3,
+    "explanation": "Observed linkage and chronology support investigating the two events together.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which time belongs to the first observed file request?",
+    "options": [
+      "08:03 UTC in the process observation",
+      "08:18 UTC in the outbound transfer",
+      "08:01 UTC in the proxy record",
+      "08:27 UTC in the accepted response request"
+    ],
+    "correct": 2,
+    "explanation": "A02 precedes the endpoint event and records the file request.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "B30 found no second match in inspected proxy records. How should it affect case scope?",
+    "options": [
+      "Prove that every other device was unaffected by the incident",
+      "Support a limited initial scope statement only",
+      "Count the affected mailbox recipients from the observed host total",
+      "Resolve all coverage gaps such as delayed endpoint telemetry"
+    ],
+    "correct": 1,
+    "explanation": "Source and search boundaries limit the negative finding.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who should review any changes to settlement transactions?",
+    "options": [
+      "The authorised Finance owner and relevant incident lead",
+      "The proxy source owner using transfer bytes alone",
+      "The endpoint analyst based solely on the isolation event",
+      "The reporter after reopening the original suspicious content"
+    ],
+    "correct": 0,
+    "explanation": "Finance can verify authoritative transaction history and related actions.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A later invoice review shows the transfer was legitimate. What should the case update?",
+    "options": [
+      "Close all endpoint work because no suspicious activity can remain",
+      "Remove A15 from the source timeline to avoid conflict",
+      "Declare that the same source always takes approved actions",
+      "Revise data-impact assessment while retaining the process inquiry"
+    ],
+    "correct": 3,
+    "explanation": "New context can explain one event without resolving the rest.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the applied isolation record prove directly?",
+    "options": [
+      "The user never interacted with a suspicious object",
+      "All relevant VPN sessions were removed from every service",
+      "The policy applied to the verified FIN-21 device",
+      "The organisation recovered the contents of the transfer"
+    ],
+    "correct": 2,
+    "explanation": "The management observation supports the control state for one target.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "If B21 were missing after B20, what should the response register show?",
+    "options": [
+      "Isolation verified by the time the request entered management",
+      "Isolation pending application and verification needed",
+      "The device was unaffected because no success was returned",
+      "The isolation must be requested again immediately without state review"
+    ],
+    "correct": 1,
+    "explanation": "An accepted request is not proof of effective protection.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which source identifies the payload of the 08:18 transfer?",
+    "options": [
+      "None of the supplied capstone records",
+      "The system recording the outbound byte count",
+      "The DNS events that occurred several minutes earlier",
+      "The viewer of the screenshot received by the service desk"
+    ],
+    "correct": 0,
+    "explanation": "Metadata provides a volume and destination without identifying the contents.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A mail screenshot shares a payment theme with the case. What would strengthen linkage?",
+    "options": [
+      "A guess that the screenshot receiver opened the same document",
+      "The fact that the team also received an unrelated login alert",
+      "A screenshot with the same colours as the reported message",
+      "A trusted original or delivery record with matching identifiers"
+    ],
+    "correct": 3,
+    "explanation": "Trusted message evidence can connect the suspected delivery to the case.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should the case preserve about A06?",
+    "options": [
+      "A separate confirmed process occurrence on another device",
+      "Its replacement for the original A01 event",
+      "Its receipt and link to E-301",
+      "A claim that it proves the matching attachment was executed"
+    ],
+    "correct": 2,
+    "explanation": "A06 represents another receipt of the same endpoint observation.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The endpoint control affected a critical business task. How should the report handle it?",
+    "options": [
+      "Release the device immediately because business work is important",
+      "Record the verified protection and assign an approved work alternative",
+      "Infer the payment impact from the endpoint process category",
+      "Treat operational disruption as proof customer data was transferred"
+    ],
+    "correct": 1,
+    "explanation": "Protective state and business continuity both need ownership and evidence.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does A03 establish directly about FIN-21?",
+    "options": [
+      "A resolver lookup for the recorded destination",
+      "A verified upload of payroll files through that destination",
+      "A confirmed attempt to replace pending transaction records",
+      "The verified meaning of every later HTTP request"
+    ],
+    "correct": 0,
+    "explanation": "DNS evidence shows a name lookup, not application or impact details.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A colleague says the VPN event must have controlled FIN-21 because both cases are urgent. What is the right response?",
+    "options": [
+      "Merge urgently prioritised events regardless of source identity",
+      "Drop the VPN evidence since FIN-21 has already been protected",
+      "Assume timing establishes who operated the workstation",
+      "Keep scopes separate until a corroborated link is found"
+    ],
+    "correct": 3,
+    "explanation": "Urgency permits parallel response without resolving the relation.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which proof supports the difference between request and effect?",
+    "options": [
+      "The number of rows in the first intake group",
+      "The business function supplied by the asset record",
+      "The separate records at 08:27 and 08:29 UTC",
+      "The case note asking for facts for notification review"
+    ],
+    "correct": 2,
+    "explanation": "The management records show request acceptance and later application.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A second host matches in a future expanded search. Does FIN-21's approval apply automatically?",
+    "options": [
+      "Yes, any new match with the same domain is covered",
+      "No. Review new scope and obtain appropriate authority",
+      "Yes, because the first protective decision was verified",
+      "No review is necessary if the future search returns many rows"
+    ],
+    "correct": 1,
+    "explanation": "A different target needs an independently scoped response decision.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in a technical case attachment?",
+    "options": [
+      "Source references, timeline and limits of the scoped search",
+      "Only the case's final business priority with no rationale",
+      "All unrelated employee data and test credentials",
+      "A general description of tools without naming observed records"
+    ],
+    "correct": 0,
+    "explanation": "A restricted attachment enables verification of important claims.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A claim says B23 proves an external notice was sent. What wording fits the evidence?",
+    "options": [
+      "The designated owner completed notification through every route",
+      "The SOC submitted the notice before the incident was observed",
+      "The receipt proves that the case has been fully resolved",
+      "The lead requested a facts handoff; transmission is unverified"
+    ],
+    "correct": 3,
+    "explanation": "The case record describes coordination, not evidence of sending.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Who should confirm continued protection before restoring the endpoint?",
+    "options": [
+      "The employee by repeating the original attachment interaction",
+      "The mail analyst through a fresh reputation lookup",
+      "The authorised endpoint owner under the lead's plan",
+      "A peer in another case with no access to the device state"
+    ],
+    "correct": 2,
+    "explanation": "Restoration depends on scoped evidence and authorised operational decisions.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "WKS-05 has delayed telemetry and B29 has an unknown entity. What should the scope note say?",
+    "options": [
+      "Both assets are confirmed affected because the logs lack findings",
+      "Coverage limitations exist without confirmed additional affected hosts",
+      "All other devices are clean based on the absence of attribution",
+      "The original scope is invalid and no protective action can be judged"
+    ],
+    "correct": 1,
+    "explanation": "A gap changes confidence in exclusion, not confirmation of new scope.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which category is an observed fact rather than an assessment?",
+    "options": [
+      "The proxy sent volume for the named device at 08:18",
+      "The unexplained document necessarily contained malicious content",
+      "The precise person responsible for the unusual activity",
+      "All effects occurred through one verified mail campaign"
+    ],
+    "correct": 0,
+    "explanation": "The transfer record supplies a timestamped metadata observation.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What would change confidence that the file caused the process event?",
+    "options": [
+      "A similar subject in an unrelated screenshot from the morning",
+      "Known ownership of any workstation in the same inventory group",
+      "A new duplicate receipt of the existing endpoint alert",
+      "Corroboration linking the exact object to observed process execution"
+    ],
+    "correct": 3,
+    "explanation": "Direct evidence of the object-execution relationship strengthens attribution.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is a suitable operational update after B21?",
+    "options": [
+      "Confirmed full incident recovery and transaction restoration",
+      "Identity session investigation succeeded because the endpoint is isolated",
+      "Applied isolation for FIN-21; impact review remains open",
+      "All mail delivery scope established by management tooling"
+    ],
+    "correct": 2,
+    "explanation": "One verified endpoint state does not complete other cases or questions.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "B27 was received later but describes an earlier DNS lookup. How should the case record it?",
+    "options": [
+      "Change its occurrence to match the most recent intake order",
+      "Add it at occurrence time and retain later knowledge history",
+      "Replace A03 because observations of the same destination are duplicates",
+      "Declare it unavailable because it missed the first report"
+    ],
+    "correct": 1,
+    "explanation": "Chronology and intake history can both be represented accurately.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which evidence best supports the action urgency on FIN-21?",
+    "options": [
+      "The unusual process and follow-on observations on a payments device",
+      "The name of a different user's account in a routine VPN log",
+      "A scheduled inventory reconciliation without observed changes",
+      "The total number of rows received across all cases"
+    ],
+    "correct": 0,
+    "explanation": "Direct observations and business impact support prompt endpoint review.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What remains required for a complete simulated handoff?",
+    "options": [
+      "A guarantee every possible data source was reviewed",
+      "A live action against the suspected device as a test",
+      "A definitive attacker name inferred from the worksheet alone",
+      "An owned set of follow-up checks and evidence links"
+    ],
+    "correct": 3,
+    "explanation": "The exercise expects an actionable evidence-backed handoff with uncertainty preserved.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "C08-M09-L04-F1": {
+    "title": "Route a user report by interaction",
+    "caption": "What the reporter did guides the first protective handoff and the checks that follow.",
+    "alt": "Five rows connect message only, link followed, secret entry or prompt approval, file opened, and money moved or payment instructions changed with mail, telemetry, identity, endpoint and finance actions respectively.",
+    "type": "table",
+    "columns": [
+      "Reported action",
+      "First risk to check",
+      "Responsible function"
+    ],
+    "rows": [
+      [
+        "Message only",
+        "Delivery to other recipients",
+        "Mail triage"
+      ],
+      [
+        "Link followed",
+        "Device or session evidence",
+        "SOC telemetry"
+      ],
+      [
+        "Secret or prompt",
+        "Account or session exposure",
+        "Identity response"
+      ],
+      [
+        "File opened",
+        "Execution or device impact",
+        "Endpoint response"
+      ],
+      [
+        "Payment action",
+        "Unverified transaction",
+        "Finance and incident lead"
+      ]
+    ],
+    "rowTones": [
+      "blue",
+      "blue",
+      "orange",
+      "orange",
+      "dark"
+    ],
+    "note": "An urgent handoff can proceed while the mail investigation continues."
+  }
+}

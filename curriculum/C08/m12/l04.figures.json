@@ -1,0 +1,42 @@
+{
+  "C08-M12-L04-F1": {
+    "title": "Separate the VPN evidence from its gaps",
+    "caption": "The observed success warrants identity review. Its later use and client attribution require other evidence.",
+    "alt": "Four rows show the VPN failure summary, subsequent success for STAFF-382, missing client and unavailable session data, and handoff to identity and VPN owners.",
+    "type": "table",
+    "columns": [
+      "Case element",
+      "Evidence",
+      "Next interpretation"
+    ],
+    "rows": [
+      [
+        "Failure pattern",
+        "A04, eight distinct accounts",
+        "Validate source context"
+      ],
+      [
+        "Successful auth",
+        "A05, STAFF-382 at 08:14",
+        "Check legitimacy and session"
+      ],
+      [
+        "Coverage gap",
+        "No client ID; B24 audit unavailable",
+        "Ask authorised owner"
+      ],
+      [
+        "Response authority",
+        "Separate identity case",
+        "Record scoped decision and effect"
+      ]
+    ],
+    "rowTones": [
+      "blue",
+      "orange",
+      "slate",
+      "dark"
+    ],
+    "note": "A suspicious authentication does not establish the device or subsequent activity."
+  }
+}

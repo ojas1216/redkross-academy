@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A colleague re-runs sha256sum -c SHA256SUMS on the WS-104 export and gets OK. They conclude the export is a complete and accurate record of everything WS-104 did that morning. What is wrong with this conclusion?",
+    "options": [
+      "Nothing, because SHA-256 collisions are infeasible and the file was hashed by the script",
+      "An OK result is only valid if the hash is computed in upper case, as Get-FileHash prints it",
+      "A match only shows the file is unchanged since hashing, not that the query or source was complete",
+      "sha256sum -c checks the manifest's format, not the file's content, so it cannot prove anything"
+    ],
+    "correct": 2,
+    "explanation": "A matching hash proves the item is unchanged since its digest was recorded; completeness depends on the documented query and the integrity of the SIEM before export. sha256sum -c does recompute each file's digest, and hexadecimal digests compare case-insensitively.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "WS-104 is still running after EDR isolation. Following RFC 3227's order of volatility, what should the analyst ask the forensic team to capture first?",
+    "options": [
+      "Memory, processes and network connections, which are lost at power-off",
+      "The disk image, because invoice.docm and the svc_update profile are on it",
+      "The SIEM, proxy and VPN logs, because retention may delete them soonest",
+      "Archived backups of WS-104, because they show the host before compromise"
+    ],
+    "correct": 0,
+    "explanation": "Collection works from the most volatile layer down; in practice that means memory, processes and connections first, since registers and cache are rarely collected. Remote logs are durable but retention-bound, and the SOC can preserve them in parallel without touching the host.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The process log for WS-104 shows PowerShell only as '-EncodedCommand <redacted-for-course>'. Why does the lesson link this to the urgency of memory capture?",
+    "options": [
+      "Because encoded commands are written to temporary files that the next reboot deletes",
+      "Because the SIEM discards encoded parameters, so the disk image is the only other copy",
+      "Because memory capture is the only legal way to decode a command under section 63",
+      "Because memory may still hold the decoded PowerShell and beacon configuration"
+    ],
+    "correct": 3,
+    "explanation": "Running memory may hold the decoded script, the beacon's configuration and live connections, none of which survives a reboot. Nothing in the lesson says the SIEM discards parameters or that temporary files hold the decoded command.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A help-desk technician offers to reboot WS-104 and run a clean-up tool to make it usable for divya again. Which evidence-preservation action does the lesson recommend?",
+    "options": [
+      "Let the clean-up run, as long as the technician records each step in the incident log",
+      "Issue a clear 'do not reboot, do not clean, do not reimage' instruction to help desk and user",
+      "Ask the technician to hash the disk before rebooting, so any change can be detected later",
+      "Allow a reboot but not the clean-up tool, since a reboot preserves the disk layer intact"
+    ],
+    "correct": 1,
+    "explanation": "A well-meant reboot or clean-up destroys the most volatile layers first, so telling the help desk and user not to touch the host is itself an evidence-preservation action. A reboot loses memory, and a hash only detects later change, it does not preserve memory.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After the export, the analyst copies the file and SHA256SUMS to a separate folder and changes 48200000 to 482000 in the copy. sha256sum -c reports FAILED. What does this exercise demonstrate?",
+    "options": [
+      "That the original export is now unusable and must be re-run from the documented query",
+      "That even a single altered value, here shrinking the upload's size, is detected on verification",
+      "That sed edits change the line endings, which is what the manifest actually checks for",
+      "That the custody record must be updated with the new digest whenever a copy is edited"
+    ],
+    "correct": 1,
+    "explanation": "The change would turn a 48.2 MB exfiltration into a harmless-looking 0.5 MB transfer, and verification fails because any change produces a different digest. The original was untouched in its own folder, and recording a digest for an altered copy would defeat the purpose of custody.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A second run of evidence_export.py CASE-0001 WS-104 prints the same digest 8521c97c...19acf. Which property of the export makes this possible?",
+    "options": [
+      "The script caches the first export and returns it unchanged if the same case is used",
+      "The custody file stores the digest, so the script copies it instead of re-hashing the file",
+      "The hash is keyed on the case identifier and host, not on the content of the exported events",
+      "The query parameters, the ordering and the line endings are fixed, so the bytes are identical"
+    ],
+    "correct": 3,
+    "explanation": "The export selects the raw events with a fixed window, orders them by timestamp and writes Unix line endings, so the same data produces the same bytes and therefore the same digest. The script overwrites the export and re-hashes it; it does not cache or copy a stored digest.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After exporting WS-107 into CASE-0001, SHA256SUMS lists only the WS-107 file. Where does the WS-104 digest still exist, and what lesson follows?",
+    "options": [
+      "In custody.jsonl, which is append-only here and so is the authoritative record",
+      "In the WS-104 export file itself, which embeds its own digest in the last line",
+      "Nowhere, so the WS-104 export must be discarded and collected again from scratch",
+      "In minisiem.db, which stores every digest the export script has ever computed"
+    ],
+    "correct": 0,
+    "explanation": "The script rewrites SHA256SUMS on every run, but appends to custody.jsonl, which now has three lines including the WS-104 entry; the custody log carries the history. The lesson recommends one manifest entry per item and never letting a tool silently replace a record.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The WS-107 export contains gopal's proxy and process events but none of the suspicious VPN events from 203.0.113.66. Why?",
+    "options": [
+      "The VPN events fall outside the fixed 06:00Z to 09:00Z window used by the export script",
+      "The script deliberately excludes authentication events to keep exports within size limits",
+      "VPN records in this dataset carry no host field, so a host-based export cannot select them",
+      "The VPN events were already exported with WS-104, so the script skips duplicate events"
+    ],
+    "correct": 2,
+    "explanation": "The export filters on host, and VPN records have no host value, so they need a separate documented query on source and src_ip, hashed and recorded the same way. The 06:42Z to 06:46Z spray events do fall inside the window, so timing is not the reason.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which description of a chain of custody best explains why a gap in it matters even when the item's hash still matches?",
+    "options": [
+      "The gap means the hash algorithm must be upgraded, because SHA-256 cannot cover gaps",
+      "The gap breaks the manifest's format, so sha256sum -c can no longer read the entry",
+      "The gap shifts legal ownership of the item to whoever held it last before the gap",
+      "Nobody can say who held the item then, inviting the claim that it was altered in that gap"
+    ],
+    "correct": 3,
+    "explanation": "The hash shows whether an item changed; the custody record shows who could have changed it. A period with no known holder invites a challenge regardless of the hash, which is why every access and transfer is logged.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The custody entry for the WS-104 export records the host and the start and end of the window. Which challenge does recording these query parameters answer?",
+    "options": [
+      "Whether the file was altered after collection, by allowing the digest to be recomputed",
+      "Whether the export can be reproduced, by letting anyone re-run the same query and compare",
+      "Whether the analyst was authorised, by tying the export to the incident lead's approval",
+      "Whether the SIEM ingested every event, by proving that no events were dropped in transit"
+    ],
+    "correct": 1,
+    "explanation": "The documented query gives reproducibility: anyone with the same SIEM data can re-run it and obtain the same bytes. Detecting alteration is the digest's job, and no export parameter can prove the SIEM's own ingestion was complete.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Banyan attacker cleared WS-104's Security log at 08:17Z, yet the incident timeline still contains the earlier events. What explains this?",
+    "options": [
+      "The SIEM had already collected the events centrally, and the clearing was logged as 1102",
+      "Event 1102 restores the cleared entries automatically into the Windows Application log",
+      "The EDR agent replays the local Security log to the SIEM after every clearing event",
+      "The clearing only removes events newer than the last reboot, so earlier ones remained"
+    ],
+    "correct": 0,
+    "explanation": "Central collection had already copied the events off the host, so the local clearing damaged only the disk layer, and the clearing itself became a strong indicator as event 1102. Event 1102 records that the log was cleared; it does not restore anything.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Ten days after an intrusion, an investigation finds that the first proxy events have already aged out of the SIEM. Which log-preservation step, taken at the first sign of the incident, would most directly have prevented this?",
+    "options": [
+      "Recording each source's time zone and clock offset so the timeline can be rebuilt",
+      "Waiting for a legal hold, which automatically extends retention for every log source",
+      "Exporting the relevant records with integrity and custody, and extending source retention",
+      "Forwarding proxy logs to the EDR console, which keeps all records for the case's life"
+    ],
+    "correct": 2,
+    "explanation": "Exported, hashed records no longer depend on retention, and extending retention keeps the wider data set available for scoping. Clock records improve timelines but do not stop deletion, and the SOC should not wait for a hold before preserving.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Legal counsel issues a legal hold for the Banyan incident. Which task correctly belongs to the SOC and IT operations rather than to legal?",
+    "options": [
+      "Deciding whether the hold is needed and which records and custodians it should cover",
+      "Stopping automated deletion for the covered data and confirming in writing it is done",
+      "Determining whether the exported logs will be admissible under the evidence statute",
+      "Releasing the hold once the analysts consider the technical investigation complete"
+    ],
+    "correct": 1,
+    "explanation": "Legal decides whether a hold is needed, what it covers and when it ends; the SOC and IT operations implement it by suspending retention, clean-up and reimaging and confirming that in writing. Admissibility is also a legal question.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At the end of the case, an analyst wants to delete their working copies, chat logs and notes to tidy up. A legal hold is still in force. What does the lesson say?",
+    "options": [
+      "Working files are not evidence, so they can be deleted once the final report is written",
+      "Only the exported evidence files are covered, so personal notes may be removed freely",
+      "Chat logs may be deleted, but tickets must be kept because they are system records",
+      "The SOC's own case records may fall within the hold and must be kept until it is released"
+    ],
+    "correct": 3,
+    "explanation": "A hold binds every form of relevant information, including the investigation's own notes, chat logs and tickets, and stays in place until legal releases it. Treating working files as outside the hold is one of the misunderstandings the lesson warns about.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst saves a screenshot of the SIEM query result showing the 48.2 MB upload and files it as evidence. What is the weakness of this approach?",
+    "options": [
+      "It is a picture of the evidence, not the underlying records with a hash and custody entry",
+      "Screenshots are larger than JSONL exports, so they exceed the SIEM's retention limits",
+      "Screenshots cannot be hashed with SHA-256, so their integrity can never be verified",
+      "A screenshot exposes personal data, so it must be encrypted before it can be filed"
+    ],
+    "correct": 0,
+    "explanation": "A screenshot shows what a query returned but does not preserve the raw records, the query or their provenance; the underlying events should be exported, hashed and recorded. Any file, including an image, can be hashed, so that distractor is false.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A forensic copy is verified at a hand-over and returns FAILED. According to the integrity chain, what should happen next?",
+    "options": [
+      "Recompute the digest with MD5 to check whether SHA-256 produced a false mismatch",
+      "Update the manifest with the new digest and continue, noting the change in the report",
+      "Set the copy aside, record the discrepancy, and get a verified copy or re-run the query",
+      "Delete the copy and the custody entry, so that no unreliable record remains in the case"
+    ],
+    "correct": 2,
+    "explanation": "FAILED means the copy is not what was collected; it is set aside, the discrepancy is recorded, and a verified copy is obtained from storage or the export re-run. Updating the manifest would hide the change, and deleting custody records breaks the chain.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The integrity chain begins at the SIEM. What limitation of a perfect SHA-256 hash of the export does this imply?",
+    "options": [
+      "The hash becomes invalid once SIEM retention removes the source events it was built from",
+      "The hash must be recomputed whenever the SIEM re-indexes the source events for the case",
+      "The hash only covers events written in UTC, so any local-time events fall outside it",
+      "It cannot reveal events lost or altered before ingestion, so the pipeline must be protected"
+    ],
+    "correct": 3,
+    "explanation": "The export inherits the SIEM's integrity: if events were dropped or changed before ingestion, a perfect hash of the export will not show it, which is why the collection pipeline and SIEM storage are part of preservation. A digest stays valid for the exported file whatever happens to the source.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team proposes MD5 for new evidence manifests because their legacy tools support it. What is the lesson's position?",
+    "options": [
+      "MD5 and SHA-1 have known collision weaknesses; use SHA-256 as the default for new work",
+      "MD5 is acceptable if the digest is printed in upper case, as PowerShell does for SHA-256",
+      "MD5 is preferred because shorter digests are easier to compare at every hand-over",
+      "Any algorithm is fine, because hashing only matters for evidence that reaches a court"
+    ],
+    "correct": 0,
+    "explanation": "Older algorithms such as MD5 and SHA-1 have known collision weaknesses and should not be relied on alone; SHA-256 is the common default. Evidence serves many audiences beyond courts, and digest case has no bearing on algorithm strength.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On Windows without sha256sum, Get-FileHash prints 8521C97CAB10C667... for the WS-104 export, while the manifest holds 8521c97cab10c667... . How should the analyst treat the difference?",
+    "options": [
+      "As a mismatch, because the upper-case output means PowerShell used a different algorithm",
+      "As a mismatch, because PowerShell reads the file with Windows line endings, not Unix ones",
+      "As a match, because hexadecimal digests are compared case-insensitively",
+      "As a match only after converting the export to UTF-16, which PowerShell expects"
+    ],
+    "correct": 2,
+    "explanation": "Get-FileHash returns the same SHA-256 digest in upper case, and hexadecimal digests compare case-insensitively. Get-FileHash hashes the file's bytes as stored, so line endings and encoding are not reinterpreted.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The teaching script hard-codes the custody field 'by' as analyst.t2. Why would this be unacceptable in a production evidence system?",
+    "options": [
+      "Because custody entries must be written in upper case to match PowerShell digests",
+      "Because the collector's identity must come from the authenticated user to be accountable",
+      "Because a hard-coded value prevents the script from writing to write-once storage",
+      "Because the field should hold the incident lead's name, as the approver of the export"
+    ],
+    "correct": 1,
+    "explanation": "Custody answers who collected and handled the item; a fixed string cannot show which person actually ran the export, so production systems take it from the authenticated user. The collector, not the approver, belongs in that field.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst has a verified export but forgot to record the filters. What should the custody record say?",
+    "options": [
+      "Integrity verified, query scope undocumented",
+      "The export proves complete log collection",
+      "The filters can be recovered from SHA-256",
+      "Matching hashes establish the query parameters"
+    ],
+    "correct": 0,
+    "explanation": "A digest checks bytes, while the query defines what was selected.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A collection queue contains active connections and archived proxy logs. Which should be collected first when both can be preserved safely?",
+    "options": [
+      "Archived proxy files before live network state",
+      "Active connection state before archived records",
+      "Whichever record set has the most rows",
+      "The file set approved for long retention"
+    ],
+    "correct": 1,
+    "explanation": "Connection state can disappear before a stable archive changes.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a custodian log when handing a sealed evidence copy to forensics?",
+    "options": [
+      "Just the ticket that triggered the evidence export",
+      "The recovery tasks currently assigned to IT operations",
+      "Who transferred it, who received it, when, and why",
+      "Only the size of each evidence file in bytes"
+    ],
+    "correct": 2,
+    "explanation": "A custody record makes each possession change auditable.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An export is copied to a review laptop. Where should format conversion happen?",
+    "options": [
+      "On the original before the initial digest is taken",
+      "In both copies before verifying the acquisition manifest",
+      "On the original after marking its ticket as closed",
+      "On a working copy with the original preserved"
+    ],
+    "correct": 3,
+    "explanation": "Changes belong in derivatives whose relationship to the original is documented.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Routine retention would remove logs placed under legal hold. What should the SOC do?",
+    "options": [
+      "Coordinate preservation and record the hold scope",
+      "Extend retention only for future logs after the case closes",
+      "Rely on existing retention until an analyst sees the event",
+      "Replace the original logs with screenshots from the SIEM"
+    ],
+    "correct": 0,
+    "explanation": "A legal hold calls for preserving the relevant existing records through the authorized process.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

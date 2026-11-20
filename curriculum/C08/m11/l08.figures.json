@@ -1,0 +1,54 @@
+{
+  "C08-M11-L08-F1": {
+    "title": "Six simulated inputs and one training task",
+    "caption": "Audit entries preserve the reason for each path while one stable effect appears only once.",
+    "alt": "Six rows show A-17 created and repeated with the same task, A-18 pending, A-19 denied, A-20 outside allowed targets, and a final input missing an event ID. Only one training task exists.",
+    "type": "table",
+    "columns": [
+      "Input",
+      "Outcome",
+      "Task"
+    ],
+    "rows": [
+      [
+        "A-17",
+        "New task created",
+        "T-001"
+      ],
+      [
+        "A-17 repeat",
+        "Existing task linked",
+        "T-001"
+      ],
+      [
+        "A-18",
+        "Awaiting approval",
+        "None"
+      ],
+      [
+        "A-19",
+        "Not approved",
+        "None"
+      ],
+      [
+        "A-20",
+        "Review target scope",
+        "None"
+      ],
+      [
+        "Missing event",
+        "Review source data",
+        "None"
+      ]
+    ],
+    "rowTones": [
+      "green",
+      "blue",
+      "violet",
+      "slate",
+      "orange",
+      "orange"
+    ],
+    "note": "Two receipts can link to one effect without producing a duplicate."
+  }
+}

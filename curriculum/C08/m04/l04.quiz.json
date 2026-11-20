@@ -16,7 +16,7 @@
     "q": "An external vulnerability report lists port 3389 on Banyan's public address as 'filtered' rather than 'closed'. What does that tell the analyst about the perimeter firewall's handling of that port?",
     "options": [
       "The firewall silently dropped the SYN, so the scanner received no reply",
-      "The firewall answered the SYN with a TCP reset from the public address",
+      "The firewall answered the SYN with a TCP reset sent from the public address",
       "The firewall sent an ICMP unreachable message back to the scanner",
       "The firewall allowed the SYN, but no service was listening behind it"
     ],
@@ -30,7 +30,7 @@
     "options": [
       "Correct, because the LOG target writes the verdict of the rule that matched",
       "DROP is free text the administrator set as the LOG prefix, so confirm it against the rule base",
-      "Correct only if the line also carries an OUT= value showing the egress interface",
+      "Correct only if the line also carries an OUT= value showing the egress interface of the packet",
       "DROP is added by syslog when the receiving server cannot parse the action field"
     ],
     "correct": 1,
@@ -41,7 +41,7 @@
   {
     "q": "After normalising the kit's logs, the analyst sees a successful VPN login as gopal from 203.0.113.66 at 06:46:00Z and a dropped inbound RDP attempt from the same address to 10.40.0.5 at 06:46:21Z. Why does this one drop deserve attention?",
     "options": [
-      "Because any inbound RDP attempt shows that a host has been compromised",
+      "Because any inbound RDP attempt shows that the target host has already been compromised",
       "Because the drop proves the VPN account's password was guessed",
       "Because RDP drops are written only when the target host is listening",
       "Because joining it to the VPN success by address and time makes it part of a case"
@@ -68,7 +68,7 @@
     "q": "A partner reports abuse from `203.0.113.10:40112` at 10:02:41 IST. Every Banyan workstation shares that public address. How does the analyst identify the responsible machine?",
     "options": [
       "Find the session record with that translated port and time, then map its internal address to a host via DHCP",
-      "Search the firewall log for 203.0.113.10 at that time, then list every workstation online then",
+      "Search the firewall log for 203.0.113.10 at that time, then list every workstation that was online in that minute",
       "Ask the partner for the user agent, then match it against the proxy log of all users",
       "Search DHCP logs for port 40112, since DHCP assigns source ports along with addresses"
     ],
@@ -80,7 +80,7 @@
   {
     "q": "The firewall clock is four minutes fast and the session logs are forwarded without correction. Why is this especially damaging when answering external reports about Banyan's public address?",
     "options": [
-      "Session records older than four minutes are discarded when the clocks disagree",
+      "Session records older than four minutes are discarded by the collector when the clocks disagree",
       "Public source ports are reused quickly, so the report can map onto the wrong connection",
       "The SIEM rejects firewall events whose timestamps are ahead of its own clock",
       "NAT translations expire four minutes early, so long sessions are cut off"
@@ -120,7 +120,7 @@
     "q": "Internal firewall logs show workstation 10.40.0.57 attempting TCP 445 on 60 other internal hosts in two minutes. How should this compare with an identical sweep of Banyan's public range from the internet?",
     "options": [
       "Both are routine background, since sweeps on 445 run continuously everywhere",
-      "The external sweep is more serious, since it comes from an unknown party",
+      "The external sweep is more serious, since it comes from an unknown party outside Banyan's control",
       "The internal sweep is more serious, suggesting a compromised host seeking its next target",
       "Both are equally serious, since the pattern and the port are identical"
     ],
@@ -145,7 +145,7 @@
   {
     "q": "Allowed-session logs show 10.40.0.23 contacting 198.51.100.200 every 300 seconds (give or take one), sending 612 to 618 bytes each time. What does this analysis establish on its own?",
     "options": [
-      "That the host is running command-and-control malware, ready for containment",
+      "That the host is running command-and-control malware and should be handed straight to the endpoint team for containment",
       "That the destination is a software update service, since the bytes are constant",
       "That the firewall's idle timeout is 300 seconds and is recreating the session",
       "That a program checks in on a schedule; rarity, proxy and DNS context and the owning process decide intent"
@@ -171,7 +171,7 @@
   {
     "q": "During the beacon investigation the analyst finds that 40 other Banyan hosts also open five-minute sessions of the same size to 198.51.100.200. How does this change the assessment?",
     "options": [
-      "It confirms malware, because the implant has clearly spread to 40 more hosts",
+      "It confirms malware, because the implant has clearly spread from 10.40.0.23 to 40 more Banyan hosts on the internal network",
       "It shows the firewall duplicated one host's records across several sources",
       "It weakens the rarity argument; widespread software is likelier, to be confirmed by destination and process",
       "It changes nothing, because rarity plays no part in judging beacons"
@@ -291,7 +291,7 @@
       "Because packets after the first are discarded once the rule base has been evaluated",
       "Because rules are evaluated for the first packet and later packets match the state table",
       "Because syslog merges packets with the same 5-tuple into one message before sending",
-      "Because only TCP packets with the SYN flag are permitted through a stateful firewall"
+      "Because only TCP packets carrying the SYN flag are ever permitted through a stateful firewall"
     ],
     "correct": 1,
     "explanation": "The rule base decides on the first packet; later packets in both directions are matched against the state entry, so the firewall logs decisions at session start, end or both. Later packets are forwarded, not discarded.",

@@ -265,7 +265,7 @@
       "Identity logs are smaller than endpoint logs, so keeping them hot for longer costs almost nothing extra",
       "The CERT-In Directions require identity logs to be searchable within six hours for the first 30 days",
       "Rules such as 'first logon from this country for this user' need about a month of fast-searchable baseline",
-      "Identity logs cannot be moved to warm storage until every account in them has been reviewed by an analyst"
+      "Identity records cannot move to warm storage until the SOC has manually reviewed every account and approved the next retention stage"
     ],
     "correct": 2,
     "explanation": "The hot period is set from detection lookback, and new-country logon rules need a month of baseline that rules query constantly. The six-hour CERT-In clock concerns incident reporting, not a 30-day searchable window.",

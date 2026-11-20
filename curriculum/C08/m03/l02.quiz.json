@@ -15,7 +15,7 @@
   {
     "q": "A firmware update makes a firewall insert a new IFACE=eth0 token near the start of every message. Which parser design is most likely to keep extracting SRC, DST and DPT correctly?",
     "options": [
-      "A dissect parser that splits the message on spaces in a declared order",
+      "A position-based dissect parser that assumes each token remains in its original place after a firmware upgrade",
       "A regex that captures the fourth, fifth and sixth words of the message",
       "A delimited parser that treats each space-separated token as a column",
       "A key-value parser that looks up each value by its label after splitting"
@@ -69,7 +69,7 @@
     "options": [
       "Dissect for the fixed header, then a key-value or regex step for the message",
       "Dissect for the whole record, declaring every token in one fixed order",
-      "One large regex for the whole record, with optional groups for every token",
+      "One regular expression for the complete record, with optional groups to describe every possible message type",
       "A JSON decoder for the header, then a CSV reader for the variable message"
     ],
     "correct": 0,
@@ -107,7 +107,7 @@
     "q": "VPN events arrive as JSON and decode without error. A rule written as result == \"success\" never fires, although many logons succeed. What does this illustrate?",
     "options": [
       "Structured formats remove pattern matching but still need interpretation",
-      "JSON records must be pattern-matched because decoders lose field values",
+      "Structured JSON records must be matched by a second positional parser because standard decoders discard the original field values",
       "JSON decoding fails silently on nested objects and drops the result key",
       "Structured formats need anchored regexes to locate keys in the document"
     ],
@@ -145,7 +145,7 @@
   {
     "q": "To reduce noise, an engineer proposes discarding any event that a parser cannot interpret. From a security standpoint, what is the strongest objection?",
     "options": [
-      "Unparsed events are needed to calculate the platform's licence usage",
+      "Unparsed events must be retained to calculate future platform licensing costs for all sources",
       "An adversary could hide activity simply by making records fail parsing",
       "Discarding events breaks the time index for the rest of the feed",
       "Unparsed events are the only ones that carry the original raw text"
@@ -226,7 +226,7 @@
       "The last variable would silently receive an empty string",
       "The csv module would pad the row with None to six values",
       "The unpacking would raise an exception instead of tagging the event",
-      "The parser would shift the values and store them under wrong names"
+      "The parser would silently shift the values into incorrect fields, then retain the row without recording a parsing error"
     ],
     "correct": 2,
     "explanation": "Unpacking five values into six names raises a ValueError, turning one short line into a crash rather than a tagged _parse_failure with an error message. Python neither pads the row nor shifts values silently.",
@@ -239,7 +239,7 @@
       "Total events stored per source type per day",
       "_parse_failure events per source type per hour",
       "Average event size per source type per hour",
-      "Number of detection alerts per source per day"
+      "The daily count of detection alerts triggered in each source type"
     ],
     "correct": 1,
     "explanation": "Tagged failures counted per source type per hour rise sharply when a format changes, showing which source broke and when. Total event counts may stay unchanged when parsing fails, because the events are still stored, just without fields.",
@@ -249,7 +249,7 @@
   {
     "q": "In the course case study, a VPN vendor changed its log format; the parser kept matching but stopped extracting user names, and brute-force rules were silent for a month. Which monitoring would most likely have caught this on the first day?",
     "options": [
-      "An alert when the VPN source stops sending events entirely",
+      "A source-availability panel that alerts when the VPN appliance stops producing events for any reason",
       "An alert when the VPN source's daily ingest volume doubles",
       "An alert when the VPN source's ingest lag exceeds an hour",
       "A field-completeness panel tracking user.name on VPN events"

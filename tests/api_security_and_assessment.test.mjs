@@ -81,6 +81,11 @@ async function call(name, { method = 'GET', token, auth, query = {}, body } = {}
 }
 
 const COURSE = 'crs_cyber_soc_08';
+const isSocV2 = fs.existsSync(new URL('../curriculum/build/C08.json', import.meta.url));
+const moduleCount = isSocV2 ? 12 : 8;
+const moduleQuestionCount = isSocV2 ? 20 : 10;
+const finalQuestionCount = isSocV2 ? 50 : 40;
+const firstLessonId = isSocV2 ? 'les_c08_m01_l01' : 'les_c08_m1_l01';
 
 // ---------------------------------------------------------------- authentication
 let r = await call('auth', { method: 'POST', body: { uid: 'usr_admin_01', email: 'admin@redkross.org.in' } });
@@ -126,7 +131,7 @@ r = await call('assessment', { method: 'POST', token: 'alice', body: { action: '
 check(r.statusCode === 403 && r.body.error === 'FINAL_LOCKED', 'final assessment locked until module quizzes are passed', r.body);
 
 r = await call('assessment', { method: 'POST', token: 'alice', body: { action: 'start', course_id: COURSE, quiz_id: 'quiz_c08_m1' } });
-check(r.statusCode === 200 && r.body.questions.length === 10, 'module quiz starts with 10 questions', r.body);
+check(r.statusCode === 200 && r.body.questions.length === moduleQuestionCount, `module quiz starts with ${moduleQuestionCount} questions`, r.body);
 const raw = JSON.stringify(r.body);
 check(!/"(correct|correctOptionId|correct_option_id|is_correct|explanation)"\s*:/.test(raw), 'start response contains no answer fields', raw.slice(0, 200));
 const s1 = r.body.session_id;
@@ -170,12 +175,14 @@ r = await call('assessment', { method: 'POST', token: 'alice', body: { action: '
 check(r.body.forfeited && r.body.attempts.locked_until, 'proctoring forfeit (strike 3) locks the assessment for 24h', r.body);
 await sql`UPDATE assessment_windows SET locked_until = NOW() - INTERVAL '1 minute' WHERE user_id = ${aliceId}`;
 
-for (let m = 2; m <= 8; m++) await passQuiz(`quiz_c08_m${m}`);
+for (let m = 2; m <= moduleCount; m++) {
+  await passQuiz(`quiz_c08_m${m}`);
+}
 r = await call('assessment', { token: 'alice', query: { course_id: COURSE } });
-check(r.body.final_unlocked === true && r.body.passed_quizzes.length === 8, 'status shows 8 passes and final unlocked', r.body);
+check(r.body.final_unlocked === true && r.body.passed_quizzes.length === moduleCount, `status shows ${moduleCount} passes and final unlocked`, r.body);
 
 r = await passQuiz('exam_c08_final');
-check(r.body.is_passed && r.body.total_questions === 40, 'final assessment (40 questions) passed', r.body);
+check(r.body.is_passed && r.body.total_questions === finalQuestionCount, `final assessment (${finalQuestionCount} questions) passed`, r.body);
 const cred = r.body.credential;
 check(cred && /^RK-C08-[A-Z2-9]{4}-[A-Z2-9]{4}$/.test(cred.verification_id), 'signed credential issued with CSPRNG verification id', cred);
 
@@ -201,11 +208,11 @@ check(r.statusCode === 200 && r.body.questions.length === 20 && !/is_correct/.te
 
 // ---------------------------------------------------------------- other endpoints
 r = await call('wallet', { token: 'alice' });
-check(r.body.balance === 150 + 8 * 100 + 300, 'wallet = welcome 150 + 8 module passes x100 + final 300', r.body.balance);
+check(r.body.balance === 150 + moduleCount * 100 + 300, `wallet = welcome 150 + ${moduleCount} module passes x100 + final 300`, r.body.balance);
 
-r = await call('progress', { method: 'POST', token: 'alice', body: { course_id: COURSE, lesson_id: 'les_c08_m1_l01' } });
+r = await call('progress', { method: 'POST', token: 'alice', body: { course_id: COURSE, lesson_id: firstLessonId } });
 r = await call('progress', { token: 'alice', query: { course_id: COURSE } });
-check(r.body.completed_lessons?.includes('les_c08_m1_l01'), 'lesson completion recorded server-side', r.body);
+check(r.body.completed_lessons?.includes(firstLessonId), 'lesson completion recorded server-side', r.body);
 
 r = await call('support-tickets', {});
 check(r.statusCode === 401, 'listing support tickets requires auth (was public)', r.statusCode);

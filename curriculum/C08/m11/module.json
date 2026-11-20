@@ -1,0 +1,96 @@
+{
+  "course": "C08",
+  "module": 11,
+  "title": "SOC automation",
+  "description": "Operate defensive SOC automation as an auditable workflow: case management, orchestration, bounded enrichment, approval gates, metrics, and offline playbook testing.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "SOAR concepts",
+      "summary": "Learn how a SOC workflow turns inputs into observable, reviewable decisions.",
+      "objectives": [
+        "Identify triggers, steps and results",
+        "Distinguish orchestration from automated action",
+        "Explain ownership, idempotence and safe failure"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "TheHive and Cortex",
+      "summary": "Relate alerts, cases and observables in TheHive to Cortex analysis and response responsibilities.",
+      "objectives": [
+        "Distinguish an alert, case, task and observable",
+        "Interpret contextual analysis reports",
+        "Explain responder approval and result verification"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Shuffle workflows",
+      "summary": "Design and review a Shuffle workflow using synthetic inputs and non-operational destinations.",
+      "objectives": [
+        "Trace trigger data through actions and branches",
+        "Explain execution evidence and confidential fields",
+        "Test valid inputs, retries and skipped actions"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "Approval gates",
+      "summary": "Design a human gate that approves a specific defensive action with scoped authority.",
+      "objectives": [
+        "Capture a complete approval request",
+        "Handle denials, expiration and changed scope",
+        "Verify approval and outcome independently"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 5,
+      "title": "Enrichment automation",
+      "summary": "Build an enrichment workflow that records provenance, freshness and uncertainty.",
+      "objectives": [
+        "Normalize a typed observable without losing the original",
+        "Apply approved data handling and cache boundaries",
+        "Distinguish no-match, stale, error and unknown"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Metrics",
+      "summary": "Measure workflow performance and outcomes without mistaking automation volume for effectiveness.",
+      "objectives": [
+        "Define comparable metric endpoints and denominators",
+        "Interpret queue, approval and verification metrics",
+        "Identify quality tradeoffs from cohort comparisons"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 7,
+      "title": "Safe playbooks",
+      "summary": "Design playbooks with bounded authority, safe failure, duplicate handling and an audit trail.",
+      "objectives": [
+        "Specify preconditions and safe failure states",
+        "Prevent duplicate side effects and stale approvals",
+        "Reconcile partial actions and plan recovery"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "Automation lab",
+      "summary": "Test an offline automation playbook using a fictional case and check its outcome record.",
+      "objectives": [
+        "Run a local fixture through the simulated workflow",
+        "Exercise duplicates, bad data and awaiting approval",
+        "Produce an audit and human handoff"
+      ],
+      "minutes": 90
+    }
+  ]
+}

@@ -80,7 +80,7 @@
   {
     "q": "Stacking proxy URLs by distinct hosts shows cdn-telemetry-sync.example visited by 1 host, 18 times. Which interpretation is most defensible?",
     "options": [
-      "It is confirmed command-and-control because no other host visited it",
+      "It confirms command-and-control activity because only one endpoint accessed the destination within the observation window",
       "It is rare in breadth but frequent in count, worth a pivot, not proof",
       "It is ordinary browsing because 18 requests is a low daily volume",
       "It is a proxy logging error because the requests are so regular"
@@ -185,7 +185,7 @@
     "q": "In the pivot map of the investigation, an arrow runs from the beacon domain to 'Host WS-104', although the invoice download on that host happened earlier than the first beacon. What do the arrows represent?",
     "options": [
       "The order in which events occurred on the network",
-      "The direction in which data flowed between the hosts",
+      "The direction of data transfer, annotated with the original sender and the observed network destination",
       "The parent-to-child relationship between processes",
       "The order of discovery, labelled with the pivot field"
     ],
@@ -213,7 +213,7 @@
       "A separate proxy pivot is still needed; it reveals the 48 MB upload",
       "The exclusion also removes Sysmon events that lack a src_ip value",
       "Excluding proxy events changes the host value in Windows events",
-      "The proxy must be excluded first to avoid a case-sensitivity error"
+      "Proxy records must be excluded to correct a case-sensitivity issue that would otherwise affect every source in the query"
     ],
     "correct": 0,
     "explanation": "Excluding the noisy proxy makes the endpoint and Windows events readable, but the 48,200,000-byte upload at 08:12 exists only in proxy data, so it needs its own pivot. source<>'proxy' tests source, which every event has, so no Sysmon rows are lost.",
@@ -226,7 +226,7 @@
       "COUNT(*) per host, giving the 18 hits on the domain",
       "GROUP BY host and user, giving one row per account",
       "MIN(ts) and MAX(ts), giving first and last seen times",
-      "LIKE on url, giving every variant of the domain path"
+      "A LIKE filter on the URL, which collects variations of the domain path without aggregating their timestamps"
     ],
     "correct": 2,
     "explanation": "First and last seen, 06:17 to 07:42, define the span during which the host beaconed, which is what scoping requires. The count shows intensity, not when the activity started and stopped.",

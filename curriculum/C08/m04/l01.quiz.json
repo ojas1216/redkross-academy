@@ -5,7 +5,7 @@
       "In a 4732 the TargetUserName holds the group; the added account is in the Member section, often only as a SID",
       "Event 4732 is written only on domain controllers, so additions to a workstation's local groups never appear",
       "Additions to local groups are recorded as event 4728, so 4732 was the wrong event ID to search for",
-      "TargetUserName is populated only when command-line auditing is enabled, so the field was empty on this host"
+      "TargetUserName is populated only when command-line auditing is enabled, so the field was empty on this one host"
     ],
     "correct": 0,
     "explanation": "In a 4732 the target is the group (for example Administrators) and the account added is identified in the Member section, frequently only by its SID, so a search on TargetUserName for the member can never match. 4728 is the event for global groups, not local ones.",
@@ -15,7 +15,7 @@
   {
     "q": "A 4624 on file server FS-01 shows SYSTEM in the Subject section and a finance user in the New Logon section. A junior analyst writes in the case that 'SYSTEM logged on to FS-01'. How should the event be read?",
     "options": [
-      "SYSTEM cannot appear in a 4624, so the event was probably forged by malware on the server",
+      "SYSTEM cannot appear in a 4624, so the event was probably forged by malware running on the server",
       "The logon type decides which of the two account sections is the real user of the session",
       "The Subject is the local context that requested the logon; New Logon names who was logged on",
       "The Subject always names the source workstation's machine account, not a local identity"
@@ -57,7 +57,7 @@
       "Users are mistyping new passwords after a scheduled password expiry",
       "The lockout policy is misconfigured and is disabling active accounts",
       "Someone is working from an old directory list that includes former staff",
-      "Kerberos pre-authentication has been disabled on the targeted accounts"
+      "Kerberos pre-authentication has been disabled on all of the targeted accounts"
     ],
     "correct": 2,
     "explanation": "0xC0000072 means the account is disabled, so many such failures across many accounts suggest a list that still contains leavers, typically an old directory export used by an attacker. Typing errors after expiry would produce bad-password failures on active accounts at their owners' hosts.",
@@ -95,7 +95,7 @@
     "options": [
       "Report that the intruder stopped acting on the host once the log had been cleared",
       "Treat it as a visibility question and confirm Security log forwarding before reporting",
-      "Classify every proxy request after 08:17 as attacker activity, as no user was logged",
+      "Classify every proxy request after 08:17 as attacker activity, since no user was logged on",
       "Conclude that the clear also deleted the SIEM's copies of the earlier Windows events"
     ],
     "correct": 1,
@@ -212,7 +212,7 @@
     "options": [
       "No collected source recorded its use; given the 08:17 clear and unconfirmed collection after it, use cannot be excluded",
       "The account was never used after creation, because every collected source was searched and nothing was found",
-      "The account was certainly used, because the 08:17 clear was performed to remove the record of its later logons",
+      "The account was certainly used, because the 08:17 clear was performed to remove the record of its later interactive logons",
       "The account was removed soon after creation, because no events about it were recorded after the group change"
     ],
     "correct": 0,

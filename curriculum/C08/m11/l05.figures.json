@@ -1,0 +1,37 @@
+{
+  "C08-M11-L05-F1": {
+    "title": "Attach context with provenance and limits",
+    "caption": "An observed value becomes an enrichment query only after type and sharing checks.",
+    "alt": "Five steps show a typed observation, a normalised query key, a scope and policy check, approved lookup response, and a case result with provenance and limitations.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Keep observed value and source",
+        "sub": "Retain original evidence reference",
+        "tone": "slate"
+      },
+      {
+        "label": "Prepare the typed query key",
+        "sub": "Preserve the normalisation boundary",
+        "tone": "blue"
+      },
+      {
+        "label": "Check source and sharing policy",
+        "sub": "Hold for review when not allowed",
+        "tone": "violet"
+      },
+      {
+        "label": "Use the approved lookup",
+        "sub": "Match, no match, stale or error",
+        "tone": "orange"
+      },
+      {
+        "label": "Record evidence and decision",
+        "sub": "Include original source and freshness",
+        "tone": "dark"
+      }
+    ],
+    "note": "An unavailable source cannot support a negative finding."
+  }
+}

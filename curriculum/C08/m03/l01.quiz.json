@@ -16,7 +16,7 @@
     "q": "An analyst knows a server sent authentication events at about 09:30 today, but a search of 09:00-10:00 returns none. Searching all time finds them, with ingest time 09:30 today and event time in 2019. What does this pattern indicate?",
     "options": [
       "The events were routed to an index the analyst has no permission to read",
-      "The indexing layer delayed the events until after the search window ended",
+      "The indexing layer delayed the events beyond the search window and applied a default event time when the new index was made available",
       "The events were filed by a wrong or misread timestamp from the source side",
       "The events were duplicated upstream and the copies replaced the originals"
     ],
@@ -31,7 +31,7 @@
       "The routers share one source type, which overwrites the host label",
       "The SIEM recorded the relay as host instead of reading it from the message",
       "The relay merges events from all routers into a single multi-line record",
-      "The routers' clocks are synchronised, so the SIEM treats them as one host"
+      "The routers are synchronised to the same clock, and SIEM host attribution treats matching clock sources as a shared device identity"
     ],
     "correct": 1,
     "explanation": "For relayed data the sender the SIEM sees is the relay, so unless the ingestion layer takes the host name from inside each message, every event is labelled with the relay's name. A shared source type sets parsing rules, not the host label.",
@@ -94,7 +94,7 @@
     "q": "Rendered Windows events include a long block of descriptive text that is identical in every event of the same ID. Which volume-reduction step targets this with the least loss of evidence?",
     "options": [
       "Aggregating the events into counts per event ID per host per hour",
-      "Dropping the event IDs that make up the largest share of the volume",
+      "Drop the event IDs that take the most space and keep full descriptions for every other event type in the channel",
       "Trimming the repeated description while keeping the structured fields",
       "Routing all rendered Windows events to an archive-only storage tier"
     ],
@@ -107,7 +107,7 @@
     "q": "During a cost review an engineer proposes an ingest-time rule that drops all PowerShell Operational events because they are 'noisy'. What is the most defensible way to handle the proposal?",
     "options": [
       "Treat it as a detection change: list dependent rules, assign an owner and review date",
-      "Approve it if the platform keeps dropped events in a recovery buffer for seven days",
+      "Approve the drop if a temporary recovery buffer keeps rejected events for seven days, without checking the rules that consume them",
       "Approve it if the endpoint agent still keeps the events in its local event log",
       "Treat it as housekeeping and record it in the SIEM platform's change log only"
     ],
@@ -159,7 +159,7 @@
     "q": "In minisiem, logon_type and the VPN country are present in the dataset but are not among the twelve stored columns. What is the practical consequence for a detection rule that needs them?",
     "options": [
       "The rule must extract them from raw at search time, which is slower and fragile",
-      "The rule cannot use them, because fields without columns are discarded at load",
+      "The rule cannot use either field because a value without a dedicated column is discarded before the original event can be searched",
       "The rule can use them directly, because SQLite creates columns on first use",
       "The rule must wait for a reload, because raw is only populated on request"
     ],
@@ -213,7 +213,7 @@
       "Whether the batch's events occurred during the outage window",
       "Whether a correlation rule ran before the batch's events had arrived",
       "Whether the batch's events can be searched by their original time",
-      "Whether the batch's events were filed under the correct source type"
+      "Whether the late records were assigned to the expected source type when the collector sent the queued batch to the SIEM"
     ],
     "correct": 1,
     "explanation": "Without ingest time a late batch looks identical to a timely one, so the SOC cannot measure lag or tell whether a rule evaluated its window before all events arrived. Event time still places the events correctly in time and still allows searches by when they happened.",
@@ -263,7 +263,7 @@
     "q": "During onboarding of a new EDR feed, the engineer wants to prove that no events are being silently lost between source and SIEM. Which check gives that assurance most directly?",
     "options": [
       "For a fixed window, compare the source's sent count with the SIEM's stored count",
-      "For a fixed window, compare the SIEM's event count with yesterday's event count",
+      "For a fixed window, compare the stored count from the new endpoint feed with the same window on the preceding business day",
       "For a sample of events, compare the host field with the source's own host name",
       "For a sample of events, compare event time with the source's own system clock"
     ],
@@ -302,7 +302,7 @@
     "q": "An analyst used to Splunk's _indextime is investigating ingestion lag in Elastic data that follows the Elastic Common Schema. Which field holds the comparable value?",
     "options": [
       "@timestamp",
-      "TimeGenerated",
+      "@timestamp, the mapped occurrence time",
       "event.dataset",
       "event.ingested"
     ],
@@ -316,7 +316,7 @@
     "options": [
       "Drop the URL field at ingest time so no browsing history is ever stored",
       "Route proxy logs to a container whose search access is limited to the SOC",
-      "Route proxy logs to the shared default index so all teams can audit them",
+      "Route the proxy logs to a shared default index and rely on each analyst to limit searches to records relevant to their own team",
       "Aggregate proxy logs into daily totals so individual visits are not kept"
     ],
     "correct": 1,

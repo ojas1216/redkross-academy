@@ -17,7 +17,7 @@
     "options": [
       "The query becomes slow because a leading wildcard prevents any index use",
       "Requests to cdn.example.org are wrongly treated as internal and dropped",
-      "Upper-case host names such as CRM.BANYAN.EXAMPLE slip through the exclusion",
+      "Upper-case host names such as CRM.BANYAN.EXAMPLE slip through the exclusion and flood the hunt with internal noise",
       "The request to the look-alike banyan-payroll-update.example is removed along with genuine internal sites"
     ],
     "correct": 3,
@@ -41,7 +41,7 @@
   {
     "q": "Timestamps are stored as strings like 2026-11-03T07:02:00Z. A query uses ts BETWEEN '2026-11-03T06:00' AND '2026-11-03T07:02' and returns 15 events for WS-104 instead of 17. Why are the 07:02 events missing?",
     "options": [
-      "BETWEEN is exclusive at both ends in SQLite, so the upper minute is never included",
+      "BETWEEN is exclusive at both ends in SQLite, so the events in the upper minute are never included in the result",
       "The 'Z' suffix makes the stored values UTC while the bounds are read as local time",
       "The short upper bound is a prefix of the stored value and therefore sorts before every 07:02 timestamp",
       "String comparison treats the 'T' separator as a wildcard, so seconds are ignored"
@@ -70,7 +70,7 @@
       "Bound the join with a time window and aggregate or count distinct values rather than raw joined rows",
       "Replace the JOIN with a LEFT JOIN so unmatched proxy rows are kept once",
       "Add ORDER BY p.ts so that duplicate proxy rows are grouped together",
-      "Move the host condition from ON into WHERE so it is applied after the join"
+      "Move the host condition from ON into WHERE so it is applied after the join and each proxy row is counted once"
     ],
     "correct": 0,
     "explanation": "Each proxy row matched all four Windows rows (196 rows), so sums and counts are multiplied: fan-out. Bounding by time and aggregating each side or counting distinct values fixes it. A LEFT JOIN keeps more rows and does not remove the multiplication.",
@@ -81,7 +81,7 @@
     "q": "An analyst wants every 4720, 4732 and 1102 event listed with the count of proxy requests in the 15 minutes before it, including events with none. They write a LEFT JOIN but put p.source='proxy' in the WHERE clause. What happens?",
     "options": [
       "Windows events without matching proxy rows show a count of zero, as intended",
-      "The query fails because WHERE cannot reference the right-hand table of a LEFT JOIN",
+      "The query fails with an error, because WHERE cannot reference a column from the right-hand table of a LEFT JOIN",
       "Each Windows event is repeated once per proxy row, inflating the result",
       "Windows events with no qualifying proxy row are discarded, turning the outer join into an inner join"
     ],
@@ -96,7 +96,7 @@
       "NOT IN compares case-sensitively, so no user name matched the subquery's format",
       "The subquery contains NULLs, and comparing a value with NULL is unknown, so no row satisfies NOT IN",
       "NOT IN is evaluated before DISTINCT, so duplicate users cancel each other out",
-      "The subquery returns svc_update, which matches every user through implicit wildcarding"
+      "The subquery returns svc_update, which matches every user through implicit wildcarding in the comparison"
     ],
     "correct": 1,
     "explanation": "338 of the 340 target_user values are NULL. x NOT IN (list) is true only if x is known to differ from every element, and a comparison with NULL is unknown, so nothing qualifies. NOT EXISTS ignores NULLs because they never match; case sensitivity has nothing to do with it.",
@@ -120,7 +120,7 @@
     "q": "The question is 'which workstation sent more than 1 MB in total to a destination no other workstation uses?'. Why does the lesson build it from a CTE that counts distinct hosts per domain, joined back to the events?",
     "options": [
       "Because SQLite cannot use COUNT(DISTINCT) and SUM in the same SELECT",
-      "Because the CTE caches the proxy events and makes the query run faster",
+      "Because the CTE caches the proxy events in memory, which makes the query run much faster on the full events table",
       "Because destination breadth belongs to the domain grain while the byte total belongs to the host and domain grain",
       "Because HAVING cannot refer to a column derived from the URL"
     ],
@@ -148,7 +148,7 @@
       "A destination-breadth query is useless, because beacons always use popular domains",
       "Volume thresholds will not find it; a query on the regularity of intervals between requests is needed",
       "A byte threshold of about 200 per request reliably separates beacons from browsing",
-      "Counting requests per host per day is enough, because beacons generate the most requests"
+      "Counting requests per host per day is enough, because beacons always generate the most requests of any process"
     ],
     "correct": 1,
     "explanation": "The beacon sends tiny amounts, so a volume query never catches it; its signature is the near-constant gap between requests, which LAG() measures. Fixed byte sizes are one implant's habit, not a reliable discriminator, and ordinary browsing produces many more requests per day.",
@@ -159,7 +159,7 @@
     "q": "An analyst measures beacon regularity with LAG(ts) OVER (PARTITION BY host ORDER BY ts) instead of PARTITION BY host, url. What is the likely effect?",
     "options": [
       "The query fails because LAG requires at least two partition columns",
-      "The gaps become shorter but remain perfectly regular, so the beacon is still obvious",
+      "The gaps become shorter but remain perfectly regular, so the beacon is still just as obvious in the interval distribution",
       "The beacon's requests are interleaved with the host's ordinary browsing, so its regular gaps are broken up and hidden",
       "Only the first request of each URL is kept, so the gap count drops to one per URL"
     ],
@@ -199,7 +199,7 @@
     "options": [
       "Rerun the query with a longer time range until at least one row appears",
       "Replace the exact domain comparison with a substring match to be safe",
-      "Accept the result, because a query that runs without error has been validated",
+      "Accept the result, because a query that runs without an error has already been validated by the platform",
       "Confirm the query returns the known positive, WS-104, when that host is not excluded"
     ],
     "correct": 3,
@@ -239,7 +239,7 @@
       "dcount() counts only users that succeeded, ignoring failures",
       "summarize sorts the result, dropping rows past a default limit",
       "dcount() returns an estimate on large data sets, so a count near the threshold may fall just below it",
-      "KQL treats src_ip as text, so addresses with leading zeros split into separate groups"
+      "KQL treats src_ip as text, so addresses written with leading zeros split into separate groups and lower the count"
     ],
     "correct": 2,
     "explanation": "KQL's dcount() is approximate on large data, which matters when the threshold sits close to the true count. It does not filter by outcome; the estimation error near the cut is the relevant caution from the lesson.",
@@ -262,7 +262,7 @@
   {
     "q": "An hourly bucket query shows WS-104 making 1 to 5 proxy requests an hour, except 14 of 37 in the 06 hour and 11 of 36 in the 07 hour. What is the correct conclusion?",
     "options": [
-      "WS-104 is compromised, because a third of all proxy traffic is proof of beaconing",
+      "WS-104 is compromised, because a third of all proxy traffic in an hour is proof of beaconing from that host",
       "The proxy dropped other hosts' traffic in those hours, inflating WS-104's share",
       "The 06 and 07 hours are where to look next; the buckets show when activity changed, not why",
       "WS-104's user simply started work later than everyone else"
@@ -301,7 +301,7 @@
   {
     "q": "Under the DPDP Act 2023's purpose limitation and on a shared SIEM, which practice for investigative proxy queries does the lesson recommend?",
     "options": [
-      "Run broad searches over all history so no personal data has to be queried twice",
+      "Run broad searches over all history at once, so that no personal data ever has to be queried a second time",
       "Export full proxy logs to the analyst's workstation to avoid loading the SIEM",
       "Mask user names in results, which removes the need for search auditing",
       "Search for a defined purpose, return only the fields needed and time-bound every search"

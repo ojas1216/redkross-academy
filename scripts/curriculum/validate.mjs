@@ -2,7 +2,7 @@
  * Validates one module (or a whole course) of v2 curriculum content.
  *
  *   node scripts/curriculum/validate.mjs C05 3        one module
- *   node scripts/curriculum/validate.mjs C05          every module folder present
+ *   node scripts/curriculum/validate.mjs C05          every blueprint module
  *   node scripts/curriculum/validate.mjs C05 --json   machine-readable summary
  *
  * Checks the mechanical parts of curriculum/AUTHORING_GUIDE.md: blueprint titles,
@@ -218,11 +218,11 @@ export async function validateModule(code, m, { render = true } = {}) {
     const positions = new Set();
     const seen = new Set();
     const counts = [0, 0, 0, 0];
-    const lessonsCovered = new Set();
+    const lessonCounts = new Map();
     quiz.forEach((q, i) => {
       const t = `${q._file} #${i + 1}`;
       if (Number.isInteger(q.correct) && q.correct >= 0 && q.correct <= 3) counts[q.correct]++;
-      lessonsCovered.add(q.lesson);
+      lessonCounts.set(q.lesson, (lessonCounts.get(q.lesson) ?? 0) + 1);
       if (!q.q || words(q.q) < 6) errors.push(`${t}: question too short`);
       if (!Array.isArray(q.options) || q.options.length !== 4 || q.options.some((o) => !String(o).trim())) errors.push(`${t}: needs 4 non-empty options`);
       else if (new Set(q.options.map(norm)).size !== 4) errors.push(`${t}: duplicate options`);
@@ -241,7 +241,13 @@ export async function validateModule(code, m, { render = true } = {}) {
       const share = counts.map((c) => c / quiz.length);
       if (share.some((x) => x < 0.15 || x > 0.35)) errors.push(`quiz: correct-answer positions are unbalanced (${counts.join('/')}); each of A-D should be 15-35%`);
     } else if (quiz.length && positions.size < 4) errors.push(`quiz: correct answers use only positions ${[...positions].join(',')}`);
-    for (let n = 1; n <= bpm.lessons.length; n++) if (!lessonsCovered.has(n)) errors.push(`quiz: no questions for lesson ${n}`);
+    const questionsPerLesson = QUIZ_SIZE / bpm.lessons.length;
+    for (let n = 1; n <= bpm.lessons.length; n++) {
+      const count = lessonCounts.get(n) ?? 0;
+      if (Number.isInteger(questionsPerLesson) && count !== questionsPerLesson)
+        errors.push(`quiz: lesson ${n} has ${count} questions (need ${questionsPerLesson})`);
+      else if (!count) errors.push(`quiz: no questions for lesson ${n}`);
+    }
     // the correct option must not give itself away by being the longest
     const longest = quiz.filter((q) => {
       const L = (q.options || []).map((o) => String(o).length);
@@ -261,23 +267,25 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
     console.error('usage: node scripts/curriculum/validate.mjs C05 [module] [--json]');
     process.exit(2);
   }
+  const blueprint = loadJson(path.join(ROOT, 'blueprint', `${code}.json`), []);
+  if (!blueprint?.modules?.length) {
+    console.error(`${code}: missing or invalid course blueprint`);
+    process.exit(2);
+  }
   const mods = mArg && /^\d+$/.test(mArg)
     ? [Number(mArg)]
-    : fs.existsSync(path.join(ROOT, code))
-      ? fs.readdirSync(path.join(ROOT, code)).filter((d) => /^m\d\d$/.test(d)).map((d) => Number(d.slice(1)))
-      : [];
+    : blueprint.modules.map(({ n }) => n);
   let bad = 0;
   const summary = [];
   for (const m of mods) {
     const r = await validateModule(code, m);
     summary.push({ module: m, ...r.stats, errors: r.errors.length, warnings: r.warnings.length });
+    if (r.errors.length) bad++;
     if (asJson) continue;
     console.log(`${code} M${pad2(m)}: ${r.errors.length ? 'FAIL' : 'PASS'}  lessons ${r.stats.lessons ?? 0}, prose ${r.stats.prose ?? 0} words, figures ${r.stats.figures ?? 0}, walkthroughs ${r.stats.walkthroughs ?? 0}, quiz ${r.stats.quiz ?? 0}`);
     for (const e of r.errors) console.log(`  ERROR ${e}`);
     for (const w of r.warnings) console.log(`  warn  ${w}`);
-    if (r.errors.length) bad++;
   }
   if (asJson) console.log(JSON.stringify(summary));
-  if (!mods.length) console.log(`${code}: no module folders yet`);
   process.exit(bad ? 1 : 0);
 }

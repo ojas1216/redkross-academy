@@ -1,0 +1,34 @@
+{
+  "C08-M10-L08-F1": {
+    "title": "Part A evidence timeline, 2026-11-03 UTC",
+    "caption": "Saved-record summaries of saved Banyan records. The two threads never share an entity, so the link row is unsupported.",
+    "alt": "A timeline table with four columns: time, source, entity and claim type. Four rows for WS-104 run from a 06:12 proxy download, through an Office child process near 06:14 and 18 proxy requests between 06:17 and 07:42, to a 48,200,000-byte proxy transfer at 08:12. Two VPN rows for address 203.0.113.66 show eight distinct failed identities and then a success for gopal at 06:46. A final row shows that a link between gopal and WS-104 is unsupported because no shared entity exists.",
+    "type": "table",
+    "columns": ["Time (UTC)", "Source", "Entity", "Claim type"],
+    "rows": [
+      ["06:12:00", "Proxy", "WS-104", "Reported: download request"],
+      ["06:14", "Endpoint", "WS-104 thread", "Reported: Office child process"],
+      ["06:17:00-07:42:02", "Proxy", "WS-104", "Reported: 18 requests"],
+      ["08:12:00", "Proxy", "WS-104", "Reported: 48,200,000 bytes out"],
+      ["Before 06:46", "VPN", "203.0.113.66", "Reported: 8 identities failed"],
+      ["06:46:00", "VPN", "203.0.113.66", "Reported: gopal success"],
+      ["None", "None", "No shared entity", "Link unsupported"]
+    ],
+    "rowTones": ["blue", "blue", "blue", "blue", "violet", "violet", "red"]
+  },
+  "C08-M10-L08-F2": {
+    "title": "Model outcomes for the four lab cases",
+    "caption": "Outcome and confidence are assigned separately, and Case 3 has parts with different outcomes.",
+    "alt": "A table with four columns: case, outcome, confidence and deciding reason. Case 1, the WS-104 thread, is positive for escalation at moderate confidence, conditional on a prevalence check in the saved rows. Case 2, the synthetic WS-411 upload, is benign at high confidence because all six hosts use the destination and a change record explains the increase. Case 3 splits into an authentication pattern that is positive at moderate confidence and a post-login question with no data. Case 4, a link between the threads, is no-data because no join key exists.",
+    "type": "table",
+    "columns": ["Case", "Outcome", "Confidence", "Deciding reason"],
+    "rows": [
+      ["1: WS-104 thread", "Positive, escalate", "Moderate", "Sequence on one host; prevalence to confirm"],
+      ["2: WS-411 upload", "Benign, close", "High", "Common destination and change record"],
+      ["3a: VPN pattern", "Positive, escalate", "Moderate", "8 identities failed; shared egress open"],
+      ["3b: After 06:46Z", "No-data", "Not applicable", "No session records"],
+      ["4: Thread link", "No-data", "Not applicable", "No join key"]
+    ],
+    "rowTones": ["orange", "green", "orange", "slate", "slate"]
+  }
+}

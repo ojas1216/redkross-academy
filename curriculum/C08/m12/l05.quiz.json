@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A planned maintenance notice exists, but no exact approved operation is visible. What should the analyst do?",
+    "options": [
+      "Close because operations work was planned for that time",
+      "Request the scoped change and corroborating execution evidence",
+      "Exclude the signal from future monitoring automatically",
+      "Treat the notice as a verified role and asset approval"
+    ],
+    "correct": 1,
+    "explanation": "A planned window alone does not authorise a specific operation.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which record establishes the observed event on OPS-03?",
+    "options": [
+      "B16 reports the Security log clear O-401",
+      "B17 is the approved change work order",
+      "B18 records the availability of a forwarded archive",
+      "B19 is the operations owner's later confirmation"
+    ],
+    "correct": 0,
+    "explanation": "The original Windows audit record identifies the observation.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The approval concerns OPS-04 and the sensor names OPS-03. How should the case proceed?",
+    "options": [
+      "Close because the devices share a similar prefix",
+      "Expand the earlier approval to the operations fleet",
+      "Remove the source event and use the change's device label",
+      "Check the source identity and obtain the correct authority"
+    ],
+    "correct": 3,
+    "explanation": "Exact asset scope is necessary for the administrative explanation.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does B18 contribute to the closure?",
+    "options": [
+      "Proof the approved operation previously happened on all devices",
+      "Approval for change work outside every stated window",
+      "Verified archive availability for the checked maintenance window",
+      "Evidence that the same event was never delivered twice"
+    ],
+    "correct": 2,
+    "explanation": "The forwarded copy supports evidence visibility for a specific scope.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The authorised team confirms execution but archived records are missing. What should the report separate?",
+    "options": [
+      "The single observed event into two unrelated confirmed incidents",
+      "The legitimate operation assessment from the visibility issue",
+      "The known approved window from any need to check scope",
+      "The approved actor from all responsibility for the visibility gap"
+    ],
+    "correct": 1,
+    "explanation": "The operation can be authorised while its expected preserved evidence remains unavailable.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the specific approved change identifier?",
+    "options": [
+      "CR-82 in the change system",
+      "E-301 from the payments endpoint",
+      "R-56 from the second resolver observation",
+      "BK-16 from the unrelated approved backup"
+    ],
+    "correct": 0,
+    "explanation": "CR-82 is the authoritative change used for this explanation.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The event occurs at 08:37, beyond the approved window. Which check comes next?",
+    "options": [
+      "Treat every late action as authorised by the same change",
+      "Close and amend the observed time to 08:30 in the worksheet",
+      "Use the earliest maintenance notification as proof of permission",
+      "Verify timestamp provenance and any approved extension"
+    ],
+    "correct": 3,
+    "explanation": "Late work needs independent authorisation and accurate source timing.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which owner can corroborate the team that performed the work?",
+    "options": [
+      "The mail reporter in the unrelated screenshot",
+      "The payments approver associated with FIN-21",
+      "The authorised operations owner in B19",
+      "The anonymous sender copied in a workflow run"
+    ],
+    "correct": 2,
+    "explanation": "The operating owner supplies confirmation of the executed change.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A high-confidence administrative explanation is documented. What remains outside its scope?",
+    "options": [
+      "The observed event, approved window and corroborating record",
+      "Future log clears without matching approval and evidence",
+      "The known duplicate receipt tied to O-401 on the same asset",
+      "The documented match between approved and observed operation"
+    ],
+    "correct": 1,
+    "explanation": "A one-event disposition does not create a standing monitoring exception.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should happen to B28 in the closure note?",
+    "options": [
+      "Link it as a duplicate receipt of O-401",
+      "Use it as a second verified log clear",
+      "Replace the approved change with the duplicate identifier",
+      "Omit it entirely so the queue stays smaller"
+    ],
+    "correct": 0,
+    "explanation": "Evidence accounting includes repeat delivery without inflating events.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The owner recalls a different operation than the one observed. What is the appropriate disposition?",
+    "options": [
+      "Assume the event matches because the time window is approved",
+      "Replace the event with the owner's recollection in all records",
+      "Dismiss the alert because two views of the evidence disagree",
+      "Keep the discrepancy open for corroboration"
+    ],
+    "correct": 3,
+    "explanation": "Conflicting observations require review of actual activity and authority.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the observed time of O-401 in the exercise?",
+    "options": [
+      "08:20 UTC at the start of approved change",
+      "08:26 UTC when the owner was recorded",
+      "08:23 UTC during the approved interval",
+      "08:37 UTC outside approved maintenance"
+    ],
+    "correct": 2,
+    "explanation": "The observation time is supplied by B16 rather than its corroboration records.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new alert has a distinct event ID but the same host and event type. Which logic applies?",
+    "options": [
+      "Link it automatically as a duplicate of the first closure",
+      "Review the new event's scope and corroboration",
+      "Close it solely because an old alert looked similar",
+      "Drop any event from the same host until another asset is affected"
+    ],
+    "correct": 1,
+    "explanation": "New source identity and context require separate disposition.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs in a reopen condition for the closure?",
+    "options": [
+      "New evidence of an asset, time or operation mismatch",
+      "Any second copy of the identical verified event receipt",
+      "The scheduled arrival of a routine review reminder",
+      "The existence of an approved archive in the same case"
+    ],
+    "correct": 0,
+    "explanation": "A reopen condition identifies evidence that would invalidate the explanation.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What difference matters between enrichment and suppression for future events?",
+    "options": [
+      "Both permanently remove each observed source record from custody",
+      "Adding a change ID universally authorises every logged action",
+      "Suppression simply proves where the event originated",
+      "Context can aid review; suppression changes visibility"
+    ],
+    "correct": 3,
+    "explanation": "Suppression changes what analysts can see and deserves separate review.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a good scoped closure identify?",
+    "options": [
+      "A broad command to retire monitoring for the fleet",
+      "Only the technical term for the detected action",
+      "The case, source event, matched authority and evidence",
+      "A list of staff names from another service's case"
+    ],
+    "correct": 2,
+    "explanation": "Specific references make the disposition understandable and reproducible.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The change lookup times out for a new event. Which label retains uncertainty?",
+    "options": [
+      "No change record exists for this asset",
+      "Change context unavailable and review needed",
+      "Approved activity regardless of evidence source",
+      "Authorised maintenance because another lookup was positive yesterday"
+    ],
+    "correct": 1,
+    "explanation": "A failed lookup cannot establish absence or authorisation.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should a concise executive note describe the case?",
+    "options": [
+      "Verified planned maintenance explained the reviewed event",
+      "The entire endpoint monitoring environment was verified healthy",
+      "Users of all operations devices were confirmed unauthorised",
+      "A conclusive business-impact determination was made for all cases"
+    ],
+    "correct": 0,
+    "explanation": "The brief should communicate the bounded administrative outcome.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is lost if A13 alone is used to close the case early?",
+    "options": [
+      "The timestamp attached to the meeting about the change",
+      "The broad idea that operations planned maintenance that day",
+      "The general identity of the operations environment",
+      "Verified evidence of the specific authority and actual work"
+    ],
+    "correct": 3,
+    "explanation": "A planned maintenance note cannot prove a particular authorised operation.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why preserve the reviewed source event with the disposition?",
+    "options": [
+      "The same event becomes authority for every subsequent protective step",
+      "The old sensor record authorises a change to archive settings",
+      "A later reviewer can audit the match and reopen if needed",
+      "The closure makes every future operations event irrelevant"
+    ],
+    "correct": 2,
+    "explanation": "Source-linked context allows later review without presuming unrelated cases have the same explanation.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A proposal creates a maintenance annotation for future alerts. What should tests verify?",
+    "options": [
+      "Every future log clear is ignored while the annotation is on",
+      "Only matching, current approved scope receives the annotation",
+      "A similar asset name suffices when the scope is missing",
+      "The earliest admin record provides context to every case forever"
+    ],
+    "correct": 1,
+    "explanation": "Narrow validation keeps unsupported events available for review.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which evidence combination is strongest for explaining this event?",
+    "options": [
+      "Actual audit, scoped approval and independent owner confirmation",
+      "A planned notice with no approval fields or sensor record",
+      "A duplicate receipt and the prior dashboard's displayed colour",
+      "A different backup job and one unresolved VPN alert"
+    ],
+    "correct": 0,
+    "explanation": "These sources address what occurred, what was authorised and who verified it.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Another team's logging process has a gap despite this scoped closure. What should the lead do?",
+    "options": [
+      "Reclassify the reviewed maintenance as harmful automatically",
+      "Close the unrelated collection issue with the same authorisation",
+      "Stop all case investigations until every sensor is checked",
+      "Create a separate owned visibility task"
+    ],
+    "correct": 3,
+    "explanation": "An administrative explanation can coexist with an independent monitoring issue.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a checked time window establish?",
+    "options": [
+      "Whether every similar operation on other dates was approved",
+      "Whether the event's operator controlled unrelated remote sessions",
+      "Whether this occurrence falls inside its approved period",
+      "Whether later archive records are valid without independent review"
+    ],
+    "correct": 2,
+    "explanation": "Matching the recorded occurrence to the scope is one verification step.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should the analyst handle a future requirement to tune the detector?",
+    "options": [
+      "Disable the signal immediately because the current event closed",
+      "Review and test it separately with positive and benign cases",
+      "Replace the alert with only the last administrative response result",
+      "Accept every approved maintenance title as a lasting exception"
+    ],
+    "correct": 1,
+    "explanation": "Tuning needs independently checked scope and maintained alert visibility.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

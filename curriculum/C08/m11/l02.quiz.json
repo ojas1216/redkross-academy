@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Which object in TheHive is normally the durable investigation record?",
+    "options": [
+      "The single source alert that first reached the queue",
+      "An analyzer result before it is attached to a case",
+      "The case with its evidence, assignments and decisions",
+      "The receiving service's message confirming the run was scheduled"
+    ],
+    "correct": 2,
+    "explanation": "A case can contain evidence and work from multiple related alerts.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two alerts have the same digest but different sources and times. How should their case association be decided?",
+    "options": [
+      "Drop the alert that arrived later because the digest already exists",
+      "Compare the evidence and preserve separate source references",
+      "Merge the two sources into one record without indicating any difference",
+      "Use the digest match as proof that both describe the same interaction"
+    ],
+    "correct": 1,
+    "explanation": "Shared observable value is context and does not erase distinct observations.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which description best fits an observable in a case?",
+    "options": [
+      "A typed value relevant to the investigation",
+      "A confirmed statement of compromise approved by the incident lead",
+      "A command that the operator must run whenever a case opens",
+      "A durable authorisation allowing any responder to act on the case"
+    ],
+    "correct": 0,
+    "explanation": "An observable can be legitimate and needs provenance and context.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Cortex analyzer reports a match in historical evidence. What does it support?",
+    "options": [
+      "Proof that the current employee took the action under investigation",
+      "Authority to make any related change to the affected workstation",
+      "A determination that every earlier case used the same source data",
+      "A contextual finding whose currency and relevance need review"
+    ],
+    "correct": 3,
+    "explanation": "The report applies to its observable and source, with timestamps and limits.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What distinguishes a responder from an analyzer conceptually?",
+    "options": [
+      "An analyzer determines which roles can own a case",
+      "Responders only report historical context about a digest",
+      "A responder can perform an action with a side effect",
+      "An analyzer always has unrestricted access to every case record"
+    ],
+    "correct": 2,
+    "explanation": "Operational effects require scope, permission and a verification path.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An integration's responder says it sent a task to another service. What establishes the intended effect?",
+    "options": [
+      "A completed status is displayed in the Cortex run history",
+      "The correct task exists in the owning service",
+      "The name of the original analyst matches the target service's name",
+      "An inventory lookup returns the same queue owner's department"
+    ],
+    "correct": 1,
+    "explanation": "Execution status alone does not prove target state.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What belongs with a new task's completion criterion?",
+    "options": [
+      "The evidence or report pointer used to confirm it",
+      "The full email message copied to the broad notification channel",
+      "A rule that every remaining case task uses the same timestamp",
+      "A note that the task can be closed without operator review"
+    ],
+    "correct": 0,
+    "explanation": "A verifiable criterion supports accountable work and handoff.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An internal analyzer returns an empty result, but its connection failed. What should be reported?",
+    "options": [
+      "No matching record exists in the historical index",
+      "A positive match was found but cannot be displayed",
+      "The case can close because the lookup result was empty",
+      "Unable to determine; record the dependency failure"
+    ],
+    "correct": 3,
+    "explanation": "A source failure cannot establish a completed negative search.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which information should be attached to a digest observable?",
+    "options": [
+      "The full directory of employees granted case access",
+      "The approval role for any potential future organisational change",
+      "Type, observed value reference and source context",
+      "A final forensic conclusion derived from its filename alone"
+    ],
+    "correct": 2,
+    "explanation": "Source and type let analysts interpret why the value matters.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case analyst may view a file but the lookup service is unapproved. What should happen?",
+    "options": [
+      "Submit it because permission to view implies permission to share",
+      "Keep it in scope and use approved internal analysis or review",
+      "Copy it to several adjacent cases to avoid using the integration",
+      "Publish its digest and case context while waiting for a decision"
+    ],
+    "correct": 1,
+    "explanation": "Access to evidence and approval to transfer it are distinct.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should a case record preserve the external alert identifier?",
+    "options": [
+      "A later reviewer can locate the original signal",
+      "It grants the system permission to change connected services",
+      "It makes any verified effect independent of the target state",
+      "It ensures all alerts under a case are duplicate deliveries"
+    ],
+    "correct": 0,
+    "explanation": "A stable external reference supports traceability into the source.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A request approved action on an observable, but the responder is configured on a case. What must be checked?",
+    "options": [
+      "Whether the case title includes the name of the affected application",
+      "Whether every linked observable has at least one analyzer result",
+      "Whether the approving role is named anywhere in the entire organisation",
+      "The actual responder target and approved effect"
+    ],
+    "correct": 3,
+    "explanation": "The selected case context may differ from the scope that receives the action.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What should a reviewer read alongside a classifier's result?",
+    "options": [
+      "Only the final letter assigned to its classification",
+      "The name of a similar document from a different case",
+      "Input identity, provenance, time and coverage",
+      "The employee's normal shift schedule without the evidence"
+    ],
+    "correct": 2,
+    "explanation": "A classification is interpretable when its input and conditions are known.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A prior case's analysis matches an item in a new case with different access rules. What is the correct next step?",
+    "options": [
+      "Copy the entire earlier case because the observable is the same",
+      "Confirm authorised reuse and share only permitted context",
+      "Grant the second case all permissions of the first case automatically",
+      "Discard the new observation because there is already an analyzer report"
+    ],
+    "correct": 1,
+    "explanation": "A common value cannot broaden case access or sharing authority.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which outcome best describes a valid completed no-match?",
+    "options": [
+      "The named approved source returned no matching record",
+      "The provider never received or answered the query",
+      "Every source in the industry reports a clean result",
+      "The investigation cannot document a case because no tool answered"
+    ],
+    "correct": 0,
+    "explanation": "A completed no-match is limited to the actual search and source.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A responder times out after potentially creating its task. What should the owner do before retrying?",
+    "options": [
+      "Run the same responder for every case until a green result appears",
+      "Close the receiving assignment because no acknowledgment arrived",
+      "Change the task scope so the same run can count as a fresh action",
+      "Reconcile the downstream task by its stable reference"
+    ],
+    "correct": 3,
+    "explanation": "A retry is safe only when prior effect uncertainty is addressed.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which role generally determines whether case tasks are complete?",
+    "options": [
+      "The first alert that arrived when the system queued the case",
+      "A digest lookup whose report uses the strongest confidence label",
+      "An authorised case owner using the task evidence",
+      "The exported list of all observables across unrelated investigations"
+    ],
+    "correct": 2,
+    "explanation": "The case owner evaluates the completion evidence and remaining work.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The attached analysis is old but accurately matches an exact digest. How should the analyst use it?",
+    "options": [
+      "Delete all current endpoint signals because one prior assessment was benign",
+      "Preserve the match and evaluate present context separately",
+      "Treat the report as a fresh query with the date of the current incident",
+      "Assume it identifies the recipient responsible for current events"
+    ],
+    "correct": 1,
+    "explanation": "A historical artifact match and present device behaviour answer different questions.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Where should authorization for a consequential responder be recorded?",
+    "options": [
+      "In a scoped case decision linked to the specific request",
+      "In an informal label on another observably similar case",
+      "In the report's title after the action has already executed",
+      "Only in the analyst's memory for urgent cases"
+    ],
+    "correct": 0,
+    "explanation": "A scoped decision provides reviewable evidence of action authority.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A duplicate alert should not produce a second task. Which signal proves that requirement?",
+    "options": [
+      "Two queue items show the same text in their title fields",
+      "Both analyzer runs received a matching digest response",
+      "The second alert was deleted before it could be audited",
+      "One task exists and both receipts link to it"
+    ],
+    "correct": 3,
+    "explanation": "Inspecting the verified effect tests duplicate handling directly.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which action helps preserve reporting permissions across teams?",
+    "options": [
+      "Attach every received artifact to a general notification",
+      "Copy another team's full case instead of using a scoped summary",
+      "Link sensitive evidence through a restricted case reference",
+      "Make every analyzer report available to all staff by default"
+    ],
+    "correct": 2,
+    "explanation": "Restricted references let eligible reviewers reach evidence without sending it to a wider audience.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case receives two analyzer outputs, one valid and one unavailable. How should the summary present them?",
+    "options": [
+      "Average both results into a single alert priority score",
+      "Record the completed finding and the separate coverage gap",
+      "Report both sources as clean because one returned nothing concerning",
+      "Discard the valid finding to keep the two statuses consistent"
+    ],
+    "correct": 1,
+    "explanation": "Each source has its own outcome, relevance and limits.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should a responder report include its action time?",
+    "options": [
+      "It ties the reported effect to a traceable execution",
+      "It replaces the timestamp recorded in the original alert event",
+      "It lets the operator assume all parties approved before that time",
+      "It identifies the person who authored an attached email message"
+    ],
+    "correct": 0,
+    "explanation": "An action time helps locate and reconcile the downstream evidence.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The receiving task exists under a different case ID. What needs to happen?",
+    "options": [
+      "Mark it verified because the task text matches the request wording",
+      "Use the incorrect case as proof that approval was valid for both",
+      "Rewrite the original request to fit the incorrect case after execution",
+      "Record the target mismatch and investigate scope and recovery"
+    ],
+    "correct": 3,
+    "explanation": "Verification must confirm the actual intended target and effect.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the safest purpose for a paper integration exercise?",
+    "options": [
+      "Try real transfers to see whether a provider accepts the connection",
+      "Discover which restricted inputs escape the organisation's policy review",
+      "Practise linking evidence, decisions and expected effects",
+      "Test consequential changes on production assets without a case owner"
+    ],
+    "correct": 2,
+    "explanation": "Synthetic cases let students verify reasoning without operational side effects.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

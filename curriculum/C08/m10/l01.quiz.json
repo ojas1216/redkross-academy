@@ -1,0 +1,327 @@
+[
+  {
+    "q": "What most clearly distinguishes a threat hunt from alert triage?",
+    "options": [
+      "A hunt reviews alerts that fired overnight, while triage reviews them as they arrive",
+      "A hunt tests a hypothesis and can search beyond existing alerts",
+      "A hunt always uses threat intelligence indicators, while triage never does",
+      "A hunt is performed only after an incident has been formally declared"
+    ],
+    "correct": 1,
+    "explanation": "Alert triage starts with a specific alert. A hunt starts with a hypothesis and defines the evidence that could support or refute it. An earlier alert can motivate a wider hunt.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement describes a behavior rather than an actor, cause or tool?",
+    "options": [
+      "A financially motivated group targeted the finance team",
+      "WS-104 was compromised through a phishing campaign",
+      "A known malware family was installed on a workstation",
+      "A document application started a command interpreter"
+    ],
+    "correct": 3,
+    "explanation": "A behavior is something a system does that records can show, such as one process starting another. Actor names, causes like phishing and malware families are conclusions or labels that usually need far more evidence than a hunt query provides.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson insist that refuting evidence be written down before any data is examined?",
+    "options": [
+      "It stops ambiguous results from being read as support after the fact",
+      "It lets the analyst skip the feasibility check for well-known behaviors",
+      "It ensures the query returns fewer rows and runs faster on the SIEM",
+      "It guarantees that the hunt will end with a positive or benign outcome"
+    ],
+    "correct": 0,
+    "explanation": "If refutation is defined only after seeing data, almost any result can be reinterpreted as support. Writing it first is the main guard against confirmation bias. It does not replace the feasibility check or guarantee an outcome; a hunt can still end in no-data.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is \"WS-104 was compromised by a phishing document\" a weak hunt hypothesis for the Banyan dataset?",
+    "options": [
+      "It names WS-104 instead of scoping the hunt to every workstation",
+      "It describes a behavior that is too narrow to discriminate well",
+      "It asserts a cause the Banyan records cannot observe, such as mail delivery",
+      "It fails to cite an ATT&CK technique identifier for the phishing step"
+    ],
+    "correct": 2,
+    "explanation": "The statement is a conclusion naming a cause, mechanism and outcome. The Banyan dataset has no mail gateway, mailbox audit or payload evidence, so phishing delivery cannot be observed. A testable version focuses on the visible download-then-execution sequence.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which prediction has the most discriminating power for a download-then-execution hypothesis on WS-104?",
+    "options": [
+      "WS-104 made at least one proxy request during the hunt window",
+      "An Office application ran on WS-104 at some point that day",
+      "A rare-domain download followed within minutes by an Office child process",
+      "WS-104 sent more than zero outbound bytes to an external destination"
+    ],
+    "correct": 2,
+    "explanation": "Discriminating power comes from combining sources, specifying order and timing, and specifying rarity. The correct option does all three. The others describe events that nearly every workstation produces whether or not the hypothesis is true.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A hypothesis asks whether the gopal VPN session that succeeded at 06:46:00Z then showed unusual activity. What outcome should be expected with the Banyan data?",
+    "options": [
+      "No-data, because the VPN records contain no later session activity",
+      "Benign, because a single success after failures is common for users",
+      "Positive, because eight identities failed from the same address first",
+      "Benign, because no file share access appears anywhere in the VPN data"
+    ],
+    "correct": 0,
+    "explanation": "The VPN records have no later session activity, so the prediction cannot be tested. An empty search there is absence of evidence, not a benign result. The failure pattern supports a different, narrower hypothesis about authentication, not one about the session.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst writes a hypothesis assuming gopal used WS-104 because both threads occurred on the same morning. What is the main flaw?",
+    "options": [
+      "The two threads occurred too many hours apart to be related",
+      "The VPN success happened after the WS-104 download, not before",
+      "The hypothesis should have been scoped to all VPN users instead",
+      "No shared entity links the threads, so the connection is assumed"
+    ],
+    "correct": 3,
+    "explanation": "In the available records the VPN events carry no endpoint identifier and the proxy and endpoint events do not reference the VPN identity. Being close in time does not link them. The hypothesis has assumed a link the data does not contain.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which hypothesis source does the lesson describe as especially productive because the behavior is known to be realistic for the environment?",
+    "options": [
+      "Baseline anomalies surfaced by frequency analysis",
+      "Prior incidents and near misses in the organization",
+      "Coverage gaps highlighted on an ATT&CK heat map",
+      "Situational awareness of recent environment changes"
+    ],
+    "correct": 1,
+    "explanation": "When a behavior was seen in an earlier incident, it has already proven realistic locally, so hunting for it elsewhere is high value. Anomalies are prompts that still need a behavior. Heat-map gaps and environment changes are useful sources, but they do not carry that proof.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rarity stack shows one workstation contacted a domain no other workstation contacted. What is the correct next step in hypothesis design?",
+    "options": [
+      "State what behavior the rarity might represent and what else would then be true",
+      "Escalate the host to incident response at once because rarity alone indicates compromise",
+      "Close the anomaly because most long-tail values turn out to be benign",
+      "Add the domain to a blocklist and rerun the stack the following day"
+    ],
+    "correct": 0,
+    "explanation": "An anomaly is a prompt, not a hypothesis. The analyst must name the behavior it might represent and the other observations that behavior would produce. Rarity alone justifies neither escalation nor closure.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which time-scoping practice does the lesson recommend?",
+    "options": [
+      "Use local time for each source so analysts read familiar clock values",
+      "Use the widest window the platform allows so that no precursor event is ever missed",
+      "State all times in UTC and choose a window that fits the predicted sequence",
+      "Use the same window for the hunt and the baseline to keep them aligned"
+    ],
+    "correct": 2,
+    "explanation": "Mixing local time and UTC produces false sequences, and a window should be wide enough for the predicted sequence but narrow enough that rare events stay rare. The baseline window is a separate, usually longer period and should not be the same as the hunt window.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Endpoint telemetry exists for workstations but not servers. How should a hypothesis about Office child processes be scoped?",
+    "options": [
+      "Include servers and report them as clear when no events are returned",
+      "Scope it to workstations and record servers as excluded for data reasons",
+      "Abandon it entirely, because partial endpoint coverage makes every result unreliable",
+      "Scope it to servers first, since they hold the most sensitive records"
+    ],
+    "correct": 1,
+    "explanation": "Scope should match where the data can test the prediction. Servers are recorded as excluded because of missing data, not because they are safe. Reporting servers as clear would turn absence of evidence into a false negative result.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which result would refute the WS-104 execution hypothesis as the lesson writes it?",
+    "options": [
+      "The Office child process occurred two minutes after the download",
+      "The later destinations appeared only on WS-104 that day",
+      "The proxy recorded 48,200,000 outbound bytes at 08:12:00Z",
+      "The endpoint process event occurred before the proxy download"
+    ],
+    "correct": 3,
+    "explanation": "The hypothesis predicts a download followed by execution. A process event that came before the download breaks the predicted order. The other options are consistent with the hypothesis or neutral to it.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Draft C states \"Attackers exfiltrated customer data from WS-104 to files-share-drop.example.\" Which rewrite is testable with the Banyan records?",
+    "options": [
+      "Test whether WS-104's outbound volume to that destination departs from peers",
+      "Test whether the customer data sent to that destination was encrypted first",
+      "Test whether the attackers used the same destination against other lenders",
+      "Test whether the payload contained records from the customer database"
+    ],
+    "correct": 0,
+    "explanation": "The proxy records volume, 48,200,000 outbound bytes, but payload is unknown. Questions about content, encryption or use against other organizations need evidence the dataset lacks. Comparing volume and destination prevalence against peers uses what the records contain.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the prioritization approach, how should a high-impact hypothesis be handled if only cloud identity audit logs could answer it and the dataset has none?",
+    "options": [
+      "Rank it first, because impact always outweighs feasibility in hunting",
+      "Score it low on feasibility and record it as a visibility gap",
+      "Test it anyway and report an empty result as a negative finding",
+      "Remove it from the backlog, since unanswerable hypotheses have no value"
+    ],
+    "correct": 1,
+    "explanation": "Feasibility is one of the three ranking factors. A hypothesis the data cannot test scores low on it, but the gap is worth recording because it makes the case for collection. Reporting an empty search as negative would be misleading.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why should hunt predictions be written at the level of behavior rather than a specific tool or filename?",
+    "options": [
+      "Tool-level predictions are always too broad to discriminate between hosts",
+      "Behavior-level predictions remove the need for any baseline comparison",
+      "Tool-level predictions miss variants, such as a different Office parent",
+      "Behavior-level predictions let the analyst skip writing refuting evidence"
+    ],
+    "correct": 2,
+    "explanation": "Requiring one particular parent application or filename catches one procedure and misses variants of the same behavior. Behavior-level predictions still need a baseline to separate routine instances, and they still need refuting evidence.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "According to the lesson, what does a refuted hypothesis represent?",
+    "options": [
+      "A failed hunt that should be removed from the hunt log",
+      "Evidence that detection rules for the behavior are working",
+      "A sign that the hypothesis was scoped too narrowly to matter",
+      "A completed hunt that reduced uncertainty in the stated scope"
+    ],
+    "correct": 3,
+    "explanation": "Refutation is a result. The team now knows the behavior was not present in the stated scope and window, in the available data. That negative result belongs in the hunt record. It says nothing direct about whether detection rules work.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does a positive hunt outcome mean in this module?",
+    "options": [
+      "The predicted pattern is present and warrants escalation or more validation",
+      "The workstation has been proven compromised and must be reimaged without further delay",
+      "The behavior is confirmed malicious and attributed to a named actor",
+      "The hypothesis needs no further review because the data agreed"
+    ],
+    "correct": 0,
+    "explanation": "A positive outcome means the predictions were observed and the refuting results were not. That is a reason to escalate or validate further, not proof of compromise, malicious intent or attribution.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should an intelligence-driven hypothesis test the reported behavior and not only the indicators in the report?",
+    "options": [
+      "Indicators in published reports are usually fabricated to mislead defenders",
+      "Behaviors can be searched without any log data being available",
+      "Indicators may have changed, while the underlying behavior often persists",
+      "Behavior searches always return fewer false positives than indicators"
+    ],
+    "correct": 2,
+    "explanation": "Adversaries change domains and files easily, so indicators from a report may already be stale. The behavior is harder to change. Behavior searches still need data and do not always produce fewer false positives.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Draft B predicts a successful VPN authentication from an address new for the account, preceded by a failure burst from the same address. What gives it strong discrimination?",
+    "options": [
+      "It limits the hunt to a single named user account",
+      "It combines a new external address with a preceding failure burst",
+      "It relies on the VPN recording session activity afterwards",
+      "It requires the address to appear in a threat intelligence feed"
+    ],
+    "correct": 1,
+    "explanation": "Novelty alone fits travel, and a failure burst alone fits a mistyped password. Requiring both from the same address makes the pattern much less likely under benign explanations. The draft does not depend on session data or intelligence feeds.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A sector note warns about invoice-themed documents, and the dataset has no mail data. What is the right hypothesis design response?",
+    "options": [
+      "Search VPN data for invoice-related usernames during the window",
+      "Report that no invoice documents were delivered to finance staff",
+      "Wait until mail gateway logs are collected before doing anything",
+      "Hunt for the observable consequence and record mail delivery as a gap"
+    ],
+    "correct": 3,
+    "explanation": "Delivery cannot be observed without mail data, but a consequence such as a download followed by an Office child process can. Testing that while recording the mail gap keeps the hunt useful and honest. Reporting no delivery would be an unsupported negative.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which three factors does the lesson use to prioritize competing hypotheses?",
+    "options": [
+      "Impact, plausibility and feasibility",
+      "Impact, urgency and alert volume",
+      "Plausibility, cost and analyst seniority",
+      "Feasibility, novelty and vendor coverage"
+    ],
+    "correct": 0,
+    "explanation": "Impact asks how bad the behavior would be, plausibility asks how likely it is given intelligence and environment, and feasibility asks whether the available data can test it. The lesson stresses that the written justification matters more than numeric scores.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is the draft \"Check if anything bad happened on finance laptops last month\" rejected?",
+    "options": [
+      "It covers too short a period to include monthly cycles",
+      "It names no behavior, prediction or refuting result",
+      "It should name a specific threat actor to be testable",
+      "It uses finance laptops rather than finance servers"
+    ],
+    "correct": 1,
+    "explanation": "The draft has none of the parts that make a hypothesis testable. Without a behavior there is nothing to predict, and without refuting evidence it cannot end. Naming an actor would not fix this.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which narrower hypothesis does the saved VPN summary directly support?",
+    "options": [
+      "The gopal session accessed internal file shares after 06:46:00Z",
+      "The gopal identity was used on WS-104 shortly after authenticating",
+      "The gopal password was obtained through an earlier phishing email",
+      "One external address failed for many identities before a success"
+    ],
+    "correct": 3,
+    "explanation": "The summary reports eight distinct failed identities from 203.0.113.66 and a success for gopal at 06:46:00Z, which matches the authentication-pattern hypothesis. File share access, use of WS-104 and phishing all need data the VPN records do not contain.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should a no-data hunt outcome be recorded?",
+    "options": [
+      "As a negative result showing the behavior was absent from scope",
+      "As an incomplete hunt that should not appear in the hunt record",
+      "As a finding about visibility, with the specific gap named",
+      "As a positive result, since missing data is itself suspicious"
+    ],
+    "correct": 2,
+    "explanation": "A no-data outcome says the hypothesis could not be tested, and that is real information about visibility. Naming the gap lets the team prioritize collection. Treating it as negative or positive would misstate what the data showed.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A hypothesis predicts only that \"WS-104 made proxy requests during the window.\" Why is this a weak prediction?",
+    "options": [
+      "Almost every workstation makes proxy requests, so it barely discriminates",
+      "Proxy records cannot show which workstation made a request",
+      "The Banyan proxy source does not cover 2026-11-03",
+      "Requests matter only when combined with mail gateway logs"
+    ],
+    "correct": 0,
+    "explanation": "A useful prediction is more likely to be seen if the hypothesis is true than if it is false. Proxy requests occur on nearly every workstation regardless, so observing them adds almost nothing. The Banyan proxy data does cover WS-104 on that date.",
+    "lesson": 1,
+    "difficulty": "hard"
+  }
+]

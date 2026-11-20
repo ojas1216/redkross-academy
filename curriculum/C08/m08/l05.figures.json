@@ -1,0 +1,148 @@
+{
+  "C08-M08-L05-F1": {
+    "title": "How the Banyan matrix turns facts into an incident severity",
+    "caption": "Three impact questions give one impact level, the matrix combines it with scope, and urgency and floor rules turn the result into the severity of record.",
+    "alt": "Graph, top to bottom. Three blue boxes at the top: Functional impact (none, low, medium, high), Information impact (none, privacy, proprietary, integrity) and Recoverability (regular, supplemented, extended, not recoverable). All three point to the orange box Impact level (highest of the three, 1 to 4). Impact level and the slate box Scope (contained, several, widespread) both point to the violet box Base SEV from the matrix (impact x scope). Base SEV points to the dark box Incident severity of record (SEV1 to SEV4, owned by the IR lead). The red box Urgency (immediate, pressing, deferred) also points to it, with the edge label adjust by one level, and the violet box Floor rules (for example, confirmed attacker access: at least SEV2) points to it with the label never below.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      {
+        "id": "fi",
+        "label": "Functional impact",
+        "sub": "none / low / medium / high",
+        "tone": "blue"
+      },
+      {
+        "id": "ii",
+        "label": "Information impact",
+        "sub": "none / privacy / proprietary / integrity",
+        "tone": "blue"
+      },
+      {
+        "id": "ri",
+        "label": "Recoverability",
+        "sub": "regular / supplemented / extended / not recoverable",
+        "tone": "blue"
+      },
+      {
+        "id": "imp",
+        "label": "Impact level",
+        "sub": "highest of the three, 1-4",
+        "tone": "orange"
+      },
+      {
+        "id": "sc",
+        "label": "Scope",
+        "sub": "contained / several / widespread",
+        "tone": "slate"
+      },
+      {
+        "id": "base",
+        "label": "Base SEV from the matrix",
+        "sub": "impact x scope",
+        "tone": "violet"
+      },
+      {
+        "id": "urg",
+        "label": "Urgency",
+        "sub": "immediate / pressing / deferred",
+        "tone": "red"
+      },
+      {
+        "id": "fl",
+        "label": "Floor rules",
+        "sub": "e.g. confirmed attacker access: at least SEV2",
+        "tone": "violet"
+      },
+      {
+        "id": "sev",
+        "label": "Incident severity of record",
+        "sub": "SEV1-SEV4, owned by the IR lead",
+        "tone": "dark"
+      }
+    ],
+    "edges": [
+      {
+        "from": "fi",
+        "to": "imp"
+      },
+      {
+        "from": "ii",
+        "to": "imp"
+      },
+      {
+        "from": "ri",
+        "to": "imp"
+      },
+      {
+        "from": "imp",
+        "to": "base"
+      },
+      {
+        "from": "sc",
+        "to": "base"
+      },
+      {
+        "from": "base",
+        "to": "sev"
+      },
+      {
+        "from": "urg",
+        "to": "sev",
+        "label": "adjust by one level"
+      },
+      {
+        "from": "fl",
+        "to": "sev",
+        "label": "never below"
+      }
+    ],
+    "note": "Impact is the worst of three answers, not their sum; urgency changes the tempo, never the facts."
+  },
+  "C08-M08-L05-F2": {
+    "title": "The Banyan severity matrix with the two cases placed",
+    "caption": "Base severity for each impact level and scope in the fictional Banyan SOC playbook, with CASE-0001 and CASE-0002 placed before the urgency adjustment.",
+    "alt": "Table with four columns: Impact level, Contained (1 host or account), Several (2-10 or one team) and Widespread (critical service or many). Row Severe (4), red: SEV2 marked CASE-0001 base, SEV1 marked if CASE-0002 merges, SEV1. Row Significant (3), orange: SEV3, SEV2, SEV1. Row Limited (2), blue: SEV4 marked CASE-0002 base, SEV3, SEV2. Row Minimal (1), slate: SEV4, SEV4, SEV3. Note: Immediate urgency raises one level, to SEV1 at most; floor rules set a minimum; a contained incident keeps its peak severity of record.",
+    "type": "table",
+    "columns": [
+      "Impact level",
+      "Contained (1 host or account)",
+      "Several (2-10 or one team)",
+      "Widespread (critical service or many)"
+    ],
+    "rowTones": [
+      "red",
+      "orange",
+      "blue",
+      "slate"
+    ],
+    "rows": [
+      [
+        "Severe (4)",
+        "SEV2 (CASE-0001 base)",
+        "SEV1 (if CASE-0002 merges)",
+        "SEV1"
+      ],
+      [
+        "Significant (3)",
+        "SEV3",
+        "SEV2",
+        "SEV1"
+      ],
+      [
+        "Limited (2)",
+        "SEV4 (CASE-0002 base)",
+        "SEV3",
+        "SEV2"
+      ],
+      [
+        "Minimal (1)",
+        "SEV4",
+        "SEV4",
+        "SEV3"
+      ]
+    ],
+    "note": "Immediate urgency raises one level (SEV1 at most); floor rules set a minimum; a contained incident keeps its peak severity of record."
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "C08-M09-L05-F1": {
+    "title": "Account-compromise signs and visibility",
+    "caption": "Different activity requires different sources. The lab observes VPN and endpoint signals but omits provider and mailbox audit data.",
+    "alt": "Table of four kinds of identity signal. Location or concurrency uses IdP, VPN and proxy data and may be caused by egress changes. New MFA devices require provider audit, while inbox changes require mailbox audit. Unusual logons can be investigated in Windows or VPN records. Banyan covers some VPN and Windows evidence only.",
+    "type": "table",
+    "columns": [
+      "Sign",
+      "Telemetry",
+      "Common benign cause",
+      "Weight alone",
+      "Banyan dataset"
+    ],
+    "rows": [
+      [
+        "Location / concurrency",
+        "IdP, VPN and proxy",
+        "Known egress or geo-IP error",
+        "Medium",
+        "Partial"
+      ],
+      [
+        "New MFA device",
+        "IdP audit",
+        "Approved enrolment",
+        "High if unexplained",
+        "Unavailable"
+      ],
+      [
+        "Inbox / forwarding rule",
+        "Mailbox audit",
+        "Approved filing rule",
+        "High when unexpected",
+        "Unavailable"
+      ],
+      [
+        "Unusual logon",
+        "Windows and VPN",
+        "Approved admin work",
+        "Low to medium",
+        "Available"
+      ]
+    ],
+    "rowTones": [
+      "blue",
+      "orange",
+      "orange",
+      "blue"
+    ],
+    "note": "Evidence gaps describe the limits of the available collection."
+  }
+}

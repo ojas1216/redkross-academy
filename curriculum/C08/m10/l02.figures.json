@@ -1,0 +1,20 @@
+{
+  "C08-M10-L02-F1": {
+    "title": "Data-needs matrix for the Banyan inventory",
+    "caption": "Each hunt question is mapped to a source and a status. Red rows depend on sources or join keys the saved-record inventory does not contain.",
+    "alt": "A table with four columns: hunt question, source, status and consequence. Questions about the WS-104 download, the byte count to files-share-drop.example, and the distinct failed VPN identities are answerable from proxy or VPN records. The question about transfer content is only partially answerable because payload is unknown. Questions about email delivery, gopal's post-login activity, and a link between gopal and WS-104 are unanswerable because mail, session and shared-key data are missing.",
+    "type": "table",
+    "columns": ["Hunt question", "Source", "Status", "Consequence"],
+    "rows": [
+      ["WS-104 request at 06:12Z?", "Proxy", "Answerable", "Test as written"],
+      ["Bytes out at 08:12Z?", "Proxy", "Answerable", "Report 48,200,000 bytes"],
+      ["Content of transfer?", "None", "Partial", "Volume only, payload unknown"],
+      ["Office child process near 06:14?", "Endpoint", "Answerable", "Confirm fields in saved rows"],
+      ["Distinct failed VPN identities?", "VPN", "Answerable", "Report 8 identities"],
+      ["Delivered by email?", "None", "Unanswerable", "Record mail gap"],
+      ["gopal activity after 06:46Z?", "None", "Unanswerable", "Record session gap"],
+      ["gopal used WS-104?", "No join key", "Unanswerable", "No link in records"]
+    ],
+    "rowTones": ["green", "green", "orange", "green", "green", "red", "red", "red"]
+  }
+}

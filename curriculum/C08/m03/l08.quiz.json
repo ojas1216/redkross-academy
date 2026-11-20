@@ -28,7 +28,7 @@
   {
     "q": "Pivoting on 203.0.113.66 shows one failed VPN logon each for eight different users, seven seconds apart in alphabetical order, then a success for gopal three minutes later. Which activity does this pattern indicate?",
     "options": [
-      "A brute-force attack: many passwords tried against one account until one of them succeeded",
+      "A brute-force attempt against one account, with the other usernames recording different authentication methods for that same account",
       "A password spray: one password tried across many accounts, followed by a working credential",
       "Users mistyping their passwords after a scheduled password change across the whole team",
       "A misconfigured VPN client on a shared host retrying stored credentials for every user"
@@ -211,7 +211,7 @@
     "q": "A draft report states: 'The attacker behind the VPN spray sent the phishing document and ran a data-stealing PowerShell script.' How should a reviewer judge it against the lab evidence?",
     "options": [
       "It overstates: the link between spray and phishing is only timing, and the PowerShell command line is redacted",
-      "It is supported: both activities occurred within one hour, which is sufficient to attribute them to one actor",
+      "The conclusion is supported because both activities overlap in time and evidence from the same morning is sufficient to attribute them to one operator",
       "It is supported: the 48 MB upload proves PowerShell stole data, since it followed the script launch on WS-104",
       "It understates: R7 links the VPN source address directly to the download of the macro-enabled document"
     ],
@@ -288,7 +288,7 @@
   {
     "q": "After editing minisiem.py, you run 'python minisiem.py rules' and R1 to R6 print normally, but no R7 line appears at all. What is the most likely cause?",
     "options": [
-      "The time condition in R7 has a typo, so the rule runs but its join produces no matching rows",
+      "The new rule's time condition contains a typo, so the rule runs with the existing entries but its query returns no matching events",
       "The dataset was not reloaded after the edit, so the new rule cannot see the events table",
       "The LIKE pattern is case-sensitive, so the WINWORD.EXE parent never matches the condition",
       "The R7 entry sits outside the RULES dictionary's braces, or a missing comma merged it into R6"

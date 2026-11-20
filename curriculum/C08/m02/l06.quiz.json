@@ -109,7 +109,7 @@
       "ISO dates are shorter, so they use less storage in the SIEM index",
       "Year-first order removes the ambiguity between 3 November and 11 March",
       "ISO dates are in IST by default, so no offset has to be added",
-      "Slash-separated dates cannot be parsed by any SIEM or Python library"
+      "Slash-separated dates are rejected by SIEM parsers even when the source documents the intended day and month ordering"
     ],
     "correct": 1,
     "explanation": "03/11/2026 is 3 November in India and the UK but 11 March in the United States; year-month-day removes the doubt. ISO dates have no default zone: the offset or Z must be written explicitly.",
@@ -237,7 +237,7 @@
     "q": "Host A's clock is known to run about three seconds ahead of host B's. A file appears on B two seconds after A's log says it was sent. What should the analyst conclude?",
     "options": [
       "The ordering is uncertain, because the gap is smaller than the known skew between the hosts",
-      "The file was sent before it arrived, because the logs show a two-second gap in that order",
+      "The send necessarily came first because the timestamps show a positive interval and only the receiving host records the arrival",
       "The file arrived before it was sent, so one of the two logs must have been tampered with",
       "The hosts are in different zones, so B's time must be converted before any comparison"
     ],
@@ -289,7 +289,7 @@
     "q": "A management report converts an event at 20:00 UTC on 3 November 2026 to IST. Why does the lesson insist on keeping both columns?",
     "options": [
       "It becomes 14:30 IST on 3 November, so readers need the UTC value to know it was evening",
-      "IST changes with daylight saving time, so the UTC column is needed to check the offset used",
+      "IST switches to a seasonal daylight-saving offset, so both columns are needed to verify which local offset was applied on the date",
       "The IST value cannot be converted back to UTC, so UTC must be preserved for later analysis",
       "It becomes 01:30 IST on 4 November, so the event can appear on a different day in each column"
     ],
@@ -301,7 +301,7 @@
   {
     "q": "A \"spray then success\" rule requires VPN failures to come before a success. The failures come from a source that logs naive IST times, wrongly parsed as UTC; the success is correctly in UTC. Why does the rule not fire?",
     "options": [
-      "The failures are stamped 5 h 30 min early, so they fall before the window",
+      "The failures are stamped five hours and thirty minutes early, placing them too far before the rule's eligible window",
       "The success is stamped 5 h 30 min late, so it appears after the window",
       "The failures are stamped 5 h 30 min late, so they appear after the success",
       "The failures lack an offset, so the SIEM discards them at ingestion"
@@ -314,7 +314,7 @@
   {
     "q": "An NTP client finds its clock is a few seconds fast. Why does it normally slew the clock rather than jump it back?",
     "options": [
-      "So the Kerberos tolerance is reset after every correction that is made",
+      "A gradual adjustment resets the host's authentication clock tolerance without saving the corrected value to its configuration",
       "So the stratum of the client is promoted to match that of the server",
       "So time does not run backwards, which would disorder the host's own logs",
       "So the network delay between client and server is no longer counted"

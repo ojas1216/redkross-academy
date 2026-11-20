@@ -1,0 +1,37 @@
+{
+  "C08-M12-L07-F1": {
+    "title": "Correlate VPN results in a bounded window",
+    "caption": "A targeted identity candidate combines source, time and distinct failed identities.",
+    "alt": "Five steps record eligible VPN events and IDs, account for repeated receipts, select earlier failures for the same address, count distinct failed identities and route a qualifying success for review.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      {
+        "label": "Read eligible VPN records",
+        "sub": "Use source identity and event time",
+        "tone": "slate"
+      },
+      {
+        "label": "Account for repeated receipts",
+        "sub": "Use stable event identity",
+        "tone": "blue"
+      },
+      {
+        "label": "Select earlier failures",
+        "sub": "Same address, within 300 seconds",
+        "tone": "violet"
+      },
+      {
+        "label": "Count distinct identities",
+        "sub": "Compare with exercise threshold",
+        "tone": "orange"
+      },
+      {
+        "label": "Route qualifying success",
+        "sub": "Provide evidence and limited scope",
+        "tone": "dark"
+      }
+    ],
+    "note": "A qualifying signal is a review candidate rather than an attribution."
+  }
+}
