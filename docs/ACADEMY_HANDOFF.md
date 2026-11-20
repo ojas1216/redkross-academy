@@ -35,3 +35,35 @@ Read this file, curriculum/PROGRESS.md, the current Claude STATUS and REVIEW fil
   browser pass of the real lesson player and one real exam; production items in LAUNCH_READINESS.md.
 - Agent capacity: the account hit its monthly spend limit at about 20:30 Dublin on 20 Nov, so
   Claude sub-agents cannot run until it is raised or resets.
+
+## 20 November, Claude: course quality assessment and diagram work
+
+Owner instruction (20 Nov): change content only where a course is genuinely weak; otherwise
+leave content alone and concentrate on diagrams.
+
+Measured with a read-only audit (lesson words, images, broken paths, ASCII/raw markup):
+
+| Course | Avg words/lesson | Lessons without a figure | Verdict |
+| --- | --- | --- | --- |
+| C01 | ~2,745 | 0 | Strong - content unchanged |
+| C02 | ~790 | 0 (was 8) | Fine - content unchanged; diagrams upgraded (below) |
+| C03 | ~1,160 | 0 | Strong - unchanged |
+| C04 | ~1,040 | 0 | Strong - unchanged |
+| C08 | ~4,090 (v2) | 0 | Rebuilt v2 - done |
+| C05-C07, C09-C22 (library v1) | ~160-250 | 102 of 110 each | **Weak**: lessons are short summaries; diagrams exist only in each module's "Visual guide" lesson. These are the courses that need the v2 rebuild (curriculum/AUTHORING_GUIDE.md, AGENT_BRIEF.md, PROGRESS.md workflow). |
+
+Diagram work done (no lesson text changed):
+- C01 (1) and C02 (12) Mermaid diagrams replaced by designed SVGs rendered with
+  scripts/figures/render.mjs (specs: scripts/figures/specs/legacy.mjs, converter:
+  scripts/figures/convert_legacy_mermaid.mjs, output public/assets/courses/cyber-0N/designed/).
+  Each shows exactly what the Mermaid source showed; captions and walkthroughs unchanged.
+  No ```mermaid block remains in src/services/db. tests/test_figure_rendering_audit.mjs:
+  182/182 lessons with figures (was 174).
+- render.mjs: `flow` loop.to now works in left-to-right flows too.
+
+Next for whoever continues: rebuild the weak library courses one at a time (defence-led
+order in PROGRESS.md). Claude sub-agents are blocked by the account's monthly spend limit
+(20 Nov ~20:30 Dublin) until it is raised or resets.
+
+Local review instance: API `node server/productionServer.js` (port 3000, local Postgres
+container rk-academy-pg) + Vite on http://localhost:5173.

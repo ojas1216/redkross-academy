@@ -182,7 +182,8 @@ function layoutFlow(spec) {
     if (spec.loop) {
       const ly = dy + 18;
       const x1 = PAD + (n - 1) * (bw + gap) + bw / 2;
-      const x0 = PAD + bw / 2;
+      const target = Math.min(Math.max(Number(spec.loop.to) || 0, 0), n - 1); // optional loop.to step index
+      const x0 = PAD + target * (bw + gap) + bw / 2;
       svg += `<path d="M${x1},${y + bh} L${x1},${ly} L${x0},${ly} L${x0},${y + bh + 4}" fill="none" stroke="${LINE}" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#ah)"/>`;
       if (spec.loop.label) {
         const lw = textWidth(spec.loop.label, 12.5) + 16;
