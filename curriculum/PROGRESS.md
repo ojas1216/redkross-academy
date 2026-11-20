@@ -13,7 +13,7 @@ the lesson player (desktop + mobile).
 | C06 | 0/12 | - | - | - | |
 | C07 | 0/12 | - | - | - | |
 | C08 | 12/12 | 12/12 PASS | Yes (curriculum/build/C08.json) | 96/96 lessons render; API exam checks pass | First v2 course. M09-M12 lessons are shorter (16-19k words/module, 1 figure per lesson) than M01-M08 (~26k, 2 figures). |
-| C09 | 0/12 | - | - | - | |
+| C09 | M01 in progress (Claude, 4 lesson agents started 20 Nov) | - | - | - | Next weak course after C08 (owner: continue with the next weak course). Codex: take modules from M02 upward if you work in parallel, and note it here first. |
 | C10 | 0/12 | - | - | - | |
 | C11 | 0/12 | - | - | - | |
 | C12 | 0/12 | - | - | - | |

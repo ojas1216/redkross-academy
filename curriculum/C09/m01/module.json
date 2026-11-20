@@ -1,0 +1,64 @@
+{
+  "course": "C09",
+  "module": 1,
+  "title": "Forensic foundations",
+  "description": "The foundations every forensic examination rests on: the scientific principles of digital forensics, the kinds of digital evidence, collecting in order of volatility, the Indian legal framework for electronic evidence, chain of custody, documentation, professional ethics and building a safe forensic lab.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Forensic principles",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 2,
+      "title": "Evidence types",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 3,
+      "title": "Order of volatility",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 4,
+      "title": "Legal handling in India",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 5,
+      "title": "Chain of custody",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 6,
+      "title": "Documentation",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 7,
+      "title": "Ethics",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 8,
+      "title": "Lab setup",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    }
+  ]
+}
