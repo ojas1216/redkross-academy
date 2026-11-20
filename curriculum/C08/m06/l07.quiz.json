@@ -68,7 +68,7 @@
     "q": "A MISP event is tagged tlp:red from the TLP taxonomy, but its distribution setting is 'All communities'. What will happen when the instance synchronises?",
     "options": [
       "The event is shared according to the distribution setting, so the RED tag will not stop it spreading",
-      "MISP blocks synchronisation, because the TLP tag overrides the distribution setting",
+      "MISP blocks synchronisation, because the TLP tag always overrides the distribution setting on every event",
       "The event is shared only with the named recipients listed in the RED tag",
       "MISP downgrades the tag to tlp:clear to match the distribution setting"
     ],
@@ -81,8 +81,8 @@
     "q": "A manager asks whether marking a PDF TLP:RED will stop a recipient from forwarding it. Which answer is accurate?",
     "options": [
       "Yes, because TLP-aware mail gateways refuse to forward RED documents",
-      "No; TLP is a human-readable promise, so compliance depends on recipients' discipline and community sanctions",
-      "Yes, provided the label is written in the subject line as well as in the document",
+      "No; TLP is a human-readable promise, so compliance rests on recipients and community sanctions",
+      "Yes, provided the label is written in the subject line as well as in the header of every page of the document",
       "No, because TLP labels are only meaningful inside a sharing platform such as MISP"
     ],
     "correct": 1,
@@ -173,7 +173,7 @@
     "options": [
       "Submit an initial report with what is known before 16:00 and send updates as the investigation proceeds",
       "Wait until scope is confirmed, because an incomplete report would mislead CERT-In",
-      "Report only once the root cause is known, because the six hours start at confirmation",
+      "Report only once the root cause is known, because the six-hour window starts at confirmation of the incident",
       "Notify the sector ISAC instead, which forwards reportable incidents to CERT-In"
     ],
     "correct": 0,
@@ -237,7 +237,7 @@
     "q": "Which item in a draft peer warning about a phishing campaign should be removed or generalised before release?",
     "options": [
       "The SHA-256 hash of the malicious attachment",
-      "The sender address pattern used by the lure emails",
+      "The sender address pattern used by the lure emails, including the look-alike domain they came from",
       "The ATT&CK technique ID for the initial access method",
       "A file path showing where the attachment was saved, which contains the user's profile name"
     ],
@@ -303,7 +303,7 @@
     "options": [
       "As a malicious site operated by the attacker, so peers block it permanently",
       "By naming the business as complicit, so that peers pressure it to clean up",
-      "Not at all, because compromised sites cannot be included in any intelligence",
+      "Not at all, because compromised sites cannot be included in any shared intelligence without the owner's consent",
       "By the observation, for example that it served the lure on a stated date, without accusing the owner"
     ],
     "correct": 3,

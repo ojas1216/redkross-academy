@@ -15,8 +15,8 @@
   {
     "q": "Why should an enrichment cache be keyed by the pair (canonical value, source) rather than by the canonical value alone?",
     "options": [
-      "Different sources can legitimately say different things about one value, and both answers must survive",
-      "Keying by value alone would make it impossible to store negative results for any entity",
+      "Different sources can legitimately disagree about one value, and both answers must survive",
+      "Keying by value alone would make it impossible to store negative results for any entity at all",
       "Sources require the cache to prove which key was used before they bill a lookup",
       "A value cannot be canonicalised until the pipeline knows which source will receive it"
     ],
@@ -30,7 +30,7 @@
     "options": [
       "Nothing, because the cache entry is still inside its 14-day TTL",
       "The hit count has changed since 3 November, so the match must be recomputed",
-      "Address TTLs should be longer than 14 days, so the entry is in fact too young",
+      "Address TTLs should be longer than 14 days, so the cached entry is in fact far too young",
       "Validity was not re-checked against the as-of date; the correct status is EXPIRED"
     ],
     "correct": 3,
@@ -43,7 +43,7 @@
     "options": [
       "Retry immediately up to five times, then record the value as clean",
       "Stop sending to that source, wait at least the requested time, then retry with growing backoff",
-      "Send the same value to a free public service that publishes submissions instead",
+      "Send the same value to a free public service that publishes submissions, so the answer arrives sooner",
       "Record 'no data from source' and cache that negative result with a long TTL"
     ],
     "correct": 1,
@@ -68,7 +68,7 @@
     "q": "An external source fails to answer within the pipeline's timeout while an alert is being enriched. How should the result be handled?",
     "options": [
       "Record the value as clean as of that time, since no adverse data was returned",
-      "Record 'no data from source' and negative-cache it with the usual negative TTL",
+      "Record 'no data from source' and negative-cache it with the usual negative TTL for that type",
       "Hold the alert out of the queue until the source answers or the shift ends",
       "Record 'source unavailable at time T', let the alert proceed and flag it for re-enrichment"
     ],
@@ -108,7 +108,7 @@
     "options": [
       "Submit it externally, because the gate only blocks internal values",
       "Submit only the host name without the URL path, which removes the restriction",
-      "Submit it to a free public service, because the contract only covers paid lookups",
+      "Submit it to a free public service instead, because the contract only covers paid lookups",
       "Match it internally only; the AMBER marking forbids passing it to that third party"
     ],
     "correct": 3,
@@ -119,7 +119,7 @@
   {
     "q": "A pipeline sends the src_ip value '-' (present in 10 Banyan events) to a reputation service. What is the correct diagnosis?",
     "options": [
-      "It is an internal address token and sending it discloses Banyan's addressing",
+      "It is an internal address token, and sending it outside discloses Banyan's internal addressing",
       "It is a placeholder, not an entity; it should be dropped and counted at canonicalisation",
       "It is a defanged indicator that must be refanged before the lookup",
       "It should be routed to internal sources, since its owner is unknown"
@@ -134,7 +134,7 @@
     "options": [
       "Internal and restricted values will already have been sent to sources before the gate runs",
       "The gate becomes redundant, because the cache already filters out internal values",
-      "Results cannot be classified after lookup, because sources strip the original markings",
+      "Results cannot be classified after the lookup, because sources strip the original TLP markings",
       "Running the gate late breaks deduplication, since the gate is what removes repeats"
     ],
     "correct": 0,
@@ -160,7 +160,7 @@
     "options": [
       "Leave the entries alone and let them expire naturally when their TTL runs out",
       "Flush every cached result derived from that indicator, regardless of remaining TTL",
-      "Halve the stored confidence of the cached results so analysts weigh them less",
+      "Halve the stored confidence of the cached results so that analysts weigh them less from now on",
       "Add a negative cache entry beside each positive one so both answers are kept"
     ],
     "correct": 1,
@@ -171,7 +171,7 @@
   {
     "q": "The internal TIP has been unreachable for six hours while external lookups kept working. What does the lesson's degradation guidance require?",
     "options": [
-      "Nothing beyond logging, because external services cover the missing intelligence",
+      "Nothing beyond routine logging, because external services cover the missing community intelligence",
       "Holding new alerts out of the queue until TIP matching can be applied again",
       "Recording every value enriched during the outage as clean for the TIP source",
       "Raising a pipeline health alert, since lost intelligence matching is a coverage gap"
@@ -185,7 +185,7 @@
     "q": "An enrichment record for cdn-telemetry-sync.example contains the line 'we assess the beacon as malicious with high confidence'. What is wrong with this record?",
     "options": [
       "The confidence should be written as a number so it can be compared with 85",
-      "The SOC must reuse the source's confidence of 85 rather than its own wording",
+      "The SOC must reuse the source's confidence of 85 in the record rather than writing its own wording",
       "It mixes the SOC's analytic judgement into provenance, which should hold the producer's words",
       "Provenance records may describe the domain but must not mention the beacon"
     ],
@@ -210,7 +210,7 @@
   {
     "q": "A SOC allowlist contains a content-delivery host added two years ago, with no owner, reason or review date. Why is this a security problem rather than just untidiness?",
     "options": [
-      "It raises external quota use, because allowlisted values are re-checked externally",
+      "It raises external quota use, because allowlisted values are re-checked externally on every alert",
       "It causes cache misses, because allowlisted values are never written to the cache",
       "It makes cache keys ambiguous, because the allowlist uses its own canonical form",
       "It is an unaudited suppression that can hide malicious use of that host indefinitely"
@@ -239,7 +239,7 @@
       "Query an external breach-lookup service so the alert has complete context",
       "Copy the employee's full HR record into the alert for the analyst's convenience",
       "Enrich only from internal sources, adding only attributes the security decision needs",
-      "Hash the account name before sending it to external services to anonymise it"
+      "Hash the account name before sending it to external services, which fully anonymises the lookup"
     ],
     "correct": 2,
     "explanation": "Personal identifiers are enriched internally and minimised to what the decision requires, for a lawful purpose with reasonable safeguards. Hashing a known name before sending it outside still discloses a lookup about an identifiable person and is not what the gate permits.",
@@ -263,9 +263,9 @@
     "q": "During an incident, 300 high-severity alerts share four external values and the external service's daily quota is nearly spent. Which approach handles the rate limit best?",
     "options": [
       "Increase retry frequency so the pending requests are answered sooner",
-      "Query the service once per event so every alert carries a fresh answer",
+      "Query the service once per event, so that every one of the 300 alerts carries its own fresh answer",
       "Lower the TTLs during the incident so answers are refreshed more often",
-      "Look up each distinct value once, serve repeats from cache and spend budget on high severity first"
+      "Look up each distinct value once, reuse cached answers and spend budget on high severity first"
     ],
     "correct": 3,
     "explanation": "Deduplication and caching are the first rate-limit controls, and a per-source budget spent in priority order keeps quota for what matters most. Per-event lookups and shorter TTLs multiply requests exactly when the quota is scarcest.",
@@ -288,8 +288,8 @@
   {
     "q": "The analyst confirms that the 198.51.100.104 match was gopal's ordinary VPN session. What is the appropriate feed-back step?",
     "options": [
-      "Record the outcome against the indicator in the TIP and report it to the open feed where a channel exists",
-      "Add the address to the allowlist permanently, with no expiry, so it never matches again",
+      "Record the outcome against the indicator in the TIP and tell the open feed where a channel exists",
+      "Add the address to the allowlist permanently, with no owner or expiry, so that it can never match again",
       "Delete the match from the case record so the false positive does not mislead reviewers",
       "Submit the address to public reputation services so they can correct their own verdicts"
     ],
@@ -315,9 +315,9 @@
     "q": "Why does the default cascade consult the internal TIP and community data before an approved external service?",
     "options": [
       "External services are generally less accurate than any internal source",
-      "A TIP answer is always definitive, so the external stage is never needed",
+      "A TIP answer is always definitive, so the external stage is never needed once the TIP has replied",
       "External services cannot return reputation information about domains",
-      "The order follows cost and exposure: the TIP stays inside, external lookups spend quota and reveal the query"
+      "Cost and exposure: the TIP stays in-house, while external lookups spend quota and reveal the query"
     ],
     "correct": 3,
     "explanation": "The cascade runs from cheapest and most private to most expensive and most exposed; the TIP is curated, marked and internal. A stage-3 match is often not final, since policy may let stage 4 add fields, so 'always definitive' is wrong.",

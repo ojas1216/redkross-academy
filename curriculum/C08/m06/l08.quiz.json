@@ -57,7 +57,7 @@
       "The script multiplies the feed confidence by the number of sightings",
       "ISAC-A is rated A for reliability, which overrides the feed's number",
       "Rule R2 independently detected the spray from that address, which local evidence treats as confirmation",
-      "The address is TLP:GREEN, and GREEN items receive a higher grade than AMBER items"
+      "The address is labelled TLP:GREEN, and GREEN items automatically receive a higher grade than AMBER items"
     ],
     "correct": 2,
     "explanation": "Credibility 1 is assigned when the value is sighted and a behavioural rule that knows nothing about the feed also names it, so local corroboration raises your confidence above the source's. ISAC-A is rated B, not A, and TLP has no bearing on the grade.",
@@ -121,8 +121,8 @@
     "options": [
       "Because a reliability of B always defers to the source's number",
       "Because the vendor's TLP:AMBER label forbids local re-grading",
-      "Because with no hash telemetry the claim cannot be judged locally, and inventing a grade would be false precision",
-      "Because the hash is still valid for 76 days, which locks the original score"
+      "Because with no hash telemetry the claim cannot be judged locally, so any grade would be false precision",
+      "Because the hash indicator is still valid for another 76 days, which locks the vendor's original score in place"
     ],
     "correct": 2,
     "explanation": "Credibility 6 means 'cannot be judged': no local evidence exists either way, so the honest result is to keep the source's score and fix the telemetry gap. Validity and TLP are separate fields that have nothing to do with the grade.",
@@ -145,7 +145,7 @@
   {
     "q": "The incident shows event 4720 creating the local account svc_update, followed by 4732 adding it to Administrators. How useful is the name svc_update as an indicator for peers?",
     "options": [
-      "A strong blocking indicator, because account names are unique to one threat actor",
+      "A strong blocking indicator, because account names like this are unique to one threat actor and never reused",
       "Useless, because account names can never be shared as intelligence",
       "Useful only if paired with the internal host name where it was created",
       "Weak on its own, since attackers pick routine-looking names, but a fair hunting lead in peers' 4720 events"
@@ -197,7 +197,7 @@
   {
     "q": "After scrub_check.py flagged four identifiers in note_draft.txt, which further problem in the draft could only a human reviewer catch?",
     "options": [
-      "The draft named the internal address 10.40.0.23 in the beacon line",
+      "The draft named the internal address 10.40.0.23 in the beacon line, which reveals Banyan's network layout",
       "The draft included cdn-telemetry-sync.example, received at TLP:AMBER, in a TLP:GREEN note",
       "The draft named the workstation WS-104 on the second line",
       "The draft named the user gopal at the end of the spray line"
@@ -210,10 +210,10 @@
   {
     "q": "svc_update appears in note_green.txt and the checker does not flag it. Why is it acceptable to share?",
     "options": [
-      "It names an account the attacker created, so it is attacker-side information, not a staff member's identity",
+      "It names an account the attacker created, so it is attacker-side data, not a staff member's identity",
       "It passed the checker, and anything that passes the checker is safe",
       "Service accounts are excluded from personal data under the DPDP Act",
-      "It was created after the CISO's approval, so it is covered by the release"
+      "It was created after the CISO's approval of the note, so it is automatically covered by the release decision"
     ],
     "correct": 0,
     "explanation": "The account belongs to the intrusion, not to a person at Banyan, so it is attacker-side. Passing the checker is not the reason: the checker would also miss names absent from the dataset, which is why human judgement decides.",
@@ -223,9 +223,9 @@
   {
     "q": "Why is TLP:GREEN the correct label for the final peer note in the lab?",
     "options": [
-      "Because the CISO approved it, and approved notes are released at GREEN",
+      "Because the CISO approved it, and every note the CISO approves is released to sector peers at GREEN",
       "Because the scrub check reported zero findings, which permits GREEN",
-      "Because every item in it is either first-party or arrived at GREEN, after the AMBER domain was held back",
+      "Because every item is first-party or arrived at GREEN, once the AMBER domain was held back",
       "Because sector peer notes must always be GREEN under TLP 2.0"
     ],
     "correct": 2,
@@ -251,7 +251,7 @@
     "options": [
       "It re-labels the domain TLP:GREEN so ISAC-A can publish it",
       "It adds context the source lacked, the macro-to-PowerShell-to-beacon sequence, and asks to widen the label",
-      "It includes the infected user's name so ISAC-A can verify the report",
+      "It includes the infected user's name and workstation so that ISAC-A can independently verify every detail",
       "It reports the domain to CERT-In on ISAC-A's behalf"
     ],
     "correct": 1,
@@ -264,8 +264,8 @@
     "options": [
       "The domain with its middle characters masked, which removes the AMBER restriction",
       "The domain, provided the note credits ISAC-A as the original source",
-      "The behaviour, such as HTTPS beacons of fixed small size about every 300 seconds after an Office macro, without the domain",
-      "Nothing, because any information linked to an AMBER indicator inherits the AMBER label"
+      "The behaviour, such as fixed-size HTTPS beacons about every 300 seconds after an Office macro, without the domain",
+      "Nothing at all, because any information Banyan observed that is linked to an AMBER indicator inherits the AMBER label"
     ],
     "correct": 2,
     "explanation": "Banyan's own observations of the behaviour are first-party and give peers something to hunt for, while the restricted value stays out. A masked or credited domain is still the AMBER information, and the label does not extend to everything Banyan observed itself.",
@@ -275,8 +275,8 @@
   {
     "q": "A real outbound note mentions a contractor whose name never appears in the dataset's user field. What will scrub_check.py do, and what does the lab recommend?",
     "options": [
-      "Miss it, because the user list comes from SELECT DISTINCT user; real SOCs load identity lists and still read every note",
-      "Flag it, because the regex treats every capitalised word as a possible user name",
+      "Miss it, since the user list comes from SELECT DISTINCT user; load identity lists and still read every note",
+      "Flag it, because the regex treats every capitalised word in the note as a possible user name and reports it",
       "Flag it, because the checker compares words against the CMDB by default",
       "Miss it, which is acceptable because contractors are not covered by the DPDP Act"
     ],

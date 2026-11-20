@@ -41,7 +41,7 @@
   {
     "q": "Which statement correctly distinguishes MISP distribution from TLP?",
     "options": [
-      "Both are enforced by the platform, which blocks synchronisation that breaks either",
+      "Both are enforced by the platform, which blocks any synchronisation that would break either of them",
       "TLP is enforced by the platform, while distribution only advises human readers",
       "Distribution is enforced by MISP synchronisation; TLP tells people what they may do with data",
       "They are two names for one setting, so choosing one automatically sets the other"
@@ -55,7 +55,7 @@
     "q": "A reviewer finds an event tagged tlp:red with distribution set to All communities. What is the correct assessment?",
     "options": [
       "It under-shares, because TLP:RED data would normally be published more widely",
-      "It is consistent, because the TLP tag overrides the distribution during sync",
+      "It is consistent, because the TLP tag always overrides the distribution setting during synchronisation",
       "It is a contradiction that will leak: the platform will propagate it far beyond the marking",
       "It is harmless, because publishing and distribution are unrelated in MISP"
     ],
@@ -82,7 +82,7 @@
     "options": [
       "As confirmed intelligence, because the producer chose to publish it",
       "As unusable until the producer changes the state to Completed",
-      "As an unpublished draft that has reached the consumer by mistake",
+      "As an unpublished draft that has reached the consumer by mistake and should be deleted",
       "As early, possibly wrong information that should not be acted on as if Completed"
     ],
     "correct": 3,
@@ -93,7 +93,7 @@
   {
     "q": "One event stores 'CDN-Telemetry-Sync.example.' and another stores 'cdn-telemetry-sync.example', but MISP shows no correlation between them. What is the most likely cause?",
     "options": [
-      "Correlation is disabled for domain attributes in MISP's default configuration",
+      "Correlation is disabled for domain attributes in MISP's default instance configuration",
       "Basic correlation is exact value matching, so inconsistent spelling defeats it",
       "A warninglist suppressed the domain because it contains the word 'cdn'",
       "Events with different TLP tags are never correlated with each other"
@@ -122,7 +122,7 @@
       "It identifies which domain to add to the proxy block list",
       "It enforces the TLP tag on every attribute in the event",
       "It ties changeable indicators to a behaviour that a behaviour-based rule can detect",
-      "It raises the event's threat level so consumers prioritise it"
+      "It raises the event's threat level so that consumers across the community prioritise it"
     ],
     "correct": 2,
     "explanation": "Galaxy clusters link indicators, which change, to behaviours, which do not, so the engineer knows which behaviour rule should fire whatever the next campaign's domain is. The cluster carries no blocking value and has no effect on markings or threat level.",
@@ -132,7 +132,7 @@
   {
     "q": "Why model a delivered file as a MISP file object rather than as separate filename, size and hash attributes?",
     "options": [
-      "Objects bypass the event's distribution, so file details can be shared more widely",
+      "Objects bypass the event's distribution setting, so file details can be shared more widely",
       "Object contents are excluded from correlation, which reduces noisy links",
       "Objects are the only way to set an IDS flag on hash values",
       "It keeps values that describe one thing together, linkable and exportable to STIX 2.1"
@@ -161,7 +161,7 @@
       "IDS-flagged, current, specific attributes that still pass allowlists and validity checks",
       "Every attribute in any event whose threat level is set to High",
       "Every attribute that correlates with at least one other event on the instance",
-      "Any attribute carrying a tlp:clear tag, since it may be used without restriction"
+      "Any attribute carrying a tlp:clear tag, since it may be used and acted on without restriction"
     ],
     "correct": 0,
     "explanation": "All attributes may be matched for enrichment, but automated action should come only from flagged attributes, and the pipeline still applies its own allowlists and validity checks. Threat level, correlation and TLP say nothing about whether a value is specific enough to block.",
@@ -171,7 +171,7 @@
   {
     "q": "Two banks investigating the same fraud campaign want to share an event with each other and nobody else on their shared ISAC instance. Which distribution choice fits?",
     "options": [
-      "This community only",
+      "This community only, on the shared ISAC instance",
       "Connected communities",
       "Your organisation only",
       "A sharing group of the two organisations"
@@ -184,7 +184,7 @@
   {
     "q": "An analyst has created and saved a new event with distribution set to This community only. Has it been shared with the community yet?",
     "options": [
-      "Yes, every save immediately synchronises the event within its distribution",
+      "Yes, every save immediately synchronises the event to all organisations within its distribution",
       "Yes, but only to organisations that already have a correlating event",
       "No, publishing is the release step that triggers synchronisation and notifications",
       "No, sharing always requires a manual STIX export sent to each partner"
@@ -197,7 +197,7 @@
   {
     "q": "An ISAC-A event is synchronised onto Banyan's MISP instance. Which field still lets a Banyan analyst judge who produced the intelligence?",
     "options": [
-      "The owner organisation, because it identifies who holds this copy of the event",
+      "The owner organisation, because it identifies who holds this synchronised copy of the event",
       "The creator organisation, which remains the original producer after synchronisation",
       "The event UUID, because it encodes the producer's reliability grade",
       "The sharing group name, because only producers can create sharing groups"
@@ -262,7 +262,7 @@
   {
     "q": "Two unrelated-looking events correlate on an address belonging to a major cloud provider, and an analyst concludes they are the work of the same actor. What is the flaw in this reasoning?",
     "options": [
-      "Correlation only links domains, so the address match must be a display error",
+      "Correlation only links domain attributes, so the address match must be a display error in MISP",
       "Cloud provider addresses cannot be stored as attributes in MISP events",
       "A correlation counts only after at least one sighting has confirmed it",
       "A correlation is a lead, not attribution; shared infrastructure can host unrelated actors"
@@ -301,7 +301,7 @@
   {
     "q": "Banyan publishes its intrusion event to its sector ISAC community. Does this satisfy its incident-reporting obligation to CERT-In?",
     "options": [
-      "Yes, because sharing through a sector ISAC counts as reporting to CERT-In",
+      "Yes, because sharing through a sector ISAC community counts as reporting to CERT-In",
       "No, reporting specified incidents to CERT-In is a separate legal obligation",
       "Yes, provided the event is tagged tlp:clear so CERT-In may read it",
       "Only if the event's distribution is set to All communities"

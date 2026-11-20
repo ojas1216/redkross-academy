@@ -4,7 +4,7 @@
     "options": [
       "That the user's workstation is communicating with an attacker's command-and-control server",
       "That a value in your logs equals a value another party reported in connection with past activity",
-      "That the producer has confirmed the address is malicious at the time of the connection",
+      "That the producer has confirmed the address is still malicious at the time of the user's connection",
       "That the same threat actor named in the feed is now targeting the organisation"
     ],
     "correct": 1,
@@ -18,7 +18,7 @@
       "Current and reliable, because an indicator without a `valid_until` never expires",
       "Expired, because any indicator older than one year passes its validity automatically",
       "Not formally expired, but quite possibly stale, which the analyst must judge for this match",
-      "Both expired and stale, because cloud addresses are always removed from feeds after a year"
+      "Both expired and stale, because cloud addresses are always removed from feeds after one year"
     ],
     "correct": 2,
     "explanation": "Expiry is a formal property based on a stated validity; with none set the indicator is not expired. Staleness is the analyst's judgement, and an old cloud address has very likely been reassigned. Treating a missing expiry as \"valid forever\" is the strongest distractor and the most common error.",
@@ -44,7 +44,7 @@
       "The attacker can change the file slightly, so the old hash stops matching new samples while the feed keeps it",
       "Hash algorithms are re-keyed periodically, so old hash values no longer correspond to the same file",
       "Endpoint tools discard hashes older than a fixed period, so old indicators can no longer be compared",
-      "The same hash begins matching legitimate files once the original malware is removed from circulation"
+      "The same hash begins matching legitimate files once the original malware is removed from circulation by vendors"
     ],
     "correct": 0,
     "explanation": "Recompiling or changing a single byte produces a new hash, so the indicator simply stops matching anything new; it decays rather than becoming wrong. Hash functions are not re-keyed, and a hash does not start matching different files.",
@@ -57,7 +57,7 @@
       "The threat actor the producer associated with the address in its original report",
       "What kind of address it is: cloud, hosting, VPN service, residential or mobile carrier",
       "Whether the employee has administrative rights on the workstation that connected",
-      "How many other organisations in the ISAC have reported the same address this month"
+      "How many other organisations in the ISAC have reported the same address during this month"
     ],
     "correct": 1,
     "explanation": "The type of address determines how likely a collateral match is, because shared infrastructure serves many unrelated users. The named actor is attribution, which adds little to the decision and can anchor the analyst.",
@@ -70,7 +70,7 @@
       "Mobile carrier addresses are reserved documentation ranges that cannot appear in real traffic",
       "Feeds never include mobile carrier addresses, so the indicator must have been mistyped",
       "Carrier-grade NAT places many subscribers behind few public addresses, so one listed address covers many users",
-      "Mobile connections are encrypted, so the feed producer could not have observed the original activity"
+      "Mobile connections are encrypted end to end, so the feed producer could not have observed the original activity"
     ],
     "correct": 2,
     "explanation": "Carrier-grade NAT makes one public address shared by many subscribers, so a listing for one misbehaving user turns everyone behind it into potential matches. Feeds can and do include carrier addresses; the problem is sharing, not a typo.",
@@ -80,8 +80,8 @@
   {
     "q": "A feed entry's context field reads \"scanning (old, shared hosting)\". What should this text alone tell an analyst who sees a match?",
     "options": [
-      "The producer has given two separate reasons to doubt the match: the observation is old and the address is shared",
-      "The match should be escalated, because scanning is usually the first stage of a targeted intrusion",
+      "The producer gives two reasons to doubt the match: the observation is old and the address is shared",
+      "The match should be escalated at once, because scanning is usually the first stage of a targeted intrusion",
       "The address belongs to the organisation's own hosting provider and should be added to the allowlist",
       "The indicator is a sinkhole run by a researcher, so any connection to it indicates an infected host"
     ],
@@ -93,7 +93,7 @@
   {
     "q": "In the lab dataset, gopal's VPN account shows a failure and then a success from `203.0.113.66` at 06:42 and 06:46, and a success from `198.51.100.104` at 13:33. Which statement correctly justifies resetting gopal's credential?",
     "options": [
-      "The 13:33 session matched an indicator in the feed, so the account was in contact with malicious infrastructure",
+      "The 13:33 session matched an indicator in the feed, so the account was in contact with known malicious infrastructure",
       "Both sessions matched feed indicators, so the combined confidence of 100 makes compromise certain",
       "A successful login followed a password spray from an address under a current ISAC indicator with matching context",
       "The 13:33 session came from an unusual address, so any later session from a new address requires a reset"
@@ -107,7 +107,7 @@
     "q": "An analyst disabled gopal's account and wrote in the case: \"Disabled because the user connected from malicious IP 198.51.100.104.\" The action was broadly appropriate. Why is the record still a problem?",
     "options": [
       "It cites a stale collateral match instead of the spray, misleading later readers and unfairly marking the employee",
-      "It should have named the threat actor behind the spray so that the record is complete for auditors",
+      "It should have named the threat actor behind the spray so that the record is complete for later auditors and regulators",
       "It reveals a TLP:CLEAR indicator, which may not be written into internal case records",
       "It is acceptable, because the outcome was correct and case records are not reviewed afterwards"
     ],
@@ -172,7 +172,7 @@
     "q": "A targeted attacker registers fresh domains and rents new servers for each victim. What does this imply for a SOC that relies mainly on indicator feeds?",
     "options": [
       "Feeds will list the new infrastructure within hours, so matching will catch the intrusion slightly later",
-      "The attacker will be caught by circular reporting, because several feeds will share the indicators quickly",
+      "The attacker will be caught through circular reporting, because several feeds will share the new indicators quickly",
       "The infrastructure will not be in any feed before it is used, so behaviour-based detections must cover the gap",
       "Hash indicators will still match, because fresh infrastructure does not change the files the attacker uses"
     ],
@@ -211,8 +211,8 @@
     "q": "One vendor report attributes activity to APT29, another to Cozy Bear and a third to Midnight Blizzard. What is the most careful interpretation?",
     "options": [
       "The three reports describe three unrelated groups, because each vendor tracks a different actor",
-      "The three names are formal aliases, so the reports are certain to describe identical activity",
-      "The names come from different vendor schemes whose boundaries may differ, so a shared name implies overlap, not identity",
+      "The three names are formal aliases of one group, so the reports are certain to describe exactly the same activity",
+      "The names come from vendor schemes whose boundaries may differ, so a shared name implies overlap, not identity",
       "The disagreement shows the attribution is wrong, so all three reports should be discarded"
     ],
     "correct": 2,
@@ -224,7 +224,7 @@
     "q": "During the spray case, a manager asks the analyst to delay containment until the responsible group has been identified. Which reply best reflects the lesson?",
     "options": [
       "Containment does not depend on attribution: reset the credential, review the session, enforce MFA and block the current address",
-      "Attribution must come first, because the response to a named group differs fundamentally from the response to an opportunist",
+      "Attribution must come first, because the response to a named group differs fundamentally from the response to an opportunist attacker",
       "Attribution can be inferred quickly from the address, since ISAC indicators always state the responsible actor",
       "Containment should wait for the ISAC to publish an attribution, because acting early may alert the adversary"
     ],
@@ -237,7 +237,7 @@
     "q": "An analyst already convinced that an incident is under way reads every indicator match as support and dismisses the `EXPIRED` flag on one of them as \"probably a feed glitch\". Which bias is this?",
     "options": [
       "Availability bias, because a recent dramatic breach makes the incident seem more likely",
-      "Anchoring, because the analyst gives too little weight to the first piece of information",
+      "Anchoring, because the analyst gives too little weight to the first piece of information received in the case",
       "Circular reporting, because the analyst counts the same match several times",
       "Confirmation bias, because evidence that fits the belief is accepted and contrary evidence explained away"
     ],
@@ -265,7 +265,7 @@
       "By choosing the hypothesis with the most evidence consistent with it, since the bare match fits both",
       "By choosing the hypothesis favoured by the feed's context string, since the producer saw the activity",
       "By looking for evidence inconsistent with each: timing, country and normal pattern contradict only the attacker hypothesis",
-      "By choosing the more severe hypothesis, since a SOC should always assume the worst case until proven otherwise"
+      "By choosing the more severe hypothesis, since a SOC should always assume the worst case until it is proven otherwise by evidence"
     ],
     "correct": 2,
     "explanation": "ACH focuses on disconfirming evidence: both hypotheses fit the bare match, but the session timing, the Indian country field, the user's usual behaviour and the absence of other suspicious activity are inconsistent only with the attacker explanation. Counting consistent evidence is exactly the habit ACH is designed to correct.",
@@ -277,7 +277,7 @@
     "options": [
       "Write down what the conclusion assumes, such as \"the feed entry is still accurate\", and ask what follows if it is false",
       "Confirm that every indicator in the case has a stated confidence and `valid_until` before closing it",
-      "Check that the SIEM's assumptions about time zones and field mappings match those of the feed producer",
+      "Check that the SIEM's assumptions about time zones and field mappings match those used by the feed producer for each entry",
       "Ask a second analyst to repeat the investigation independently and compare the two conclusions"
     ],
     "correct": 0,
@@ -303,7 +303,7 @@
     "options": [
       "The spray and the WS-104 phishing were carried out by the same advanced actor, as the timing proves",
       "Moderate confidence that the spray and the WS-104 phishing are the same actor: same morning, but no shared infrastructure",
-      "High confidence of attribution to a known group, since the ISAC indicators were involved in both incidents",
+      "High confidence of attribution to a known threat group, since the ISAC indicators were involved in both incidents that morning",
       "The 198.51.100.104 match is probably fine, and the spray is probably bad, based on the feed results"
     ],
     "correct": 1,

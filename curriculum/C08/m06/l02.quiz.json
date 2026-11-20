@@ -17,8 +17,8 @@
     "options": [
       "Grade both by the source alone, so trust X and discard Y",
       "Grade both by the information alone, so trust Y and discard X",
-      "Average the two grades and act on whichever report scores higher",
-      "Treat X as a good source with unconfirmed information and seek corroboration; verify Y's details"
+      "Average the two source and information grades and act on whichever report scores higher overall",
+      "Treat X as a good source with unconfirmed claims and corroborate it; verify Y's details"
     ],
     "correct": 3,
     "explanation": "The system grades source and information independently: X needs corroboration despite its strong source, and Y's verifiable content can be confirmed so its weak source matters less. Collapsing either into a single judgement loses exactly that distinction.",
@@ -29,7 +29,7 @@
     "q": "A new threat-sharing partner sends its first report. The analyst grades the source 'F'. What does this grade mean and imply?",
     "options": [
       "Reliability cannot be judged yet; treat it as unknown and seek more evidence",
-      "The source is unreliable, so its reports should be discarded",
+      "The source is unreliable based on its track record, so its reports should be discarded",
       "The source is fairly reliable but needs a second confirmation",
       "The report is improbable and conflicts with existing evidence"
     ],
@@ -41,7 +41,7 @@
   {
     "q": "A domain arrives within one day via a vendor feed, an open feed and a sharing group. Tracing shows all three cite the same original vendor report. May the analyst grade the information '1'?",
     "options": [
-      "Yes, because three separate channels have confirmed the same domain",
+      "Yes, because three separate channels have each independently confirmed the same domain",
       "Yes, provided at least one of the three channels is graded A or B",
       "No: copies of one original are a single report, which is circular reporting",
       "No, because information can only be graded 1 by the original producer"
@@ -69,7 +69,7 @@
     "options": [
       "The SOC has no file-hash data, so the claim's truth cannot be judged locally",
       "The vendor's past reporting has been inconsistent in malware analysis",
-      "The hash conflicts with the other feed entries and is therefore improbable",
+      "The hash conflicts with the other feed entries and is therefore graded improbable",
       "The hash's validity window expired before the as-of date"
     ],
     "correct": 0,
@@ -80,7 +80,7 @@
   {
     "q": "R2 fired on the same events that 203.0.113.66 matched, yet the worked table grades the address B2 rather than B1. What is the reasoning?",
     "options": [
-      "R2 was written using the indicator, so it is not independent corroboration",
+      "R2 was written using the indicator, so its alert is not independent corroboration of it",
       "ISAC-A has only a fair track record, which caps information at 2",
       "Expired indicators can never be graded above 2 in the Admiralty system",
       "Local data confirms only that something there sprayed Banyan, not the wider claim"
@@ -95,7 +95,7 @@
     "options": [
       "60, context only because addresses cannot alert on their own",
       "70, raise an alert for analyst review rather than block automatically",
-      "80, eligible for automatic blocking where the type allows it",
+      "80, eligible for automatic blocking wherever the indicator's type allows it",
       "50, context only until a second corroboration is recorded"
     ],
     "correct": 1,
@@ -107,7 +107,7 @@
     "q": "How does STIX 2.1 express the confidence of an object such as an indicator?",
     "options": [
       "As an optional integer property from 0 to 100",
-      "As a mandatory two-character Admiralty grade",
+      "As a mandatory two-character Admiralty grade such as B2",
       "As a TLP colour from CLEAR to RED",
       "As a decimal probability between 0 and 1"
     ],
@@ -135,7 +135,7 @@
       "Prioritise strictly by confidence, so the adware indicator goes first",
       "Raise the ransomware indicator's confidence to reflect its severity",
       "Keep confidence and impact separate and combine them only when prioritising",
-      "Discard the ransomware indicator because it is below the block threshold"
+      "Discard the ransomware indicator because its score is below the block threshold"
     ],
     "correct": 2,
     "explanation": "Confidence measures how sure you are; severity measures how bad the outcome would be. Inflating confidence to express severity corrupts the score, while ranking by confidence alone ignores impact.",
@@ -145,7 +145,7 @@
   {
     "q": "What is the main weakness of hard expiry as used by ioc_match.py, compared with gradual decay?",
     "options": [
-      "It cannot represent different validity windows for different indicator types",
+      "It cannot represent different validity windows for different indicator types in one feed",
       "An indicator counts at full weight one day and not at all the next, with nothing changed",
       "It requires the analyst to recompute every score manually each morning",
       "It lets expired indicators continue to drive automatic blocking"
@@ -158,7 +158,7 @@
   {
     "q": "How should a SOC grade its own internal incident team as a source of intelligence?",
     "options": [
-      "Always A, because internal sources have direct access to all evidence",
+      "Always A, because internal sources have direct access to all the relevant evidence",
       "Always F, because internal teams have no external track record",
       "The same as the most reliable external feed it subscribes to",
       "Often high for claims about its own environment, lower for the wider world"
@@ -172,7 +172,7 @@
     "q": "An aggregator feed re-publishes indicators from several well-regarded sector groups but does no analysis of its own. How should its source reliability be graded?",
     "options": [
       "On its own record and access; it does not inherit its upstream sources' grades",
-      "At the highest grade among the upstream sources it re-publishes",
+      "At the highest grade among the well-regarded upstream sources that it re-publishes",
       "At the average grade of its upstream sources, weighted by volume",
       "Always as E, because aggregators are inherently unreliable"
     ],
@@ -198,8 +198,8 @@
     "q": "An open feed adds a major CDN's address range as 'malicious'. Which control most directly prevents this from becoming a self-inflicted outage?",
     "options": [
       "Raising the producer confidence threshold for open feeds to 90",
-      "Applying a short hard-expiry window to all open-feed indicators",
-      "Checking block candidates against an allowlist, with thresholds so low-graded sources cannot block alone",
+      "Applying a short hard-expiry window to every open-feed indicator so that bad entries age out within days",
+      "Checking candidates against an allowlist, with thresholds so low-graded sources cannot block alone",
       "Converting open-feed indicators into behavioural rules before use"
     ],
     "correct": 2,
@@ -223,7 +223,7 @@
   {
     "q": "gopal's account was compromised by the 06:46 spray. At 13:33 his session matches the expired, F3-graded 198.51.100.104. Why can the intelligence not settle whether this was the attacker returning?",
     "options": [
-      "Because an address match is only valid if it occurs within one hour of the first hit",
+      "Because an address match is only valid if it occurs within one hour of the indicator's first hit",
       "Because the VPN logs do not record the source address of successful logins",
       "Because open-feed indicators must always be ignored in incident response",
       "Because an expired F3 claim about shared hosting says almost nothing about that day's user"
@@ -265,7 +265,7 @@
       "Report sightings and false positives back to the producers within each indicator's sharing rules",
       "Keep both findings internal so that producers cannot adjust their scores",
       "Publish both findings on an open feed so the wider community benefits",
-      "Lower the producer confidence values in its copy of the feed and move on"
+      "Lower the producer confidence values in its own copy of the feed and move on without telling anyone"
     ],
     "correct": 0,
     "explanation": "Feedback to producers, respecting TLP, improves grading over time and is how sources earn or lose their letter. Publishing openly could breach the indicators' sharing restrictions.",
@@ -289,7 +289,7 @@
     "q": "A low-confidence indicator matches a session belonging to a named employee. What does the lesson require?",
     "options": [
       "Suspend the account until the employee proves the session was theirs",
-      "Escalate to HR, since any intelligence match is grounds for investigation",
+      "Escalate to HR, since any intelligence match on an employee is grounds for investigation",
       "Never use it as a basis for disciplinary action; handle it as personal data with care",
       "Delete the match record immediately to protect the employee's privacy"
     ],
@@ -316,7 +316,7 @@
     "options": [
       "Its verifiable registration date and the local download followed by R1 confirm it",
       "Internal sources are always graded 1 for information about their own domains",
-      "Its producer confidence of 70 is above the threshold for confirmed information",
+      "Its producer confidence of 70 is above the policy threshold for confirmed information",
       "The domain appears in both the internal note and ISAC-A's feed"
     ],
     "correct": 0,

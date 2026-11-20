@@ -2,7 +2,7 @@
   {
     "q": "In the lab, the vendor's SHA-256 indicator for invoice.docm carries the highest producer confidence (90) yet ioc_match.py reports 'no match'. What is the most accurate explanation?",
     "options": [
-      "The attacker re-packed the document, so its hash changed before delivery",
+      "The attacker re-packed the document after reporting, so its delivered hash changed",
       "The indicator's validity window had lapsed before the as-of date",
       "The Banyan dataset contains no file-hash telemetry for it to match against",
       "The feed stores the hash truncated, so the equality test always fails"
@@ -18,7 +18,7 @@
       "Computed, because it is a statistic derived from the request timestamps",
       "Atomic, because it names a single URL matched by equality on one field",
       "Behavioural, because it encodes a parent-child process relationship",
-      "Atomic, because the domain name alone identifies the C2 infrastructure"
+      "Atomic, because the domain name alone identifies the C2 infrastructure it contacts"
     ],
     "correct": 0,
     "explanation": "The coefficient of variation of request gaps is calculated from data, which makes it a computed indicator that does not depend on the domain's name. The URL appears in the output, but the detection is the statistic, not an equality test on the URL.",
@@ -42,8 +42,8 @@
     "q": "The expired open-feed indicator 198.51.100.104 ('scanning, old, shared hosting', valid until 30 June) matches gopal's successful VPN login at 13:33 on 3 November. What is the soundest interpretation?",
     "options": [
       "The attacker has returned on gopal's account through a second known-bad host",
-      "A likely stale-address false positive: context for review, not evidence of compromise",
-      "Proof that the 13:33 session was legitimate, since the indicator has expired",
+      "A likely stale-address false positive: review context, not proof of compromise",
+      "Proof that the 13:33 session was legitimate, since the indicator expired months ago",
       "A confirmed match that should trigger an automatic block of the address"
     ],
     "correct": 1,
@@ -70,7 +70,7 @@
       "Add the domain to the proxy blocklist and close the indicator as handled",
       "Search other feeds for the same domain to raise its confidence score",
       "Examine those requests for fixed paths, sizes and timing detectable without the name",
-      "Compute the SHA-256 of the proxy log lines so they can be shared as hashes"
+      "Compute the SHA-256 of the proxy log lines so they can be shared with partners as hashes"
     ],
     "correct": 2,
     "explanation": "Climbing means turning a short-lived atomic value into durable detections: the fixed /api/v2/ping path, constant 220-byte size and 300 s rhythm can be detected whatever domain is used next. Blocking the domain is useful but leaves the detection at the bottom of the pyramid.",
@@ -81,7 +81,7 @@
     "q": "Under the lesson's default-use table, how should a SOC normally act on a matched IPv4 indicator that belongs to a large cloud provider's range?",
     "options": [
       "Alert and enrich, blocking only if fresh, well graded and not shared infrastructure",
-      "Block automatically, because address matches have near-zero false positives",
+      "Block automatically, because address matches from cloud ranges have near-zero false positives",
       "Ignore it, because addresses sit at the bottom of the Pyramid of Pain",
       "Report it to the registrar's abuse process and block it for the full window"
     ],
@@ -108,7 +108,7 @@
     "options": [
       "Which field in which collected log source it would have to match",
       "Which threat actor the producer attributes the indicator to",
-      "Whether the indicator appears in more than one commercial feed",
+      "Whether the indicator appears in more than one commercial threat feed",
       "Whether its TLP marking allows it to be shared with partners"
     ],
     "correct": 0,
@@ -122,7 +122,7 @@
       "Hash collisions make old SHA-256 values unreliable after a few months",
       "Hashes decay faster than addresses because files are deleted after use",
       "A hash stays precise for that exact file, but campaigns move to re-packed variants",
-      "A hash identifies the malware family, so new variants still match it"
+      "A hash identifies the whole malware family, so later re-packed variants still match it"
     ],
     "correct": 2,
     "explanation": "A SHA-256 permanently identifies one byte sequence, but changing one byte produces a new hash, so the campaign's later variants no longer match. The strongest distractor is wrong because a hash identifies a single file, not a family.",
@@ -132,7 +132,7 @@
   {
     "q": "What practical value does the atomic / computed / behavioural classification from Hutchins, Cloppert and Amin give a SOC?",
     "options": [
-      "It ranks indicators by how much it costs the adversary to replace them",
+      "It ranks indicators by how much it costs the adversary to replace them once detected",
       "It describes how an indicator is matched and so what data must be collected",
       "It sets the validity window that each indicator type must be given",
       "It defines the TLP level at which each indicator type may be shared"
@@ -146,7 +146,7 @@
     "q": "As of 3 November 2026 the lab producers gave 203.0.113.66 seven more days, the C2 domain 58 and the file hash 89. Which reasoning best explains why the address got the shortest window?",
     "options": [
       "Addresses are atomic, and atomic indicators always expire after a week",
-      "The producer had the lowest confidence in the address of all the entries",
+      "The producer had the lowest confidence in the address of all the entries it published",
       "The address had already matched, so its purpose was fulfilled",
       "Attacker addresses are rented or compromised and recycled to new holders within days"
     ],
@@ -160,7 +160,7 @@
     "options": [
       "Its only purpose is to impersonate you, so it stays relevant while it is registered",
       "Look-alike domains cannot be re-registered once reported to the registrar",
-      "Domains sit at the top of the Pyramid of Pain and are costly to change",
+      "Domains sit at the top of the Pyramid of Pain, so they are costly for the attacker to change",
       "Blocking it has no business impact because it is hosted on shared platforms"
     ],
     "correct": 0,
@@ -174,7 +174,7 @@
       "As soon as it is recorded in any security log source",
       "When it appears in logs from more than one sensor",
       "When it is paired with a judgement that it suggests malice, plus context",
-      "When it is converted into a hash so it can be matched exactly"
+      "When it is converted into a hash so that it can be matched exactly across sensors"
     ],
     "correct": 2,
     "explanation": "An observable is a fact seen in data with no judgement; it becomes an indicator when someone attaches the assessment that it suggests malicious activity, with context such as what, who, confidence and validity. Seeing it in several sensors adds observations, not judgement.",
@@ -210,9 +210,9 @@
   {
     "q": "Why can an exact match on an IP address hosted on shared infrastructure be weak evidence of the actor behind activity?",
     "options": [
-      "Many unrelated sites and tenants may sit behind it, so equality on it does not identify the actor",
+      "Many unrelated tenants may sit behind it, so equality on it does not identify the actor",
       "IP addresses are computed indicators and so are prone to calculation errors",
-      "Proxies rewrite source addresses, so the logged value is never the real one",
+      "Proxies always rewrite source addresses, so the logged value is never the true origin of the traffic",
       "IP addresses are matched with LIKE patterns, which over-match by design"
     ],
     "correct": 0,
@@ -225,8 +225,8 @@
     "options": [
       "Agree, because hashes have near-zero false positives and are highly precise",
       "Agree, provided the hashes are refreshed at least weekly from the vendor",
-      "Disagree, because hashes are at the top of the pyramid and too costly to use",
-      "Disagree: coverage at that level is effectively nil; raise a collection gap and weigh behavioural rules"
+      "Disagree, because hashes are at the top of the pyramid and too costly for the SOC to match at scale",
+      "Disagree: coverage at that level is nil; raise a collection gap and weigh behavioural rules"
     ],
     "correct": 3,
     "explanation": "Indicators that cannot match provide no coverage, so the right action is a collection-gap ticket, with behavioural detections reducing the risk meanwhile. Hashes are at the bottom of the pyramid, and refreshing unmatchable values changes nothing.",
@@ -236,7 +236,7 @@
   {
     "q": "Why does the lesson warn that 'indicators can leak'?",
     "options": [
-      "Indicators stored in a SIEM can be overwritten by attackers with log access",
+      "Indicators stored in a SIEM can be overwritten by attackers who gain write access to its logs",
       "Expired indicators are automatically published back to open feeds",
       "A list of what you hunt for reveals what you know, so sharing must respect its TLP",
       "Shared indicators expose the internal IP addresses of the matching hosts"
@@ -249,7 +249,7 @@
   {
     "q": "On 12 November 2026, 203.0.113.66 (valid until 10 November) matches a fresh VPN login. How should the match be treated under the lesson's guidance?",
     "options": [
-      "As confirmation that the spraying campaign is still active against Banyan",
+      "As confirmation that the password-spraying campaign is still active against Banyan",
       "As context for review, since the indicator's short validity window has lapsed",
       "As grounds to block the address automatically for another seven days",
       "As a false positive to be suppressed with no further review"
@@ -275,7 +275,7 @@
   {
     "q": "A colleague argues that because behavioural rules exist, the C2 domain feed entry added nothing. What does the Banyan worked example show?",
     "options": [
-      "The colleague is right: behavioural rules found every stage of the intrusion",
+      "The colleague is right: behavioural rules alone found every stage of the Banyan intrusion",
       "The feed was superior: it found the exfiltration destination before R4 did",
       "Feed matches and behavioural rules covered different parts and worked together",
       "Neither helped: all detections relied on the expired open-feed address"
@@ -304,7 +304,7 @@
       "(a), because a current hash has near-zero false positives and blocking it hurts no business traffic",
       "(b), because domains sit higher on the pyramid and last longer than hashes",
       "(b), because domains are atomic and therefore cheaper to match accurately",
-      "Neither, because only TTP-level indicators may ever be blocked automatically"
+      "Neither, because only TTP-level indicators may ever be blocked automatically, whatever their freshness"
     ],
     "correct": 0,
     "explanation": "While the file circulates, a hash match means the same file, so blocking it is precise and safe where telemetry exists. Blocking a shared platform's domain would break legitimate traffic despite its higher pyramid level.",
@@ -317,7 +317,7 @@
       "They are matched with less precise field types in most SIEMs",
       "They describe broad patterns that benign activity can also show, so matches need judgement",
       "They depend on producer confidence scores that are often inflated",
-      "They expire faster, so many matches occur after their window has lapsed"
+      "They expire faster than atomic ones, so many matches occur after their validity window has lapsed"
     ],
     "correct": 1,
     "explanation": "A pattern such as Office starting a shell or many failures then a success can occur legitimately, so behavioural matches need tuning and analyst review. Behavioural indicators actually last longest, so faster expiry is wrong.",
