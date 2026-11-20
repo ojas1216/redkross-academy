@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A managed security service provider receives an indicator from an ISAC marked TLP:AMBER+STRICT. One of its clients is in the same sector and would benefit from blocking it. What does the label allow?",
+    "options": [
+      "Passing it to the client on a need-to-know basis, because AMBER labels always include clients",
+      "Using it inside the provider's own organisation only; the client cannot be told without the ISAC's permission",
+      "Passing it to the client provided the indicator is re-labelled TLP:AMBER before forwarding",
+      "Passing it to any sector peer, because STRICT only forbids publication on public channels"
+    ],
+    "correct": 1,
+    "explanation": "AMBER+STRICT restricts sharing to the recipient's own organisation; it is plain TLP:AMBER that extends to clients. A recipient cannot re-label the item itself, because only the source sets or changes the label, so the provider must ask the ISAC.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst wants a second opinion on a suspicious file received from a peer group at TLP:GREEN and uploads it to a public online sandbox whose submissions are visible to its users. How should this be assessed?",
+    "options": [
+      "Acceptable, because TLP:GREEN permits sharing with the wider cyber defence community",
+      "Acceptable, because the sandbox is a security tool and its users are defenders",
+      "A breach of the label, because GREEN excludes publicly accessible channels whatever the motive",
+      "A breach only if the file contains personal data; otherwise GREEN allows the upload"
+    ],
+    "correct": 2,
+    "explanation": "TLP:GREEN allows community sharing but explicitly not via public channels, and a public sandbox that shares submissions is one. The 'community' distractor is the strongest, but a public service open to anyone is not the vetted community the label means.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A case summary contains twelve TLP:GREEN indicators, three first-party indicators and one quoted TLP:AMBER domain. Without asking any source, what label must the summary as a whole carry?",
+    "options": [
+      "TLP:AMBER, because a combined product takes the most restrictive label among its parts",
+      "TLP:GREEN, because the majority of the items are GREEN or first-party",
+      "TLP:GREEN with the AMBER domain marked inline, because labels apply per item",
+      "TLP:AMBER+STRICT, because mixing labels requires the next stricter level"
+    ],
+    "correct": 0,
+    "explanation": "The strictest label inside a product governs the whole product, so one AMBER item makes the summary AMBER. Inline marking does not help a GREEN release, because the GREEN audience may not receive the AMBER item at all; removing it is what would allow GREEN.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A TLP:AMBER report from a partner is eight months old and the campaign it describes appears to be over. A colleague proposes publishing its indicators in a public blog post. What is the correct course?",
+    "options": [
+      "Publish, because TLP restrictions lapse once the information is no longer operationally sensitive",
+      "Publish after removing the partner's name, because anonymised AMBER content becomes CLEAR",
+      "Re-label it TLP:GREEN first, then publish it once the community has had time to act",
+      "Ask the partner in writing for permission to widen the label, and publish only if it agrees"
+    ],
+    "correct": 3,
+    "explanation": "Age never changes a TLP label; only the source can widen it, and a short written request with the reason is the normal route. Removing the partner's name does not change the label either, because the restriction attaches to the information, not to the attribution.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A list of suspicious domains arrives by email from a contact at a vendor, with no TLP label and no statement of terms. How should the SOC treat it?",
+    "options": [
+      "As TLP:CLEAR, because TLP 2.0 defines unlabelled content as unrestricted",
+      "As TLP:GREEN by default, because that is the community default in TLP 2.0",
+      "According to the context and agreement it came under, and ask the sender how it may be shared",
+      "As TLP:RED, because unlabelled information must always be treated as the most restrictive level"
+    ],
+    "correct": 2,
+    "explanation": "A missing label is not permission: the recipient should treat the item according to the relationship and any agreement in place and ask the sender. Defaulting to RED is a plausible distractor, but the lesson's rule is to use context and ask, not to apply any fixed label automatically.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A MISP event is tagged tlp:red from the TLP taxonomy, but its distribution setting is 'All communities'. What will happen when the instance synchronises?",
+    "options": [
+      "The event is shared according to the distribution setting, so the RED tag will not stop it spreading",
+      "MISP blocks synchronisation, because the TLP tag overrides the distribution setting",
+      "The event is shared only with the named recipients listed in the RED tag",
+      "MISP downgrades the tag to tlp:clear to match the distribution setting"
+    ],
+    "correct": 0,
+    "explanation": "In MISP the TLP tag is a taxonomy label for humans, while the distribution setting controls synchronisation, so the event goes everywhere the distribution allows. The two settings must be made to agree by the person publishing; the platform does not enforce the tag.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A manager asks whether marking a PDF TLP:RED will stop a recipient from forwarding it. Which answer is accurate?",
+    "options": [
+      "Yes, because TLP-aware mail gateways refuse to forward RED documents",
+      "No; TLP is a human-readable promise, so compliance depends on recipients' discipline and community sanctions",
+      "Yes, provided the label is written in the subject line as well as in the document",
+      "No, because TLP labels are only meaningful inside a sharing platform such as MISP"
+    ],
+    "correct": 1,
+    "explanation": "TLP does not encrypt or restrict anything technically; it states the source's expectations, and enforcement rests on recipients and on the community excluding members who break it. Labels are meant for emails and documents as much as platforms, so the MISP-only distractor is wrong.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To be safe, a SOC labels every outbound report TLP:RED, including routine phishing indicators meant for sector peers. What is the most likely consequence?",
+    "options": [
+      "Peers will act on the indicators more quickly, because RED signals urgency",
+      "Nothing changes, because recipients may use RED information to block threats across their community",
+      "The reports become more trusted, because RED shows the source has verified them",
+      "Recipients cannot act on them widely, so they either ignore the reports or quietly break the label"
+    ],
+    "correct": 3,
+    "explanation": "Over-labelling is a failure in its own right: RED limits use to named recipients, so the information cannot reach those who must act, which pushes recipients to ignore it or breach it. The guidance is to choose the least restrictive label that keeps the risk acceptable.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A threat report is TLP:GREEN for sharing purposes but is also classified 'Confidential' under the analyst's company policy, which forbids sending it outside the company. May the analyst send it to a peer at another organisation?",
+    "options": [
+      "No; TLP does not replace internal classification, and the stricter of the two rules applies",
+      "Yes, because TLP is the external sharing standard and takes precedence over internal policy",
+      "Yes, provided the peer belongs to the same ISAC and the label is kept on the document",
+      "Only after re-labelling it TLP:AMBER, which reconciles the two schemes"
+    ],
+    "correct": 0,
+    "explanation": "TLP is not a classification scheme and does not override internal classification, contracts or privilege; the stricter rule governs what the analyst may do. Re-labelling does not help, because the internal policy forbids any external release.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A TLP:AMBER advisory adds the line 'for incident response staff only'. A SOC manager wants to circulate it to the whole IT department on a need-to-know basis. What applies?",
+    "options": [
+      "The manager may circulate it, because AMBER already permits need-to-know sharing across the organisation",
+      "The added limit is advisory only and can be ignored if the IT staff need the information",
+      "The added limit must be respected alongside the label, so circulation is restricted to incident responders",
+      "The added limit makes the advisory TLP:RED, so only the named recipient may read it"
+    ],
+    "correct": 2,
+    "explanation": "TLP 2.0 lets a source state additional limits, and recipients must honour them in addition to the label. The extra limit narrows the audience inside AMBER; it does not convert the item into RED.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An internal wiki page from 2021 lists indicators marked TLP:WHITE. Under TLP 2.0, how should a recipient treat that marking today?",
+    "options": [
+      "As TLP:GREEN, because TLP 2.0 withdrew WHITE and moved its content to community-only sharing",
+      "As TLP:CLEAR, because TLP 2.0 renamed WHITE to CLEAR with the same unrestricted meaning",
+      "As unlabelled, because version 1.0 labels have no meaning under version 2.0",
+      "As TLP:AMBER, because legacy labels must be handled at the next more restrictive level"
+    ],
+    "correct": 1,
+    "explanation": "TLP 2.0 renamed TLP:WHITE to TLP:CLEAR; the meaning (disclosure not limited, subject to copyright) is unchanged. The version change added AMBER+STRICT and clarified wording, it did not invalidate or tighten old WHITE markings.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC consumes three community feeds but never reports anything back. Its manager asks what contribution would add most value at the lowest cost. Which is best?",
+    "options": [
+      "Re-publishing the commercial feed it buys, so the community receives more indicators",
+      "Bulk-exporting every indicator from its SIEM alerts each week without vetting them",
+      "Publishing full incident reports, including victim details, so peers can see the whole picture",
+      "Sending sightings and false-positive reports back to the sources whose indicators it uses"
+    ],
+    "correct": 3,
+    "explanation": "Sightings and false-positive reports are the cheapest and most valued contribution: they corroborate or clean the community's intelligence. Bulk unvetted dumps trade quality for volume, re-publishing a commercial feed usually breaches its licence, and victim details should be stripped.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A source listed a domain with moderate confidence. Two other ISAC members each report, independently, that the domain was seen beaconing from one of their hosts. Why does this matter to the source?",
+    "options": [
+      "It lets the source upgrade the label from TLP:AMBER to TLP:GREEN automatically",
+      "It proves the attribution to a named threat actor that the source suspected",
+      "Independent corroboration is what justifies raising the confidence in the indicator",
+      "It obliges the source to report the domain to CERT-In within six hours"
+    ],
+    "correct": 2,
+    "explanation": "Confidence rises when independent sources corroborate a claim, and sightings are exactly that evidence. Corroboration of the indicator does not on its own prove actor attribution, and labels change only by the source's decision, not automatically.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At 10:00 a SOC in an organisation covered by the CERT-In directions of April 2022 notices unauthorised access to a server. By 14:00 the scope is still unclear. What should the team do about reporting?",
+    "options": [
+      "Submit an initial report with what is known before 16:00 and send updates as the investigation proceeds",
+      "Wait until scope is confirmed, because an incomplete report would mislead CERT-In",
+      "Report only once the root cause is known, because the six hours start at confirmation",
+      "Notify the sector ISAC instead, which forwards reportable incidents to CERT-In"
+    ],
+    "correct": 0,
+    "explanation": "The six hours run from noticing the incident, so the reportability decision is made early on incomplete information, with an initial report followed by updates. The clock does not start at confirmation, and an ISAC post is voluntary sharing, not the mandatory report.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An Indian body corporate covered by the CERT-In directions keeps its firewall logs for 90 days in a cloud region outside India. Against the directions, what is wrong?",
+    "options": [
+      "Nothing, provided the logs can be handed to CERT-In within six hours of a request",
+      "Only the location; 90 days meets the requirement if the logs are moved into India",
+      "Only the duration; logs may be stored anywhere if they are kept for 180 days",
+      "Both: logs must be kept securely for a rolling 180 days and within Indian jurisdiction"
+    ],
+    "correct": 3,
+    "explanation": "The directions require ICT system logs to be maintained securely for a rolling 180 days within Indian jurisdiction. This setup fails on both duration and location, so each single-fix distractor leaves one breach in place.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A mandatory CERT-In report about an intrusion includes a C2 domain that a partner shared with the SOC at TLP:AMBER. What should the SOC also do?",
+    "options": [
+      "Remove the domain from the report, because mandatory reports must respect inbound TLP labels",
+      "Tell the partner that its indicator was included in a mandatory report",
+      "Re-label the domain TLP:CLEAR, because reporting to a government body makes it public",
+      "Nothing further, because legal reporting duties release the SOC from the partner's label"
+    ],
+    "correct": 1,
+    "explanation": "A mandatory report is not a community release; the SOC is required to provide the information, but it should inform the source when the source's material is included, as good sharing agreements anticipate. Reporting does not make the item public or change its label.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the outbound pipeline, why is 'Inherited limits' checked before 'Strip and minimise' rather than after?",
+    "options": [
+      "Some content cannot be shared at all, so there is no point sanitising it before that is known",
+      "Stripping changes the TLP label, so the inherited label must be recorded before it is lost",
+      "Inherited limits are set by the approver, who must sign off before anyone edits the content",
+      "Sanitisation tools need the TLP tag on each item to decide which fields to remove"
+    ],
+    "correct": 0,
+    "explanation": "Checking inherited limits first can end the process or narrow the audience, so it avoids wasted sanitisation of content that may not leave at all. Stripping does not change any label itself; the outbound label is chosen afterwards from what remains.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A draft community note would be TLP:AMBER because it includes one partner's AMBER domain; everything else is first-party. The SOC wants the widest possible audience now. Which approach follows the pipeline?",
+    "options": [
+      "Label it TLP:GREEN and add a line asking recipients not to forward the AMBER domain",
+      "Send it at TLP:AMBER to the whole sector, because AMBER permits sharing with clients",
+      "Remove the AMBER domain, release the rest at GREEN, and ask the partner separately for permission",
+      "Label it TLP:AMBER+STRICT so that the AMBER domain is protected inside a GREEN release"
+    ],
+    "correct": 2,
+    "explanation": "The label depends on what remains after stripping, so removing the restricted item allows a GREEN release while a separate request seeks permission. A GREEN note cannot carry AMBER material with a 'do not forward' line, and AMBER does not cover sector peers.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which item in a draft peer warning about a phishing campaign should be removed or generalised before release?",
+    "options": [
+      "The SHA-256 hash of the malicious attachment",
+      "The sender address pattern used by the lure emails",
+      "The ATT&CK technique ID for the initial access method",
+      "A file path showing where the attachment was saved, which contains the user's profile name"
+    ],
+    "correct": 3,
+    "explanation": "Recipients need attacker-side facts such as hashes, sender patterns and techniques; a file path containing a user profile name is victim-side detail and identifies a staff member. The hash is the most tempting distractor, but it describes the malicious file, not the victim.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A password spray came from a residential IP address that is probably a compromised home router. How should it appear in a shared note?",
+    "options": [
+      "As an attacker IP with long validity, because spray sources are valuable blocklist entries",
+      "As an 'observed source' with a short validity, recognising it may belong to an innocent person",
+      "Omitted entirely, because any IP address is personal data and may never be shared",
+      "As the attacker's home address, so that peers can report it to law enforcement"
+    ],
+    "correct": 1,
+    "explanation": "Attacker-side data can still be personal data and can belong to a victim of compromise, so the lesson advises describing it as an observed source with short validity. Omitting all IPs goes too far; observation-based wording keeps the defensive value while avoiding accusation.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC wants to share a phishing email sample with its ISAC. The email greets the recipient by first name and quotes a real customer's loan account number. What should happen before it is shared?",
+    "options": [
+      "Nothing, because the content was written by the attacker and is therefore attacker-side data",
+      "Only the recipient's name needs removing; customer data inside a lure is the attacker's responsibility",
+      "Both the recipient's name and the customer's details must be redacted, keeping the lure's structure",
+      "The sample must not be shared in any form, because lures always contain personal data"
+    ],
+    "correct": 2,
+    "explanation": "Lures often carry victims' personal data, and under the DPDP Act's purpose limitation peers need the lure's theme and structure, not the names or account numbers in it. Treating attacker-written text as automatically safe is the strongest distractor; refusing to share at all discards useful attacker-side detail.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC's commercial feed licence allows use for its own defence but forbids redistribution. Several of the vendor's indicators fired during an incident. What can the SOC put in its community note?",
+    "options": [
+      "Its own observations of the activity, naming the vendor as the source only if the licence permits",
+      "The vendor's indicators unchanged, because indicators are facts and cannot be licensed",
+      "The vendor's indicators, provided the note is labelled TLP:AMBER rather than GREEN",
+      "Nothing about the incident, because any mention of the activity would breach the licence"
+    ],
+    "correct": 0,
+    "explanation": "Re-publishing a vendor's indicators, even unchanged, can breach a no-redistribution licence, and a TLP label does not change licence terms. The SOC can share its own sightings and first-party observations, which are its own information.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A draft note removes the victim's name but says: 'a microfinance lender in Pune, attacked 3 November with a lure quoting its branch manager's loan scheme'. What is the problem?",
+    "options": [
+      "None; removing the organisation's name is sufficient anonymisation",
+      "The combination of sector, city, date and lure details can still identify the victim",
+      "The note should include the company name, because peers need it to verify the report",
+      "The date must be removed, but sector and city are always safe to include"
+    ],
+    "correct": 1,
+    "explanation": "Anonymisation is more than deleting a name: combinations of sector, location, date and lure content can identify a victim who has not agreed to be named. No single field is always safe; it is the combination that must be assessed.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A legitimate small-business website was compromised and used to host a lure. How should a SOC describe it in a shared note?",
+    "options": [
+      "As a malicious site operated by the attacker, so peers block it permanently",
+      "By naming the business as complicit, so that peers pressure it to clean up",
+      "Not at all, because compromised sites cannot be included in any intelligence",
+      "By the observation, for example that it served the lure on a stated date, without accusing the owner"
+    ],
+    "correct": 3,
+    "explanation": "Naming a victim of compromise as malicious causes harm and legal risk; the lesson advises describing observations, not accusations. The URL remains useful attacker-side intelligence, so excluding it altogether discards value.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An MSSP analyst wants to warn client B using details from client A's incident, including the names and phone numbers of client A's affected staff. Which response is correct?",
+    "options": [
+      "It needs client A's permission or full de-identification, and the personal data must not be passed on",
+      "It is allowed, because the MSSP holds the data lawfully under its contract with client A",
+      "It is allowed if labelled TLP:AMBER+STRICT, because client B then cannot share it further",
+      "It is allowed if client B signs a non-disclosure agreement with the MSSP first"
+    ],
+    "correct": 0,
+    "explanation": "Client A's incident details belong to client A, and disclosing personal information obtained under a service contract without consent can be an offence under section 72A of the IT Act 2000. Labels or an NDA with client B do not supply client A's or the individuals' consent.",
+    "lesson": 7,
+    "difficulty": "hard"
+  }
+]

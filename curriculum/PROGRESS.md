@@ -76,7 +76,7 @@ fix anything agents flag -> commit. When all 12 modules of a course PASS:
 `build.mjs CNN --partial` previews finished modules locally - never commit its output.
 
 **Open owner decisions (course library LAB_ASSETS, unchanged so far):**
-- C08/C20 `rk_security_log_cleared.yml` tag attack.t1685.005 (unverified) -> T1070.001?
+- C08/C20 `rk_security_log_cleared.yml` tag attack.t1685.005: the course library text says a newer ATT&CK release moved log clearing to T1685.005 (Defense Impairment); we could not verify this. Check the current ATT&CK release before changing either the kit or the lessons, which cite T1070.001 and flag the tag as a review item.
 - C08 `triage.py` never checks suppression expiry (C08 M05 l05 teaches this as a finding;
   fixing the kit means updating that lesson).
 - C08 `minisiem.py load` drops the table before a malformed line aborts the load

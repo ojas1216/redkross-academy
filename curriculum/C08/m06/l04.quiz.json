@@ -1,0 +1,327 @@
+[
+  {
+    "q": "203.0.113.66 sent the password-spraying login attempts against Banyan's VPN. Which MISP attribute type should Banyan's event use for it?",
+    "options": [
+      "ip-dst, because the address appears in the alert raised on Banyan's VPN gateway",
+      "ip-src, because the address was the source of the activity against the victim",
+      "A domain-ip object, because every address must be paired with a host name",
+      "ip-dst, because consumers will want to block outbound traffic to the address"
+    ],
+    "correct": 1,
+    "explanation": "ip-src marks an address seen as the source of activity, such as a spraying host; ip-dst is for addresses the victim connected to, such as C2. Recording it as ip-dst sends consumers to the wrong field of their logs.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "203.0.113.66 was part of a serious intrusion, yet the worked example leaves its IDS flag off. What is the reasoning?",
+    "options": [
+      "Attributes in High threat-level events are never flagged, to avoid duplicate alerts",
+      "Addresses cannot be correlated in MISP, so flagging them would have no effect",
+      "The feed marked the address TLP:GREEN, which prevents setting the IDS flag",
+      "The flag follows specificity, not severity; addresses change and may be reassigned"
+    ],
+    "correct": 3,
+    "explanation": "An address is cheap to change and may later belong to someone else, so automated matching weeks later would block innocent traffic; a last-seen time gives context instead. TLP and the IDS flag are independent settings, and addresses do correlate.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan saw cdn-telemetry-sync.example in its own proxy logs. ISAC-A had already reported it under TLP:AMBER with the context 'C2 for loader seen in finance-sector phishing'. What is the best contribution Banyan can make?",
+    "options": [
+      "Add a sighting on ISAC-A's existing attribute to say it was seen here too",
+      "Copy ISAC-A's context into Banyan's TLP:GREEN event so peers see the full picture",
+      "Re-publish ISAC-A's event with distribution All communities to maximise reach",
+      "Create a TLP:CLEAR event containing the domain and ISAC-A's description of it"
+    ],
+    "correct": 0,
+    "explanation": "A sighting tells the producer and its community the value was seen elsewhere without redistributing anything. Copying ISAC-A's AMBER context into a GREEN event re-shares another organisation's information under a looser marking, one of the most damaging sharing mistakes.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement correctly distinguishes MISP distribution from TLP?",
+    "options": [
+      "Both are enforced by the platform, which blocks synchronisation that breaks either",
+      "TLP is enforced by the platform, while distribution only advises human readers",
+      "Distribution is enforced by MISP synchronisation; TLP tells people what they may do with data",
+      "They are two names for one setting, so choosing one automatically sets the other"
+    ],
+    "correct": 2,
+    "explanation": "MISP will not synchronise an event to an instance its distribution excludes, while the TLP tag instructs people on onward sharing in e-mail, tickets and reports. Neither sets the other, which is why both must be set and kept consistent.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer finds an event tagged tlp:red with distribution set to All communities. What is the correct assessment?",
+    "options": [
+      "It under-shares, because TLP:RED data would normally be published more widely",
+      "It is consistent, because the TLP tag overrides the distribution during sync",
+      "It is a contradiction that will leak: the platform will propagate it far beyond the marking",
+      "It is harmless, because publishing and distribution are unrelated in MISP"
+    ],
+    "correct": 2,
+    "explanation": "Distribution is what MISP enforces, so All communities propagates the event across connected instances regardless of the tag. The opposite case, TLP:CLEAR restricted to your organisation, is the one that merely under-shares.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst records the C2 domain only in the event's info title rather than as an attribute. What is the consequence?",
+    "options": [
+      "The domain is invisible to correlation, detection exports and tag-based filtering",
+      "Correlation still finds the domain, because it scans event titles for values",
+      "The domain is shared only within the creating organisation, not the community",
+      "MISP converts the domain into an attribute automatically when the event is published"
+    ],
+    "correct": 0,
+    "explanation": "Correlation and exports read attribute values and flags; filtering reads machine tags. A value hidden in the title or a free-text comment is seen by none of them. The title is shared with the event, so it is not kept local either.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A consumer receives a partner event whose analysis field is set to Initial. How should the consumer treat it?",
+    "options": [
+      "As confirmed intelligence, because the producer chose to publish it",
+      "As unusable until the producer changes the state to Completed",
+      "As an unpublished draft that has reached the consumer by mistake",
+      "As early, possibly wrong information that should not be acted on as if Completed"
+    ],
+    "correct": 3,
+    "explanation": "Analysis (Initial, Ongoing, Completed) tells consumers how mature the information is; Initial means early and possibly wrong. That calls for caution, not dismissal, and analysis state is separate from the published state.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One event stores 'CDN-Telemetry-Sync.example.' and another stores 'cdn-telemetry-sync.example', but MISP shows no correlation between them. What is the most likely cause?",
+    "options": [
+      "Correlation is disabled for domain attributes in MISP's default configuration",
+      "Basic correlation is exact value matching, so inconsistent spelling defeats it",
+      "A warninglist suppressed the domain because it contains the word 'cdn'",
+      "Events with different TLP tags are never correlated with each other"
+    ],
+    "correct": 1,
+    "explanation": "Correlation compares stored values literally, so case or a trailing dot can break the link; Lesson 3's canonicalisation discipline applies. Warninglists flag listed values such as known resolvers, not values that merely contain a word.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst is about to add the address of a well-known public DNS resolver, seen in Banyan's DNS logs, to the event. Which MISP mechanism warns them that this value produces false positives?",
+    "options": [
+      "A warninglist match on the value",
+      "A sighting recorded by a consumer",
+      "A galaxy cluster attached to the event",
+      "A decay model applied to the attribute"
+    ],
+    "correct": 0,
+    "explanation": "Warninglists are maintained lists of values known to cause false positives, such as public resolvers, and MISP warns when an attribute matches one. Sightings are consumer feedback after the fact, and decay models score attributes down over time.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is attaching the ATT&CK cluster T1204.002 to Banyan's event valuable to a detection engineer at a peer organisation?",
+    "options": [
+      "It identifies which domain to add to the proxy block list",
+      "It enforces the TLP tag on every attribute in the event",
+      "It ties changeable indicators to a behaviour that a behaviour-based rule can detect",
+      "It raises the event's threat level so consumers prioritise it"
+    ],
+    "correct": 2,
+    "explanation": "Galaxy clusters link indicators, which change, to behaviours, which do not, so the engineer knows which behaviour rule should fire whatever the next campaign's domain is. The cluster carries no blocking value and has no effect on markings or threat level.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why model a delivered file as a MISP file object rather than as separate filename, size and hash attributes?",
+    "options": [
+      "Objects bypass the event's distribution, so file details can be shared more widely",
+      "Object contents are excluded from correlation, which reduces noisy links",
+      "Objects are the only way to set an IDS flag on hash values",
+      "It keeps values that describe one thing together, linkable and exportable to STIX 2.1"
+    ],
+    "correct": 3,
+    "explanation": "An object groups related attributes from a template and can be linked to other objects by typed references, matching STIX 2.1's model. Its contents are attributes too, so they correlate and export like any other; objects do not bypass distribution.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Several consumers record false-positive sightings against an IDS-flagged attribute in a producer's event. What does this most appropriately lead to?",
+    "options": [
+      "MISP deleting the attribute automatically once a threshold is reached",
+      "The producer reviewing the attribute and withdrawing or correcting it",
+      "All correlations involving the attribute being removed instance-wide",
+      "The event's TLP tag being relaxed to tlp:clear for wider review"
+    ],
+    "correct": 1,
+    "explanation": "Sightings are a feedback channel: an indicator several consumers mark as false positive should be reviewed or withdrawn by its producer. The lesson describes no automatic deletion, and markings are unrelated to quality feedback.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan's enrichment pipeline pulls attributes from its MISP instance. Which attributes should be allowed to generate alerts or blocks automatically?",
+    "options": [
+      "IDS-flagged, current, specific attributes that still pass allowlists and validity checks",
+      "Every attribute in any event whose threat level is set to High",
+      "Every attribute that correlates with at least one other event on the instance",
+      "Any attribute carrying a tlp:clear tag, since it may be used without restriction"
+    ],
+    "correct": 0,
+    "explanation": "All attributes may be matched for enrichment, but automated action should come only from flagged attributes, and the pipeline still applies its own allowlists and validity checks. Threat level, correlation and TLP say nothing about whether a value is specific enough to block.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two banks investigating the same fraud campaign want to share an event with each other and nobody else on their shared ISAC instance. Which distribution choice fits?",
+    "options": [
+      "This community only",
+      "Connected communities",
+      "Your organisation only",
+      "A sharing group of the two organisations"
+    ],
+    "correct": 3,
+    "explanation": "A sharing group is a named list of organisations allowed to receive the data, suited to cases where the whole instance is too wide and one organisation too narrow. This community only would reach every organisation on the ISAC instance.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst has created and saved a new event with distribution set to This community only. Has it been shared with the community yet?",
+    "options": [
+      "Yes, every save immediately synchronises the event within its distribution",
+      "Yes, but only to organisations that already have a correlating event",
+      "No, publishing is the release step that triggers synchronisation and notifications",
+      "No, sharing always requires a manual STIX export sent to each partner"
+    ],
+    "correct": 2,
+    "explanation": "Creating or editing an event does not share it; publishing marks it ready and triggers synchronisation within its distribution and any configured notifications. Many organisations put a second-analyst review before that step.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An ISAC-A event is synchronised onto Banyan's MISP instance. Which field still lets a Banyan analyst judge who produced the intelligence?",
+    "options": [
+      "The owner organisation, because it identifies who holds this copy of the event",
+      "The creator organisation, which remains the original producer after synchronisation",
+      "The event UUID, because it encodes the producer's reliability grade",
+      "The sharing group name, because only producers can create sharing groups"
+    ],
+    "correct": 1,
+    "explanation": "The owner organisation is whoever owns this copy on this instance, while the creator remains the original producer across synchronisation. The UUID only makes the event recognisable across instances; it carries no grading.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the worked Banyan event deliberately leave out 198.51.100.104?",
+    "options": [
+      "It was an expired open-feed entry that matched an ordinary employee session",
+      "It came from a TLP:CLEAR feed, and MISP cannot store TLP:CLEAR values",
+      "Addresses may only be recorded inside objects, never as plain attributes",
+      "It is an internal address, and internal addresses never leave Banyan"
+    ],
+    "correct": 0,
+    "explanation": "The address is not part of the intrusion; including it would spread a false association to every consumer. It is an external documentation address, and TLP:CLEAR data can be stored in MISP like any other.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An event with distribution Connected communities contains one attribute that must stay on the creating organisation's instance. What does MISP allow?",
+    "options": [
+      "Turning the attribute's IDS flag off, which keeps it out of synchronisation",
+      "Disabling correlation on the attribute, which also stops it being shared",
+      "Giving that attribute a more restrictive distribution than the event",
+      "Nothing; attributes must inherit the event's distribution, so the event must be split"
+    ],
+    "correct": 2,
+    "explanation": "Attributes have their own distribution, which can inherit the event's or be more restrictive, so one event can share most content while keeping a value local. The IDS flag governs detection use and disabling correlation governs linking; neither restricts sharing.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An attribute arrives tagged with a PAP value that permits only passive use. How should Banyan's enrichment pipeline treat it?",
+    "options": [
+      "Ignore the tag, because PAP only controls onward sharing to other people",
+      "Read it as the source's reliability grade and weight the match accordingly",
+      "Use it to choose which instances the attribute is synchronised to",
+      "Have the privacy gate block active queries about it to external services"
+    ],
+    "correct": 3,
+    "explanation": "The Permissible Actions Protocol states what recipients may do with an indicator, such as whether they may actively query it externally, which connects directly to Lesson 3's privacy gate. Onward sharing is TLP's job, reliability is the Admiralty scale's, and synchronisation is distribution's.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A partner event carries Admiralty-scale tags grading the source B and the information 2. How should an analyst read this?",
+    "options": [
+      "TLP level B with handling priority 2 for the information",
+      "The source is usually reliable and the information is probably true",
+      "Threat level B and analysis state 2 as set by the producer",
+      "Distribution allowed to travel two hops from community B"
+    ],
+    "correct": 1,
+    "explanation": "The Admiralty taxonomy encodes Lesson 2's grading: a letter for source reliability (B, usually reliable) and a number for information credibility (2, probably true). TLP, threat level and distribution are separate fields with their own vocabularies.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two unrelated-looking events correlate on an address belonging to a major cloud provider, and an analyst concludes they are the work of the same actor. What is the flaw in this reasoning?",
+    "options": [
+      "Correlation only links domains, so the address match must be a display error",
+      "Cloud provider addresses cannot be stored as attributes in MISP events",
+      "A correlation counts only after at least one sighting has confirmed it",
+      "A correlation is a lead, not attribution; shared infrastructure can host unrelated actors"
+    ],
+    "correct": 3,
+    "explanation": "Correlation links identical values, and an address on shared cloud infrastructure may serve entirely different actors. Such values are also prime candidates for warninglists or correlation exclusions to avoid over-correlation.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An integration needs only to pull IDS-flagged detection exports from MISP and add sightings. How should its API key be managed?",
+    "options": [
+      "Scope it to the minimum role needed, keep it in a secrets manager and rotate it",
+      "Use an administrator's key so the integration never fails on a permission check",
+      "Store it in the pipeline's configuration file in the code repository for traceability",
+      "Share one key across all integrations so that audit logs show a single identity"
+    ],
+    "correct": 0,
+    "explanation": "API keys carry their user's permissions, so a minimal role limits the damage if one leaks; secrets storage and rotation reduce exposure further. A shared key destroys the per-integration attribution that activity logging relies on.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "MISP is configured with a decay model. What happens to an attribute that is several months old and has received no sightings?",
+    "options": [
+      "It is deleted automatically once its first-seen date passes a threshold",
+      "Its distribution narrows step by step until it is local to the producer",
+      "Its score drops over time, and only sightings would refresh it",
+      "Its IDS flag is cleared from the stored event the next time it syncs"
+    ],
+    "correct": 2,
+    "explanation": "Decay models apply the shelf-life idea from Lesson 1, scoring old attributes down unless sightings refresh them. They change how much an attribute counts, not its distribution, its stored flag or its existence.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan publishes its intrusion event to its sector ISAC community. Does this satisfy its incident-reporting obligation to CERT-In?",
+    "options": [
+      "Yes, because sharing through a sector ISAC counts as reporting to CERT-In",
+      "No, reporting specified incidents to CERT-In is a separate legal obligation",
+      "Yes, provided the event is tagged tlp:clear so CERT-In may read it",
+      "Only if the event's distribution is set to All communities"
+    ],
+    "correct": 1,
+    "explanation": "Community sharing in MISP does not replace legal reporting under CERT-In's directions. No marking or distribution setting turns a community event into a regulatory report, and the shared event must also respect DPDP Act limits on personal data.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A consumer's proxy-blocking export includes Network activity domains and excludes External analysis references. A producer files a campaign's C2 domain under External analysis. What is the likely result?",
+    "options": [
+      "The domain is blocked twice, once from each category in the export",
+      "The domain fails to correlate with other events containing the same value",
+      "The domain loses its TLP tag when it is exported to the consumer",
+      "The domain never reaches the proxy-blocking control that needed it"
+    ],
+    "correct": 3,
+    "explanation": "Category and type determine which exports and controls a value reaches, so a mis-categorised C2 domain is filtered out of the blocking export. Correlation works on the value regardless of category, so it would still link.",
+    "lesson": 4,
+    "difficulty": "hard"
+  }
+]

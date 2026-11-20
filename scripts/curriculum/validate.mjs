@@ -37,7 +37,7 @@ export function analyseLesson(md) {
   let inWalk = null;
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
-    const fence = l.match(/^\s*(```+|~~~+)\s*([A-Za-z0-9_+-]*)/);
+    const fence = l.match(/^\s*(```+|~~~+)\s*([A-Za-z0-9_+-]*)\s*$/); // a whole line only, so traceback markers like ~~~^^^ are not fences
     if (fence) {
       if (!inCode) {
         inCode = true;
