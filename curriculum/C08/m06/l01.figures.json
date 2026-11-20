@@ -1,0 +1,35 @@
+{
+  "C08-M06-L01-F1": {
+    "title": "The Pyramid of Pain, mapped to the Banyan case",
+    "caption": "David Bianco's six indicator levels, from trivial to replace at the base to tough at the top, each with an example from the lab dataset.",
+    "alt": "Pyramid of six stacked bands, narrow at the top. From top to bottom: TTPs, tough, phish then spray then exfiltrate; Tools, challenging, the loader that beacons; Network and host artefacts, annoying, /api/v2/ping every 300 s; Domain names, simple, cdn-telemetry-sync.example; IP addresses, easy, 203.0.113.66; Hash values, trivial, the invoice.docm SHA-256. Note: the higher the level, the more it costs the adversary to change and the longer the indicator stays useful.",
+    "type": "layers",
+    "pyramid": true,
+    "layers": [
+      { "label": "TTPs", "sub": "tough: phish, spray, exfiltrate", "tone": "dark" },
+      { "label": "Tools", "sub": "challenging: the loader that beacons", "tone": "red" },
+      { "label": "Network & host artefacts", "sub": "annoying: /api/v2/ping every 300 s", "tone": "orange" },
+      { "label": "Domain names", "sub": "simple: cdn-telemetry-sync.example", "tone": "violet" },
+      { "label": "IP addresses", "sub": "easy: 203.0.113.66", "tone": "blue" },
+      { "label": "Hash values", "sub": "trivial: invoice.docm SHA-256", "tone": "slate" }
+    ],
+    "note": "The higher the level, the more it costs the adversary to change and the longer the indicator stays useful."
+  },
+  "C08-M06-L01-F2": {
+    "title": "Indicators in the lab: class, level, shelf life, telemetry",
+    "caption": "Each indicator met in the Banyan case placed by structural class and pyramid level, with its typical shelf life and the data it must match against.",
+    "alt": "Table with five columns: Indicator (lab), Class, Pyramid level, Shelf life, Telemetry needed. Row 1: 9f2c...e1a0 (invoice.docm), computed, hash, precise but soon irrelevant, file hashes (EDR, mail gateway), not collected in the lab. Row 2: 203.0.113.66, atomic, IP address, days (window 7 days), VPN or firewall source IP. Row 3: cdn-telemetry-sync.example, atomic, domain, weeks to months (window 58 days), proxy or DNS logs. Row 4: banyan-payroll-update.example, atomic, domain (look-alike), while registered (window 27 days), proxy or DNS logs. Row 5: beacon, 300 s, cv 0.004, computed, network artefact, life of the tooling, proxy timestamps and sizes. Row 6: R1 Word starts PowerShell, behavioural, TTP, long, Sysmon process creation with parent. Rows run from slate and blue tones to red and dark.",
+    "type": "table",
+    "columns": ["Indicator (lab)", "Class", "Pyramid level", "Shelf life", "Telemetry needed"],
+    "rows": [
+      ["9f2c...e1a0 (invoice.docm)", "Computed", "Hash", "Precise, soon irrelevant", "File hashes (EDR, mail gateway): not in lab"],
+      ["203.0.113.66", "Atomic", "IP address", "Days (window 7 d)", "VPN / firewall source IP"],
+      ["cdn-telemetry-sync.example", "Atomic", "Domain", "Weeks-months (58 d)", "Proxy or DNS logs"],
+      ["banyan-payroll-update.example", "Atomic", "Domain (look-alike)", "While registered (27 d)", "Proxy or DNS logs"],
+      ["Beacon 300 s, cv 0.004", "Computed", "Network artefact", "Life of the tooling", "Proxy timestamps and sizes"],
+      ["R1 Word starts PowerShell", "Behavioural", "TTP", "Long", "Sysmon process creation with parent"]
+    ],
+    "rowTones": ["slate", "blue", "violet", "violet", "orange", "dark"],
+    "note": "Type predicts both lifetime and data needs: the best-graded indicator in the feed (the hash) could not match because the lab collects no hashes."
+  }
+}

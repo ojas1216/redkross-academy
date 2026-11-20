@@ -1,0 +1,62 @@
+{
+  "C08-M06-L03-F1": {
+    "title": "An intelligence-driven enrichment pipeline",
+    "caption": "Entities are canonicalised and gated before any lookup, external values walk a cascade of sources from cheapest and most private to most exposed, and every answer is recorded with its provenance.",
+    "alt": "Graph, top to bottom. Entities from alerts (588 values from normalised fields) leads to Canonicalise + dedupe (20 distinct values, placeholder dropped), which leads to Classify + privacy gate. The gate branches to Internal sources only (CMDB, identity, history) and to a cascade for external values: 1 Allowlists / warning lists, then 2 Cache, then 3 Internal TIP + ISAC data, then 4 Approved external service. Each cascade box and the internal branch lead to Record with provenance (source, time, as-of, marking, cache or live), which leads to Attach to alert + feed back.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "e", "label": "Entities from alerts", "sub": "588 values from normalised fields", "tone": "orange" },
+      { "id": "c", "label": "Canonicalise + dedupe", "sub": "20 distinct values, placeholder dropped", "tone": "blue" },
+      { "id": "g", "label": "Classify + privacy gate", "sub": "internal list, source permissions, TLP", "tone": "violet" },
+      { "id": "i", "label": "Internal sources only", "sub": "CMDB, identity, history", "tone": "slate" },
+      { "id": "s1", "label": "1 Allowlists / warning lists", "sub": "known-benign values", "tone": "green" },
+      { "id": "s2", "label": "2 Cache", "sub": "key: value + source, TTL", "tone": "blue" },
+      { "id": "s3", "label": "3 Internal TIP + ISAC data", "sub": "curated, marked", "tone": "blue" },
+      { "id": "s4", "label": "4 Approved external service", "sub": "quota, reveals the query", "tone": "slate" },
+      { "id": "r", "label": "Record with provenance", "sub": "source, time, as-of, marking, cache or live", "tone": "dark" },
+      { "id": "a", "label": "Attach to alert + feed back", "tone": "green" }
+    ],
+    "edges": [
+      { "from": "e", "to": "c" },
+      { "from": "c", "to": "g" },
+      { "from": "g", "to": "i", "label": "internal" },
+      { "from": "g", "to": "s1", "label": "external" },
+      { "from": "s1", "to": "s2" },
+      { "from": "s2", "to": "s3" },
+      { "from": "s3", "to": "s4" },
+      { "from": "i", "to": "r" },
+      { "from": "s1", "to": "r" },
+      { "from": "s2", "to": "r" },
+      { "from": "s3", "to": "r" },
+      { "from": "s4", "to": "r" },
+      { "from": "r", "to": "a" }
+    ],
+    "note": "No value reaches a source before the gate has decided it may go there."
+  },
+  "C08-M06-L03-F2": {
+    "title": "One lookup through the cache and a rate-limited source",
+    "caption": "A cache miss, a negative answer from the internal platform, a 429 refusal with Retry-After, a backed-off retry and a cached, provenance-tagged result.",
+    "alt": "Sequence diagram with four lanes: Pipeline worker, Cache, Internal TIP, External service. Worker asks Cache for the value and source; Cache replies miss. Worker queries Internal TIP; TIP replies no data, recorded with time. Worker queries External service for the canonical external domain; service replies 429 Too Many Requests with Retry-After. Worker waits and backs off, then retries the same request; service replies verdict + source details. Worker stores the result in Cache with a type-specific TTL and provenance.",
+    "type": "sequence",
+    "actors": [
+      { "id": "w", "label": "Pipeline worker", "tone": "orange" },
+      { "id": "c", "label": "Cache", "sub": "value + source", "tone": "blue" },
+      { "id": "t", "label": "Internal TIP", "sub": "feeds + community", "tone": "violet" },
+      { "id": "x", "label": "External service", "sub": "approved, quota", "tone": "slate" }
+    ],
+    "messages": [
+      { "from": "w", "to": "c", "label": "get(value, source)" },
+      { "from": "c", "to": "w", "label": "miss", "dashed": true },
+      { "from": "w", "to": "t", "label": "match value" },
+      { "from": "t", "to": "w", "label": "no data (recorded with time)", "dashed": true },
+      { "from": "w", "to": "x", "label": "query canonical external domain" },
+      { "from": "x", "to": "w", "label": "429 Too Many Requests + Retry-After", "dashed": true },
+      { "from": "w", "to": "x", "label": "retry after wait + backoff" },
+      { "from": "x", "to": "w", "label": "verdict + source details", "dashed": true },
+      { "from": "w", "to": "c", "label": "store: result, TTL by type, provenance" }
+    ],
+    "note": "A refusal changes the worker's timing; a timeout is recorded as unavailable, never as clean."
+  }
+}

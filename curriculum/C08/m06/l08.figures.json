@@ -1,0 +1,49 @@
+{
+  "C08-M06-L08-F1": {
+    "title": "The intel lab route: from feed match to released note",
+    "caption": "The lab's seven stages, the kit or lab script behind each, and the loop that sends a draft back until the pre-share check is clear.",
+    "alt": "Top-to-bottom graph. Match (ioc_match.py against minisiem.db) leads to Verify sightings (minisiem.py search on raw events), then Grade (intel_grade.py: reliability + credibility), then Age (validity at three check dates), then Derive first-party IOCs (R3 and R4 hits: domain, account), then Draft note (attacker-side facts, TLP per item), then Scrub check (scrub_check.py). From Scrub check a dashed arrow labelled findings greater than 0 returns to Draft note. A solid arrow labelled 0 findings leads to two outputs: TLP:GREEN peer note (first-party plus GREEN items), shown in green, and TLP:AMBER sighting to ISAC-A (asks permission to widen), shown in dark.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "match", "label": "Match", "sub": "ioc_match.py against minisiem.db", "tone": "slate" },
+      { "id": "verify", "label": "Verify sightings", "sub": "minisiem.py search on raw events", "tone": "blue" },
+      { "id": "grade", "label": "Grade", "sub": "intel_grade.py: reliability + credibility", "tone": "violet" },
+      { "id": "age", "label": "Age", "sub": "validity at three check dates", "tone": "violet" },
+      { "id": "derive", "label": "Derive first-party IOCs", "sub": "R3 and R4 hits: domain, account", "tone": "orange" },
+      { "id": "draft", "label": "Draft note", "sub": "attacker-side facts, TLP per item", "tone": "blue" },
+      { "id": "scrub", "label": "Scrub check", "sub": "scrub_check.py", "tone": "red" },
+      { "id": "green", "label": "TLP:GREEN peer note", "sub": "first-party + GREEN items", "tone": "green" },
+      { "id": "amber", "label": "TLP:AMBER sighting to ISAC-A", "sub": "asks permission to widen", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "match", "to": "verify" },
+      { "from": "verify", "to": "grade" },
+      { "from": "grade", "to": "age" },
+      { "from": "age", "to": "derive" },
+      { "from": "derive", "to": "draft" },
+      { "from": "draft", "to": "scrub" },
+      { "from": "scrub", "to": "draft", "label": "findings > 0", "dashed": true },
+      { "from": "scrub", "to": "green", "label": "0 findings" },
+      { "from": "scrub", "to": "amber", "label": "0 findings" }
+    ],
+    "note": "A match is where the lab starts, not where it ends: every indicator is verified, graded and aged before anything is shared."
+  },
+  "C08-M06-L08-F2": {
+    "title": "Graded and aged: the five feed indicators after the lab",
+    "caption": "Real intel_grade.py results for each indicator, with the analyst's final decision on how to use it.",
+    "alt": "Table with columns Indicator, Sightings and rule, Grade, Valid on 16 Nov, Decision. cdn-telemetry-sync.example: 18 sightings, rule R6, grade B1 HIGH, valid (45 days left), decision: block, hunt, AMBER sighting to ISAC-A; red row. banyan-payroll-update.example: 1 sighting, no rule, grade B3 MEDIUM upgraded to B2 by the analyst, valid (14 days), decision: block, share as first-party; orange row. 203.0.113.66: 9 sightings, rule R2, grade B1 HIGH, expired after 10 November, decision: retire block, keep for retro search; violet row. 198.51.100.104: 1 sighting, no rule, C3 LOW expired, decision: no action, flag as stale; slate row. 9f2c...e1a0 hash: no telemetry, B6 ungraded, valid (76 days), decision: close the telemetry gap; blue row.",
+    "type": "table",
+    "columns": ["Indicator", "Sightings / rule", "Grade", "Valid on 16 Nov", "Decision"],
+    "rowTones": ["red", "orange", "violet", "slate", "blue"],
+    "rows": [
+      ["cdn-telemetry-sync.example", "18 / R6", "B1 HIGH", "yes, 45 d", "Block, hunt; AMBER sighting"],
+      ["banyan-payroll-update.example", "1 / none", "B3 MEDIUM, analyst B2", "yes, 14 d", "Block; share first-party"],
+      ["203.0.113.66", "9 / R2", "B1 HIGH", "expired", "Retire block; keep for retro"],
+      ["198.51.100.104", "1 / none", "C3 LOW (expired)", "expired", "No action; flag as stale"],
+      ["9f2c...e1a0 (sha256)", "n/a / none", "B6 ungraded", "yes, 76 d", "Close the telemetry gap"]
+    ],
+    "note": "Grades and ages come from the script; the right-hand column is the analyst's judgement and must be written down with its reason."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "C08-M06-L04-F1": {
+    "title": "The MISP data model",
+    "caption": "An event contains attributes and template-based objects, is labelled with taxonomy tags and galaxy clusters, and receives sightings from consumers against its attributes.",
+    "alt": "Graph. Event (info, date, threat level, analysis, distribution) contains Attribute (category, type, value, to_ids) and contains Object (template: file, url, domain-ip). Object groups Attribute and has an Object reference (relationship type). Event and Attribute are each tagged with Tag (taxonomy), for example tlp:amber and Admiralty scale. Event relates to Galaxy cluster (ATT&CK technique, threat actor). Sighting (seen, false positive, expired) points to Attribute, labelled about.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "e", "label": "Event", "sub": "info, date, threat level, analysis, distribution", "tone": "dark" },
+      { "id": "a", "label": "Attribute", "sub": "category, type, value, to_ids", "tone": "blue" },
+      { "id": "o", "label": "Object", "sub": "template: file, url, domain-ip", "tone": "orange" },
+      { "id": "r", "label": "Object reference", "sub": "relationship type", "tone": "slate" },
+      { "id": "t", "label": "Tag (taxonomy)", "sub": "tlp:amber, Admiralty scale", "tone": "violet" },
+      { "id": "g", "label": "Galaxy cluster", "sub": "ATT&CK technique, threat actor", "tone": "green" },
+      { "id": "s", "label": "Sighting", "sub": "seen, false positive, expired", "tone": "red" }
+    ],
+    "edges": [
+      { "from": "e", "to": "a", "label": "contains" },
+      { "from": "e", "to": "o", "label": "contains" },
+      { "from": "o", "to": "a", "label": "groups" },
+      { "from": "o", "to": "r" },
+      { "from": "e", "to": "t", "label": "tagged" },
+      { "from": "a", "to": "t", "label": "tagged" },
+      { "from": "e", "to": "g", "label": "relates to" },
+      { "from": "s", "to": "a", "label": "about" }
+    ],
+    "note": "Automation reads the model: values, flags, tags and distribution, never free-text titles."
+  },
+  "C08-M06-L04-F2": {
+    "title": "Correlation: a meaningful link and over-correlation control",
+    "caption": "Two events sharing a specific value are linked by exact-match correlation, while a common value is caught by a warninglist and kept out of correlation.",
+    "alt": "Graph with two independent groups. First group: Event A: Banyan intrusion (domain cdn-telemetry-sync.example) and Event B: ISAC-A loader report (same domain) both lead to Correlation: exact value match, which leads to Related events linked (independent sources corroborate). Second group: Common value in many events (shared CDN or resolver address) leads to Warninglist match (known false-positive list), which leads to Exclude or disable correlation (avoid over-correlation).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "a", "label": "Event A: Banyan intrusion", "sub": "domain cdn-telemetry-sync.example", "tone": "blue" },
+      { "id": "b", "label": "Event B: ISAC-A loader report", "sub": "same domain", "tone": "slate" },
+      { "id": "c", "label": "Correlation: exact value match", "tone": "orange" },
+      { "id": "l", "label": "Related events linked", "sub": "independent sources corroborate", "tone": "green" },
+      { "id": "n", "label": "Common value in many events", "sub": "shared CDN or resolver address", "tone": "slate" },
+      { "id": "w", "label": "Warninglist match", "sub": "known false-positive list", "tone": "violet" },
+      { "id": "x", "label": "Exclude or disable correlation", "sub": "avoid over-correlation", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "a", "to": "c" },
+      { "from": "b", "to": "c" },
+      { "from": "c", "to": "l" },
+      { "from": "n", "to": "w" },
+      { "from": "w", "to": "x" }
+    ],
+    "note": "A correlation is a lead to investigate, not a conclusion about who is behind it."
+  }
+}

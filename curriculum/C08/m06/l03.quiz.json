@@ -1,0 +1,132 @@
+[
+  {
+    "q": "In the Banyan data, 284 events carry a URL (9 distinct) and 304 carry a source address (11 distinct strings). After canonicalisation, dropping placeholders and gating internal values, how many values can tell the SOC anything new from outside sources?",
+    "options": [
+      "Twenty, one lookup for every distinct value observed",
+      "Nineteen, every distinct value left after removing the placeholder",
+      "Eight: six external host names and two external addresses",
+      "Eleven, because only the address strings need external reputation"
+    ],
+    "correct": 2,
+    "explanation": "Of 20 distinct values, '-' is a placeholder, 8 addresses are in 10.40.0.0/24 and 3 URLs are under banyan.example, leaving 6 external host names and 2 external addresses. Nineteen would still send internal values outside, which is both wasteful and a disclosure.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should an enrichment cache be keyed by the pair (canonical value, source) rather than by the canonical value alone?",
+    "options": [
+      "Different sources can legitimately say different things about one value, and both answers must survive",
+      "Keying by value alone would make it impossible to store negative results for any entity",
+      "Sources require the cache to prove which key was used before they bill a lookup",
+      "A value cannot be canonicalised until the pipeline knows which source will receive it"
+    ],
+    "correct": 0,
+    "explanation": "The ISAC data and an external reputation service may disagree about the same domain; a value-only key would let one answer overwrite the other. Negative results can be stored under either key design, so that distractor misses the point.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On 15 November a pipeline serves a cached 'MATCH, confidence 60' for 203.0.113.66, fetched on 3 November and stored with a 14-day TTL. The indicator's valid_until is 2026-11-10. What is wrong?",
+    "options": [
+      "Nothing, because the cache entry is still inside its 14-day TTL",
+      "The hit count has changed since 3 November, so the match must be recomputed",
+      "Address TTLs should be longer than 14 days, so the entry is in fact too young",
+      "Validity was not re-checked against the as-of date; the correct status is EXPIRED"
+    ],
+    "correct": 3,
+    "explanation": "The cache TTL and the indicator's validity are independent clocks; the rerun with AS_OF 2026-11-15 shows the same nine events now come back EXPIRED. Being inside the TTL only means the lookup is recent, not that the indicator is still valid.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An approved external reputation service answers a worker's request with HTTP 429 and a Retry-After header. What should the worker do?",
+    "options": [
+      "Retry immediately up to five times, then record the value as clean",
+      "Stop sending to that source, wait at least the requested time, then retry with growing backoff",
+      "Send the same value to a free public service that publishes submissions instead",
+      "Record 'no data from source' and cache that negative result with a long TTL"
+    ],
+    "correct": 1,
+    "explanation": "A 429 (RFC 6585) is an instruction to slow down; the worker obeys Retry-After and lengthens the wait on repeated refusals. Recording 'no data' would misrepresent a refusal as an answer, and immediate retry loops get integration keys suspended.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two honest pipeline runs over identical Banyan events disagree: one marks 203.0.113.66 MATCH, the other EXPIRED. Which provenance field, read with valid_until, explains the difference?",
+    "options": [
+      "query_time_utc, because it records when the event itself occurred",
+      "as_of, because validity status is evaluated against that date",
+      "pipeline_version, because an expiry change implies a different release",
+      "retrieved, because one answer must have come from a stale cache"
+    ],
+    "correct": 1,
+    "explanation": "Validity is recomputed from valid_until and the as-of date, so 3 November gives MATCH and 15 November gives EXPIRED with identical data and code. query_time_utc records when the pipeline asked, not the date the validity test used, and it is not the event time.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An external source fails to answer within the pipeline's timeout while an alert is being enriched. How should the result be handled?",
+    "options": [
+      "Record the value as clean as of that time, since no adverse data was returned",
+      "Record 'no data from source' and negative-cache it with the usual negative TTL",
+      "Hold the alert out of the queue until the source answers or the shift ends",
+      "Record 'source unavailable at time T', let the alert proceed and flag it for re-enrichment"
+    ],
+    "correct": 3,
+    "explanation": "A timeout is no answer, which an analyst reads differently from 'no data' and completely differently from 'clean'. Enrichment must never block an alert from reaching the queue, so holding it is wrong too.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A community feed mistakenly lists a major public DNS resolver as malicious. Which design choice in the lookup cascade stops this from producing an alert storm?",
+    "options": [
+      "Consulting allowlists and warning lists before the internal TIP's intelligence",
+      "Caching TIP matches with a long TTL so the entry is looked up less often",
+      "Placing external reputation services ahead of the TIP so wider data overrides it",
+      "Negative-caching every resolver lookup so repeated queries are suppressed"
+    ],
+    "correct": 0,
+    "explanation": "Allowlists sit before intelligence precisely because feeds contain mistakes about widely shared benign values. Caching the bad match for longer would only prolong the storm, and reordering towards external services increases exposure without fixing the error.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson recommend a shorter TTL for negative results than for positive ones?",
+    "options": [
+      "Negative results take more cache storage because they include the full query",
+      "Sources rate-limit repeated negative lookups more harshly than positive ones",
+      "A value nobody has reported today may be reported once a campaign is noticed",
+      "Negative results cannot be reproduced later, so they lose value quickly"
+    ],
+    "correct": 2,
+    "explanation": "A negative answer ages faster: reporting often lags the start of a campaign. It is recorded as 'no data from source X as of T', never 'clean'. Storage size and rate-limit treatment are not the reasons given for the shorter TTL.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "cdn-telemetry-sync.example reached Banyan through ISAC-A data marked TLP:AMBER. A contracted external reputation service is available. What should the privacy gate decide?",
+    "options": [
+      "Submit it externally, because the gate only blocks internal values",
+      "Submit only the host name without the URL path, which removes the restriction",
+      "Submit it to a free public service, because the contract only covers paid lookups",
+      "Match it internally only; the AMBER marking forbids passing it to that third party"
+    ],
+    "correct": 3,
+    "explanation": "The gate checks the most restrictive marking already attached to a value; sending an AMBER value to an outside enrichment service passes it beyond the recipient organisation. Being external is not enough, and stripping the path does not change the marking on the domain itself.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A pipeline sends the src_ip value '-' (present in 10 Banyan events) to a reputation service. What is the correct diagnosis?",
+    "options": [
+      "It is an internal address token and sending it discloses Banyan's addressing",
+      "It is a placeholder, not an entity; it should be dropped and counted at canonicalisation",
+      "It is a defanged indicator that must be refanged before the lookup",
+      "It should be routed to internal sources, since its owner is unknown"
+    ],
+    "correct": 1,
+    "explanation": "'-' is a placeholder some source writes when it has no value; looking it up wastes a request and pollutes the cache. Counting dropped values matters because a rise signals a parsing problem. It is not an address of any kind, internal or defanged.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

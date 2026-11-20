@@ -1,0 +1,52 @@
+{
+  "C08-M06-L05-F1": {
+    "title": "Feed-management pipeline: from four sources to action",
+    "caption": "Every indicator is normalised, deduplicated, allowlist-checked, scored and aged before it may drive detection or blocking.",
+    "alt": "Graph. Four slate source boxes - Open feeds (free, thin context), Commercial feeds (curated, licensed), ISAC / community (relevant, under TLP) and Internal cases (proven against us) - each point into Normalise (canonical type + value). The chain continues to Deduplicate and merge (one record, all sources), then the green Allowlist filter (own and shared infrastructure), then the orange Score (confidence x reliability x age), then the violet Age out (past valid_until: history only). From Age out an arrow labelled high score, current leads to the dark Detect / block box, and an arrow labelled low score or expired leads to the blue Enrich / hunt box. A dashed arrow labelled false matches, sightings returns from Enrich / hunt to ISAC / community.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "open", "label": "Open feeds", "sub": "free, thin context", "tone": "slate" },
+      { "id": "com", "label": "Commercial feeds", "sub": "curated, licensed", "tone": "slate" },
+      { "id": "isac", "label": "ISAC / community", "sub": "relevant, under TLP", "tone": "slate" },
+      { "id": "int", "label": "Internal cases", "sub": "proven against us", "tone": "slate" },
+      { "id": "norm", "label": "Normalise", "sub": "canonical type + value", "tone": "blue" },
+      { "id": "dedup", "label": "Deduplicate and merge", "sub": "one record, all sources", "tone": "blue" },
+      { "id": "allow", "label": "Allowlist filter", "sub": "own and shared infrastructure", "tone": "green" },
+      { "id": "score", "label": "Score", "sub": "confidence × reliability × age", "tone": "orange" },
+      { "id": "age", "label": "Age out", "sub": "past valid_until: history only", "tone": "violet" },
+      { "id": "act", "label": "Detect / block", "sub": "with change control", "tone": "dark" },
+      { "id": "enr", "label": "Enrich / hunt", "sub": "analyst reads in context", "tone": "blue" }
+    ],
+    "edges": [
+      { "from": "open", "to": "norm" },
+      { "from": "com", "to": "norm" },
+      { "from": "isac", "to": "norm" },
+      { "from": "int", "to": "norm" },
+      { "from": "norm", "to": "dedup" },
+      { "from": "dedup", "to": "allow" },
+      { "from": "allow", "to": "score" },
+      { "from": "score", "to": "age" },
+      { "from": "age", "to": "act", "label": "high score, current" },
+      { "from": "age", "to": "enr", "label": "low score or expired" },
+      { "from": "enr", "to": "isac", "label": "false matches, sightings", "dashed": true }
+    ],
+    "note": "Never connect a feed straight to a blocklist."
+  },
+  "C08-M06-L05-F2": {
+    "title": "The lab feed on two dates: validity decides action",
+    "caption": "The same five indicators from ioc_match.py, reported on 3 and 15 November 2026: hit counts stay fixed while statuses change.",
+    "alt": "Table with columns Indicator, Source, Conf., Valid until, 3 Nov and 15 Nov. Row 1, green: cdn-telemetry-sync.example, ISAC-A, 85, 2026-12-31, MATCH (18), MATCH (18). Row 2, green: banyan-payroll-update.example, internal, 70, 2026-11-30, MATCH (1), MATCH (1). Row 3, orange: 203.0.113.66, ISAC-A, 60, 2026-11-10, MATCH (9), EXPIRED (9). Row 4, red: 198.51.100.104, open feed, 40, 2026-06-30, EXPIRED (1), EXPIRED (1). Row 5, slate: sha256 9f2c...e1a0, vendor, 90, 2027-01-31, no match (0), no match (0).",
+    "type": "table",
+    "columns": ["Indicator", "Source", "Conf.", "Valid until", "3 Nov", "15 Nov"],
+    "rowTones": ["green", "green", "orange", "red", "slate"],
+    "rows": [
+      ["cdn-telemetry-sync.example", "ISAC-A", "85", "2026-12-31", "MATCH (18)", "MATCH (18)"],
+      ["banyan-payroll-update.example", "internal", "70", "2026-11-30", "MATCH (1)", "MATCH (1)"],
+      ["203.0.113.66", "ISAC-A", "60", "2026-11-10", "MATCH (9)", "EXPIRED (9)"],
+      ["198.51.100.104", "open feed", "40", "2026-06-30", "EXPIRED (1)", "EXPIRED (1)"],
+      ["sha256 9f2c...e1a0", "vendor", "90", "2027-01-31", "no match (0)", "no match (0)"]
+    ],
+    "note": "Expiry removes an indicator from automatic action; it never rewrites what it already showed."
+  }
+}

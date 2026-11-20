@@ -1,0 +1,327 @@
+[
+  {
+    "q": "ioc_match.py shows 'conf= 85' for cdn-telemetry-sync.example. What does this number actually tell the consuming SOC?",
+    "options": [
+      "That there is an 85 per cent probability the domain is malicious in its network",
+      "How sure the producer was of its own claim, on its own scale, when it made it",
+      "That 85 per cent of the producer's past reports have proved correct",
+      "That the domain has been seen by 85 independent sources across the sector"
+    ],
+    "correct": 1,
+    "explanation": "Producer confidence expresses the producer's certainty in their claim at the time, on their scale. It is not a probability calibrated for your network, and it says nothing about the producer's track record, which is what source reliability grades.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Report X comes second-hand from a sector group with years of accurate reporting. Report Y is an anonymous paste that includes a registration date and URL path you can verify in minutes. Which handling best reflects Admiralty practice?",
+    "options": [
+      "Grade both by the source alone, so trust X and discard Y",
+      "Grade both by the information alone, so trust Y and discard X",
+      "Average the two grades and act on whichever report scores higher",
+      "Treat X as a good source with unconfirmed information and seek corroboration; verify Y's details"
+    ],
+    "correct": 3,
+    "explanation": "The system grades source and information independently: X needs corroboration despite its strong source, and Y's verifiable content can be confirmed so its weak source matters less. Collapsing either into a single judgement loses exactly that distinction.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A new threat-sharing partner sends its first report. The analyst grades the source 'F'. What does this grade mean and imply?",
+    "options": [
+      "Reliability cannot be judged yet; treat it as unknown and seek more evidence",
+      "The source is unreliable, so its reports should be discarded",
+      "The source is fairly reliable but needs a second confirmation",
+      "The report is improbable and conflicts with existing evidence"
+    ],
+    "correct": 0,
+    "explanation": "F means reliability cannot be judged, typically for a new or unassessed source; it is not a bad grade. 'Unreliable' is E, and improbability is an information grade (5), not a source grade.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A domain arrives within one day via a vendor feed, an open feed and a sharing group. Tracing shows all three cite the same original vendor report. May the analyst grade the information '1'?",
+    "options": [
+      "Yes, because three separate channels have confirmed the same domain",
+      "Yes, provided at least one of the three channels is graded A or B",
+      "No: copies of one original are a single report, which is circular reporting",
+      "No, because information can only be graded 1 by the original producer"
+    ],
+    "correct": 2,
+    "explanation": "Grade 1 requires confirmation by an independent source; three copies of one report are one report. Local telemetry, such as a hunt finding, could provide genuine independent confirmation.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst proposes averaging the Admiralty grades of all feed entries to report a 'mean grade' for each feed. Why is this unsound?",
+    "options": [
+      "The letters and numbers belong to different scales that cannot be combined",
+      "Admiralty grades change too quickly for an average to stay meaningful",
+      "The grades are ordinal labels with no defined distance between values",
+      "Averages are only valid when every entry shares the same TLP marking"
+    ],
+    "correct": 2,
+    "explanation": "Grades order values (B is better than C) but define no distance, so arithmetic on them is meaningless; any numeric conversion is a written local policy choice. The scale-mixing point is true but does not explain why averaging a single axis fails.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The vendor's file hash (producer confidence 90) is graded B6 in the worked table. Why does the information grade fall to 6?",
+    "options": [
+      "The SOC has no file-hash data, so the claim's truth cannot be judged locally",
+      "The vendor's past reporting has been inconsistent in malware analysis",
+      "The hash conflicts with the other feed entries and is therefore improbable",
+      "The hash's validity window expired before the as-of date"
+    ],
+    "correct": 0,
+    "explanation": "Grade 6 means truth cannot be judged: with no hash telemetry, Banyan cannot check the claim at all. The source letter stays B because the vendor is reliable for malware analysis; the hash still had validity remaining.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R2 fired on the same events that 203.0.113.66 matched, yet the worked table grades the address B2 rather than B1. What is the reasoning?",
+    "options": [
+      "R2 was written using the indicator, so it is not independent corroboration",
+      "ISAC-A has only a fair track record, which caps information at 2",
+      "Expired indicators can never be graded above 2 in the Admiralty system",
+      "Local data confirms only that something there sprayed Banyan, not the wider claim"
+    ],
+    "correct": 3,
+    "explanation": "The claim graded is that the address is used for VPN spraying generally; Banyan's data supports it strongly but only for its own 06:42 events, and an address is a weak identifier of an actor. R2 was in fact written without knowledge of the indicator, so it is independent.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Under the course's illustrative scoring policy, an indicator has producer confidence 60, a source graded B, one independent local corroboration and is within its validity window. What is its local score and permitted action?",
+    "options": [
+      "60, context only because addresses cannot alert on their own",
+      "70, raise an alert for analyst review rather than block automatically",
+      "80, eligible for automatic blocking where the type allows it",
+      "50, context only until a second corroboration is recorded"
+    ],
+    "correct": 1,
+    "explanation": "60 with no change for a B source, plus 10 for one independent corroboration, gives 70, which falls in the 50-79 alert band. Reaching 80 would need another corroboration; nothing in the policy caps an in-window address at context only.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How does STIX 2.1 express the confidence of an object such as an indicator?",
+    "options": [
+      "As an optional integer property from 0 to 100",
+      "As a mandatory two-character Admiralty grade",
+      "As a TLP colour from CLEAR to RED",
+      "As a decimal probability between 0 and 1"
+    ],
+    "correct": 0,
+    "explanation": "STIX 2.1 defines an optional confidence property holding an integer from 0 to 100, which the lab feed's conf column imitates. TLP governs sharing, not confidence.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Using the half-life model s(t) = s0 x 0.5^(t/h), an address with a local score of 70 and a 7-day half-life receives no new sightings. What is its score after 14 days, and its action band?",
+    "options": [
+      "35, still in the alert band",
+      "52, still in the alert band",
+      "0, because it is fully expired",
+      "About 17, context only"
+    ],
+    "correct": 3,
+    "explanation": "Fourteen days is two half-lives: 70 x 0.25 = 17.5, which is below 50 and so context only. 35 is the value after one half-life; gradual decay never reaches zero in finite time.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The SOC has a confidence-95 indicator for commodity adware and a confidence-60 indicator for ransomware staging. How should confidence relate to prioritisation here?",
+    "options": [
+      "Prioritise strictly by confidence, so the adware indicator goes first",
+      "Raise the ransomware indicator's confidence to reflect its severity",
+      "Keep confidence and impact separate and combine them only when prioritising",
+      "Discard the ransomware indicator because it is below the block threshold"
+    ],
+    "correct": 2,
+    "explanation": "Confidence measures how sure you are; severity measures how bad the outcome would be. Inflating confidence to express severity corrupts the score, while ranking by confidence alone ignores impact.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the main weakness of hard expiry as used by ioc_match.py, compared with gradual decay?",
+    "options": [
+      "It cannot represent different validity windows for different indicator types",
+      "An indicator counts at full weight one day and not at all the next, with nothing changed",
+      "It requires the analyst to recompute every score manually each morning",
+      "It lets expired indicators continue to drive automatic blocking"
+    ],
+    "correct": 1,
+    "explanation": "Hard expiry creates a cliff: 203.0.113.66 has full weight on 9 November and none on 11 November although the address did not change. Each entry carries its own valid_until, so per-type windows are possible, and the script marks expired matches for review.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should a SOC grade its own internal incident team as a source of intelligence?",
+    "options": [
+      "Always A, because internal sources have direct access to all evidence",
+      "Always F, because internal teams have no external track record",
+      "The same as the most reliable external feed it subscribes to",
+      "Often high for claims about its own environment, lower for the wider world"
+    ],
+    "correct": 3,
+    "explanation": "Reliability rests on track record and access: an internal team sees its own environment directly but has limited access to what happens elsewhere. A is reserved for sources with a long, checked record, not granted by habit.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An aggregator feed re-publishes indicators from several well-regarded sector groups but does no analysis of its own. How should its source reliability be graded?",
+    "options": [
+      "On its own record and access; it does not inherit its upstream sources' grades",
+      "At the highest grade among the upstream sources it re-publishes",
+      "At the average grade of its upstream sources, weighted by volume",
+      "Always as E, because aggregators are inherently unreliable"
+    ],
+    "correct": 0,
+    "explanation": "Reliability reflects the source's own history and access; an aggregator has no access of its own, so it cannot borrow its upstreams' letters. E would be a judgement of a poor record, not something to apply automatically.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the confidence-and-ageing workflow, what happens when a previously graded indicator is seen again in local data?",
+    "options": [
+      "It is re-received at the top and its producer confidence is replaced",
+      "It re-enters at information grading, is re-graded and its age is reset",
+      "Its source grade is raised one letter for each new sighting",
+      "Nothing changes until its valid_until date is reached"
+    ],
+    "correct": 1,
+    "explanation": "The feedback loop runs back to Grade information: a genuine new sighting can change the credibility grade and restarts the age clock. Sightings support the claim; they do not rewrite the producer's number or the source's letter.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An open feed adds a major CDN's address range as 'malicious'. Which control most directly prevents this from becoming a self-inflicted outage?",
+    "options": [
+      "Raising the producer confidence threshold for open feeds to 90",
+      "Applying a short hard-expiry window to all open-feed indicators",
+      "Checking block candidates against an allowlist, with thresholds so low-graded sources cannot block alone",
+      "Converting open-feed indicators into behavioural rules before use"
+    ],
+    "correct": 2,
+    "explanation": "Feed poisoning is countered by grading open sources conservatively, never letting them block alone and checking candidates against a reviewed allowlist of critical ranges. A short expiry would still allow the outage while the entry was active.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which sentence correctly separates likelihood from confidence in an analytic judgement?",
+    "options": [
+      "We assess with moderate confidence that the intrusion is likely linked to the ISAC-A campaign",
+      "We are likely confident that the intrusion is possibly linked to the ISAC-A campaign",
+      "There is a high-confidence probability of 85 that the campaign is involved",
+      "The intrusion may be linked to ISAC-A reporting, which we believe strongly"
+    ],
+    "correct": 0,
+    "explanation": "'Likely' states how probable the judgement is; 'moderate confidence' states how good the evidence is, and both appear distinctly. The other sentences blur the two or use undefined words such as 'may' and 'possibly'.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "gopal's account was compromised by the 06:46 spray. At 13:33 his session matches the expired, F3-graded 198.51.100.104. Why can the intelligence not settle whether this was the attacker returning?",
+    "options": [
+      "Because an address match is only valid if it occurs within one hour of the first hit",
+      "Because the VPN logs do not record the source address of successful logins",
+      "Because open-feed indicators must always be ignored in incident response",
+      "Because an expired F3 claim about shared hosting says almost nothing about that day's user"
+    ],
+    "correct": 3,
+    "explanation": "The indicator is low-graded, expired 126 days earlier and about shared hosting, so it carries no weight either way; other evidence such as the user and his device must decide. Open-feed matches are context, not something to ignore entirely.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Of the six steps from receiving an indicator to acting on it, which are implemented by ioc_match.py itself?",
+    "options": [
+      "Source grading and information grading",
+      "Reading producer confidence and applying hard expiry against AS_OF",
+      "Local corroboration and action by threshold",
+      "All six, with results printed on each line"
+    ],
+    "correct": 1,
+    "explanation": "The script reads the producer confidence and compares valid_until with AS_OF to mark EXPIRED. Grading, corroboration and thresholds are the analyst's and platform's work, recorded alongside the indicator.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "cdn-telemetry-sync.example has a local score of 95 and a 30-day half-life. If 30 days pass with no new sighting or report, what action does the illustrative policy permit?",
+    "options": [
+      "Automatic blocking, since it started well above the threshold",
+      "An alert for analyst review, since it remains in the 50-79 band",
+      "Context only, at about 47, unless new evidence resets the clock",
+      "Removal from the platform, because decay has reached zero"
+    ],
+    "correct": 2,
+    "explanation": "One half-life halves 95 to about 47.5, which is below 50 and therefore context only. A starting score does not protect an indicator from decay, and halving never reaches zero.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A SOC confirms a feed indicator locally and also finds that another feed entry was a false positive. What should it do with this knowledge?",
+    "options": [
+      "Report sightings and false positives back to the producers within each indicator's sharing rules",
+      "Keep both findings internal so that producers cannot adjust their scores",
+      "Publish both findings on an open feed so the wider community benefits",
+      "Lower the producer confidence values in its copy of the feed and move on"
+    ],
+    "correct": 0,
+    "explanation": "Feedback to producers, respecting TLP, improves grading over time and is how sources earn or lose their letter. Publishing openly could breach the indicators' sharing restrictions.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which piece of local evidence would count as independent corroboration of a feed claim that a domain is C2?",
+    "options": [
+      "An alert from a SIEM rule generated automatically from that feed entry",
+      "The same domain appearing in a second feed that cites the original report",
+      "A high producer confidence value attached to the domain by the feed",
+      "A hunt finding a machine-regular beacon to it by timing analysis alone"
+    ],
+    "correct": 3,
+    "explanation": "A timing hunt that does not use the domain list confirms the claim from your own data, independently of the feed. A rule generated from the same entry merely re-expresses the indicator, and a citing feed is circular reporting.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A low-confidence indicator matches a session belonging to a named employee. What does the lesson require?",
+    "options": [
+      "Suspend the account until the employee proves the session was theirs",
+      "Escalate to HR, since any intelligence match is grounds for investigation",
+      "Never use it as a basis for disciplinary action; handle it as personal data with care",
+      "Delete the match record immediately to protect the employee's privacy"
+    ],
+    "correct": 2,
+    "explanation": "People are in scope: low-confidence intelligence must not drive disciplinary or legal action, and such matches are personal data under the DPDP Act 2023. Deleting the record would destroy the audit trail the lesson asks you to keep.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In a private copy of the kit you run ioc_match.py with AS_OF set to 9 November 2026 and then 11 November 2026. Which line changes status between the two runs?",
+    "options": [
+      "cdn-telemetry-sync.example moves from MATCH to EXPIRED",
+      "203.0.113.66 moves from MATCH to EXPIRED",
+      "198.51.100.104 moves from EXPIRED to MATCH",
+      "banyan-payroll-update.example moves from MATCH to EXPIRED"
+    ],
+    "correct": 1,
+    "explanation": "203.0.113.66 is valid until 10 November, so it is current on 9 November and expired on 11 November. The two domains remain valid for weeks longer, and 198.51.100.104 expired on 30 June in both runs.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The internal team's note on banyan-payroll-update.example is graded B1 in the worked table. What justifies the information grade of 1?",
+    "options": [
+      "Its verifiable registration date and the local download followed by R1 confirm it",
+      "Internal sources are always graded 1 for information about their own domains",
+      "Its producer confidence of 70 is above the threshold for confirmed information",
+      "The domain appears in both the internal note and ISAC-A's feed"
+    ],
+    "correct": 0,
+    "explanation": "Grade 1 needs independent confirmation: the registration date is checkable and Banyan's own data shows the 06:12 download followed by R1 at 06:14. Producer confidence is a separate number, and internal sources earn no automatic grade.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

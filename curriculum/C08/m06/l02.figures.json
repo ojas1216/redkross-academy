@@ -1,0 +1,36 @@
+{
+  "C08-M06-L02-F1": {
+    "title": "The Admiralty grading system: two independent axes",
+    "caption": "Source reliability (A-F) and information credibility (1-6) are judged separately and combined into a grade such as B2.",
+    "alt": "Table with four columns: Code, Source reliability, Code, Information credibility. Six rows: A Completely reliable and 1 Confirmed by other sources; B Usually reliable and 2 Probably true; C Fairly reliable and 3 Possibly true; D Not usually reliable and 4 Doubtful; E Unreliable and 5 Improbable; F Reliability cannot be judged and 6 Truth cannot be judged. Row tones run green, blue, violet, orange, red, slate. Note: pick one value from each side independently; F and 6 mean cannot be judged, not bad.",
+    "type": "table",
+    "columns": ["Code", "Source reliability", "Code", "Information credibility"],
+    "rows": [
+      ["A", "Completely reliable", "1", "Confirmed by other sources"],
+      ["B", "Usually reliable", "2", "Probably true"],
+      ["C", "Fairly reliable", "3", "Possibly true"],
+      ["D", "Not usually reliable", "4", "Doubtful"],
+      ["E", "Unreliable", "5", "Improbable"],
+      ["F", "Reliability cannot be judged", "6", "Truth cannot be judged"]
+    ],
+    "rowTones": ["green", "blue", "violet", "orange", "red", "slate"],
+    "note": "Pick one value from each side independently (for example B2 or F1); F and 6 mean 'cannot be judged', not 'bad'."
+  },
+  "C08-M06-L02-F2": {
+    "title": "From received indicator to permitted action",
+    "caption": "How producer confidence, separate source and information grades, local corroboration and ageing combine into a score that decides block, alert or context only.",
+    "alt": "Flow of six steps, top to bottom. Receive indicator: producer confidence, e.g. conf= 60. Grade source: reliability A-F. Grade information: credibility 1-6. Corroborate locally: own sightings and detections, trace origins. Apply age: valid_until or decay. Action by threshold: 80+ block where safe, 50-79 alert, under 50 context only. A dashed loop labelled new sighting or report: re-grade and reset age runs from the last step back to Grade information.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Receive indicator", "sub": "producer confidence, e.g. conf= 60", "tone": "slate" },
+      { "label": "Grade source", "sub": "reliability A-F", "tone": "blue" },
+      { "label": "Grade information", "sub": "credibility 1-6", "tone": "blue" },
+      { "label": "Corroborate locally", "sub": "own sightings and detections; trace origins", "tone": "green" },
+      { "label": "Apply age", "sub": "valid_until or decay", "tone": "orange" },
+      { "label": "Action by threshold", "sub": "80+ block where safe · 50-79 alert · <50 context only", "tone": "dark" }
+    ],
+    "loop": { "label": "new sighting or report: re-grade and reset age", "to": 2 },
+    "note": "Only the final, aged score decides what an indicator may do; an expired indicator is context only whatever its grade."
+  }
+}

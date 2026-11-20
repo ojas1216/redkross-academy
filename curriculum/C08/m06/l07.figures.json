@@ -1,0 +1,35 @@
+{
+  "C08-M06-L07-F1": {
+    "title": "TLP 2.0: the five labels and how far each may travel",
+    "caption": "Each Traffic Light Protocol 2.0 label, who a recipient may pass the information to, and when a source chooses it.",
+    "alt": "Table with columns Label, Recipient may share with, and Source uses it when. TLP:RED (red row): named recipients only, no further disclosure; misuse would risk privacy, reputation or operations. TLP:AMBER+STRICT (orange row): own organisation only, need-to-know; recipients need it to act, but clients must not see it. TLP:AMBER (orange row): own organisation and its clients, need-to-know; recipients and their clients need it to protect themselves. TLP:GREEN (green row): peers and partners in the community, not via public channels; it is useful for awareness across the community. TLP:CLEAR (slate row): anyone, standard copyright applies; there is minimal foreseeable risk of misuse.",
+    "type": "table",
+    "columns": ["Label", "Recipient may share with", "Source uses it when"],
+    "rowTones": ["red", "orange", "orange", "green", "slate"],
+    "rows": [
+      ["TLP:RED", "Named recipients only; no further disclosure", "Misuse risks privacy, reputation or operations"],
+      ["TLP:AMBER+STRICT", "Own organisation only, need-to-know", "Recipients must act, clients must not see it"],
+      ["TLP:AMBER", "Own organisation and its clients, need-to-know", "Recipients and clients need it to protect themselves"],
+      ["TLP:GREEN", "Community peers and partners; no public channels", "Useful for awareness across the community"],
+      ["TLP:CLEAR", "Anyone; standard copyright applies", "Minimal foreseeable risk of misuse"]
+    ],
+    "note": "Only the source sets the label; to share more widely than the label allows, a recipient must first get the source's permission."
+  },
+  "C08-M06-L07-F2": {
+    "title": "Before release: the outbound sharing pipeline",
+    "caption": "The six checks a SOC applies to any intelligence it sends out, with feedback flowing back into the next release.",
+    "alt": "Top-to-bottom flow of six steps. 1 Purpose and audience (sighting, peer warning, mandatory report). 2 Inherited limits (source TLP, feed licence, NDA, client contract), shown in violet. 3 Strip and minimise (personal data, internal identifiers, victim identity), shown in orange. 4 Label and channel (outbound TLP; channel that can honour it). 5 Approve and record (owner, approver, what went to whom), shown in violet. 6 Share and follow up (sightings, corrections, expiry), shown in dark. A dashed loop arrow labelled feedback and corrections returns from step 6 to step 2.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "1 Purpose and audience", "sub": "sighting, peer warning, mandatory report", "tone": "blue" },
+      { "label": "2 Inherited limits", "sub": "source TLP, feed licence, NDA, client contract", "tone": "violet" },
+      { "label": "3 Strip and minimise", "sub": "personal data, internal identifiers, victim identity", "tone": "orange" },
+      { "label": "4 Label and channel", "sub": "outbound TLP; a channel that can honour it", "tone": "green" },
+      { "label": "5 Approve and record", "sub": "owner, approver, what went to whom", "tone": "violet" },
+      { "label": "6 Share and follow up", "sub": "sightings, corrections, expiry", "tone": "dark" }
+    ],
+    "loop": { "label": "feedback and corrections", "to": 1 },
+    "note": "The outbound label can never be less restrictive than the most restrictive label on anything the release contains, unless the source agrees."
+  }
+}

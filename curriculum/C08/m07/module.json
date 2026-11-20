@@ -1,0 +1,64 @@
+{
+  "course": "C08",
+  "module": 7,
+  "title": "Detection engineering",
+  "description": "Writing detections the SOC can trust: detection logic and its trade-offs, Sigma rules as portable detection-as-code, ATT&CK mapping, testing rules against known-good and known-bad data, tuning, finding coverage gaps and reviewing rules - ending with a hands-on detection lab on the course dataset.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Detection logic",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 2,
+      "title": "Sigma rules",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 3,
+      "title": "ATT&CK mapping",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 4,
+      "title": "Rule testing",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 5,
+      "title": "Tuning",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 6,
+      "title": "Coverage gaps",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 7,
+      "title": "Rule review",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 8,
+      "title": "Detection lab",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    }
+  ]
+}

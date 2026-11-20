@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A team lead proposes adding three more free open feeds because more indicators should mean better coverage. Which question should the SOC answer before subscribing to any of them?",
+    "options": [
+      "Which intelligence requirement each feed helps answer, and how much it overlaps with feeds already consumed",
+      "Whether the SIEM licence can absorb the extra indicator volume without raising the ingestion cost",
+      "Whether each feed publishes more indicators per day than the feeds the SOC already subscribes to",
+      "Whether the feeds can be connected directly to the firewall blocklist so that matches are stopped at once"
+    ],
+    "correct": 0,
+    "explanation": "Feeds should be driven by requirements and judged on relevance and uniqueness; overlapping feeds add duplicates and false positives faster than useful indicators. Indicator volume is the misleading measure the lesson warns against, and wiring feeds to a blocklist skips every cleaning stage.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "One feed lists `CDN-Telemetry-Sync.example.` with a trailing dot and another lists `cdn-telemetry-sync[.]example`. If the platform stores both values exactly as received, what is the most likely effect when a host contacts that domain?",
+    "options": [
+      "Neither entry matches, because the SIEM rejects indicators that contain upper-case letters or brackets",
+      "Only the first entry matches, so the second feed is wrongly judged to have a zero hit rate",
+      "Duplicate records survive, so one connection can appear as several independent confirmations of the indicator",
+      "Both entries are merged automatically at match time, so normalisation at ingestion adds nothing"
+    ],
+    "correct": 2,
+    "explanation": "Case, a trailing dot and defanged notation make one indicator look like two; without canonical forms they are not deduplicated and the same event looks independently confirmed. Matching engines do not silently merge raw strings, which is exactly why normalisation must happen once, in code, at ingestion.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two feeds describe the same canonical domain. Feed X marks it TLP:GREEN with first-seen 2 November; feed Y marks it TLP:AMBER with first-seen 30 October. How should the merged record be built?",
+    "options": [
+      "Keep the newer record only, with TLP:GREEN and first-seen 2 November, because it reflects the latest view",
+      "List both sources, keep first-seen 30 October and carry TLP:AMBER, the more restrictive marking",
+      "List both sources, keep first-seen 2 November and carry TLP:GREEN so the indicator can be shared widely",
+      "Keep two separate records so that each feed's TLP marking and dates remain exactly as published"
+    ],
+    "correct": 1,
+    "explanation": "Deduplication keeps information: every source, the earliest first-seen, all context, and the most restrictive TLP of the contributors. Choosing TLP:GREEN would breach the AMBER producer's sharing terms, and keeping two records defeats the purpose of deduplication.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During deduplication, an address arrives from an open feed with confidence 60 and from a commercial feed with confidence 60. A colleague wants the merged record to show confidence 120, capped at 100. Why is this wrong?",
+    "options": [
+      "Confidence is a property of the feed rather than of the indicator, so it should not be stored on the merged record",
+      "STIX 2.1 forbids confidence values above 90 on any indicator received from more than one source",
+      "The open-feed value should replace the commercial one because open feeds are published faster",
+      "Both feeds may have copied one original observation, so two entries are not two independent confirmations"
+    ],
+    "correct": 3,
+    "explanation": "Merging must not sum confidences: feeds copy each other, so agreement can be one observation seen twice (circular reporting). The suggestion that confidence belongs to the feed is backwards; the lesson stresses that confidence belongs to each indicator.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At a feed review, feed A matched 40% of its indicators against your telemetry, but nearly all matches were large cloud and CDN addresses closed as false positives. Feed B, a sector ISAC feed, had no matches. Which conclusion is best supported?",
+    "options": [
+      "Feed A is relevant to your traffic but not useful, while feed B's lack of hits does not by itself show poor quality",
+      "Feed A should be kept because a high hit rate is the clearest single measure of a feed's quality",
+      "Feed B should be cancelled because a feed that never matches cannot be relevant to the organisation",
+      "Both feeds perform equally, since hit rate and false-positive share cancel each other out over time"
+    ],
+    "correct": 0,
+    "explanation": "Hit rate measures relevance to your traffic; the false-positive share of those hits shows whether that relevance is useful. A high rate can simply reflect shared infrastructure, and zero hits may mean intelligence about threats that have not reached you yet.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A consumer wants to download only the intelligence objects a provider has added since its last poll, over an authenticated HTTPS connection. Which part of the standards stack provides this?",
+    "options": [
+      "The STIX `valid_from` property, which tells the client which objects are newer than the last download",
+      "The STIX `pattern_type` property, which tells the client which objects it is permitted to download",
+      "A TAXII collection, which the client is granted access to and polls for objects added after a given time",
+      "A STIX relationship object, which links each new indicator to the report that the client last downloaded"
+    ],
+    "correct": 2,
+    "explanation": "TAXII transports STIX content: a client is given access to collections and requests objects added after its previous request, so transfer is secure and incremental. `valid_from` describes when an indicator becomes meaningful, not what the client has already fetched.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A provider offers the same indicators as a CSV list and as STIX 2.1 over TAXII. The SOC only matches indicators today. Why is the STIX option still the better choice?",
+    "options": [
+      "CSV lists cannot hold domain names, so only IP addresses and hashes would survive the import",
+      "STIX keeps validity, confidence and relationships that later ageing and scoring logic will need",
+      "STIX indicators are always more accurate because each one is vetted by an OASIS review panel",
+      "CSV files cannot be loaded into a SIEM lookup table without first being converted to JSON"
+    ],
+    "correct": 1,
+    "explanation": "Flattening to a list throws away `valid_until`, `confidence` and relationships, exactly the fields a feed-management pipeline uses to age and score. OASIS standardises the format, not the accuracy of any producer's content.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A producer revises an indicator, shortening its `valid_until` and lowering its confidence. The new object has the same `id` as before and a later `modified` time. Why does keeping the same `id` matter to the consumer?",
+    "options": [
+      "It signals that the producer has withdrawn the indicator and that all earlier matches should be discarded",
+      "It shows that the indicator has been independently confirmed by a second producer since its creation",
+      "It lets the TAXII server skip the object, because objects with known identifiers are never resent",
+      "It lets the consumer recognise the object as an update of an indicator it holds, not a new indicator"
+    ],
+    "correct": 3,
+    "explanation": "A STIX id is stable across versions, so a consumer can replace the older version with the revised one; `modified` tells it which is newer. A changed version is still sent by TAXII, and a revision says nothing about independent confirmation or withdrawal.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the feed-management pipeline, the allowlist filter is applied before scoring. What failure does this ordering prevent?",
+    "options": [
+      "A high-confidence entry for the organisation's own mail domain reaching the detection and blocking path",
+      "Two spellings of the same domain being counted as two separate indicators in the threat platform",
+      "An expired indicator being matched against historical events during a retrospective hunt",
+      "A TLP:AMBER indicator being shared with a community that is not entitled to receive it"
+    ],
+    "correct": 0,
+    "explanation": "Filtering before scoring means no score, however high, can push your own or shared infrastructure into automatic action. Duplicate spellings are handled earlier by normalisation and deduplication, not by the allowlist.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A platform marks indicators as expired only while it imports each weekly feed file. What problem does this design create?",
+    "options": [
+      "Indicators are expired too early, because import time is always later than the producer's `valid_until`",
+      "Indicators whose validity ends between imports stay active for alerting and blocking until the next import",
+      "Expired indicators are deleted at import, so retrospective hunts lose the infrastructure they need",
+      "Every indicator is re-scored at import, so confidence values drift upward with each weekly run"
+    ],
+    "correct": 1,
+    "explanation": "Age changes daily even when the feed does not, so validity must be evaluated at match time, as the lab matcher does against `AS_OF`. Marking expiry does not imply deletion; the defect here is stale indicators remaining actionable between imports.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Attackers have hosted phishing pages on a large, legitimate cloud storage service that the business also relies on, and the service's domain is on the SOC allowlist. How should the allowlist entry behave?",
+    "options": [
+      "Remove the domain from the allowlist so that every feed match against it blocks the service immediately",
+      "Suppress every match on the domain completely so that analysts are not distracted by known services",
+      "Keep the entry but delete the matching events so that the SIEM does not store unneeded data",
+      "Keep the domain out of automatic action while still logging matches so they can be reviewed and hunted"
+    ],
+    "correct": 3,
+    "explanation": "An allowlist removes a value from automatic action, not from visibility, precisely because trusted platforms are abused by attackers who expect to be allowlisted. Removing the entry would risk an outage of a service the business depends on; suppressing matches entirely would create a blind spot.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An auditor finds the allowlist entry `partner-portal.example — excluded after false positive`, with no other fields. What is missing according to good allowlist practice?",
+    "options": [
+      "A STIX identifier and pattern, so that the exception can be exported to other organisations",
+      "The confidence value of the feed entry that originally caused the false positive",
+      "An owner and a review date, so that someone revisits whether the exception is still justified",
+      "The TLP marking of the partner portal, so the exclusion can be shared with the ISAC"
+    ],
+    "correct": 2,
+    "explanation": "Documented exceptions, like Module 5 suppressions, need a reason, an owner and an expiry that is actually reviewed; this one has only a reason. STIX identifiers and TLP markings describe intelligence objects, not the governance of an exclusion.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a feed listed a shared CDN address and the SOC's automatic block cut off dozens of business websites, management asks for a safer way to block on intelligence. Which design fits the lesson?",
+    "options": [
+      "Blocks go through change control and apply only to current, high-confidence, allowlist-checked indicators, with monitoring of what they stop",
+      "Blocks are applied automatically only to indicators that appear in at least two feeds, regardless of age or allowlist status",
+      "Blocks are applied automatically to all commercial-feed indicators, since vendors curate and expire their entries",
+      "Blocks are removed entirely and intelligence is used only in quarterly reports to the risk committee"
+    ],
+    "correct": 0,
+    "explanation": "The lesson's control set is change control, current high-confidence allowlist-checked indicators, and monitoring of the block's effect. Requiring two feeds is weak because feeds copy each other, and trusting all vendor entries ignores per-indicator confidence and the allowlist.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement best explains why a sensible age policy gives different default lifetimes to IP addresses, domains and file hashes?",
+    "options": [
+      "Hashes expire fastest because a file hash can be reassigned to a different file within days",
+      "Domains expire fastest because registrars must delete malicious domains within a fixed period",
+      "IP addresses can be reassigned within days, domains last longer but can be re-registered, and a hash stops matching once the attacker changes the file",
+      "All types should share one lifetime, because the producer's `valid_until` already describes every type equally"
+    ],
+    "correct": 2,
+    "explanation": "Each type decays differently: addresses are recycled quickly, domains more slowly with re-registration risk, and hashes never match a different file but are trivially replaced. A hash cannot be reassigned, and a producer's `valid_until` is an override where given, not a reason to ignore type differences.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "To reduce clutter, an engineer proposes deleting every indicator as soon as it passes its `valid_until`. Months later, an incident is found to have started long before detection. What capability has the deletion removed?",
+    "options": [
+      "The ability to block the incident's infrastructure at the firewall during the current response",
+      "The ability to check whether the incident's infrastructure appeared in logs at the time it was active",
+      "The ability to share current indicators with the ISAC under the original TLP marking",
+      "The ability to normalise newly arriving indicators into the platform's canonical schema"
+    ],
+    "correct": 1,
+    "explanation": "Ageing out retires indicators from action but keeps them for history and retrospective hunting; deletion destroys that look-back. Blocking long-expired infrastructure today is exactly what expiry is meant to stop, so it is not the capability lost.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab matcher is rerun with `AS_OF = date(2026, 11, 15)`. The line for `203.0.113.66` changes from `MATCH ... hits= 9` to `EXPIRED ... hits= 9`. How should the analyst interpret this?",
+    "options": [
+      "The nine events are no longer evidence of spraying, so the incident record for 3 November should be closed",
+      "The ISAC has withdrawn the indicator, so the address was probably never involved in password spraying",
+      "The hit count is now unreliable, because expired indicators are matched against a different set of events",
+      "The address should no longer drive alerts or blocks, but the 3 November events still support the spraying case"
+    ],
+    "correct": 3,
+    "explanation": "Expiry describes an indicator's future usefulness, not the truth of the past: the same nine events still show eight failures and a success for gopal. Closing the case would wrongly let expiry rewrite evidence; nothing indicates the ISAC withdrew anything, the date simply passed 10 November.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lab output, the vendor's SHA-256 indicator has the highest confidence in the feed (90) but reports `no match`. What does this line tell the analyst?",
+    "options": [
+      "Nothing about whether the file was present, because the dataset contains no file hashes to match against",
+      "The malicious document never reached the organisation, since a confidence of 90 makes a missed match unlikely",
+      "The vendor's indicator is probably wrong, because high-confidence indicators normally match at least once",
+      "The hash has expired, because the matcher reports `no match` for indicators past their validity"
+    ],
+    "correct": 0,
+    "explanation": "The matcher cannot match hashes because the telemetry never collected them, so the result is silent about presence. Expired indicators are reported as `EXPIRED`, not `no match`, and confidence says nothing about whether your telemetry could see the field.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The lab kit matches a domain indicator against proxy URLs using the pattern `%://<domain>/%`. For the indicator `evil.example`, which statement about this matcher is correct?",
+    "options": [
+      "It matches `http://notevil.example/x`, because the domain text appears inside the host name",
+      "It matches `https://evil.example/login` but misses `https://cdn.evil.example/a`, so subdomains go undetected",
+      "It matches `http://site.example/evil.example/`, because the domain appears between two slashes in the path",
+      "It matches `https://cdn.evil.example/a`, because any host ending in the indicator satisfies the pattern"
+    ],
+    "correct": 1,
+    "explanation": "Requiring `://` before and `/` after the domain stops look-alike hosts and path mentions from matching, but it also means a subdomain such as `cdn.evil.example` is not matched; a production matcher would extract and compare host names and parent domains. `notevil.example` fails because `://` must come directly before the indicator.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "One feed provides the SHA-1 of a malicious document and another provides its SHA-256. How should normalisation and deduplication treat these two values?",
+    "options": [
+      "Merge them, because both hashes identify the same file and should share one indicator record",
+      "Keep only the SHA-256, because SHA-1 values are converted to SHA-256 during normalisation",
+      "Lower-case both and store each under its own algorithm type, never comparing one with the other",
+      "Truncate both to the same length so that they can be compared by their common prefix"
+    ],
+    "correct": 2,
+    "explanation": "Hashes are normalised to lower-case hexadecimal with the algorithm recorded as the type, and values of different algorithms are never compared or merged as equal. A SHA-1 cannot be converted into a SHA-256; the file would have to be rehashed.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst wants to submit indicators from a TLP:AMBER ISAC feed to a public online sandbox to gather extra context. What is the main problem?",
+    "options": [
+      "Public sandboxes only accept file hashes, so the network indicators would be rejected",
+      "The sandbox would lower the indicators' confidence, which would change their scores in the platform",
+      "TLP:AMBER indicators may only be shared after their `valid_until` date has passed",
+      "Sending them to a public service may breach the community's sharing terms and alert the adversary"
+    ],
+    "correct": 3,
+    "explanation": "TLP restricts onward sharing; pushing AMBER material into public or third-party services can breach the terms, cost the membership and tip off the adversary. TLP restrictions do not lapse when an indicator expires.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At renewal time, overlap analysis after normalisation shows that 85% of a paid commercial feed's indicators are already present in the SOC's free feeds. Which evaluation criterion does this measure, and what does it suggest?",
+    "options": [
+      "Uniqueness: most of the paid feed duplicates data already held, so its value must come from curation and context",
+      "Timeliness: the paid feed is slower than the free feeds, so it should be replaced by them immediately",
+      "Accuracy: the overlapping indicators are probably false positives, so the feed should be cancelled",
+      "Ingestibility: the overlap shows the vendor's schema is unstable and causes repeated parsing errors"
+    ],
+    "correct": 0,
+    "explanation": "Overlap after normalisation measures uniqueness; feeds copy each other, so a paid feed must justify itself through what it adds, such as context, confidence and expiry. Overlap says nothing about which feed saw indicators first, so it does not measure timeliness.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An open feed generated automatically from honeypots lists thousands of addresses with a category but no confidence and no first-seen date. What use of its entries fits the lesson?",
+    "options": [
+      "Load them into the firewall blocklist, because honeypot observations are direct evidence of malicious intent",
+      "Treat them as leads for enrichment and hunting rather than as grounds for blocking",
+      "Discard the feed, because indicators without stated confidence cannot be stored in a threat platform",
+      "Assign every entry a confidence of 100, because honeypots only receive malicious traffic"
+    ],
+    "correct": 1,
+    "explanation": "Open feeds are cheap and broad but thin: an entry means the address did something classified as bad at some point, and may since have been reassigned. That makes it a lead, not a blocking decision. Discarding it outright wastes its breadth and speed.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Overnight, a community feed doubles in size and 30% of its new entries match the SOC's allowlist of shared cloud and DNS infrastructure. What is the most appropriate response?",
+    "options": [
+      "Raise the confidence of the feed's other entries, because the producer is clearly increasing coverage",
+      "Remove the matching entries from the allowlist so that the new indicators can take effect",
+      "Treat it as possible poisoning or a producer error, hold the feed from action and investigate",
+      "Accept the update, since the allowlist will stop those entries and the rest can go to blocking"
+    ],
+    "correct": 2,
+    "explanation": "Sudden changes in feed size or in the share of entries hitting the allowlist are signals that the feed path itself may be compromised or broken; feeds are part of the attack surface. Relying on the allowlist alone would let the rest of a suspect update reach blocking unchecked.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A scoring model multiplies the producer's confidence, the SOC's own rating of the source's reliability, and a recency factor. Why use all three rather than the producer's confidence alone?",
+    "options": [
+      "Producer confidence is always overstated, so the other two factors exist only to reduce it",
+      "Recency and reliability are already contained in STIX `confidence`, so the model avoids missing values",
+      "Multiplying three factors guarantees that no indicator from an ISAC can fall below the detection threshold",
+      "The producer's view, your trust in that producer, and the indicator's age each change independently"
+    ],
+    "correct": 3,
+    "explanation": "Confidence is the producer's judgement; source reliability is your own assessment from Lesson 2; recency falls daily as the indicator approaches and passes its validity. Each can change without the others, so combining them keeps the score explainable. STIX confidence does not encode your view of the source or the passage of time.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The SOC confirms an incident and extracts the attacker's domains and hashes. Where and how should this internal intelligence be recorded?",
+    "options": [
+      "In the same platform and fields as external feeds, so it is matched, aged and shared in the same way",
+      "Only in the incident ticket, because internal indicators are too narrow to be worth matching again",
+      "In a separate spreadsheet with no expiry, because internally proven indicators never become stale",
+      "Directly in the firewall blocklist, because internal intelligence does not need allowlist checks"
+    ],
+    "correct": 0,
+    "explanation": "Internal intelligence is highly relevant but narrow, and it is only useful if it goes through the same matching, ageing and sharing process as external feeds. Proven indicators still age, since infrastructure is abandoned and reassigned, so a no-expiry spreadsheet is wrong.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

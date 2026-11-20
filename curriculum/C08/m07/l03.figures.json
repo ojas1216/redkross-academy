@@ -1,0 +1,36 @@
+{
+  "C08-M07-L03-F1": {
+    "title": "From tactic to detection: one Banyan chain through ATT&CK",
+    "caption": "The ATT&CK hierarchy as a stack, from the Execution tactic down to the observed procedure on WS-104 and the rule that recognises it.",
+    "alt": "Five stacked bands, most abstract at the top. Dark band: Tactic TA0002 Execution, the why: run malicious code. Violet band: Technique T1059, Command and Scripting Interpreter. Orange band: Sub-technique T1059.001, PowerShell. Red band: Procedure, Word macro starts hidden PowerShell on WS-104 at 06:14. Green band at the bottom: Detection, minisiem R1 or the Sigma rule, WINWORD.EXE parent plus powershell.exe child. Note: rules are written at the bottom and mapped upwards.",
+    "type": "layers",
+    "layers": [
+      { "label": "Tactic: TA0002 Execution", "sub": "the why: run malicious code", "tone": "dark" },
+      { "label": "Technique: T1059", "sub": "Command and Scripting Interpreter", "tone": "violet" },
+      { "label": "Sub-technique: T1059.001", "sub": "PowerShell", "tone": "orange" },
+      { "label": "Procedure", "sub": "Word macro starts hidden PowerShell (WS-104, 06:14)", "tone": "red" },
+      { "label": "Detection: minisiem R1 / Sigma rule", "sub": "WINWORD.EXE parent + powershell.exe child", "tone": "green" }
+    ],
+    "note": "Rules are written at the procedure level and mapped upwards; tag only as high as the observation supports."
+  },
+  "C08-M07-L03-F2": {
+    "title": "Banyan coverage matrix: data, rule, test",
+    "caption": "Each technique in the Banyan storyline with the lab data that could show it, the rule that claims it, whether that rule has a test, and the status that combination deserves.",
+    "alt": "Table with five columns: Technique, Data (lab), Rule, Tested, Status. Row 1, red: T1566 Phishing; proxy only, no mail logs; no rule; not applicable; gap: R1 sees next step. Row 2, green: T1204.002 Malicious File; Sysmon EID 1; R1; yes; covered. Row 3, blue: T1059 PowerShell / cmd; Sysmon EID 1; R1; yes, Word parent only; partial. Row 4, green: T1071.001 Web Protocols; proxy; R6; yes; covered. Row 5, green: T1110.003 Password Spraying; VPN; R2; yes; covered. Row 6, orange: T1136.001 Local Account; Security 4720; R3; no; untested. Row 7, orange: T1098 Account Manipulation; Security 4732; R3; no; untested. Row 8, orange: T1567 Exfil Over Web Service; proxy sizes; R4; no; untested. Row 9, orange: T1070.001 Clear Windows Event Logs; Security 1102; R5; no; untested. Note: status is the weakest of data, rule and test.",
+    "type": "table",
+    "columns": ["Technique", "Data (lab)", "Rule", "Tested", "Status"],
+    "rows": [
+      ["T1566 Phishing", "Proxy only (no mail logs)", "none", "n/a", "gap: R1 sees next step"],
+      ["T1204.002 Malicious File", "Sysmon EID 1", "R1", "yes", "covered"],
+      ["T1059 PowerShell / cmd", "Sysmon EID 1", "R1", "yes (Word parent only)", "partial"],
+      ["T1071.001 Web Protocols", "Proxy", "R6", "yes", "covered"],
+      ["T1110.003 Password Spraying", "VPN", "R2", "yes", "covered"],
+      ["T1136.001 Local Account", "Security 4720", "R3", "no", "untested"],
+      ["T1098 Account Manipulation", "Security 4732", "R3", "no", "untested"],
+      ["T1567 Exfil Over Web Service", "Proxy sizes", "R4", "no", "untested"],
+      ["T1070.001 Clear Windows Event Logs", "Security 1102", "R5", "no", "untested"]
+    ],
+    "rowTones": ["red", "green", "blue", "green", "green", "orange", "orange", "orange", "orange"],
+    "note": "Status is the weakest of data, rule and test: an untested rule is not coverage."
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "course": "C08",
+  "module": 6,
+  "title": "Threat intelligence",
+  "description": "Threat intelligence as the SOC uses it: indicator types and their shelf life, confidence and source grading, enrichment workflows, MISP basics, feeds and their pitfalls, the limits of intelligence, and responsible sharing under TLP - ending with an intel lab on the course dataset.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "IOC types",
+      "summary": "Classifies threat indicators as atomic, computed or behavioural, ranks them on the Pyramid of Pain and explains why each type has a different shelf life, using the C08 lab feed and rules.",
+      "objectives": [
+        "Classify an indicator as atomic, computed or behavioural and name the field and log source it must match",
+        "Place indicator types on the Pyramid of Pain and explain the cost each imposes on an adversary",
+        "Estimate an indicator's shelf life from its type and set a sensible validity window",
+        "Interpret ioc_match.py output by indicator type, including expired and unmatchable indicators",
+        "Climb from a low-level indicator to durable artefact and behavioural detections"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 2,
+      "title": "Confidence",
+      "summary": "Grades intelligence with the Admiralty system, builds a local confidence score from producer confidence, corroboration and thresholds, and ages it by hard expiry or decay, using the C08 lab feed.",
+      "objectives": [
+        "Distinguish producer confidence, source reliability and information credibility",
+        "Grade indicators with the Admiralty A-F / 1-6 system and justify each grade",
+        "Identify genuine corroboration and recognise circular reporting",
+        "Apply a local scoring policy and thresholds to decide block, alert or context only",
+        "Compare hard expiry with gradual decay and explain how age lowers the weight of a match"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Enrichment workflow",
+      "summary": "Intelligence-driven enrichment as a repeatable pipeline: canonicalising and deduplicating entities, a privacy gate, a lookup cascade from internal sources to approved external services, caching with type-specific TTLs, rate-limit and failure handling, and provenance records, shown on the Banyan data and ioc_match.py.",
+      "objectives": [
+        "Design an enrichment pipeline that extracts, canonicalises, gates, looks up, records and attaches intelligence context",
+        "Order a lookup cascade by cost and exposure and define when it stops",
+        "Specify a cache policy keyed on value and source, with type-specific and negative TTLs and validity re-checks",
+        "Handle rate limits, refusals and timeouts without recording missing answers as clean",
+        "Record provenance that makes an enrichment result reproducible and respects privacy and TLP"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 4,
+      "title": "MISP basics",
+      "summary": "The MISP data model and sharing mechanics: events, attributes and the IDS flag, objects, taxonomy tags, galaxy clusters, distribution levels and sharing groups, publishing, correlation and its control, sightings, feeds and automation, applied by modelling the Banyan case.",
+      "objectives": [
+        "Explain how MISP organises intelligence into events, attributes, objects, tags and galaxy clusters",
+        "Choose attribute types, categories and IDS flags for indicators from a real case",
+        "Distinguish platform-enforced distribution and sharing groups from TLP handling instructions",
+        "Interpret correlations and control over-correlation with warninglists and exclusions",
+        "Use sightings and publishing review to share safely and return feedback to producers"
+      ],
+      "minutes": 55
+    },
+    {
+      "n": 5,
+      "title": "Feeds",
+      "summary": "Where threat intelligence feeds come from, the formats they arrive in, how to judge their quality, and how normalisation, deduplication, allowlisting, scoring and ageing keep them useful, shown on the lab feed on two dates.",
+      "objectives": [
+        "Compare open, commercial, community/ISAC and internal intelligence sources by context, confidence and obligations",
+        "Explain how STIX 2.1 indicators and TAXII collections carry and transport feed content compared with CSV lists",
+        "Evaluate a feed against measurable quality criteria such as relevance, accuracy, uniqueness and terms",
+        "Apply normalisation, deduplication, allowlisting and scoring to indicators before they drive action",
+        "Interpret ioc_match.py output on two dates to separate an indicator's expiry from the evidence it already produced"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 6,
+      "title": "Limitations",
+      "summary": "What an indicator match can and cannot prove: stale indicators, collateral matches on shared infrastructure, telemetry gaps, circular reporting, attribution limits and bias, worked through an expired lab indicator matching routine VPN activity.",
+      "objectives": [
+        "Distinguish expired from stale indicators and explain why each matters when reading a match",
+        "Assess an indicator match against shared infrastructure and the surrounding events before acting",
+        "Explain why no match can mean no data or new infrastructure, and how behaviour-based detection covers the gap",
+        "Identify circular reporting, attribution limits and cognitive bias in intelligence use",
+        "Write case judgements with explicit confidence that cite the evidence actually justifying the action"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 7,
+      "title": "Sharing",
+      "summary": "How a SOC shares intelligence responsibly: TLP 2.0 labels, ISACs and CERT-In, what to strip under the DPDP Act 2023, and the legal and contractual limits on a release.",
+      "objectives": [
+        "Apply the five TLP 2.0 labels to incoming and outgoing intelligence, including combined products",
+        "Choose the right community or authority (ISAC, CERT-In, NCIIPC, source) for a given release",
+        "Summarise the CERT-In April 2022 reporting, log-retention and clock-synchronisation requirements",
+        "Identify and remove personal data and internal identifiers before sharing, in line with the DPDP Act 2023",
+        "Recognise feed-licence, contractual and legal limits that narrow a release"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 8,
+      "title": "Intel lab",
+      "summary": "Hands-on lab: match the course feed against the Banyan dataset, verify, grade and age each indicator, derive first-party indicators and release a checked TLP:GREEN note and a TLP:AMBER sighting.",
+      "objectives": [
+        "Run ioc_match.py and verify each match in the raw events with minisiem.py",
+        "Grade indicators by source reliability and credibility, recording analyst overrides with reasons",
+        "Make ageing decisions that separate validity from confidence",
+        "Derive first-party indicators from an incident and set their validity",
+        "Write a shareable intel note that passes a pre-share check and respects every inherited TLP label"
+      ],
+      "minutes": 75
+    }
+  ]
+}

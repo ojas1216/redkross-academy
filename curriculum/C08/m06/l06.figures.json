@@ -1,0 +1,64 @@
+{
+  "C08-M06-L06-F1": {
+    "title": "Weighing an indicator match: three questions before action",
+    "caption": "Judge the indicator's age, then whether the infrastructure is shared, then whether your own events fit; only the last question can justify action.",
+    "alt": "Decision graph. Indicator match (value in our logs equals a feed value) leads to the decision Indicator current? (within valid_until, not stale). No leads to No automatic action (history and enrichment only); a dashed arrow labelled still review the events goes from there to the decision Events fit the context?. Yes leads to the decision Shared infrastructure? (cloud, CDN, hosting, VPN, Tor). Yes leads to Seek corroboration (a different kind of evidence), which leads to Events fit the context?; no leads directly to Events fit the context? (user, host, time, behaviour). From that decision, yes leads to Act proportionately (alert, hunt, block via change control) and no leads to Record collateral match (report to the producer).",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "m", "label": "Indicator match", "sub": "value in our logs equals a feed value", "tone": "slate" },
+      { "id": "q1", "label": "Indicator current?", "sub": "within valid_until, not stale", "tone": "violet", "kind": "decision" },
+      { "id": "h", "label": "No automatic action", "sub": "history and enrichment only", "tone": "slate" },
+      { "id": "q2", "label": "Shared infrastructure?", "sub": "cloud, CDN, hosting, VPN, Tor", "tone": "violet", "kind": "decision" },
+      { "id": "c", "label": "Seek corroboration", "sub": "a different kind of evidence", "tone": "orange" },
+      { "id": "q3", "label": "Events fit the context?", "sub": "user, host, time, behaviour", "tone": "violet", "kind": "decision" },
+      { "id": "fp", "label": "Record collateral match", "sub": "report to the producer", "tone": "green" },
+      { "id": "a", "label": "Act proportionately", "sub": "alert, hunt, block via change control", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "m", "to": "q1" },
+      { "from": "q1", "to": "h", "label": "no" },
+      { "from": "q1", "to": "q2", "label": "yes" },
+      { "from": "q2", "to": "c", "label": "yes" },
+      { "from": "q2", "to": "q3", "label": "no" },
+      { "from": "c", "to": "q3" },
+      { "from": "h", "to": "q3", "label": "still review the events", "dashed": true },
+      { "from": "q3", "to": "a", "label": "yes" },
+      { "from": "q3", "to": "fp", "label": "no" }
+    ],
+    "note": "In the lab, 198.51.100.104 ends at Record collateral match; 203.0.113.66 on 3 November ends at Act proportionately."
+  },
+  "C08-M06-L06-F2": {
+    "title": "What threat intelligence can and cannot tell you",
+    "caption": "Intelligence supplies others' observations, context and confidence; whether you are compromised can only be answered from your own evidence.",
+    "alt": "Comparison of two columns separated by vs. Left, green, Intelligence can tell you: what others saw, where and when; context: C2, spraying, phishing; the producer's confidence and validity; which values to hunt for first; TTPs worth detecting. Right, red, It cannot tell you: whether you are compromised; that no match means clean; that an old value is still bad; who is really behind it; what your own users were doing.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Intelligence can tell you",
+        "tone": "green",
+        "items": [
+          "what others saw, where and when",
+          "context: C2, spraying, phishing",
+          "the producer's confidence and validity",
+          "which values to hunt for first",
+          "TTPs worth detecting"
+        ]
+      },
+      {
+        "title": "It cannot tell you",
+        "tone": "red",
+        "items": [
+          "whether you are compromised",
+          "that no match means clean",
+          "that an old value is still bad",
+          "who is really behind it",
+          "what your own users were doing"
+        ]
+      }
+    ],
+    "note": "Intelligence tells you what to look for; only your own evidence tells you what happened to you."
+  }
+}
