@@ -1,0 +1,34 @@
+{
+  "C08-M07-L02-F1": {
+    "title": "Anatomy of a Sigma rule: five groups of fields",
+    "caption": "The kit's rk_office_spawns_shell.yml broken into identity, context, log source, detection logic and triage hints.",
+    "alt": "Tree diagram. Root, dark: Sigma rule (YAML), rk_office_spawns_shell.yml. Five children with arrows from the root: Identity, slate, title, id, status, author, date; Context, blue, description, references, tags; logsource, violet, category, product, service; detection, orange, selections + condition; Triage hints, green, falsepositives, level. Note: only logsource and detection become query text; the rest makes the rule traceable and usable at triage.",
+    "type": "tree",
+    "root": { "label": "Sigma rule (YAML)", "sub": "rk_office_spawns_shell.yml", "tone": "dark" },
+    "children": [
+      { "label": "Identity", "sub": "title, id, status, author, date", "tone": "slate" },
+      { "label": "Context", "sub": "description, references, tags", "tone": "blue" },
+      { "label": "logsource", "sub": "category, product, service", "tone": "violet" },
+      { "label": "detection", "sub": "selections + condition", "tone": "orange" },
+      { "label": "Triage hints", "sub": "falsepositives, level", "tone": "green" }
+    ],
+    "perRow": 5,
+    "note": "Only logsource and detection become query text; the rest makes the rule traceable and usable at triage."
+  },
+  "C08-M07-L02-F2": {
+    "title": "From Sigma rule to SIEM query",
+    "caption": "pySigma parses and validates a rule, a processing pipeline adapts it to your data, and a backend renders the query text.",
+    "alt": "Top-to-bottom flow of six steps. rule.yml, slate, the input file. Parse, blue, YAML to rule object. Validate (sigma check), green, structure, condition, tags. Processing pipeline, violet, logsource to log or index, generic to platform fields. Backend (Splunk), orange, renders the condition in SPL. Query text, dark, source=\"WinEventLog:Security\" EventCode=1102. Note: without a pipeline the same rule converted to EventID=1102, with no log restriction.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "rule.yml", "sub": "input file", "tone": "slate" },
+      { "label": "Parse", "sub": "YAML to rule object", "tone": "blue" },
+      { "label": "Validate (sigma check)", "sub": "structure, condition, tags", "tone": "green" },
+      { "label": "Processing pipeline", "sub": "logsource to log or index; generic to platform fields", "tone": "violet" },
+      { "label": "Backend (Splunk)", "sub": "renders the condition in SPL", "tone": "orange" },
+      { "label": "Query text", "sub": "source=\"WinEventLog:Security\" EventCode=1102", "tone": "dark" }
+    ],
+    "note": "Without a pipeline the same rule converted to EventID=1102, with no log restriction."
+  }
+}

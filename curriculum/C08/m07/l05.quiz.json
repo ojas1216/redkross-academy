@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Analyst dispositions show that R6 raised 140 alerts in 30 days and 131 were closed as false positive or benign. What does this precision figure tell the detection engineer about R6's recall?",
+    "options": [
+      "That recall is also low, because a rule with many false positives usually misses many true positives too",
+      "That recall is high, because a rule broad enough to raise 140 alerts is unlikely to miss a real beacon",
+      "Nothing directly, because beacons R6 missed never became alerts and so never appear in the dispositions",
+      "That recall is about 0.06 as well, because precision and recall are computed from the same alert counts"
+    ],
+    "correct": 2,
+    "explanation": "Recall is the share of real occurrences caught, and misses never enter the queue; it has to be estimated from known-bad tests, emulation, hunting and incident review. Assuming broad rules have high recall is the strongest distractor, but breadth says nothing about which variants the logic actually matches.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Most of a rule's alerts are closed as benign true positives: the behaviour is exactly what the rule describes, performed by an approved administration process. Which kind of change does that disposition pattern point to?",
+    "options": [
+      "Context for triage or a scoped, owned suppression for the approved instance, leaving the logic unchanged",
+      "Narrowing the rule's logic, because a benign true positive is an error in the rule's definition",
+      "A parser fix, because benign true positives usually come from fields that are normalised incorrectly",
+      "Raising the rule's threshold until the approved process no longer reaches it during normal operation"
+    ],
+    "correct": 0,
+    "explanation": "A benign true positive is noise for the queue but not an error in the rule: the rule matched its intent and only the instance is authorised, so enrichment or a scoped suppression is the fix. Narrowing is for false positives, where logic matches activity outside the rule's own intent.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "When the engineer computes per-rule precision, 30 of a rule's 80 closed alerts are marked undetermined. How should those 30 be treated?",
+    "options": [
+      "Counted as false positives, because an alert that cannot be confirmed was not worth the analyst's time",
+      "Counted as true positives, because an alert that cannot be ruled out must be assumed to be malicious",
+      "Split evenly between true and false positives so that the ratio is not biased in either direction",
+      "Left out of the ratio but reported, since many undetermined closures signal an evidence problem"
+    ],
+    "correct": 3,
+    "explanation": "Undetermined alerts belong in neither side of TP / (TP + FP), but a high number of them is a separate defect: the rule or its data does not give analysts enough evidence to decide. Counting them as false positives would push the engineer to tune away alerts that may have been real.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On the Banyan lab day every rule R1 to R6 has a precision of 1.00, because every hit belongs to the scripted intrusion. Why does the lesson call this figure 'almost worthless'?",
+    "options": [
+      "The dataset's ground truth is unknown, so it is impossible to say which of the seven alerts are true positives",
+      "Seven alerts from one synthetic day are far too few, over far too short a period, to predict precision in production",
+      "Precision cannot be computed for aggregation rules such as R2 and R6, so the overall figure is misleading",
+      "A precision of 1.00 proves the rules are too narrow, so they must be loosened before they are deployed"
+    ],
+    "correct": 1,
+    "explanation": "Precision is only meaningful over enough alerts and a long enough period, including real administrative and seasonal activity; seven alerts on one day are anecdote. The ground truth is in fact known from make_dataset.py, which is exactly what lets the lab label hits as storyline or routine.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Rule A has precision 0.10 and raises about two alerts a month. Rule B has precision 0.50 and raises about two hundred alerts a day. Which statement best reflects the lesson's guidance on where tuning effort should go first?",
+    "options": [
+      "Rule B, because once volume is taken into account it consumes far more of the analysts' time",
+      "Rule A, because its precision is five times worse and precision is the main measure of rule quality",
+      "Neither, because both are above the minimum precision a SOC should accept for a production detection",
+      "Rule A, because rarely firing rules hide their defects longest and should be fixed before frequent ones"
+    ],
+    "correct": 0,
+    "explanation": "Precision paired with volume gives the analyst time a rule consumes: 100 noisy alerts a day from B outweigh about two a month from A. Ranking by ratio alone, as the strongest distractor does, ignores the cost the queue actually pays.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A sweep of R4 (bytes_out > T) over the lab proxy data gives 1 TP at T = 10,000,000 and still exactly 1 TP at T = 3,900, 3,500, 3,000 and 2,000, while false positives rise from 0 to 141. What does the constant true-positive count show?",
+    "options": [
+      "The sweep is broken, because lowering a threshold must always add true positives as well as false positives",
+      "The kit's threshold is too high, because the lowest value tested would catch the same attack and more",
+      "The upload is far above all routine requests, leaving a wide band where R4 is precise and complete",
+      "R4 has perfect recall for exfiltration, so its threshold can be set anywhere without affecting detection"
+    ],
+    "correct": 2,
+    "explanation": "Routine requests stay below about 4,000 bytes and the real upload is 48.2 MB, so any threshold in that band keeps the TP and the engineer picks a value with margins on both sides. It does not prove perfect recall: the sweep only measures the attack present in this data, not smaller uploads an attacker might choose.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A threat assessment notes that an attacker could exfiltrate in 9 MB requests, each just under R4's 10 MB threshold. The baseline shows that lowering R4 to 3,000 bytes would add dozens of false positives a day. What does the lesson recommend?",
+    "options": [
+      "Lower R4 to 3,000 bytes and accept the noise, because the threat model must always override the baseline",
+      "Leave R4 unchanged, because the baseline shows any lower threshold would make the rule unusable",
+      "Lower R4 to 9,000,000 bytes, so that the specific variant in the threat assessment is caught exactly",
+      "Keep R4 and add a second rule that totals bytes per host and destination over a period such as an hour"
+    ],
+    "correct": 3,
+    "explanation": "The baseline shows how low the threshold can go before noise explodes; the threat model shows how low it needs to go. When they conflict, a different aggregation (total bytes per host and destination per hour) catches split uploads without drowning the queue. A 9 MB threshold only moves the evasion point slightly lower.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the R6 sweep, raising the size-range limit from 50 to 3,500 bytes gives 3 alerts, and additionally lowering the minimum hit count from 10 to 5 gives 33 alerts for the same single beacon. What tuning practice does this result support?",
+    "options": [
+      "Always lower the hit count before widening the size range, because count thresholds produce less noise",
+      "Change one parameter at a time and measure, because parameters interact and loosening two at once multiplies noise",
+      "Prefer the 33-alert setting, because a wider net is the only way to be sure of catching every beacon variant",
+      "Set both parameters from the beacon's own values, so that the rule matches the known implant exactly"
+    ],
+    "correct": 1,
+    "explanation": "Each loosened parameter added some noise, but together they produced 33 alerts with no extra true positives, so interactions must be measured one change at a time. Fitting the rule exactly to the known implant would raise precision but narrow it to one variant, trading recall for a tidy number.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A tuning request arrives saying only 'add WS-103 to R6's exclusions'. Why should the engineer set the proposed fix aside and work through the diagnosis questions in order, starting with the data?",
+    "options": [
+      "Exclusions can only be applied after a data fix, because the SIEM rejects exceptions on unnormalised fields",
+      "Host exclusions are never acceptable in a detection rule, so the request must always be rewritten",
+      "Starting with the data is fastest, because parser fixes need no testing or review before deployment",
+      "The same symptom has several causes, and starting with suppressions piles exceptions around a defect never fixed"
+    ],
+    "correct": 3,
+    "explanation": "Too many alerts may come from bad data, logic broader than its intent, numbers off baseline or an authorised instance, and each needs a different change; the order runs from the most general, durable fix to the most specific. Exclusions are sometimes right (an authorised instance), and every fix still goes through tests and review.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "False positives from a rule that tests a user field all come from one log source, where the parser leaves the field empty for a common event type. Which change does the diagnosis order call for, and why?",
+    "options": [
+      "Fix the parser or normalisation, because the defect is in the pipeline and every rule using the field benefits",
+      "Add a filter excluding events with an empty user field, because that removes exactly the noisy alerts",
+      "Narrow the rule to the other log sources, because the faulty source cannot be trusted for this detection",
+      "Suppress the rule for that source until the vendor fixes its logging format in a future release"
+    ],
+    "correct": 0,
+    "explanation": "Wrong data is the first question in the diagnosis path, and its fix (parser or normalisation) is the most general: it repairs every consumer of the field. Filtering empty values or dropping the source hides the symptom for one rule and leaves the same blind spot for every other rule.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R6 alerts on WS-102 sending twelve identical 180-byte requests to a CRM status endpoint within one minute. Why is narrowing R6 preferred to suppressing WS-102 or the CRM URL?",
+    "options": [
+      "A suppression cannot be scoped to one URL, so it would silence R6 for every host and destination at once",
+      "The burst is a benign true positive, so the change must apply to all hosts rather than to WS-102 only",
+      "R6 ignores time, so its logic is broader than its intent; a suppression would hide later real beacons",
+      "The data for WS-102 is wrong, so the parser has to be corrected before any change to the rule is made"
+    ],
+    "correct": 2,
+    "explanation": "R6 promises a beacon, a periodic check-in over time, but its query never looks at time, so any burst qualifies in any environment: logic broader than intent. Suppressing the host or URL leaves that defect and creates a blind spot for a real beacon there later. The burst is not a benign true positive, because it does not match the rule's intent at all.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A sanctioned software-update agent polls its vendor server every five minutes all day with requests of identical size, and R6 alerts on it. Which change is appropriate?",
+    "options": [
+      "Add a further time condition to R6, because the agent shows the rule is still broader than its intent",
+      "A scoped, owned, expiring suppression or enrichment marking the sanctioned destination, with R6 unchanged",
+      "Raise R6's minimum hit count above the number of polls a day, so that only longer-lived beacons match",
+      "Widen R6's size-range limit, so that only implants with perfectly fixed request sizes still match"
+    ],
+    "correct": 1,
+    "explanation": "Unlike the one-minute burst, this traffic really is regular, small and persistent, so it matches R6's intent; only this instance is approved. That reaches the 'known authorised instance' question and calls for a scoped suppression or enrichment, not loosening R6 for everyone, which would weaken it against real implants too.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst asks for R5 alerts to be suppressed whenever the user is a member of the IT operations team, because 'they are authorised'. What evidence does the diagnosis require before the activity can be treated as a known authorised instance?",
+    "options": [
+      "A record of approval with an owner for the specific activity, not the user's identity or team",
+      "The analyst's confirmation that previous alerts for the same users were closed as benign",
+      "A check that the user's account has administrative rights on the hosts where the alerts occurred",
+      "A sweep showing that suppressing the team would raise R5's precision above an agreed target"
+    ],
+    "correct": 0,
+    "explanation": "'Known authorised instance?' is answered only by a documented approval with an owner, never by who the user is; an attacker using an IT account looks exactly like that team. Past benign closures show a pattern but not that this activity is approved, and a precision gain says nothing about what the suppression would hide.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a 30-minute span condition is added to R6's HAVING clause, the kit's test_regular_small_requests fails with 'AssertionError: 0 != 1'. Its fixture events have no timestamps. What is the correct interpretation and response?",
+    "options": [
+      "The change broke detection of real beacons, so the span condition must be reverted before going further",
+      "The failure is a known side effect of aggregation tests, so the test can be skipped for this change",
+      "SQLite treats a missing timestamp as zero, so the span is negative and the threshold must be lowered",
+      "A missing ts makes the span NULL so the group is dropped; the fixture needs realistic timing"
+    ],
+    "correct": 3,
+    "explanation": "With no ts, julianday() returns NULL, the span comparison is NULL and the group never satisfies HAVING; the test assumed a rule that ignored time. A failing test must be investigated, never bypassed: here it is the test's assumption that is outdated, so the fixture gets ten requests five minutes apart. Reverting would only be right if a realistic known-bad sample stopped matching.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why is 30 minutes, rather than (for example) 90 seconds, a defensible minimum span for the narrowed R6?",
+    "options": [
+      "It is the smallest span that removes the WS-102 burst, so it changes the rule as little as possible",
+      "It matches the proxy's log rotation interval, so groups longer than 30 minutes would be split",
+      "It comes from the threat model: a five-minute beacon passes it after seven check-ins, and implants stay longer",
+      "It is the default beacon interval of common implants, so shorter spans would never be observed"
+    ],
+    "correct": 2,
+    "explanation": "The span must separate bursts from beacons based on how real beaconing behaves, not just clear the one burst that prompted the change; 90 seconds would also clear the burst but leave other short bursts alerting. The lesson does not tie the value to log rotation or to any implant's default interval.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Along with fixing the R6 fixture, the engineer adds test_short_burst_not_matched: twelve requests five seconds apart that must produce no alert. What is the main value of this new test?",
+    "options": [
+      "It raises the suite's coverage figure so that the change passes the review step automatically",
+      "It records the reason for the change, so a later edit that drops the span fails the suite",
+      "It proves that R6 now catches every beacon with an interval longer than five seconds",
+      "It replaces replay, because a burst test shows the same effect as running the rule on past data"
+    ],
+    "correct": 1,
+    "explanation": "A near-miss test freezes the reason for the change into the suite: anyone who later removes or weakens the time condition gets a failure. It says nothing about recall for all beacon intervals, and it does not replace replay, which is the only way to see which past true positives a change would remove.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On the Banyan day the spraying address's failures run from 06:42:00 to 06:42:49 and the success is at 06:46:00. An engineer proposes adding a three-minute window between each failure and the success to R2. What would happen on this data?",
+    "options": [
+      "The spray would still match, because the window is measured from the first failure, which is 240 seconds earlier",
+      "The spray would still match, because the window only limits how many failures are counted, not whether they join",
+      "Only the last few failures would join, so R2 would match with a lower distinct-user count than before",
+      "The spray would be missed, because even the last failure is 191 seconds before the success at 06:46"
+    ],
+    "correct": 3,
+    "explanation": "Every failure is at least 191 seconds (3 minutes 11 seconds) before the success, so no failure falls inside a 180-second window and nothing joins. The one sample observed gives a floor: the window must sit comfortably beyond the slowest known attack sequence, and noise is better fixed with entities or conditions than by shortening it.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two test failures appear during tuning: R6's known-bad fixture fails after a span condition is added, and R2's five-user spray test fails after the window is set to two minutes. Why is the right response different in the two cases?",
+    "options": [
+      "R6's fixture had unrealistic timing; R2's test is a realistic spray the rule no longer catches",
+      "R6's failure came from a SQL error while R2's came from a logic change, so only R2's needs investigation",
+      "R2's test was written by the kit's author while R6's was not, so only R2's result can be relied on",
+      "Both should be handled the same way, by adjusting the fixtures until the changed rules pass again"
+    ],
+    "correct": 0,
+    "explanation": "R6's fixture had no timestamps at all, an assumption made obsolete by adding a time dimension, so the test is fixed. R2's test spaces the success five minutes after the failures, a realistic sequence, so its failure is a real loss of detection and the change is stopped. Adjusting both fixtures blindly is exactly the bypass the lesson warns against.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The kit's R2 suite passes both against the original unwindowed rule and against a version with a ten-minute window. A new test, test_stale_failures_not_joined, fails against the original rule. What does this reveal?",
+    "options": [
+      "The ten-minute window broke the threshold tests, and the new test was needed to make that failure visible",
+      "The original R2 joins a success to the previous day's failures, and no existing test required a window",
+      "The original R2 ignores the distinct-user threshold when failures and success fall on different days",
+      "The new test is wrong, because a correct R2 should join failures from any time before the success"
+    ],
+    "correct": 1,
+    "explanation": "The new test puts eight failures on 2 November and the success on 3 November; the kit's R2 still alerts, so it has no window, and the old suite could not tell. The ten-minute version passes every test, including the new one. A good R2 change keeps the threshold tests and adds this near miss so the window cannot silently disappear.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A proposed R6 change passes every unit test, including the new near-miss test. Why does the change-control path still require a replay over stored data before review?",
+    "options": [
+      "Replay re-runs the unit tests on production hardware, which catches performance problems the tests miss",
+      "Replay is needed only for Sigma rules, because their converted queries may differ from the tested version",
+      "Only replay shows the effect on alert volume and which past true positives the new version would miss",
+      "Replay confirms the rule's ATT&CK mapping, which unit tests cannot check because they ignore metadata"
+    ],
+    "correct": 2,
+    "explanation": "Unit tests check the rule against its specification with small fixtures; replay runs it over a representative period of real stored data and shows the effect on the queue and on past true positives. It is not a performance test or a mapping check, and it applies to any rule change.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A week after a tuned version of a rule is deployed, its daily hit count has dropped from about fifteen to zero. How should the detection team respond?",
+    "options": [
+      "Close the tuning ticket, because zero alerts shows the noise has been removed as intended",
+      "Lower the rule's priority, because a rule that no longer fires adds no value to the queue",
+      "Wait for a full quarter of data, because a week is too short to say anything about the change",
+      "Investigate whether the rule or its data is broken before treating silence as success"
+    ],
+    "correct": 3,
+    "explanation": "A rule whose hits fall to zero after a change may be broken rather than successful, and a silent rule produces no complaint; monitoring with rollback ready is the last step of the change path. Waiting a quarter is right for measuring precision of a rare rule, but not for a sudden drop from fifteen a day to nothing.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team manages its detections as Sigma rules in version control. Which metadata change best records that a tuned rule is being deployed in a staged, reversible way rather than as finished work?",
+    "options": [
+      "Updating the modified date and setting status to test, moving to stable only after monitoring",
+      "Updating the author field and setting level to low until the analysts accept the new version",
+      "Adding the ticket number to the rule's tags so the SIEM shows it beside each alert",
+      "Changing the rule's id so that the old and new versions can run side by side in production"
+    ],
+    "correct": 0,
+    "explanation": "Sigma records change in its metadata: a modified date and a status that moves from experimental through test to stable; staged deployment runs the new version at test status before it is trusted. Lowering level changes priority, not maturity, and the ticket belongs in the commit message rather than the ATT&CK-style tags.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An attacker with access to the SIEM console wants to avoid detection for a planned data theft. Which control most directly defends against the attacker quietly widening a suppression on R4?",
+    "options": [
+      "A higher R4 threshold, so that suppressions are needed less often and attract more attention",
+      "Changes only through version control and review, alerting on any change made outside it",
+      "Weekly precision reviews, so that a rule whose precision changes suddenly is examined by the team",
+      "Encryption of the rule repository, so that the attacker cannot read the current R4 threshold"
+    ],
+    "correct": 1,
+    "explanation": "Widening a suppression or raising a threshold achieves more for an adversary than endpoint evasion, so the change path itself is the control: version control, mandatory review and a monitored audit trail, with out-of-band changes raising an alert. Precision reviews would not notice a suppression that removed a rare true positive; secrecy of the threshold does not stop the change.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which pair of health signals does the lesson recommend for every detection engineering dashboard to catch tuning that has gone wrong?",
+    "options": [
+      "Total alert volume across the SOC, and the average time analysts take to close an alert",
+      "The number of rules deployed each month, and the share of rules that have ATT&CK tags",
+      "Rules that stopped firing after a change, and suppression growth per rule with the events each matched",
+      "Per-rule precision over the last day, and the number of unit tests in the rule repository"
+    ],
+    "correct": 2,
+    "explanation": "A rule that goes silent may be broken, and a growing suppression may be hiding true positives; both are invisible in ordinary queue metrics. SOC-wide volume and closure time show workload, not which rule has lost detection.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer receives a pull request that changes R6's query but contains no change to test_rules.py. What is the main concern the lesson raises about such a change?",
+    "options": [
+      "The rule cannot be converted to Splunk until its tests have been updated to the new query syntax",
+      "Unit tests compare query text, so an unchanged suite will fail as soon as the rule's text changes",
+      "The change cannot be replayed, because replay uses the test fixtures as its source of past data",
+      "The reason for the change is recorded nowhere a machine can check, so it can be silently undone"
+    ],
+    "correct": 3,
+    "explanation": "A rule change normally comes with a test change: a new near miss or boundary that encodes why the rule changed. Without it the purpose lives only in someone's memory. The kit's tests run the rule against events, not against its text, and replay uses stored historical data, not fixtures.",
+    "lesson": 5,
+    "difficulty": "medium"
+  }
+]

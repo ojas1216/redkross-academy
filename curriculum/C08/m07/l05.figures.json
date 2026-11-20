@@ -1,0 +1,59 @@
+{
+  "C08-M07-L05-F1": {
+    "title": "Diagnosing a noisy rule before choosing the change",
+    "caption": "Four questions, asked in order, lead from a measured precision problem to the most general durable fix, and every fix passes the same gate.",
+    "alt": "Decision graph, top to bottom. A slate box, Noisy rule (measured precision and volume), leads to a violet decision: Is the data wrong? Yes leads to Fix parser or normalisation; no leads to the next decision: Logic broader than intent? Yes leads to Narrow the logic; no leads to: Threshold or window off baseline? Yes leads to Re-set from measured baseline; no leads to: Known authorised instance? Yes leads to Scoped suppression (owner, reason, expiry); no leads to Lower priority, keep visible. All five outcome boxes lead to one dark box: Tests, replay and review.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "n", "label": "Noisy rule", "sub": "measured precision and volume", "tone": "slate" },
+      { "id": "q1", "label": "Is the data wrong?", "sub": "raw event vs normalised fields", "tone": "violet", "kind": "decision" },
+      { "id": "f1", "label": "Fix parser or normalisation", "sub": "every rule benefits", "tone": "blue" },
+      { "id": "q2", "label": "Logic broader than intent?", "sub": "compare with title and description", "tone": "violet", "kind": "decision" },
+      { "id": "f2", "label": "Narrow the logic", "sub": "applies to every host", "tone": "blue" },
+      { "id": "q3", "label": "Threshold or window off baseline?", "sub": "answer with a sweep", "tone": "violet", "kind": "decision" },
+      { "id": "f3", "label": "Re-set from measured baseline", "sub": "and attack-step spacing", "tone": "blue" },
+      { "id": "q4", "label": "Known authorised instance?", "sub": "approval record, not identity", "tone": "violet", "kind": "decision" },
+      { "id": "f4", "label": "Scoped suppression", "sub": "owner, reason, expiry", "tone": "green" },
+      { "id": "f5", "label": "Lower priority, keep visible", "sub": "context-based confidence", "tone": "orange" },
+      { "id": "g", "label": "Tests, replay and review", "sub": "the common gate", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "n", "to": "q1" },
+      { "from": "q1", "to": "f1", "label": "yes" },
+      { "from": "q1", "to": "q2", "label": "no" },
+      { "from": "q2", "to": "f2", "label": "yes" },
+      { "from": "q2", "to": "q3", "label": "no" },
+      { "from": "q3", "to": "f3", "label": "yes" },
+      { "from": "q3", "to": "q4", "label": "no" },
+      { "from": "q4", "to": "f4", "label": "yes" },
+      { "from": "q4", "to": "f5", "label": "no" },
+      { "from": "f1", "to": "g" },
+      { "from": "f2", "to": "g" },
+      { "from": "f3", "to": "g" },
+      { "from": "f4", "to": "g" },
+      { "from": "f5", "to": "g" }
+    ],
+    "note": "Stop at the first yes: the higher the fix, the wider and more durable its effect."
+  },
+  "C08-M07-L05-F2": {
+    "title": "Change control for a detection rule",
+    "caption": "The controlled path from a tuning request to a monitored production rule, with tests and replay as the evidence gates.",
+    "alt": "Flow diagram, top to bottom, eight steps: Tuning request (precision, volume, FP records); Reproduce on stored data; Branch: rule + tests (commit cites the ticket); Unit tests (must-match, must-not, boundary); Replay (volume and precision over past data); Peer review and approval; Staged deployment (status test, low priority or shadow); Monitor and roll back if needed. A dashed arrow loops from the last step back to Tuning request, labelled post-deployment evidence opens the next request.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Tuning request", "sub": "precision, volume, FP records", "tone": "slate" },
+      { "label": "Reproduce on stored data", "tone": "blue" },
+      { "label": "Branch: rule + tests", "sub": "commit cites the ticket", "tone": "violet" },
+      { "label": "Unit tests", "sub": "must-match, must-not, boundary", "tone": "orange" },
+      { "label": "Replay", "sub": "volume and precision over past data", "tone": "orange" },
+      { "label": "Peer review and approval", "tone": "violet" },
+      { "label": "Staged deployment", "sub": "status test, low priority or shadow", "tone": "blue" },
+      { "label": "Monitor and roll back if needed", "sub": "hit count, precision, silence", "tone": "dark" }
+    ],
+    "loop": { "label": "post-deployment evidence opens the next request", "to": 0 },
+    "note": "A failing test or a replay that loses a true positive sends the change back, never forward."
+  }
+}

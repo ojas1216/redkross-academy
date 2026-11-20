@@ -1,0 +1,37 @@
+{
+  "C08-M07-L04-F1": {
+    "title": "Anatomy of one rule unit test in the kit",
+    "caption": "How test_rules.py turns a hand-written event into a pass or fail verdict by running the unchanged production rule in a fresh in-memory table.",
+    "alt": "Vertical flow of five steps. Step 1, slate: Synthetic test event, a Python dict with only the fields the rule reads. Step 2, blue: Fresh in-memory table, sqlite3 :memory: with the minisiem FIELDS. Step 3, orange: Run the production rule, RULES[rule] from minisiem.py, unchanged. Step 4, violet: Compare with the oracle, assertEqual expecting 1 row for a positive case or an empty list for a negative case. Step 5, dark: ok or FAIL, unittest reports per test and any FAIL blocks the change. Note: the test proves the logic, not that the telemetry arrives.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Synthetic test event", "sub": "Python dict: only the fields the rule reads", "tone": "slate" },
+      { "label": "Fresh in-memory table", "sub": "sqlite3 ':memory:' with minisiem FIELDS", "tone": "blue" },
+      { "label": "Run the production rule", "sub": "RULES[rule] from minisiem.py, unchanged", "tone": "orange" },
+      { "label": "Compare with the oracle", "sub": "assertEqual: 1 row (positive) or [] (negative)", "tone": "violet" },
+      { "label": "ok / FAIL", "sub": "unittest reports per test; any FAIL blocks the change", "tone": "dark" }
+    ],
+    "note": "A unit test proves the logic, not that the telemetry reaches the SIEM."
+  },
+  "C08-M07-L04-F2": {
+    "title": "Banyan rule tests: cases, expectations and real results",
+    "caption": "Positive, boundary and near-miss cases for R1, R2 and R5 with the results of the real runs, including two defects found by near misses and the R5 fix.",
+    "alt": "Table with five columns: Rule, Case, Type, Expected, Result. Row 1, green: R1, Word starts PowerShell, positive, fires, ok. Row 2, green: R1, explorer.exe starts PowerShell, near miss, silent, ok. Row 3, green: R2, 5 users fail then success, positive at threshold, fires, ok. Row 4, green: R2, 4 users fail then success, boundary, silent, ok. Row 5, green: R2, 8 failures no success, near miss, silent, ok. Row 6, red: R2, failures a month earlier, near miss, silent, FAIL: fired. Row 7, green: R5, Security log cleared 1102, positive, fires, ok. Row 8, red: R5, 1102 from another source, near miss, silent, FAIL: fired. Row 9, dark: R5 plus source equals windows, all kit and extra cases, fix check, all pass, 15 tests OK. Note: every defect was found by a negative case.",
+    "type": "table",
+    "columns": ["Rule", "Case", "Type", "Expected", "Result"],
+    "rows": [
+      ["R1", "Word starts PowerShell", "positive", "fires", "ok"],
+      ["R1", "explorer.exe starts PowerShell", "near miss", "silent", "ok"],
+      ["R2", "5 users fail, then success", "positive at threshold", "fires", "ok"],
+      ["R2", "4 users fail, then success", "boundary", "silent", "ok"],
+      ["R2", "8 failures, no success", "near miss", "silent", "ok"],
+      ["R2", "failures a month earlier", "near miss", "silent", "FAIL: fired"],
+      ["R5", "Security log cleared (1102)", "positive", "fires", "ok"],
+      ["R5", "1102 from another source", "near miss", "silent", "FAIL: fired"],
+      ["R5 + source='windows'", "all kit + extra cases", "fix check", "all pass", "15 tests OK"]
+    ],
+    "rowTones": ["green", "green", "green", "green", "green", "red", "green", "red", "dark"],
+    "note": "Both defects were found by negative cases; the positive cases written from the attack example all passed."
+  }
+}

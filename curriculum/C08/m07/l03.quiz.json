@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A Sysmon process-creation event shows WINWORD.EXE as the parent of powershell.exe, and rule R1 fires on that parent-child pair. Which mapping does this observation support on its own?",
+    "options": [
+      "T1204.002 Malicious File and T1059.001 PowerShell, under Execution",
+      "T1566 Phishing under Initial Access, plus T1059.001 PowerShell under Execution",
+      "Only the Execution tactic, because techniques require knowledge of attacker intent",
+      "Only T1059 at parent level, because sub-techniques are too specific for a rule tag"
+    ],
+    "correct": 0,
+    "explanation": "The event shows a user-opened document (Word as parent) running PowerShell, which supports both Execution techniques. Phishing describes how the document arrived, which a process event cannot show, so adding T1566 tags the incident rather than the observation.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R1 matches Word starting either powershell.exe or cmd.exe, but the kit's Sigma rule is tagged only with attack.t1059.001. What is the practical consequence for coverage reporting?",
+    "options": [
+      "A matrix built from tags will overstate coverage, because cmd.exe is not a technique",
+      "The rule will fail sigma check, because its tags do not match its selection fields",
+      "A matrix built from tags will omit T1059.003, although the rule does cover it",
+      "The rule will stop matching cmd.exe, because the backend converts only tagged images"
+    ],
+    "correct": 2,
+    "explanation": "This is under-mapping: the logic covers the Windows Command Shell sub-technique but the tags do not say so, so tag-driven coverage reports miss it. Tags have no effect on matching, and sigma check validates tag form, not agreement with the logic.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R4 flags a 48,200,000-byte HTTPS upload to files-share-drop.example. The lab has proxy sizes but no destination categorisation. Which tag is the most defensible?",
+    "options": [
+      "T1567.002 Exfiltration to Cloud Storage, because the hostname suggests a file-sharing site",
+      "T1567 Exfiltration Over Web Service, noting that the destination type is unconfirmed",
+      "T1071.001 Web Protocols, because the upload travelled over HTTPS to an external host",
+      "T1048 Exfiltration Over Alternative Protocol, because the upload bypassed the C2 channel"
+    ],
+    "correct": 1,
+    "explanation": "The rule sees only size and URL; whether the site is cloud storage is enrichment it does not have, so the parent technique with a recorded doubt is honest. Choosing the cloud-storage sub-technique from a hostname would be a guess presented as fact.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The proxy shows WS-104 downloading invoice.docm from a look-alike domain, and the lab collects no mail logs. How should this step be mapped in the coverage work?",
+    "options": [
+      "T1566.002 Spearphishing Link, since a web download proves the user clicked a link",
+      "T1566.001 Spearphishing Attachment, since a .docm file is a typical attachment",
+      "Leave it unmapped, because no detection rule fires on the download event",
+      "T1566 at parent level, with the delivery vector recorded as unconfirmed"
+    ],
+    "correct": 3,
+    "explanation": "Without mail telemetry the route by which the URL reached the user is unknown, so either sub-technique would be a guess. The step must still appear in the matrix, as a gap, precisely because no rule covers it.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "T1078 Valid Accounts is listed under several tactics, including Initial Access, Persistence and Privilege Escalation. A rule detects a stolen password used over the VPN from outside. Which tactic should the tag carry?",
+    "options": [
+      "Every tactic the technique is listed under, since ATT&CK lists it under each of them",
+      "Persistence only, since a working password lets the attacker return later",
+      "The tactic the login achieves in the scenario the rule targets, here Initial Access",
+      "No tactic at all, since multi-tactic techniques should be tagged by ID alone"
+    ],
+    "correct": 2,
+    "explanation": "A tactic is the goal inferred from what the action achieves in context; an external VPN login gets the attacker in. Listing every tactic would claim coverage of persistence and escalation scenarios the rule does not observe.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A manager says: 'We have nothing for T1059, so write a rule that searches process events for the string PowerShell.' What is the main problem with this approach?",
+    "options": [
+      "It maps downwards from an ID to a keyword, producing a brittle name-matching rule",
+      "It targets a technique instead of a tactic, which is too narrow for coverage goals",
+      "It ignores sub-techniques, so the resulting rule cannot be tagged in Sigma at all",
+      "It relies on process events, which ATT&CK does not list as a data source for T1059"
+    ],
+    "correct": 0,
+    "explanation": "Good rules start from an understood procedure and its artefacts and are then mapped upwards. Starting from an ID and grepping for a word gives logic that matches names rather than behaviour and is easy to miss or trip.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R2 fires only when at least five distinct users fail from one IP and a VPN success follows from that IP. Why can its alert be cited as evidence for more than password spraying?",
+    "options": [
+      "Because counting distinct users also demonstrates T1110.001 Password Guessing",
+      "Because any VPN event is evidence of T1133, whether it succeeds or fails",
+      "Because the source IP belongs to a documentation range and is therefore external",
+      "Because the required success is itself use of a valid account via an external remote service"
+    ],
+    "correct": 3,
+    "explanation": "A failures-only rule would support T1110.003 alone; requiring the success makes the alert evidence of T1078 and T1133 too. Failed VPN attempts alone do not demonstrate use of an external remote service by the attacker.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R3 is named new_local_admin and matches Windows events 4720 and 4732, but the minisiem table has no group column. What does careful mapping reveal about R3?",
+    "options": [
+      "It fires only on account creation, because 4732 is never written for local groups",
+      "It fires on additions to any security-enabled local group, not only Administrators",
+      "It cannot be mapped to Persistence, because account creation is a Discovery action",
+      "It misses additions to Administrators, because the group is in the raw event only"
+    ],
+    "correct": 1,
+    "explanation": "Without a group field the logic cannot restrict 4732 to the Administrators group, so its scope is wider than its name. The raw event does carry the group, which is why the data-source table marks this as a partial dependency.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "For T1136.001, the lab collects the Security log, rule R3 exists and fired correctly on the Banyan dataset, and the kit has no test for R3. What status should the coverage matrix show?",
+    "options": [
+      "Covered: the rule fired on real attack data, which is stronger than a unit test",
+      "Untested: a rule exists, but it has not been shown to fire and stay quiet on cases",
+      "Partial: the rule exists but the data source is missing the group field",
+      "Gap: without a test the technique counts as having no detection at all"
+    ],
+    "correct": 1,
+    "explanation": "Firing once on a dataset built to contain the attack does not show the rule rejects near misses, so the honest label is untested. Calling it a gap would understate what exists; calling it covered would overstate it.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Banyan matrix the T1059 PowerShell/cmd row is blue (partial) even though R1 has passing tests. Why is it not green?",
+    "options": [
+      "R1's tests cover PowerShell only, so the cmd.exe branch is counted as missing data",
+      "R1 has no near-miss test, so its PowerShell coverage cannot be scored as tested",
+      "R1 maps to two tactics, and multi-tactic rows are always scored as partial",
+      "R1 only recognises Word as the parent, so shells started from other parents are not seen"
+    ],
+    "correct": 3,
+    "explanation": "The tested logic covers one parent application; PowerShell or cmd launched by other Office programs or script hosts falls outside it. R1 does have a near-miss test (explorer.exe as parent), so that is not the reason.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team exports its coverage to ATT&CK Navigator and gives every technique that has any rule a score that renders green. What is the main risk of this layer?",
+    "options": [
+      "Techniques with untested rules look covered, so the heat map claims more than was shown",
+      "Navigator rejects layers whose scores are not derived from tested rules only",
+      "Techniques with tested rules lose their colour, because scores overwrite each other",
+      "The layer cannot be version-controlled, because colours are stored outside the JSON"
+    ],
+    "correct": 0,
+    "explanation": "Navigator colours whatever score it is given; collapsing 'rule exists' into green hides the difference between untested and tested rules. Layers are JSON files that can be shared and version-controlled.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The data-source table shows that the Banyan lab collects no mail-gateway logs. What does this tell the detection team about phishing delivery?",
+    "options": [
+      "It is a rule gap: a proxy rule for .docm downloads fully closes it",
+      "It is a tuning gap: R1 should be widened until it fires at delivery time",
+      "It is a telemetry gap: no rule can detect it until that data is collected",
+      "It is a mapping gap: tagging R1 with T1566 records that delivery is covered"
+    ],
+    "correct": 2,
+    "explanation": "Data-source mapping shows what cannot be seen at all; logic cannot compensate for missing telemetry. A proxy rule could catch some downloads, but it would not see the mail that delivered the link or attachment.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Security-log-cleared rule depends on event 1102, which Windows writes into the log that has just been cleared. Which data-source condition makes this rule genuinely useful?",
+    "options": [
+      "The Security log is sized large enough that it is never cleared automatically",
+      "The rule runs on the endpoint itself, where the cleared log is still available",
+      "Sysmon is installed, so process creation records the clearing tool's command line",
+      "The Security log is forwarded off the host to the SIEM in near real time"
+    ],
+    "correct": 3,
+    "explanation": "If the log lives only on the host, clearing it removes the evidence an investigator needs; forwarding preserves the 1102 event and what came before it. Running the rule locally does not help once the local log is gone.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule repository was mapped two years ago and its coverage report has not been rechecked since. Several ATT&CK releases have come out in between. What is the most important risk, and the control for it?",
+    "options": [
+      "Rules may stop matching events; re-run the rules against the original dataset",
+      "Tags may now point to revoked or changed entries; re-validate them against the new version",
+      "Tactic IDs may be renumbered into kill-chain order; re-sort the coverage matrix",
+      "Navigator layers may expire; export a fresh layer file from each rule's tags"
+    ],
+    "correct": 1,
+    "explanation": "ATT&CK releases add, split, deprecate and revoke entries, so an ID can become wrong without the rule changing. Recording the version and re-validating tags against MITRE's published STIX data catches this; rule matching is unaffected by ATT&CK releases.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A vendor content pack, two community rules and an internal wiki page tag the same scheduled-task behaviour with three different technique IDs. How should the detection engineer settle the tag?",
+    "options": [
+      "Use the ID that appears in the most sources, since agreement indicates accuracy",
+      "Use the vendor's ID, since commercial content is reviewed before publication",
+      "Look it up on the official ATT&CK site for the version in use and record that version",
+      "Keep all three IDs, so the rule appears in coverage under whichever is correct"
+    ],
+    "correct": 2,
+    "explanation": "Disagreements are resolved against the authoritative source for a stated version, not by majority vote or vendor trust. Keeping all three would inflate coverage and leave two false claims in the repository.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC is building its first coverage matrix and proposes one row for every Enterprise technique. What is a better way to choose the rows?",
+    "options": [
+      "From the threat model: sector groups, own incidents, exercises and regulator questions",
+      "From the rule repository: one row per technique already tagged in an existing rule",
+      "From the tactic list: one representative technique per tactic column of the matrix",
+      "From the data sources: one row per technique the current telemetry can observe"
+    ],
+    "correct": 0,
+    "explanation": "Rows should reflect the threats that matter, so that the important gaps stand out. Building rows from existing rules or existing telemetry hides exactly the techniques the SOC cannot yet see.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A colleague sorts a technique report by tactic ID, assuming that the lowest ID is the earliest stage of an intrusion. Which result shows why this assumption is wrong?",
+    "options": [
+      "Reconnaissance (TA0043) and Resource Development (TA0042) sort to the end of the list",
+      "Initial Access (TA0001) sorts to the end, after Impact (TA0040)",
+      "Execution (TA0002) sorts before Initial Access (TA0001)",
+      "Exfiltration (TA0010) sorts after Command and Control (TA0011)"
+    ],
+    "correct": 0,
+    "explanation": "Tactic IDs are identifiers, not sequence numbers: the two pre-compromise tactics were added later and carry the highest numbers. Exfiltration actually sorts before Command and Control by ID, the reverse of what the last option states.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which practice is the clearest example of coverage theatre in an ATT&CK-based report?",
+    "options": [
+      "Leaving a technique red because its only rule has not yet been tested",
+      "Tagging a parent technique because the rule cannot tell sub-techniques apart",
+      "Recording the ATT&CK version used for each mapping in the coverage report",
+      "Counting community rules as coverage although their log source is not collected"
+    ],
+    "correct": 3,
+    "explanation": "A rule that reads data the SIEM never receives cannot fire, so counting it is reassurance without substance. The other options describe honest practice that understates rather than overstates coverage.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A technique's row shows a rule and a passing test suite, but the log source the rule reads was decommissioned last month. What status should the row now carry?",
+    "options": [
+      "Covered, because tests prove the logic and the logic has not changed",
+      "Untested, because tests that use synthetic data are void without live data",
+      "A gap, because without data the rule cannot fire whatever its tests say",
+      "Partial, because two of the three conditions in the row are still met"
+    ],
+    "correct": 2,
+    "explanation": "Coverage is the weakest of data, rule and test, and data is the precondition for the other two. Passing unit tests prove the logic, not that the events still arrive.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A dashboard reports 'Execution: covered' because one rule is tagged attack.execution. Why is this a weak basis for planning detection work?",
+    "options": [
+      "Tactic tags are not valid Sigma tags, so the rule may not be counted at all",
+      "Tactics are too coarse: one rule can hide many untouched execution techniques",
+      "Execution is a pre-compromise tactic, so coverage there has little value",
+      "Tactic coverage is already implied by technique tags and is double-counted"
+    ],
+    "correct": 1,
+    "explanation": "Gap analysis needs technique or sub-technique granularity; tactic-level colouring hides dozens of techniques with no detection. attack.execution is a valid Sigma tag, so the problem is granularity, not syntax.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During tuning, R1 is narrowed so that it matches only powershell.exe under Word, after cmd.exe caused noise. Its tags currently include T1059.001 and T1059.003. What must happen to the mapping?",
+    "options": [
+      "Keep both tags, since the attacker may still use cmd.exe from a Word macro",
+      "Replace both with the parent T1059, since tuning has reduced the rule's precision",
+      "Leave the tags until the next ATT&CK release, when all mappings are re-validated",
+      "Remove the T1059.003 tag, since the rule no longer observes the Windows Command Shell"
+    ],
+    "correct": 3,
+    "explanation": "Tags must follow the logic: once cmd.exe is excluded, claiming T1059.003 would show coverage that no longer exists. Mappings change both with ATT&CK releases and with rule changes such as tuning.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A new Sigma rule's tags pass sigma check without warnings. What has this check established about the rule's ATT&CK mapping?",
+    "options": [
+      "Only that the tags follow the naming convention, not that they are correct",
+      "That each tagged technique has a passing test case in the repo",
+      "That the technique tags are consistent with the rule's detection logic",
+      "That the tactic tags match the tactics listed for each tagged technique"
+    ],
+    "correct": 0,
+    "explanation": "sigma check validates the form of tags; whether a technique is right for the logic is a human review responsibility. Treating a clean check as validation of the mapping lets wrong IDs into coverage reports.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A reviewer receives a pull request whose rule has the tag attack.t1098 and nothing else about the mapping. What is missing for the mapping to be reviewable?",
+    "options": [
+      "A Navigator layer file showing where the technique sits in the matrix",
+      "The ATT&CK version, the technique name and a sentence on why the logic shows it",
+      "A second technique tag, so the mapping can be cross-checked for consistency",
+      "The threat group that used the technique in the incident that inspired the rule"
+    ],
+    "correct": 1,
+    "explanation": "A mapping is a claim and needs its evidence: version, ID and name, and a rationale linking the observation to the technique. Without a rationale a reviewer cannot tell whether the tag matches the logic.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R6 finds 18 identical 220-byte HTTPS requests from WS-104 to one URL, starting shortly after the macro ran. Which mapping fits what the rule observes?",
+    "options": [
+      "T1567 Exfiltration Over Web Service under Exfiltration",
+      "T1041 Exfiltration Over C2 Channel under Exfiltration",
+      "T1071.001 Web Protocols under Command and Control",
+      "T1095 Non-Application Layer Protocol under Command and Control"
+    ],
+    "correct": 2,
+    "explanation": "Small, regular, identical requests are a beacon: C2 traffic carried over HTTP(S), which is T1071.001. Requests of 220 bytes move no meaningful data out, and HTTPS is an application-layer protocol, which rules out T1095.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule fires whenever WINWORD.EXE starts any child process, without checking which program the child is. How far up the ATT&CK stack can this rule's tags honestly go?",
+    "options": [
+      "Not to T1059: the rule does not observe a scripting interpreter being run",
+      "To T1059 but not a sub-technique, since the child program is unknown",
+      "To T1059.001, since PowerShell is the most common child of a malicious macro",
+      "To T1059.001 and T1059.003, since together they cover the likely children"
+    ],
+    "correct": 0,
+    "explanation": "The observation is only 'Word started something', which does not demonstrate an interpreter at all, so even the parent T1059 is not supported. Tagging the likely child would be mapping what the attacker might do rather than what the rule sees.",
+    "lesson": 3,
+    "difficulty": "hard"
+  }
+]

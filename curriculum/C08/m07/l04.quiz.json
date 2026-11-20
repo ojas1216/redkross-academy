@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A near-miss test inserts an event with source='appliance' and event_id=1102 and expects R5 to return []. It fails with 'Lists differ: [(None, None, '-')] != []'. What has the test revealed?",
+    "options": [
+      "R5 matches any event with ID 1102, because its query has no condition on source",
+      "R5 matches only events with a placeholder user, because '-' is treated as a wildcard",
+      "The fixture is faulty, because a fresh table should not return rows with NULL fields",
+      "The oracle is wrong, because event 1102 always means a cleared Security log"
+    ],
+    "correct": 0,
+    "explanation": "The returned row shows R5 fired on an event from another source; the query only checks event_id=1102. The NULLs are expected, because the synthetic event did not set ts or host, so they do not indicate a fixture fault.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the failing R5 case the returned row is (None, None, '-'). Why are the first two values None?",
+    "options": [
+      "R5 selects only the user column, and unittest pads the other values with None",
+      "The appliance source has no timestamps, so SQLite discards the ts and host values",
+      "The test event did not set ts or host, so the helper inserted NULL for them",
+      "The FIELDS list does not include ts or host, so those columns are always empty"
+    ],
+    "correct": 2,
+    "explanation": "run() inserts e.get(f) for every field, and dict.get returns None for missing keys, which SQLite stores as NULL. R5 selects ts, host and user, so the row reflects exactly what the synthetic event supplied.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst raises R2's threshold from five users to six without updating the tests. Running the kit's suite prints '..F....' and 'AssertionError: 0 != 1'. Which test failed, and what does it mean?",
+    "options": [
+      "test_four_users_is_below_threshold: a four-user spray is now matched by mistake",
+      "test_five_users_then_success: a five-user spray the rule must detect now raises nothing",
+      "test_spray_without_success: eight failures now fire without any successful login",
+      "test_five_users_then_success: the rule now returns one row instead of none"
+    ],
+    "correct": 1,
+    "explanation": "The positive case at the threshold expects one row and got zero, so the documented five-user behaviour has been lost. The four-user near miss still passes, since six is even further from four.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Suppose R2's only positive test used eight failed users. Which unnoticed change to the rule shows why that test is not enough?",
+    "options": [
+      "Lowering the threshold from >= 5 to >= 4 would make the eight-user test fail",
+      "Removing the success condition would make the eight-user test return no rows",
+      "Changing COUNT(DISTINCT f.user) to COUNT(f.user) would make the test fail",
+      "Raising the threshold from >= 5 to >= 8 would still let every test pass"
+    ],
+    "correct": 3,
+    "explanation": "A threshold is pinned only by testing exactly at it and just below it; a case well above the limit passes for any threshold up to eight. Lowering the threshold would not make the eight-user case fail either, so that option is false.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague's test file contains its own copy of R1's SQL and runs that copy against synthetic events. Why is this design unsafe?",
+    "options": [
+      "The copy runs in a separate database, so the test cannot see the synthetic events",
+      "The copy bypasses parameterised inserts, so the events are vulnerable to injection",
+      "The test keeps passing after the production rule changes, so it proves nothing about it",
+      "The copy doubles the test run time, so the suite stops being run on every change"
+    ],
+    "correct": 2,
+    "explanation": "The kit's run() executes RULES[rule] from minisiem.py so that any edit to the real rule is tested. A duplicated query can drift silently from production while its tests stay green.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The kit's run() helper opens sqlite3.connect(':memory:') and creates a new events table on every call. What property does this give the test suite?",
+    "options": [
+      "Each test starts from an empty fixture, so tests are independent of order",
+      "Each test reads the real Banyan dataset, so results match production volume",
+      "Each test shares one table, so later tests can build on earlier test events",
+      "Each test writes to minisiem.db, so failures can be inspected after the run"
+    ],
+    "correct": 0,
+    "explanation": "An in-memory database created per call leaves nothing behind for the next test, so no test can pass or fail because of another. Sharing a table between tests would make results depend on run order.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A near-miss test for R1 changes the parent to explorer.exe, the child to notepad.exe and the host name at the same time, and the rule correctly stays silent. What does this pass prove?",
+    "options": [
+      "That both the parent and the child conditions work, since both were changed",
+      "That the rule ignores host names, since the host was changed and it stayed silent",
+      "That the rule is fully specified, since three decision points were covered at once",
+      "Little: any one of the changed attributes may be the condition that suppressed it"
+    ],
+    "correct": 3,
+    "explanation": "A near miss should differ from the positive case in exactly one attribute, so that a pass shows that particular condition doing its job. With three changes, a broken parent check could be hidden by a working child check.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A test with five VPN failures on 1 October and a success from the same IP on 3 November expects R2 to stay silent, but R2 fires. What in the rule causes this?",
+    "options": [
+      "Its GROUP BY includes s.ts, so each success is compared with every failure",
+      "Its only time condition is f.ts <= s.ts, so failures of any age are correlated",
+      "Its COUNT(DISTINCT f.user) counts the same user once per day of retention",
+      "Its join is on src_ip, so failures from other IPs are added to the count"
+    ],
+    "correct": 1,
+    "explanation": "The rule has no lower time bound, so a month-old failure counts as if it preceded today's login. Grouping by the success timestamp is correct design; the missing window is the defect.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The R5 'another source' test fails and a deadline is close. Which response is NOT legitimate?",
+    "options": [
+      "Adding source='windows' to R5 and rerunning all existing and new tests",
+      "Deleting the test, so the build passes and the rule can ship unchanged",
+      "Recording a reviewed decision to accept the limitation as a known case",
+      "Holding the rule change until the team decides between fixing or accepting"
+    ],
+    "correct": 1,
+    "explanation": "A red test is a finding: fix the rule or document an explicit, reviewed acceptance of the limitation. Deleting an inconvenient test hides a known defect and removes the protection it would give later.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After adding source='windows' to R5, the new near-miss test passes. What else must be confirmed before the fix is complete?",
+    "options": [
+      "That the Sigma version of the rule converts to the same SQL text as R5",
+      "That the fix also adds a lower time bound, as was needed for R2",
+      "That event 1102 no longer appears from the appliance source in the SIEM",
+      "That earlier positive cases still pass and the real dataset hit is still found"
+    ],
+    "correct": 3,
+    "explanation": "A fix that removes an over-match can also remove the true match, so the full suite and the known real hit must still pass; in the lesson 15 tests passed and the 08:17 WS-104 hit remained. Sigma conversion is a separate concern.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "All unit tests for R1 pass. Which question about R1 does this green run leave unanswered?",
+    "options": [
+      "Whether real Sysmon events reach the SIEM with the parent image in parent_image",
+      "Whether R1 stays silent when explorer.exe is the parent of PowerShell",
+      "Whether R1 still matches when the process paths are written in lower case",
+      "Whether R1 fires when Word starts PowerShell with both fields populated"
+    ],
+    "correct": 0,
+    "explanation": "Unit tests insert fields directly, so they prove logic, not that telemetry is generated, forwarded and parsed into the expected field. The other three are exactly what the R1 unit tests check.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Running minisiem's rules over the 340-event Banyan dataset gives 1, 1, 2, 1, 1 and 1 hits, all of them part of the attack. Why is this weak evidence that the rules are ready for production?",
+    "options": [
+      "The dataset lacks negative cases, so the precision figure cannot be calculated",
+      "The dataset is synthetic, so the rules will not run against real event formats",
+      "The dataset was built to contain the attack, so it says little about everyday noise",
+      "The dataset is too small for SQLite to apply the GROUP BY and HAVING clauses"
+    ],
+    "correct": 2,
+    "explanation": "Replay is meant to measure volume on real production data from the systems the rule will watch; a purpose-built storyline nearly guarantees perfect precision. The dataset does contain benign events, so precision can be computed, but it is not representative.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team wants an end-to-end check that R3 still works after a Windows agent upgrade. Which approach fits the lesson's guidance?",
+    "options": [
+      "On a production server, add a test user to Administrators and check the alert",
+      "Insert a synthetic 4720 row into the SIEM index and check that the alert appears",
+      "Rerun the R3 unit tests after the upgrade, since they use the production rule text",
+      "In an isolated lab domain, create and then delete a logged test account, and check the alert"
+    ],
+    "correct": 3,
+    "explanation": "A benign stand-in on a lab machine makes Windows generate a real 4720, exercising collection and parsing; the test is recorded and the account removed. Inserting rows or rerunning unit tests skips the telemetry path that the upgrade may have broken.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In a detection-as-code pipeline, which order of checks matches the lesson's description of a rule change?",
+    "options": [
+      "Peer review, deploy, replay on recent data, then unit tests on a schedule",
+      "Syntax check, unit tests, peer review, replay on recent data, then deploy",
+      "Unit tests, deploy, syntax check, then peer review of the alert volume",
+      "Replay on recent data, syntax check, deploy, then unit tests and review"
+    ],
+    "correct": 1,
+    "explanation": "Cheap automated checks come first and block the change on failure; a reviewer reads rule and tests together; replay estimates volume before deployment; scheduled end-to-end checks follow. Deploying before tests or review lets defects reach analysts.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R4 fires when bytes_out > 10000000. Which pair of test cases pins its threshold precisely?",
+    "options": [
+      "10,000,000 bytes must fire and 9,999,999 bytes must not",
+      "48,200,000 bytes must fire and 1,000,000 bytes must not",
+      "10,000,001 bytes must fire and exactly 10,000,000 bytes must not",
+      "10,000,001 bytes must fire and 20,000,000 bytes must also fire"
+    ],
+    "correct": 2,
+    "explanation": "With a strict greater-than, the boundary lies between exactly ten million and one byte more, so those two values document it. Testing exactly ten million as a positive would encode the wrong operator.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lesson's test report, both failing results were negative cases. What is the usual reason defects cluster there?",
+    "options": [
+      "Rules are written while looking at the attack example, so positives tend to pass",
+      "Negative cases use more fields, so they are more likely to contain typing errors",
+      "Positive cases are generated automatically, so they cannot disagree with the rule",
+      "Negative cases run after positive ones, so they inherit leftover fixture rows"
+    ],
+    "correct": 0,
+    "explanation": "The positive case is usually the event that inspired the rule, so it passes almost by construction; over-broad logic shows up only on what the rule should not match. Fixtures are rebuilt per call, so leftover rows are not a factor.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An engineer runs 'python -m unittest test_rules -v' from the parent folder of the kit instead of inside it. What is the most likely outcome?",
+    "options": [
+      "The test module cannot be imported, because test_rules.py is not on the path",
+      "The tests run but skip R2, because its generator needs the kit's working folder",
+      "The tests run silently, because -v only prints names inside the kit folder",
+      "The tests pass but use the real dataset, because minisiem.db is found instead"
+    ],
+    "correct": 0,
+    "explanation": "The module name test_rules is resolved from the current directory, which is why the command must run next to test_rules.py and minisiem.py. The -v flag changes output detail, not where modules are found.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The kit's R6 negative case sends ten requests to one URL whose sizes grow by 40 bytes each, and the rule stays silent. Which decision point does this case isolate?",
+    "options": [
+      "The count condition: ten requests fall below the minimum needed per host and URL",
+      "The URL condition: growing sizes indicate different endpoints on the same host",
+      "The timing condition: the requests are too close together to look like a beacon",
+      "The regularity condition: the size spread is 360 bytes, above the 50-byte limit"
+    ],
+    "correct": 3,
+    "explanation": "Ten requests satisfy the count condition (at least ten), so only the max-minus-min size check can explain the silence. R6 has no timing condition in the kit, so the last option does not apply.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The run() helper inserts events with '?' placeholders rather than formatting values into the SQL string. Why does this matter?",
+    "options": [
+      "Placeholders let SQLite cache results, so each test runs against the same rows",
+      "Placeholders convert values to lower case, so case handling is tested for free",
+      "Values are passed as data, so event content cannot alter the SQL being run",
+      "Placeholders allow missing fields, which would otherwise raise a syntax error"
+    ],
+    "correct": 2,
+    "explanation": "Parameterised queries keep test data separate from SQL text, so a value containing quotes or SQL cannot change the statement. Case handling is done in the rule itself, not by the insert mechanism.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new rule ships with three positive test cases and no negative cases, and all three pass. What risk does this leave open?",
+    "options": [
+      "The rule may never fire, because positive cases cannot prove that it matches",
+      "The rule may be far too broad, matching large amounts of legitimate activity",
+      "The rule may be mis-tagged, because positive cases validate the ATT&CK mapping",
+      "The rule may fail in replay, because positive cases bypass the SQL engine"
+    ],
+    "correct": 1,
+    "explanation": "Positive cases prove the rule can fire; only negative cases, ideally near misses, show it does not fire on look-alike benign events. A rule that matches everything would pass all three positives.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How should end-to-end checks be scheduled relative to unit tests in a mature detection pipeline?",
+    "options": [
+      "On every rule change, while unit tests run only after SIEM or agent upgrades",
+      "Once when a rule is first deployed, since telemetry does not change afterwards",
+      "Only during incidents, since lab emulation duplicates what unit tests already do",
+      "Periodically and after agent, parser or SIEM upgrades, while unit tests run on every change"
+    ],
+    "correct": 3,
+    "explanation": "End-to-end tests need lab infrastructure and are slower, so they confirm the pipeline periodically; unit tests are cheap and gate every change. Telemetry does change, through parser updates and new builds, so a single check at deployment is not enough.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An incident review finds that R1 missed a Word-to-PowerShell launch because the image path was in an unexpected form. The rule is fixed. What should accompany the fix?",
+    "options": [
+      "A regression test that recreates the missed event, so the miss cannot return silently",
+      "A new near-miss test with explorer.exe as parent, to confirm the parent condition",
+      "A replay over the Banyan dataset, to confirm the fixed rule still finds one hit",
+      "A Sigma tag update, so the coverage matrix marks the technique as re-tested"
+    ],
+    "correct": 0,
+    "explanation": "Every missed detection or confirmed false positive should become a regression case that encodes the exact input that went wrong. The explorer.exe near miss already exists and tests a different condition.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why should a rule's tuning change and its updated tests be committed together?",
+    "options": [
+      "Split commits cannot be reviewed, because the platform links tests to rules by ID",
+      "The history then records both the change and the behaviour it was meant to keep",
+      "Tests in a later commit would run against the old rule text from the cache",
+      "Combined commits skip the syntax check, which speeds up urgent tuning"
+    ],
+    "correct": 1,
+    "explanation": "Changing rule and tests in one commit documents the intended behaviour alongside the change and ensures the pipeline tests the new logic. Skipping checks is never a goal of the practice.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The month-old-failures test for R2 fails. Someone argues the test is wrong because R2 'works as written'. What settles whether the rule or the test should change?",
+    "options": [
+      "The SQL: whatever the query returns is by definition the rule's correct behaviour",
+      "The dataset: R2 is correct if it produces no false positives on the Banyan events",
+      "The oracle: the written statement that a spray means failures shortly before a success",
+      "The tag: R2 is correct if its behaviour matches the T1110.003 technique name"
+    ],
+    "correct": 2,
+    "explanation": "Expected results come from the analyst's documented intent, which here requires correlation within a short window; the test therefore defines what the tuned rule must do. The one-day Banyan dataset cannot expose the defect, so it cannot settle the question.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R1 is edited to fire only on workstations, adding lower(host) LIKE 'ws-%'. The existing positive test supplies only source, event_id, parent_image and image. What happens on the next run, and what does it show?",
+    "options": [
+      "The positive test fails, showing the rule now depends on a field the test lacks",
+      "The positive test passes, because a missing field is treated as a wildcard match",
+      "The near-miss test fails, because explorer.exe events now lack a command line",
+      "Both tests error out, because the events table has no host column"
+    ],
+    "correct": 0,
+    "explanation": "The missing field is inserted as NULL, a NULL comparison does not match, so R1 returns [] and the assertion of one row fails. Tests that supply only the fields a rule reads therefore document, and enforce, its data dependencies.",
+    "lesson": 4,
+    "difficulty": "hard"
+  }
+]

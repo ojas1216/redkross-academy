@@ -1,0 +1,68 @@
+{
+  "C08-M07-L08-F1": {
+    "title": "R7 macro_doc_then_shell: correlating two log sources",
+    "caption": "How R7 joins a macro-document download and an Office-spawned shell on the same host within 600 seconds to raise one higher-confidence alert.",
+    "alt": "Top-to-bottom graph. A blue node Proxy event (URL ends .docm or .xlsm) and a slate node Sysmon event 1 (Word or Excel starts PowerShell or cmd.exe) both point into a violet node Join on host (same workstation). That points into a violet node 0 to 600 s after download (integer seconds). From it, a solid arrow labelled pass leads to a dark node R7 alert (host, user, URL, both times), which points to a green node Triage queue (RULE_META R7: 3, 0.9). A dashed arrow labelled fail leads to a red node No alert (other host, before download, or later than 600 s).",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "px", "label": "Proxy event", "sub": "URL ends .docm or .xlsm", "tone": "blue" },
+      { "id": "sm", "label": "Sysmon event 1", "sub": "Word or Excel starts PowerShell or cmd.exe", "tone": "slate" },
+      { "id": "j", "label": "Join on host", "sub": "same workstation", "tone": "violet" },
+      { "id": "w", "label": "0 to 600 s after download", "sub": "integer seconds", "tone": "violet", "kind": "decision" },
+      { "id": "a", "label": "R7 alert", "sub": "host, user, URL, both times", "tone": "dark" },
+      { "id": "t", "label": "Triage queue", "sub": "RULE_META R7: 3, 0.9", "tone": "green" },
+      { "id": "n", "label": "No alert", "sub": "other host, before download, or later than 600 s", "tone": "red" }
+    ],
+    "edges": [
+      { "from": "px", "to": "j" },
+      { "from": "sm", "to": "j" },
+      { "from": "j", "to": "w" },
+      { "from": "w", "to": "a", "label": "pass" },
+      { "from": "w", "to": "n", "label": "fail", "dashed": true },
+      { "from": "a", "to": "t" }
+    ],
+    "note": "On the Banyan data the pair is WS-104: invoice.docm at 06:12:00, Word starts PowerShell at 06:14:00 (120 s), giving one hit."
+  },
+  "C08-M07-L08-F2": {
+    "title": "R7 time window: floating-point bug versus integer fix",
+    "caption": "The first version of R7's window dropped a spawn at exactly ten minutes; computing the gap in integer seconds fixed it.",
+    "alt": "Two code panels. Red panel Buggy: float minutes, with lines AND p.ts >= d.ts and AND (julianday(p.ts) - julianday(d.ts)) * 1440 <= 10, then the computed gap for 10 minutes, 10.000000074505806, and the result: <= 10 is false, so the boundary chain is dropped. Green panel Fixed: integer seconds, with lines AND CAST(strftime('%s', p.ts) AS INTEGER) minus CAST(strftime('%s', d.ts) AS INTEGER) BETWEEN 0 AND 600, then the computed gap, 600, and the result: 0 <= 600 <= 600, so the boundary chain is kept.",
+    "type": "code",
+    "panels": [
+      {
+        "title": "Buggy: float minutes",
+        "tone": "red",
+        "lines": [
+          "AND p.ts >= d.ts",
+          "AND (julianday(p.ts)",
+          "     - julianday(d.ts)) * 1440 <= 10",
+          "",
+          "gap of exactly 10 minutes:",
+          "  10.000000074505806",
+          "",
+          "<= 10 is false",
+          "-> boundary chain dropped"
+        ],
+        "highlight": ["10.000000074505806", "dropped"]
+      },
+      {
+        "title": "Fixed: integer seconds",
+        "tone": "green",
+        "lines": [
+          "AND CAST(strftime('%s', p.ts) AS INTEGER)",
+          "  - CAST(strftime('%s', d.ts) AS INTEGER)",
+          "  BETWEEN 0 AND 600",
+          "",
+          "gap of exactly 10 minutes:",
+          "  600",
+          "",
+          "0 <= 600 <= 600",
+          "-> boundary chain kept"
+        ],
+        "highlight": ["BETWEEN 0 AND 600", "kept"]
+      }
+    ],
+    "note": "Only the boundary test (spawn at exactly 600 s) caught the bug; every other test passed with the buggy version."
+  }
+}

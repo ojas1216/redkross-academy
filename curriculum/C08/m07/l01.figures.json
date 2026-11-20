@@ -1,0 +1,31 @@
+{
+  "C08-M07-L01-F1": {
+    "title": "The six minisiem rules as design decisions",
+    "caption": "For each kit rule: its logic family, the fact it relies on, the cheapest evasion and the legitimate activity that looks the same.",
+    "alt": "Table with columns Rule, Family, Relies on, Easiest evasion and Legitimate look-alike. R1 office_spawns_script, behavioural, orange: Word starting PowerShell or cmd; an unlisted child interpreter; an approved macro running a script. R2 vpn_spray_then_success, behavioural via threshold and sequence, orange: 5 or more users failing from one address, then a success; fewer users per address or many addresses; staff mistyping behind a shared NAT address. R3 new_local_admin, behavioural, orange: events 4720 and 4732; hard without disabling auditing; IT provisioning. R4 large_upload, anomaly with a fixed threshold, blue: one request over 10 MB; splitting into smaller uploads; backups and large legitimate uploads. R5 log_cleared, signature on an OS fact, violet: event 1102; not clearing, or stopping logging another way; approved maintenance. R6 beacon_regular_small, anomaly by regularity, blue: 10 or more same-size requests to one URL; random padding of request size; update checkers and telemetry agents.",
+    "type": "table",
+    "columns": ["Rule", "Family", "Relies on", "Easiest evasion", "Legitimate look-alike"],
+    "rowTones": ["orange", "orange", "orange", "blue", "violet", "blue"],
+    "rows": [
+      ["R1 office_spawns_script", "Behavioural", "Word starts PowerShell or cmd", "Unlisted child interpreter", "Approved macro runs a script"],
+      ["R2 vpn_spray_then_success", "Behavioural (threshold + sequence)", "5+ users fail from one IP, then success", "Fewer users per IP, many IPs", "Shared NAT, mistyped passwords"],
+      ["R3 new_local_admin", "Behavioural", "Events 4720 / 4732", "Hard without disabling auditing", "IT provisioning"],
+      ["R4 large_upload", "Anomaly (fixed threshold)", "One request over 10 MB", "Split into smaller uploads", "Backups, large legitimate uploads"],
+      ["R5 log_cleared", "Signature on an OS fact", "Event 1102", "Do not clear; stop logging otherwise", "Approved maintenance"],
+      ["R6 beacon_regular_small", "Anomaly (regularity)", "10+ same-size requests to one URL", "Random padding of request size", "Update checkers, telemetry agents"]
+    ],
+    "note": "The evasion column predicts false negatives; the look-alike column predicts false positives."
+  },
+  "C08-M07-L01-F2": {
+    "title": "One rule, three variants: precision against recall",
+    "caption": "Alerts produced on the Banyan dataset by three variants of R6, and how many of them were the WS-104 beacon.",
+    "alt": "Bar chart with three bars. Volume only (hits >= 10), slate: 3 alerts, 1 true. R6 as shipped (hits >= 10 and spread < 50), green: 1 alert, 1 true. Volume >= 20 + spread < 50, red: 0 alerts, beacon missed. Note: the size condition removed the noise; the higher threshold removed the attack.",
+    "type": "bars",
+    "bars": [
+      { "label": "Volume only (hits >= 10)", "value": 3, "display": "3 alerts, 1 true", "tone": "slate" },
+      { "label": "R6 as shipped", "value": 1, "display": "1 alert, 1 true", "tone": "green" },
+      { "label": "Volume >= 20 + spread < 50", "value": 0, "display": "0 alerts, beacon missed", "tone": "red" }
+    ],
+    "note": "The size condition removed the noise; the higher volume threshold removed the attack."
+  }
+}

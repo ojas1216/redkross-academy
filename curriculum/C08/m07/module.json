@@ -7,58 +7,105 @@
     {
       "n": 1,
       "title": "Detection logic",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "Signature, behavioural and anomaly detection logic, the precision-recall trade-off and the design questions to answer before writing a rule, using the kit's minisiem rules R1-R6.",
+      "objectives": [
+        "Distinguish signature, behavioural and anomaly detection logic and the logical shapes that express them",
+        "Calculate precision and recall for rule variants run against the Banyan dataset",
+        "Identify the attacker-controlled values and legitimate look-alikes of a detection rule",
+        "Apply the five design questions to harden a rule such as R1 before it is written",
+        "Explain why detection families should be layered and how the base rate affects alert quality"
+      ],
+      "minutes": 70
     },
     {
       "n": 2,
       "title": "Sigma rules",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "The structure of a Sigma rule, how selections, modifiers and conditions match events, and how sigma-cli validates rules and converts them to Splunk queries through processing pipelines.",
+      "objectives": [
+        "Describe the fields of a Sigma rule using the kit's two rules",
+        "Interpret selections, value lists, modifiers and conditions, including filters",
+        "Validate rules with sigma check and interpret its errors and issues",
+        "Convert rules to Splunk with and without a processing pipeline and explain the difference",
+        "Evaluate a rule's ATT&CK tags and exceptions for correctness and evasion risk"
+      ],
+      "minutes": 75
     },
     {
       "n": 3,
       "title": "ATT&CK mapping",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How ATT&CK organises adversary behaviour into tactics, techniques, sub-techniques and procedures, and how to map detections and data sources to it and build an honest, versioned coverage matrix for the Banyan rules.",
+      "objectives": [
+        "Explain the relationship between ATT&CK tactics, techniques, sub-techniques and procedures",
+        "Map a detection rule to the technique its observation actually supports, with version and rationale",
+        "Identify the data sources and fields each mapped technique depends on",
+        "Build a coverage matrix that separates data, rule and test status",
+        "Recognise mapping errors and coverage theatre, including unverified technique IDs in rule tags"
+      ],
+      "minutes": 60
     },
     {
       "n": 4,
       "title": "Rule testing",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "Testing detections as code: positive, near-miss, boundary and regression cases with the kit's test_rules.py, two real defects found by negative cases, and where historical replay and end-to-end lab checks fit.",
+      "objectives": [
+        "Design positive, near-miss and boundary test cases from a rule's decision points",
+        "Run and interpret the kit's unittest suite, including failure reports",
+        "Use failing tests to find and fix rule defects without losing true positives",
+        "Explain how tests guard tuning changes against silent regressions",
+        "Distinguish unit testing from historical replay and authorised end-to-end checks"
+      ],
+      "minutes": 60
     },
     {
       "n": 5,
       "title": "Tuning",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How a detection engineer tunes a rule: measuring per-rule precision and volume, diagnosing whether noise comes from data, logic, numbers or an authorised instance, narrowing R6 instead of suppressing, setting thresholds and R2's window from evidence with tests as the guard, and controlling every change.",
+      "objectives": [
+        "Measure a rule's precision and volume from dispositions and explain why precision says nothing about recall",
+        "Diagnose the cause of a noisy rule and choose between fixing data, narrowing logic, re-setting numbers and a scoped suppression",
+        "Run a threshold sweep on stored data and set thresholds and windows from baseline and attack-step evidence",
+        "Narrow a rule and update its unit tests so that the reason for the change is recorded and enforced",
+        "Apply a change-control path of reproduction, tests, replay, review, staged deployment and monitoring"
+      ],
+      "minutes": 65
     },
     {
       "n": 6,
       "title": "Coverage gaps",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How to find and prioritise coverage gaps: telling data-source, field and scope gaps from logic gaps, proving the Banyan dataset's real gaps by query (no DNS or flow, Sysmon process events only until 06:14, an untraceable VPN session), and ranking gaps by the threat they hide in a gap register.",
+      "objectives": [
+        "Distinguish data-source, field, scope and logic gaps and name the owner and fix for each",
+        "Measure what a SIEM actually collects per source, host and time period with inventory and scope queries",
+        "Identify the real coverage gaps in the Banyan dataset and the incident questions they leave unanswered",
+        "Prioritise gaps by likelihood, harm, compensating detections and cost, and record decisions in a gap register"
+      ],
+      "minutes": 60
     },
     {
       "n": 7,
       "title": "Rule review",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "Review detections against a six-area peer review checklist and apply it to the course kit's two Sigma rules, raising real findings on severity, tests, data and ATT&CK tags.",
+      "objectives": [
+        "Explain why rule review is needed even when automated gates and unit tests pass",
+        "Apply the six-area checklist (logic, data, tests, metadata, ATT&CK tags, severity) to a detection change",
+        "Identify inconsistencies between a Sigma rule, its SIEM translation and the triage configuration",
+        "Verify ATT&CK tags against a pinned ATT&CK version before raising or closing a finding",
+        "Write classified review findings that an author can act on"
+      ],
+      "minutes": 60
     },
     {
       "n": 8,
       "title": "Detection lab",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "Hands-on lab: design, implement, test, mutate and integrate a correlation rule that links a macro-document download to an Office-spawned shell on the Banyan dataset.",
+      "objectives": [
+        "Turn a detection requirement into SQL logic and matching positive, negative and boundary tests",
+        "Run test_rules.py and minisiem.py rules and interpret the results",
+        "Diagnose and fix a time-window boundary bug exposed by a test",
+        "Integrate a new rule with triage metadata and confirm its queue position",
+        "Review your own rule with the six-area checklist, including its Sigma correlation version"
+      ],
+      "minutes": 90
     }
   ]
 }

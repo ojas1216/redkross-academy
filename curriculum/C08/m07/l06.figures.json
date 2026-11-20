@@ -1,0 +1,51 @@
+{
+  "C08-M07-L06-F1": {
+    "title": "Classifying a coverage gap by the first condition it fails",
+    "caption": "Four questions in the order of the detection conditions decide whether a behaviour is a data-source, field or scope, logic or evidence gap, or covered.",
+    "alt": "Decision graph, top to bottom. A slate box, Behaviour in the threat model, leads to a violet decision: Telemetry collected? No leads to a red box, Data-source gap (new telemetry: infrastructure owner). Yes leads to: Fields parsed, all hosts and hours? No leads to an orange box, Field or scope gap (fix the pipeline or rollout). Yes leads to: Rule looks for it? No leads to an orange box, Logic gap (write a rule: detection engineering). Yes leads to: Tested: known-bad and near miss? No leads to a slate box, Untested coverage (add tests, Lesson 4). Yes leads to a green box, Covered, with evidence.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "b", "label": "Behaviour in the threat model", "sub": "a technique or step that matters to us", "tone": "slate" },
+      { "id": "q1", "label": "Telemetry collected?", "tone": "violet", "kind": "decision" },
+      { "id": "g1", "label": "Data-source gap", "sub": "new telemetry: infrastructure owner", "tone": "red" },
+      { "id": "q2", "label": "Fields parsed, all hosts and hours?", "tone": "violet", "kind": "decision" },
+      { "id": "g2", "label": "Field or scope gap", "sub": "fix the pipeline or rollout", "tone": "orange" },
+      { "id": "q3", "label": "Rule looks for it?", "tone": "violet", "kind": "decision" },
+      { "id": "g3", "label": "Logic gap", "sub": "write a rule: detection engineering", "tone": "orange" },
+      { "id": "q4", "label": "Tested: known-bad and near miss?", "tone": "violet", "kind": "decision" },
+      { "id": "g4", "label": "Untested coverage", "sub": "add tests (Lesson 4)", "tone": "slate" },
+      { "id": "c", "label": "Covered, with evidence", "tone": "green" }
+    ],
+    "edges": [
+      { "from": "b", "to": "q1" },
+      { "from": "q1", "to": "g1", "label": "no" },
+      { "from": "q1", "to": "q2", "label": "yes" },
+      { "from": "q2", "to": "g2", "label": "no" },
+      { "from": "q2", "to": "q3", "label": "yes" },
+      { "from": "q3", "to": "g3", "label": "no" },
+      { "from": "q3", "to": "q4", "label": "yes" },
+      { "from": "q4", "to": "g4", "label": "no" },
+      { "from": "q4", "to": "c", "label": "yes" }
+    ],
+    "note": "The first failed condition names the gap's owner and the kind of fix."
+  },
+  "C08-M07-L06-F2": {
+    "title": "Banyan gap register, prioritised by threat",
+    "caption": "Gaps found by querying the lab dataset, with their type, the threat each hides, any compensating detection and the resulting priority.",
+    "alt": "Table with columns Gap, Type, Hides, Compensated? and Priority. Row 1, red: VPN session not traceable inside; data-source; valid-account use after R2; no; 1 high. Row 2, red: No process events after 06:14; scope; persistence, upload and log-clear actors; partly, by R3, R4, R5; 2 high, one fix closes many. Row 3, orange: No DNS or flow telemetry; data-source; DNS C2 (T1071.004), non-proxy exfiltration; no; 3 medium-high. Row 4, orange: No rule for .docm downloads; logic; delivery at 06:12; yes, R1 two minutes later; 4 medium, nearly free. Row 5, blue: R3 cannot see the group; field; Administrators vs other groups; partly, R3 fires on all; 5 medium. Row 6, slate: No rule for local 4625 failures; logic; guessing at the console; lockout policy where set; 6 low.",
+    "type": "table",
+    "columns": ["Gap", "Type", "Hides", "Compensated?", "Priority"],
+    "rowTones": ["red", "red", "orange", "orange", "blue", "slate"],
+    "rows": [
+      ["VPN session not traceable inside", "data-source", "valid-account use after R2", "no", "1 high"],
+      ["No process events after 06:14", "scope", "persistence, upload, log-clear actors", "partly: R3, R4, R5", "2 high, closes many"],
+      ["No DNS or flow telemetry", "data-source", "DNS C2 (T1071.004), non-proxy exfil", "no", "3 medium-high"],
+      ["No rule for .docm downloads", "logic", "delivery at 06:12", "yes: R1, 2 min later", "4 medium, nearly free"],
+      ["R3 cannot see the group", "field", "Administrators vs other groups", "partly: R3 fires on all", "5 medium"],
+      ["No rule for local 4625 failures", "logic", "guessing at the console", "lockout, where set", "6 low"]
+    ],
+    "note": "Ordering is this lesson's judgement for a fictional microfinance threat model; record the reasoning so it can be challenged."
+  }
+}

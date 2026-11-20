@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The kit's R1 tests cover Word starting PowerShell and Explorer starting PowerShell, and both pass. Which later edit to R1 would leave every existing test green?",
+    "options": [
+      "Deleting cmd.exe from the list of child images",
+      "Deleting the parent-image condition from the rule",
+      "Changing the parent image from Word to Excel",
+      "Deleting powershell.exe from the list of child images"
+    ],
+    "correct": 0,
+    "explanation": "No positive test exercises the cmd.exe branch, so removing it breaks nothing the suite checks. Dropping the parent condition would make the Explorer near-miss match and fail, and changing the parent or removing powershell.exe would break the Word positive.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Both kit Sigma rules declare level: high, yet RULE_META in triage.py gives R1 severity 3 and R5 severity 4, and no mapping is documented. How should the reviewer raise this?",
+    "options": [
+      "Blocking: sigma check rejects rules whose level disagrees with the triage scale, so R1 cannot be deployed until the two values are aligned by hand",
+      "Note only: triage values are an operational choice and are expected to override the Sigma level freely",
+      "Should fix: the same level becomes two triage severities, so agree a written level-to-severity table that both files follow",
+      "Should fix: lower R1 to level: medium in Sigma, because triage.py is always the authoritative source"
+    ],
+    "correct": 2,
+    "explanation": "The defect is an undocumented inconsistency between two artefacts, so the fix is a mapping both follow; which side changes is for that mapping to decide. sigma check cannot see triage.py at all, so it does not block anything here.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "triage.py computes priority as severity x confidence x asset criticality. R1 on WS-104 (criticality 3, confidence 0.8) scores 7.2, tied with the VPN spray alert. What happens if R1's severity is raised from 3 to 4?",
+    "options": [
+      "It scores 9.6 and ties with the log-cleared alert at the top",
+      "It scores 9.6 and ranks clearly above the VPN spray alert",
+      "It scores 8.1 and ranks just above the VPN spray alert",
+      "It stays at 7.2, because confidence caps the final priority"
+    ],
+    "correct": 1,
+    "explanation": "4 x 0.8 x 3 = 9.6, which breaks the tie with the 7.2 spray alert. The log-cleared alert scores 10.8 (4 x 0.9 x 3), so R1 does not tie with it; 8.1 would need confidence 0.9 with severity 3.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Reviewing rk_security_log_cleared.yml, an engineer recalls that published rules map clearing Windows event logs to T1070.001 and doubts the rule's attack.t1685.005 tag. What does the lesson say to do first?",
+    "options": [
+      "Ask the author to switch the tag to attack.t1070.001, since most published material and older rules use that ID",
+      "Keep both attack.t1685.005 and attack.t1070.001 on the rule so that either ATT&CK version reports it as covered",
+      "Remove the tag until MITRE publishes a mapping note, then re-tag the rule during the next quarterly content review cycle for the SOC",
+      "Check the tag against the ATT&CK version the team has pinned, for example with pySigma's validator, and record that version"
+    ],
+    "correct": 3,
+    "explanation": "A tag you cannot verify is a finding, but unverified is not wrong: verify against the pinned dataset before asking for a change. Switching to T1070.001 on memory would have introduced an ID that the validator's ATT&CK 20.1 data rejects.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The validator, loaded with ATT&CK 20.1, accepts attack.t1685.005 and rejects attack.t1070.001. What finding about R5's tags remains after this check?",
+    "options": [
+      "None remains: the validator has accepted the technique tag, so the ATT&CK tags row of the checklist can be ticked and closed",
+      "The rule does not record its ATT&CK version, lacks a tactic tag, and older content still using T1070.001 now disagrees in coverage",
+      "The rule must revert to T1070.001, because the validator's data is newer than the references the SOC has already published",
+      "The rule needs a second technique tag for T1070.001, because that ID still describes indicator removal in the current ATT&CK release"
+    ],
+    "correct": 1,
+    "explanation": "Verification removed the doubt about the ID but exposed that the mapping version is unrecorded, so the next reviewer will hit the same question; a tactic tag is also missing and older rules need re-mapping. The validator rejects T1070.001, so reverting or adding it would be wrong.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A reviewer proposes adding attack.defense-evasion as R5's tactic tag. Against the pinned ATT&CK 20.1 data, how should the author respond?",
+    "options": [
+      "Use attack.defense-impairment, which the validator accepted, since it flagged attack.defense-evasion as invalid",
+      "Accept attack.defense-evasion, since every Indicator Removal technique still sits under the Defense Evasion tactic",
+      "Add no tactic tag at all, since a technique tag already implies its tactic in every ATT&CK version and backend",
+      "Tag both tactics, since the validator treats a tactic that is invalid in its version as an informational issue"
+    ],
+    "correct": 0,
+    "explanation": "In the lesson's probe, the validator accepted attack.defense-impairment and flagged attack.defense-evasion as invalid for the version in use, and T1685.005 sits under Defense Impairment. Omitting the tactic is the very gap the review raised.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "sigma check on rk_office_spawns_shell.yml reports '0 condition errors'. What has this established?",
+    "options": [
+      "The condition matches at least one event in the SOC's collected process telemetry",
+      "Each branch of the condition is covered by a positive test in the rule's test file",
+      "The condition means the same as the hand-written minisiem translation of the rule",
+      "Every name used in the condition refers to a selection that is defined in the rule"
+    ],
+    "correct": 3,
+    "explanation": "A condition error is a reference in the condition that does not resolve to a defined selection, so zero means the names line up. sigma check never sees the data, the tests or the SQL translation, which is why those remain human review items.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which of these defects could sigma check on its own have reported during the automated gate?",
+    "options": [
+      "R1 declaring level: high while triage.py gives the same rule severity 3",
+      "R5's minisiem SQL matching event 1102 from any source, not only the Security log",
+      "A probe rule tagged attack.t9999.999, a technique that does not exist in ATT&CK",
+      "R1 having no positive test for Word starting cmd.exe in test_rules.py"
+    ],
+    "correct": 2,
+    "explanation": "The ATT&CK validator in pySigma rejected the invented tag as InvalidATTACKTagIssue. The other three defects live in triage.py, minisiem.py or the test file, which sigma check does not read.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "test_rules.py has test classes for R1, R2 and R6 but nothing at all for R5. How does the lesson classify this finding?",
+    "options": [
+      "A note, since R5 is a single EventID condition whose behaviour is obvious to anyone simply reading it",
+      "Should fix, since sigma check already passed and so the rule is known to be well formed",
+      "Blocking under most teams' standards, since every rule needs a positive and a near-miss negative",
+      "No finding, since R5 produced one correct hit when the rules ran over the Banyan dataset"
+    ],
+    "correct": 2,
+    "explanation": "A positive plus a near-miss negative per rule is the minimum bar, so a rule with no tests at all cannot ship. A passing sigma check or one correct dataset hit says nothing about whether a broken R5 would be noticed.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which single new test for R5 would both meet the minimum testing bar and have exposed the reviewer's data finding about R5's SQL?",
+    "options": [
+      "An event with ID 1102 from a non-Security source that must not match",
+      "A Security event with ID 1103 that must not match the rule",
+      "A Security event with ID 1102 on a second host that must also match the rule",
+      "An empty events table on which the rule must return no rows"
+    ],
+    "correct": 0,
+    "explanation": "R5's SQL tests only event_id=1102, so a 1102 from another source would match and fail the test, revealing the missing source restriction. An ID-1103 negative checks the event ID, not the source, and would pass against the current SQL.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Sigma selection contains ParentImage|endswith: '\\WINWORD.EXE' and Image|endswith with the list '\\powershell.exe' and '\\cmd.exe'. Which process-creation event does it match?",
+    "options": [
+      "Explorer as parent starting cmd.exe",
+      "Word as parent starting wscript.exe",
+      "PowerShell as parent starting Word",
+      "Word as parent starting cmd.exe"
+    ],
+    "correct": 3,
+    "explanation": "Separate fields in one selection must all hold, while a list under one field means any of its values. Word starting cmd.exe satisfies both fields; Explorer fails the parent field and wscript.exe is not in the child list.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Sigma R1 uses ParentImage|endswith '\\WINWORD.EXE', while minisiem's R1 uses lower(parent_image) LIKE '%winword.exe%'. How does the lesson treat this difference?",
+    "options": [
+      "As a blocking finding: the SQL cannot match real Sysmon paths, because LIKE in SQLite is always case-sensitive",
+      "As translation drift recorded as a note: the SQL is a contains match and so slightly broader than the Sigma rule",
+      "As no finding: lowering the field and using LIKE gives exactly the same semantics as the Sigma endswith modifier",
+      "As a should-fix finding: the SQL is narrower than Sigma, so some Word-launched shells would be missed in triage"
+    ],
+    "correct": 1,
+    "explanation": "A contains pattern accepts winword.exe anywhere in the path, not only at the end, so the deployed query means slightly more than the portable rule; the lesson records it as a note. It still matches the real path, so it is neither blocking nor narrower.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During an authorised purple-team exercise a renamed copy of PowerShell, started from a Word macro, does not trigger R1. How does the lesson treat this weakness in review?",
+    "options": [
+      "As a recorded known limitation, pointing to an original-file-name variant where telemetry supplies that field",
+      "As a blocking finding, because any rule that an attacker can evade must be rewritten before it is deployed",
+      "As a reason to add every renamed variant the red team used to the rule's list of child image names",
+      "As outside review scope, because evasion is assessed during hunting rather than during rule review"
+    ],
+    "correct": 0,
+    "explanation": "Image names are attacker-controlled, so name-based matching is a known limitation to document, with a pointer to a sturdier variant keyed on the PE original file name. Chasing the red team's chosen names does not fix the underlying weakness.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which review comment best follows the lesson's location, observation, evidence, action, class shape?",
+    "options": [
+      "The tags on the Office rule look incomplete to me; maybe worth having another look before this ships.",
+      "rk_office_spawns_shell.yml tags: rule matches cmd.exe but omits attack.t1059.003; add the tag. Should fix.",
+      "I would have written this rule using a different mapping style; please align it with how I tag rules.",
+      "Tags: should fix. Please review all ATT&CK tags in the file again and update anything that seems off to you."
+    ],
+    "correct": 1,
+    "explanation": "The first comment names the file and field, states what the logic covers that the tags miss, and gives the action and class, so the author can act at once. The others are vague, personal or lack evidence.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An engineer with repository access quietly removes one value from a rule's child-image list. All unit tests still pass. Which control makes this change visible and attributable?",
+    "options": [
+      "Running sigma check on every commit before the change is merged to main",
+      "Running the full unit test suite in the pipeline on every pull request",
+      "Raising the severity of the affected rule so that its alerts are noticed sooner",
+      "Mandatory second-person review of every change, recorded in version control"
+    ],
+    "correct": 3,
+    "explanation": "Review by someone other than the author, kept in the change history, is separation of duties: the edit has to be seen and approved by a second person. sigma check and the tests both pass for this change, so neither reveals it.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A change adds a suppression to triage.py with a clear reason and a change ticket, but no owner and no expiry date. How should it be classified?",
+    "options": [
+      "A note, because the reason and ticket already document why it was added",
+      "Should fix, because the expiry can be added once the ticket is later closed",
+      "Blocking, because a suppression needs an owner and an expiry before it can ship",
+      "No finding, because suppressions are tuning choices outside the rule review scope"
+    ],
+    "correct": 2,
+    "explanation": "The lesson lists a suppression without owner or expiry among blocking findings, because an unowned, permanent suppression can blind the SOC indefinitely. The kit's own suppression carries CHG-1042 and an expiry of 2026-12-31 for that reason.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the review checklist place the Logic and Data rows before Metadata, ATT&CK tags and Severity?",
+    "options": [
+      "Logic and Data findings are always blocking while the other rows never are",
+      "The automated gates check metadata, so those rows can be skimmed quickly",
+      "Metadata and severity can be changed after deployment without a review",
+      "A rule that cannot match real data makes tags, metadata and severity moot"
+    ],
+    "correct": 3,
+    "explanation": "Logic and Data establish whether the rule can work at all; Tests then provide evidence for them, and the descriptive rows matter only for a working rule. Classification depends on the finding, not the row, and every row still needs a full review.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The worked review produced findings in several artefacts. Which one best shows a defect living in the gap between files, where no single-file automated check looks?",
+    "options": [
+      "Sigma level high for R1 against RULE_META severity 3 in triage.py",
+      "An undefined selection name used in a Sigma rule's condition line",
+      "A YAML indentation error that stops a Sigma rule from being parsed",
+      "An invented technique ID such as attack.t9999.999 in a rule's tags"
+    ],
+    "correct": 0,
+    "explanation": "The severity finding exists only when the Sigma file and triage.py are read together. Undefined selection names, parse errors and invalid tags are all visible inside one Sigma file and are caught by sigma check.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which question falls outside the reviewer's responsibility in the lesson's model of rule review?",
+    "options": [
+      "Whether every field the rule uses exists after parsing",
+      "Whether the tests include a near-miss for each condition",
+      "Whether the SOC should detect this behaviour at all",
+      "Whether the level follows the documented severity mapping"
+    ],
+    "correct": 2,
+    "explanation": "Whether to detect a behaviour is settled at the requirement stage; the reviewer reads the requirement but judges whether this rule is safe and useful to deploy as written. Fields, near-miss tests and severity mapping are all checklist rows.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule that detects Word starting PowerShell is tagged with attack.t1204.002, attack.t1059.001 and attack.t1486 (Data Encrypted for Impact), because 'macro attacks often end in ransomware'. What should the reviewer ask for?",
+    "options": [
+      "Keep T1486, because tags should reflect the attacker's likely final objective",
+      "Remove T1486, because tags must describe behaviour the rule itself observes",
+      "Replace T1486 with an Impact tactic tag, which is less specific but still valid",
+      "Keep T1486 but lower the rule's level, since impact is only a probable outcome"
+    ],
+    "correct": 1,
+    "explanation": "Tags are checked in both directions; one justified only by what an attacker might do later makes the coverage map claim detection of encryption that this rule never sees. A broader Impact tactic tag has the same flaw.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A reviewer raised 'this rule may flood the queue'. The author replies with a 30-day historical replay showing two hits, both confirmed true positives. What should the reviewer do?",
+    "options": [
+      "Accept the evidence, resolve the finding and record why it was resolved",
+      "Keep the finding open until the rule has run in production for a month",
+      "Ask for a wider replay, since thirty days can never show expected volume",
+      "Escalate to the SOC manager, since authors may not close their own findings"
+    ],
+    "correct": 0,
+    "explanation": "The lesson says that when an author answers with data, such as a replay, the reviewer accepts it and records why. Holding the finding without a reason, or demanding more data by default, turns review into obstruction rather than evidence.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A one-line pull request raises a rule's failed-login threshold from 5 to 10. The author asks for a quick approval because 'it is only a number'. Why does the lesson reject rubber-stamping it?",
+    "options": [
+      "Small changes skip the automated gates, so the reviewer must re-run sigma check on them by hand",
+      "Threshold edits always alter the rule's ATT&CK mapping, so its technique tags must be redone as well",
+      "Raising a threshold can silently remove detection, so its effect and boundary tests must be checked",
+      "One-line changes cannot be reverted cleanly, so they need more approvals than larger changes do"
+    ],
+    "correct": 2,
+    "explanation": "Removing a list value or raising a threshold narrows what the rule fires on while every existing test can still pass, so the reviewer checks the effect and that tests sit at the new boundary. Gates run on every change regardless of size.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The automated gates pass and the reviewer, after working through the checklist, has no findings. What should the review record contain?",
+    "options": [
+      "A single approval comment, because no findings means nothing needs writing",
+      "The sigma check and unit-test output pasted in, which proves the rule works",
+      "A request for a second reviewer, because a clean review is likely incomplete",
+      "Which checklist areas were examined and what evidence was looked at for each"
+    ],
+    "correct": 3,
+    "explanation": "A review that only re-runs the gates is not a review; even a clean review records what was checked and on what evidence, so the approval can be relied on later. Pasting gate output repeats the automated step.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson advise rotating reviewers rather than letting authors review their own rules?",
+    "options": [
+      "Version control systems refuse to merge changes approved by their author",
+      "The author's own tests and reading share the same blind spots as the rule",
+      "sigma check results differ depending on which engineer runs the validator",
+      "Authors are not permitted to read the triage configuration for their rule"
+    ],
+    "correct": 1,
+    "explanation": "Tests prove the rule does what its author intended, not that the intention was right, and self-review inherits that limit. Rotation also spreads knowledge across the team instead of leaving each rule with one person.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Converting rk_security_log_cleared.yml without a processing pipeline produced a query for EventID=1102 with no restriction to the Security log. What does the reviewer ask for?",
+    "options": [
+      "Convert with a pipeline that matches how the SOC indexes Security events, and add the source restriction to the SQL",
+      "Add a second selection for EventID 104 so that the converted query covers the System log as well as Security",
+      "Accept the converted query, since 1102 is unique to the Security log and so the missing restriction is harmless here",
+      "Rewrite the Sigma logsource as category: process_creation so that the backend adds the correct index filter"
+    ],
+    "correct": 0,
+    "explanation": "Without a pipeline the logsource is not mapped to an index or source, so the query can match an event numbered 1102 from another source. The fix belongs in the conversion pipeline and in minisiem's R5 SQL; event IDs are not unique across all sources.",
+    "lesson": 7,
+    "difficulty": "hard"
+  }
+]

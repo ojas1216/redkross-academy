@@ -1,0 +1,327 @@
+[
+  {
+    "q": "R5 log_cleared matches nothing more than Security event ID 1102, yet the lesson treats it as durable rather than brittle. What is the reason?",
+    "options": [
+      "Event 1102 is rare in normal estates, so the rule rarely needs tuning",
+      "The rule is behavioural in substance, because clearing is a technique",
+      "The matched value is set by the operating system, not by the attacker",
+      "The rule runs on forwarded logs, so the attacker cannot delete the hit"
+    ],
+    "correct": 2,
+    "explanation": "An attacker who clears the Security log cannot make Windows record that action under a different ID, so the matched value is an operating-system fact rather than an attacker-controlled one. Rarity affects precision, not durability; what makes signatures brittle is attacker control of the value.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Dropping R6's size-spread condition and keeping only 'hits >= 10' returns three host-and-URL pairs on the Banyan data, of which only the WS-104 beacon is the intrusion. What is this variant's precision for the storyline?",
+    "options": [
+      "About 0.33, because one of the three alerts is a true positive",
+      "1.0, because the variant still catches the only real beacon",
+      "About 0.67, because two of the three pairs belong to WS-103",
+      "0, because the two benign pairs outnumber the true positive"
+    ],
+    "correct": 0,
+    "explanation": "Precision is TP / (TP + FP) = 1 / (1 + 2), about 0.33. Catching the only beacon describes recall (1.0 here), not precision.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An engineer 'tightens' R6 by keeping the spread condition and raising the volume threshold from 10 to 20 requests. The query now returns no rows. What is the best diagnosis?",
+    "options": [
+      "Precision has reached 1.0, because the rule no longer produces false positives",
+      "The new number encodes nothing about beacons and exceeds the beacon's 18 requests",
+      "The spread condition and the volume condition cancel out when combined in HAVING",
+      "The dataset is too small for any aggregation rule to return results reliably"
+    ],
+    "correct": 1,
+    "explanation": "The beacon made 18 requests, so a threshold of 20 removes the true pair: recall falls to zero and there are no alerts for which to have a precision. Good tightening adds a condition that discriminates the threat; this one only demands more of it.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule examines one million process-creation events a day, of which ten are malicious. It catches all ten and wrongly flags 0.1% of benign events. Roughly what share of its alerts are real?",
+    "options": [
+      "About 99.9%, matching its accuracy on benign events",
+      "About 50%, since misses and false alarms balance out",
+      "About 10%, because ten alerts are true out of a hundred",
+      "About 1%, because roughly 1,000 benign events are flagged"
+    ],
+    "correct": 3,
+    "explanation": "0.1% of 999,990 benign events is about 1,000 false positives, so precision is 10 / 1,010, about 0.01. The 99.9% figure is the true-negative rate on benign events, not the share of alerts that are real; the low base rate is what drags precision down.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In an authorised exercise, a red team copies PowerShell to a file named updater.exe and starts it from a Word macro; R1 stays silent. Which design change addresses this most directly?",
+    "options": [
+      "Add updater.exe to the rule's list of child process names",
+      "Match the executable's embedded original file name, not its path",
+      "Lower the rule's severity so that more of its hits are reviewed",
+      "Replace the contains match with an ends-with match on the path"
+    ],
+    "correct": 1,
+    "explanation": "The image path is attacker-controlled; the embedded original file name (Sysmon's OriginalFileName) stays PowerShell.EXE after a rename, so matching on it removes the cheap evasion. Adding updater.exe only chases this one name, and the attacker can pick another.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R1's SQL tests lower(parent_image) LIKE '%winword.exe%', while the kit's Sigma version uses ParentImage|endswith '\\WINWORD.EXE'. Which parent path would the SQL match but the Sigma rule would not?",
+    "options": [
+      "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+      "D:\\Apps\\Office16\\WinWord.exe",
+      "C:\\Program Files\\Microsoft Office\\root\\Office15\\winword.exe",
+      "C:\\Users\\Public\\Downloads\\notwinword.exe"
+    ],
+    "correct": 3,
+    "explanation": "LIKE '%winword.exe%' is a contains match, so notwinword.exe matches; the Sigma ends-with match on '\\WINWORD.EXE' requires the backslash immediately before the name. The case variants match both rules, because both normalise or ignore case.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A colleague proposes removing lower() from R1 because 'SQLite LIKE already ignores case'. Why does the lesson keep the explicit normalisation?",
+    "options": [
+      "LIKE ignores case only when the field is indexed, which minisiem.db does not do",
+      "LIKE's case behaviour can be changed and other query languages differ, so intent must be explicit",
+      "Without lower(), the rule would match lowercase paths but miss the stored uppercase ones",
+      "lower() makes the query faster, because SQLite compares lowercase strings more cheaply"
+    ],
+    "correct": 1,
+    "explanation": "SQLite's LIKE ignores ASCII case by default, but that default can be changed and other languages (and SQLite's own = operator) are case-sensitive, so explicit normalisation survives translation. The third option describes what a case-sensitive comparison would do, not today's LIKE behaviour.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How does the lesson classify R2 vpn_spray_then_success in terms of family and logical shape?",
+    "options": [
+      "An anomaly rule expressed as a single-event match on VPN failures",
+      "A signature rule expressed as an aggregation of logon event counts",
+      "A behavioural rule expressed through a threshold plus a sequence",
+      "An anomaly rule expressed through a per-user baseline of failures"
+    ],
+    "correct": 2,
+    "explanation": "Spraying followed by a valid logon is a behaviour; it is computed as a threshold (failures for at least five distinct users from one address) and a sequence (the success comes after them). No baseline of normal is measured, so it is not an anomaly rule.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R3 new_local_admin matches Windows events 4720 and 4732, specific IDs, yet the lesson calls it behavioural. Why?",
+    "options": [
+      "It captures account creation or elevation, regardless of the name chosen",
+      "It compares the new account with a baseline of administrator accounts",
+      "It requires the two events to occur in sequence within a time window",
+      "It matches the account names that attackers commonly give new users"
+    ],
+    "correct": 0,
+    "explanation": "The rule captures the persistence step itself (creating or elevating a local account), which does not depend on the account name the attacker picks. It uses no baseline, and matching popular attacker account names would make it a brittle signature.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An attacker who understands R6 wants their beacon to fall outside the rule while still checking in to the same URL. Which change defeats the rule most cheaply?",
+    "options": [
+      "Moving the check-in URL to a domain that is not on any intelligence feed",
+      "Adding random padding so request sizes vary by more than 50 bytes",
+      "Clearing the Security log after every check-in to remove the evidence",
+      "Starting the beacon from wscript.exe instead of from PowerShell"
+    ],
+    "correct": 1,
+    "explanation": "R6 fires on ten or more requests to one URL whose sizes vary by less than 50 bytes, so size jitter alone defeats it. A new domain evades a feed signature, not R6, which does not use any feed; the launching process is invisible to a proxy-based rule.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During exfiltration an attacker sends 48 MB in many requests of about 5 MB each instead of one large upload. Which kit rule is evaded, and why?",
+    "options": [
+      "R4, because each request stays under its fixed 10,000,000-byte threshold",
+      "R6, because the requests are too large to count as small check-ins",
+      "R4, because its per-host baseline has learned the attacker's normal volume",
+      "R2, because the transfer no longer follows a burst of failed logons"
+    ],
+    "correct": 0,
+    "explanation": "R4 is a single-event match on bytes_out greater than 10,000,000, so splitting the upload into smaller requests keeps every event under it. R4 uses a fixed number, not a per-host baseline, which is why the third option is wrong.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Suppose the Banyan macro had started wscript.exe instead of PowerShell. Which statement about the storyline holds?",
+    "options": [
+      "R1 still fires, because it matches any child process of WINWORD.EXE",
+      "No kit rule sees the intrusion, because the first alert never happens",
+      "Only R2 still fires, because the VPN activity is independent of the host",
+      "R1 is silent, but R6 still sees the check-ins and R5 the log clearing"
+    ],
+    "correct": 3,
+    "explanation": "R1 lists only powershell.exe and cmd.exe, so wscript.exe slips past it, but the later 220-byte beacon and the 08:17 log clearing are caught by R6 and R5. Layering families means one rule's evasion lands in another rule's view; R1 does not match any child.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lesson tunes R5 for recall and accepts occasional false positives from approved maintenance. What reasoning supports that choice?",
+    "options": [
+      "Log clearing is common, so analysts are used to triaging these alerts quickly",
+      "Signature rules cannot be tuned for precision, so recall is the only choice",
+      "A missed clearance means evidence vanished unseen, a rare and high-value event",
+      "Maintenance clearances are attacker-controlled, so they must be investigated"
+    ],
+    "correct": 2,
+    "explanation": "A false negative on R5 means an attacker removed evidence undetected, which is far costlier than an occasional maintenance alert on a rare event. Log clearing is not common where logs are forwarded, and signature rules can be tuned like any other.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new anomaly rule flags hosts whose daily outbound destinations differ markedly from their history. Its false-positive rate is modest, but the estate is large and real intrusions are rare. What role should it most likely have?",
+    "options": [
+      "Paging an analyst on every hit, since anomalies catch unknown threats",
+      "Feeding a risk score or hunting queue rather than paging anyone directly",
+      "Replacing the behavioural rules, since it does not depend on technique lists",
+      "Running only on hosts that have already produced a behavioural alert today"
+    ],
+    "correct": 1,
+    "explanation": "Because the threat's base rate is tiny, even a modest false-positive rate makes most hits noise, so broad anomaly rules usually contribute risk or feed hunts. Catching the unknown is their strength, but it does not justify paging on every hit, and they complement rather than replace behavioural rules.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A per-host upload baseline is measured over the month before deployment. Later it emerges that an intruder was exfiltrating small amounts throughout that month. What is the consequence for the rule?",
+    "options": [
+      "The rule fires more often, because the baseline is inflated by attacker data",
+      "The rule switches to signature mode until the baseline is recalculated",
+      "The intruder's activity was learned as normal and will not stand out",
+      "Nothing, because baselines measure volume and exfiltration is not volume"
+    ],
+    "correct": 2,
+    "explanation": "If the attacker was present during the learning period, their activity becomes part of the baseline, so it no longer counts as a departure from normal. An inflated baseline makes the rule fire less, not more.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule passes design review, deploys cleanly and shows no errors, but has never fired in six months, including during a purple-team test of its technique. Which design question was most likely skipped?",
+    "options": [
+      "Which legitimate look-alike produces the same pattern in this estate",
+      "Which context would make the activity more or less suspicious",
+      "Which error, a false positive or a false negative, is worse here",
+      "Whether the needed telemetry and fields are collected under those names"
+    ],
+    "correct": 3,
+    "explanation": "A rule written for a field that is not collected, or is parsed under another name, passes review and never fires. Skipping the look-alike question causes false positives, not total silence during a real test of the technique.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Before deployment, Banyan finds that a vendor update agent on every workstation polls one fixed URL with identical 300-byte requests every few minutes. What is the most sound response for R6?",
+    "options": [
+      "Add an allowlist for known agents or a condition such as a recently first-seen destination",
+      "Raise the hits threshold until the update agent's daily request count no longer qualifies",
+      "Widen the size-spread limit so that identical requests no longer count as regular",
+      "Remove the size condition, since the agent shows that constant size is not discriminating"
+    ],
+    "correct": 0,
+    "explanation": "The agent is a legitimate look-alike, so the rule needs context that separates it from a beacon, such as an allowlist of known agents or a first-seen destination. Raising the hit count risks dropping real beacons (as the threshold-20 variant did) and says nothing about what makes a beacon malicious.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Sysmon summary groups the dataset's 33 process creations: 32 are applications started by explorer.exe and one is WINWORD.EXE starting PowerShell. What should an engineer conclude before using R1 in a real estate?",
+    "options": [
+      "R1 will have near-perfect precision anywhere, because Word rarely has children",
+      "The pair discriminates well here, but Word's legitimate children must be measured first",
+      "The summary proves R1 has full recall, because only one Word child exists",
+      "R1 should also match explorer.exe children, since they make up most starts"
+    ],
+    "correct": 1,
+    "explanation": "In this synthetic estate the parent-child pair is a near-perfect discriminator, but a real estate must first be measured for how often Word legitimately starts children. One observed Word child says nothing about recall against techniques the data does not contain.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which proposed extra condition for R6 is the best example of tightening a rule in the way the lesson recommends?",
+    "options": [
+      "Require at least 30 requests per host and URL before the rule fires",
+      "Require total bytes_out per pair to exceed the daily average for all hosts",
+      "Require that the destination was first seen in the estate recently",
+      "Require the requests to fall within the analysts' daytime working hours"
+    ],
+    "correct": 2,
+    "explanation": "A recently first-seen destination is a fact that tends to be true of new C2 infrastructure and rarely of long-standing update services, so it adds discriminating information. Raising the request count merely demands more of the beacon and could drop the 18-request one entirely.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An engineer loosens a behavioural rule by adding three more child processes to its match list. What is the expected effect on its two summary measures?",
+    "options": [
+      "Recall tends to rise and precision tends to fall",
+      "Precision tends to rise and recall tends to fall",
+      "Both measures rise, since more techniques are covered",
+      "Neither changes until the base rate itself changes"
+    ],
+    "correct": 0,
+    "explanation": "Widening the condition moves more true events inside the alert boundary (recall up) but also more benign ones (precision down), which is why each addition needs a look-alike check. Both rising together is possible only if no benign activity matches the new values.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC can count a rule's true and false positives from analyst verdicts, but struggles to state its recall in production. Why is recall the harder measure?",
+    "options": [
+      "Recall needs the base rate, which SIEMs do not record for each rule",
+      "Recall only applies to anomaly rules, which have no fixed definition of a hit",
+      "Recall changes whenever thresholds change, so it never stays stable",
+      "Recall needs the false negatives, and missed attacks are rarely known"
+    ],
+    "correct": 3,
+    "explanation": "Recall is TP / (TP + FN), and false negatives are attacks that raised no alert, which the SOC usually never learns about; it is estimated through testing and feedback. Precision changes with thresholds too, so instability is not what makes recall hard.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An intruder stops the Sysmon service on a workstation before acting further. From a detection-design view, what is the most important consequence?",
+    "options": [
+      "Rules that rely on process-creation telemetry go blind, so source-silence rules matter",
+      "Behavioural rules switch to Security log events automatically and keep working",
+      "Only anomaly rules are affected, because their baselines need continuous data",
+      "Nothing changes for R1, because it matches events already stored in the SIEM"
+    ],
+    "correct": 0,
+    "explanation": "Every rule assumes its data arrives; without Sysmon, R1 and other process-creation rules cannot fire on new activity, which is why absence rules that notice a source going quiet belong in the design. Rules do not switch data sources by themselves, and past events do not cover future actions.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan plans to widen R1 so that Excel, as well as Word, counts as a suspicious parent. What should be measured first?",
+    "options": [
+      "How many PowerShell versions are installed on each workstation",
+      "How often Excel legitimately starts child processes in the estate",
+      "How many proxy requests Excel sends compared with Word",
+      "How many intelligence feeds list Excel-based campaigns"
+    ],
+    "correct": 1,
+    "explanation": "Widening the parent list raises recall but brings in Excel's legitimate look-alikes, such as finance macros, so its own children must be measured before deployment. Proxy volumes and feed listings say nothing about the process relationship the rule relies on.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement of 'the behaviour' best satisfies the first design question in the lesson?",
+    "options": [
+      "Detect the invoice.docm malware delivered from the payroll lure",
+      "Detect PowerShell sessions opened by the user account on WS-104",
+      "A document editor starting a command or script interpreter",
+      "Any process that contacts banyan-payroll-update.example"
+    ],
+    "correct": 2,
+    "explanation": "The behaviour should be stated in terms of the technique, not a particular sample, host or domain, so that it survives changes in the lure and infrastructure. The other statements tie the rule to attacker-chosen values from one incident.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R4's fixed 10 MB threshold works on the Banyan data because no other workstation sent more than 3,999 bytes in one request. Why does the lesson warn against copying this design into a real business?",
+    "options": [
+      "Real proxies log request sizes in kilobytes, so the threshold must be rescaled",
+      "Fixed thresholds cannot be written in SQL, so production SIEMs reject them",
+      "A threshold rule is a signature and therefore has narrow recall by definition",
+      "One number rarely fits every host, so a per-entity baseline is usually needed"
+    ],
+    "correct": 3,
+    "explanation": "Normal upload volume differs between hosts and users, so 'large' is better judged against each entity's own history over a learning period. Calling a threshold a signature misreads the family: R4 is an anomaly-style rule.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

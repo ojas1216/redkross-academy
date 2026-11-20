@@ -16,7 +16,7 @@
   "C08-M07-L03-F2": {
     "title": "Banyan coverage matrix: data, rule, test",
     "caption": "Each technique in the Banyan storyline with the lab data that could show it, the rule that claims it, whether that rule has a test, and the status that combination deserves.",
-    "alt": "Table with five columns: Technique, Data (lab), Rule, Tested, Status. Row 1, red: T1566 Phishing; proxy only, no mail logs; no rule; not applicable; gap: R1 sees next step. Row 2, green: T1204.002 Malicious File; Sysmon EID 1; R1; yes; covered. Row 3, blue: T1059 PowerShell / cmd; Sysmon EID 1; R1; yes, Word parent only; partial. Row 4, green: T1071.001 Web Protocols; proxy; R6; yes; covered. Row 5, green: T1110.003 Password Spraying; VPN; R2; yes; covered. Row 6, orange: T1136.001 Local Account; Security 4720; R3; no; untested. Row 7, orange: T1098 Account Manipulation; Security 4732; R3; no; untested. Row 8, orange: T1567 Exfil Over Web Service; proxy sizes; R4; no; untested. Row 9, orange: T1070.001 Clear Windows Event Logs; Security 1102; R5; no; untested. Note: status is the weakest of data, rule and test.",
+    "alt": "Table with five columns: Technique, Data (lab), Rule, Tested, Status. Row 1, red: T1566 Phishing; proxy only, no mail logs; no rule; not applicable; gap: R1 sees next step. Row 2, green: T1204.002 Malicious File; Sysmon EID 1; R1; yes; covered. Row 3, blue: T1059 PowerShell / cmd; Sysmon EID 1; R1; yes, Word parent only; partial. Row 4, green: T1071.001 Web Protocols; proxy; R6; yes; covered. Row 5, green: T1110.003 Password Spraying; VPN; R2; yes; covered. Row 6, orange: T1136.001 Local Account; Security 4720; R3; no; untested. Row 7, orange: T1098 Account Manipulation; Security 4732; R3; no; untested. Row 8, orange: T1567 Exfil Over Web Service; proxy sizes; R4; no; untested. Row 9, orange: T1685.005 Clear Windows Event Logs; Security 1102; R5; no; untested. Note: status is the weakest of data, rule and test.",
     "type": "table",
     "columns": ["Technique", "Data (lab)", "Rule", "Tested", "Status"],
     "rows": [
@@ -28,7 +28,7 @@
       ["T1136.001 Local Account", "Security 4720", "R3", "no", "untested"],
       ["T1098 Account Manipulation", "Security 4732", "R3", "no", "untested"],
       ["T1567 Exfil Over Web Service", "Proxy sizes", "R4", "no", "untested"],
-      ["T1070.001 Clear Windows Event Logs", "Security 1102", "R5", "no", "untested"]
+      ["T1685.005 Clear Windows Event Logs", "Security 1102", "R5", "no", "untested"]
     ],
     "rowTones": ["red", "green", "blue", "green", "green", "orange", "orange", "orange", "orange"],
     "note": "Status is the weakest of data, rule and test: an untested rule is not coverage."

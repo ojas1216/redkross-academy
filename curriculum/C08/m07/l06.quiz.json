@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A rule for DNS tunnelling has been deployed for a month and has raised no alerts. The SIEM receives no DNS resolver or endpoint DNS logs. How should the SOC describe its position on DNS tunnelling?",
+    "options": [
+      "It has tested coverage: a month of silence shows the rule works and the network is not being tunnelled",
+      "It has a data-source gap: zero hits are no evidence of no tunnelling, because the rule cannot see its data",
+      "It has a logic gap: the rule's conditions are too narrow and should be widened until it starts firing",
+      "It has untested coverage: the rule exists but needs known-bad and near-miss tests before it can be trusted"
+    ],
+    "correct": 1,
+    "explanation": "A rule with no telemetry returns zero hits, which looks exactly like a quiet day; 'no alerts' only means 'no attack' for behaviour you have proven you can see. The classification stops at the first failed condition, telemetry collected, so it is a data-source gap rather than untested coverage or a logic gap.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Windows Security event 4732 is collected and its raw JSON includes the group name, but minisiem's events table has no group column, so R3 fires on every local group addition. How is this gap classified, and who fixes it?",
+    "options": [
+      "A logic gap, fixed by detection engineering adding a group condition to R3's existing query",
+      "A data-source gap, fixed by the infrastructure team enabling a different group-membership event",
+      "A scope gap, fixed by deploying event collection to the hosts where group changes are not logged",
+      "A field gap, fixed in the pipeline by parsing the group name into a column that the rule can test"
+    ],
+    "correct": 3,
+    "explanation": "The source and the event are collected, but a field the logic needs is not available as a field: a field gap, a data problem fixed in parsing. It is not a pure logic gap, because R3 cannot add a condition on a column that does not exist; the fix has to come first in the pipeline.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On WS-104, Sysmon process-creation events stop at 06:14, yet R3 shows svc_update was created at 07:02 and R5 shows the Security log was cleared at 08:17. What can the SOC not determine because of this gap?",
+    "options": [
+      "Which process or program performed the account creation, the upload and the log clearing",
+      "Whether the account creation and the log clearing actually happened on WS-104 that morning",
+      "Which user account was logged on to WS-104 when the account creation and the log clearing occurred",
+      "Whether the 48.2 MB upload reached the external file-sharing destination recorded by the proxy"
+    ],
+    "correct": 0,
+    "explanation": "Windows Security and proxy events still record that the actions happened, on which host and by which user, but without process creation after 06:14 the actor process behind each action is invisible. This is a scope gap in an otherwise valuable source, and it hides most of the attacker's hands-on activity.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A coverage report states 'We have no detection for T1071.004 (DNS used for command and control).' The SIEM collects no DNS telemetry. Why does the lesson recommend rewording it as 'We collect no DNS telemetry, so DNS-based command and control is invisible'?",
+    "options": [
+      "The rewording avoids citing an ATT&CK sub-technique, which reports to management should not contain",
+      "The rewording is shorter, and gap reports must fit on one line of the coverage matrix to be accepted",
+      "It names the real cause and its owner, instead of inviting detection engineering to write an impossible rule",
+      "The rewording turns a logic gap into a data-source gap, which lowers its priority in the gap register"
+    ],
+    "correct": 2,
+    "explanation": "The first wording invites 'why not write one?', a question detection engineering cannot answer because no query sees DNS that is not logged. The second states the problem as a data-source gap owned by whoever owns telemetry. Wording does not change the gap's type, only whether the report can be acted on.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The coverage matrix marks T1059.001 (PowerShell) as covered because R1 detects WINWORD.EXE starting PowerShell. Process creation with parent is collected. What kind of gap exists for an Excel macro that starts PowerShell?",
+    "options": [
+      "A data-source gap: Excel process events are a separate source that would have to be collected first",
+      "No gap: the matrix records techniques, and the technique itself is already covered by R1",
+      "A field gap: the parent-image field is not parsed for Excel, so the rule cannot match it",
+      "A logic gap inside a 'covered' technique: the data exists but the rule ignores Excel"
+    ],
+    "correct": 3,
+    "explanation": "Process creation with the parent image is collected for any parent, so the only missing piece is logic: R1 is narrower than the behaviour it claims. A cell marked covered can hide such variants, which is why gap analysis walks the obvious variants of each technique rather than trusting the matrix.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A behaviour from the threat model has no telemetry collected and also no rule. Using the lesson's classifier, how should it be recorded, and why?",
+    "options": [
+      "As a logic gap, because writing the rule is cheaper and can be done while telemetry is being requested",
+      "As a data-source gap, because each behaviour stops at its first failed condition and data comes first",
+      "As both a data-source gap and a logic gap, so that each owner receives a separate ticket at once",
+      "As untested coverage, because neither the data nor the rule has been shown to work on known-bad cases"
+    ],
+    "correct": 1,
+    "explanation": "The classifier stops at the first failed condition, because a later condition cannot be meaningfully tested while an earlier one fails: a rule cannot be tested against telemetry that does not exist. Recording it as a logic gap would send it to the wrong owner, who cannot close it.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule for new local administrator accounts exists, has been in production for a year and has fired several times, but nobody has ever run it against a known-bad case and a near miss. Where does it land in the lesson's classifier?",
+    "options": [
+      "Untested coverage: a gap in evidence rather than in capability, closed by adding known-bad and near-miss tests",
+      "Covered, with evidence, because production alerts over a year show that the rule fires on real events",
+      "A logic gap, because a rule without tests must be rewritten before it can be counted at all",
+      "A field gap, because untested rules usually depend on fields whose parsing has not been checked"
+    ],
+    "correct": 0,
+    "explanation": "The data and the rule exist, so the only failed condition is the last one: known-bad and near-miss tests. Alerts in production show the rule fires on something, not that it fires on the attack and stays quiet on the look-alike; only the green box, with tests, should be called covered.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An inventory query on the Banyan dataset shows Sysmon carrying only event ID 1 and no flow or firewall source at all. A hunter wants to find hosts that connected directly to external addresses without using the proxy. What does the inventory imply?",
+    "options": [
+      "It can be done with Sysmon event 1, because process creation records include each process's connections",
+      "It can be done from the VPN logs, because they record every connection made through the internal network",
+      "It cannot: there are no network-connection events or flow data, so direct traffic leaves no trace",
+      "It can be done from the proxy logs, by looking for hosts whose request counts fall below the baseline"
+    ],
+    "correct": 2,
+    "explanation": "Sysmon in this dataset records only process creation, and there is no flow, firewall or EDR data, so traffic that bypasses the proxy is invisible: a data-source gap. The VPN records carry no internal host or tunnel address, and a quiet host in the proxy logs is not evidence of direct connections.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R2 shows gopal's password used from the spraying address 203.0.113.66 at 06:46. That address appears in nine VPN events and nowhere else, and the VPN records have no internal host or tunnel address. Which telemetry would most directly close this gap?",
+    "options": [
+      "VPN address-assignment logs together with firewall or flow records and internal authentication logs",
+      "Sysmon process creation on WS-107, gopal's workstation, for the hours after the VPN login",
+      "Proxy logs for 203.0.113.66, so that the attacker's web browsing after the login can be followed",
+      "A rule that alerts on every VPN login from an address that previously failed authentication"
+    ],
+    "correct": 0,
+    "explanation": "To answer 'what did the attacker reach with the valid account?' the SOC must tie the session to an internal address and then follow it through flow, firewall and internal authentication data. WS-107 activity is gopal's own routine use, not the attacker's session, and a new rule adds detection, not visibility into the session.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague argues that Sysmon events ending at 06:14 are only an artefact of how the lab generator writes routine endpoint events, so they should not be recorded as a gap. Why does the lesson still treat it as one?",
+    "options": [
+      "Generator artefacts are always caused by a collection fault that would also exist in production",
+      "Any source that stops during the working day must be recorded as a data-source gap by policy",
+      "The cutoff proves that the attacker deliberately stopped the Sysmon service on WS-104 at 06:14",
+      "For coverage it is identical to an outage: no process creation is recorded after 06:14"
+    ],
+    "correct": 3,
+    "explanation": "Coverage is judged by what the data lets the SOC see, not by why the data is missing: from 06:14 onwards no process creation exists, which hides the actors behind persistence, upload and log clearing. It is a scope gap, not a data-source gap, and the lesson explicitly says it is a generator property, not an outage or attacker action.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The proxy recorded WS-104 downloading invoice.docm from banyan-payroll-update.example at 06:12, two minutes before R1 fired, and it is the only macro-enabled document download of the day. How is this gap classified and closed?",
+    "options": [
+      "A data-source gap: closing it needs a mail gateway, because the document arrived by email",
+      "A pure logic gap: data and fields exist, so a rule for macro-enabled Office downloads closes it",
+      "A field gap: the proxy must first parse a file-type field before any rule can test the download",
+      "No gap: R1 fired two minutes later, so the delivery step is already covered by an existing rule"
+    ],
+    "correct": 1,
+    "explanation": "The URL field already shows the .docm extension, so only the rule is missing; a rule on macro-enabled downloads, perhaps with a first-seen domain, would alert at delivery. R1 compensates for the gap, which lowers its priority, but compensation does not make the delivery step covered.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Rule R6 detects beaconing only through proxy logs. An implant that resolves its server over DNS and connects directly, bypassing the proxy, is in the threat model. Why should the detection team not try to close this gap with another proxy rule?",
+    "options": [
+      "Proxy rules cannot inspect DNS names, so a resolver-based rule is needed on the existing proxy data",
+      "R6 already covers command and control, so a second rule would duplicate its alerts for the same beacon",
+      "The traffic never reaches the proxy and no DNS or flow data exists, so no rule of any kind can see it",
+      "The variant is too exotic for a microfinance threat model, so it should be accepted rather than closed"
+    ],
+    "correct": 2,
+    "explanation": "Writing rules to close data-source gaps is a listed mistake: no query can see traffic or DNS that is not logged, so the gap goes to the telemetry owner. R6 does not cover this variant at all, and the lesson treats DNS-based C2 as relevant, ranking it medium-high in the register.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Banyan gap register, the missing rule for .docm downloads is the cheapest gap to close, yet it ranks below the untraceable VPN session. What justifies that order?",
+    "options": [
+      "Logic gaps always rank below data-source gaps, because data-source gaps take longer to close",
+      "The .docm download was a single event, while the VPN gap involved nine separate events from one address",
+      "The VPN gap was found first in the analysis, and the register keeps gaps in the order they were found",
+      "R1 compensates two minutes after delivery; nothing would catch the attacker in gopal's session"
+    ],
+    "correct": 3,
+    "explanation": "Prioritisation weighs likelihood, harm and compensating detections before cost: the VPN gap combines a likely technique for the sector, high harm and no compensation. Type alone does not decide the order (the 4625 logic gap ranks lowest, the DNS data-source gap third), and order of discovery is explicitly rejected as a method.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "'No process events after 06:14' ranks second in the Banyan register although R3, R4 and R5 partly compensate for it. Which factor most raises its priority?",
+    "options": [
+      "Its breadth: one fix, full-day process telemetry, closes gaps in persistence, exfiltration and impairment",
+      "Its low cost: re-enabling an existing source needs only a rule change by detection engineering",
+      "Its lack of compensation: no other rule fires anywhere during the attacker's hands-on activity",
+      "Its type: scope gaps always outrank logic gaps because they affect every host in the estate"
+    ],
+    "correct": 0,
+    "explanation": "A data or scope fix is expensive but may close many gaps at once, which is part of the cost-and-breadth question. The gap is in fact partly compensated by R3, R4 and R5, and it is a pipeline or endpoint-team fix, not a rule change.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "R1 currently compensates for the missing .docm delivery rule. A month later R1 is tuned and its parent condition changes. What does the lesson say this should trigger for the delivery gap?",
+    "options": [
+      "Nothing, because the delivery gap's priority was fixed when it was entered in the register",
+      "Removal of the delivery gap from the register, because a tuned R1 is more precise than before",
+      "A re-assessment, because the compensation the gap relied on may have weakened or gone",
+      "An automatic downgrade of the gap to accepted, because tuning has been reviewed and approved"
+    ],
+    "correct": 2,
+    "explanation": "Compensations change: if R1 is tuned or broken, the gap it compensates becomes urgent, so compensating detections must be linked to the gaps they cover and re-assessed after major tuning changes. Higher precision after tuning says nothing about whether R1 still catches the delivery's follow-on step.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two gaps receive scores of 7.4 and 7.1 from a team's likelihood-times-impact formula. What does the lesson advise about using these scores to order the work?",
+    "options": [
+      "Always close the 7.4 gap first, because a consistent formula is what makes prioritisation defensible",
+      "Do not rely on the small numeric difference; compare written reasoning such as 'high, no compensation'",
+      "Re-score both on a ten-point scale, so that the difference between them becomes statistically clear",
+      "Close the cheaper of the two first, because cost decides between gaps with nearly equal scores"
+    ],
+    "correct": 1,
+    "explanation": "The exact arithmetic matters much less than recorded reasoning that can be challenged; 7.4 against 7.1 is false precision, while 'high, no compensation' against 'high, compensated by R1' is a real argument. Finer scales add more false precision, and cost is weighed after threat, not as an automatic tie-breaker.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC manager decides not to fund DNS logging this year. For the DNS gap in the register to be recorded as 'Accept' rather than left as an unknown, what must the entry contain?",
+    "options": [
+      "A documented risk decision by someone with authority to make it, with an owner and a date to reconsider it",
+      "A note that DNS-based command and control is outside the threat model, so the gap no longer needs a row",
+      "The name of a compensating rule, because a gap can only be accepted when another detection covers it",
+      "Approval by the detection engineering lead, because data-source gaps are owned by detection engineering"
+    ],
+    "correct": 0,
+    "explanation": "Accepting a gap is a dated, owned risk decision taken by someone with the authority, which makes it defensible if a regulator later asks; an unknown gap is not. A compensating rule defines the 'Compensate' decision, not 'Accept', and data-source gaps are owned by the telemetry owner, not detection engineering.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team proposes publishing its complete gap register on the company intranet so that every department can see the SOC's progress. What concern does the lesson raise?",
+    "options": [
+      "The register changes too often to publish, so readers would act on gaps that are already closed",
+      "Departments might request their own telemetry, which would distort the register's priority order",
+      "Publishing gaps breaches the CERT-In directions, which forbid disclosure of logging configuration",
+      "It maps where an attacker can act unseen, so it is sensitive and access must be restricted"
+    ],
+    "correct": 3,
+    "explanation": "Attackers exploit common gaps anyway, but a register tells an insider or intruder exactly where detection is absent, so it is confidential. The CERT-In directions mentioned in the lesson concern enabling and retaining logs, not secrecy of the register.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A vendor dashboard reports that the SOC detects 30% of all ATT&CK techniques and recommends raising the figure. Which critique follows from the lesson?",
+    "options": [
+      "The percentage should be calculated per tactic, because techniques differ in how many sub-techniques they have",
+      "The figure is too low for any SOC, so the team should prioritise the cheapest techniques to raise it",
+      "Gaps should be measured against the organisation's threat model, not against every technique in the knowledge base",
+      "The dashboard ignores sub-techniques, so the true figure is likely to be much higher than reported"
+    ],
+    "correct": 2,
+    "explanation": "Counting the whole of ATT&CK is a listed mistake: a microfinance company should prioritise credential attacks on remote access, malicious documents and data theft, not techniques against industrial control systems. Raising the number by closing cheap, irrelevant cells is coverage theatre, not risk reduction.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After an upgrade, the endpoint agent is silently removed from a group of servers. Detections that depend on it simply stop producing hits. Which practice from the lesson would expose this new gap soonest?",
+    "options": [
+      "Reviewing the gap register at its scheduled date, when every open row is re-assessed by its owner",
+      "Alerting on sources that stop reporting or fall below their baseline per host, and re-running scope checks",
+      "Watching per-rule precision, because rules that lose their data show a sharp fall in precision",
+      "Re-mapping every rule to ATT&CK after each upgrade, so that the coverage matrix stays current"
+    ],
+    "correct": 1,
+    "explanation": "Gaps open over time and are silent, so coverage must be monitored continuously: source-health alerts per host and rules whose hits fall to zero show the loss within hours or days. A scheduled register review would find it much later, and a rule with no data raises no alerts at all, so its precision does not visibly change.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The team believes it has closed the delivery gap with a new .docm download rule. According to the lesson, what is the strongest evidence that the gap is really closed?",
+    "options": [
+      "Emulating the technique in an authorised lab and confirming the artefacts fire the rule",
+      "A peer review confirming that the rule's query is syntactically correct and mapped to ATT&CK",
+      "A month in production without false positives from the new rule on ordinary proxy traffic",
+      "Updating the coverage matrix so that the delivery cell changes from uncovered to covered"
+    ],
+    "correct": 0,
+    "explanation": "Emulation on authorised systems tests the whole chain, collection, parsing and logic, end to end, which is the strongest evidence a gap is closed. A quiet month shows good precision but not that the rule fires, and a matrix change without evidence is exactly coverage theatre.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A log source is collected and stored, but events arrive in the SIEM several minutes after they occur, after the scheduled rule that needs them has already run for that period. How does the lesson classify this?",
+    "options": [
+      "As no gap, because the event is stored and will be found by any later search or hunt",
+      "As a logic gap, because the rule should be rewritten to search a longer period on each run",
+      "As a data-source gap, because a delayed source must be treated as if it were not collected",
+      "As a scope gap in time: the event is stored but not visible when the rule runs"
+    ],
+    "correct": 3,
+    "explanation": "Collection that does not cover the time the rule runs is partial collection, a scope gap in time, which the lesson ties to Module 2's collection-delay lesson. Widening the search period may be part of the fix, but the cause is in the pipeline, and storing the event later does not make the real-time detection work.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "When building the business case to the network team for DNS resolver logging, which point from the lesson can strengthen the argument for an organisation operating in India?",
+    "options": [
+      "CERT-In's 2022 directions require every organisation to deploy DNS tunnelling detection rules",
+      "CERT-In's 2022 directions require ICT logs to be enabled and kept for a rolling 180 days in India",
+      "CERT-In's 2022 directions require all logs to be retained for seven years before deletion",
+      "CERT-In's 2022 directions exempt organisations that already collect proxy logs from DNS logging"
+    ],
+    "correct": 1,
+    "explanation": "The lesson notes that the April 2022 directions require enabling logs of ICT systems and retaining them for a rolling 180 days within India, so a data-source gap can also be a compliance issue that helps fund the fix. The directions do not mandate specific detection rules or seven-year retention.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To close the 'Excel macro starts PowerShell' gap in R1, a manager proposes buying a new EDR product. Process creation with parent images is already collected for the period in question. What is the main flaw in the proposal?",
+    "options": [
+      "It ignores that EDR telemetry would be a duplicate source, which the SIEM cannot deduplicate",
+      "It treats a field gap as a data-source gap, when the parent image must first be parsed correctly",
+      "It funds new telemetry for a logic gap that detection engineering could close in days with a rule and tests",
+      "It skips the risk decision, because every gap must be formally accepted before it can be closed"
+    ],
+    "correct": 2,
+    "explanation": "With the data already present, the gap is logic: R1 is narrower than the behaviour, so a rule change through the Lesson 5 change path closes it cheaply. Funding a log source to close a logic gap wastes money, just as writing rules for a data-source gap wastes engineering effort.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Banyan data shows two failed console logons (4625) at 04:05 that were benign typos, and no rule looks for repeated local failures. Why does this gap rank lowest in the register?",
+    "options": [
+      "The data is incomplete, because 4625 events are collected only for domain logons and not for console logons",
+      "Two failed logons are too few to support a rule, so the gap cannot be closed until more data exists",
+      "The 4625 events were benign, which shows that the technique is not used against this organisation",
+      "Console guessing is less likely for this organisation, and an account lockout policy limits it where configured"
+    ],
+    "correct": 3,
+    "explanation": "The gap is a real logic gap, since the 4625 events are collected and no rule looks at them, but likelihood for this sector is low and a lockout policy compensates. Benign typos on one day do not prove the technique is unused; they only show the data is available to write the rule.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

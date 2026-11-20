@@ -242,6 +242,14 @@ export async function validateModule(code, m, { render = true } = {}) {
       if (share.some((x) => x < 0.15 || x > 0.35)) errors.push(`quiz: correct-answer positions are unbalanced (${counts.join('/')}); each of A-D should be 15-35%`);
     } else if (quiz.length && positions.size < 4) errors.push(`quiz: correct answers use only positions ${[...positions].join(',')}`);
     for (let n = 1; n <= bpm.lessons.length; n++) if (!lessonsCovered.has(n)) errors.push(`quiz: no questions for lesson ${n}`);
+    // the correct option must not give itself away by being the longest
+    const longest = quiz.filter((q) => {
+      const L = (q.options || []).map((o) => String(o).length);
+      const max = Math.max(...L);
+      return L[q.correct] === max && L.filter((x) => x === max).length === 1;
+    }).length;
+    if (quiz.length >= 40 && longest / quiz.length > 0.4)
+      errors.push(`quiz: the correct option is the uniquely longest in ${longest}/${quiz.length} questions (${Math.round((100 * longest) / quiz.length)}%); keep it at or under 40% by making distractors as long and specific as the answer`);
   }
   return { errors, warnings, stats };
 }

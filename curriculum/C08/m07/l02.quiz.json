@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A reviewer wants a selection that matches only when CommandLine contains both ' -nop' and ' -w hidden'. The draft lists both values under CommandLine|contains. What is wrong, and what fixes it?",
+    "options": [
+      "Nothing is wrong: values listed under one field must all match the same event",
+      "A list means OR, so the draft matches either value; adding |all makes it AND",
+      "contains cannot take a list, so each value needs its own separate selection",
+      "A list means AND already, so the draft is too strict and needs a 1 of condition"
+    ],
+    "correct": 1,
+    "explanation": "In Sigma a list of values under one field is OR, so the draft fires on either string; the all modifier (CommandLine|contains|all) requires every value. Two fields in one map are AND, but two values under one field are not.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Converted with -t splunk --without-pipeline, the log-cleared rule becomes EventID=1102. If deployed as is, what is the main risk?",
+    "options": [
+      "Splunk rejects the query, because EventID is not a valid SPL field name",
+      "The query matches nothing, because Splunk stores event IDs only as text",
+      "The query is restricted to the Security log but uses the wrong severity",
+      "The query is unscoped: an event 1102 from any log or source would match"
+    ],
+    "correct": 3,
+    "explanation": "Without a pipeline, nothing from logsource reaches the query, so service: security is lost and any event numbered 1102 in any log matches. The query is syntactically valid SPL; the problem is what it searches, not whether it runs.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Converting the log-cleared rule with -p splunk_windows produced source=\"WinEventLog:Security\" EventCode=1102. Which two changes did the pipeline make?",
+    "options": [
+      "It turned service: security into a source condition and renamed EventID",
+      "It added a severity filter from level and appended the rule's tags",
+      "It converted the YAML list into IN and doubled the backslashes",
+      "It validated the condition and removed the unused falsepositives"
+    ],
+    "correct": 0,
+    "explanation": "The splunk_windows pipeline mapped the logsource to the Splunk source WinEventLog:Security and the generic EventID field to Splunk's EventCode. Rendering lists as IN and escaping backslashes is the backend's job, not the pipeline's.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule converted with a community pipeline is deployed, passes review and is green on the dashboard, but never fires, even when an administrator clears a test log. What is the most likely cause and the right check?",
+    "options": [
+      "The rule's level is too low; raise it and the SIEM will start alerting",
+      "sigma check missed a condition error; re-run it with verbose output",
+      "The pipeline does not match how the data is indexed; test on a known event",
+      "The backend rejected the query silently; reinstall the Splunk backend"
+    ],
+    "correct": 2,
+    "explanation": "A pipeline written for someone else's indexing produces valid queries with the wrong source or field names, a silent false negative found only by searching for a known event. Level affects triage, not matching, and a condition error would have stopped conversion.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A copy of the office rule has the condition 'selection_parent and selection_childs'. What happens when it is checked and converted?",
+    "options": [
+      "sigma check passes, and the converter silently drops the unknown name",
+      "sigma check reports an issue, but conversion produces a parent-only query",
+      "sigma check reports a condition error, and conversion fails with it too",
+      "sigma check reports a YAML error, because the file can no longer be parsed"
+    ],
+    "correct": 2,
+    "explanation": "The check reports one condition error ('selection_childs' not defined), and converting the file fails with the same message, so a broken condition cannot reach the SIEM through the converter. The YAML itself is still valid, so it is not a parse error.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A rule's technique tag passes sigma check without any InvalidATTACKTagIssue. What has that result actually established?",
+    "options": [
+      "The tag is well formed and known to the ATT&CK data bundled with pySigma",
+      "The tag is the correct mapping for the behaviour the rule detects",
+      "The tag will stay valid in every future ATT&CK and pySigma release",
+      "The tag matches the tactic implied by the rule's logsource category"
+    ],
+    "correct": 0,
+    "explanation": "The tag validator checks format and known IDs against the ATT&CK data in the installed pySigma version; whether the tag is the right mapping is a judgement. Because the bundled data changes between releases, a clean result today is not a guarantee for future versions.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst copies rk_office_spawns_shell.yml to build an Excel variant and edits only the title and detection. Why must the id also change?",
+    "options": [
+      "sigma check rejects any two files in a directory with the same title",
+      "The backend uses the id as the Splunk search name and would collide",
+      "The id encodes the logsource, so a new detection needs a new UUID",
+      "Deployment and deduplication tooling would treat both as one rule"
+    ],
+    "correct": 3,
+    "explanation": "The id is a UUID that identifies a rule permanently, even across title changes, so tools that deploy and deduplicate rules would merge or overwrite two files sharing one. It does not encode the logsource.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which parts of a Sigma rule actually determine the query text that a converter produces?",
+    "options": [
+      "detection and level, because severity decides which events are kept",
+      "logsource and detection; the other fields travel as metadata",
+      "title, tags and detection, since tags select the backend's mapping",
+      "detection alone; logsource is documentation for human reviewers"
+    ],
+    "correct": 1,
+    "explanation": "logsource drives which pipeline transformations apply and detection is rendered into the condition; identity, context and triage hints do not change which events match. logsource is not mere documentation, as the splunk_windows conversion showed.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A v2 office rule adds filter_approved: CommandLine|contains '\\finance\\approved\\' with 'and not filter_approved'. Why does the lesson call this filter a deliberate flaw?",
+    "options": [
+      "contains is not allowed in filters; only endswith is valid after not",
+      "The filter makes the rule fail sigma check, so it can never be deployed",
+      "Filters cannot reference fields that the selections do not also use",
+      "Anyone starting a process can put that string in its command line"
+    ],
+    "correct": 3,
+    "explanation": "CommandLine is attacker-controlled, so an attacker who includes the folder string hides the alert; exceptions should key on things the attacker controls less, such as a signed script or approved host group, with an owner and expiry. The tested variant passed sigma check, so it is not a validation problem.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The Splunk output for the office rule is ParentImage=\"*\\\\WINWORD.EXE\" (Image IN (\"*\\\\powershell.exe\", \"*\\\\cmd.exe\")). A reviewer flags the doubled backslashes as a converter bug. How should this be answered?",
+    "options": [
+      "SPL string escaping requires them, so the query is correct",
+      "It is a bug in the backend and the query will match nothing",
+      "They come from the YAML file, which must use single backslashes",
+      "They mark the endswith modifier and replace the leading wildcard"
+    ],
+    "correct": 0,
+    "explanation": "Backslashes are doubled because SPL requires them to be escaped inside strings; the endswith modifier is represented by the leading * wildcard, not by the backslashes.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Running 'sigma convert -t splunk rk_office_spawns_shell.yml' with neither -p nor --without-pipeline ends in an error. What is the purpose of that refusal?",
+    "options": [
+      "The Splunk backend cannot render rules with more than one selection",
+      "It forces a choice between a pipeline and explicitly using none",
+      "The rule lacks a service key, which the Splunk backend requires",
+      "It signals that the rule failed validation and must be fixed first"
+    ],
+    "correct": 1,
+    "explanation": "The error says a processing pipeline is required and points to 'sigma list pipelines splunk': the tool makes the operator state whether data mapping is wanted. The same rule converts fine with --without-pipeline, so it is neither a validation nor a selection-count problem.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "With -p splunk_cim the office rule became Processes.parent_process_path=\"*\\\\WINWORD.EXE\" (Processes.process_path IN (...)). When is this the right pipeline for Banyan's SOC?",
+    "options": [
+      "Always, because CIM field names are the Splunk standard for all data",
+      "Only for Sysmon data, because CIM is a Sysmon acceleration mapping",
+      "When Banyan's process data is actually mapped to the CIM data model",
+      "Never, because data-model fields cannot be searched with wildcards"
+    ],
+    "correct": 2,
+    "explanation": "A pipeline describes how data is stored; splunk_cim fits only if the process events are normalised into the CIM Processes fields. On raw data indexed differently, the valid-looking query would find nothing. Sysmon acceleration is a different pipeline (splunk_sysmon_acceleration).",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The office rule uses category: process_creation with product: windows, while the log-cleared rule uses product: windows with service: security. What is the main trade-off between these styles?",
+    "options": [
+      "The category style is portable across sources; the service style names one log",
+      "The category style needs no pipeline; the service style always needs one",
+      "The category style is for behavioural rules; the service style for anomalies",
+      "The category style matches any product; the service style any operating system"
+    ],
+    "correct": 0,
+    "explanation": "process_creation can be satisfied by Sysmon event 1, an EDR process event or Security event 4688, so category rules port well; a service names a specific log and is more precise about what is meant. Both styles depend on a pipeline to become scoped queries.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A new analyst argues that because the log-cleared rule says service: security, it can never match an event from another log, whatever tool converts it. What is the flaw in this reasoning?",
+    "options": [
+      "service only applies to Linux products, so it is ignored for Windows",
+      "Sigma ignores logsource entirely and always searches every index",
+      "The restriction applies only when the rule's level is set to high",
+      "logsource is a statement; only a pipeline turns it into a filter"
+    ],
+    "correct": 3,
+    "explanation": "logsource declares intent; whether the query is restricted depends on the processing pipeline, as the unscoped EventID=1102 output without one shows. It is not ignored either: with splunk_windows it became a source condition.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Image|endswith: '\\cmd.exe' is used in the kit rule rather than Image|endswith: 'cmd.exe'. What does the leading backslash achieve?",
+    "options": [
+      "It escapes the dot so that it matches a literal full stop",
+      "It ensures the match is a whole file name, not a suffix of one",
+      "It makes the comparison case-sensitive for Windows paths",
+      "It tells the backend to render the value as a regex"
+    ],
+    "correct": 1,
+    "explanation": "Requiring the path separator before the name means C:\\Windows\\System32\\cmd.exe matches but a hypothetical notcmd.exe does not. Sigma matching stays case-insensitive, and regular expressions need the re modifier.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team translates minisiem's R1 into Sigma and finds the Sigma version fires on fewer events, though both convert and run without errors. Which explanation best fits the lesson's comparison?",
+    "options": [
+      "The Sigma version is case-sensitive, so mixed-case paths are missed",
+      "Sigma drops the OR between child images when there are two selections",
+      "The SQL uses a contains match where Sigma uses a stricter ends-with match",
+      "The SQL reads Sysmon and Security logs, while Sigma reads Sysmon only"
+    ],
+    "correct": 2,
+    "explanation": "R1's LIKE '%...%' tests are contains matches, while the Sigma rule uses endswith on full path components, so translation changed the match semantics and therefore precision and recall. Sigma string matching is case-insensitive by default, so case is not the difference.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A draft rule has selection: Image: '\\cmd.exe' with no modifier. It passes sigma check but never fires on real cmd.exe starts. Why?",
+    "options": [
+      "Values without a modifier are treated as regular expressions",
+      "Plain values are case-sensitive, and paths are stored in capitals",
+      "Single-value selections need a list to be rendered by the backend",
+      "A plain value must equal the whole field, not just its final part"
+    ],
+    "correct": 3,
+    "explanation": "Without a modifier a string must match the entire field (ignoring case), so '\\cmd.exe' never equals 'C:\\Windows\\System32\\cmd.exe'; endswith is needed. Plain values are case-insensitive by default, so capitals are not the problem.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Both kit rules carry status: experimental. What does this tell a consumer of the rules?",
+    "options": [
+      "The rules are new and not yet proven in production use",
+      "The rules use syntax that sigma-cli does not yet support",
+      "The rules may only be converted without a pipeline",
+      "The rules have failed review and must not be deployed"
+    ],
+    "correct": 0,
+    "explanation": "status records maturity: experimental means newly written and not yet proven, unlike test or stable. Both rules pass sigma check and convert normally, so it says nothing about syntax or pipelines.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The v2 office rule converts to (ParentImage IN (...)) (Image IN (...)) NOT CommandLine=\"*\\\\finance\\\\approved\\\\*\". Which reading of the last part is correct?",
+    "options": [
+      "NOT comes from the filter's name prefix, and the trailing * from endswith",
+      "NOT comes from a not in the condition, and the leading * from the list",
+      "'and not filter_approved' became NOT, and contains became * on both sides",
+      "The filter became NOT only because its field is absent from the selections"
+    ],
+    "correct": 2,
+    "explanation": "The condition's 'and not filter_approved' is rendered as NOT, and the contains modifier becomes wildcards before and after the value. Filter names like filter_ are a readability convention; the condition, not the prefix, decides the logic.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan's SOC expects to replace its SIEM within two years and wants to protect its investment in detection content. Why does Sigma help?",
+    "options": [
+      "Sigma rules run directly on any SIEM, so no conversion step is needed",
+      "Rules describe what to detect, and a new backend renders them for the new SIEM",
+      "Sigma stores the SIEM's past alerts, so history migrates with the rules",
+      "Sigma replaces processing pipelines, so field names never need mapping"
+    ],
+    "correct": 1,
+    "explanation": "Sigma separates what to detect from how one product searches, so rules kept as code can be converted for the new platform with its backend and a pipeline matching its data. Sigma is not a SIEM and does not run queries; pipelines remain necessary for field mapping.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The office rule's falsepositives entry reads 'Legitimate macros that launch scripts (rare; document and allow-list)'. How should an analyst use it when the rule fires?",
+    "options": [
+      "As the rule's severity, to decide whether the alert is high or low",
+      "As a filter the converter applies automatically to suppress macros",
+      "As proof that the alert is benign whenever a macro was involved",
+      "As the first thing to rule out: is there an approved macro here?"
+    ],
+    "correct": 3,
+    "explanation": "falsepositives is a triage hint telling the analyst which benign explanation to check first; it does not become query text. Exceptions must be written as named filters to affect matching, and a macro being involved is exactly what a malicious document looks like too.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A SOC keeps its Sigma rules in a shared repository. Which control best addresses the risk that a careless or malicious change creates a blind spot that looks like tuning?",
+    "options": [
+      "Restricted merge rights, required review and automated check and conversion",
+      "Publishing every rule publicly so that peers can spot harmful filters",
+      "Setting every rule's status to stable so that edits need a version bump",
+      "Converting rules only without a pipeline so filters are always visible"
+    ],
+    "correct": 0,
+    "explanation": "The repository shapes what the SOC sees, so it should be protected like code: limited merge rights, review of diffs and automated sigma check and conversion on every change. Publishing rules tells adversaries what you match on, and a status label enforces nothing.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A rule's condition is '1 of selection_*' and it defines selection_cmd, selection_ps and filter_admin. When does it match, before any filter is applied?",
+    "options": [
+      "When every selection whose name starts with selection_ matches",
+      "When exactly one of the three search identifiers matches",
+      "When at least one of selection_cmd or selection_ps matches",
+      "When selection_cmd matches, since it is the first one listed"
+    ],
+    "correct": 2,
+    "explanation": "'1 of selection_*' means at least one selection whose name matches the pattern, so filter_admin is not included and either selection suffices. 'all of selection_*' would require every matching selection.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An advisory includes a Sigma rule for a technique Banyan cares about. What is the sound way to adopt it?",
+    "options": [
+      "Deploy it unchanged, since rules in advisories are already validated",
+      "Read it, convert it with Banyan's own pipeline and test it on Banyan data",
+      "Convert it without a pipeline so that the author's mapping is preserved",
+      "Run sigma check on it and deploy it once the summary reports no issues"
+    ],
+    "correct": 1,
+    "explanation": "A public rule encodes someone else's log sources, field names and assumptions, so it must be judged, converted with a pipeline matching local indexing and tested on local data. A clean sigma check proves structure, not that the rule finds events in your environment.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The office rule puts ParentImage and Image in two named selections joined by 'and'. A reviewer suggests merging them into one map. What is the accurate assessment?",
+    "options": [
+      "The merge would change the logic, because a single map means OR",
+      "The merge would fail sigma check, because one map allows one field",
+      "The merge would widen the rule to match either field on its own",
+      "The logic is the same; separate names aid review and later changes"
+    ],
+    "correct": 3,
+    "explanation": "A map is AND, so one map with both fields means the same as the two selections joined by and. Separate names make the intent clearer and make it easy to add parents or a filter later.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

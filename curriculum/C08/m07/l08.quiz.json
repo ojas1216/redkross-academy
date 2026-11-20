@@ -1,0 +1,327 @@
+[
+  {
+    "q": "R7's first version ends with (julianday(p.ts) - julianday(d.ts)) * 1440 <= 10, and the test with a spawn exactly ten minutes after the download fails with '0 != 1'. Why?",
+    "options": [
+      "julianday() returns floating-point days, so ten minutes computes to 10.000000074505806, which is not <= 10",
+      "julianday() ignores the trailing Z, so the spawn timestamp is read one hour later than the download time",
+      "SQLite evaluates <= as a strict comparison when both operands are the result of a floating-point product",
+      "The ordering check p.ts >= d.ts compares the strings byte by byte and fails when the minutes differ by ten"
+    ],
+    "correct": 0,
+    "explanation": "Ten minutes is 1/144 of a day, which has no exact binary representation, so the product lands a hair above 10. The ordering check passes for this pair, and <= is inclusive in SQLite; the failure is purely the floating-point error.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The fixed R7 tests CAST(strftime('%s', p.ts) AS INTEGER) - CAST(strftime('%s', d.ts) AS INTEGER) BETWEEN 0 AND 600. Which requirement clause does the lower bound of 0 enforce?",
+    "options": [
+      "The rule must not alert on a spawn that happened on a different host",
+      "The rule must not alert when the download and spawn share a timestamp",
+      "The rule must not alert on a spawn that happened before the download",
+      "The rule must not alert on a spawn more than ten minutes after download"
+    ],
+    "correct": 2,
+    "explanation": "A negative difference means the process started before the download, so a lower bound of 0 rejects it and replaces the old p.ts >= d.ts check. BETWEEN is inclusive, so equal timestamps (a gap of 0) still match; the upper bound 600 handles the ten-minute clause.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lab add R7 as a new correlation rule instead of tuning R1 to require a preceding macro-document download?",
+    "options": [
+      "SQLite cannot join two log sources inside a rule that already filters on Sysmon process events",
+      "R1 must still fire when a malicious document arrives by email or USB with no proxy event",
+      "R1 is mapped to Execution, and a rule may carry tags from only one ATT&CK tactic",
+      "Tuning R1 would change its rule ID, which would break the R1 test class in the kit"
+    ],
+    "correct": 1,
+    "explanation": "Requiring a download would blind R1 to every non-web delivery path, so R1 stays as the broad signal and R7 adds a higher-confidence one for the web-delivered case. SQLite self-joins work fine, as R7 itself shows.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After R7 is added, python triage.py stops with KeyError: 'R7'. What is the effect on the alert queue, and what does the lesson recommend beyond adding the entry?",
+    "options": [
+      "Only R7's alert is dropped; add a default severity for any rule missing from RULE_META",
+      "R7's alert is ranked last; give R7 the same RULE_META entry as R1 to keep the order",
+      "Only alerts on WS-104 are dropped; enrich the host table so every hit has a lookup",
+      "No alert is ranked at all; add a test that every key in RULES has a RULE_META entry"
+    ],
+    "correct": 3,
+    "explanation": "The lookup RULE_META[rule] raises and ends the whole run, so every alert is lost, not just R7's. The integration fix is the missing entry plus a test that would catch the next rule added without one; a silent default would hide the gap.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "With RULE_META R7 = (3, 0.9) on WS-104 (asset criticality 3), R7 scores 8.1 and ranks above R1's 7.2 for the same event. What justifies the higher confidence?",
+    "options": [
+      "R7 carries a higher Sigma level than R1, and triage.py reads that level directly",
+      "Two independent observations, a download and a shell start, agree on host and time",
+      "R7 alerts on two hosts at once, which doubles the asset criticality used in triage",
+      "R7 is the newest rule, and new rules start at high confidence until they are tuned"
+    ],
+    "correct": 1,
+    "explanation": "Correlation needs both a macro-document download and an Office-spawned shell on the same host within the window, which is stronger evidence than R1's single event. Severity stays at 3 because the behaviour is the same; triage.py uses RULE_META, not the Sigma level.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In a throwaway copy, sed changes BETWEEN 0 AND 600 to BETWEEN -600 AND 600 and the suite is re-run. Which test should fail?",
+    "options": [
+      "test_spawn_before_download_not_matched",
+      "test_spawn_after_window_not_matched",
+      "test_spawn_at_exactly_ten_minutes_matched",
+      "test_spawn_on_other_host_not_matched"
+    ],
+    "correct": 0,
+    "explanation": "The mutant accepts spawns up to 600 seconds before the download, so the test whose spawn is at 06:11, a minute before, now matches and fails. The upper bound is unchanged, so the after-window and boundary tests behave as before.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does the mutation step in the lab demonstrate that a green run of the 14 tests cannot?",
+    "options": [
+      "That R7 finds every malicious-document chain in real production data",
+      "That the Sigma correlation version behaves the same as the SQL",
+      "That the ten-minute window is the right length for real users",
+      "That the tests can fail, by catching a deliberately weakened rule"
+    ],
+    "correct": 3,
+    "explanation": "A suite that never fails proves nothing; weakening the rule on purpose and seeing exactly the matching test fail shows the tests have teeth. Mutation says nothing about production recall, the Sigma version or the window length.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A student mutates one clause of R7 in the throwaway copy, re-runs the suite and all 14 tests still pass. What is the correct conclusion?",
+    "options": [
+      "The mutation was harmless, so the clause can be removed from the rule",
+      "The suite is working, because a passing run means the rule is fully correct",
+      "No negative test isolates that clause, so a test for it should be added",
+      "The copy is stale, so the student must re-run python minisiem.py load"
+    ],
+    "correct": 2,
+    "explanation": "Surviving mutants reveal untested logic; the fix is a near-miss test that fails when that clause is weakened. A survivor does not show the clause is unnecessary, and the unit tests use in-memory events, not minisiem.db.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On importing the edited minisiem.py, Python prints SyntaxWarning: \"\\w\" is an invalid escape sequence. What is the likely cause?",
+    "options": [
+      "SQLite's LIKE does not accept backslashes, and Python is warning you about that",
+      "The test file's WORD constant uses forward slashes instead of backslashes",
+      "The R7 SQL string lost its r prefix, so '%\\winword.exe' is read as an escape",
+      "The JSONL dataset stores paths with doubled backslashes that Python rejects"
+    ],
+    "correct": 2,
+    "explanation": "Without the r prefix, \\w inside a normal string is an invalid escape that recent Python versions warn about. In SQLite LIKE the backslash has no special meaning, so the raw string passes it through unchanged as intended.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R7 passes all 14 unit tests but python minisiem.py rules reports 0 hits for it on the Banyan data. Which approach does the lab suggest for finding the cause?",
+    "options": [
+      "Confirm the dataset was reloaded, then run each clause separately with search",
+      "Delete the R7 test class, since tests that pass while the rule fails are wrong",
+      "Widen the window to 3600 seconds until the rule produces at least one hit",
+      "Run sigma check on the Sigma version, which reports why the SQL returns nothing"
+    ],
+    "correct": 0,
+    "explanation": "The troubleshooting list points to a skipped load or a missing backslash in a LIKE pattern, and debugging clause by clause with search isolates which condition removes the chain. Widening the window hides the defect, and sigma check never sees the SQL.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Sigma version of R7 passes sigma check and uses group-by: Computer. What does the review checklist's Data row raise that the validator could not?",
+    "options": [
+      "temporal_ordered correlations are rejected by every backend, so the rule cannot be converted to any query",
+      "timespan must be expressed in seconds, so 10m is read as ten months by most conversion backends",
+      "The correlation needs its own logsource block, without which it would match every event in the SIEM",
+      "Proxy logs do not normally carry Computer, so the base rules share no group-by value without field mapping"
+    ],
+    "correct": 3,
+    "explanation": "Computer is a Windows event field; proxy events record the client differently, so a real SIEM needs the pipeline to map both into one field. minisiem avoids this only because normalisation already put both into host. sigma check validates structure, not field presence.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "rk_macro_doc_then_shell.yml reports 0 errors and 0 issues from sigma check. What does this result establish?",
+    "options": [
+      "The correlation produces the same single hit on WS-104 as the minisiem SQL",
+      "The portable rule is well formed, not that it runs correctly on your data",
+      "Every converted backend query has been tested against the Banyan dataset",
+      "The group-by field exists in both the proxy and the Sysmon log sources"
+    ],
+    "correct": 1,
+    "explanation": "sigma check parses and validates the rule; no conversion backend was installed in the lab, so no converted query was tested. Until one is, the SQL version proven by the unit tests is the trusted implementation.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Sigma correlation uses type: temporal_ordered. If it were changed to a temporal type that does not require the listed order, which requirement clause would no longer be enforced?",
+    "options": [
+      "Not alerting on a spawn that happened before the download",
+      "Not alerting on a spawn that happened on a different host",
+      "Not alerting on an ordinary .docx download from the web",
+      "Not alerting on a spawn more than ten minutes afterwards"
+    ],
+    "correct": 0,
+    "explanation": "temporal_ordered requires the base rules to match in the listed order, download then spawn; without order, a spawn followed by a download would also correlate. Host is enforced by group-by, the window by timespan and the file type by the base rule.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R7 matches lower(p.parent_image) LIKE '%\\winword.exe' rather than '%winword.exe'. What does the backslash add?",
+    "options": [
+      "It makes the comparison case-insensitive, matching Windows path behaviour",
+      "It stops a match on a different binary whose name merely ends in winword.exe",
+      "It anchors the match to the System32 folder where Office is installed",
+      "It escapes the % wildcard so that SQLite treats it as a literal percent character"
+    ],
+    "correct": 1,
+    "explanation": "Requiring the path separator before the name means the image must be exactly winword.exe, not something like notwinword.exe. Case-insensitivity comes from lower(), and in SQLite LIKE the backslash is an ordinary character, not an escape.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "R7 joins proxy and Sysmon events on host. A reviewer learns that at another site the proxy records only the client IP address, which DHCP reassigns. What is the risk?",
+    "options": [
+      "The join raises an SQL error at run time, so R7 stops and the pipeline reports the failure loudly",
+      "R7 alerts on every proxy event, because an IP never equals a host name in the comparison",
+      "Triage ranks R7 lower, because asset criticality cannot be looked up from an IP address",
+      "The join can fail silently or pair the wrong machines, so R7 misses or misattributes chains"
+    ],
+    "correct": 3,
+    "explanation": "A correlation key is only as good as its meaning in both sources; if the proxy's host is a reassigned IP, matches are lost or attached to the wrong workstation without any error. A failed equality returns no rows rather than every row.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the lab's Sigma version the base rule rk_macro_doc_download has level low, even though a macro document started the Banyan intrusion. What justifies that level?",
+    "options": [
+      "The proxy log source is unreliable, so its rules can never carry a higher Sigma level",
+      "Initial-access techniques are always rated low, because execution has not yet happened",
+      "Teams that exchange macro workbooks make the download alone common and weak evidence",
+      "The replay found only one .docm on the dataset, so the rule is too rare to be useful"
+    ],
+    "correct": 2,
+    "explanation": "The research replay found one .docm in a day of synthetic data, but real data would show many from business units that use macros, so the download alone should not alert at high severity; it gains weight only in the correlation.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A colleague proposes deleting test_spawn_at_exactly_ten_minutes_matched because 'the real chain on WS-104 is two minutes, so the edge never happens'. What is the best response?",
+    "options": [
+      "Delete it: boundary cases rarely occur in production, so they add cost but little value",
+      "Replace it with a test at nine minutes, which exercises the window without float issues",
+      "Keep it, but mark it as an expected failure, since float error at the edge is unavoidable",
+      "Keep it: it is the only test that exposed the float bug and it guards against its return"
+    ],
+    "correct": 3,
+    "explanation": "The boundary test was invisible-to-everything-else evidence of a real defect, and keeping it stops the floating-point version from coming back. A nine-minute test would pass under the buggy code, and the integer fix makes the boundary exact, so no failure is expected.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Each R7 test is built from chain() with exactly one argument changed from the matching default. Why does the lab construct tests this way?",
+    "options": [
+      "A failure then points at exactly one condition of the rule",
+      "Fewer events per test make the suite run measurably faster",
+      "The run() helper accepts at most one changed field per call",
+      "Changing several fields would make the SQL join return errors"
+    ],
+    "correct": 0,
+    "explanation": "If a near miss differs from the matching chain in one field only, its failure isolates that condition; changing several at once can let a test pass for the wrong reason. Speed and helper limits are not the motivation.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Besides fixing the boundary, which weakness of the original R7 does the integer-seconds condition also remove?",
+    "options": [
+      "Reliance on host names being lower case, which breaks when a source writes WS-104 in mixed case",
+      "Reliance on SQLite's LIKE operator, which mis-handles backslashes when the pattern ends in an .exe image name",
+      "Reliance on comparing timestamp strings, which works only while every source writes the identical ISO format",
+      "Reliance on events arriving in time order, which fails when the proxy log is ingested late"
+    ],
+    "correct": 2,
+    "explanation": "The old p.ts >= d.ts compared strings, which orders correctly only if all sources use the same format; converting both to Unix seconds compares actual times. Host case and LIKE handling are not touched by the fix, and the query never relied on ingest order.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The lab's Sigma correlation declares level: high, its base rules are low and medium, and RULE_META gives R7 severity 3. What does the review record say about this?",
+    "options": [
+      "The correlation level must equal the highest base-rule level, so it should be lowered to medium now",
+      "Severity is to be confirmed against the team's level table, re-opening the earlier mapping finding",
+      "RULE_META must be raised to 4, since every high Sigma rule maps to the top of the triage scale",
+      "Nothing, because a correlation's level is informational and never used by the triage process"
+    ],
+    "correct": 1,
+    "explanation": "The kit still has no written level-to-severity mapping, so the lab records R7's severity as provisional pending that table. Neither base-rule levels nor R5's high-equals-4 entry define a rule, which is exactly why the mapping is needed.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The R7 test class has positives for a .docm with Word starting PowerShell and an upper-case .DOCM with cmd.exe, plus a boundary positive. Which branch of R7's logic has no positive test?",
+    "options": [
+      "An .xlsm download followed by Excel starting a shell",
+      "A Word parent that starts cmd.exe as the child process",
+      "A URL whose file extension is written in upper case",
+      "A spawn exactly 600 seconds after the download time"
+    ],
+    "correct": 0,
+    "explanation": "Every test uses the default Word parent and a .docm URL, so the Excel parent and .xlsm branches could be deleted with all tests still green. cmd.exe, upper case and the 600-second edge each have a test.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Banyan adds a requirement clause: R7 'must not alert when the document comes from the internal file server'. Following the lab's method, what should accompany the new SQL condition?",
+    "options": [
+      "A positive test with an internal-server URL, to prove that the new condition runs",
+      "A replay of the Banyan dataset, since it already contains internal-server downloads",
+      "A near-miss test identical to the matching chain except for an internal-server URL",
+      "A raised R7 confidence in RULE_META, since excluding the server removes noise"
+    ],
+    "correct": 2,
+    "explanation": "Each must-not clause becomes a near-miss negative that differs from the matching chain in that one respect, so removing the condition would fail it. A positive cannot prove an exclusion, and the dataset replay is not a test.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After the fix, R7 produces one hit on the 340-event Banyan dataset. A manager concludes that R7's false-positive rate in production will be close to zero. What is the problem with that conclusion?",
+    "options": [
+      "One hit proves recall, not precision; precision can be measured only after an incident",
+      "The dataset is synthetic, so no result from it says anything at all about the rule's own logic",
+      "The hit came from the unit tests, which use different events from those in the dataset",
+      "The dataset holds one true chain; volume must be estimated by replaying weeks of real data"
+    ],
+    "correct": 3,
+    "explanation": "One hit on a dataset built with one chain shows the rule finds it and leaves R1 to R6 unchanged, not how often benign activity matches. The lab's Step 2 replay is the method for estimating volume before deployment.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "WS-104 downloads two .docm files, at 06:12 and 06:13, and Word starts PowerShell at 06:15. How many rows does the fixed R7 query return?",
+    "options": [
+      "One, because the rule reports each spawn only once",
+      "Two, one for each download paired with the single spawn",
+      "One, because only the closest download is paired",
+      "Zero, because two downloads make the pairing too ambiguous"
+    ],
+    "correct": 1,
+    "explanation": "R7 is a self-join that pairs every qualifying proxy event with every qualifying Sysmon event on the same host, and both gaps (180 and 120 seconds) are inside the window. The SQL has no deduplication or nearest-match logic, so two rows result.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An adversary in an authorised exercise learns R7's ten-minute window and waits fifteen minutes after the download before opening the document. What detection coverage remains for that step?",
+    "options": [
+      "R1 still fires on Word starting PowerShell, without the download context",
+      "R7 still fires, because the window is measured from the user's last logon",
+      "Nothing fires, because R1 was retired once R7 covered the same behaviour",
+      "R5 fires, because a delayed spawn is recorded as a log-clearing event"
+    ],
+    "correct": 0,
+    "explanation": "R7 is deliberately additive: R1 keeps alerting on the Office-spawned shell, just with lower confidence. The lab notes that window length is a tuning decision because an adversary can pace activity to sit outside it.",
+    "lesson": 8,
+    "difficulty": "medium"
+  }
+]

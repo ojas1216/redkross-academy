@@ -1,0 +1,36 @@
+{
+  "C08-M07-L07-F1": {
+    "title": "The rule review checklist: six areas",
+    "caption": "The six areas a reviewer checks for every new or changed detection, and the questions each one asks.",
+    "alt": "Six rows, each with an arrow from an area label to its questions. Logic: condition matches the description and requirement; translation means the same; which values does the attacker control. Data: log source collected and mapped; fields exist after parsing; query restricted to the intended log. Tests: a positive test per branch; a near-miss negative per condition; boundary tests on thresholds and windows. Metadata: title, description, fresh id, references, false positives. ATT&CK tags: justified, complete, valid in the pinned version, version recorded. Severity: level justified; maps consistently to the triage scale.",
+    "type": "rows",
+    "arrow": true,
+    "header": ["Area", "Reviewer asks"],
+    "rows": [
+      { "label": "Logic", "tone": "blue", "items": ["Condition matches description and requirement", "Translation means the same", "Which values does the attacker control?"] },
+      { "label": "Data", "tone": "slate", "items": ["Log source collected and mapped", "Fields exist after parsing", "Query restricted to the intended log"] },
+      { "label": "Tests", "tone": "green", "items": ["A positive test per branch", "A near-miss negative per condition", "Boundary tests on thresholds and windows"] },
+      { "label": "Metadata", "tone": "violet", "items": ["Title and description accurate", "Fresh id; references", "Realistic false positives"] },
+      { "label": "ATT&CK tags", "tone": "orange", "items": ["Justified and complete", "Valid in the pinned version", "Version recorded"] },
+      { "label": "Severity", "tone": "red", "items": ["Level justified", "Maps consistently to the triage scale"] }
+    ],
+    "note": "Every row ends either ticked with evidence or as a classified finding: blocking, should fix or note."
+  },
+  "C08-M07-L07-F2": {
+    "title": "Findings register from reviewing the kit's two rules",
+    "caption": "Six findings raised against R1 (Office spawns shell) and R5 (Security log cleared) after every automated gate had passed.",
+    "alt": "Table with columns Rule, Area, Finding and Action. R1, Severity (orange): level high but triage severity 3, while R5 high is 4; action: write a level-to-severity mapping and align both. R1, ATT&CK tags (orange): cmd.exe branch not tagged T1059.003; action: add the tag. R1, Tests (orange): no cmd.exe or letter-case positive test; action: add both tests. R5, Data (orange): SQL has no source filter; action: add source='windows' and convert with a pipeline. R5, Tests (red, blocking): no tests at all; action: add a positive and a near-miss negative. R5, ATT&CK tags (violet): T1685.005 needed verifying; valid in ATT&CK 20.1, T1070.001 is not; action: record the version and add the tactic tag.",
+    "type": "table",
+    "columns": ["Rule", "Area", "Finding", "Action"],
+    "rowTones": ["orange", "orange", "orange", "orange", "red", "violet"],
+    "rows": [
+      ["R1", "Severity", "level high but triage 3; R5 high is 4", "Write level-to-severity map; align"],
+      ["R1", "ATT&CK tags", "cmd.exe branch not tagged T1059.003", "Add attack.t1059.003"],
+      ["R1", "Tests", "No cmd.exe or letter-case positive", "Add both tests"],
+      ["R5", "Data", "SQL has no source filter", "Add source='windows'; use a pipeline"],
+      ["R5", "Tests (blocking)", "No tests at all", "Add positive + near-miss negative"],
+      ["R5", "ATT&CK tags", "T1685.005 verified in ATT&CK 20.1", "Record version; add tactic tag"]
+    ],
+    "note": "sigma check and the unit tests passed for both rules; every finding came from the human checklist pass."
+  }
+}

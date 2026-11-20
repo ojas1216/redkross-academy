@@ -243,6 +243,9 @@ coordinator states the count for each lesson). Format of each file:
 - Each question tests a different idea; no paraphrases of another question in the bank.
 - 4 options, exactly one defensibly correct; three plausible distractors of similar
   length and style (technically close where possible). No "all/none of the above".
+- The correct option must NOT usually be the longest: across a file it may be the
+  uniquely longest option in at most 40% of questions (the validator checks this).
+  Write distractors as long, specific and qualified as the answer.
 - `correct` is the 0-based index; spread it evenly (each position 20-30% of a file).
 - `explanation` says why the answer is right and, briefly, why the strongest
   distractor is wrong. `lesson` is the lesson number the question is based on.
