@@ -60,7 +60,7 @@
       "No-data, because no join key links the two threads"
     ],
     "correct": 3,
-    "explanation": "No shared host, identity or session field connects the records. Closeness in time is not evidence of a link, and inventory ownership would be enrichment. Different entities do not prove the threads are unrelated either, so the result is no-data, not benign.",
+    "explanation": "The VPN records have no host or session field, and no record links gopal's session to WS-104; a failed attempt under divya's name is a lead about identity, not a link. Closeness in time is not evidence of a link, and inventory ownership would be enrichment. Different entities do not prove the threads are unrelated either, so the result is no-data, not benign.",
     "lesson": 8,
     "difficulty": "medium"
   },

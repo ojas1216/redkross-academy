@@ -59,8 +59,9 @@ inventory check, rendering checks, screenshots, build + test results)
   20, final of 50, credential, wallet); all 96 lessons rendered through the app's
   markdown parser + lesson-player container: 163 images, 0 broken, every figure
   followed by its walkthrough, no raw placeholders / fences / callout markers.
-- Still worth doing: a signed-in pass through the real lesson player and a real exam
-  in the browser; M10 queries were hand-traced (not executed) by its author.
+- M10 independent review (9 findings) re-checked against the shipped dataset and applied;
+  C08 rebuilt afterwards.
+- Still worth doing: a signed-in pass through the real lesson player and a real exam in the browser.
 
 **Next course:** pick from the defence-led list below; the per-module workflow is unchanged.
 C05 (14 drafted lessons in M01-M04) stays paused.
