@@ -2,8 +2,8 @@
   {
     "q": "Two SOCs both report \"MTTR 40 minutes\" in a quarterly benchmark. Why can you not conclude that they perform equally well?",
     "options": [
-      "Their MTTR definitions may use different start and stop points, such as creation versus acknowledgement or containment versus closure",
-      "MTTR is only comparable when both SOCs run the same SIEM product and the same correlation rules",
+      "Their MTTR definitions may use different start and stop points, such as creation vs acknowledgement or containment vs closure",
+      "MTTR is only comparable when both SOCs run the same SIEM product, the same correlation rules, the same case platform and the same shift pattern",
       "One SOC must be reporting a median and the other a mean, because benchmarks always mix the two",
       "MTTR is a lagging metric that only becomes comparable after a full year of case data"
     ],
@@ -56,7 +56,7 @@
     "options": [
       "It would lower the reported false-positive share and hide genuinely noisy rules",
       "It would make correctly firing rules look noisy, risking them being disabled and losing coverage",
-      "It would break the median calculation, because BTP cases have no acknowledgement timestamp",
+      "It would break the median calculation, because BTP cases have no acknowledgement timestamp to measure from",
       "It would double-count each BTP case in both the true-positive and false-positive totals"
     ],
     "correct": 1,
@@ -68,7 +68,7 @@
     "q": "The lab run reports a false-positive share of 40 per cent. What does this figure primarily point to?",
     "options": [
       "An opportunity for detection engineering to tune the rules that produced those alerts",
-      "Tier 1 analysts misclassifying real incidents in order to protect their averages",
+      "Tier 1 analysts misclassifying real incidents as false positives in order to protect their averages",
       "An inflated MTTA, because false positives are the slowest cases to acknowledge",
       "A coverage gap, because critical assets are not sending enough log sources"
     ],
@@ -96,7 +96,7 @@
       "The overall median of 20 minutes is the right figure for planning true-positive workload",
       "False positives consume more analyst time than true positives because their count is equal",
       "A single blended MTTR describes no real case, so resolution should be reported by disposition",
-      "The TP median of 205 minutes is reliable enough to set a new resolution SLA from it"
+      "The TP median of 205 minutes is reliable enough to set a new true-positive resolution SLA directly from it"
     ],
     "correct": 2,
     "explanation": "Blending 10-minute FPs with multi-hour TPs gives a figure that matches neither, so splitting by disposition and severity is more informative. With only two cases, the TP median is far too fragile to set an SLA.",
@@ -106,7 +106,7 @@
   {
     "q": "Over one quarter, a SOC's MTTR falls sharply while the reopen rate rises and weekly case-review scores fall. What is the most likely interpretation?",
     "options": [
-      "Detection rules were tuned successfully, so fewer complex alerts reach analysts",
+      "Detection rules were tuned successfully, so fewer complex alerts reach analysts and cases close faster",
       "Analysts have become more efficient at investigation and evidence gathering",
       "Cases are probably being closed before investigation is complete, a Goodhart's law effect",
       "Telemetry coverage has improved, so each investigation needs less searching"
@@ -120,7 +120,7 @@
     "q": "Why should the timestamps behind SOC speed metrics be written automatically by the case system with an audit trail?",
     "options": [
       "Hand-entered times drift and can be altered under pressure, so metrics built on them cannot be trusted",
-      "Hand-entered times cannot be stored in ISO 8601 format, so metric scripts fail to parse them",
+      "Hand-entered times cannot be stored in ISO 8601 format, so the metric scripts fail to parse them reliably",
       "Automatic timestamps let the SOC compute MTTD in real time for every case as it opens",
       "Automatic timestamps exclude false positives from MTTR without any extra filtering"
     ],
@@ -146,7 +146,7 @@
     "q": "A SOC lead plans to publish a weekly leaderboard ranking analysts by personal MTTR. What does the lesson recommend?",
     "options": [
       "Publish it, because individual MTTR is an objective and fair measure of analyst skill",
-      "Publish it, but rank analysts by median rather than mean so outliers are ignored",
+      "Publish it, but rank analysts by median rather than mean so that single long outliers are ignored",
       "Publish it, but exclude true positives so long investigations are not penalised",
       "Do not publish rankings; use per-analyst data privately for coaching alongside case review"
     ],
@@ -174,7 +174,7 @@
       "metrics_ext.py explicitly calls a summary function defined in soc_metrics.py",
       "Python prints the docstring and top-level output of every module it imports",
       "soc_metrics.py has no if __name__ == \"__main__\" guard, so its top-level prints run on import",
-      "The from-import statement re-executes soc_metrics.py after metrics_ext.py finishes"
+      "The from-import statement re-executes soc_metrics.py a second time after metrics_ext.py finishes running"
     ],
     "correct": 2,
     "explanation": "Importing a module executes its top-level code, and without a main guard the print statements run as a side effect. No summary function exists, and the import runs once, at the point of import, not afterwards.",
@@ -197,7 +197,7 @@
   {
     "q": "A weekly export contains several cases that are still open at the end of the reporting period. How should they be handled in resolution metrics?",
     "options": [
-      "Include them with a resolution time set to the period end so MTTR covers every case",
+      "Include them with a resolution time set to the period end, so that MTTR covers every case in the export",
       "Exclude them from resolution metrics, but report how many are open and the age of the oldest",
       "Delete them from the export, because unresolved cases distort the mean resolution time",
       "Give them the current median resolution time so the sample size stays the same"
@@ -211,7 +211,7 @@
     "q": "Why are MTTD and time to contain normally computed only over true positives, while MTTA and MTTR can cover all cases?",
     "options": [
       "A false positive has no attacker activity to detect or contain, so those intervals have no meaning",
-      "Containment times are recorded only by the EDR, which discards false-positive cases",
+      "Containment times are recorded only by the EDR, which discards false-positive cases before they are exported",
       "Including false positives in those intervals would artificially lower MTTA as well",
       "Containment and detection SLAs apply only to benign true positives by convention"
     ],
@@ -251,7 +251,7 @@
     "options": [
       "The mean should be plotted instead, because it is more stable at small sample sizes",
       "Critical TPs should be merged with false positives so the sample becomes meaningful",
-      "The 90th percentile should be reported instead, because it is reliable at any sample size",
+      "The 90th percentile should be reported instead, because it stays reliable at any sample size, including n=2",
       "With n=2 the median is fragile and a percentile meaningless, so trends need caution and n shown"
     ],
     "correct": 3,
@@ -278,7 +278,7 @@
       "That detection technology failed to raise any warnings about the intrusion",
       "That warnings were raised but not acted on, the failure that response metrics and exception lists expose",
       "That short log retention made it impossible to reconstruct the timeline afterwards",
-      "That excessive false positives forced analysts to switch off the intrusion detection system"
+      "That excessive false positives forced analysts to switch off the intrusion detection system before the breach"
     ],
     "correct": 1,
     "explanation": "The Senate committee staff analysis reported that automated intrusion-detection warnings were generated but not responded to; the gap was in response, which acknowledgement metrics and breach lists make visible. It was not a failure to detect.",

@@ -3,7 +3,7 @@
     "q": "A start-of-shift health query returns proxy last_seen 12:32, vpn 13:33, windows 08:17 and sysmon 06:14. What is the soundest conclusion before any investigation?",
     "options": [
       "Endpoint telemetry may have stopped after 06:14, so a lack of Sysmon evidence later cannot be read as no activity",
-      "Sysmon is healthy, because its last event matches the R1 alert time and so the rule is working",
+      "Sysmon is healthy, because its last event at 06:14 matches the R1 alert time, which shows the rule and agent are working",
       "The proxy source is faulty, because it is the only source with far more events than the others",
       "Nothing of note, because sources naturally report at different rates throughout a working day"
     ],
@@ -18,7 +18,7 @@
       "The highest-priority alert may have been acknowledged already by the previous shift",
       "The analyst will work alerts in score order rather than in event-time order",
       "A source that has stopped sending looks exactly like a quiet night, so blind spots go unnoticed",
-      "The analyst cannot acknowledge alerts until the handover has been signed in the case system"
+      "The analyst cannot acknowledge any alert until the handover has been signed off in the case system"
     ],
     "correct": 2,
     "explanation": "The queue cannot show what the SOC can no longer see; only a health check reveals a silent source. The other options describe minor or invented constraints rather than the core risk.",
@@ -31,7 +31,7 @@
       "Close it as a false positive, since the change calendar proves the rule fired in error",
       "Check that the ticket matches the account and host, then record the change reference with the disposition",
       "Escalate it immediately, because account creation on any workstation is always high impact",
-      "Suppress the rule for the morning, since approved work makes all alerts in that window benign"
+      "Suppress the rule for the whole morning, since approved work makes every alert in that change window benign"
     ],
     "correct": 1,
     "explanation": "The change calendar can make the alert a benign true positive, but only if it actually covers this account and host, and recording the reference makes the decision defensible. In Banyan, svc_update was created by divya on a finance workstation, which a build ticket would not normally explain.",
@@ -134,7 +134,7 @@
     "options": [
       "The manifest is out of date and should be regenerated from the current file before use",
       "The file has changed since export, so its integrity cannot be relied on and the custody record must be examined",
-      "The mismatch is expected, because the custody utc field changes each time the file is opened",
+      "The mismatch is expected, because the custody utc field is rewritten each time the exported file is opened or copied",
       "The events were re-indexed by the SIEM, which updates exported copies automatically"
     ],
     "correct": 1,
@@ -185,9 +185,9 @@
     "q": "Which escalation note best lets a Tier 2 responder act without re-investigating CASE-0001?",
     "options": [
       "WS-104 looks compromised, beaconing and a cleared log seen; please take over urgently",
-      "UTC timeline of the WS-104 activity, affected user and criticality, evidence export reference, actions taken, recommendation and open unknowns",
+      "UTC timeline of WS-104 activity, affected user and criticality, evidence export reference, actions taken, recommendation, open unknowns",
       "All 32 exported events pasted in full, so the responder can review them in their own order",
-      "Assessment: likely exfiltration; recommend isolating WS-104; details are in the analyst's notes"
+      "Assessment: likely exfiltration; recommend isolating WS-104 at once; the timeline, evidence and remaining details are in the analyst's personal notes"
     ],
     "correct": 1,
     "explanation": "A good escalation states what and when, which entities and how critical, the evidence, what was done, what is recommended and what is still unknown. A raw event dump shifts the analysis back to the receiver.",
@@ -278,7 +278,7 @@
       "Because the case system locks notes once the analyst's shift has formally ended",
       "Because notes written later are shorter, which makes them harder for reviewers to sample",
       "Because notes reconstructed from memory are less accurate and complete than ones written while working",
-      "Because each loop step must be documented before the next alert in the queue can be acknowledged"
+      "Because each loop step must be documented before the next alert in the queue can be acknowledged by anyone"
     ],
     "correct": 2,
     "explanation": "The case note serves handover, escalation, review and possibly legal use, and memory-based notes lose queries, times and evidence references. The other options invent system behaviour.",

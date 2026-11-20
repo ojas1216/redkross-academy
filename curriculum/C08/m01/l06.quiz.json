@@ -1,7 +1,12 @@
 [
   {
     "q": "The SOC promises its business owners to contain compromised accounts quickly, and the identity team commits in writing to reset an account within one hour of a SOC request. In ITIL terms, what is the identity team's commitment?",
-    "options": ["A service level agreement, because it defines a measurable service level", "A service level objective, because it is a specific measurable target", "An operational level agreement, because it is between teams of the same organisation and supports the SLA", "An underpinning contract, because the SOC depends on it to meet its own commitments"],
+    "options": [
+      "A service level agreement, because it defines a measurable service level",
+      "A service level objective, because it is a specific measurable target",
+      "An operational level agreement, because it is between teams of the same organisation and supports the SLA",
+      "An underpinning contract, because the SOC depends on it to meet its own commitments to the business owners"
+    ],
     "correct": 2,
     "explanation": "An OLA is an internal agreement between teams that supports an SLA. An underpinning contract is the close distractor, but that term is for external suppliers such as a log-platform vendor.",
     "lesson": 6,
@@ -9,7 +14,12 @@
   },
   {
     "q": "An MSSP contract with an Indian customer covered by the CERT-In Directions says the provider will notify the customer of confirmed incidents 'within five hours of the incident being noticed'. What is the main problem?",
-    "options": ["The customer's six-hour CERT-In clock also runs from noticing, leaving it only about an hour to prepare and file the report", "Nothing, because CERT-In's six hours start when the provider notifies the customer, not when the incident is noticed", "The contract should use business hours, since CERT-In reports can only be filed during the working day", "The provider, not the customer, becomes responsible for reporting to CERT-In once it has the facts"],
+    "options": [
+      "The customer's six-hour CERT-In clock also runs from noticing, leaving it only about an hour to prepare and file the report",
+      "Nothing, because CERT-In's six-hour clock starts only when the provider notifies the customer, not when the incident is first noticed",
+      "The contract should use business hours, since CERT-In reports can only be filed during the working day",
+      "The provider, not the customer, becomes responsible for reporting to CERT-In once it has the facts"
+    ],
     "correct": 0,
     "explanation": "An SLA does not move the customer's regulatory obligation, so notification targets must leave enough time inside the six hours. The second option is the key misconception: the clock runs from noticing or being notified, not from the provider's hand-off.",
     "lesson": 6,
@@ -17,7 +27,12 @@
   },
   {
     "q": "A critical alert reaches the queue at 23:00 IST. The SLA says 'acknowledge within 30 minutes' using a business-hour timer for 09:00-18:00 IST on weekdays, and the next day is a working day. When is acknowledgement due?",
-    "options": ["23:30 IST the same night", "09:00 IST the next morning", "18:00 IST the next day", "09:30 IST the next morning"],
+    "options": [
+      "23:30 IST the same night",
+      "09:00 IST the next morning",
+      "18:00 IST the next day",
+      "09:30 IST the next morning"
+    ],
     "correct": 3,
     "explanation": "A business-hour timer stops outside the working day, so the 30 minutes only begin to count at 09:00 and expire at 09:30. That is exactly why critical work in a 24x7 SOC uses calendar-hour timers.",
     "lesson": 6,
@@ -25,7 +40,12 @@
   },
   {
     "q": "A case is created at 09:00:00 UTC. An analyst opens it to look at the details at 09:04 and assigns it to themselves at 09:12. Against a correctly defined SLA, what is the time to acknowledge?",
-    "options": ["4 minutes, because the analyst had seen the alert by 09:04", "12 minutes, because acknowledgement stops when a named analyst takes ownership", "0 minutes, because the case was in the queue and visible from creation", "8 minutes, measured from first viewing to the assignment of an owner"],
+    "options": [
+      "4 minutes, because the analyst had seen the alert by 09:04",
+      "12 minutes, because acknowledgement stops when a named analyst takes ownership",
+      "0 minutes, because the case was in the queue and visible from creation",
+      "8 minutes, measured from first viewing to the assignment of an owner"
+    ],
     "correct": 1,
     "explanation": "Time to acknowledge stops when a named analyst takes ownership, not when someone opens the alert to look at it. Counting first viewing would let the SOC appear responsive while nobody owned the case.",
     "lesson": 6,
@@ -33,7 +53,12 @@
   },
   {
     "q": "A Medium case created at 10:00 is upgraded to Critical at 13:00 when the analyst discovers the host is a domain controller. Which timer rule does the lesson recommend, and why?",
-    "options": ["Apply the stricter Critical target measured from the original creation time, so nobody gains time by starting low", "Restart all timers from 13:00 using Critical targets, since the risk only became known then", "Keep the Medium targets, because severity at creation is what the SLA measures", "Pause every timer during reclassification and resume with Critical targets afterwards"],
+    "options": [
+      "Apply the stricter Critical target measured from the original creation time, so nobody gains time by starting low",
+      "Restart all timers from 13:00 using Critical targets, since the domain-controller risk only became known at that point",
+      "Keep the Medium targets, because severity at creation is what the SLA measures",
+      "Pause every timer during reclassification and resume with Critical targets afterwards"
+    ],
     "correct": 0,
     "explanation": "Measuring the stricter target from original creation removes the incentive to start cases at a low severity. Restarting at 13:00 is the plausible but gameable alternative, because it rewards initial under-classification.",
     "lesson": 6,
@@ -41,7 +66,12 @@
   },
   {
     "q": "Which of these is a legitimate use of an SLA clock pause?",
-    "options": ["Pausing a Critical case's time-to-notify timer while legal reviews the wording of the notice", "Setting a case to 'awaiting customer' near a breach so the analyst has time to finish triage", "Pausing a High case's resolution timer after a recorded request for isolation approval, resuming automatically on reply", "Pausing all open case timers during the shift handover so that work is not counted twice"],
+    "options": [
+      "Pausing a Critical case's time-to-notify timer while legal reviews and approves the exact wording of the notice sent to the customer",
+      "Setting a case to 'awaiting customer' near a breach so the analyst has time to finish triage",
+      "Pausing a High case's resolution timer after a recorded request for isolation approval, resuming automatically on reply",
+      "Pausing all open case timers during the shift handover so that work is not counted twice"
+    ],
     "correct": 2,
     "explanation": "A pause must be defined in the SLA, set by a recorded outbound request, and cleared on reply. Pauses should never apply to acknowledgement or notification for critical severities, which rules out the first option.",
     "lesson": 6,
@@ -49,7 +79,12 @@
   },
   {
     "q": "The Critical acknowledgement target is 15 minutes and the case platform warns the owner when 75% of a target has elapsed. An unowned Critical case reached the queue at 09:00. When should the warning fire?",
-    "options": ["At 09:05, a third of the way into the target", "At 09:10, two thirds of the way into the target", "At 09:15, when the target is reached", "At about 09:11, when 75% of the target has elapsed"],
+    "options": [
+      "At 09:05, a third of the way into the target",
+      "At 09:10, two thirds of the way into the 15-minute target",
+      "At 09:15, when the target is reached",
+      "At about 09:11, when 75% of the target has elapsed"
+    ],
     "correct": 3,
     "explanation": "75% of 15 minutes is 11.25 minutes, so the warning fires at about 09:11 and the breach at 09:15. 09:15 is the breach point, where the shift lead is alerted, not the warning.",
     "lesson": 6,
@@ -57,7 +92,12 @@
   },
   {
     "q": "The lab's sla_check.py reports 'acknowledged within 15 min: 4/5 (80%)' and one breach: a true positive acknowledged after 150 minutes. How should the monthly SLA report present this?",
-    "options": ["Report 80% compliance, since the median of 4.0 minutes shows the SOC performs well overall", "List the breached case individually with its disposition and a reason code, alongside the percentage", "Exclude the breach as an outlier, because one case distorts a sample of five", "Report the mean of 32.4 minutes only, because it already reflects the slow case"],
+    "options": [
+      "Report 80% compliance only, since the median of 4.0 minutes shows the SOC performs well overall and the breach is noise",
+      "List the breached case individually with its disposition and a reason code, alongside the percentage",
+      "Exclude the breach as an outlier, because one case distorts a sample of five",
+      "Report the mean of 32.4 minutes only, because it already reflects the slow case"
+    ],
     "correct": 1,
     "explanation": "The single breach is the case that mattered most, and a percentage alone hides it. Reporting the mean is the close distractor, but it still does not show which case breached, whether it was real, or why.",
     "lesson": 6,
@@ -65,7 +105,12 @@
   },
   {
     "q": "A customer complains that their MSSP 'never finds anything useful', yet every monthly SLA report is fully green. What is the most likely cause, and the best remedy?",
-    "options": ["The SLA measures speed of acknowledgement rather than investigation quality; add quality reviews and service reviews of real cases", "The SLA targets are too tight; relax them so that analysts have more time per alert", "The customer misunderstands the report; add more charts so the green results are clearer", "The provider is falsifying timestamps; move SLA calculation to the customer's own SIEM"],
+    "options": [
+      "The SLA measures acknowledgement speed, not investigation quality; add quality reviews and service reviews of real cases",
+      "The SLA targets are too tight; relax them so that analysts have more time per alert",
+      "The customer misunderstands the report; add more charts so the green results are clearer",
+      "The provider is falsifying timestamps; move SLA calculation to the customer's own SIEM and audit the provider's case system"
+    ],
     "correct": 0,
     "explanation": "This is a 'watermelon' SLA, green outside and red inside, because the agreement measures the wrong things. Relaxing targets does not address what is measured; pairing speed with quality review does.",
     "lesson": 6,
@@ -73,7 +118,12 @@
   },
   {
     "q": "After a time-to-acknowledge target is introduced, analysts start clicking 'assign to me' on every new alert and looking at them later. Which change best counters this?",
-    "options": ["Tighten the acknowledgement target so analysts have less time to delay", "Remove the acknowledgement target and measure only time to resolve", "Allow each analyst to hold only one unacknowledged alert at a time", "Also measure time to triage and review samples of acknowledged cases"],
+    "options": [
+      "Tighten the acknowledgement target so analysts have less time to delay",
+      "Remove the acknowledgement target and measure only time to resolve",
+      "Allow each analyst to hold only one unacknowledged alert at a time",
+      "Also measure time to triage and review samples of acknowledged cases"
+    ],
     "correct": 3,
     "explanation": "Measuring time to an initial disposition and sampling cases exposes acknowledgement without action. Measuring only resolution invites the more dangerous distortion of closing cases early.",
     "lesson": 6,
@@ -81,7 +131,12 @@
   },
   {
     "q": "An MSSP pays penalties when time to resolve is missed. Its analysts begin closing difficult cases as false positives near the deadline. Why is this the most dangerous SLA distortion, and what is the control?",
-    "options": ["It inflates the false-positive share in reports; the control is to remove false-positive metrics", "It shortens resolution times too much; the control is to add a minimum time before closure", "It turns real alerts into 'noise'; the control is quality review of closed cases and treating reopened cases as failures", "It breaches the notification SLA; the control is to pause resolution timers on difficult cases"],
+    "options": [
+      "It inflates the false-positive share in monthly reports; the control is to remove false-positive metrics from the SLA entirely",
+      "It shortens resolution times too much; the control is to add a minimum time before closure",
+      "It turns real alerts into 'noise'; the control is quality review of closed cases and treating reopened cases as failures",
+      "It breaches the notification SLA; the control is to pause resolution timers on difficult cases"
+    ],
     "correct": 2,
     "explanation": "Early closure can bury a real intrusion, so closed cases are sampled and reopens count as quality failures. Pausing timers would just add a second gaming route, the abuse of pauses.",
     "lesson": 6,
@@ -89,7 +144,12 @@
   },
   {
     "q": "A SOC SLA starts the acknowledgement clock at the timestamp of the underlying log event rather than when the alert reaches the SOC queue. What is the effect?",
-    "options": ["Clock-synchronisation errors between systems no longer affect the measurement", "Log collection and rule scheduling delays count against the SOC's acknowledgement time", "The SOC gains time, because events are always logged after the alert is raised", "Paused intervals can no longer be subtracted from the elapsed time"],
+    "options": [
+      "Clock-synchronisation errors between systems no longer affect the measurement",
+      "Log collection and rule scheduling delays count against the SOC's acknowledgement time",
+      "The SOC gains time, because events are always logged after the alert is raised",
+      "Paused intervals can no longer be subtracted from the elapsed time"
+    ],
     "correct": 1,
     "explanation": "Starting at event time charges ingestion and rule delays to the SOC. Most SLAs start at queue arrival, the first moment the SOC can act, and measure the earlier delay separately as time to detect.",
     "lesson": 6,
@@ -97,7 +157,12 @@
   },
   {
     "q": "Why does the CERT-In requirement to synchronise ICT system clocks with NIC or NPL NTP servers (or servers traceable to them) matter for SOC SLAs?",
-    "options": ["It makes timestamps from different systems comparable, so start and stop events can be measured reliably", "It allows SLA timers to run in IST instead of UTC for Indian customers", "It makes the case system the legal source of time for regulatory reports", "It removes the need to record the time zone alongside each timestamp"],
+    "options": [
+      "It makes timestamps from different systems comparable, so start and stop events can be measured reliably",
+      "It allows SLA timers to run in IST instead of UTC for Indian customers, matching the regulator's own reporting clock",
+      "It makes the case system the legal source of time for regulatory reports",
+      "It removes the need to record the time zone alongside each timestamp"
+    ],
     "correct": 0,
     "explanation": "SLA timers subtract one event's timestamp from another's, often from different systems, so clocks must agree. The lesson still records every timestamp in UTC; synchronisation does not change the time zone.",
     "lesson": 6,
@@ -105,7 +170,12 @@
   },
   {
     "q": "Using the illustrative Banyan matrix, High-severity CASE-1042 is confirmed as an account takeover at 05:00Z. By when must the customer be notified?",
-    "options": ["05:30Z, the High acknowledgement target measured from confirmation", "07:00Z, two hours after confirmation, matching the High triage target", "09:00Z, within four hours of confirmation", "11:00Z, six hours after confirmation to align with CERT-In"],
+    "options": [
+      "05:30Z, the High acknowledgement target measured from confirmation",
+      "07:00Z, two hours after confirmation, matching the High triage target",
+      "09:00Z, within four hours of confirmation",
+      "11:00Z, six hours after confirmation to align with CERT-In"
+    ],
     "correct": 2,
     "explanation": "High notification is 'within 4 h' of confirmation, and the notification column starts at confirmation, not at alert creation. The CERT-In six hours is a separate clock, running from noticing, that must be checked independently.",
     "lesson": 6,
@@ -113,7 +183,12 @@
   },
   {
     "q": "In the Banyan severity matrix, Critical and High targets are in minutes and hours, while Medium and Low are in business days. What does this design require of the case platform?",
-    "options": ["A separate case queue for each severity level", "Manual timing of Medium and Low cases by the shift lead", "That Medium and Low cases are never escalated outside business hours", "Both calendar-hour and business-hour clocks, because high-severity work is 24x7 while lower severities can wait for daytime staff"],
+    "options": [
+      "A separate case queue for each severity level",
+      "Manual timing of Medium and Low cases by the shift lead",
+      "That Medium and Low cases are never escalated outside business hours, even when new evidence shows they are more serious than first thought",
+      "Both calendar-hour and business-hour clocks, since high-severity work runs 24x7 while lower severities wait for daytime staff"
+    ],
     "correct": 3,
     "explanation": "The change of units is deliberate, and implementing it needs both kinds of timer. The 'never escalated' option is wrong: a Medium case can be reclassified upward at any hour, which then applies the stricter target.",
     "lesson": 6,
@@ -121,7 +196,12 @@
   },
   {
     "q": "A SOC's SLA promises to contain a compromised account within one hour, but containment depends on the identity team, which has no commitment to act on SOC requests. What does this reveal?",
-    "options": ["The SLA should be changed to business-hour timers so the identity team can act during working hours", "The SLA promises something the SOC cannot deliver, because it lacks a supporting OLA with the identity team", "The containment target should be paused permanently until the identity team replies to each request", "The identity team's delays should be recorded as SOC breaches to motivate faster action"],
+    "options": [
+      "The SLA should be changed to business-hour timers so that the identity team can act on requests during its working hours",
+      "The SLA promises something the SOC cannot deliver, because it lacks a supporting OLA with the identity team",
+      "The containment target should be paused permanently until the identity team replies to each request",
+      "The identity team's delays should be recorded as SOC breaches to motivate faster action"
+    ],
     "correct": 1,
     "explanation": "An SLA can only be met if the agreements beneath it are met; the missing piece is an OLA. A permanent pause would just hide the dependency rather than fix it.",
     "lesson": 6,
@@ -129,7 +209,12 @@
   },
   {
     "q": "A fictional hospital's MSSP contract says only 'monitoring of logs'. Which gap matters most when an alert fires at 3 a.m.?",
-    "options": ["It does not say which logs, during which hours, how quickly alerts are examined, or who is called", "It does not name the SIEM product or version the provider will use", "It does not state how many analysts the provider employs in total", "It does not require the provider to be based in the same country as the hospital"],
+    "options": [
+      "It does not say which logs, during which hours, how quickly alerts are examined, or who is called",
+      "It does not name the SIEM product or version the provider will use",
+      "It does not state how many analysts the provider employs in total",
+      "It does not require the provider to be based in the same country as the hospital, or to keep its analysts on site"
+    ],
     "correct": 0,
     "explanation": "Scope, hours, time targets and escalation contacts decide what actually happens at 3 a.m. The tooling and headcount options are operational details an SLA need not fix.",
     "lesson": 6,
@@ -137,7 +222,12 @@
   },
   {
     "q": "A SOC sets a Critical acknowledgement target of 2 minutes with a staffing level that can realistically deliver 10. What does the lesson predict?",
-    "options": ["Analysts will become faster over time, because tight targets drive improvement", "The SOC will report frequent breaches, but detection quality will be unaffected", "Constant breaches teach everyone to ignore breach alerts, and analysts acknowledge without looking", "Customers will receive service credits, which fund the extra staff needed to meet the target"],
+    "options": [
+      "Analysts will become faster over time, because tight targets drive improvement",
+      "The SOC will report frequent breaches, but detection quality will be unaffected",
+      "Constant breaches teach everyone to ignore breach alerts, and analysts acknowledge without looking",
+      "Customers will receive service credits, which in turn fund the extra staff needed to meet the target within months"
+    ],
     "correct": 2,
     "explanation": "Unrealistic targets both devalue breach alerts and push people to meet the number instead of doing the work. Targets should be set from measured alert volumes and staffing, with noisy detections fixed.",
     "lesson": 6,
@@ -145,7 +235,12 @@
   },
   {
     "q": "For the time-to-notify target in the Banyan matrix, what is the start event?",
-    "options": ["Creation of the alert in the SIEM", "Confirmation of an incident", "Acknowledgement by the case owner", "Completion of the triage decision on the alert"],
+    "options": [
+      "Creation of the alert in the SIEM",
+      "Confirmation of an incident",
+      "Acknowledgement by the case owner",
+      "Completion of the triage decision on the alert"
+    ],
     "correct": 1,
     "explanation": "Notification is measured from confirmation of an incident, which is why its column has a different start event from acknowledgement and triage. On the timer figure, escalation as an incident is what starts the notification clock.",
     "lesson": 6,
@@ -153,7 +248,12 @@
   },
   {
     "q": "A High case breached its two-hour triage target. The next day, further analysis shows it should have been Medium all along, and it is downgraded. Under the lesson's rules, what happens to the breach?",
-    "options": ["It is removed, because the Medium triage target of one business day was not exceeded", "It is converted to a warning, because the original severity was wrong", "It is transferred to the analyst who assigned the original severity", "It remains recorded; a downgrade keeps any breach already recorded, though its reason code can note the misclassification"],
+    "options": [
+      "It is removed, because the Medium triage target of one business day was never actually exceeded once the severity was corrected",
+      "It is converted to a warning, because the original severity was wrong",
+      "It is transferred to the analyst who assigned the original severity",
+      "It remains recorded; a downgrade keeps any breach already recorded, though its reason code can note the misclassification"
+    ],
     "correct": 3,
     "explanation": "A downgrade keeps existing breaches, otherwise downgrading near or after a breach would become a way to erase failures. 'Misclassified severity' is one of the lesson's reason codes, so the review still explains it.",
     "lesson": 6,
@@ -161,7 +261,12 @@
   },
   {
     "q": "In a contractual dispute, the customer questions when a critical case was escalated. Which handling of SLA records best supports the SOC?",
-    "options": ["Timestamps typed by the analyst at each step, so the record reflects their own judgement", "A summary of the case written by the shift lead after closure", "Timestamps generated by the case system, kept with the case and protected from editing", "Screenshots of the SLA dashboard taken at the end of each month"],
+    "options": [
+      "Timestamps typed by the analyst at each step, so the record reflects their own judgement",
+      "A summary of the case written by the shift lead after closure",
+      "Timestamps generated by the case system, kept with the case and protected from editing",
+      "Screenshots of the SLA dashboard taken at the end of each month"
+    ],
     "correct": 2,
     "explanation": "SLA records are evidence and must be system-generated, retained with the case and tamper-resistant. Hand-typed times are open to error and challenge, which is why the lesson rules them out.",
     "lesson": 6,
@@ -169,7 +274,12 @@
   },
   {
     "q": "A SOC detects a personal data breach at a customer. Under the DPDP Act 2023, the data fiduciary must inform the Data Protection Board and affected data principals. How does the SOC's SLA bear on this?",
-    "options": ["Its notification target to the customer's privacy or legal team determines how early that decision can be made", "The SOC must notify the Data Protection Board directly within six hours under its SLA", "The SOC's SLA replaces the fiduciary's obligation once the customer has been informed", "It has no bearing, because personal data breaches are handled outside security monitoring"],
+    "options": [
+      "Its notification target to the customer's privacy or legal team determines how early that decision can be made",
+      "The SOC must notify the Data Protection Board directly within six hours under its SLA, on behalf of the fiduciary and the principals",
+      "The SOC's SLA replaces the fiduciary's obligation once the customer has been informed",
+      "It has no bearing, because personal data breaches are handled outside security monitoring"
+    ],
     "correct": 0,
     "explanation": "The SOC usually does not decide on DPDP notification, but its notification SLA controls how soon the fiduciary can. Six hours belongs to CERT-In reporting, not to the DPDP Act, and an SLA never replaces a legal duty.",
     "lesson": 6,
@@ -177,7 +287,12 @@
   },
   {
     "q": "An analyst argues that the CERT-In six-hour reporting clock only starts once the investigation has established root cause, so there is no need to involve legal early. How should the SOC's internal process be designed instead?",
-    "options": ["Start the internal clock at closure, since only a complete investigation can be reported accurately", "Hand the case to legal once the customer approves containment, since that marks the confirmed incident", "Let the six-hour clock start at the next shift handover, so ownership is clear before reporting", "Treat the clock as running from noticing and hand the facts to legal or compliance well inside it, for example within two hours"],
+    "options": [
+      "Start the internal clock at closure, since only a complete investigation can be reported accurately",
+      "Hand the case to legal only once the customer approves containment, since that approval marks the moment the incident is confirmed",
+      "Let the six-hour clock start at the next shift handover, so ownership is clear before reporting",
+      "Treat the clock as running from noticing and hand the facts to legal or compliance well inside it, for example within two hours"
+    ],
     "correct": 3,
     "explanation": "The six hours run from noticing or being notified, not from completing the investigation, so the internal target must leave time to prepare and approve the report. Waiting for closure could miss the deadline entirely.",
     "lesson": 6,
@@ -185,7 +300,12 @@
   },
   {
     "q": "A manager says, 'Our mean time to acknowledge was 32.4 minutes this month, so our SLA is met.' What is wrong with this reasoning?",
-    "options": ["Mean time to acknowledge can only be calculated for true-positive cases", "An SLA is checked case by case against a target, while MTTA is an aggregate that can hide individual breaches", "The SLA should be measured with the median, which always matches compliance", "A mean above 15 minutes automatically means every Critical case breached"],
+    "options": [
+      "Mean time to acknowledge can only be calculated for true-positive cases",
+      "An SLA is checked case by case against a target, while MTTA is an aggregate that can hide individual breaches",
+      "The SLA should be measured with the median instead, which always matches the case-by-case compliance percentage",
+      "A mean above 15 minutes automatically means every Critical case breached"
+    ],
     "correct": 1,
     "explanation": "The SLA is the commitment and its per-case targets; metrics such as MTTA summarise performance over time. The median option is wrong because the lab median of 4.0 minutes looks excellent while a true positive still breached.",
     "lesson": 6,
@@ -193,7 +313,12 @@
   },
   {
     "q": "An MSSP's escalation procedure for Critical incidents is 'update the ticket and email the customer distribution list'. A ransomware precursor is confirmed at 03:00. What is the most important fix to the SLA?",
-    "options": ["Add a chat notification to the customer's team channel as well as the email", "Shorten the Critical notification target so the email goes out sooner", "Name an on-call contact on both sides and require a phone call that wakes them, plus the case update", "Move Critical escalation to the next business morning, when the distribution list is monitored"],
+    "options": [
+      "Add a chat notification to the customer's team channel as well as the email",
+      "Shorten the Critical notification target so the email goes out sooner",
+      "Name an on-call contact on both sides and require a phone call that wakes them, plus the case update",
+      "Move Critical escalation to the next business morning, when the customer distribution list is actively monitored"
+    ],
     "correct": 2,
     "explanation": "A critical incident at 03:00 needs a named on-call person and a method that wakes them, not only a ticket or email. A shorter target does not help if nobody reads the message, and chat has the same problem.",
     "lesson": 6,

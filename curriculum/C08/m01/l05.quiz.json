@@ -1,7 +1,12 @@
 [
   {
     "q": "In the fictional '2 a.m. handover gap' scenario, a night analyst recognised a ransomware precursor and messaged a colleague who had already gone home. The morning shift found encrypted file servers. What was the root failure?",
-    "options": ["Knowledge and responsibility moved only by chat, no case was opened, so nobody owned the alert", "The detection rule failed to fire on the precursor activity until the encryption began", "The night analyst misjudged the alert's severity and classified it as low priority", "The on-call rota listed the wrong phone number for the escalation contact"],
+    "options": [
+      "Knowledge and responsibility moved only by chat, no case was opened, so nobody owned the alert",
+      "The detection rule failed to fire on the precursor activity until the encryption had already begun overnight",
+      "The night analyst misjudged the alert's severity and classified it as low priority",
+      "The on-call rota listed the wrong phone number for the escalation contact"
+    ],
     "correct": 0,
     "explanation": "The rule fired and the analyst recognised it; what failed was the transfer of knowledge and ownership, because a chat message creates no case and no accountable owner. Misjudged severity is wrong because the analyst correctly saw it as serious.",
     "lesson": 5,
@@ -9,7 +14,12 @@
   },
   {
     "q": "During the overlap the outgoing analyst says 'CASE-1047 is yours now' and the incoming analyst replies 'noted'. Nobody reassigns the case in the case system. Forty minutes later, who owns CASE-1047?",
-    "options": ["The incoming analyst, because the verbal briefing and reply transferred responsibility", "The outgoing analyst, because ownership moves only on reassignment plus acknowledgement in the case system", "The shift lead, because any case without a recorded owner defaults to the supervisor", "Nobody, until the shift lead signs off the handover and the case is reassigned automatically"],
+    "options": [
+      "The incoming analyst, because the verbal briefing and reply transferred responsibility",
+      "The outgoing analyst, because ownership moves only on reassignment plus acknowledgement in the case system",
+      "The shift lead, because any case without a recorded owner defaults to the supervisor",
+      "Nobody, until the shift lead signs off the handover and the case system then reassigns the case automatically to the next shift"
+    ],
     "correct": 1,
     "explanation": "The lesson's rule is mechanical: until the case system shows a new named owner who has acknowledged it, the outgoing analyst still owns the case. A spoken 'noted' is not an acknowledgement and leaves exactly the ambiguous gap the procedure exists to close.",
     "lesson": 5,
@@ -17,7 +27,12 @@
   },
   {
     "q": "Why does the handover procedure require the incoming shift to read the published note and the queue before the verbal briefing begins?",
-    "options": ["So the incoming analysts can acknowledge every case before the outgoing shift explains them", "So the outgoing analyst can skip the briefing entirely whenever the note is complete", "So the briefing becomes a conversation about what is unclear instead of reading the note aloud", "So the shift lead can measure how long each incoming analyst takes to read the note"],
+    "options": [
+      "So the incoming analysts can acknowledge every case in the case system before the outgoing shift explains any of them",
+      "So the outgoing analyst can skip the briefing entirely whenever the note is complete",
+      "So the briefing becomes a conversation about what is unclear instead of reading the note aloud",
+      "So the shift lead can measure how long each incoming analyst takes to read the note"
+    ],
     "correct": 2,
     "explanation": "Reading first means the incoming analyst arrives with questions, and the overlap is spent on gaps and misunderstandings. Acknowledging before the briefing is wrong because ownership is transferred at the end, after read-back.",
     "lesson": 5,
@@ -25,7 +40,12 @@
   },
   {
     "q": "A per-source query in the mini-SIEM shows proxy events until 12:32Z but the last sysmon event at 06:14Z. All four expected sources appear in the output. How should the outgoing analyst treat this in the handover?",
-    "options": ["Open a high-severity incident, because missing endpoint telemetry means the agents were tampered with", "Leave it out, because every expected source appears in the output and is therefore ingesting", "Report that endpoints were idle after 06:14Z, so no endpoint activity needs review", "Record it in platform health as an open question, such as confirming the sysmon agent is still reporting"],
+    "options": [
+      "Open a high-severity incident, because missing endpoint telemetry means the agents were tampered with",
+      "Leave it out, because every expected source appears in the output and is therefore still ingesting events normally",
+      "Report that endpoints were idle after 06:14Z, so no endpoint activity needs review",
+      "Record it in platform health as an open question, such as confirming the sysmon agent is still reporting"
+    ],
     "correct": 3,
     "explanation": "The difference may be normal for the data, so the right move is to state it as a question for the next shift rather than conclude either way. Omitting it is the strongest distractor, but a source being present says nothing about whether it is still reporting now.",
     "lesson": 5,
@@ -33,7 +53,12 @@
   },
   {
     "q": "After a shift with no new cases, an analyst decides not to write a handover note because 'there is nothing to hand over'. Why is this a mistake?",
-    "options": ["Because every shift must close at least one case before it is allowed to sign off", "Because 'quiet' is itself information, and platform health and intel or changes still need reporting", "Because a missing note automatically breaches the SOC's acknowledgement SLA for the shift", "Because the incoming shift cannot log into the case system without the previous handover"],
+    "options": [
+      "Because every shift must close at least one case before it is allowed to sign off",
+      "Because 'quiet' is itself information, and platform health and intel or changes still need reporting",
+      "Because a missing note automatically breaches the SOC's acknowledgement SLA for every case open during the shift",
+      "Because the incoming shift cannot log into the case system without the previous handover"
+    ],
     "correct": 1,
     "explanation": "Silence is ambiguous: the reader cannot tell a quiet shift from a forgotten note, and a quiet SIEM is only good news if the data is arriving. The SLA option is wrong because SLA timers attach to cases, not to handover notes.",
     "lesson": 5,
@@ -41,7 +66,12 @@
   },
   {
     "q": "While filling the seven-section handover template, an analyst has nothing to report under 'Pending decisions'. What does the lesson recommend?",
-    "options": ["Delete the heading so that the note stays short enough to read in two minutes", "Merge the section into the headline so readers see that nothing is pending", "Leave the section blank, since an empty section clearly means nothing is pending", "Keep the heading and write 'none', so the reader can tell nothing happened from a forgotten section"],
+    "options": [
+      "Delete the heading so that the note stays short enough to read in two minutes",
+      "Merge the section into the headline so readers see that nothing is pending",
+      "Leave the section blank, since an empty section under a printed heading clearly tells the reader that nothing is pending",
+      "Keep the heading and write 'none', so the reader can tell nothing happened from a forgotten section"
+    ],
     "correct": 3,
     "explanation": "Writing 'none' distinguishes 'nothing to report' from 'the writer forgot'. A blank section is the strongest distractor, but blank looks identical to an omission, which is the ambiguity the template is meant to remove.",
     "lesson": 5,
@@ -49,7 +79,12 @@
   },
   {
     "q": "Why does the handover template list pending decisions and approvals as a separate section instead of folding them into open cases?",
-    "options": ["Because no analyst action is due while the SOC waits, so they are lost unless someone is made responsible for chasing", "Because approvals from other teams must be stored outside the case system for legal reasons", "Because pending decisions never have deadlines and can safely be reviewed at the end of the shift", "Because only the shift lead is permitted to read the section that concerns other teams"],
+    "options": [
+      "Because no analyst action is due while the SOC waits, so they get lost unless someone owns the chasing",
+      "Because approvals from other teams must be stored outside the case system for legal reasons",
+      "Because pending decisions never have deadlines and can safely be reviewed together at the end of the shift",
+      "Because only the shift lead is permitted to read the section that concerns other teams"
+    ],
     "correct": 0,
     "explanation": "When the SOC is only waiting, nothing in its own queue prompts action, so the item drifts; listing it separately assigns the chasing. The 'no deadlines' option is wrong because an unchased approval can delay containment of a live case.",
     "lesson": 5,
@@ -57,7 +92,12 @@
   },
   {
     "q": "At 01:30Z the night shift noticed a cyber incident at an Indian covered entity that falls under the CERT-In Directions of April 2022. The report has not yet been filed when the shift ends. Where and how should the handover capture this?",
-    "options": ["Under intelligence and changes, since it concerns a regulatory advisory from CERT-In", "Under pending decisions only, because legal decides whether the report is filed", "Under active incidents, stating when the six-hour clock started and whether the report has been made", "It can be left out, because regulatory reporting is the compliance team's job, not the SOC's"],
+    "options": [
+      "Under intelligence and changes, since it concerns a regulatory advisory from CERT-In rather than a live SOC case",
+      "Under pending decisions only, because legal decides whether the report is filed",
+      "Under active incidents, stating when the six-hour clock started and whether the report has been made",
+      "It can be left out, because regulatory reporting is the compliance team's job, not the SOC's"
+    ],
     "correct": 2,
     "explanation": "Regulatory clocks belong with the active incident, with the start time and report status, because the six hours run from noticing and the next shift may have little time left. Pending decisions is the closest distractor, but it hides the hard deadline away from the incident it belongs to.",
     "lesson": 5,
@@ -65,7 +105,12 @@
   },
   {
     "q": "According to the handover sequence figure, what is the most common way handovers degrade?",
-    "options": ["The shift lead signs off before the incoming analyst has read the queue", "The incoming analyst reads the note before the outgoing analyst has finished it", "Cases are reassigned to the incoming shift before the overlap period begins", "Talking happens before writing, so the verbal briefing becomes the only record"],
+    "options": [
+      "The shift lead signs off before the incoming analyst has read the queue",
+      "The incoming analyst reads the note before the outgoing analyst has finished it",
+      "Cases are reassigned to the incoming shift before the overlap period begins",
+      "Talking happens before writing, so the verbal briefing becomes the only record"
+    ],
     "correct": 3,
     "explanation": "Reversing 'write' and 'talk' leaves no durable record once the outgoing analyst leaves. Early sign-off is also a fault, but the lesson singles out talking before writing as the most common degradation.",
     "lesson": 5,
@@ -73,7 +118,12 @@
   },
   {
     "q": "In read-back, the incoming analyst says 'the identity team owes us a reply by 06:00 UTC'. The outgoing analyst corrects it to 04:00 UTC. Why does this step catch errors that a well-written note cannot?",
-    "options": ["Because read-back replaces the note as the official record of the handover", "Because the writer cannot see how the reader interprets the note, and read-back exposes that interpretation", "Because the case system only records deadlines that have been confirmed verbally", "Because the note is written in UTC while the read-back is done in local time"],
+    "options": [
+      "Because read-back replaces the note as the official record of the handover",
+      "Because the writer cannot see how the reader interprets the note, and read-back exposes that interpretation",
+      "Because the case system only records deadlines that have been confirmed verbally by both analysts during read-back",
+      "Because the note is written in UTC while the read-back is done in local time"
+    ],
     "correct": 1,
     "explanation": "Read-back is an error-correction loop: the reader's restatement shows the writer what was actually understood. It does not replace the note, which remains the durable record.",
     "lesson": 5,
@@ -81,7 +131,12 @@
   },
   {
     "q": "A SOC moves from a single-site team to a follow-the-sun model with teams in Asia, Europe and the Americas. What change to handover practice does this make most important?",
-    "options": ["Dropping the overlap, since each region works daytime hours and fatigue is no longer a factor", "Moving handovers to direct chat, because the teams rarely share a working language", "Writing notes for a competent reader who was not there, because teams may never meet and lack local context", "Letting each region keep its own template so notes match local working habits"],
+    "options": [
+      "Dropping the overlap, since each region works daytime hours, fatigue is no longer a factor and notes can carry everything",
+      "Moving handovers to direct chat, because the teams rarely share a working language",
+      "Writing notes for a competent reader who was not there, because teams may never meet and lack local context",
+      "Letting each region keep its own template so notes match local working habits"
+    ],
     "correct": 2,
     "explanation": "Every follow-the-sun handover crosses a language, culture and time-zone boundary, so written quality matters even more and notes must not rely on local abbreviations or context. Dropping the overlap is wrong: it often becomes a scheduled video call.",
     "lesson": 5,
@@ -89,7 +144,12 @@
   },
   {
     "q": "A SOC's handover falls at 03:30 UTC, exactly when staff in India start work at 09:00 IST and authentication alerts spike. Handovers at this boundary are consistently rushed. What is the best fix?",
-    "options": ["Move the shift boundary away from the predictable busy period and keep a 15 to 30 minute overlap", "Shorten the overlap so the handover is finished before the login spike begins", "Suppress authentication alerts for the duration of the handover window each morning", "Have the outgoing shift skip the verbal briefing on busy mornings and rely on the note"],
+    "options": [
+      "Move the shift boundary away from the predictable busy period and keep a 15 to 30 minute overlap",
+      "Shorten the overlap so the handover is finished before the login spike begins",
+      "Suppress authentication alerts for the duration of the handover window each morning",
+      "Have the outgoing shift skip the verbal briefing on busy mornings and rely on the note"
+    ],
     "correct": 0,
     "explanation": "Boundaries should not coincide with predictable busy periods, and the overlap is the most valuable design choice. Suppressing alerts would create a blind spot, and shortening the overlap removes the time for briefing and read-back.",
     "lesson": 5,
@@ -97,7 +157,12 @@
   },
   {
     "q": "A SOC aligned to Indian Standard Time runs its day shift 08:30-16:30 IST. How should this shift be recorded in UTC in its handover notes?",
-    "options": ["02:30-10:30 UTC", "03:30-11:30 UTC", "14:00-22:00 UTC", "03:00-11:00 UTC"],
+    "options": [
+      "02:30-10:30 UTC",
+      "03:30-11:30 UTC",
+      "14:00-22:00 UTC",
+      "03:00-11:00 UTC"
+    ],
     "correct": 3,
     "explanation": "IST is UTC+5:30, so 08:30 IST is 03:00 UTC and 16:30 IST is 11:00 UTC. 03:30-11:30 is the classic error of subtracting only five hours.",
     "lesson": 5,
@@ -105,7 +170,12 @@
   },
   {
     "q": "Which control would most directly have prevented a critical alert from sitting unowned after a shift change, as in the 2 a.m. handover gap?",
-    "options": ["A case-system alert when a critical or high case has no acknowledged owner a set time after handover", "A weekly quality-assurance review of a sample of handover notes from each shift", "A rule that escalations must be confirmed by a reply in the team chat channel", "A longer retention period for handover notes so they can be reviewed after an incident"],
+    "options": [
+      "A case-system alert when a critical or high case has no acknowledged owner a set time after handover",
+      "A weekly quality-assurance review of a sample of handover notes from each shift",
+      "A rule that escalations must be confirmed by a reply in the team chat channel",
+      "A longer retention period for handover notes so they can be reviewed after an incident"
+    ],
     "correct": 0,
     "explanation": "Alerting on unacknowledged critical cases makes the shift boundary observable while there is still time to act. Weekly QA is a good practice but finds the gap days later, and chat confirmation leaves the case outside the system of record.",
     "lesson": 5,
@@ -113,7 +183,12 @@
   },
   {
     "q": "An outgoing analyst pastes the titles of all 60 alerts from the shift into the handover note. What is wrong with this?",
-    "options": ["Alert titles may contain personal data and must never appear in handover notes", "The case system cannot store notes longer than the standard template length", "It hides the few items that matter; the note should summarise and prioritise while the queue holds detail", "It forces the incoming shift to re-triage every alert from the beginning of the shift"],
+    "options": [
+      "Alert titles may contain personal data and must never appear in handover notes",
+      "The case system cannot store notes longer than the standard template length",
+      "It hides the few items that matter; the note should summarise and prioritise while the queue holds detail",
+      "It forces the incoming shift to re-triage every alert from the beginning of the shift before it can work any new ones"
+    ],
     "correct": 2,
     "explanation": "A raw list buries the two alerts that matter among 58 that do not. The note's job is prioritised summary; the queue already holds the detail. Re-triaging everything is not implied by the list itself.",
     "lesson": 5,
@@ -121,7 +196,12 @@
   },
   {
     "q": "Why is step 1 of the procedure, bringing every open case up to date, described as the most important step?",
-    "options": ["Because updated cases allow the shift lead to sign off before the verbal briefing", "Because a note that says 'see CASE-1042' is only useful if CASE-1042 records status, checks done and next action", "Because the SLA clocks on each case pause while it is being updated by its owner", "Because the incoming shift is not allowed to read cases that were updated during the overlap"],
+    "options": [
+      "Because updated cases allow the shift lead to sign off before the verbal briefing",
+      "Because a note that says 'see CASE-1042' is only useful if CASE-1042 records status, checks done and next action",
+      "Because the SLA clocks on each case pause while it is being updated by its owner",
+      "Because the incoming shift is not allowed to read any case that was updated by the outgoing shift during the overlap"
+    ],
     "correct": 1,
     "explanation": "The note links to cases instead of repeating them, so incomplete case records make the whole handover hollow. Updating a case does not pause SLA timers, and sign-off comes last, after ownership is acknowledged.",
     "lesson": 5,
@@ -129,7 +209,12 @@
   },
   {
     "q": "A draft handover entry reads: 'CASE-1042 High - credential stuffing, blocked.' Which rewrite best follows the lesson's guidance?",
-    "options": ["Attach the full raw WAF and portal logs so the incoming analyst can draw their own conclusion", "Remove 'credential stuffing' entirely, because handover notes must contain only facts", "Add the analyst's personal confidence level and rationale for the High severity rating", "State the observed facts and times, label the assessment as suspected, give the block time and change reference, and the next step with a deadline"],
+    "options": [
+      "Attach the full raw WAF and portal logs to the note so the incoming analyst can draw their own conclusion about what happened and what to do next",
+      "Remove 'credential stuffing' entirely, because handover notes must contain only facts",
+      "Add the analyst's personal confidence level and rationale for the High severity rating",
+      "State facts and times, mark the assessment as suspected, give block time and change reference, and a next step with a deadline"
+    ],
     "correct": 3,
     "explanation": "Good entries separate observed facts (412 failed logins from two ranges) from labelled assessment, record the action taken with its reference, and state the next step and due time. Removing the assessment is wrong; it should be labelled, not deleted.",
     "lesson": 5,
@@ -137,7 +222,12 @@
   },
   {
     "q": "Why should handover notes live in the access-controlled case system instead of in email threads or broadly shared documents?",
-    "options": ["Because email cannot carry UTC timestamps reliably between time zones", "Because the case system automatically deletes notes once the cases are closed", "Because they summarise live incidents and may contain personal data, which must be protected and kept to what the next shift needs", "Because CERT-In requires every handover note to be submitted through the case system"],
+    "options": [
+      "Because email cannot carry UTC timestamps reliably between time zones",
+      "Because the case system automatically deletes notes once the cases are closed",
+      "Because they summarise live incidents and may contain personal data, which must be protected and kept to what the next shift needs",
+      "Because the CERT-In Directions require every handover note at an Indian covered entity to be submitted and stored through the case system"
+    ],
     "correct": 2,
     "explanation": "Handover notes are sensitive: they describe live incidents and affected accounts, and under the DPDP Act 2023 personal data in SOC records must be protected. They are also retained as evidence, not deleted at closure.",
     "lesson": 5,
@@ -145,7 +235,12 @@
   },
   {
     "q": "What is the shift lead's role at the end of the handover procedure?",
-    "options": ["Confirm every open case has an acknowledged owner, check the on-call rota and raise platform issues, then record the handover complete", "Rewrite the handover note in a standard format before the incoming analysts read it", "Reassign all open cases personally so that analysts do not need to acknowledge them", "Run the verbal briefing for each case so that the outgoing analysts can leave on time"],
+    "options": [
+      "Confirm every open case has an acknowledged owner, check the on-call rota and raise platform issues, then record the handover complete",
+      "Rewrite the handover note in a standard format before the incoming analysts read it",
+      "Reassign all open cases personally so that analysts do not need to acknowledge them",
+      "Run the verbal briefing for each open case personally so that the outgoing analysts can leave on time and the incoming ones need not read the note"
+    ],
     "correct": 0,
     "explanation": "The lead closes the handover by verifying coverage. Reassigning cases personally is wrong because acknowledgement by the named new owner is what transfers responsibility.",
     "lesson": 5,
@@ -153,7 +248,12 @@
   },
   {
     "q": "In a post-incident review, investigators want to know who was accountable for a case at 02:57 UTC and how long it sat after being reassigned. Why can a properly used case system answer this?",
-    "options": ["Because it stores the full transcript of the verbal briefing for every handover", "Because reassignment and acknowledgement are separate timestamped events, giving an ownership audit trail", "Because the shift lead's sign-off records the owner of every case at that moment", "Because the handover note lists every case owner with the exact time they joined the shift"],
+    "options": [
+      "Because it stores the full transcript of the verbal briefing for every handover",
+      "Because reassignment and acknowledgement are separate timestamped events, giving an ownership audit trail",
+      "Because the shift lead's sign-off records the owner of every case at that moment",
+      "Because the handover note lists every case owner along with the exact time each of them joined and left the shift"
+    ],
     "correct": 1,
     "explanation": "Separate timestamps for reassignment and acknowledgement show who owned the case at any moment and the gap between the two, and they feed SLA timers. The sign-off is a single point in time and does not give per-case history.",
     "lesson": 5,
@@ -161,7 +261,12 @@
   },
   {
     "q": "To counter end-of-shift fatigue, many SOCs reserve the last 20 to 30 minutes of a shift for handover work. How are alerts handled during that window?",
-    "options": ["All new alerts are held in the queue until the incoming shift has acknowledged its cases", "New alerts are assigned to the shift lead, who works them alone until the handover ends", "The SIEM is paused so no new alerts are generated during the handover window", "New low-priority alerts are left for the incoming shift, while high-severity alerts are still worked by whoever is best placed"],
+    "options": [
+      "All new alerts, including high-severity ones, are held in the queue until the incoming shift has acknowledged all of its open cases",
+      "New alerts are assigned to the shift lead, who works them alone until the handover ends",
+      "The SIEM is paused so no new alerts are generated during the handover window",
+      "New low-priority alerts are left for the incoming shift, while high-severity alerts are still worked by whoever is best placed"
+    ],
     "correct": 3,
     "explanation": "Reserving time protects handover quality without creating a blind spot: only low-priority work waits. Holding all alerts is the close distractor, but it would let a high-severity alert sit untouched at the riskiest moment.",
     "lesson": 5,
@@ -169,7 +274,12 @@
   },
   {
     "q": "The lab's soc_metrics.py reports a mean time to acknowledge of 32.4 minutes but a median of 4.0, driven by one true-positive case that waited 150 minutes. Read through the lens of handovers, what does this suggest?",
-    "options": ["One outlier, plausibly a case that crossed a shift boundary without an owner, drags the mean while the median hides it", "Most cases were acknowledged slowly, and the median understates the typical delay", "The dataset is unreliable, because a mean cannot be eight times larger than the median", "The SOC's acknowledgement performance is good, since the median is what SLAs measure"],
+    "options": [
+      "One outlier, plausibly a case that crossed a shift boundary without an owner, drags the mean while the median hides it",
+      "Most cases were acknowledged slowly, and the median understates the typical delay",
+      "The dataset is unreliable, because a mean cannot legitimately be eight times larger than the median of the same set of cases",
+      "The SOC's acknowledgement performance is good, since the median is what SLAs measure"
+    ],
     "correct": 0,
     "explanation": "A single long wait inflates the mean while the median stays low; the lab exercise asks you to treat it as a case lost at a shift boundary and write the missing handover entry. Means far above medians are normal with skewed data, so the 'unreliable' option is wrong.",
     "lesson": 5,
@@ -177,7 +287,12 @@
   },
   {
     "q": "A small in-house team staffs the SOC only during business hours and relies on an on-call rota overnight. How does this change the handover picture?",
-    "options": ["No handover is needed, because the on-call person only responds to pages and does not own cases", "There is one handover per day, from the night coverage back to the day team in the morning", "There are two handovers a day; the night coverage must know which cases are live and what authority it has", "There are three handovers a day, the same as a standard three-shift 24x7 rotation"],
+    "options": [
+      "No handover is needed, because the on-call person only responds to pages overnight and never owns or works any cases",
+      "There is one handover per day, from the night coverage back to the day team in the morning",
+      "There are two handovers a day; the night coverage must know which cases are live and what authority it has",
+      "There are three handovers a day, the same as a standard three-shift 24x7 rotation"
+    ],
     "correct": 2,
     "explanation": "The handover happens twice: day team to night coverage and back. The night coverage needs to know live cases and its authority, and the morning team must learn what happened overnight.",
     "lesson": 5,
@@ -185,7 +300,12 @@
   },
   {
     "q": "What is the correct role of team chat in a SOC's handover and escalation process?",
-    "options": ["It is the primary escalation channel for critical cases because it is the fastest", "It can point colleagues at a case, but the case itself and its ownership must live in the case system", "It can replace the written note on quiet shifts, as long as the whole team is in the channel", "It should be banned from the SOC, because messages cannot be retained as evidence"],
+    "options": [
+      "It is the primary escalation channel for critical cases because it is the fastest",
+      "It can point colleagues at a case, but the case itself and its ownership must live in the case system",
+      "It can replace the written note on quiet shifts, as long as the whole team is in the channel and has read the messages",
+      "It should be banned from the SOC, because messages cannot be retained as evidence"
+    ],
     "correct": 1,
     "explanation": "Chat is fast but does not persist, alert or transfer ownership, so it may say 'look at CASE-1042 now' but never replace the case. Critical escalations use the case system plus a phone call, so the primary-channel option is wrong.",
     "lesson": 5,
@@ -193,7 +313,12 @@
   },
   {
     "q": "The intelligence-and-changes section of a handover notes an authorised penetration test running 04:00-06:00Z. What does recording this, with its authorisation and contact list, mainly achieve?",
-    "options": ["It lets the incoming shift suppress every alert from the test's source addresses for the window", "It moves responsibility for any alerts in the window from the SOC to the testing firm", "It removes the need to open cases for alerts that occur during the testing window", "It warns the next shift to expect unusual alerts and lets them check that activity is in scope rather than ignore or blindly escalate it"],
+    "options": [
+      "It lets the incoming shift suppress every alert from the test's source addresses for the whole window without opening any cases",
+      "It moves responsibility for any alerts in the window from the SOC to the testing firm",
+      "It removes the need to open cases for alerts that occur during the testing window",
+      "It warns the next shift to expect unusual alerts and to check activity is in scope, rather than ignore or blindly escalate it"
+    ],
     "correct": 3,
     "explanation": "Changes and tests cause expected alerts; the authorisation and contacts let analysts verify activity against scope. Blanket suppression is the dangerous distractor, because real attacker activity during the window would then go unseen.",
     "lesson": 5,

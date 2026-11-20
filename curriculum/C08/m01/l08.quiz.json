@@ -2,7 +2,7 @@
   {
     "q": "After a log parser update, a well-tested detection stops firing and no component reports an error. Which part of the tooling map most likely broke?",
     "options": [
-      "The SIEM-to-case integration, because alerts are generated but rejected by the case API",
+      "The SIEM-to-case integration, because alerts are generated but rejected by the case API without notice",
       "The SOAR-to-EDR response hook, because isolation commands are timing out",
       "The pipeline's normalisation step, because a renamed field silently breaks rules that use it",
       "The context-source lookup, because slow enrichment suppresses new alerts"
@@ -15,9 +15,9 @@
   {
     "q": "During a busy shift, a Tier 1 analyst escalates a suspicious login to Tier 2 only by chat message. Why is this a problem for the SOC?",
     "options": [
-      "As far as the SOC record goes it did not happen: no owner, timestamps or evidence in the case, and metrics miss it",
+      "To the SOC record it never happened: no owner, timestamps or evidence in a case, and metrics miss it",
       "It is acceptable as long as the chat platform keeps its messages for at least 180 days",
-      "It is the preferred method, because chat is faster than updating a case during an incident",
+      "It is the preferred method, because chat is faster than updating a case while an incident is still unfolding",
       "It matters only for false positives, which need a documented disposition at closure"
     ],
     "correct": 0,
@@ -30,7 +30,7 @@
     "options": [
       "Disabling the recipient's account as soon as a high-severity detection fires",
       "Fetching the host's criticality and owner from the CMDB and writing them to the case",
-      "Isolating the host through the EDR when the TIP marks the sender's IP as known-bad",
+      "Isolating the host through the EDR as soon as the TIP marks the sender's IP as known-bad",
       "Blocking the linked domain at the perimeter firewall for every user"
     ],
     "correct": 1,
@@ -57,7 +57,7 @@
       "An attacker who understands the playbook could trigger it deliberately to disrupt the business",
       "The playbook could leak the SOAR platform's stored API keys into the case notes",
       "The playbook would stop the SIEM from correlating any further events from that host",
-      "The playbook would skip enrichment, so cases would reach analysts with no context"
+      "The playbook would skip enrichment entirely, so isolated cases would reach analysts with no context"
     ],
     "correct": 0,
     "explanation": "Automatic disruptive actions can be weaponised: someone who knows the trigger can cause outages on demand, which is why such actions require human approval. The other options are not consequences of auto-isolation itself.",
@@ -93,7 +93,7 @@
   {
     "q": "During an authorised purple-team exercise, the red team stops the log forwarder on a server rather than clearing its event log. Which control is designed to catch this?",
     "options": [
-      "A detection rule for Windows Security event ID 1102",
+      "A detection rule for Windows Security event ID 1102, raised whenever an audit log is cleared",
       "A health check that alerts when an expected source has sent nothing for N minutes",
       "A Sigma rule for winword.exe spawning powershell.exe",
       "A SOAR playbook that adds CMDB criticality to new cases"
@@ -107,7 +107,7 @@
     "q": "How should the credentials used by SOC integrations, such as the SOAR connector to the identity provider, be managed?",
     "options": [
       "A dedicated least-privilege service account or key per integration, held in a secrets manager and rotated",
-      "One shared administrator key for all integrations, so that rotation is a single change",
+      "One shared administrator key for all integrations, held in the SOAR platform so that rotation is a single change",
       "Each analyst's personal credentials, so that every automated action is attributable",
       "Keys embedded directly in playbooks, so they survive migrations between platforms"
     ],
@@ -119,7 +119,7 @@
   {
     "q": "Analysts copy indicators by hand between six separate consoles to work each case. What remedy does the lesson recommend?",
     "options": [
-      "Replace all of them with a single, more capable SIEM product",
+      "Replace all of them with a single, more capable SIEM product that includes its own case management, EDR and SOAR",
       "Add a dashboard console that aggregates screenshots of the other six",
       "Integrate the tools into the case system or retire duplicates, since each manual copy adds delay and error",
       "Assign one analyst to each console so nobody has to switch screens"
@@ -133,7 +133,7 @@
     "q": "The SIEM shows no alerts at all for an entire day. Why does the lesson argue that the team must understand how its alerts are produced?",
     "options": [
       "Because a day with zero alerts always means the SIEM licence has lapsed",
-      "Because commercial SIEMs cannot run correlation rules against synthetic data",
+      "Because commercial SIEMs cannot run correlation rules against synthetic data, so quiet days cannot be tested",
       "Because transparent scripts process events faster than production SIEMs do",
       "Because without that understanding nobody can tell whether a quiet day is genuinely quiet"
     ],
@@ -172,7 +172,7 @@
     "q": "Which capability does an EDR platform provide that a SIEM on its own does not?",
     "options": [
       "Taking authorised response actions on the host, such as isolating it or ending a process",
-      "Correlating endpoint events with VPN and proxy logs on a single timeline",
+      "Correlating endpoint events with VPN and proxy logs on a single timeline for the investigating analyst",
       "Retaining normalised events centrally for a defined retention period",
       "Matching network traffic against signatures at the perimeter"
     ],
@@ -212,7 +212,7 @@
     "options": [
       "To state concretely what visibility the SOC loses if the tool fails, which drives priority and budget",
       "To record which team is to blame when the tool or its connector fails",
-      "To replace a health check for tools that cannot be monitored automatically",
+      "To replace a health check for tools that cannot be monitored automatically, so outages are recorded by hand",
       "To document personal-data flows as required by the DPDP Act 2023"
     ],
     "correct": 0,
@@ -226,7 +226,7 @@
       "Nothing, provided the logs are encrypted at rest in the overseas region",
       "The directions require ICT system logs for a rolling 180 days within Indian jurisdiction",
       "The directions require reporting within 6 hours, so 60 days of retention is excessive",
-      "The DPDP Act 2023 forbids retaining any log that contains personal data beyond 30 days"
+      "The DPDP Act 2023 forbids retaining any log that contains personal data for longer than 30 days"
     ],
     "correct": 1,
     "explanation": "The directions require covered entities to maintain ICT logs for a rolling 180 days within India, so both the period and the location fail. The 6-hour figure is the incident-reporting deadline, not a retention limit.",
@@ -238,7 +238,7 @@
     "options": [
       "Letting Tier 1 analysts edit rules so that more people see each change",
       "Keeping a backup copy of every rule inside the SOAR playbooks",
-      "Relying on the SIEM's change history, which its own administrators can edit",
+      "Relying on the SIEM's own change history, which records every rule edit but which its administrators can edit",
       "Logging admin activity to a store its admins cannot quietly alter, and alerting on rule deletions"
     ],
     "correct": 3,
@@ -263,7 +263,7 @@
     "q": "Which part of the SOC tooling map does the kit script triage.py stand in for?",
     "options": [
       "SOAR and context-source enrichment, adding asset criticality and user role and computing a priority",
-      "The collection pipeline, parsing two raw log formats into one normalised schema",
+      "The collection pipeline, parsing two raw log formats into one normalised schema before any rules run",
       "Detection engineering, testing rules against known-bad and near-miss events",
       "Evidence preservation, writing a hashed chain-of-custody record for a case"
     ],
@@ -276,7 +276,7 @@
     "q": "During a major incident the team suspects that the corporate chat and email platform may itself be compromised. What gap in the tooling map does this expose?",
     "options": [
       "The SIEM does not retain chat logs long enough for investigation",
-      "The SOAR platform has no connector for paging on-call staff",
+      "The SOAR platform has no connector for paging on-call staff, so escalation waits for analysts to notice",
       "The case system has no field to record the channel used",
       "Escalation relies on one channel that may be compromised, so an out-of-band channel is needed"
     ],
@@ -304,7 +304,7 @@
       "Detection will improve, because modern SIEMs include built-in asset discovery",
       "MTTA will fall, because the new platform acknowledges alerts automatically",
       "The same failures will recur on a costlier platform, because tools amplify process rather than replace it",
-      "Coverage will rise, because a migration forces every log source to be re-onboarded"
+      "Coverage will rise, because a migration forces every log source to be re-onboarded and every rule to be retested"
     ],
     "correct": 2,
     "explanation": "Tools do not supply missing process: without context, clear escalation and tested rules, the new SIEM repeats the old failures. The map and process should be fixed first, then tools chosen to fill real gaps.",

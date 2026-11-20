@@ -18,7 +18,7 @@
       "False positive, with a tuning request so the rule stops matching administrator scripts",
       "Benign true positive, closed with the change ticket number recorded as the documented reason",
       "Undetermined, because authorised and malicious account creation leave identical events",
-      "True positive, escalated so incident response can confirm the change ticket is genuine"
+      "True positive, escalated so incident response can confirm the change ticket is genuine and approved"
     ],
     "correct": 1,
     "explanation": "The rule detected exactly what it was built to detect, but the activity was authorised, which is the definition of a benign true positive. Calling it a false positive would wrongly imply the rule logic is broken.",
@@ -29,7 +29,7 @@
     "q": "A team routinely records authorised administrator actions as false positives instead of benign true positives. What is the most serious long-term consequence?",
     "options": [
       "Closure notes become longer because each false positive needs a tuning ticket attached",
-      "Incident response receives more escalations because false positives are reviewed by Tier 2",
+      "Incident response receives more escalations because every false positive is reviewed by Tier 2",
       "The per-rule false-positive rate is inflated, so detection engineers may weaken a healthy rule",
       "Suppressions expire sooner because false-positive suppressions carry shorter review dates"
     ],
@@ -42,9 +42,9 @@
     "q": "Rule R4 (large_upload) matched the nightly backup job sending data to the approved storage endpoint. Which closure note meets the lifecycle's closure standard?",
     "options": [
       "FP, closing: known backup traffic, no further action needed on this alert",
-      "FP: backup traffic, rule is noisy for uploads; suppressed R4 for all hosts until it is rewritten",
+      "FP: backup traffic, R4 is noisy for large uploads in general; suppressed R4 on all hosts with no expiry until detection engineering finds time to rewrite the rule properly",
       "BTP: probably the backup job based on the destination name, closing to keep the queue short",
-      "FP: R4 matched the backup server's nightly upload to the approved endpoint; confirmed against the backup schedule and change record; tuning ticket raised for a narrow, expiring exclusion"
+      "FP: R4 matched the backup server's nightly upload to the approved endpoint, confirmed against backup schedule and change record; ticket raised for a narrow, expiring exclusion"
     ],
     "correct": 3,
     "explanation": "A usable note states what happened, the evidence checked, the decision and what should change, so an engineer can act and a reviewer can verify. The broad suppression option removes coverage for every host, exactly what an attacker would hide behind.",
@@ -56,7 +56,7 @@
     "options": [
       "10.8, because severity and confidence are properties of the rule rather than the host",
       "3.6, so the same behaviour would rank alongside the beacon alert at the bottom of the queue",
-      "4.5, because the score is reduced by one criticality step from the finance workstation",
+      "4.5, because the score is reduced by one criticality step for each level below the finance workstation",
       "1.2, because confidence is applied twice when the asset is of low business importance"
     ],
     "correct": 1,
@@ -93,7 +93,7 @@
   {
     "q": "Why should alert state transitions be timestamped by the case system in UTC rather than entered by the analyst?",
     "options": [
-      "Because analysts are not permitted to edit case records once an alert has been acknowledged",
+      "Because analysts are not permitted to edit case records once an alert has been acknowledged by Tier 1",
       "Because SIEM rules can only correlate events whose timestamps were written by the platform",
       "Because those timestamps feed metrics and service levels, which need consistent, trustworthy times",
       "Because UTC timestamps are required for the case system to sort the queue by priority score"
@@ -120,7 +120,7 @@
     "q": "A Tier 1 analyst sends a chat message to a Tier 2 colleague about a suspicious alert, and the colleague replies that they will look later. The case record still lists the Tier 1 analyst as owner. What is the status of the escalation?",
     "options": [
       "Not complete: ownership has not moved in the case system and no acknowledgement is recorded there",
-      "Complete: the Tier 2 colleague has accepted the work, which transfers ownership in practice",
+      "Complete: the Tier 2 colleague has accepted the work in writing, which transfers ownership in practice",
       "Complete once the Tier 1 analyst sets the state to Escalated, even without a named receiver",
       "Not required: chat escalations are logged by the platform, so the case record is not needed"
     ],
@@ -213,7 +213,7 @@
       "When the answer is already clear, such as a false positive caused by a data error, and it is still recorded",
       "When the queue is long, since investigation can be deferred to the feedback stage after closure",
       "When the alert has a low priority score, because low-scoring alerts rarely belong to larger cases",
-      "When the rule has a high confidence value, because confident rules do not need corroborating evidence"
+      "When the rule has a high confidence value, because confident rules do not need any corroborating evidence"
     ],
     "correct": 0,
     "explanation": "Triage can close obvious cases directly, but the disposition and closure record are still required. Queue length and low scores are not reasons to skip investigation, as the low-scoring Banyan beacon alert shows.",
@@ -276,7 +276,7 @@
     "q": "An alert scored 5.4 has waited an hour while a steady stream of new alerts scoring 5.5 to 6.0 keeps arriving above it. What does the lesson say queueing should account for?",
     "options": [
       "Age, so that an older alert is not overtaken indefinitely by a stream of slightly higher scores",
-      "Nothing further, because the score already reflects severity, confidence and asset criticality",
+      "Nothing further, because the score already reflects severity, confidence and asset criticality fully",
       "Volume, so that the 5.4 alert is closed automatically once newer alerts exceed a set count",
       "Analyst preference, so that each analyst re-sorts the queue by the rules they know best"
     ],
@@ -314,7 +314,7 @@
   {
     "q": "A rule that alerts on every powershell.exe start produces many false positives from administrative tools. Which fix best follows the lesson's guidance for false-positive feedback?",
     "options": [
-      "Suppress powershell.exe for all hosts until a better rule is written by detection engineering",
+      "Suppress powershell.exe for all hosts until a better rule is written and tested by detection engineering",
       "Require a suspicious parent-child relationship, such as Word starting PowerShell, not the name alone",
       "Lower the rule's severity so its alerts sink below the threshold analysts usually reach",
       "Reclassify the alerts as benign true positives so the false-positive rate stops rising"
