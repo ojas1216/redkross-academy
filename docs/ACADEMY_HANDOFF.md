@@ -176,3 +176,30 @@ trimmed; (d) the v1 rebuild queue as already planned.
   (single comparison node) and its walkthrough updated. L04 prose is 4,508 words.
 - Verified on this state: npm test PASS; npm run build PASS; audit:bundle PASS; API tests on a
   fresh rk_test with scripts/schema.sql + ALL scripts/migrations/*.sql: 41 + 88 + 14 = 143 PASS.
+
+## 21 November (evening), Claude: C01 and C03 question banks rebuilt (free courses)
+
+- Banks are now genuinely distinct: 30 questions per module (C03 8 x 30, C01 6 x 30), at least
+  10 medium and 10 difficult each, no repeated stem or correct answer, answer positions balanced
+  8/8/7/7, correct option uniquely longest in at most 12/30 (40%). Written from each module's
+  lessons; C03 keeps the 4-12 distinct old questions per module; C01 M1-M5 old questions were
+  dropped (spliced templates testing topics the lessons do not teach); C01 M6 keeps its 20.
+- Source of truth: curriculum/legacy_banks/<C01|C03>/mNN.json; build with
+  `node scripts/curriculum/build_legacy_banks.mjs C01|C03` (`--check` dry-run, `--longest` lists
+  length-biased items; `patch` maps even out option lengths). It overwrites the moduleNQuestionBank.js
+  files. Do NOT run the old scripts/build_course03_quizzes.mjs, build_moduleN_bank.mjs or
+  build_course03*.mjs: they regenerate the padded 200-question banks.
+- Exam simulation through api/_lib/courseRegistry.js: every C01-C04 module exam serves 20/20
+  distinct questions; finals 50/50 (C01-C03) and 60/60 (C04).
+- C01 retitled (content unchanged): 3.3 Social Engineering & Phishing, 3.4 Denial of Service & DDoS,
+  3.5 Threat Intelligence & OSINT, 3.6 The MITRE ATT&CK Framework, 3.7 Reading and Writing Threat
+  Reports, 4.3 Risk Registers & Risk Frameworks, 4.4 Calibrating Likelihood & Impact, 4.5 Qualitative
+  vs Quantitative Risk Analysis, 4.6 Risk Treatment & Continuous Risk Management. Module 3/4
+  descriptions, the course skills/overview and the public course card no longer claim STRIDE.
+  4.4 likelihood scale fixed: 1-12 events/year is "Yearly to Monthly".
+- tests/unit_test_question_banks.mjs now requires >= 20 distinct questions per bank (>= 10 per
+  difficulty, no repeated stems/answers) instead of exactly 200: 53/53 pass.
+- Verified: npm test PASS; build PASS; audit:bundle PASS; API 41 + 88 + 14 = 143 PASS on a fresh
+  rk_test (schema + all migrations). Pre-existing, unrelated: tests/challenger_m2_stress_test.mjs
+  reads a hard-coded path from another machine.
+- Optional later: C02 M1/M5-M8 banks are partly templated (still serve 20 distinct per exam).
