@@ -1,0 +1,117 @@
+{
+  "add": [
+    [
+      "m",
+      "Control types",
+      "A security camera that records a break-in is which type of control?",
+      "Detective",
+      "Preventive",
+      "Corrective",
+      "Deterrent only",
+      "Detective controls identify events after or as they happen; preventive controls stop them."
+    ],
+    [
+      "m",
+      "Control categories",
+      "Which is an administrative control?",
+      "A security awareness training policy",
+      "A firewall blocking a port",
+      "A badge-controlled door",
+      "Full-disk encryption",
+      "Administrative controls are policies and procedures; the others are technical or physical."
+    ],
+    [
+      "d",
+      "Corrective controls",
+      "Restoring a server from a clean backup after ransomware is which type of control?",
+      "Corrective",
+      "Preventive",
+      "Detective",
+      "Compensating",
+      "Corrective controls restore systems after an incident."
+    ],
+    [
+      "m",
+      "Symmetric encryption",
+      "Which algorithm is a symmetric cipher widely used to protect data?",
+      "AES",
+      "RSA",
+      "SHA-256",
+      "ECDSA",
+      "AES uses the same key to encrypt and decrypt; RSA and ECDSA are asymmetric and SHA-256 is a hash."
+    ],
+    [
+      "d",
+      "Digital signatures",
+      "When a sender signs a message, which key do they use, and which key does the receiver use to verify?",
+      "The sender's private key signs; the sender's public key verifies",
+      "The receiver's public key signs; the receiver's private key verifies",
+      "The sender's public key signs; the sender's private key verifies",
+      "A shared secret key both signs and verifies",
+      "Only the private-key holder can sign, and anyone with the public key can verify."
+    ],
+    [
+      "m",
+      "Incident response",
+      "Which NIST incident response phase includes isolating an infected host?",
+      "Containment",
+      "Preparation",
+      "Lessons learned",
+      "Detection only",
+      "Containment limits spread before eradication and recovery."
+    ],
+    [
+      "d",
+      "SIEM and SOAR",
+      "How does SOAR differ from SIEM?",
+      "SIEM collects and correlates events; SOAR automates response playbooks",
+      "SIEM blocks attacks; SOAR stores logs for compliance",
+      "SIEM is for networks; SOAR is only for physical security",
+      "They are the same product sold under different names",
+      "SOAR orchestrates and automates actions, often triggered by SIEM alerts."
+    ],
+    [
+      "m",
+      "Indian cyber law",
+      "Which Indian law governs the processing of digital personal data?",
+      "The Digital Personal Data Protection Act, 2023",
+      "The Indian Contract Act, 1872",
+      "The Copyright Act, 1957",
+      "The Companies Act, 2013",
+      "The DPDP Act, 2023 sets obligations for processing digital personal data; the IT Act, 2000 covers cyber offences."
+    ],
+    [
+      "d",
+      "CERT-In",
+      "Under CERT-In's 2022 directions, how soon must specified cyber incidents be reported?",
+      "Within 6 hours of noticing them",
+      "Within 30 days of the end of the quarter",
+      "Within 72 hours of containment",
+      "Only when customers' data is confirmed lost",
+      "The directions require reporting within six hours and log retention for 180 days."
+    ],
+    [
+      "m",
+      "Careers",
+      "What is the NICE Workforce Framework used for?",
+      "Describing cybersecurity work roles, tasks and skills",
+      "Certifying that a company's network is secure",
+      "Scoring the severity of software vulnerabilities",
+      "Licensing ethical hackers to test systems",
+      "NICE (NIST SP 800-181) provides a common language for cyber roles and competencies."
+    ]
+  ],
+  "patch": {
+    "Scoring the severity of software vulnerabilities": "Scoring the severity of published software vulnerabilities",
+    "A firewall blocking a port": "A firewall rule blocking an inbound port",
+    "Administrative nature and Preventive function; it is a written policy signed by executive leadership.": "Administrative nature and Preventive function; it is a written policy document signed by the executive leadership team.",
+    "Collect and Operate (CO); encompassing Physical Janitorial and Environmental Facilities Maintenance.": "Collect and Operate (CO); encompassing Physical Janitorial and Environmental Facilities Maintenance work for buildings.",
+    "Implementation Group 0 (IG0), which permits maintaining all corporate passwords in an unencrypted shared spreadsheet.": "Implementation Group 0 (IG0), which permits maintaining all corporate passwords in an unencrypted shared spreadsheet on a file server.",
+    "SIEM is for networks; SOAR is only for physical security": "SIEM is for networks only; SOAR is only for physical security alarm systems",
+    "The Indian Contract Act, 1872": "The Indian Contract Act, 1872 and its amendments",
+    "A standard automated Windows Update downloading language translation dictionaries.": "A standard automated Windows Update downloading language translation dictionaries in the background overnight.",
+    "The complete deprecation of the Recover (RC) function in favor of cyber insurance payouts.": "The complete deprecation of the Recover (RC) function in favor of mandatory cyber insurance payouts for every incident.",
+    "A Complete Mediation violation; it disables all security inspections to maximize imaging throughput.": "A Complete Mediation violation; it disables all network security inspections in order to maximize medical imaging throughput for the radiology department.",
+    "Downloading a copyrighted open-source software library without paying licensing fees.": "Downloading a copyrighted open-source software library without paying any licensing fees to its maintainers or the original publisher first."
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "dropAll": true,
+  "add": [
+    [
+      "m",
+      "Confidentiality",
+      "Which control primarily supports confidentiality?",
+      "Encrypting a customer database",
+      "Keeping a spare power supply",
+      "Checksumming a software download",
+      "Load balancing two web servers",
+      "Encryption keeps data secret from unauthorised readers. Redundancy supports availability and checksums support integrity."
+    ],
+    [
+      "m",
+      "Integrity",
+      "Which control best detects unauthorised changes to a file?",
+      "Comparing its cryptographic hash with a known-good value",
+      "Storing it on a server with two network cards",
+      "Compressing it before saving it to disk",
+      "Giving it a longer, more descriptive file name",
+      "A changed hash reveals modification, which is an integrity check."
+    ],
+    [
+      "m",
+      "Availability",
+      "Which measure most directly improves availability?",
+      "Redundant servers with failover",
+      "Encrypting traffic with TLS 1.3",
+      "Hashing stored passwords",
+      "Signing documents digitally",
+      "Redundancy and failover keep services running when one component fails."
+    ],
+    [
+      "d",
+      "Triad tensions",
+      "A bank adds strict account lockout after three failed logins. Which risk does this create?",
+      "Attackers can lock legitimate users out deliberately, harming availability",
+      "Passwords become readable by anyone on the network",
+      "Transactions can be altered without being detected",
+      "Logs stop recording failed login attempts",
+      "Lockout protects confidentiality but can be abused for denial of service. Designers balance both, for example with progressive delays."
+    ],
+    [
+      "m",
+      "AAA",
+      "What do the three A's in the AAA framework stand for?",
+      "Authentication, authorisation and accounting",
+      "Access, audit and availability",
+      "Assets, attacks and alerts",
+      "Approval, assurance and administration",
+      "AAA verifies identity, grants permissions and records actions."
+    ],
+    [
+      "d",
+      "AAA order",
+      "Why must authentication come before authorisation?",
+      "Permissions can only be decided once the system knows who is asking",
+      "Authorisation checks are slower, so they are performed last",
+      "Authentication is optional when authorisation is strict",
+      "Authorisation creates the account that authentication then verifies",
+      "Authorisation decisions depend on a verified identity; without it, permissions would be granted to an unknown party."
+    ],
+    [
+      "m",
+      "Accounting",
+      "What is the purpose of accounting in AAA?",
+      "Recording who did what and when",
+      "Calculating the cost of security tools",
+      "Encrypting data before it is stored",
+      "Granting users their access rights",
+      "Accounting produces the audit trail used for investigation and accountability."
+    ],
+    [
+      "d",
+      "Non-repudiation",
+      "Which mechanism provides non-repudiation for an electronic approval?",
+      "A digital signature made with the approver's private key",
+      "A shared password known to the whole approval team",
+      "A symmetric key held by both sender and receiver",
+      "An email sent from a shared departmental mailbox",
+      "Only the private-key holder can create the signature, so the signer cannot plausibly deny it. Shared secrets cannot prove which person acted."
+    ],
+    [
+      "m",
+      "Least privilege",
+      "What does the principle of least privilege require?",
+      "Giving each user only the access needed for their job",
+      "Giving all staff the same access to keep things simple",
+      "Giving administrators access to every system by default",
+      "Removing access only after a security incident occurs",
+      "Minimal access limits the damage a compromised or careless account can do."
+    ],
+    [
+      "d",
+      "Just-in-time access",
+      "How does just-in-time (JIT) privilege support least privilege?",
+      "Elevated rights are granted only for a limited time when needed",
+      "Administrators keep permanent rights but must log in more often",
+      "Every user receives admin rights at the start of each day",
+      "Privileges are granted automatically to anyone who requests them",
+      "JIT removes standing privilege, shrinking the window in which stolen admin credentials are useful."
+    ],
+    [
+      "d",
+      "Privilege creep",
+      "An employee who moved departments three times still has access from every previous role. What is this called?",
+      "Privilege creep",
+      "Defence in depth",
+      "Separation of duties",
+      "Fail-safe default",
+      "Access accumulates without removal. Regular access reviews counter privilege creep."
+    ],
+    [
+      "m",
+      "Defence in depth",
+      "What is the core idea of defence in depth?",
+      "Multiple independent layers so one failure does not cause compromise",
+      "One very strong perimeter firewall that blocks all attacks",
+      "Placing all security tools on a single central server",
+      "Hiding systems so attackers cannot find them",
+      "Layers such as perimeter, endpoint, detection and data controls back each other up."
+    ],
+    [
+      "d",
+      "Layer independence",
+      "Why should security layers be diverse and independent?",
+      "A single flaw or bypass should not defeat several layers at once",
+      "Diverse products are always cheaper than one platform",
+      "Independent layers need no monitoring or maintenance",
+      "Regulators forbid using two products from the same vendor",
+      "If every layer shares a weakness, one bypass defeats them all. Diversity improves resilience."
+    ],
+    [
+      "m",
+      "Zero Trust",
+      "What is the core principle of Zero Trust?",
+      "Never trust, always verify, regardless of network location",
+      "Trust every device inside the corporate network",
+      "Verify users once a year during access reviews",
+      "Block all remote access to company systems",
+      "Zero Trust evaluates every request using identity, device and context, assuming breach."
+    ],
+    [
+      "d",
+      "Zero Trust",
+      "Why does Zero Trust reject the idea of a trusted internal network?",
+      "Attackers who get inside, or insiders, would otherwise move freely",
+      "Internal networks are always slower than the internet",
+      "Firewalls cannot be placed inside a corporate network",
+      "Internal users never need to access sensitive data",
+      "Implicit trust inside the perimeter enables lateral movement after one compromise."
+    ],
+    [
+      "m",
+      "Zero Trust pillars",
+      "Which is one of the commonly cited Zero Trust pillars?",
+      "Device health",
+      "Office floor plan",
+      "Printer colour",
+      "Payroll date",
+      "Common pillars include identity, devices, network, applications and data."
+    ],
+    [
+      "m",
+      "Fail-safe defaults",
+      "What does a fail-safe default mean for access control?",
+      "Access is denied unless it has been explicitly allowed",
+      "Access is allowed unless it has been explicitly denied",
+      "Access is granted to anyone during a system failure",
+      "Access rules are reset to factory settings each night",
+      "Default deny means mistakes or omissions block access rather than expose data."
+    ],
+    [
+      "d",
+      "Fail-safe defaults",
+      "A firewall's rule engine crashes. Which behaviour follows the fail-safe principle?",
+      "It blocks traffic until it recovers",
+      "It allows all traffic to avoid an outage",
+      "It forwards traffic to a random server",
+      "It deletes its configuration file",
+      "Failing closed protects assets, although availability needs must be weighed for safety-critical systems."
+    ],
+    [
+      "m",
+      "Complete mediation",
+      "What does complete mediation require?",
+      "Every access is checked, not only the first one",
+      "Access is checked once per user per year",
+      "Only administrators' access is checked",
+      "Access checks are made by the user's manager",
+      "Caching an early decision can let revoked access continue; complete mediation checks each request."
+    ],
+    [
+      "d",
+      "Secure by default",
+      "Why are shipping products with default passwords a design failure?",
+      "Attackers can look up the defaults and log in",
+      "Default passwords are always too long to remember",
+      "Default passwords slow the device's start-up time",
+      "Default passwords stop software updates installing",
+      "Secure-by-default products force unique credentials. Botnets such as Mirai abused factory default passwords."
+    ],
+    [
+      "m",
+      "Separation of duties",
+      "What does separation of duties prevent?",
+      "One person completing a sensitive task alone without a check",
+      "Two people sharing the same desk or office",
+      "Employees taking holidays at the same time",
+      "Managers reading staff email without consent",
+      "Splitting steps, such as raising and approving a payment, means fraud requires collusion."
+    ],
+    [
+      "d",
+      "Dual control",
+      "How does dual control differ from separation of duties?",
+      "Two people must act together on the same step, such as two keys for a vault",
+      "One person performs a task while another watches the CCTV later",
+      "Two departments write separate policies for the same process",
+      "Each person can complete the whole task alone on alternate days",
+      "Separation splits steps across people; dual control needs two people for one critical action."
+    ],
+    [
+      "d",
+      "Applied cases",
+      "In the 2013 Target breach, attackers first entered through a third-party HVAC vendor's credentials. Which principle failure allowed them to reach payment systems?",
+      "Insufficient network segmentation and least privilege for vendor access",
+      "Lack of encryption on the store's public website",
+      "Weak passwords on customers' online accounts",
+      "Missing antivirus on the HVAC units themselves",
+      "Vendor access should have been confined. Poor segmentation let attackers move toward point-of-sale systems."
+    ],
+    [
+      "d",
+      "Applied cases",
+      "What does the 2016 Dyn DDoS attack illustrate?",
+      "Compromised IoT devices with default credentials can disrupt major services",
+      "Encrypted email cannot be read by government agencies",
+      "Ransomware spreads mainly through printed documents",
+      "Strong passwords alone prevent all denial-of-service attacks",
+      "The Mirai botnet used insecure IoT devices to flood Dyn's DNS service, disrupting many websites."
+    ],
+    [
+      "m",
+      "Security through obscurity",
+      "Why is security through obscurity not enough on its own?",
+      "Secrets about design are eventually discovered",
+      "Obscurity always makes systems run slower",
+      "Obscurity is illegal in most countries",
+      "Obscurity cannot be used with encryption",
+      "Hiding details may add friction, but security must hold even when the design is known."
+    ],
+    [
+      "m",
+      "Usability",
+      "Why can overly complex security controls reduce security?",
+      "Users create workarounds, such as writing passwords down",
+      "Complex controls cannot be audited by anyone",
+      "Complex controls are always cheaper to bypass",
+      "Complex controls disable logging by design",
+      "Usable security matters; friction drives risky behaviour."
+    ],
+    [
+      "d",
+      "Applied cases",
+      "In the 2021 Colonial Pipeline incident, attackers reportedly used a legacy VPN account without MFA. Which control would most directly have helped?",
+      "Multi-factor authentication and removal of unused accounts",
+      "A larger internet connection for the pipeline control room",
+      "Physical locks on the operator workstations",
+      "Faster backup tape drives for the billing system",
+      "A single compromised password reached a remote access account; MFA and account hygiene address that path."
+    ],
+    [
+      "m",
+      "Principles in practice",
+      "A developer's service account has database admin rights but only needs to read one table. Which principle is violated?",
+      "Least privilege",
+      "Availability",
+      "Non-repudiation",
+      "Obscurity",
+      "The account should have read access to that table only."
+    ],
+    [
+      "d",
+      "Assume breach",
+      "What does an assume-breach mindset change in how a team designs defences?",
+      "It invests in detection, containment and limiting lateral movement",
+      "It stops investing in prevention because breaches are inevitable",
+      "It disables logging because attackers will delete logs anyway",
+      "It relies entirely on the perimeter firewall to stop attackers",
+      "Prevention still matters, but planning for compromise leads to segmentation, monitoring and response readiness."
+    ],
+    [
+      "m",
+      "Integrity",
+      "Why do software publishers sign their downloads?",
+      "So users can verify the file came from them unaltered",
+      "So the download completes faster over the internet",
+      "So the software can run without any user permissions",
+      "So the file cannot be copied to another computer",
+      "Code signing supports integrity and authenticity of software."
+    ]
+  ],
+  "patch": {
+    "So the software can run without any user permissions": "So the software can run without any user permissions at all",
+    "It stops investing in prevention because breaches are inevitable": "It stops investing in prevention because breaches are inevitable anyway",
+    "Access checks are made by the user's manager": "Access checks are made by each user's line manager",
+    "Obscurity always makes systems run slower": "Obscurity always makes systems run much slower",
+    "Approval, assurance and administration": "Approval, assurance and administration of access"
+  }
+}

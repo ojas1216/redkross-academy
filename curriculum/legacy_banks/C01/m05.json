@@ -1,0 +1,317 @@
+{
+  "dropAll": true,
+  "add": [
+    [
+      "m",
+      "Identification",
+      "Typing a username at a login prompt is an example of which step?",
+      "Identification",
+      "Authentication",
+      "Authorisation",
+      "Accounting",
+      "Identification claims an identity; authentication proves it."
+    ],
+    [
+      "m",
+      "Authentication",
+      "Which step proves that a user is who they claim to be?",
+      "Authentication",
+      "Identification",
+      "Authorisation",
+      "Federation",
+      "Authentication verifies the claim using something the user knows, has or is."
+    ],
+    [
+      "d",
+      "Authorisation",
+      "A logged-in employee opens a payroll report they should not see. Which step failed?",
+      "Authorisation",
+      "Identification",
+      "Authentication",
+      "Encryption",
+      "The user was identified and authenticated; the system wrongly permitted the action."
+    ],
+    [
+      "m",
+      "Password storage",
+      "How should passwords be stored in a database?",
+      "As salted hashes from a slow password-hashing algorithm",
+      "In plain text so that support staff can read them",
+      "Encrypted with one key stored next to the database",
+      "As unsalted MD5 hashes for fast comparison",
+      "Password-specific algorithms such as Argon2, bcrypt or scrypt with unique salts resist cracking."
+    ],
+    [
+      "d",
+      "Hashing versus encryption",
+      "Why is reversible encryption a poor way to store passwords?",
+      "Anyone who obtains the key can recover every password",
+      "Encryption makes passwords longer than the database allows",
+      "Encrypted passwords cannot be checked at login",
+      "Encryption is too slow for any login system",
+      "Hashing is one-way; encryption is reversible, so key theft exposes all passwords, as the Adobe breach showed."
+    ],
+    [
+      "d",
+      "Salts",
+      "What does a unique salt per password defeat?",
+      "Precomputed rainbow tables and spotting identical passwords",
+      "Phishing pages that capture typed passwords",
+      "Keyloggers installed on user devices",
+      "Brute-force guessing of one user's password",
+      "Salts make each hash unique, so precomputed tables and duplicate detection fail. Slow hashing limits guessing."
+    ],
+    [
+      "d",
+      "Slow hashing",
+      "Why are fast hashes like SHA-256 unsuitable on their own for password storage?",
+      "Attackers can test billions of guesses per second",
+      "They produce hashes that are too short",
+      "They cannot handle passwords with symbols",
+      "They are not supported by modern databases",
+      "Password hashing should be deliberately slow and memory-hard to raise the cost of cracking."
+    ],
+    [
+      "m",
+      "Breach lessons",
+      "What made the 2012 LinkedIn password breach so damaging?",
+      "Passwords were stored as unsalted SHA-1 hashes",
+      "Passwords were protected by bcrypt with salts",
+      "The passwords were never stored anywhere",
+      "Users all had multi-factor authentication",
+      "Unsalted fast hashes allowed mass cracking."
+    ],
+    [
+      "m",
+      "Authentication factors",
+      "Which pair represents two different authentication factor types?",
+      "A password and a hardware security key",
+      "A password and a PIN",
+      "A fingerprint and a face scan",
+      "Two different passwords",
+      "Something you know plus something you have counts as two factors; two knowledge items do not."
+    ],
+    [
+      "d",
+      "SMS MFA",
+      "Why is SMS-based MFA considered weaker than an authenticator app or security key?",
+      "SIM swapping and interception can redirect codes",
+      "SMS codes are always longer than six digits",
+      "SMS cannot be used on smartphones",
+      "SMS codes never expire after use",
+      "SMS is better than nothing but is vulnerable to SIM swaps and telecom weaknesses."
+    ],
+    [
+      "d",
+      "Phishing-resistant MFA",
+      "Why are FIDO2/WebAuthn keys resistant to phishing?",
+      "The key signs a challenge bound to the genuine site's origin",
+      "The key displays the website's name on a small screen",
+      "The key changes the user's password after every login",
+      "The key blocks all emails that contain links",
+      "Origin binding means a fake site cannot obtain a valid response for the real site."
+    ],
+    [
+      "m",
+      "TOTP",
+      "What does a TOTP authenticator code depend on?",
+      "A shared secret and the current time",
+      "The user's password and IP address",
+      "The phone's battery level and location",
+      "A code sent by SMS from the server",
+      "TOTP derives short-lived codes from a shared secret and time steps, typically 30 seconds."
+    ],
+    [
+      "d",
+      "MFA fatigue",
+      "In the 2022 Uber breach, an attacker repeatedly sent push requests until one was approved. Which control reduces this risk?",
+      "Number matching or phishing-resistant MFA",
+      "Longer passwords for all employees",
+      "Sending more push notifications per hour",
+      "Disabling MFA for contractors only",
+      "Push fatigue exploits simple approve prompts. Number matching and FIDO2 reduce it."
+    ],
+    [
+      "m",
+      "Password managers",
+      "What is the main security benefit of a password manager?",
+      "It makes unique, strong passwords practical for every site",
+      "It removes the need for multi-factor authentication",
+      "It prevents phishing emails reaching the inbox",
+      "It stores passwords in plain text for easy recovery",
+      "Unique passwords stop one breach from compromising other accounts."
+    ],
+    [
+      "m",
+      "DAC",
+      "In discretionary access control, who decides who can access a resource?",
+      "The resource's owner",
+      "A central security label",
+      "The user's job role only",
+      "The attributes of the request",
+      "DAC lets owners grant access, as with typical file sharing."
+    ],
+    [
+      "m",
+      "MAC",
+      "Which access control model enforces system-wide labels such as Secret and Top Secret?",
+      "Mandatory access control",
+      "Discretionary access control",
+      "Role-based access control",
+      "Rule-free access control",
+      "MAC enforces central classification labels that users cannot override."
+    ],
+    [
+      "d",
+      "RBAC",
+      "What is a known drawback of role-based access control in large organisations?",
+      "Role explosion, with thousands of narrowly defined roles",
+      "It cannot assign permissions to groups of users",
+      "It requires every user to own their own files",
+      "It cannot be audited by any tool",
+      "Attempting to model every combination creates too many roles; ABAC adds flexibility."
+    ],
+    [
+      "d",
+      "ABAC",
+      "Which access rule is an example of attribute-based access control?",
+      "Allow if department is Finance, device is managed and time is within working hours",
+      "Allow if the file owner has shared the file with the user",
+      "Allow if the user is a member of the Administrators role",
+      "Allow if the document's label is lower than the user's clearance",
+      "ABAC evaluates attributes of the user, resource, action and environment."
+    ],
+    [
+      "m",
+      "SSO",
+      "What is single sign-on (SSO)?",
+      "One authentication that gives access to many applications",
+      "One password shared by all employees",
+      "One application that holds every company file",
+      "One server that stores all backups",
+      "SSO uses an identity provider so users authenticate once."
+    ],
+    [
+      "d",
+      "Federation",
+      "In SAML or OIDC federation, what does the identity provider do?",
+      "Authenticates the user and issues an assertion or token to the application",
+      "Stores the application's data and serves it to the user",
+      "Encrypts the network connection between user and application",
+      "Replaces the application's own authorisation logic entirely",
+      "The IdP vouches for identity; the service provider trusts its signed assertion and still decides permissions."
+    ],
+    [
+      "d",
+      "IDOR",
+      "A user changes /invoice?id=1001 to id=1002 and sees another customer's invoice. What is this flaw?",
+      "An insecure direct object reference (broken access control)",
+      "A cross-site scripting vulnerability",
+      "A weak password policy",
+      "A denial-of-service flaw",
+      "The server failed to check that the user is authorised for the requested object."
+    ],
+    [
+      "m",
+      "Privileged accounts",
+      "Why are privileged accounts a prime target for attackers?",
+      "They grant broad control over systems and data",
+      "They are always protected by the weakest passwords",
+      "They cannot be monitored by any security tool",
+      "They are deleted automatically after each use",
+      "Compromising an admin account gives wide access, so PAM controls focus on them."
+    ],
+    [
+      "d",
+      "Tiered administration",
+      "In Microsoft's tiered administration model, why should a domain admin never log on to a normal workstation?",
+      "Credentials left on a lower-tier machine could be stolen and used against Tier 0",
+      "Domain admins are not licensed to use workstations",
+      "Workstations cannot run administrative tools",
+      "Logging on would delete the workstation's profile",
+      "Tier separation keeps high-value credentials off machines exposed to everyday threats."
+    ],
+    [
+      "m",
+      "Credential vaulting",
+      "What does a PAM credential vault do?",
+      "Stores privileged passwords and rotates them automatically",
+      "Stores users' personal photos and documents",
+      "Blocks all administrative access permanently",
+      "Shares admin passwords by email when needed",
+      "Vaulting with rotation means admins check out credentials that change after use."
+    ],
+    [
+      "d",
+      "Session recording",
+      "Why do PAM systems record privileged sessions?",
+      "To create an accountable record of administrative actions",
+      "To make privileged sessions run faster",
+      "To replace the need for any authentication",
+      "To allow users to replay sessions as entertainment",
+      "Recordings support investigation, deterrence and audit of high-risk activity."
+    ],
+    [
+      "d",
+      "Account lifecycle",
+      "Why should leavers' accounts be disabled automatically through HR-driven provisioning such as SCIM?",
+      "Orphaned accounts can be misused long after someone leaves",
+      "Disabled accounts improve email delivery speed",
+      "Automatic provisioning removes the need for passwords",
+      "Leavers' accounts become administrators by default",
+      "Timely deprovisioning closes a common access path for former staff and attackers."
+    ],
+    [
+      "m",
+      "Access reviews",
+      "What is the purpose of periodic access reviews?",
+      "Confirming each user still needs the access they hold",
+      "Resetting every user's password each quarter",
+      "Granting extra rights to long-serving staff",
+      "Counting how many logins happen per day",
+      "Reviews remove unneeded access and counter privilege creep."
+    ],
+    [
+      "m",
+      "Service accounts",
+      "Which practice suits a service account used by an application?",
+      "Minimal permissions and a managed, rotated credential",
+      "Domain admin rights so it never fails",
+      "A password that never changes or expires",
+      "Interactive logon rights for every developer",
+      "Service accounts are frequent targets; least privilege and rotation reduce risk."
+    ],
+    [
+      "d",
+      "Zero Trust identity",
+      "Why does Zero Trust treat identity as the main control plane?",
+      "Access decisions follow the verified user and device, not the network location",
+      "Identity systems are the only systems that keep logs",
+      "Network firewalls cannot be configured in a Zero Trust design",
+      "Identities never change once they have been created",
+      "With users and apps everywhere, verified identity and device context replace network trust."
+    ],
+    [
+      "d",
+      "Password policy",
+      "Which modern password guidance reflects NIST SP 800-63B?",
+      "Check new passwords against breached lists and avoid forced periodic changes",
+      "Force a change every 30 days with complex composition rules",
+      "Limit passwords to a maximum of eight characters",
+      "Store password hints alongside the hash",
+      "Current guidance favours length, breach screening and change only on evidence of compromise."
+    ]
+  ],
+  "patch": {
+    "Passwords were protected by bcrypt with salts": "Passwords were protected by bcrypt with unique salts",
+    "Sending more push notifications per hour": "Sending more push notifications to each user per hour",
+    "Encrypted with one key stored next to the database": "Encrypted with one key stored right next to the database",
+    "SMS codes are always longer than six digits": "SMS codes are always longer than six digits in length",
+    "Automatic provisioning removes the need for passwords": "Automatic provisioning removes the need for any account passwords",
+    "They are not supported by modern databases": "They are not supported by modern relational databases",
+    "The key changes the user's password after every login": "The key changes the user's account password after every login",
+    "It stores passwords in plain text for easy recovery": "It stores passwords in plain text so they are easy to recover",
+    "To allow users to replay sessions as entertainment": "To allow users to replay their own sessions later as entertainment",
+    "A fingerprint and a face scan": "A fingerprint and a face scan together"
+  }
+}

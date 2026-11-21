@@ -1,0 +1,216 @@
+{
+  "keep": [
+    "How does a user-space program ask the kernel",
+    "Why was the 2024 CrowdStrike Channel 291 fault",
+    "On a Windows system, the wininit.exe process",
+    "What is the defensive function of Address Space Layout",
+    "A memory region displayed as",
+    "What does UEFI Secure Boot cryptographically verify",
+    "On most modern enterprise Linux distributions, which daemon",
+    "Which built-in Windows service account possesses",
+    "A systemd service restarts automatically",
+    "Which Linux signal requests a process to terminate cleanly",
+    "During a server performance triage"
+  ],
+  "add": [
+    [
+      "m",
+      "Operating system roles",
+      "Which responsibility belongs to the operating system kernel rather than to an application?",
+      "Scheduling which process runs on each CPU core and when",
+      "Rendering a web page's layout from its HTML and CSS",
+      "Validating the fields a user types into an online form",
+      "Compressing a document before it is attached to an email",
+      "Scheduling CPU time across processes is a core kernel duty, together with memory, device and file-system management. The other tasks are application logic."
+    ],
+    [
+      "m",
+      "CPU privilege levels",
+      "On x86-64 hardware, in which privilege ring does an ordinary user application normally execute?",
+      "Ring 3, the least privileged level",
+      "Ring 0, shared with the kernel itself",
+      "Ring 1, reserved for device drivers",
+      "Ring 2, reserved for system services",
+      "Mainstream operating systems use ring 0 for the kernel and ring 3 for user code; rings 1 and 2 are largely unused."
+    ],
+    [
+      "d",
+      "Kernel drivers",
+      "Why does a faulty third-party kernel driver pose a greater risk than a faulty application?",
+      "It runs with kernel privilege, so a fault can crash or compromise the whole system",
+      "It runs in user mode, so the kernel cannot terminate it when it misbehaves",
+      "It is loaded before the firmware, so Secure Boot cannot check its signature",
+      "It shares memory with every application, so it is always the first target",
+      "Drivers run in kernel space with full privilege. A crash there stops the whole OS, and a vulnerable driver can give an attacker kernel-level control."
+    ],
+    [
+      "m",
+      "Processes and threads",
+      "What do the threads of a single process share with each other?",
+      "The process's virtual address space and open handles",
+      "A separate copy of the process's entire memory each",
+      "Nothing at all, since every thread is isolated by the kernel",
+      "Only the CPU registers of the thread that created them",
+      "Threads are units of execution within one process. They share its address space and resources but each has its own stack and register state."
+    ],
+    [
+      "d",
+      "Process creation",
+      "On Linux, how is a new program usually started from an existing process?",
+      "The parent forks a copy of itself, and the child replaces its image with exec",
+      "The kernel creates the program directly from disk without any parent process",
+      "The parent sends SIGSTART to PID 1, which launches the requested program",
+      "The parent writes the program path into /proc and the scheduler runs it",
+      "fork() creates a child copy and execve() loads the new program into it. That is why every process except PID 1 has a parent."
+    ],
+    [
+      "d",
+      "Process trees",
+      "A triage shows Microsoft Word spawning powershell.exe, which spawns cmd.exe. Why is this parent-child chain notable?",
+      "Office applications rarely need to start shells, so the chain suggests malicious macro activity",
+      "Word cannot start child processes at all, so this proves the process tree was forged",
+      "PowerShell always starts cmd.exe on launch, so the chain is the expected default",
+      "Shells started by Word inherit kernel privilege, so the system is already fully compromised",
+      "Unusual parentage is a classic detection signal. Word launching shells is common in macro-based attacks, though it still needs investigation rather than assumption."
+    ],
+    [
+      "m",
+      "The /proc file system",
+      "What does /proc/<pid>/cmdline show on a Linux system?",
+      "The command line with which that process was started",
+      "The full list of files the process has written to disk",
+      "The process's CPU usage history since the last boot",
+      "The user's shell history from the session that started it",
+      "/proc exposes live kernel data per process; cmdline holds the arguments it was launched with, which is valuable during triage."
+    ],
+    [
+      "m",
+      "Signals",
+      "What is the practical difference between SIGTERM and SIGKILL?",
+      "SIGTERM can be caught for a clean exit; SIGKILL cannot be caught or ignored",
+      "SIGTERM stops a process immediately; SIGKILL asks it politely to stop",
+      "SIGTERM applies to threads only; SIGKILL applies to whole process trees",
+      "SIGTERM pauses a process for later; SIGKILL saves its memory to disk",
+      "SIGTERM (15) lets a process clean up. SIGKILL (9) is enforced by the kernel and gives the process no chance to react."
+    ],
+    [
+      "d",
+      "Virtual memory",
+      "Why can two processes both use the virtual address 0x7ffd0000 without interfering?",
+      "Each process has its own page tables mapping that address to different physical memory",
+      "The kernel serialises access so that only one process uses the address at a time",
+      "Virtual addresses above 0x7ff00000 are reserved and never point to physical memory",
+      "Both processes share the same physical page, but the CPU encrypts it per process",
+      "Virtual memory gives each process a private address space. The MMU translates addresses through per-process page tables."
+    ],
+    [
+      "d",
+      "Memory protections",
+      "What does the NX (no-execute) or DEP protection prevent?",
+      "Executing code from memory pages marked as data, such as the stack and heap",
+      "Reading memory that belongs to another process on the same system",
+      "Writing to the kernel's memory from any user-mode process at all",
+      "Loading a program at the same base address on every execution",
+      "NX/DEP marks data pages non-executable, so injected bytes placed on the stack or heap cannot simply be run. ASLR is the control that randomises addresses."
+    ],
+    [
+      "m",
+      "Memory and investigations",
+      "Why is memory valuable evidence in an investigation of a running system?",
+      "It holds live processes, connections and decrypted data that may never reach the disk",
+      "It is the only place where file-system timestamps are permanently recorded",
+      "It keeps a complete history of every process run since the system was installed",
+      "It is unaffected by reboots, so it survives when the disk is wiped",
+      "Memory holds current state, including injected code and keys, which disappears at power-off. It does not keep long-term history."
+    ],
+    [
+      "m",
+      "Firmware",
+      "Which statement describes UEFI compared with legacy BIOS?",
+      "UEFI is modern firmware that supports features such as Secure Boot and large GPT disks",
+      "UEFI is an operating system that replaces the Linux kernel on newer servers",
+      "UEFI is a bootloader that runs only after the kernel has finished initialising",
+      "UEFI is a Windows service that checks drivers after the user has logged on",
+      "UEFI replaced the legacy BIOS interface and adds features including Secure Boot, a boot manager and GPT support."
+    ],
+    [
+      "d",
+      "Measured boot",
+      "How does measured boot differ from Secure Boot?",
+      "Measured boot records hashes of boot components in the TPM for later attestation; Secure Boot blocks unsigned components",
+      "Measured boot blocks unsigned components; Secure Boot only records their hashes for administrators to review",
+      "Measured boot runs after logon; Secure Boot runs before the firmware initialises any of the hardware",
+      "Measured boot applies only to Linux; Secure Boot applies only to Windows systems",
+      "Secure Boot enforces signatures; measured boot measures each stage into TPM registers so that the boot path can be verified later."
+    ],
+    [
+      "m",
+      "Linux boot sequence",
+      "Which order matches a typical modern Linux boot?",
+      "Firmware, bootloader (such as GRUB), kernel and initramfs, then systemd as PID 1",
+      "Kernel, firmware, systemd, then the bootloader loads the user's desktop",
+      "systemd, kernel, firmware, then GRUB mounts the root file system",
+      "Bootloader, systemd, firmware, then the kernel starts the login manager",
+      "Firmware hands to the bootloader, which loads the kernel and initramfs; the kernel then starts init, normally systemd."
+    ],
+    [
+      "d",
+      "Windows boot sequence",
+      "On Windows, which process is started by the kernel as the first user-mode process?",
+      "smss.exe, the Session Manager",
+      "explorer.exe, the Windows shell",
+      "svchost.exe, the service host",
+      "lsass.exe, the security authority",
+      "The kernel starts smss.exe, which sets up sessions and starts csrss and wininit/winlogon. Knowing the normal tree helps spot impostor processes."
+    ],
+    [
+      "m",
+      "Services",
+      "What distinguishes a service (daemon) from an ordinary interactive program?",
+      "It runs in the background, usually without a user session, often from boot",
+      "It can run only while an administrator is logged on at the console",
+      "It always runs with the identity of the user who installed it",
+      "It is written in a special language that only the kernel can execute",
+      "Services run in the background, are managed by systemd or the SCM, and often start at boot under a dedicated account."
+    ],
+    [
+      "d",
+      "Service security",
+      "Why is a service running as LocalSystem a higher risk than one running under a dedicated low-privilege account?",
+      "Any compromise of the service gives the attacker full control of the machine",
+      "LocalSystem services cannot be stopped, so a fault can never be contained",
+      "LocalSystem services bypass the firewall, so they are always exposed online",
+      "LocalSystem services write no logs, so their activity cannot be audited",
+      "LocalSystem has the broadest local privileges. Least privilege means giving each service only the rights it needs, limiting the blast radius."
+    ],
+    [
+      "d",
+      "systemd units",
+      "A systemd unit file contains ExecStart=/opt/agent/run.sh. Why should an auditor check the permissions on run.sh?",
+      "If a low-privilege user can modify it, they can make the service run their code with its privileges",
+      "If the script is world-readable, systemd will refuse to start the service at boot",
+      "If the script is owned by root, the service will always run as an unprivileged user",
+      "If the script has no execute bit, systemd will run it with root privileges instead",
+      "A service runs whatever its ExecStart points to. Writable service binaries or scripts are a common local privilege escalation path."
+    ],
+    [
+      "m",
+      "Kernel versus user CPU time",
+      "Which tool output gives a first view of running processes and their CPU and memory use on Linux?",
+      "top or ps aux",
+      "chmod or chown",
+      "useradd or passwd",
+      "mkfs or fsck",
+      "top and ps list processes with resource usage. The other commands manage permissions, accounts and file systems."
+    ]
+  ],
+  "patch": {
+    "The kernel creates the program directly from disk without any parent process": "The kernel creates the new program directly from its file on disk without any parent process",
+    "LocalSystem services bypass the firewall, so they are always exposed online": "LocalSystem services bypass the host firewall, so they are always exposed to the internet",
+    "Network shared memory mapped across multiple container namespaces.": "Network shared memory mapped across multiple container namespaces on the host system.",
+    "Shells started by Word inherit kernel privilege, so the system is already fully compromised": "Shells started by Word inherit kernel privilege, so the whole system is already fully compromised",
+    "SIGTERM applies to threads only; SIGKILL applies to whole process trees": "SIGTERM applies to individual threads only; SIGKILL applies to whole process trees",
+    "Virtual addresses above 0x7ff00000 are reserved and never point to physical memory": "Virtual addresses above 0x7ff00000 are reserved by the kernel and never point to physical memory",
+    "It keeps a complete history of every process run since the system was installed": "It keeps a complete history of every process that has run since the system was first installed"
+  }
+}

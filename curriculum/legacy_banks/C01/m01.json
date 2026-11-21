@@ -1,0 +1,314 @@
+{
+  "dropAll": true,
+  "add": [
+    [
+      "m",
+      "CIA triad",
+      "Which part of the CIA triad does ransomware that encrypts a hospital's records attack most directly?",
+      "Availability",
+      "Confidentiality only",
+      "Non-repudiation",
+      "Authentication",
+      "Encrypting data so it cannot be used denies access, which is an attack on availability. Modern ransomware often also steals data, adding a confidentiality impact."
+    ],
+    [
+      "m",
+      "CIA triad",
+      "An attacker changes the amount on an invoice in a database without being noticed. Which property is violated?",
+      "Integrity",
+      "Availability",
+      "Confidentiality",
+      "Accountability",
+      "Integrity means data is accurate and has not been altered without authorisation."
+    ],
+    [
+      "d",
+      "CIA trade-offs",
+      "Why can strengthening confidentiality sometimes reduce availability?",
+      "Stricter controls such as encryption and MFA can block or slow legitimate access",
+      "Confidentiality controls always delete data that has not been used recently",
+      "Encrypted data cannot be backed up, so outages last longer",
+      "Confidentiality and availability are measured by the same metric",
+      "Security properties trade off. Lost keys or strict lockouts can stop authorised users from reaching data."
+    ],
+    [
+      "m",
+      "Kill chain",
+      "In the Lockheed Martin Cyber Kill Chain, which phase comes first?",
+      "Reconnaissance",
+      "Delivery",
+      "Exploitation",
+      "Installation",
+      "The phases are reconnaissance, weaponisation, delivery, exploitation, installation, command and control, and actions on objectives."
+    ],
+    [
+      "d",
+      "Kill chain",
+      "Why does the Kill Chain encourage defenders to act early in an intrusion?",
+      "Breaking any earlier link stops the attack before its objective",
+      "Later phases cannot be detected by any security tool",
+      "Attackers abandon campaigns after the reconnaissance phase",
+      "Early phases are the only ones covered by law",
+      "Disrupting delivery or exploitation prevents the later phases, which is cheaper than responding to a completed breach."
+    ],
+    [
+      "m",
+      "Kill chain",
+      "A phishing email carrying a malicious attachment reaches a user's inbox. Which Kill Chain phase is this?",
+      "Delivery",
+      "Reconnaissance",
+      "Weaponisation",
+      "Actions on objectives",
+      "Delivery is the transmission of the weapon to the target, such as by email, web or USB."
+    ],
+    [
+      "d",
+      "Attacker economics",
+      "Why is it often said that defenders must be right every time while attackers need to be right once?",
+      "Defenders must cover the whole attack surface; one gap may be enough",
+      "Attackers are legally allowed one free attempt per organisation",
+      "Defenders are rated on a pass/fail exam held each year",
+      "Attackers cannot repeat an attack after a first failure",
+      "The asymmetry reflects broad defensive coverage versus a single successful path. Layered defence and detection reduce the impact of any one gap."
+    ],
+    [
+      "m",
+      "Incident history",
+      "What did the 1988 Morris worm demonstrate?",
+      "Self-replicating code could disrupt a large part of the early internet",
+      "Email attachments could be used to deliver ransomware",
+      "Nation-states could damage industrial equipment with malware",
+      "Cloud services could be taken over through weak passwords",
+      "The Morris worm spread across thousands of internet-connected Unix systems, and led to the creation of the first CERT."
+    ],
+    [
+      "d",
+      "Incident history",
+      "What made Stuxnet (discovered in 2010) a landmark incident?",
+      "It caused physical damage to industrial equipment through malicious code",
+      "It was the first malware ever to spread by email attachment",
+      "It stole the largest number of credit card numbers of its time",
+      "It encrypted files and demanded payment in cryptocurrency",
+      "Stuxnet targeted industrial control systems driving centrifuges, showing that cyber attacks can have physical effects."
+    ],
+    [
+      "m",
+      "Incident history",
+      "Which weakness was exploited in the 2017 WannaCry outbreak?",
+      "An SMBv1 vulnerability patched by Microsoft earlier that year (MS17-010)",
+      "A weak default password on internet-connected webcams",
+      "A flaw in the TLS protocol used by online banking sites",
+      "A malicious update pushed through a software vendor's build system",
+      "WannaCry spread through the EternalBlue exploit for MS17-010, which had been patched about two months earlier. Unpatched systems were hit."
+    ],
+    [
+      "d",
+      "Incident history",
+      "What is the main lesson of the 2017 Equifax breach for vulnerability management?",
+      "A known, patchable flaw left unpatched can lead to a massive breach",
+      "Encryption of data at rest prevents all breaches of web applications",
+      "Breaches only happen to organisations without any security team",
+      "Cloud migration is the main cause of large data breaches",
+      "Attackers exploited an Apache Struts vulnerability for which a patch was available. Asset inventory and timely patching matter."
+    ],
+    [
+      "d",
+      "Incident history",
+      "What made the SolarWinds compromise (disclosed 2020) especially dangerous?",
+      "Malicious code was inserted into a trusted vendor's software update",
+      "It used a password-guessing attack against internet-facing email servers",
+      "It spread through infected USB drives inside government offices",
+      "It exploited a bug in the TCP/IP stack of every operating system",
+      "Supply chain attacks abuse trust in signed vendor updates, reaching many customers at once."
+    ],
+    [
+      "m",
+      "Assets",
+      "In information security, what is an asset?",
+      "Anything of value to the organisation that needs protection",
+      "Only the computers and servers listed in the IT budget",
+      "A vulnerability that an attacker can exploit",
+      "A security tool purchased to protect the network",
+      "Assets include data, hardware, software, people, services and reputation."
+    ],
+    [
+      "m",
+      "Data states",
+      "Which data state does full-disk encryption protect?",
+      "Data at rest",
+      "Data in transit",
+      "Data in use",
+      "Data in motion over Wi-Fi",
+      "Disk encryption protects stored data. TLS protects data in transit; protecting data in use needs other controls."
+    ],
+    [
+      "d",
+      "Data states",
+      "Why is data in use the hardest state to protect?",
+      "It must be decrypted in memory for processing",
+      "It is always stored on removable media",
+      "It is never covered by any access control",
+      "It is transmitted without any network protocol",
+      "Processing usually needs plaintext in memory; technologies such as confidential computing aim to reduce that exposure."
+    ],
+    [
+      "m",
+      "Asset inventory",
+      "Why does a security programme start with an asset inventory?",
+      "You cannot protect what you do not know you have",
+      "Inventories are required before any antivirus can be installed",
+      "Attackers cannot target assets that appear in an inventory",
+      "Insurance companies refuse to insure unlisted laptops",
+      "Unknown assets are unpatched and unmonitored. The inventory drives classification, risk assessment and controls."
+    ],
+    [
+      "d",
+      "Asset classification",
+      "Why should assets be classified by value and sensitivity?",
+      "To focus the strongest protection on what matters most",
+      "Because every asset must receive identical controls",
+      "So that low-value assets can be removed from monitoring",
+      "Because classification replaces the need for encryption",
+      "Classification lets limited resources be prioritised according to impact."
+    ],
+    [
+      "m",
+      "Attack surface",
+      "What is an organisation's attack surface?",
+      "The total set of points where an attacker could try to get in or extract data",
+      "The number of firewalls deployed at the network perimeter",
+      "The physical area of the data centre floor",
+      "The list of attackers who have targeted the organisation",
+      "The attack surface spans digital, physical and human entry points."
+    ],
+    [
+      "m",
+      "Attack surface",
+      "Which is an example of the human attack surface?",
+      "Staff who can be tricked by a phishing call",
+      "An open TCP port on a web server",
+      "An unlocked server room door",
+      "An outdated library in an application",
+      "Social engineering targets people. Open ports are digital; unlocked doors are physical."
+    ],
+    [
+      "d",
+      "Attack surface reduction",
+      "Which action most directly reduces the digital attack surface?",
+      "Removing unused internet-facing services",
+      "Buying a larger firewall appliance",
+      "Hiring more SOC analysts",
+      "Increasing log retention",
+      "Removing what is not needed eliminates exposure. Other measures improve detection or capacity but leave the surface unchanged."
+    ],
+    [
+      "d",
+      "Shadow IT",
+      "A forgotten test server with an old admin panel is found on the internet. Why is this a serious risk?",
+      "Unmanaged assets are often unpatched and unmonitored",
+      "Test servers cannot be scanned by attackers",
+      "Admin panels are always protected by default",
+      "Forgotten servers stop working after a year",
+      "Shadow and forgotten assets widen the attack surface and are frequent breach entry points."
+    ],
+    [
+      "m",
+      "Security, privacy, safety",
+      "How does privacy differ from security?",
+      "Privacy concerns appropriate use of personal data; security protects systems and data from threats",
+      "Privacy concerns only encryption; security concerns only passwords",
+      "Privacy applies to companies; security applies only to individuals",
+      "Privacy and security are two names for the same discipline",
+      "Strong security is needed for privacy, but a secure system can still use personal data inappropriately."
+    ],
+    [
+      "d",
+      "Safety",
+      "In an industrial plant, why can a safety system's priority conflict with a security control?",
+      "Safety may require systems to act or fail open immediately, even when security would lock them down",
+      "Safety systems are never connected to any network, so security does not apply",
+      "Security controls only apply to office IT, never to plants",
+      "Safety and security are always handled by the same tool",
+      "In cyber-physical systems, protecting human life can override confidentiality or access controls."
+    ],
+    [
+      "m",
+      "Threat actors",
+      "Which threat actor is typically motivated by financial gain?",
+      "Cybercriminal groups",
+      "Hacktivists",
+      "Nation-state espionage units",
+      "Curious script kiddies",
+      "Cybercriminals seek money through ransomware, fraud and data theft; hacktivists are ideologically motivated."
+    ],
+    [
+      "d",
+      "Threat actors",
+      "What typically distinguishes a nation-state actor from a criminal group?",
+      "Strategic goals, significant resources and long-term persistence",
+      "A preference for loud, quick attacks that demand ransom",
+      "Reliance only on freely available, unmodified tools",
+      "Targeting only home users rather than organisations",
+      "State actors pursue espionage or disruption with patience and resources, though tactics increasingly overlap with crime."
+    ],
+    [
+      "m",
+      "Insiders",
+      "Why are insider threats hard to detect?",
+      "Insiders already have legitimate access",
+      "Insiders never leave any logs or traces",
+      "Insiders use only physical attacks",
+      "Insiders always work with nation-states",
+      "Malicious or careless insiders act within authorised access, so detection relies on behavioural anomalies."
+    ],
+    [
+      "m",
+      "Terminology",
+      "Which statement correctly relates threat, vulnerability and risk?",
+      "Risk arises when a threat can exploit a vulnerability to harm an asset",
+      "A vulnerability is an attacker, and a threat is a software flaw",
+      "Risk exists only after an attack has already succeeded",
+      "A threat and a vulnerability are the same thing",
+      "A vulnerability is a weakness, a threat is something that could exploit it, and risk combines likelihood and impact."
+    ],
+    [
+      "d",
+      "Terminology",
+      "What is the difference between an exploit and a vulnerability?",
+      "A vulnerability is the weakness; an exploit is code or a technique that uses it",
+      "An exploit is the weakness; a vulnerability is the attacker's tool",
+      "Both terms describe the patch released by a vendor",
+      "A vulnerability exists only after an exploit is published",
+      "Weaknesses may exist for years before anyone writes an exploit, which is why patching does not wait for exploits."
+    ],
+    [
+      "d",
+      "Terminology",
+      "What is a false positive in security monitoring?",
+      "An alert raised for activity that is actually benign",
+      "A real attack that the monitoring system missed",
+      "A correct alert about genuine malicious activity",
+      "A log entry that has been deleted by an attacker",
+      "False positives waste analyst time; false negatives are missed attacks, which are usually more dangerous."
+    ],
+    [
+      "m",
+      "Terminology",
+      "What is an indicator of compromise (IoC)?",
+      "An observable artefact, such as a hash or IP address, linked to malicious activity",
+      "A policy document describing how to respond to incidents",
+      "A certificate showing a system has passed an audit",
+      "A tool that automatically patches vulnerable servers",
+      "IoCs such as file hashes, domains and IPs help detect known threats; behavioural indicators help with unknown ones."
+    ]
+  ],
+  "patch": {
+    "Installation": "Installation of persistence",
+    "A log entry that has been deleted by an attacker": "A log entry that has been deleted by an attacker afterwards",
+    "Confidentiality controls always delete data that has not been used recently": "Confidentiality controls always delete any stored data that has not been used recently",
+    "Attackers abandon campaigns after the reconnaissance phase": "Attackers usually abandon campaigns after the reconnaissance phase",
+    "Attackers are legally allowed one free attempt per organisation": "Attackers are legally allowed one free attempt against each organisation",
+    "Only the computers and servers listed in the IT budget": "Only the computers and servers that are listed in the IT budget",
+    "A malicious update pushed through a software vendor's build system": "A malicious update pushed through a trusted software vendor's build system"
+  }
+}

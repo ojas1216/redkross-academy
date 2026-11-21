@@ -1,0 +1,268 @@
+{
+  "add": [
+    [
+      "m",
+      "Shebang",
+      "What does the first line #!/usr/bin/env bash in a script do?",
+      "Selects the interpreter that runs the script",
+      "Marks the line as a comment that is ignored completely",
+      "Grants the script permission to run as root",
+      "Loads environment variables from the user's profile",
+      "The shebang tells the kernel which interpreter to use; env finds bash on the PATH."
+    ],
+    [
+      "m",
+      "Parameters",
+      "In a bash script, what does $1 contain?",
+      "The first command-line argument",
+      "The script's own file name",
+      "The exit status of the last command",
+      "The number of arguments passed",
+      "$0 is the script name, $1 the first argument, $# the count and $? the last exit status."
+    ],
+    [
+      "m",
+      "Exit codes",
+      "What does an exit status of 0 mean by convention?",
+      "Success",
+      "A general error occurred",
+      "The command was not found",
+      "The process was killed",
+      "0 means success; any non-zero value signals failure. 127 commonly means command not found."
+    ],
+    [
+      "d",
+      "Exit codes",
+      "A command run in a script returns exit status 126. What is the most likely cause?",
+      "The file exists but is not executable",
+      "The command was not found on the PATH",
+      "The command was terminated by SIGKILL",
+      "The command completed with a warning",
+      "126 means found but not executable (for example, missing execute permission); 127 means not found; 128+n means killed by signal n."
+    ],
+    [
+      "m",
+      "Conditions",
+      "Which test checks whether /etc/app.conf exists and is a regular file?",
+      "[ -f /etc/app.conf ]",
+      "[ -d /etc/app.conf ]",
+      "[ -z /etc/app.conf ]",
+      "[ -x /etc/app.conf ]",
+      "-f tests for a regular file; -d is a directory, -z an empty string and -x executable."
+    ],
+    [
+      "m",
+      "Loops",
+      "Which loop safely processes each line of hosts.txt, including lines with spaces?",
+      "while IFS= read -r line; do ...; done < hosts.txt",
+      "for line in $(cat hosts.txt); do ...; done",
+      "for line in hosts.txt; do ...; done",
+      "until read hosts.txt; do ...; done",
+      "A while-read loop handles lines intact; for over $(cat) splits on whitespace."
+    ],
+    [
+      "d",
+      "Functions",
+      "Why should variables inside a bash function be declared with local?",
+      "To avoid overwriting variables of the same name elsewhere in the script",
+      "Because functions cannot read any variable that is not local",
+      "Because local variables are stored encrypted in memory",
+      "Because bash runs functions only when every variable is local",
+      "Bash variables are global by default; local limits their scope to the function."
+    ],
+    [
+      "d",
+      "Strict mode",
+      "What does set -u add to a script's safety?",
+      "It stops the script when an unset variable is used",
+      "It stops the script when any command prints to standard error",
+      "It prevents the script from being run by unprivileged users",
+      "It forces every variable to be written in uppercase",
+      "set -u turns references to unset variables into errors, which catches typos such as $DIRR."
+    ],
+    [
+      "d",
+      "Word splitting",
+      "Why does ShellCheck warn about unquoted variables such as cp $src $dst?",
+      "Values with spaces or glob characters split into several arguments",
+      "Unquoted variables are always empty when passed to external commands",
+      "cp refuses arguments that come from variables unless they are quoted",
+      "Unquoted variables are executed as separate commands by the shell",
+      "Quoting prevents word splitting and globbing, which otherwise change how many arguments a command receives."
+    ],
+    [
+      "m",
+      "Validating input",
+      "A script takes a username argument and passes it to userdel. What is a sensible first check?",
+      "Reject values that do not match an expected pattern",
+      "Run userdel first and check whether it reports an error",
+      "Convert the argument to uppercase before using it",
+      "Pass the argument through eval to expand any variables",
+      "Validate input against an allow-list pattern before using it. eval on user input is dangerous."
+    ],
+    [
+      "d",
+      "Secrets in scripts",
+      "Why should a backup script not contain a database password in plain text?",
+      "Anyone who can read the script or its copies obtains the credential",
+      "Bash cannot pass passwords to commands that run in the background",
+      "Plain-text passwords make the script run more slowly",
+      "Passwords in scripts expire after the script is run once",
+      "Scripts are copied, versioned and read. Use a protected credentials file, a secrets manager or the tool's own credential store."
+    ],
+    [
+      "m",
+      "Logging from scripts",
+      "Which command sends a message from a script to the system log?",
+      "logger",
+      "echo -syslog",
+      "printf --journal",
+      "write root",
+      "logger writes to syslog/journald, giving scripts a central, timestamped record."
+    ],
+    [
+      "m",
+      "Debugging",
+      "What does running a script with bash -x show?",
+      "Each command as it is executed, after expansion",
+      "Only the commands that returned an error",
+      "The script's source with comments removed",
+      "The memory used by each line of the script",
+      "-x traces expanded commands, which shows exactly what the shell runs."
+    ],
+    [
+      "d",
+      "Dry runs",
+      "Why add a --dry-run option to a script that deletes old files?",
+      "So operators can see what would be removed before anything is deleted",
+      "So the script runs faster by skipping the file-system checks",
+      "So that the deleted files can be restored after the script ends",
+      "So the script can run without the permissions it would normally need",
+      "A dry run prints intended actions without making changes, which is essential for destructive automation."
+    ],
+    [
+      "m",
+      "ShellCheck",
+      "What is ShellCheck?",
+      "A static analyser that finds common bugs in shell scripts",
+      "A service that checks whether shells are running on a server",
+      "A tool that encrypts scripts before they are deployed",
+      "A replacement shell that runs scripts in a sandbox",
+      "ShellCheck reads scripts without running them and flags issues such as unquoted variables."
+    ],
+    [
+      "m",
+      "cron format",
+      "What schedule does the cron expression 30 2 * * 1 describe?",
+      "02:30 every Monday",
+      "Every 30 minutes on day 2",
+      "02:30 on the first of each month",
+      "Every 2 hours, 30 times a week",
+      "Fields are minute, hour, day of month, month and day of week; 1 is Monday."
+    ],
+    [
+      "d",
+      "cron environment",
+      "A command works in an interactive shell but fails from cron. What is a common reason?",
+      "cron runs with a minimal environment and PATH",
+      "cron runs every job with root privileges",
+      "cron cannot run scripts written for bash",
+      "cron jobs are blocked until a user logs in",
+      "Use absolute paths and set needed variables in the job, because cron does not load the user's profile."
+    ],
+    [
+      "d",
+      "cron security",
+      "Why is a cron job run by root that executes a script writable by other users dangerous?",
+      "Anyone who can edit the script gets their code run as root",
+      "cron will refuse to run it and stop all other scheduled jobs",
+      "The script will be deleted at the next scheduled run",
+      "It makes the system clock drift on every execution",
+      "Scheduled tasks are a well-known persistence and escalation route. Scripts run by root must be root-owned and not writable by others."
+    ],
+    [
+      "m",
+      "cron access control",
+      "Which files decide which users may create their own crontabs?",
+      "/etc/cron.allow and /etc/cron.deny",
+      "/etc/passwd and /etc/shadow",
+      "/etc/sudoers and /etc/group",
+      "/etc/hosts.allow and /etc/hosts.deny",
+      "cron.allow (if present) lists permitted users; otherwise cron.deny lists those refused."
+    ],
+    [
+      "d",
+      "systemd timers",
+      "What does Persistent=true do in a systemd timer?",
+      "Runs a missed job at the next boot if the system was off when it was due",
+      "Keeps the timer's output in memory after the job has finished",
+      "Prevents anyone from disabling the timer, including root",
+      "Makes the job restart forever if it exits with an error",
+      "Persistent timers catch up on runs missed while the machine was powered off, unlike classic cron."
+    ],
+    [
+      "m",
+      "Auditing schedules",
+      "Which command lists active systemd timers and their next run times?",
+      "systemctl list-timers",
+      "crontab -l --systemd",
+      "journalctl --timers",
+      "atq -systemd",
+      "list-timers shows each timer, its last and next trigger and the unit it activates."
+    ],
+    [
+      "m",
+      "Load average",
+      "On a 4-core server, what does a sustained load average of 8 suggest?",
+      "More work is waiting than the cores can run",
+      "The server is using 8% of its CPU",
+      "Eight users are logged in at once",
+      "The disk is 8 times faster than needed",
+      "Load counts runnable (and uninterruptible) tasks; consistently above the core count indicates saturation."
+    ],
+    [
+      "d",
+      "vmstat",
+      "vmstat shows high values in the si and so columns. What does this indicate?",
+      "The system is swapping memory to and from disk",
+      "The CPU is spending most of its time idle",
+      "Network traffic is being dropped by the kernel",
+      "Disk space on the root volume is almost full",
+      "si/so are swap-in and swap-out. Sustained swapping signals memory pressure and slows the system."
+    ],
+    [
+      "d",
+      "Alerting",
+      "Why should a disk-space alert fire at a threshold such as 85% rather than at 100%?",
+      "It gives time to act before services fail",
+      "Disks stop accepting reads above 85% full",
+      "Monitoring tools cannot measure above 85%",
+      "Thresholds below 100% reduce disk wear",
+      "Alerts must leave time to respond. At 100%, logging and databases may already have failed."
+    ],
+    [
+      "m",
+      "Disk monitoring",
+      "Which command shows free space per mounted file system in human-readable units?",
+      "df -h",
+      "du -s",
+      "ls -lh",
+      "free -h",
+      "df reports per-file-system usage; free shows memory, and du sums directory sizes."
+    ],
+    [
+      "d",
+      "Atomic writes",
+      "Why do robust scripts write output to a temporary file and then mv it into place?",
+      "The rename is atomic, so readers never see a half-written file",
+      "mv compresses files, so the final copy uses less disk space",
+      "Temporary files are automatically backed up by the system",
+      "Writing directly to the final file needs root privileges",
+      "Renaming within one file system is atomic, so consumers see either the old or the complete new file."
+    ]
+  ],
+  "patch": {
+    "So the script can run without the permissions it would normally need": "So the script can run without the file permissions it would normally need to delete",
+    "crontab -l --systemd": "crontab -l --systemd-units"
+  }
+}

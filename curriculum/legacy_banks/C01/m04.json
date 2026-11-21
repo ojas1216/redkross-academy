@@ -1,0 +1,318 @@
+{
+  "dropAll": true,
+  "add": [
+    [
+      "m",
+      "Risk fundamentals",
+      "In the asset-threat-vulnerability model, when does risk exist?",
+      "When a threat can exploit a vulnerability in a valuable asset",
+      "Whenever an organisation owns any computer at all",
+      "Only after an attacker has been identified by name",
+      "Only when a vulnerability has a public exploit",
+      "Risk needs all three: something of value, a weakness and something that can exploit it."
+    ],
+    [
+      "m",
+      "Risk fundamentals",
+      "How is risk usually expressed in a simple risk matrix?",
+      "Likelihood multiplied by impact",
+      "Number of assets divided by staff",
+      "Patch count multiplied by servers",
+      "Firewall rules divided by alerts",
+      "A 5x5 matrix scores likelihood and impact from 1 to 5 and multiplies them."
+    ],
+    [
+      "d",
+      "Inherent and residual risk",
+      "What is the difference between inherent and residual risk?",
+      "Inherent risk is before controls; residual risk remains after controls",
+      "Inherent risk applies to hardware; residual risk applies to software",
+      "Inherent risk is accepted; residual risk must always be eliminated",
+      "Inherent risk is measured monthly; residual risk only yearly",
+      "Controls reduce inherent risk to residual risk, which leadership must judge acceptable or not."
+    ],
+    [
+      "m",
+      "Vulnerability management",
+      "Why is vulnerability management described as a lifecycle rather than a project?",
+      "New vulnerabilities and assets appear continuously",
+      "It must be completed once before an audit",
+      "It ends after the first full network scan",
+      "It only runs when a breach has occurred",
+      "Discovery, prioritisation, remediation and verification repeat continuously."
+    ],
+    [
+      "m",
+      "CVE",
+      "What is a CVE identifier?",
+      "A public reference number for a specific known vulnerability",
+      "A severity score from 0 to 10 for a vulnerability",
+      "A patch released by the software vendor",
+      "A certificate showing a system is secure",
+      "CVE names vulnerabilities; CVSS scores their severity."
+    ],
+    [
+      "m",
+      "CVSS",
+      "What does a CVSS base score measure?",
+      "The technical severity of a vulnerability",
+      "The business value of the affected asset",
+      "The number of attackers exploiting it",
+      "The cost of applying the patch",
+      "The base score reflects exploitability and impact characteristics, not organisational context."
+    ],
+    [
+      "d",
+      "CVSS",
+      "Which CVSS v3.1 base score range is rated Critical?",
+      "9.0 to 10.0",
+      "7.0 to 8.9",
+      "4.0 to 6.9",
+      "0.1 to 3.9",
+      "Critical is 9.0-10.0, High 7.0-8.9, Medium 4.0-6.9 and Low 0.1-3.9."
+    ],
+    [
+      "d",
+      "Prioritisation",
+      "A CVSS 9.8 flaw affects an isolated lab system, and a CVSS 7.5 flaw affects an internet-facing payment server under active exploitation. Which should be fixed first?",
+      "The payment server flaw, because exposure and active exploitation raise its risk",
+      "The lab flaw, because a higher CVSS score always means higher priority",
+      "Neither, because scores below 10 do not need urgent action",
+      "Both at once, because CVSS scores cannot be compared",
+      "Prioritisation combines severity with business context, exposure and threat activity."
+    ],
+    [
+      "d",
+      "CVSS vectors",
+      "In a CVSS vector, what does AV:N indicate?",
+      "The vulnerability can be exploited over the network",
+      "The vulnerability needs no authentication at all",
+      "The vulnerability affects only availability",
+      "The vulnerability has no known exploit",
+      "Attack Vector: Network means remote exploitation is possible, which typically raises severity."
+    ],
+    [
+      "m",
+      "Risk register",
+      "What is a risk register?",
+      "A record of identified risks with scores, owners and treatment plans",
+      "A list of every employee's login history",
+      "A database of malware signatures for antivirus",
+      "A firewall rule set exported to a spreadsheet",
+      "The register tracks each risk from identification to treatment and review."
+    ],
+    [
+      "d",
+      "Risk register",
+      "Why does each risk in a register need a named owner?",
+      "Someone must be accountable for its treatment and review",
+      "Owners pay for any losses the risk causes personally",
+      "Auditors only read risks that have owners' signatures",
+      "Unowned risks are removed from the register automatically",
+      "Accountability ensures treatment actions happen and risks are reviewed on schedule."
+    ],
+    [
+      "m",
+      "Risk frameworks",
+      "Which framework is used to certify an information security management system?",
+      "ISO/IEC 27001",
+      "NIST SP 800-61",
+      "MITRE ATT&CK",
+      "CVSS v3.1",
+      "Organisations can be certified against ISO/IEC 27001; the others are guidance or scoring systems."
+    ],
+    [
+      "d",
+      "FAIR",
+      "What does the FAIR model add to risk analysis?",
+      "Quantification of risk in financial terms",
+      "A list of controls required by law",
+      "A scoring system for individual CVEs",
+      "A taxonomy of malware families",
+      "FAIR estimates loss event frequency and magnitude to express risk in money."
+    ],
+    [
+      "d",
+      "NIST RMF",
+      "What is the NIST Risk Management Framework primarily used for?",
+      "A lifecycle for selecting, implementing and monitoring controls on systems",
+      "A database of attacker techniques and tools",
+      "A scale for calibrating likelihood ratings",
+      "A certification scheme for security professionals",
+      "RMF steps include categorise, select, implement, assess, authorise and monitor."
+    ],
+    [
+      "m",
+      "Calibration",
+      "Why should likelihood and impact scales be defined with concrete ranges?",
+      "So different people give consistent ratings",
+      "So that every risk is rated as High",
+      "So that impact can be ignored in reports",
+      "So that only experts can read the scores",
+      "Undefined labels like 'Medium' mean different things to different people."
+    ],
+    [
+      "d",
+      "Calibration",
+      "On a likelihood scale where 'Likely' means 1 to 12 events per year, how often might such an event occur?",
+      "Between about once a year and monthly",
+      "Between weekly and daily",
+      "Less than once every ten years",
+      "More than once every hour",
+      "One to twelve events a year ranges from yearly to monthly."
+    ],
+    [
+      "d",
+      "Calibration",
+      "What is a common mistake when estimating impact?",
+      "Confusing the loss from one event with the annual loss",
+      "Using money instead of colours to describe impact",
+      "Including safety effects in critical systems",
+      "Basing likelihood on threat intelligence data",
+      "Impact per event and annualised loss are different numbers; mixing them distorts scores."
+    ],
+    [
+      "d",
+      "Bias",
+      "Why do teams use reference data and calibration exercises when estimating risk?",
+      "To reduce overconfidence and other cognitive biases",
+      "To make risk scores higher for budget requests",
+      "To avoid involving business owners in decisions",
+      "To remove the need for any risk register",
+      "Calibration training and data improve the accuracy of expert estimates."
+    ],
+    [
+      "m",
+      "Qualitative analysis",
+      "What is a strength of qualitative risk analysis?",
+      "It is quick and easy to communicate",
+      "It always produces precise money values",
+      "It needs extensive historical loss data",
+      "It removes all subjectivity from ratings",
+      "Qualitative ratings are fast but subjective; quantitative methods need more data."
+    ],
+    [
+      "d",
+      "Quantitative analysis",
+      "An asset worth 2,000,000 has an exposure factor of 0.25 and an annual rate of occurrence of 0.1. What is the annualised loss expectancy?",
+      "50,000",
+      "500,000",
+      "200,000",
+      "25,000",
+      "SLE = 2,000,000 x 0.25 = 500,000. ALE = 500,000 x 0.1 = 50,000."
+    ],
+    [
+      "d",
+      "Quantitative analysis",
+      "If a control costs 80,000 a year and reduces ALE from 60,000 to 10,000, is it cost-justified on these figures alone?",
+      "No, because it costs more than the 50,000 reduction it buys",
+      "Yes, because any reduction in ALE justifies the cost",
+      "Yes, because ALE falls below the control's cost",
+      "No, because ALE can never be reduced by controls",
+      "The control's value is the ALE reduction (50,000), which is less than its annual cost (80,000)."
+    ],
+    [
+      "m",
+      "Qualitative failure",
+      "What does it suggest when every risk in a register is rated High?",
+      "The scales are not calibrated and cannot guide priorities",
+      "The organisation has an excellent security programme",
+      "Risk analysis has been completed correctly",
+      "No further controls are needed anywhere",
+      "If everything is High, nothing is prioritised; calibration fixes this."
+    ],
+    [
+      "m",
+      "Risk treatment",
+      "Which are the four common risk treatment options?",
+      "Mitigate, transfer, avoid and accept",
+      "Detect, delete, deny and defer",
+      "Patch, scan, log and alert",
+      "Encrypt, hash, sign and verify",
+      "Treatment reduces, shares, removes or knowingly accepts risk."
+    ],
+    [
+      "m",
+      "Risk transfer",
+      "Buying cyber insurance is an example of which treatment?",
+      "Transfer",
+      "Avoidance",
+      "Mitigation",
+      "Acceptance",
+      "Insurance shifts some financial impact to another party, but not the responsibility to protect data."
+    ],
+    [
+      "d",
+      "Risk avoidance",
+      "A company stops offering a risky legacy service rather than securing it. Which treatment is this?",
+      "Avoidance",
+      "Transfer",
+      "Acceptance",
+      "Mitigation",
+      "Removing the activity removes the risk."
+    ],
+    [
+      "d",
+      "Risk acceptance",
+      "What must accompany a formal risk acceptance?",
+      "A documented decision by an authorised owner, with a review date",
+      "Deletion of the risk from the register",
+      "A promise from IT that the risk will never occur",
+      "Approval from every employee in the company",
+      "Acceptance is a managed decision, not neglect, and is revisited when conditions change."
+    ],
+    [
+      "d",
+      "Remediation SLAs",
+      "Why do organisations set remediation SLAs by severity, such as 15 days for critical findings?",
+      "To make sure the most serious issues are fixed fastest and tracked",
+      "To guarantee attackers wait until the SLA ends",
+      "To allow low-severity findings to be ignored forever",
+      "To meet a legal rule that applies in every country",
+      "SLAs turn prioritisation into measurable commitments; exceptions need formal approval."
+    ],
+    [
+      "m",
+      "Continuous risk management",
+      "Why is an annual risk assessment alone not enough?",
+      "Threats, assets and vulnerabilities change throughout the year",
+      "Auditors require assessments every week",
+      "Risk scores expire after thirty days",
+      "Annual assessments are prohibited by ISO 27001",
+      "Continuous monitoring keeps the register current as the environment changes."
+    ],
+    [
+      "d",
+      "Exceptions",
+      "A server cannot be patched because a vendor no longer supports it. What is the right handling?",
+      "Record an exception with compensating controls and a review date",
+      "Remove the server from the asset inventory",
+      "Rate its risk as Low so it leaves the report",
+      "Disable logging on it to avoid alerts",
+      "Compensating controls such as isolation reduce risk while the exception is tracked."
+    ],
+    [
+      "m",
+      "Communication",
+      "How should a risk be described to business leaders?",
+      "In terms of business impact and likelihood",
+      "Only as a list of CVE numbers",
+      "Only in technical port and protocol terms",
+      "Without any recommendation or owner",
+      "Leaders decide on business terms; technical detail belongs in supporting material."
+    ]
+  ],
+  "patch": {
+    "The business value of the affected asset": "The business value of the affected asset itself",
+    "7.0 to 8.9": "7.0 up to 8.9",
+    "Only in technical port and protocol terms": "Only in technical port, protocol and packet terms",
+    "Inherent risk applies to hardware; residual risk applies to software": "Inherent risk applies to hardware; residual risk applies only to software",
+    "The vulnerability needs no authentication at all": "The vulnerability needs no authentication or user interaction",
+    "So that impact can be ignored in reports": "So that impact can be safely ignored in reports",
+    "To avoid involving business owners in decisions": "To avoid involving business owners in risk decisions",
+    "A scoring system for individual CVEs": "A scoring system for individual CVE identifiers",
+    "Using money instead of colours to describe impact": "Using money values instead of colours to describe impact",
+    "The organisation has an excellent security programme": "The organisation has an excellent and mature security programme",
+    "Encrypt, hash, sign and verify": "Encrypt, hash, sign and verify every asset"
+  }
+}

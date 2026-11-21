@@ -1,0 +1,275 @@
+{
+  "add": [
+    [
+      "m",
+      "Event log channels",
+      "Which three classic Windows event logs exist alongside application-specific channels?",
+      "Application, Security and System",
+      "Kernel, Network and Storage",
+      "Audit, Debug and Trace",
+      "Login, Logout and Error",
+      "The classic logs are Application, Security and System; many more channels sit under Applications and Services Logs."
+    ],
+    [
+      "m",
+      "Event anatomy",
+      "Which fields identify what an event means?",
+      "Provider (source) and Event ID",
+      "Keywords and the task category only",
+      "The event's level and the computer name",
+      "The record number and the time created",
+      "Event IDs are defined per provider, so the pair identifies the event type."
+    ],
+    [
+      "m",
+      "Storage",
+      "In which format are Windows event logs stored on disk?",
+      ".evtx files",
+      ".csv files",
+      ".log text files",
+      ".json files",
+      "Event logs are stored as binary EVTX files, usually under System32\\winevt\\Logs."
+    ],
+    [
+      "d",
+      "Querying",
+      "Which PowerShell command efficiently retrieves failed logons from the Security log?",
+      "Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625}",
+      "Get-EventLog -Failed -Security",
+      "Get-Content C:\\Windows\\Security.log | Select 4625",
+      "Find-Event -Id 4625 -All",
+      "FilterHashtable filters at the source, which is much faster than retrieving everything and filtering afterwards."
+    ],
+    [
+      "m",
+      "Logon events",
+      "What does Event ID 4625 record?",
+      "A failed logon attempt",
+      "A successful logon",
+      "A user logging off",
+      "A new user account",
+      "4624 is a successful logon, 4625 a failure, 4634 a logoff and 4720 a new account."
+    ],
+    [
+      "d",
+      "Logon types",
+      "Event 4624 shows Logon Type 3. What kind of logon is this?",
+      "A network logon, such as accessing a file share",
+      "An interactive logon at the physical keyboard",
+      "A Remote Desktop session",
+      "A scheduled task starting",
+      "Type 2 is interactive, 3 network, 4 batch, 5 service and 10 RemoteInteractive (RDP)."
+    ],
+    [
+      "m",
+      "Account management",
+      "Which event shows that a user was added to a security-enabled local group?",
+      "4732",
+      "4624",
+      "1102",
+      "7045",
+      "4732 records a member added to a security-enabled local group, such as Administrators."
+    ],
+    [
+      "d",
+      "Process tracking",
+      "What does Event ID 4688 provide when process creation auditing is enabled?",
+      "A record of each new process, optionally with its command line",
+      "A record of each file read by any process",
+      "A list of processes that failed to start",
+      "The CPU usage of each running process",
+      "4688 logs process creation. Command-line logging must be enabled separately via policy."
+    ],
+    [
+      "d",
+      "Service installation",
+      "Why is System log Event ID 7045 useful in investigations?",
+      "It records a new service being installed, a common persistence method",
+      "It records the system clock being changed by an administrator",
+      "It records disk errors that may indicate hardware failure",
+      "It records Windows Update installing a new feature release",
+      "Attackers often create services for persistence or remote execution. 7045 shows the service name and path."
+    ],
+    [
+      "m",
+      "Audit policy",
+      "Why might a Security log contain no 4688 events at all?",
+      "Process creation auditing is not enabled by default",
+      "4688 events are written only to the System log",
+      "4688 events are deleted after each reboot",
+      "4688 events require a domain controller",
+      "Many audit categories are off by default. Advanced Audit Policy controls what is recorded."
+    ],
+    [
+      "d",
+      "Time",
+      "Why should event times be compared in UTC across machines?",
+      "Event logs store UTC; viewers show local time that differs by machine settings",
+      "Event logs store only the date, so time zones are irrelevant",
+      "UTC is required for Windows to write events at all",
+      "Local time is never recorded anywhere in Windows",
+      "Consistent time references are essential for building a timeline across systems."
+    ],
+    [
+      "m",
+      "Why centralise",
+      "What is a key reason to centralise Windows event logs?",
+      "Logs survive if a host is compromised or wiped",
+      "Centralised logs use less storage than local logs",
+      "Hosts cannot write logs without a central server",
+      "It removes the need for any audit policy",
+      "Central copies protect evidence and enable correlation across many systems."
+    ],
+    [
+      "d",
+      "WEF",
+      "How does Windows Event Forwarding deliver events?",
+      "Source computers send events to a collector using WinRM, based on subscriptions",
+      "The collector copies EVTX files over SMB from each host once per day",
+      "Domain controllers email events to administrators every hour",
+      "Events are uploaded to the cloud through the Windows Update service",
+      "WEF uses subscriptions (source- or collector-initiated) over WinRM; a SIEM can then read the collector."
+    ],
+    [
+      "m",
+      "Planning",
+      "When planning log collection, what should be decided first?",
+      "Which events answer the organisation's detection and investigation questions",
+      "Which colour scheme the SIEM dashboards should use",
+      "Which users may delete logs from their own machines",
+      "Which hosts may be excluded to save storage costs",
+      "Start from use cases; collecting everything without purpose is costly and noisy."
+    ],
+    [
+      "m",
+      "Workgroup versus domain",
+      "What is the main administrative difference between a workgroup and a domain?",
+      "A domain centralises accounts and policy on domain controllers",
+      "A workgroup centralises accounts on one elected computer",
+      "A domain can contain only one computer per user",
+      "A workgroup requires a separate licence for each computer",
+      "In a workgroup each computer has its own accounts; a domain uses Active Directory for central identity and policy."
+    ],
+    [
+      "d",
+      "AD building blocks",
+      "What is an organisational unit (OU) used for?",
+      "Grouping objects to delegate administration and link Group Policy",
+      "Holding the Kerberos keys for every user in the domain",
+      "Defining the security boundary between two separate forests",
+      "Replicating the directory between domain controllers",
+      "OUs organise objects for delegation and GPO linking. The forest is the security boundary."
+    ],
+    [
+      "d",
+      "Kerberos",
+      "Why does Kerberos depend on time synchronisation?",
+      "Tickets have timestamps and are rejected if clocks differ too much",
+      "Kerberos encrypts passwords using the current time as the key",
+      "Domain controllers shut down if a client's clock is wrong",
+      "Kerberos only works during configured business hours",
+      "Kerberos uses timestamps to prevent replay. The default tolerated skew is five minutes."
+    ],
+    [
+      "m",
+      "Cloud identity",
+      "What does Microsoft Entra ID (formerly Azure AD) primarily provide?",
+      "Cloud identity and access management for apps and services",
+      "An on-premises file server for storing user documents",
+      "A replacement for the Windows kernel in the cloud",
+      "A local backup of every domain controller's disk",
+      "Entra ID is a cloud identity service; it is not simply Active Directory hosted in the cloud."
+    ],
+    [
+      "m",
+      "Group Policy purpose",
+      "What does Group Policy do in a domain?",
+      "Applies configuration and security settings to users and computers centrally",
+      "Encrypts all network traffic between domain members",
+      "Creates new user accounts automatically each morning",
+      "Backs up domain controllers to removable media",
+      "GPOs push settings such as password policy, audit policy and software restrictions."
+    ],
+    [
+      "d",
+      "GPO structure",
+      "Where are a GPO's files, such as scripts and templates, stored?",
+      "In SYSVOL on the domain controllers",
+      "In each user's NTUSER.DAT file",
+      "In the C:\\Windows\\Temp folder of each client",
+      "In the domain's DNS zone records",
+      "The GPO's container is in AD and its template files in SYSVOL, replicated between DCs."
+    ],
+    [
+      "m",
+      "Verifying policy",
+      "Which command shows which Group Policy objects applied to a computer and user?",
+      "gpresult /r",
+      "gpupdate /force",
+      "ipconfig /all",
+      "netstat -ano",
+      "gpresult reports the resultant set of policy; gpupdate refreshes policy."
+    ],
+    [
+      "d",
+      "GPO security",
+      "Why must write access to GPOs be tightly controlled?",
+      "A modified GPO can run code on every computer it applies to",
+      "GPOs store every user's password in plain text",
+      "GPO edits disable Kerberos for the domain",
+      "Changing a GPO deletes the OU it is linked to",
+      "GPO control is effectively control over the computers in scope, so it is a high-value target."
+    ],
+    [
+      "m",
+      "Servicing",
+      "What is Patch Tuesday?",
+      "Microsoft's regular monthly release of security updates",
+      "A day when Windows refuses to install any updates",
+      "The deadline for patching set by every regulator",
+      "A weekly reboot that Windows forces on servers",
+      "Microsoft releases security updates on the second Tuesday of each month."
+    ],
+    [
+      "d",
+      "Deployment rings",
+      "Why are updates deployed in rings (pilot, broad, critical)?",
+      "Problems surface on a small group before reaching everyone",
+      "Rings are needed because WSUS can update only ten machines at once",
+      "Rings ensure each update is installed exactly three times",
+      "Critical systems must always be patched first, before testing",
+      "Staged deployment balances speed and stability by catching compatibility issues early."
+    ],
+    [
+      "d",
+      "Drift",
+      "What is configuration drift?",
+      "Gradual divergence of systems from their approved baseline",
+      "Clock differences between domain controllers",
+      "Movement of users between OUs after promotions",
+      "Slow replication of SYSVOL between sites",
+      "Ad hoc changes accumulate over time. Regular comparison against a baseline detects and corrects drift."
+    ],
+    [
+      "m",
+      "Clearing logs",
+      "Which event in the System log shows that a log other than Security was cleared?",
+      "104",
+      "4624",
+      "4720",
+      "7036",
+      "Clearing the Security log produces 1102; clearing other logs produces System event 104."
+    ]
+  ],
+  "patch": {
+    "A local interactive keyboard and console monitor logon session at the physical endpoint.": "A local interactive keyboard and console monitor logon session at the physical endpoint device.",
+    "An interactive logon at the physical keyboard": "An interactive logon by a user at the physical keyboard",
+    "A new user account": "A new user account was created",
+    "Kernel, Network and Storage": "Kernel, Network, Storage and Hardware",
+    "4688 events are written only to the System log": "4688 events are written only to the System log, never to Security",
+    "A workgroup requires a separate licence for each computer": "A workgroup requires a separate server licence for each of its computers",
+    "Kerberos encrypts passwords using the current time as the key": "Kerberos encrypts each password using the current time of day as the key",
+    "An on-premises file server for storing user documents": "An on-premises file server for storing users' documents and home folders",
+    "Defining the security boundary between two separate forests": "Defining the security boundary between two separate Active Directory forests"
+  }
+}

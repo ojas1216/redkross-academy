@@ -1,0 +1,314 @@
+{
+  "dropAll": true,
+  "add": [
+    [
+      "m",
+      "Threat actor taxonomy",
+      "Which actor is driven mainly by ideology or political causes?",
+      "Hacktivists",
+      "Cybercriminal groups",
+      "Malicious insiders",
+      "Ransomware affiliates",
+      "Hacktivists attack to make a political or social statement, often through defacement, leaks or DDoS."
+    ],
+    [
+      "d",
+      "Threat actor taxonomy",
+      "Why do defenders profile threat actors' motivation and capability?",
+      "To prioritise defences against the actors most likely to target them",
+      "To identify and arrest every attacker personally",
+      "To decide which actors are legally allowed to attack",
+      "To replace the need for vulnerability management",
+      "Understanding who is likely to attack, and how, guides investment and detection."
+    ],
+    [
+      "m",
+      "Malware types",
+      "What distinguishes a worm from a virus?",
+      "A worm spreads by itself across networks; a virus needs a host file or user action",
+      "A worm infects only Linux; a virus infects only Windows",
+      "A worm encrypts files; a virus steals passwords",
+      "A worm is legal software; a virus is illegal software",
+      "Worms self-propagate, as WannaCry did; viruses attach to hosts and rely on execution."
+    ],
+    [
+      "m",
+      "Malware types",
+      "What is a Trojan?",
+      "Malware disguised as legitimate software",
+      "Malware that only spreads over Wi-Fi",
+      "A tool that blocks malicious websites",
+      "A patch that fixes a vulnerability",
+      "Trojans rely on users trusting and running them."
+    ],
+    [
+      "d",
+      "Malware types",
+      "Why is fileless malware hard for signature-based antivirus to detect?",
+      "It runs in memory using legitimate tools, leaving few files to scan",
+      "It uses files too large for antivirus engines to open",
+      "It deletes the antivirus program before running",
+      "It only runs on computers without hard disks",
+      "Living-off-the-land techniques abuse tools like PowerShell; behaviour-based detection is needed."
+    ],
+    [
+      "m",
+      "Ransomware",
+      "What is double extortion in ransomware attacks?",
+      "Encrypting data and threatening to leak stolen copies",
+      "Demanding two payments from the same bank account",
+      "Encrypting data twice with two different keys",
+      "Attacking two companies with the same malware",
+      "Data theft before encryption adds leak pressure even if backups allow recovery."
+    ],
+    [
+      "m",
+      "Social engineering",
+      "What is spear phishing?",
+      "Phishing tailored to a specific person or organisation",
+      "Phishing sent to millions of random addresses",
+      "Phishing carried out only by telephone",
+      "Phishing that targets fishing companies",
+      "Spear phishing uses research on the target to appear credible."
+    ],
+    [
+      "m",
+      "Social engineering",
+      "What is whaling?",
+      "Phishing aimed at senior executives",
+      "Phishing sent through SMS messages",
+      "Mass phishing with misspelled emails",
+      "Phishing that uses QR codes",
+      "Whaling targets high-value individuals such as CEOs and finance heads."
+    ],
+    [
+      "d",
+      "Social engineering",
+      "An email from the 'CEO' urgently asks finance to wire money before a deadline. Which psychological trigger is used?",
+      "Authority combined with urgency",
+      "Reciprocity combined with liking",
+      "Scarcity combined with curiosity",
+      "Consensus combined with boredom",
+      "BEC attacks combine perceived authority with time pressure to bypass normal checks."
+    ],
+    [
+      "d",
+      "Social engineering",
+      "Which control best defeats business email compromise payment fraud?",
+      "Verifying payment changes through a separate, known channel",
+      "Asking staff to reply to the email to confirm it is genuine",
+      "Blocking all emails that contain attachments",
+      "Using a longer email signature for executives",
+      "Out-of-band verification breaks the attacker's control of the conversation."
+    ],
+    [
+      "m",
+      "Social engineering",
+      "What is vishing?",
+      "Voice phishing by telephone",
+      "Phishing through video calls only",
+      "Phishing via visual ads",
+      "Virus-based phishing",
+      "Vishing uses phone calls; smishing uses SMS."
+    ],
+    [
+      "d",
+      "Email authentication",
+      "What do SPF, DKIM and DMARC help prevent?",
+      "Spoofing of an organisation's email domain",
+      "Malware hidden inside encrypted attachments",
+      "Users clicking links in genuine emails",
+      "Mail servers running out of storage",
+      "These standards let receivers verify a sender is authorised for the domain and apply a policy to failures."
+    ],
+    [
+      "m",
+      "DoS and DDoS",
+      "What is the difference between DoS and DDoS?",
+      "DDoS uses many distributed sources, such as a botnet",
+      "DDoS targets data; DoS targets only hardware",
+      "DoS is illegal while DDoS is a testing method",
+      "DDoS affects confidentiality; DoS affects integrity",
+      "Distributed attacks come from many machines, making them harder to block."
+    ],
+    [
+      "m",
+      "DDoS categories",
+      "A SYN flood exhausts a server's connection table. Which category of DDoS is this?",
+      "Protocol (state-exhaustion) attack",
+      "Volumetric bandwidth attack",
+      "Application-layer attack",
+      "Physical-layer attack",
+      "SYN floods abuse the TCP handshake to fill connection state; volumetric attacks saturate bandwidth."
+    ],
+    [
+      "d",
+      "DDoS categories",
+      "Why are application-layer (Layer 7) DDoS attacks harder to filter?",
+      "Their requests look like legitimate user traffic",
+      "They use more bandwidth than any other type",
+      "They only target DNS servers on port 53",
+      "They can be stopped only by unplugging the server",
+      "HTTP floods mimic real requests, so simple volume or protocol filters do not separate them."
+    ],
+    [
+      "d",
+      "DDoS mitigation",
+      "How do scrubbing centres and anycast help mitigate DDoS?",
+      "They spread and filter attack traffic before it reaches the target",
+      "They encrypt traffic so attackers cannot read it",
+      "They block all traffic from foreign countries",
+      "They create backups of the attacked website",
+      "Anycast distributes load across sites; scrubbing removes malicious traffic upstream."
+    ],
+    [
+      "m",
+      "Botnets",
+      "How did the Mirai botnet recruit devices?",
+      "By logging in to IoT devices with default credentials",
+      "By exploiting a flaw in desktop web browsers",
+      "By sending infected USB drives by post",
+      "By compromising certificate authorities",
+      "Mirai scanned for devices using factory-default usernames and passwords."
+    ],
+    [
+      "m",
+      "Threat intelligence",
+      "What turns raw data into threat intelligence?",
+      "Collection, processing and analysis that produce actionable insight",
+      "Storing large volumes of logs on a central server",
+      "Buying a commercial threat feed of IP addresses",
+      "Encrypting the data before sharing it",
+      "Intelligence is analysed and contextualised; raw indicators alone are data."
+    ],
+    [
+      "m",
+      "Threat intelligence levels",
+      "Which level of threat intelligence is aimed at executives and boards?",
+      "Strategic",
+      "Technical",
+      "Tactical",
+      "Operational",
+      "Strategic intelligence covers trends and business risk in non-technical language."
+    ],
+    [
+      "d",
+      "Intelligence lifecycle",
+      "Which phase starts the threat intelligence lifecycle?",
+      "Planning and direction",
+      "Dissemination",
+      "Processing",
+      "Feedback",
+      "Requirements set in planning and direction decide what to collect and why."
+    ],
+    [
+      "d",
+      "Pyramid of Pain",
+      "According to the Pyramid of Pain, which indicators cause attackers the most difficulty when defenders detect them?",
+      "Tactics, techniques and procedures (TTPs)",
+      "File hash values",
+      "IP addresses",
+      "Domain names",
+      "Changing behaviour is costly; changing a hash or IP is trivial."
+    ],
+    [
+      "m",
+      "OSINT",
+      "What is passive reconnaissance in OSINT?",
+      "Gathering information without sending traffic to the target's systems",
+      "Scanning the target's servers with a port scanner",
+      "Sending phishing emails to the target's staff",
+      "Logging in to the target's systems with found credentials",
+      "Passive methods use third-party sources such as search engines, WHOIS and public records."
+    ],
+    [
+      "d",
+      "OSINT ethics",
+      "Why should a defender avoid uploading confidential internal documents to public multi-scanner services?",
+      "Uploaded files may become available to other users of the service",
+      "Public scanners delete the original file from the uploader's computer",
+      "Uploading files is illegal under every national law",
+      "Scanners always mark internal documents as malware",
+      "Some services share submissions with subscribers, which can leak sensitive data."
+    ],
+    [
+      "m",
+      "MITRE ATT&CK",
+      "What is the MITRE ATT&CK framework?",
+      "A knowledge base of adversary tactics and techniques from real-world observations",
+      "A government law that defines cyber offences",
+      "A firewall product sold by MITRE",
+      "A checklist for passing ISO 27001 audits",
+      "ATT&CK catalogues behaviour by tactic (the why) and technique (the how)."
+    ],
+    [
+      "d",
+      "MITRE ATT&CK",
+      "In ATT&CK, what is the difference between a tactic and a technique?",
+      "A tactic is the adversary's goal; a technique is how they achieve it",
+      "A tactic is a tool; a technique is the attacker's group name",
+      "A tactic is a defensive control; a technique is an exploit",
+      "They are two names for the same column in the matrix",
+      "For example, Credential Access is a tactic; OS Credential Dumping is a technique."
+    ],
+    [
+      "m",
+      "MITRE ATT&CK",
+      "How many tactics does the ATT&CK Enterprise matrix list?",
+      "14",
+      "6",
+      "7",
+      "25",
+      "The Enterprise matrix has 14 tactics, from Reconnaissance to Impact."
+    ],
+    [
+      "d",
+      "ATT&CK coverage",
+      "How do defenders use ATT&CK to find gaps?",
+      "By mapping existing detections to techniques and seeing which are uncovered",
+      "By counting how many vendors they buy tools from",
+      "By measuring the bandwidth of their internet connection",
+      "By listing which employees have attended training",
+      "Coverage maps show where detection and prevention are missing for relevant techniques."
+    ],
+    [
+      "m",
+      "Threat reports",
+      "Which section of a threat report should a busy executive read first?",
+      "The executive summary",
+      "The technical appendix",
+      "The IoC list",
+      "The raw log extracts",
+      "The executive summary states the key findings, impact and recommended actions in plain language."
+    ],
+    [
+      "d",
+      "Threat reports",
+      "Why should a threat report separate facts from assessments?",
+      "Readers need to know what was observed versus what is judged likely",
+      "Facts must always be written in a different language",
+      "Assessments are not allowed in professional reports",
+      "Facts are secret, so they go in a separate document",
+      "Clear labelling, often with confidence levels, prevents speculation being mistaken for evidence."
+    ],
+    [
+      "m",
+      "Threat reports",
+      "What makes a threat report actionable?",
+      "Specific recommendations and indicators that defenders can apply",
+      "A long history of every attacker group ever reported",
+      "A large number of charts and colourful diagrams",
+      "Technical jargon that shows the author's expertise",
+      "Actionable reports tell each audience what to do next."
+    ]
+  ],
+  "patch": {
+    "DDoS affects confidentiality; DoS affects integrity": "DDoS affects confidentiality; DoS affects only integrity",
+    "A tool that blocks malicious websites": "A tool that blocks access to malicious websites",
+    "Demanding two payments from the same bank account": "Demanding two separate payments from the same bank account",
+    "Volumetric bandwidth attack": "Volumetric bandwidth-saturation attack",
+    "A tactic is a tool; a technique is the attacker's group name": "A tactic is a tool; a technique is the name given to the attacker's group",
+    "Phishing sent to millions of random addresses": "Phishing sent to millions of random addresses at the same time",
+    "By exploiting a flaw in desktop web browsers": "By exploiting a flaw in popular desktop web browsers at scale"
+  }
+}

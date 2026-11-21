@@ -1,0 +1,271 @@
+{
+  "add": [
+    [
+      "m",
+      "Editions",
+      "What is the main difference between Windows PowerShell 5.1 and PowerShell 7?",
+      "5.1 is built into Windows on .NET Framework; 7 is cross-platform on modern .NET",
+      "5.1 runs only on Linux servers; 7 runs only on Windows desktop editions",
+      "5.1 is a graphical tool; 7 is a command-line tool with no scripting support",
+      "5.1 is the newer release; 7 is the older edition kept for compatibility",
+      "Windows PowerShell 5.1 ships with Windows. PowerShell 7 is installed separately and runs on Windows, Linux and macOS."
+    ],
+    [
+      "m",
+      "Cmdlet naming",
+      "Which name follows PowerShell's approved Verb-Noun convention?",
+      "Get-Service",
+      "Service-Get",
+      "ListServices",
+      "svc_get",
+      "Cmdlets use an approved verb, a hyphen and a singular noun, such as Get-Service or Stop-Process."
+    ],
+    [
+      "m",
+      "Discovering commands",
+      "Which command finds cmdlets whose noun contains 'Event'?",
+      "Get-Command -Noun *Event*",
+      "Find-Event -All",
+      "Get-Help Event -List",
+      "Show-Command Event*",
+      "Get-Command searches available commands by verb, noun or name."
+    ],
+    [
+      "m",
+      "Help",
+      "Which command shows examples for Get-Process?",
+      "Get-Help Get-Process -Examples",
+      "Get-Process -Help",
+      "man Get-Process -All",
+      "Show-Examples Get-Process",
+      "Get-Help with -Examples shows usage examples; Update-Help downloads current help."
+    ],
+    [
+      "d",
+      "Objects not text",
+      "Why does Get-Process | Where-Object CPU -gt 100 work without parsing columns?",
+      "Each item is an object with a CPU property",
+      "PowerShell converts the table to CSV first",
+      "Where-Object reads the screen output text",
+      "CPU is a reserved keyword in the shell",
+      "The pipeline passes .NET objects, so filters use properties directly rather than text positions."
+    ],
+    [
+      "m",
+      "Core pipeline cmdlets",
+      "Which cmdlet chooses particular properties to keep from each object?",
+      "Select-Object",
+      "Where-Object",
+      "Sort-Object",
+      "Measure-Object",
+      "Select-Object picks properties; Where-Object filters items; Sort-Object orders them."
+    ],
+    [
+      "d",
+      "Format versus export",
+      "Why should Format-Table not appear before Export-Csv in a pipeline?",
+      "Format-Table emits formatting objects, not the original data",
+      "Export-Csv cannot write files with more than ten columns",
+      "Format-Table deletes properties that have empty values",
+      "Export-Csv requires its input to be sorted by name first",
+      "Format-* cmdlets are for display only; export the original objects instead."
+    ],
+    [
+      "d",
+      "Calculated properties",
+      "What does @{Name='MB';Expression={$_.WS/1MB}} do in a Select-Object call?",
+      "Adds a computed property showing working set in megabytes",
+      "Renames the WS property and deletes the original value",
+      "Filters out processes using less than one megabyte",
+      "Converts every property on the object to megabytes",
+      "A calculated property defines a new property name and a script block that computes its value."
+    ],
+    [
+      "m",
+      "Providers",
+      "What does a PowerShell provider such as HKLM: allow?",
+      "Browsing the registry with the same cmdlets used for files",
+      "Connecting to a remote computer without credentials",
+      "Running Linux commands natively inside PowerShell",
+      "Encrypting the registry before it is changed",
+      "Providers expose data stores (file system, registry, certificates) as drives navigable with Get-ChildItem and similar cmdlets."
+    ],
+    [
+      "m",
+      "Variables",
+      "How is a variable written in PowerShell?",
+      "With a $ prefix, as in $count",
+      "With a % prefix, as in %count%",
+      "With an @ prefix, as in @count",
+      "With no prefix, as in count",
+      "PowerShell variables start with $. %VAR% is cmd.exe syntax."
+    ],
+    [
+      "m",
+      "Operators",
+      "Which operator tests numeric equality in PowerShell?",
+      "-eq",
+      "==",
+      "=",
+      "-is",
+      "Comparison uses -eq, -ne, -gt and similar; = is assignment."
+    ],
+    [
+      "d",
+      "Hash tables",
+      "Which structure stores key-value pairs in PowerShell?",
+      "@{ Key = 'Value' }",
+      "@( 'Key', 'Value' )",
+      "[ 'Key' => 'Value' ]",
+      "{ Key: Value }",
+      "@{} creates a hash table; @() creates an array."
+    ],
+    [
+      "d",
+      "String expansion",
+      "Why is building a command string from user input and running it with Invoke-Expression unsafe?",
+      "The input can inject additional commands",
+      "Invoke-Expression ignores every variable",
+      "Invoke-Expression needs administrator rights",
+      "The string is executed only on remote hosts",
+      "Invoke-Expression runs any text as code. Pass input as parameters instead of concatenating it into commands."
+    ],
+    [
+      "m",
+      "Advanced functions",
+      "What does adding [CmdletBinding()] to a function provide?",
+      "Common parameters such as -Verbose and -ErrorAction",
+      "Automatic conversion of the function into a compiled binary",
+      "Permission to run the function without an execution policy",
+      "A graphical form for entering the function's parameters",
+      "CmdletBinding makes a function behave like a cmdlet, including common parameters."
+    ],
+    [
+      "d",
+      "Parameter validation",
+      "What does [ValidateSet('Start','Stop')] on a parameter do?",
+      "Rejects any value other than Start or Stop before the body runs",
+      "Sets Start as the default value when Stop is not supplied",
+      "Converts any value passed in to either Start or Stop automatically",
+      "Runs the function twice, once with Start and once with Stop",
+      "Validation attributes check input up front and give clear errors, a simple defensive habit."
+    ],
+    [
+      "d",
+      "Error handling",
+      "Why might a try/catch block not catch an error from Get-Item on a missing path?",
+      "Non-terminating errors are not caught unless -ErrorAction Stop is used",
+      "try/catch works only for errors from external programs, not cmdlets",
+      "Get-Item never returns an error when a path does not exist",
+      "catch blocks run only when the script is executed as administrator",
+      "Many cmdlet errors are non-terminating. -ErrorAction Stop turns them into terminating errors that catch can handle."
+    ],
+    [
+      "m",
+      "WhatIf",
+      "What does -WhatIf do on a cmdlet such as Remove-Item?",
+      "Shows what would happen without making the change",
+      "Asks for confirmation before each individual item",
+      "Runs the command and then undoes it automatically",
+      "Logs the change to the security event log only",
+      "-WhatIf previews the operation; -Confirm prompts for each change."
+    ],
+    [
+      "d",
+      "Execution policy",
+      "Why is the execution policy not a security boundary?",
+      "It is a safety feature that users can bypass, for example per process",
+      "It is enforced only on domain controllers and never on workstations",
+      "It blocks every script, including signed scripts from Microsoft",
+      "It only applies to scripts stored on network drives",
+      "Microsoft describes execution policy as preventing accidental script runs. Enforcement needs application control such as WDAC or AppLocker."
+    ],
+    [
+      "m",
+      "Script signing",
+      "What does signing a PowerShell script with a trusted certificate show?",
+      "Who published it and that it has not changed since signing",
+      "That the script contains no vulnerabilities or bugs",
+      "That the script will run faster on every system",
+      "That the script was reviewed by Microsoft before release",
+      "A signature proves origin and integrity, not that the code is safe."
+    ],
+    [
+      "d",
+      "JEA",
+      "What does Just Enough Administration (JEA) provide?",
+      "Remote endpoints that let users run only approved commands, often as a virtual account",
+      "A licence that allows administrators to install PowerShell 7 on servers",
+      "A tool that converts PowerShell scripts into Group Policy objects",
+      "A built-in antivirus engine that scans every script before it runs",
+      "JEA constrains remote sessions to specific cmdlets and parameters, implementing least privilege for administration."
+    ],
+    [
+      "m",
+      "AMSI",
+      "What does the Antimalware Scan Interface (AMSI) let security products do?",
+      "Scan script content after de-obfuscation, before it runs",
+      "Encrypt PowerShell scripts stored on the disk",
+      "Block every script that downloads data from the internet",
+      "Replace PowerShell with a safer scripting language",
+      "AMSI passes script buffers to the antimalware engine at run time, including dynamically generated code."
+    ],
+    [
+      "m",
+      "Logging features",
+      "Which PowerShell logging feature records the content of executed script blocks?",
+      "Script Block Logging",
+      "Transcription",
+      "Module Logging only",
+      "Execution policy logging",
+      "Script Block Logging (Event ID 4104) captures the code that runs, including de-obfuscated content."
+    ],
+    [
+      "d",
+      "Transcription",
+      "What does PowerShell transcription record?",
+      "The input and output of sessions to text files",
+      "Only the errors raised by failed commands",
+      "The network packets sent by PowerShell",
+      "The registry changes made during a session",
+      "Transcripts log what was typed and displayed. They complement Script Block Logging, which logs the code."
+    ],
+    [
+      "m",
+      "Reading events",
+      "Which channel holds PowerShell Script Block Logging events?",
+      "Microsoft-Windows-PowerShell/Operational",
+      "System",
+      "Application",
+      "Security",
+      "Event ID 4104 is written to the PowerShell Operational log."
+    ],
+    [
+      "d",
+      "Protecting logs",
+      "Why should PowerShell logs be forwarded off the endpoint?",
+      "An attacker with admin rights can clear local logs",
+      "Local logs are deleted every time PowerShell closes",
+      "Forwarded logs are automatically decrypted",
+      "Endpoints cannot store more than one hour of logs",
+      "Central collection preserves evidence even if the host's logs are cleared or tampered with."
+    ],
+    [
+      "d",
+      "Obfuscation",
+      "Why do defenders treat the -EncodedCommand parameter with suspicion?",
+      "It hides the command text from casual inspection and is common in attacks",
+      "It always means the script came from Microsoft's own update servers",
+      "It disables all logging, so nothing about the command can be recorded",
+      "It can only be used by the SYSTEM account during the boot process",
+      "Base64-encoded commands are legitimate but frequently abused. Script Block Logging records the decoded content."
+    ]
+  ],
+  "patch": {
+    "It is enforced only on domain controllers and never on workstations": "It is enforced only on domain controllers and never on any workstations",
+    "That the script was reviewed by Microsoft before release": "That the script was reviewed and approved by Microsoft before release",
+    "Renames the WS property and deletes the original value": "Renames the WS property and deletes the original value from the object",
+    "try/catch works only for errors from external programs, not cmdlets": "try/catch works only for errors raised by external programs, not by cmdlets",
+    "5.1 is a graphical tool; 7 is a command-line tool with no scripting support": "5.1 is a graphical tool only; 7 is a command-line tool with no scripting support at all"
+  }
+}
