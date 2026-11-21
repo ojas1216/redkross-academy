@@ -86,7 +86,7 @@ function LessonContentPanel({
   isSubmittingAssessment
 }) {
   const memoizedHtml = React.useMemo(() => {
-    return renderMarkdownToHtml(activeLesson?.content || 'Defensive laboratory briefing and operational objectives.');
+    return renderMarkdownToHtml(activeLesson?.content || 'Lesson notes are unavailable.');
   }, [activeLesson?.id, activeLesson?.content]);
 
   React.useEffect(() => {
@@ -176,6 +176,7 @@ function LessonContentPanel({
             <button
               type="button"
               onClick={handleDownloadChapterNotes}
+              disabled={!handleDownloadChapterNotes}
               className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-[#FF7A00]/30 bg-[#1A1208] text-[#FF7A00] hover:bg-[#FF7A00]/20 text-xs font-mono font-lora transition-colors cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />

@@ -1,8 +1,7 @@
 import { sql, json, cors, serverError } from './_db.js';
 import { requireUser, audit } from './_auth.js';
-import { getCourseSpec } from './_lib/courseRegistry.js';
 import { ensureEnrolment, awardTokens } from './_lib/learning.js';
-import { evaluateCode, redeemCode, describeCode, codeErrorMessage, findCode, codeState } from './_lib/access.js';
+import { checkCourseAccess, getLearningCourse, evaluateCode, redeemCode, describeCode, codeErrorMessage, findCode, codeState } from './_lib/access.js';
 
 /**
  * /api/redeem - access codes and batch registration links (signed-in students).
@@ -69,8 +68,8 @@ export default async function handler(req, res) {
 
       const enrolled = [];
       for (const cid of enrolTargets(result.code, result.courseIds, courseId)) {
-        const spec = await getCourseSpec(cid);
-        if (!spec) continue; // psychology/coming-soon courses have no classroom yet
+        const spec = await getLearningCourse(cid);
+        if (!spec || !(await checkCourseAccess(ctx, cid)).allowed) continue;
         const { created } = await ensureEnrolment(ctx.user, spec);
         if (created) {
           await awardTokens(userId, 50, 'enrolment_bonus', `Enrolled in ${spec.title}`, `enrol:${userId}:${spec.id}`);

@@ -1,9 +1,8 @@
 ﻿import { sql, json, cors, serverError } from './_db.js';
 import { requireUser } from './_auth.js';
-import { getCourseSpec } from './_lib/courseRegistry.js';
 import { ensureEnrolment, awardTokens } from './_lib/learning.js';
 import { dispatchWebhook } from './_webhooks.js';
-import { checkCourseAccess } from './_lib/access.js';
+import { checkCourseAccess, getLearningCourse } from './_lib/access.js';
 import redeemHandler from './_redeem.js';
 
 /**
@@ -33,7 +32,7 @@ export default async function handler(req, res) {
     }
 
     const courseId = String(req.body?.course_id || '');
-    const spec = await getCourseSpec(courseId);
+    const spec = await getLearningCourse(courseId);
     if (!spec) return json(res, { error: 'Unknown course' }, 404);
 
     if (req.method === 'POST') {

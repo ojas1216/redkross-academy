@@ -22,7 +22,7 @@ import fs from 'fs';
 const { sql } = await import('../api/_db.js');
 const { setTokenVerifier } = await import('../api/_auth.js');
 const handlers = {};
-for (const name of ['auth', 'manage', 'redeem', 'enrol', 'catalog', 'profile', 'avatar', 'assessment']) {
+for (const name of ['auth', 'manage', 'redeem', 'enrol', 'catalog', 'profile', 'avatar', 'assessment', 'progress', 'wallet']) {
   const importName = fs.existsSync(new URL(`../api/${name}.js`, import.meta.url)) ? name : `_${name}`;
   handlers[name] = (await import(`../api/${importName}.js`)).default;
 }
@@ -142,6 +142,60 @@ r = await call('assessment', { method: 'POST', token: 'stu2', body: { action: 's
 check(r.statusCode === 403 && r.body.error === 'COURSE_LOCKED', 'assessments of a locked course cannot be started', r.body);
 r = await call('enrol', { method: 'POST', token: 'stu2', body: { course_id: FREE } });
 check(r.statusCode === 200, 'free published course still enrols normally', r.body);
+
+// Unassessed courses use their teaching catalog and the same access rules as enrolment.
+const PSYCH = 'crs_psych_cbt';
+const lessonId = 'lsn_cbt_1_1';
+const postProgress = (courseId, lesson = lessonId) =>
+  call('progress', { method: 'POST', token: 'outsider', body: { course_id: courseId, lesson_id: lesson } });
+for (const [courseId, reason] of [[PAID, 'PAYMENT_REQUIRED'], [PRIVATE, 'NOT_AVAILABLE']]) {
+  r = await postProgress(courseId);
+  check(r.statusCode === 403 && r.body.reason === reason, 'progress honours ' + reason, r.body);
+}
+await sql`DELETE FROM course_settings WHERE course_id = ${PSYCH}`;
+r = await call('catalog');
+check(r.body.settings[PSYCH].visibility === 'COMING_SOON', 'psychology defaults to coming soon without a settings row');
+r = await call('enrol', { method: 'POST', token: 'outsider', body: { course_id: PSYCH } });
+check(r.statusCode === 403 && r.body.reason === 'COMING_SOON', 'coming-soon psychology course rejects enrolment', r.body);
+r = await postProgress(PSYCH);
+check(r.statusCode === 403 && r.body.reason === 'COMING_SOON', 'coming-soon psychology course rejects progress', r.body);
+r = await call('enrol', { token: 'outsider' });
+check(!r.body.enrolments.some((e) => [PAID, PRIVATE, PSYCH].includes(e.course_id)), 'locked progress did not create enrolments');
+r = await call('progress', { token: 'outsider', query: { course_id: PSYCH } });
+check(r.body.completed_lessons?.length === 0, 'locked progress did not create a completion', r.body);
+r = await manage('admin', { action: 'course_update', course_id: PSYCH, visibility: 'PUBLISHED', price_inr: 0 });
+check(r.statusCode === 200, 'admin can publish the psychology course', r.body);
+r = await call('enrol', { method: 'POST', token: 'outsider', body: { course_id: PSYCH } });
+check(r.statusCode === 200 && r.body.created && r.body.enrolment.course_id === PSYCH, 'published psychology course accepts enrolment', r.body);
+r = await postProgress(PSYCH, 'lsn_other_course');
+check(r.statusCode === 400, 'psychology rejects a lesson outside its syllabus', r.body);
+await postProgress(PSYCH);
+r = await postProgress(PSYCH);
+check(r.statusCode === 200 && r.body.completed_count === 1, 'repeated psychology completion is counted once', r.body);
+r = await call('progress', { token: 'outsider', query: { course_id: PSYCH } });
+check(r.body.completed_lessons?.length === 1 && r.body.completed_lessons[0] === lessonId, 'psychology progress loads for the learner', r.body);
+await manage('admin', { action: 'course_update', course_id: PSYCH, visibility: 'COMING_SOON', price_inr: 0 });
+r = await postProgress(PSYCH, 'lsn_cbt_1_2');
+check(r.statusCode === 403 && r.body.reason === 'COMING_SOON', 'coming-soon also freezes new progress for enrolled learners', r.body);
+
+// The 500-row history is a display limit. An older signup credit still contributes to totals.
+const walletUser = await id('listed');
+const before = (await call('wallet', { token: 'listed' })).body;
+await sql`
+  INSERT INTO reward_ledger (id, user_id, amount, transaction_type, description, created_at)
+  SELECT ${'wallet-' + RUN + '-'}::text || n, ${walletUser}, CASE WHEN n % 2 = 0 THEN 2 ELSE -1 END,
+         'wallet_test', 'Pagination fixture', NOW() + n * INTERVAL '1 second'
+  FROM generate_series(1, 500) AS n
+`;
+const wallet = (await call('wallet', { token: 'listed' })).body;
+check(before.balance === 150 && wallet.balance === before.balance + 250 &&
+  wallet.total_earned === before.total_earned + 500 && wallet.total_spent === before.total_spent + 250,
+  'lifetime totals include entries outside the latest 500', [wallet.balance, wallet.total_earned, wallet.total_spent]);
+check(wallet.transactions?.length === 500 && wallet.transactions[0].id === 'wallet-' + RUN + '-500' &&
+  wallet.transactions[499].id === 'wallet-' + RUN + '-1', 'wallet lists only the newest 500 in descending order');
+r = await call('wallet', { token: 'admin', query: { userId: 'absent-' + RUN } });
+check(r.body.balance === 0 && r.body.total_earned === 0 && r.body.total_spent === 0 &&
+  r.body.transactions?.length === 0, 'empty wallets return zero totals and an empty history', r.body);
 
 // ------------------------------------------------------------------ individual codes
 r = await manage('admin', { action: 'code_create', kind: 'CODE', code: `free-${RUN}`, discount_percent: 100, course_scope: 'SELECTED', course_ids: [PAID], max_redemptions: 1, label: 'Scholarship' });

@@ -1,6 +1,6 @@
 import { sql, json, cors, serverError } from './_db.js';
 import { requireUser } from './_auth.js';
-import { getCourseSpec } from './_lib/courseRegistry.js';
+import { checkCourseAccess, getLearningCourse } from './_lib/access.js';
 import { ensureEnrolment } from './_lib/learning.js';
 
 const LESSON_ID = /^[A-Za-z0-9_.:-]{1,150}$/;
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     if (!ctx) return;
     const userId = ctx.user.id;
     const courseId = String((req.method === 'GET' ? req.query?.course_id : req.body?.course_id) || '');
-    const spec = await getCourseSpec(courseId);
+    const spec = await getLearningCourse(courseId);
     if (!spec) return json(res, { error: 'Unknown course' }, 404);
 
     if (req.method === 'GET') {
@@ -37,6 +37,16 @@ export default async function handler(req, res) {
         .filter((x) => typeof x === 'string' && LESSON_ID.test(x))
         .slice(0, 500);
       if (!ids.length) return json(res, { error: 'lesson_id required' }, 400);
+      const access = await checkCourseAccess(ctx, courseId);
+      if (!access.allowed) {
+        return json(res, { error: 'Course is locked', reason: access.reason, price_inr: access.setting.price_inr }, 403);
+      }
+      if (spec.division === 'psychology') {
+        const lessonIds = new Set(spec.modules.flatMap((module) => module.lessons.map((lesson) => lesson.id)));
+        if (ids.some((lessonId) => !lessonIds.has(lessonId))) {
+          return json(res, { error: 'Unknown lesson for this course' }, 400);
+        }
+      }
       await ensureEnrolment(ctx.user, spec);
       for (const lessonId of ids) {
         await sql`

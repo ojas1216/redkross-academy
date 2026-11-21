@@ -13,16 +13,19 @@ import crypto from 'crypto';
 import { sql } from '../_db.js';
 import { allCourseIds, getCourseSpec } from './courseRegistry.js';
 
+import { PSYCHOLOGY_COURSES } from '../../src/services/db/psychologyCourses.js';
+
 export const VISIBILITIES = ['PUBLISHED', 'HIDDEN', 'COMING_SOON'];
 
-const PSYCHOLOGY_COURSES = [
-  ['crs_psych_cbt', 'Foundations of Cognitive Behavioral Therapy'],
-  ['crs_psych_crisis', 'Psychological First Aid & Immediate Crisis Intervention'],
-  ['crs_psych_neuro', 'Affective Neuroscience & Neuropsychology of Emotional Regulation'],
-  ['crs_psych_forensic', 'Forensic Psychology & Criminal Profiling Methodologies'],
-  ['crs_psych_adolescent', 'Adolescent Mental Health, Exam Anxiety & Academic Burnout'],
-  ['crs_psych_mindfulness', 'Applied Mindfulness-Based Stress Reduction'],
-];
+const psychologyById = new Map(PSYCHOLOGY_COURSES.map((course) => [course.id, course]));
+
+export async function getLearningCourse(courseId) {
+  return psychologyById.get(courseId) || getCourseSpec(courseId);
+}
+
+function defaultVisibility(courseId) {
+  return psychologyById.has(courseId) ? 'COMING_SOON' : 'PUBLISHED';
+}
 
 let catalogPromise = null;
 /** Every course the admin can manage: [{ id, code, title, division }]. */
@@ -34,7 +37,7 @@ export function courseCatalog() {
         const spec = await getCourseSpec(id);
         list.push({ id, code: spec?.code || '', title: spec?.title || id, division: 'cybersecurity' });
       }
-      for (const [id, title] of PSYCHOLOGY_COURSES) list.push({ id, code: '', title, division: 'psychology' });
+      for (const { id, title } of PSYCHOLOGY_COURSES) list.push({ id, code: '', title, division: 'psychology' });
       return list;
     })();
   }
@@ -52,14 +55,14 @@ export async function courseSettingsMap() {
   const out = {};
   for (const c of await courseCatalog()) {
     const r = byId[c.id];
-    out[c.id] = { visibility: r?.visibility || 'PUBLISHED', price_inr: Number(r?.price_inr || 0) };
+    out[c.id] = { visibility: r?.visibility || defaultVisibility(c.id), price_inr: Number(r?.price_inr || 0) };
   }
   return out;
 }
 
 export async function courseSetting(courseId) {
   const rows = await sql`SELECT visibility, price_inr FROM course_settings WHERE course_id = ${courseId} LIMIT 1`;
-  return { visibility: rows[0]?.visibility || 'PUBLISHED', price_inr: Number(rows[0]?.price_inr || 0) };
+  return { visibility: rows[0]?.visibility || defaultVisibility(courseId), price_inr: Number(rows[0]?.price_inr || 0) };
 }
 
 /** Course ids the user has been granted (individual grants + active cohort bundles). */

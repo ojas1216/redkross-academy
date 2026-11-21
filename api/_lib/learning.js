@@ -17,10 +17,10 @@ export function publicBaseUrl() {
 
 /** Makes sure a courses row exists (credentials and enrolments reference it). */
 export async function ensureCourseRow(spec, extra = {}) {
-  const slug = extra.slug || spec.id.replace(/^crs_/, '').replace(/_/g, '-');
+  const slug = extra.slug || spec.slug || spec.id.replace(/^crs_/, '').replace(/_/g, '-');
   await sql`
     INSERT INTO courses (id, slug, title, category, difficulty, price, estimated_duration, lead_author, created_at, updated_at)
-    VALUES (${spec.id}, ${slug}, ${spec.title}, ${extra.category || 'Cybersecurity'}, ${extra.difficulty || 'Intermediate'}, 0, '40 Hours', '{}'::jsonb, NOW(), NOW())
+    VALUES (${spec.id}, ${slug}, ${spec.title}, ${extra.category || spec.category || 'Cybersecurity'}, ${extra.difficulty || spec.difficulty || 'Intermediate'}, 0, ${spec.estimated_duration || '40 Hours'}, '{}'::jsonb, NOW(), NOW())
     ON CONFLICT DO NOTHING
   `;
 }

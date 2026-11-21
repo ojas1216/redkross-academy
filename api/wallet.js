@@ -9,16 +9,22 @@ export default async function handler(req, res) {
     const ctx = await requireUser(req, res);
     if (!ctx) return;
     const target = ctx.isAdmin && req.query?.userId ? String(req.query.userId) : ctx.user.id;
-    const ledger = await sql`
-      SELECT id, amount, COALESCE(transaction_type, 'reward') AS transaction_type, description, created_at
-      FROM reward_ledger WHERE user_id = ${target} ORDER BY created_at DESC LIMIT 500
+    const [wallet] = await sql`
+      SELECT COALESCE(SUM(amount), 0) AS balance,
+             COALESCE(SUM(amount) FILTER (WHERE amount > 0), 0) AS total_earned,
+             -COALESCE(SUM(amount) FILTER (WHERE amount < 0), 0) AS total_spent,
+             (SELECT COALESCE(json_agg(page ORDER BY page.created_at DESC, page.id DESC), '[]'::json)
+              FROM (
+                SELECT id, amount, COALESCE(transaction_type, 'reward') AS transaction_type, description, created_at
+                FROM reward_ledger WHERE user_id = ${target} ORDER BY created_at DESC, id DESC LIMIT 500
+              ) AS page) AS transactions
+      FROM reward_ledger WHERE user_id = ${target}
     `;
-    const amounts = ledger.map((l) => parseInt(l.amount, 10) || 0);
     return json(res, {
-      balance: Math.max(0, amounts.reduce((a, b) => a + b, 0)),
-      total_earned: amounts.filter((a) => a > 0).reduce((a, b) => a + b, 0),
-      total_spent: Math.abs(amounts.filter((a) => a < 0).reduce((a, b) => a + b, 0)),
-      transactions: ledger,
+      balance: Number(wallet.balance),
+      total_earned: Number(wallet.total_earned),
+      total_spent: Number(wallet.total_spent),
+      transactions: wallet.transactions,
     });
   } catch (error) {
     return serverError(res, error, 'api/wallet');
