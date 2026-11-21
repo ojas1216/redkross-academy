@@ -401,7 +401,7 @@ function buildCourse(num, raw) {
     total_hours: hours.total,
     hours_breakdown: hours.breakdown,
     effort: '8-10 Hours per Week',
-    access: flat(c.partA[4]),
+    access: 'Free access (foundational edition)', // all 22 courses are free; source text described planned paid labs
     rating: null,
     enrolled_count: 0,
     card_variant: 'random',

@@ -334,7 +334,7 @@ export default function StudentDashboard() {
                     </div>
 
                     <div className="pt-4 border-t border-surface-border flex items-center justify-between">
-                      <span className="text-xs font-mono text-amber-400">+{crs.total_tokens_reward || 350} Bounty</span>
+                      <span className="text-xs font-mono text-amber-400">+{crs.total_tokens_reward || 350} credits</span>
                       <Link
                         to={`/student/learn/${enr.id}`}
                         className="ultra-glass-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1"

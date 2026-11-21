@@ -502,7 +502,7 @@ export default function CourseDetailPage() {
                 </div>
                 <div className="flex justify-between items-center text-[#A3907C]">
                   <span className="flex items-center gap-1.5"><Coins className="w-3.5 h-3.5" /> Bounty</span>
-                  <span className="text-[#FF7A00] font-bold">+{course.total_tokens_reward || 450} Tokens</span>
+                  <span className="text-[#FF7A00] font-bold">+{course.total_tokens_reward || 450} Academy credits</span>
                 </div>
               </div>
 

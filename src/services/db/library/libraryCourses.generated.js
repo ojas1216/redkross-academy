@@ -26,7 +26,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID advanced labs; free foundations",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -1332,7 +1332,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID advanced labs; free foundations",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -2639,7 +2639,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID advanced labs; free foundations",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -3943,7 +3943,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 12
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID professional labs; free intro",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -5642,7 +5642,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 14
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -6943,7 +6943,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -8248,7 +8248,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 14
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -9553,7 +9553,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 14
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -10854,7 +10854,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID advanced",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -12160,7 +12160,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 14
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID advanced",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -13466,7 +13466,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 12
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID advanced",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -14765,7 +14765,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -16068,7 +16068,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 14
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -17367,7 +17367,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 14
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -18670,7 +18670,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 18
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID premium",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -19973,7 +19973,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID premium",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -21279,7 +21279,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID premium",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",
@@ -22586,7 +22586,7 @@ export const LIBRARY_COURSES = [
    "capstone_report": 16
   },
   "effort": "8-10 Hours per Week",
-  "access": "PAID premium",
+  "access": "Free access (foundational edition)",
   "rating": null,
   "enrolled_count": 0,
   "card_variant": "random",

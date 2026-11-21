@@ -27,6 +27,7 @@ import { apiClient } from '../../services/apiClient';
 import { socketClient } from '../../services/socket/socketClient';
 import { useAuth } from '../../services/auth/authContext';
 import { CYBER_COURSES } from '../../services/db/cyberCourses';
+import AcademyOfferSection from '../../components/common/AcademyOfferSection';
 
 function AvailabilityBadge({ access, courseId }) {
   const s = access?.settings?.[courseId];
@@ -393,6 +394,8 @@ export default function CyberAcademyPage() {
               </div>
             </div>
           </motion.section>
+
+          <AcademyOfferSection />
 
         </div>
       </main>

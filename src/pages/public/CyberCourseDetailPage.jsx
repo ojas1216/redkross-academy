@@ -474,7 +474,7 @@ export default function CyberCourseDetailPage() {
                     <Coins className="w-3.5 h-3.5 text-[#FFA439]" />
                     <span>Bounty</span>
                   </span>
-                  <span className="font-bold text-[#FFA439]">+{course.total_tokens_reward || 1500} Tokens</span>
+                  <span className="font-bold text-[#FFA439]">+{course.total_tokens_reward || 1500} Academy credits</span>
                 </div>
               </div>
 

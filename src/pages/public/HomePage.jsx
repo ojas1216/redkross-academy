@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 import CyberCircuitFrame from '../../components/cyber/CyberCircuitFrame';
 import StudentGuidanceSection from '../../components/common/StudentGuidanceSection';
+import AcademyOfferSection from '../../components/common/AcademyOfferSection';
+import DonationSection from '../../components/common/DonationSection';
 
 export default function HomePage() {
   const [isHoveredCyber, setIsHoveredCyber] = useState(false);
@@ -384,7 +386,7 @@ export default function HomePage() {
             </div>
             <h4 className="font-royal font-bold text-white text-base mb-1.5 group-hover:text-[#FFA439] transition-colors">Central Student Hub</h4>
             <p className="text-xs text-slate-300 leading-relaxed font-sans">
-              One unified login and dashboard tracking all course completions, token rewards, and assignments across both divisions.
+              One unified login and dashboard tracking all course completions, Academy credits, and assignments across both divisions.
             </p>
           </motion.div>
 
@@ -421,6 +423,12 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+      {/* 4. FREE COURSES, ACADEMY CREDITS AND COMING-SOON BUNDLES */}
+      <AcademyOfferSection />
+
+      {/* 5. DONATIONS */}
+      <DonationSection />
 
     </div>
   );
