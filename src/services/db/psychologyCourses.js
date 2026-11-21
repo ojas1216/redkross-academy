@@ -353,12 +353,6 @@ The WHO guide advises against pressing people to describe what happened or how t
 
 Practical help can include finding water, a quiet place, or a way to contact family. It can also mean helping someone get accurate information or reach services. Look after your own safety too. If anyone is in immediate danger or has a serious injury, or someone talks about harming themselves, contact emergency services. Do not try to manage that alone.
 
-### A note on names
-
-
-#
-
-
 ## Self-check
 
 *Case (fictional):* After a kitchen fire in a student hostel, no one is badly hurt. Asha is sitting alone outside, shaking and quiet. Another student keeps asking her, "What exactly did you see? Tell me everything, it'll help."
