@@ -209,7 +209,7 @@ nodes: [{id, label, sub?, tone?, kind?: "decision"}]; edges: [{from, to, label?,
 
 ## flow
 
-steps: [{label, sub?, tone?, details?: [string], side?: string}]; dir?: "LR" (default) | "TB" (use TB for 5+ steps or long labels); loop?: {label, to?: stepIndex} draws a dashed feedback arrow from the last step back to the first (or to `to`) in both LR and TB layouts; highlightLast?; note?
+steps: [{label, sub?, tone?, details?: [string], side?: string}]; dir?: "LR" (default) | "TB" (use TB for 5+ steps or long labels); loop?: {label, from?: stepIndex, to?: stepIndex} draws a dashed feedback arrow from the last step (or `from`) back to the first (or to `to`) in both LR and TB layouts; highlightLast?; note?
 
 ```json
 {

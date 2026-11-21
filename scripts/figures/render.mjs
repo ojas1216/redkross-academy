@@ -149,6 +149,11 @@ function frame(code, title, bodySvg, bodyH, alt) {
 
 // ---------------------------------------------------------------- layouts
 
+/** Step index a flow's feedback loop leaves from: loop.from when given, else the last step. */
+function loopFrom(loop, n) {
+  return loop.from == null ? n - 1 : Math.min(Math.max(Number(loop.from) || 0, 0), n - 1);
+}
+
 function layoutFlow(spec) {
   const steps = spec.steps;
   const n = steps.length;
@@ -181,16 +186,21 @@ function layoutFlow(spec) {
     }
     if (spec.loop) {
       const ly = dy + 18;
-      const x1 = PAD + (n - 1) * (bw + gap) + bw / 2;
+      const from = loopFrom(spec.loop, n); // optional loop.from step index (default: last step)
+      const x1 = PAD + from * (bw + gap) + bw / 2;
       const target = Math.min(Math.max(Number(spec.loop.to) || 0, 0), n - 1); // optional loop.to step index
       const x0 = PAD + target * (bw + gap) + bw / 2;
       svg += `<path d="M${x1},${y + bh} L${x1},${ly} L${x0},${ly} L${x0},${y + bh + 4}" fill="none" stroke="${LINE}" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#ah)"/>`;
+      let below = 0;
       if (spec.loop.label) {
         const lw = textWidth(spec.loop.label, 12.5) + 16;
-        svg += `<rect x="${(x0 + x1) / 2 - lw / 2}" y="${ly - 11}" width="${lw}" height="22" rx="11" fill="#FFFFFF" stroke="#CBD5E1"/>`;
-        svg += textBlock([spec.loop.label], (x0 + x1) / 2, ly + 4.5, { size: 12.5, fill: MUTED });
+        // a short loop (adjacent steps) would be hidden by its own label: put the label under it
+        below = lw > Math.abs(x1 - x0) - 24 ? 26 : 0;
+        const lyy = ly + below;
+        svg += `<rect x="${(x0 + x1) / 2 - lw / 2}" y="${lyy - 11}" width="${lw}" height="22" rx="11" fill="#FFFFFF" stroke="#CBD5E1"/>`;
+        svg += textBlock([spec.loop.label], (x0 + x1) / 2, lyy + 4.5, { size: 12.5, fill: MUTED });
       }
-      dy = ly + 18;
+      dy = ly + 18 + below;
     }
     y = dy + 14;
   } else {
@@ -224,7 +234,8 @@ function layoutFlow(spec) {
       const target = Math.min(Math.max(Number(spec.loop.to) || 0, 0), n - 1);
       const lx = x + bw + 30;
       // attach a quarter of the way down the box edges so side notes (at mid-height) stay clear
-      const yFrom = tops[n - 1] + heights[n - 1] / 4;
+      const from = loopFrom(spec.loop, n);
+      const yFrom = tops[from] + heights[from] / 4;
       const yTo = tops[target] + heights[target] / 4;
       svg += `<path d="M${x + bw + 3},${yFrom} L${lx},${yFrom} L${lx},${yTo} L${x + bw + 7},${yTo}" fill="none" stroke="${LINE}" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#ah)"/>`;
       if (spec.loop.label) {
@@ -622,7 +633,7 @@ function layoutSegments(spec) {
     const block = tl.length * 17 + (sl.length ? 4 + sl.length * 14 : 0);
     const top = y + (h - block) / 2 + 12;
     svg += textBlock(tl, x + w / 2, top, { size: 13.5, bold: true, fill: t.text, lh: 1.25 });
-    if (sl.length) svg += textBlock(sl, x + w / 2, top + tl.length * 17 + 4, { size: 11.5, fill: MUTED, lh: 1.2 });
+    if (sl.length) svg += textBlock(sl, x + w / 2, top + tl.length * 17 + 4, { size: 11.5, fill: t === TONES.dark ? '#CBD5E1' : MUTED, lh: 1.2 });
     if (sg.top) svg += textBlock(wrap(sg.top, w, 11.5), x + w / 2, y - 10, { size: 11.5, bold: true, fill: '#94A3B8' });
     x += w;
   });
