@@ -666,10 +666,16 @@ function layoutTree(spec) {
     svg += drawRoot(y);
     const rootBottom = y + rootC.h;
     y = rootBottom + busGap;
+    let prevBus = rootBottom;
     rows.forEach((r, ri) => {
       const xs = placeRow(ri, y);
       const busY = y - busGap / 2;
-      svg += `<line x1="${W / 2}" y1="${ri === 0 ? rootBottom : busY - busGap / 2}" x2="${W / 2}" y2="${busY}" stroke="${LINE}" stroke-width="1.8"/>`;
+      // one unbroken trunk from the root (or the previous bus) so later rows read as siblings, not
+      // grandchildren; only possible when the row above has an even count (a gap at the centre)
+      const throughGap = ri === 0 || rows[ri - 1].length % 2 === 0;
+      const top = throughGap ? prevBus : busY - busGap / 2;
+      svg += `<line x1="${W / 2}" y1="${top}" x2="${W / 2}" y2="${busY}" stroke="${LINE}" stroke-width="1.8"/>`;
+      prevBus = busY;
       svg += `<line x1="${Math.min(...xs, W / 2)}" y1="${busY}" x2="${Math.max(...xs, W / 2)}" y2="${busY}" stroke="${LINE}" stroke-width="1.8"/>`;
       xs.forEach((x) => (svg += line(x, busY, x, y - 3)));
       y += rowHeights[ri] + busGap;
