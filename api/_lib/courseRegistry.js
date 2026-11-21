@@ -192,10 +192,27 @@ export async function generateQuestions(spec, quiz) {
 
   const [, engine] = await loadLegacy();
   const isFinal = quiz.kind === 'final';
-  const raw = engine.getOrGenerateQuizQuestions(null, quiz.quizId, isFinal ? 1 : quiz.number, isFinal, spec.id, true);
-  const questions = raw.map(fromLegacy).filter((q) => q.correctOptionId && q.options.length >= 2);
-  return isFinal ? questions.slice(0, quiz.count) : questions;
+  const want = quiz.count > 0 ? quiz.count : 20;
+  // An attempt never shows the same question twice: templated banks vary only a phrase in the
+  // stem, so questions are also distinct by their correct answer. Redraw until the attempt is
+  // full or the bank has no more distinct questions.
+  const picked = [];
+  const seen = new Set();
+  for (let draw = 0; draw < 12 && picked.length < want; draw++) {
+    const raw = engine.getOrGenerateQuizQuestions(null, quiz.quizId, isFinal ? 1 : quiz.number, isFinal, spec.id, true);
+    for (const q of raw.map(fromLegacy)) {
+      if (!q.correctOptionId || q.options.length < 2 || picked.length >= want) continue;
+      const answer = q.options.find((o) => o.id === q.correctOptionId).text;
+      const keys = [`s:${normText(q.text)}`, `a:${normText(answer)}`];
+      if (keys.some((k) => seen.has(k))) continue;
+      keys.forEach((k) => seen.add(k));
+      picked.push(q);
+    }
+  }
+  return picked;
 }
+
+const normText = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
 /** Public, answer-free view of a session's questions. */
 export function publicQuestions(questions) {
