@@ -2,6 +2,26 @@
 
 The owner wants all courses and all user roles reviewed for a possible launch on Saturday evening, 21 November 2026, Dublin time. This is the shared checkpoint for Codex and Claude. The repository and the local validation reports are the source of truth.
 
+## 21 November, cross-role checks and 01:30 Claude assignment
+
+The local production build passes. All 2,156 active catalog lesson records across 28 course definitions resolve to nonempty text. The catalog audit checked 932 local image references counted once per course, with no missing files or duplicate lesson IDs. Automated checks do not establish factual accuracy or diagram meaning. Only 93 lesson bodies contained an external URL of any kind.
+
+The fresh PostgreSQL run passed all 127 checks (41 account, assessment and credential checks, 72 admin, cohort and access-code checks, and 14 proctoring checks). The production client bundle audit passed on 2,091 files. The C01?C04 figure regression passed on all 182 lessons. The files catalog-verification.json, production-build.log and browser reports are in the sibling Academy_Launch_Review_2026-11-20 folder.
+
+Codex integrated Claude's six introductory psychology course definitions, verified sources covering CBT, psychological first aid, mindfulness, neuroscience, exam stress and forensic human factors, corrected the player?s Markdown reading and study-note export, and replaced the public course pages? invented clinical examinations and accreditation statements. Enrolment remains subject to the existing release settings. Each psychology course has written self-checks and no graded final. A clinical or safeguarding review for public release is outstanding.
+
+The cyber syllabus now displays the configured quiz count, pass score and actual lesson duration. Signed-in provider sign-in, mail delivery, production release configuration, existing learner migration and the remaining course-by-course factual reviews remain open. C09 M01 is partial. The other 17 C05?C22 courses still serve the v1 curriculum.
+
+Claude's one-time restart at 01:30 Dublin reads the current copy of this file and curriculum/PROGRESS.md. Its isolated directory is Academy_Launch_Review_2026-11-20/0130-dfir. Claude owns C09 M01 L05 chain of custody and L06 documentation in that folder. Read job.log, CLAUDE-STATUS.md and claude.log before taking over. Codex owns combining and testing the staged work. Updates outside these two lessons belong in this shared file.
+
+### Classroom and admin browser verification
+
+Codex exercised all 96 C08 lessons and the M12 exam preflight at 1280 and 390 pixels, then all eight psychology lessons and their downloadable Markdown notes at both widths. Public catalog and all six psychology course detail routes passed at both widths. The admin browser fixture used snapshots from a fresh PostgreSQL test database and covered 11 real admin sections. It exposed a 642-pixel overview card on a 390-pixel screen. The card now fits and all 22 admin route/width combinations passed. These browser fixtures use synthetic roles. The real provider sign-in is a separate owner-assisted check.
+
+All 585 referenced SVG files were measured in Edge. None of the 10,042 visible SVG text labels extended past the canvas by more than the 3-pixel tolerance. This measurement does not check the meaning of a diagram or labels overlapping each other. See diagram-geometry.json, c08-browser.log, role-browser.log and public-browser.log.
+
+Codex has started C09 M02. The imaging concepts lesson is 2,202 prose words plus a 338-word diagram walkthrough. The lesson distinguishes file exports from volume and device captures and explains the limits of digest verification. The specific lab transcript matches the original C09 kit. Leave M02 with Codex. The 01:30 Claude task owns M01 L05/L06 only.
+
 ## 20 November, current work
 
 | Area | Owner | State and evidence |
@@ -67,3 +87,92 @@ order in PROGRESS.md). Claude sub-agents are blocked by the account's monthly sp
 
 Local review instance: API `node server/productionServer.js` (port 3000, local Postgres
 container rk-academy-pg) + Vite on http://localhost:5173.
+
+## 21 November, Claude: C09 M01 L05/L06 checked after the 01:30 job
+
+The 01:30 job wrote both lessons, four figure specs, two 25-question banks and module entries in
+Academy_Launch_Review_2026-11-20/0130-dfir, but it ran without a shell and validated nothing.
+Claude then checked them with the repo validator's own `analyseLesson`, the figure renderer and the
+per-question rules. L05 has 3,501 prose words and L06 has 2,905. All four walkthroughs have 447-504 words.
+Both lessons have no lesson problems and no quiz format errors. The answer positions are 6/6/7/6 and
+6/6/6/7. The correct option is uniquely the longest in 1/25 (L05) and 10/25 (L06) questions. All four SVGs were viewed in headless Edge.
+The full table and integration steps are in that folder's CLAUDE-STATUS.md.
+
+Renderer fix: in a multi-row `tree`, later rows looked like children of row 1. The trunk now
+runs unbroken from the root through the centre gap when the row above has an even count
+(scripts/figures/render.mjs layoutTree). No published figure changes. `npm test` passes and
+`validate.mjs C08 1` passes.
+
+Next (Codex): copy the six files into curriculum/C09/m01, merge module-entries.json as lessons
+5-6, and validate M01 once L01-L04, L07 and L08 exist. Claude has not touched curriculum/C09/m02.
+
+## 21 November, Claude: cross-course relevance audit (all 28 courses, read-only)
+
+Method (scripts in the Claude scratchpad, read-only): every lesson of C01-C22 and P01-P06 (2,113)
+and every module question (17,700) extracted; TF-IDF relevance of each lesson to its own title
+and course; near-duplicate and boilerplate detection; each question scored against the lessons
+of its own module (calibrated on C08, whose banks were written from its lessons); real exam
+draws simulated through api/_lib/courseRegistry.js generateQuestions. Flagged items were read by hand.
+
+Findings, worst first:
+1. **C03 exams repeat the same question.** C03 module banks hold 4-12 distinct questions padded
+   to 200 (M3-M8: 4 each). A simulated module exam serves 2-3 distinct questions in 20 (one
+   question appeared 5 times in a row); the final serves ~17 distinct in 50. C01 is similar:
+   5-20 distinct per module, 5-8 distinct per 20-question exam, ~33 in the final. C02 M5-M8
+   serve 10-14 distinct in 20. C04 and all library banks are fully distinct. The server's
+   `unique()` only removes identical stems; templated stems differ by an inserted phrase.
+2. **C01 Module 3 L3-L7 and Module 4 L3-L6: lesson titles do not match the lesson content**,
+   and the M3/M4 banks test the titles. E.g. "3.3 Ransomware" teaches social engineering, "3.4
+   Social Engineering" teaches DDoS, "3.5 Insider Threats" teaches CTI/OSINT and the Pyramid of
+   Pain, "3.6 APTs" teaches MITRE ATT&CK, "3.7 Supply Chain" teaches threat reports; "4.3 STRIDE
+   & PASTA" has no STRIDE or PASTA (STRIDE appears once in the whole course although it is an
+   advertised skill), "4.4 Zero-Day" teaches risk calibration. The content itself is coherent
+   (its own bridges name the real sequence). 35% of C01 questions are weakly supported by their
+   module (C08 benchmark 5%); M1 is 76%, because its bank is written at an advanced level.
+3. C03: the same two-paragraph OS introduction is pasted at the top of all 48 lessons.
+4. C05-C22 v1 (except C08): lessons are short but on-topic and accurate where spot-checked;
+   101 topic lessons have under 80 prose words and 96 keep their teaching prose in ```text
+   blocks (monospace, does not wrap); module banks have 10 questions, so the 200-per-module /
+   20-per-exam spec is met only by C01-C04 (by padding) and C08. Questions are well supported
+   by their lessons (0-5% weak). Cross-course overlap (e.g. C07 M6 Wi-Fi vs C16) is normal
+   overlap, not misplacement. The C09 "Course glossary" lists terms only and points to module
+   glossaries.
+5. P02-P06 are single ~500-word lessons; P01 has three.
+
+Not changed by this audit. Recommended order: (a) C03 and C01 banks rewritten to distinct
+questions drawn from their lessons, and until then a server guard that never serves two
+questions with the same correct answer in one attempt; (b) C01 M3/M4 retitled to match the
+content (titles, lesson summaries, "Visual Model" captions) and either STRIDE/ransomware/insider
+/supply-chain lessons added or removed from the course's advertised skills; (c) C03 shared intro
+trimmed; (d) the v1 rebuild queue as already planned.
+
+## 21 November (afternoon), Claude: fixes after the audit, C09 progress, push
+
+- **Exam guard (api/_lib/courseRegistry.js):** a legacy-course attempt never serves the same
+  question twice (distinct by stem and by correct answer; redraws up to 12 times). C01 and C03
+  module exams are therefore SHORT (C03: 3-10 questions; C01: 5-20) until their banks are
+  rewritten with distinct questions. That rewrite (C03 all 8 modules, C01 all 6, C02 M1/M5-M8)
+  is the next content task. C02/C04 exams are full (20/20).
+- **C03:** the two-paragraph OS introduction pasted into all 48 lessons now appears only in
+  lesson 1.1 (scripts/curriculum/dedupe_c03_intro.mjs, idempotent). No other text changed.
+- **C01 M3/M4 retitle: NOT done yet.** Proposed titles (content unchanged): 3.3 Social Engineering
+  & Phishing; 3.4 Denial of Service & DDoS; 3.5 Threat Intelligence & OSINT; 3.6 The MITRE ATT&CK
+  Framework; 3.7 Reading and Writing Threat Reports; 4.3 Risk Registers & Risk Frameworks; 4.4
+  Calibrating Likelihood & Impact; 4.5 Qualitative vs Quantitative Risk Analysis; 4.6 Risk
+  Treatment & Continuous Risk Management. Titles live only in src/services/db/curriculum/module3.js
+  and module4.js (lesson title + image titles). The M3/M4 banks must be rewritten to match.
+  Also: C01 4.4 likelihood scale row "4 Likely, 1-12 (Monthly to Weekly)" - 1-12/year is yearly to monthly.
+- **Renderer (scripts/figures/render.mjs):** dark `segments` sub-labels now readable (fixes
+  C08-M02-L04-F1, rebuilt with --no-import; only that SVG changed); flow `loop.from` (documented
+  in DIAGRAM_SPECS.md); a short LR loop puts its label under the line. Known gap: `table` header
+  widths ignore header text, so long headers can collide - keep headers short.
+- **C09 M01 complete:** Claude finished L01 (forensic principles, 3,130 words), L03 (order of
+  volatility, 3,024) and wrote L04 (legal handling in India, 2,559: BSA s.57/61/63 + Schedule
+  certificate, BNSS s.94/105/176(3), IT Act s.70B/79A, CERT-In 2022 directions, DPDP; no legal
+  conclusions). Each has 2 figures viewed in Edge and 25 questions. `validate.mjs C09 1` PASS.
+  Legal text should get a counsel/second-reader check before public release.
+- **C09 M02 L04/L05** (from dfir-continuation) validated, figures viewed, hashes checked
+  verbatim against the original transcript, integrated with metadata. L04-F2 restructured
+  (single comparison node) and its walkthrough updated. L04 prose is 4,508 words.
+- Verified on this state: npm test PASS; npm run build PASS; audit:bundle PASS; API tests on a
+  fresh rk_test with scripts/schema.sql + ALL scripts/migrations/*.sql: 41 + 88 + 14 = 143 PASS.

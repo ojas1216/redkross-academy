@@ -13,7 +13,7 @@ the lesson player (desktop + mobile).
 | C06 | 0/12 | - | - | - | |
 | C07 | 0/12 | - | - | - | |
 | C08 | 12/12 | 12/12 PASS | Yes (curriculum/build/C08.json) | 96/96 lessons render; API exam checks pass | First v2 course. M09-M12 lessons are shorter (16-19k words/module, 1 figure per lesson) than M01-M08 (~26k, 2 figures). |
-| C09 | M01 in progress (Claude, 4 lesson agents started 20 Nov) | - | - | - | Next weak course after C08 (owner: continue with the next weak course). Codex: take modules from M02 upward if you work in parallel, and note it here first. |
+| C09 | M01 complete (8/8, validates: 200 q, 16 figures); M02 5/8 (L01-L05 integrated; L06-L08 drafting in Codex's dfir-continuation queue) | - | - | - | M01 L01/L03/L04 finished by Claude 21 Nov; M02 L04/L05 reviewed and integrated by Claude (L04-F2 restructured). Remaining: M02 L06-L08, M03-M12. |
 | C10 | 0/12 | - | - | - | |
 | C11 | 0/12 | - | - | - | |
 | C12 | 0/12 | - | - | - | |
@@ -105,7 +105,7 @@ if the job is interrupted or reports a quota error.
    tests, API tests, production build and bundle audit. Check lessons and exams in
    the desktop and mobile player before distributing the updated course.
 
-## Resume checkpoint, 20 November 2026
+## Historical checkpoint before the C08 integration, 20 November 2026
 
 - Codex completed M09, M11 and M12. Each has 8 authored lessons, rendered diagrams,
   and 200 assessment questions. M09's fixture script and M11's simulator were run
