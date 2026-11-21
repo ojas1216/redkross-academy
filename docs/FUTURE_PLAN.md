@@ -1,6 +1,6 @@
 # RedKross Academy: status and future plan
 
-Last updated: 21 November 2026. Written by Claude for the owner and the developers who continue the work (Codex included).
+Last updated: 21 November 2026 (evening: free-offer, credits, bundles and donation sections added). Written by Claude for the owner and the developers who continue the work (Codex included).
 
 This plan brings together four sources:
 - what the owner discussed with Codex
@@ -11,6 +11,24 @@ This plan brings together four sources:
 For the detailed day-to-day log, see `docs/ACADEMY_HANDOFF.md` and `curriculum/PROGRESS.md`.
 
 What this plan does not claim: no NPTEL endorsement or contact, no regulatory, tax or payments clearance, no activated payment provider, no learner-outcome data and no customers. The passing tests show that the software works. They do not show that anyone learns from it.
+
+---
+
+## 0. The offer on the website (owner decision, 21 November)
+
+| | What learners are told | Where it lives |
+| --- | --- | --- |
+| **All 22 cybersecurity courses are free** | Every lesson, quiz and final is free. Most courses are currently *foundational editions* covering the essentials, and fuller editions are being written course by course. Free courses stay free. | Home page and Cybersecurity Academy page (`src/components/common/AcademyOfferSection.jsx`). Course data: every course's `access` is now "Free access (foundational edition)", fixed at its source in `scripts/import_library_courses.mjs`. Before this fix, 18 courses were labelled "PAID". |
+| **Collect Academy credits for future use** | Passing assessments earns credits that are kept in the wallet. They will be usable on upcoming course bundles and resources such as playbooks, templates and lab packs. No cash value, not transferable, no withdrawal. | Same section. Course pages and the dashboard now say "Academy credits" instead of "Tokens" or "Bounty". |
+| **Paid course bundles: coming soon** | Advanced bundles with guided practicals, assessed case work, incident playbooks and ready-to-use templates are in preparation. Nothing is on sale yet. | Same section |
+| **Donations** | "Support free cybersecurity education": what donations fund, a contact link, and a note that donations do not buy access, credits or certificates. No tax-benefit claim. | Home page, `#donate` (`src/components/common/DonationSection.jsx`). The donate button appears only when `VITE_DONATION_URL` (an https page owned by the organisation) is set. Otherwise the section says "opening soon" and offers a mailto link to `VITE_DONATION_EMAIL` (default contact@redkross.org.in). Documented in `.env.example`. |
+
+**What credits will buy.** These are the planned uses, consistent with section 2:
+
+| Item | Paid with |
+| --- | --- |
+| Playbooks, templates, extra practice sets, workbooks, lab packs (digital, nothing extra to supply) | Earned or purchased credits |
+| Course bundles that include human-marked practicals or a viva | INR or purchased credits only, because they cost real marking time; earned credits may give a capped discount (see 5.3) |
 
 ---
 
@@ -161,6 +179,10 @@ Make no public claim about learning outcomes before a course has data from 30 le
 
 ### 3.2 Tokens and commerce (2–6 weeks, before credits go on sale)
 
+- [ ] **First:** switch to the decided earning rules before the site is promoted, or show the line "rates may change, earned credits are kept" (see 5.1).
+- [ ] Build 5 playbook and template packs from existing course material, and a simple store page to spend credits on them (see 5.3).
+- [ ] Donations: confirm FCRA status (Indian donors only until registered) and 12A/80G before any tax wording. Set up a foundation-owned donation page and set `VITE_DONATION_URL`. Arrange receipts and separate accounts (see 5.2).
+
 - [ ] Change the code to the decided earning rules (2.2):
   - `api/auth.js`: welcome grant
   - `api/enrol.js` and `api/_redeem.js`: remove the enrolment bonus
@@ -214,7 +236,59 @@ Make no public claim about learning outcomes before a course has data from 30 le
 
 ---
 
-## 5. Open questions for the owner
+## 5. Claude's recommendations: what matters most
+
+These are in priority order.
+
+### 5.1 Keep the promise about credits consistent with the rules
+
+**Course pages show the old reward figure, under the new name.** The page reads "+1,100 to +2,000 Academy credits" per course, which is what the code pays today. The decided rules (2.2) pay about 65–95 per course.
+- If the rate drops after learners have seen the bigger number, it will feel like a broken promise.
+- **Either** switch the earning rules to the decided values before the site is promoted, **or** add the line "earning rates may change; credits you have already earned are always kept".
+- My recommendation: switch first, then promote. It is a small code change (listed in 3.2).
+
+**Credits earned now must stay valid.** Never expire or reduce credits that were already earned. The legacy reconciliation (2.4) only catches double-crediting and errors. It does not cut honest balances.
+
+**Credits need a date to spend them.** "Collect for future use" works only if a first thing to spend them on arrives within about 2–3 months. Otherwise credits feel worthless.
+
+### 5.2 Donations: legal points to settle before taking money
+
+- **Foreign donations.** A Section 8 company may not accept foreign contributions without **FCRA registration**. Until it has one, the donation page must accept Indian donors only, and say so.
+- **Tax deductions.** Do not mention any tax deduction until the foundation holds valid **12A/80G registration** and can issue compliant receipts.
+- **Receipts and accounting.** Every donation needs a receipt and separate accounting. The donation provider and page must belong to the foundation itself.
+- **No benefit in return.** Keep donations separate from credits and access. The page already says donations buy nothing. Never give credits for donating.
+
+### 5.3 Make playbooks and templates the first things to sell
+
+They cost nothing extra to supply, and much of the material already exists in the courses:
+- C08: triage playbooks, hunt hypotheses, the incident report structure
+- C09 Module 1: evidence receipt, custody log, case-note and hand-over templates, and the legal-handling checklist
+- C17: GRC policy and BIA templates
+
+Turning **5 of these into polished downloadable packs** meets the "at least 5 items" condition for opening sales (2.3), and gives credits a use quickly. Suggested prices: 30–60 credits each.
+
+**Bundle design, once the content exists:**
+- **SOC Analyst bundle:** C08, plus the practicum seat, plus the SOC playbook and template pack.
+- **DFIR bundle:** C09 v2, plus the DFIR practicum, plus the evidence-handling template pack (after C09 is finished).
+- Earned credits may cover a capped share of a bundle's digital parts (for example up to 20%). The human-marked part is paid in INR or purchased credits, so farmed credits never pay for marking time.
+
+### 5.4 Be honest about how basic the courses are
+
+- Keep the "foundational edition" wording until each course is rebuilt, and label the full editions as they land.
+- **Rebuild first** the courses learners are most likely to choose: C09 (in progress), C06 Web Application Security, C11 Cloud Security and C05 Ethical Hacking (defence-led). Merge short lessons into 1,500–2,500-word lessons rather than aiming for C08's size.
+- Add a "report an error" link on every lesson and keep a public corrections log. It builds trust faster than claims do.
+
+### 5.5 Trust and protection items before promotion
+
+- Rotate the leaked keys.
+- Test real sign-in and mail.
+- Publish an authorship and AI-assistance page, saying who wrote and who reviewed each course.
+- Keep the psychology courses hidden until the clinical review is done.
+- Fix the site header at phone width. At 390 px the "Student Portal" button is cut off. This predates the 21 November changes.
+
+---
+
+## 6. Open questions for the owner
 
 | Question | Answer so far |
 | --- | --- |
@@ -223,4 +297,5 @@ Make no public claim about learning outcomes before a course has data from 30 le
 | How big are the v1 banks? | **10 questions per module** for C05–C07 and C10–C22. Delayed retrieval should not pay tokens for those modules until the rebuild provides at least 3× the quiz length. |
 | Which entity supplies the credits, and how are GST and refunds handled? | Open: for the owner's tax adviser. |
 | Who is the named human assessor and factual reviewer for C08? | Open: for the owner. |
-| Is any exclusive material already written that is not in the free courses? | Open: none is known in the repository. |
+| Is any exclusive material already written that is not in the free courses? | Open: none is known in the repository. Playbooks and templates can be drawn from C08, C09 and C17 (5.3). |
+| Which donation provider, and do FCRA and 12A/80G registrations exist? | Open: for the owner and the foundation's adviser. Until both are confirmed, the page shows "opening soon" with a contact link. |
