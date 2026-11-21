@@ -106,7 +106,7 @@ export function PageHeader({ title, subtitle, actions }) {
 
 export function Card({ children, className = '', title, actions }) {
   return (
-    <section className={`rounded-2xl border border-white/10 bg-white/[0.03] ${className}`}>
+    <section className={`min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] ${className}`}>
       {(title || actions) && (
         <div className="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-b border-white/10">
           {title && <h2 className="text-sm font-semibold text-slate-200">{title}</h2>}

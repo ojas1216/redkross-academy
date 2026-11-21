@@ -16,7 +16,7 @@ export function useCourseAvailability(courseId) {
     let alive = true;
     apiClient.getCatalogAccess({ fresh: true }).then((d) => {
       if (!alive) return;
-      const s = d.settings?.[courseId] || { visibility: 'PUBLISHED', price_inr: 0 };
+      const s = d.settings?.[courseId] || { visibility: courseId.startsWith('crs_psych_') ? 'COMING_SOON' : 'PUBLISHED', price_inr: 0 };
       const unlocked = Boolean(d.is_admin) || (d.unlocked_course_ids || []).includes(courseId);
       setState({ loading: false, ...s, unlocked });
     });

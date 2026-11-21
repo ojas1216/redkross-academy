@@ -23,7 +23,7 @@ export default function OverviewPage() {
         <Stat label="Open tickets" value={c.open_tickets} hint={`${c.locked_assessments} assessment${c.locked_assessments === 1 ? "" : "s"} locked now`} to="/admin/tickets" />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Card title="New students" actions={<Link to="/admin/students" className="text-xs text-[#FFA439]">All students</Link>}>
           {data.recent_students.length ? (
             <ul className="space-y-3">
