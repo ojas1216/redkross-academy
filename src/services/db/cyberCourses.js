@@ -35,7 +35,7 @@ export const CYBER_COURSES = [
     "skills": [
       "CIA Triad & Defense-in-Depth",
       "Lockheed Martin Cyber Kill Chain",
-      "Threat Modeling & STRIDE",
+      "Threat Intelligence & MITRE ATT&CK",
       "5×5 Risk Matrix & CVSS v3.1",
       "Identity, MFA & Access Control",
       "Applied Cryptography (AES & TLS 1.3)",
@@ -51,11 +51,11 @@ export const CYBER_COURSES = [
       "role": "Director of Defensive Education, RedKross Research Foundation",
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80"
     },
-    "overview": "The institutional starting point for modern cyber defense. Master foundational security models, the CIA triad, the Lockheed Martin Cyber Kill Chain, STRIDE threat modeling, CVSS v3.1 scoring, authentication and access controls, applied cryptography, SOC incident management, and Indian cyber law (IT Act & DPDP Act 2023).",
+    "overview": "The institutional starting point for modern cyber defense. Master foundational security models, the CIA triad, the Lockheed Martin Cyber Kill Chain, threat intelligence and MITRE ATT&CK, risk registers, CVSS v3.1 scoring, authentication and access controls, applied cryptography, SOC incident management, and Indian cyber law (IT Act & DPDP Act 2023).",
     "what_you_will_learn": [
       "Master the CIA Triad (Confidentiality, Integrity, Availability) and balance organizational security trade-offs.",
       "Analyze adversary operations across the 6-stage Lockheed Martin Cyber Kill Chain to intercept intrusions early.",
-      "Perform enterprise threat modeling using STRIDE and evaluate vulnerability severity using CVSS v3.1 vectors.",
+      "Map adversary behaviour with MITRE ATT&CK, maintain a risk register and evaluate vulnerability severity using CVSS v3.1 vectors.",
       "Architect robust identity ecosystems with Multi-Factor Authentication, Role-Based Access Control, and PAM.",
       "Deploy applied cryptographic controls including AES-GCM, TLS 1.3 hybrid handshakes, and digital signatures.",
       "Execute security operations center (SOC) triage, NIST SP 800-61 incident response, and DPDP Act 2023 governance."

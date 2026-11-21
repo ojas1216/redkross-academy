@@ -98,7 +98,7 @@ export default function CyberLearningCard({
     if (item.id === 'crs_cyber_intro_01' || item.slug === 'introduction-to-cybersecurity') {
       return {
         learningGoal: 'Build foundational defensive security mental models to identify threats, balance CIA trade-offs, and protect enterprise infrastructure.',
-        whatYoullLearnText: 'CIA Triad, threat actor kill chains, STRIDE risk scoring, applied AES/TLS cryptography, and SOC incident triage.',
+        whatYoullLearnText: 'CIA Triad, threat actor kill chains, calibrated risk scoring, applied AES/TLS cryptography, and SOC incident triage.',
         whoItsForText: 'Students, beginners, IT staff, and aspiring cybersecurity defenders seeking an institutional foundation.',
         prereqText: 'No prior programming, networking, or cybersecurity knowledge required. Built from absolute scratch.'
       };

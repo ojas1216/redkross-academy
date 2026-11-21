@@ -696,8 +696,8 @@ export default function CyberCourseDetailPage() {
                       desc: 'Deconstruct the 6-stage Lockheed Martin Cyber Kill Chain from Reconnaissance to Actions on Objectives; analyze malware taxonomy, social engineering vectors, and physical security.'
                     },
                     {
-                      title: 'MOD 04 // RISK, CVSS v3.1 & STRIDE',
-                      desc: 'Calculate CVSS v3.1 base severity metrics across exploitability and impact vectors, build STRIDE threat models, and establish cross-functional defensive control matrices.'
+                      title: 'MOD 04 // RISK, CVSS v3.1 & RISK REGISTERS',
+                      desc: 'Calculate CVSS v3.1 base severity metrics, build and maintain a risk register, calibrate likelihood and impact, and choose a treatment for each risk.'
                     },
                     {
                       title: 'MOD 05 // IDENTITY & ACCESS MANAGEMENT',
