@@ -165,7 +165,7 @@ export default function CyberCourseDetailPage() {
 
 
   const totalLessonsCount = useMemo(() => {
-    if (!course?.modules) return 78;
+    if (!course?.modules) return 0;
     return course.modules.reduce((acc, m) => acc + (m.lessons?.length || 0), 0);
   }, [course]);
 
@@ -258,7 +258,7 @@ export default function CyberCourseDetailPage() {
                 <div className="p-3.5 rounded-xl bg-black/35 backdrop-blur-xl border border-[#FF7A00]/25 hover:border-[#FF7A00]/50 transition-colors">
                   <div className="text-[10px] font-mono text-[#FFA439] uppercase">SYLLABUS</div>
                   <div className="text-base sm:text-lg font-bold font-mono text-white">
-                    {course.modules?.length || 6} Modules
+                    {course.modules?.length || 0} Modules
                   </div>
                   <div className="text-[10px] text-slate-400">{totalLessonsCount} Lessons</div>
                 </div>
@@ -266,11 +266,7 @@ export default function CyberCourseDetailPage() {
                 <div className="p-3.5 rounded-xl bg-black/35 backdrop-blur-xl border border-[#FF7A00]/25 hover:border-[#FF7A00]/50 transition-colors">
                   <div className="text-[10px] font-mono text-[#FFA439] uppercase">EXAM GATES</div>
                   <div className="text-base sm:text-lg font-bold font-mono text-white">
-                    {course.id === 'crs_cyber_intro_01' || course.slug === 'introduction-to-cybersecurity'
-                      ? '6 Knowledge Checks + Final'
-                      : course.id === 'crs_cyber_net_02' || course.slug === 'computer-networking-for-cybersecurity'
-                      ? '8 Quizzes + Final'
-                      : `${(course.modules || []).filter((m) => m.quiz).length || 8} Quizzes + Final`}
+                    {(course.modules || []).filter(m => m.quiz).length} quizzes{course.final_assessment && ' + final'}
                   </div>
                   <div className="text-[10px] text-slate-400">
                     {`${course.final_assessment?.total_questions || 50}-MCQ Proctored Final`}
@@ -857,7 +853,7 @@ export default function CyberCourseDetailPage() {
             >
               <div className="flex items-center justify-between pb-2">
                 <div className="text-xs font-mono text-slate-400">
-                  Total {course.modules?.length || 8} Modules • {totalLessonsCount} Lessons • {course.modules?.length || 8} Knowledge Checks + 1 Final Certification Exam
+                  Total {course.modules?.length || 0} Modules • {totalLessonsCount} Lessons • {(course.modules || []).filter(m => m.quiz).length} module assessments{course.final_assessment && ' + final exam'}
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -944,21 +940,17 @@ export default function CyberCourseDetailPage() {
                                 </div>
                                 <div className="flex items-center gap-2 font-mono text-[10px] text-slate-400">
                                   <Clock className="w-3 h-3 text-slate-500" />
-                                  <span>{les.estimated_minutes || 15}m</span>
+                                  <span>{les.duration || (les.estimated_minutes ? les.estimated_minutes + ' min' : '')}</span>
                                 </div>
                               </div>
                             ))}
 
-                            {/* Graded Module Evaluation Card */}
-                            <div className="mt-2 p-2.5 rounded-lg bg-[#FF7A00]/10 border border-[#FF7A00]/30 flex items-center justify-between text-xs font-mono">
-                              <div className="flex items-center gap-2">
-                                <Award className="w-4 h-4 text-[#FFA439]" />
-                                <span className="text-[#FFA439] font-bold">
-                                  Module {idx + 1} Assessment: 20-MCQ Graded Assessment
-                                </span>
+                            {mod.quiz && (
+                              <div className="mt-2 rounded-lg border border-amber-400/30 p-3 text-sm">
+                                <p className="font-semibold text-amber-200">{mod.quiz.title || 'Module assessment'}</p>
+                                <p className="text-slate-300">{mod.quiz.total_questions || 20} questions &middot; {mod.quiz.passing_score ?? mod.quiz.pass_threshold ?? 80}% to pass</p>
                               </div>
-                              <span className="text-[10px] text-slate-300">80% Pass Req • 20 MCQs</span>
-                            </div>
+                            )}
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -1048,110 +1040,18 @@ export default function CyberCourseDetailPage() {
               transition={{ duration: 0.3 }}
               className="space-y-4"
             >
-              {(course.id === 'crs_cyber_intro_01' || course.slug === 'introduction-to-cybersecurity' ? [
+              {([
                 {
-                  q: 'Do I need any programming or IT experience before starting this course?',
-                  a: 'No prior background is required. The curriculum begins from scratch, explaining digital security, core ecosystem concepts, and foundational architecture before advancing to threat modeling and defensive operations.'
+                  q: 'Which assessments do I need to pass?',
+                  a: 'The syllabus lists the assessment for each module and its pass mark. Pass each required module assessment to unlock the final.'
                 },
+                ...(course.final_assessment ? [{
+                  q: 'How long is the final assessment?',
+                  a: 'The final contains ' + course.final_assessment.total_questions + ' questions. The classroom displays the time limit and rules before you begin.'
+                }] : []),
                 {
-                  q: 'What does the 6-module curriculum cover?',
-                  a: 'The curriculum spans 6 comprehensive modules: (1) Cybersecurity Foundations & Ecosystem, (2) Core Principles & Defense Architecture, (3) The Threat Landscape & Adversary Operations, (4) Risk Management, Vulnerabilities & Defense Strategy, (5) Identity & Access Management (IAM), and (6) Security Operations, Governance & Career Pathways.'
-                },
-                {
-                  q: 'What is the Lockheed Martin Cyber Kill Chain taught in this curriculum?',
-                  a: 'The Cyber Kill Chain is a 6-stage operational model (Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Actions on Objectives) that teaches defenders how attacks unfold and how interrupting any single link preemptively halts adversary progress.'
-                },
-                {
-                  q: 'How do the assessments and final certification work?',
-                  a: 'Each module concludes with a 20-MCQ Knowledge Check requiring an 80% score to proceed. Upon completing all 38 lessons and 6 Knowledge Checks, cadets unlock the proctored 60-MCQ final certification exam to earn the Certified Cybersecurity Defender Associate (CCDA) credential.'
-                },
-                {
-                  q: 'What is the recommended weekly pace and duration?',
-                  a: 'The course is structured for 10 weeks at an estimated pace of 6–8 hours per week (approx. 45 total learning hours). The curriculum is fully self-paced, allowing motivated cadets to progress as their schedule allows.'
-                },
-                {
-                  q: 'Does this course teach defensive security or offensive hacking?',
-                  a: 'RedKross Academy focuses strictly on defensive security and institutional resilience. We examine adversary tactics and real-world attack vectors specifically so defenders understand how to anticipate, mitigate, and neutralize threats.'
-                }
-              ] : course.id === 'crs_cyber_net_02' || course.slug === 'computer-networking-for-cybersecurity' ? [
-                {
-                  q: 'Do I need prior networking or coding knowledge before starting this course?',
-                  a: 'No prior networking certification is required. Familiarity with basic IT concepts or Course 01 (Introduction to Cybersecurity) is recommended. The course constructs all networking knowledge from binary bits and physical cables to stateful firewalls.'
-                },
-                {
-                  q: 'What does the 8-module Computer Networking curriculum cover?',
-                  a: 'The curriculum spans 8 comprehensive modules: (1) Network Fundamentals, (2) Layered Models and Encapsulation, (3) Addressing (IPv4, CIDR, VLSM & IPv6), (4) Network Protocols (TCP, UDP, ICMP, ARP), (5) Essential Network Services (DNS, DHCP, NAT, HTTP & TLS 1.3), (6) Routing and Switching Segmentation, (7) Network Boundaries, Firewalls & VPNs, and (8) Traffic Analysis & Wireshark Forensics.'
-                },
-                {
-                  q: 'What practical network analysis tools will I use in this curriculum?',
-                  a: 'Cadets analyze real traffic captures using Wireshark, tshark, tcpdump, dig, traceroute, and Linux stateful firewall utilities (iptables, nftables). Every lesson includes inline interactive packet decodes and terminal illustrations.'
-                },
-                {
-                  q: 'How do module assessments and the final CNDA certification exam work?',
-                  a: 'Each module concludes with a 20-MCQ graded assessment requiring a 70% score to proceed. After passing all 8 modules, cadets unlock the proctored 50-MCQ final certification exam to earn the Certified Network Defense Associate (CNDA) credential.'
-                },
-                {
-                  q: 'What is the recommended weekly pace and duration?',
-                  a: 'The course is structured for 10 weeks at 6–8 hours per week (~86 total learning hours including 56 hours module study, 18 hours practicals, 2 hours assessment, and 10 hours capstone report). The curriculum is fully self-paced.'
-                },
-                {
-                  q: 'How do employers verify RedKross networking credentials?',
-                  a: 'Each issued certificate contains a public verification URL (/verify/:id) and a deterministic SHA-256 hash that cryptographically confirms the cadet identity, passing grade, and completion timestamp.'
-                }
-              ] : course.id === 'crs_cyber_admin_03' || course.slug === 'linux-and-windows-system-administration' ? [
-                {
-                  q: 'Do I need prior Linux or PowerShell scripting experience before taking this course?',
-                  a: 'No prior command-line scripting experience is assumed. The curriculum begins from first principles, explaining core syntax, flags, redirection, and object pipelines step-by-step before advancing to defensive Bash automation and PowerShell 7 administration.'
-                },
-                {
-                  q: 'What laboratory environment is required for the hands-on practicals?',
-                  a: 'A computer with 8 GB RAM (16 GB recommended) and hardware virtualization enabled (VT-x / AMD-V). For Linux practicals, WSL2 with Ubuntu 24.04/26.04 LTS (recommended for Windows users) or a virtual machine (VirtualBox/Hyper-V) is used. Windows 10/11 Home is sufficient for most labs, with Pro/Enterprise noted where Group Policy (gpedit.msc) is evaluated.'
-                },
-                {
-                  q: 'Why does this course cover both Linux and Windows together in a single curriculum?',
-                  a: 'Modern enterprise IT infrastructure is heterogeneous. Workstations and Active Directory domains predominantly run Windows, while cloud workloads, microservices, databases, and network appliances run Linux. Security defenders and systems administrators must be equally fluent and capable across both platforms.'
-                },
-                {
-                  q: 'What is the significance of the 2024 CrowdStrike outage analyzed in Module 1?',
-                  a: 'The July 2024 incident provides a critical real-world lesson in operating system privilege boundaries. A sensor update executed in kernel space (Ring 0) where an invalid memory read triggered a BugCheck/BSOD that disabled 8.5 million systems worldwide. Defenders study this to understand kernel vs. user space isolation.'
-                },
-                {
-                  q: 'How do module assessments, the Lynis audit capstone, and the final CSADA exam work?',
-                  a: 'Each of the 8 modules concludes with a 20-MCQ knowledge check requiring an 80% passing grade. Upon completing all 48 lessons and 8 quizzes, cadets conduct an automated Lynis system audit and unlock the proctored 50-MCQ final exam to earn the Certified Systems Administration & Defense Associate (CSADA) credential.'
-                },
-                {
-                  q: 'How does this credential translate into enterprise cybersecurity roles?',
-                  a: 'The CSADA credential aligns directly with the NICE Framework for Systems Administration (K0001, K0002, K0003) and Incident Response (K0041, K0070). It validates that you can manage permissions, investigate process trees, audit event logs, build defensive automation, and enforce consensus CIS hardening baselines.'
-                }
-              ] : course.id === 'crs_cyber_python_04' || course.slug === 'python-for-cybersecurity' ? [
-                {
-                  q: 'Do I need any prior Python or programming experience before enrolling?',
-                  a: 'No prior coding experience is required. Module 1 begins from installing CPython 3.10+ and core variable binding rules, stepping deliberately through collections, functions, file handling, networking, cryptography, and automated testing.'
-                },
-                {
-                  q: 'What tools and software do I need to complete the practical labs?',
-                  a: 'A computer running Windows 10/11, macOS, or Linux with Python 3.10 or newer (tested on CPython 3.12 / 3.14). All 48 lessons emphasize standard-library security engineering, hash-pinned virtual environments, and safe loopback 127.0.0.1 network labs.'
-                },
-                {
-                  q: 'What is the rkloga 2.0 capstone project built in Module 8?',
-                  a: 'Across Modules 1 through 8, cadets incrementally engineer rkloga 2.0 — a documented, unittest-verified Python CLI security log analyzer featuring streaming SHA-256 verification, UTC normalization, path/CSV/ANSI sanitization, stateful suppression rules, and strict 0/1/2 exit codes.'
-                },
-                {
-                  q: 'How do module assessments and the final CCPAA certification exam work?',
-                  a: 'Each of the 8 modules ends with a 20-MCQ graded assessment drawn dynamically from a 200-question bank requiring an 80% passing score. Completing all 8 modules unlocks the proctored 60-MCQ final exam to earn the Certified Cybersecurity Python Automation Associate (CCPAA) credential.'
-                }
-              ] : [
-                {
-                  q: 'What is the retake policy for module quizzes?',
-                  a: 'Cadets are granted 3 attempts per module assessment. If all 3 attempts fail to meet the 80% passing threshold, a mandatory 24-hour review cooldown is activated to reinforce syllabus mastery.'
-                },
-                {
-                  q: 'How does the final certification exam work?',
-                  a: 'The final certification exam features randomized questions under a 60-minute proctored timer. Strict anti-cheat tab-blur protection logs all focus disruptions.'
-                },
-                {
-                  q: 'How do employers verify RedKross credentials?',
-                  a: 'Each issued certificate contains a public verification URL (/verify/:id) and a deterministic SHA-256 hash that cryptographically confirms the cadet identity, grade, and completion timestamp.'
+                  q: 'How can someone verify my course certificate?',
+                  a: 'Open the verification link on the issued certificate to check its current status in the Academy registry.'
                 }
               ]).map((faq, i) => (
                 <div

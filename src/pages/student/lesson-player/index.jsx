@@ -356,7 +356,9 @@ export default function LessonPlayerPage() {
           ? '> [!WARNING] Lesson unavailable\n> This lesson could not be loaded. Check your connection and reload the page.'
           : '*Loading lesson...*'
       }
-    : activeLesson;
+    : activeLesson?.content_markdown && !activeLesson.content
+      ? { ...activeLesson, content: activeLesson.content_markdown }
+      : activeLesson;
 
   const isLessonCompleted = activeLesson
     ? (currentEnrolment?.completed_mandatory_lessons || enrolment?.completed_mandatory_lessons || []).includes(activeLesson.id)
@@ -783,22 +785,15 @@ export default function LessonPlayerPage() {
     }, 60);
   };
 
+  const lessonNotes = activeLesson?.content || activeLesson?.content_markdown;
   const handleDownloadChapterNotes = () => {
-    if (!activeLesson) return;
-    const docContent = `# REDKROSS ACADEMY // CHAPTER STUDY NOTES\n\n` +
-      `**Course**: ${course?.title || 'Defensive Cyber Operations'}\n` +
-      `**Module**: ${activeUnit?.moduleTitle || 'Core Module'}\n` +
-      `**Lesson**: ${activeLesson.title}\n` +
-      `**Duration**: ${activeLesson.duration || '15 mins'}\n` +
-      `**Date Exported**: ${new Date().toISOString().split('T')[0]}\n\n` +
-      `---\n\n` +
-      `## Chapter Operational Notes & Technical Guidance\n\n` +
-      (activeLesson.content || 'Defensive operators must maintain 100% visibility over host and network telemetry.\n\n```bash\n# Inspect telemetry pipelines\nss -tulpn\n```') +
-      `\n\n---\n\n` +
-      `## Standard Operating Procedures\n` +
-      `1. Log Verification: Ensure event ingestion pipelines are active.\n` +
-      `2. Framework Alignment: MITRE ATT&CK Matrix & NIST SP 800-61r2 Incident Handling.\n` +
-      `3. Cryptographic Verification: All assessments signed by RedKross Academy.\n`;
+    if (!lessonNotes) return;
+    const docContent = [
+      '# ' + activeLesson.title,
+      course.title,
+      activeUnit.moduleTitle,
+      lessonNotes.trim(),
+    ].filter(Boolean).join('\n\n') + '\n';
 
     const blob = new Blob([docContent], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -1214,7 +1209,7 @@ export default function LessonPlayerPage() {
               activeTab={activeTab}
               setActiveTab={setActiveTab}
               isAssignment={isAssignment}
-              handleDownloadChapterNotes={handleDownloadChapterNotes}
+              handleDownloadChapterNotes={lessonNotes ? handleDownloadChapterNotes : undefined}
               setLightboxImage={setLightboxImage}
               handleDownloadAdminPdf={handleDownloadAdminPdf}
               submittingPdf={submittingPdf}
