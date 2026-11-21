@@ -7,58 +7,106 @@
     {
       "n": 1,
       "title": "Forensic principles",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "What digital forensics is, the seven working principles that make findings defensible, and how examination works as hypothesis testing on verified copies.",
+      "objectives": [
+        "Define digital forensics and explain what forensic evidence can and cannot answer",
+        "Apply the seven working principles to decisions on a live incident",
+        "Explain the integrity model linking the original, image, working copy and findings",
+        "Test competing hypotheses by seeking observations that could rule each out",
+        "Label statements in a report as fact, inference or opinion"
+      ],
+      "minutes": 60
     },
     {
       "n": 2,
       "title": "Evidence types",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How to classify digital evidence by source, stability, provenance and origin of content, and what each classification means for handling, integrity claims and corroboration, using a fictional intake receipt and the course acquisition transcript.",
+      "objectives": [
+        "Classify evidence items by source, form and stability, provenance and origin of content",
+        "Identify the integrity anchor of an item and state what a hash at that point does and does not establish",
+        "Review an intake receipt for missing provenance, scope boundaries and time-basis gaps",
+        "Interpret the course acquisition transcript as a record of an original, a forensic copy, a working copy and a changed copy",
+        "Distinguish independent corroborating sources from multiple copies of a single source"
+      ],
+      "minutes": 65
     },
     {
       "n": 3,
       "title": "Order of volatility",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How the RFC 3227 order of volatility ranks evidence by expected lifetime, what to avoid at a running system, and what each way of stopping or keeping a machine running preserves and loses.",
+      "objectives": [
+        "Explain the forces that shorten evidence lifetime and rank sources with the RFC 3227 order",
+        "Adapt the order to the real log rotation and retention of a given system",
+        "Identify the actions RFC 3227 warns against and the evidence each destroys",
+        "Record a system's clock offset against a UTC reference",
+        "Choose between keeping a machine running, capturing memory and shutting down, and record what is given up"
+      ],
+      "minutes": 60
     },
     {
       "n": 4,
       "title": "Legal handling in India",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "The Indian legal framework for electronic evidence from a practitioner's view: the BSA and its Section 63 certificate, BNSS search and seizure, IT Act examiners, CERT-In directions and personal data.",
+      "objectives": [
+        "Identify the laws that apply to electronic evidence in India and when the BSA and BNSS came into force",
+        "Explain what the BSA Section 63 certificate asks for and which lab records support it",
+        "Describe BNSS requirements for recording search and seizure and for forensic experts at the scene",
+        "Relate CERT-In log retention and clock synchronisation directions to forensic readiness",
+        "Apply data minimisation and recognise which decisions belong to counsel and the court"
+      ],
+      "minutes": 60
     },
     {
       "n": 5,
       "title": "Chain of custody",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How a chronological, signed record of every holder, location, transfer and seal state shows that an evidence item and its derived copies are what they claim to be.",
+      "objectives": [
+        "Explain how continuity and integrity differ and how hashes and custody records support each",
+        "Complete an evidence receipt and custody log entry that answer who, what, when, where, why and how",
+        "Distinguish physical items from derived items and start a custody record for an image or export",
+        "Review a custody log for broken links, seal discrepancies and time-zone errors",
+        "Correct and document custody gaps without altering earlier records"
+      ],
+      "minutes": 60
     },
     {
       "n": 6,
       "title": "Documentation",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "How contemporaneous notes, examination and decision logs and a structured case file make forensic work reproducible, reviewable and accountable.",
+      "objectives": [
+        "Describe the record types in a case file and the reviewer question each answers",
+        "Write timed, specific contemporaneous notes that keep observation, inference and opinion separate",
+        "Record tool versions, outputs, failures and decisions not to examine with reasons",
+        "Rewrite weak notes into reviewable notes and document a peer review",
+        "Apply access, integrity and minimisation controls to a case file"
+      ],
+      "minutes": 60
     },
     {
       "n": 7,
       "title": "Ethics",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "The professional duties that keep privileged forensic access tied to its purpose: scope and restraint, objectivity, honest correction of errors, accurate tool and certainty claims, competence, independence and confidentiality.",
+      "objectives": [
+        "Apply a scope-first decision to items met during authorised work, treating uncertainty as out of scope and logging the outcome",
+        "Distinguish observations, inferences and opinions, and report material that weakens the requester's theory",
+        "Respond openly to an altered working copy or a mistyped digest using the saved C09 acquisition transcript",
+        "Rewrite overclaiming statements about tools, integrity and attribution into defensible, evidence-tied wording",
+        "Identify conflicts of interest, competence limits and confidentiality duties in realistic case scenarios"
+      ],
+      "minutes": 60
     },
     {
       "n": 8,
       "title": "Lab setup",
-      "summary": "",
-      "objectives": [],
-      "minutes": 0
+      "summary": "Build an isolated, inventoried and organised analysis workstation, then prove its verification routine with the original C09 acquisition transcript and offline file-based checks on synthetic data.",
+      "objectives": [
+        "Design a case folder layout in which evidence moves one way from intake receipt to verified working copy",
+        "Configure an isolated analysis VM with UTC time, a tool inventory and a recorded clean-baseline snapshot",
+        "Interpret each step of the original C09 acquisition transcript as a check on the lab's own verification routine",
+        "Demonstrate with a manifest check that the routine reports a match on unchanged files and a failure on changed files",
+        "Distinguish a local known-answer check from formal tool testing and from any guarantee of legal admissibility"
+      ],
+      "minutes": 65
     }
   ]
 }

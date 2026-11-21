@@ -1,0 +1,83 @@
+{
+  "C09-M02-L05-F1": {
+    "title": "Dead and live acquisition: what each preserves and what each costs",
+    "caption": "The same seized system gives different evidence, and different proof of integrity, depending on whether it is acquired powered off or running.",
+    "alt": "Two-column comparison with 'vs' between the columns. Left column, blue, titled 'Dead (static) acquisition': source powered off and read through a write blocker; repeatable, a second read gives the same SHA-256; image hash can be compared with the source hash; loses RAM, network state and unlocked keys; the shutdown method itself can change the disk. Right column, orange, titled 'Live acquisition': system running and collection goes through its own operating system; not repeatable because the source keeps changing; the hash fixes the output file, not the source; captures volatile state and decrypted views; leaves an examiner footprint and may be fed by a compromised operating system.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Dead (static) acquisition",
+        "tone": "blue",
+        "items": [
+          "Source powered off; media read via a write blocker",
+          "Repeatable: a second read gives the same SHA-256",
+          "Image hash can be compared with the source hash",
+          "Loses RAM, network state and unlocked keys",
+          "The shutdown method itself can change the disk"
+        ]
+      },
+      {
+        "title": "Live acquisition",
+        "tone": "orange",
+        "items": [
+          "System running; collection goes through its own OS",
+          "Not repeatable: the source keeps changing",
+          "The hash fixes the output file, not the source",
+          "Captures volatile state and decrypted views",
+          "Leaves a footprint; a compromised OS may lie"
+        ]
+      }
+    ],
+    "note": "Neither mode is safer by default: each preserves something the other destroys."
+  },
+  "C09-M02-L05-F2": {
+    "title": "Live or dead: the decision at the scene",
+    "caption": "A decision path an authorised responder can follow and record before touching a system's power state.",
+    "alt": "Top-to-bottom decision graph. 'System found at the scene' (authorisation and scope confirmed) leads to the decision 'Is it powered on?'. The 'off' branch goes to 'Leave it off', dead acquisition through a write blocker. The 'on' branch goes to the decision 'Volatile or unlocked data in scope?' (RAM, sessions, mounted encrypted volume). Its 'yes' branch goes to 'Live capture by authorised specialist' (minimal, documented, output written off the system), which then leads by a dashed 'then' arrow to the decision 'Can it be taken offline?'. The 'no' branch of the volatile-data decision also goes to 'Can it be taken offline?'. Its 'yes' branch goes to 'Documented shutdown' (method chosen and recorded), which leads to 'Leave it off' and the dead acquisition. Its 'no' branch goes to 'Live logical acquisition' (targeted, in-scope data only). Both 'Leave it off' and 'Live logical acquisition' lead to the dark 'Acquisition record' node.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "s", "label": "System found at the scene", "sub": "authorisation and scope confirmed", "tone": "slate" },
+      { "id": "p", "label": "Is it powered on?", "kind": "decision", "tone": "violet" },
+      { "id": "d", "label": "Leave it off", "sub": "dead acquisition via write blocker", "tone": "blue" },
+      { "id": "v", "label": "Volatile or unlocked data in scope?", "sub": "RAM, sessions, mounted encrypted volume", "kind": "decision", "tone": "violet" },
+      { "id": "l", "label": "Live capture by authorised specialist", "sub": "minimal, documented, output off-system", "tone": "orange" },
+      { "id": "b", "label": "Can it be taken offline?", "sub": "business, safety and legal constraints", "kind": "decision", "tone": "violet" },
+      { "id": "sd", "label": "Documented shutdown", "sub": "method chosen and recorded", "tone": "green" },
+      { "id": "ll", "label": "Live logical acquisition", "sub": "targeted, in-scope data only", "tone": "orange" },
+      { "id": "rec", "label": "Acquisition record", "sub": "who, when, what, why, hashes", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "s", "to": "p" },
+      { "from": "p", "to": "d", "label": "off" },
+      { "from": "p", "to": "v", "label": "on" },
+      { "from": "v", "to": "l", "label": "yes" },
+      { "from": "v", "to": "b", "label": "no" },
+      { "from": "l", "to": "b", "label": "then", "dashed": true },
+      { "from": "b", "to": "sd", "label": "yes" },
+      { "from": "sd", "to": "d" },
+      { "from": "b", "to": "ll", "label": "no" },
+      { "from": "d", "to": "rec" },
+      { "from": "ll", "to": "rec" }
+    ],
+    "note": "Every branch ends in the record: the reason for the choice is evidence too."
+  },
+  "C09-M02-L05-F3": {
+    "title": "Reading the original static acquisition transcript, step by step",
+    "caption": "The six stages of the provided static-acquisition transcript and the digest each stage produced.",
+    "alt": "Top-to-bottom flow of six steps. Step 1, slate: 'Hash the source', suspect.dev e3a74e55...0f21. Step 2, blue: 'Acquire and hash in one pass', dd to tee, stream hash e3a74e55...0f21. Step 3, green: 'Verify the image file', evidence.dd e3a74e55...0f21, 16777216 bytes. Step 4, green: 'Verify the working copy', working.dd e3a74e55...0f21. Step 5, red: 'One-byte change at offset 100000', working.dd 16d816db...7f2c, cmp reports char 100001. Step 6, slate: 'MD5 for legacy records only', evidence.dd 93308050...2295.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "1 Hash the source", "sub": "suspect.dev: e3a74e55...0f21", "tone": "slate" },
+      { "label": "2 Acquire and hash in one pass", "sub": "dd -> tee; stream: e3a74e55...0f21", "tone": "blue" },
+      { "label": "3 Verify the image file", "sub": "evidence.dd: e3a74e55...0f21; 16777216 bytes", "tone": "green" },
+      { "label": "4 Verify the working copy", "sub": "working.dd: e3a74e55...0f21", "tone": "green" },
+      { "label": "5 One-byte change at offset 100000", "sub": "working.dd: 16d816db...7f2c; cmp: char 100001", "tone": "red" },
+      { "label": "6 MD5 for legacy records only", "sub": "evidence.dd: 93308050...2295", "tone": "slate" }
+    ],
+    "note": "Steps 1 to 4 can agree only because the source did not change between reads."
+  }
+}

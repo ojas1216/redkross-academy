@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In the lesson's acquisition transcript, the SHA-256 of suspect.dev taken before acquisition equals the digests of evidence.dd and working.dd. Which condition makes that equality a meaningful integrity check?",
+    "options": [
+      "SHA-256 was used instead of MD5 for every comparison",
+      "The image was written and hashed in a single pass with tee",
+      "The source did not change between the separate reads",
+      "The image size was recorded as exactly 16777216 bytes"
+    ],
+    "correct": 2,
+    "explanation": "Source and image digests can agree only if the source stayed still between reads, which is the defining property of a static source. The single-pass tee hash is useful but would not help if the source itself were changing.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An examiner captures a running workstation's memory to an external drive and hashes the output file. What does that SHA-256 value support?",
+    "options": [
+      "The output file has not changed since it was hashed",
+      "The capture is an exact copy of the workstation's memory",
+      "A second capture of the same memory will give this digest",
+      "No malicious software altered memory during the capture"
+    ],
+    "correct": 0,
+    "explanation": "A live capture's hash fixes the output file from that moment. Memory keeps changing, so there is no stable source to compare with, and a repeat capture would differ.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Section 5 of the transcript changes one byte of working.dd at offset 100000, and the comparison reports 'differ: char 100001, line 1'. How should a reviewer read that line?",
+    "options": [
+      "The tool found a second altered byte one position after the planned change",
+      "The image was truncated, so the comparison stopped at byte 100001 of line 1",
+      "Line 1 shows that the altered byte sits in the first sector of the partition",
+      "Byte positions count from 1, so this names zero-based offset 100000"
+    ],
+    "correct": 3,
+    "explanation": "The comparison counts bytes from 1, so char 100001 is the byte at zero-based offset 100000. 'line 1' only means no newline byte occurred earlier; it has no meaning for a disk image and says nothing about sectors.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A fictional acquisition record says the MD5 in transcript section 6 'verifies the source'. Why is that wording wrong?",
+    "options": [
+      "MD5 cannot be calculated over an image as large as 16 MiB",
+      "No MD5 of the source was recorded, so it identifies only evidence.dd",
+      "MD5 digests are always invalid as evidence in any forensic report",
+      "The MD5 value should equal the SHA-256 value if the image is intact"
+    ],
+    "correct": 1,
+    "explanation": "The transcript records MD5 only for evidence.dd, so it can be compared only with future MD5s of that file. MD5 is kept for legacy compatibility; it is not automatically invalid, but here it proves nothing about the source.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After section 5, working.dd no longer matches evidence.dd. What is the correct consequence for the case?",
+    "options": [
+      "The case evidence is compromised and the acquisition must be repeated",
+      "Discard the altered copy and make a new verified copy from evidence.dd",
+      "Recompute the evidence.dd digest so that it matches the working copy",
+      "Keep analysing working.dd and note the changed byte in the final report"
+    ],
+    "correct": 1,
+    "explanation": "The evidence image is unaffected; only the working copy changed. A fresh working copy is made from evidence.dd and verified. Repeating the acquisition is unnecessary because evidence.dd still matches the source digest.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A company laptop is found running with an encrypted volume mounted, and IT confirms no recovery key is held. The volume's files are in scope. What is the most defensible plan?",
+    "options": [
+      "Shut it down immediately because a static image is always the sounder evidence",
+      "Leave it running indefinitely so the encrypted volume never needs to be imaged",
+      "Shut it down, then rely on the user supplying a passphrase to decrypt it later",
+      "Have an authorised specialist take a documented live copy, then decide the power state"
+    ],
+    "correct": 3,
+    "explanation": "Without an escrowed key, powering off returns the volume to ciphertext, so a minimal, documented live copy by an authorised specialist preserves the in-scope data. The disk can then be imaged after a recorded shutdown. Shutting down first loses the only readable form and makes access depend on someone else's cooperation.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During a live capture, a responder saves the output file to the suspect workstation's own system drive 'for speed'. What is the main evidential problem?",
+    "options": [
+      "It can overwrite deleted data and mixes examiner files with the suspect's",
+      "It makes the hash of the capture impossible to calculate later",
+      "It turns a live acquisition into a dead acquisition of that drive",
+      "It means the write blocker records the capture as the source"
+    ],
+    "correct": 0,
+    "explanation": "Writing to the evidence disk can overwrite unallocated space holding deleted material and puts examiner files among suspect files. The file can still be hashed; the harm is to the disk's evidence.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A process list collected live from a server shows nothing unusual, but external network logs show the server contacting an unknown host. What explains this best?",
+    "options": [
+      "Network logs are volatile and so carry less weight than host evidence",
+      "The capture smear removed the process from the middle of the list",
+      "Live tools rely on the running OS, which a compromise may make lie",
+      "Process lists are only accurate after the system has been shut down"
+    ],
+    "correct": 2,
+    "explanation": "A live tool asks the running operating system for data, and malicious software can hide processes from those interfaces. External sources such as network logs can contradict a lying host. Smear describes inconsistency, not removal of whole entries.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement about shutting down a running system before static imaging is accurate?",
+    "options": [
+      "A graceful shutdown changes nothing on disk because files are closed cleanly",
+      "Pulling the power is always correct because it stops malicious clean-up",
+      "The shutdown method matters only for servers and not for workstations",
+      "Graceful shutdown lets software act on the disk; abrupt power loss risks inconsistency"
+    ],
+    "correct": 3,
+    "explanation": "A graceful shutdown lets the OS, and any malicious software, write and delete data. Abrupt power removal prevents that but can leave file systems inconsistent and lose cached writes. Neither is always correct, so the choice and reason are recorded.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A production file server cannot be taken offline, and the owner has refused downtime in writing. Only one finance share is in scope. Which approach fits?",
+    "options": [
+      "A targeted live logical acquisition of that share, with its limits stated",
+      "A full physical image after forcing a brief shutdown outside office hours",
+      "Copying the whole server's disks live so nothing in unallocated space is missed",
+      "Waiting until the server is retired, then imaging its disks statically"
+    ],
+    "correct": 0,
+    "explanation": "When a system cannot go offline, a targeted live logical copy of in-scope data is the acceptable option, and its exclusions (deleted and unallocated content) must be recorded. Forcing a shutdown overrides a documented business constraint.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A responder finds a desktop powered off at a scene. Colleagues want to switch it on 'just to check what is running'. What should happen?",
+    "options": [
+      "Switch it on, since a running system gives more evidence than an idle one",
+      "Switch it on but disconnect the network so nothing changes on the disk",
+      "Leave it off and acquire its storage through a write blocker",
+      "Leave it off until the user returns to unlock it in person"
+    ],
+    "correct": 2,
+    "explanation": "Booting a powered-off system changes its disk and recreates no volatile evidence from before shutdown. Leaving it off and imaging statically preserves it. Disconnecting the network does not stop the boot process writing to disk.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does a hardware write blocker give no protection during a live acquisition on the suspect system?",
+    "options": [
+      "Write blockers only work with removable USB media and not with SSDs",
+      "The running OS writes to its own disks without going through one",
+      "Live acquisitions use memory only, so disk protection is irrelevant",
+      "Write blockers stop reads as well as writes on a mounted volume"
+    ],
+    "correct": 1,
+    "explanation": "A write blocker sits between a disk and the examiner's workstation. A running suspect system writes to its own disks directly, so a blocker cannot intervene. Live work can include files on disk, so the issue is not irrelevant.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An analyst notices that two parts of a memory capture describe the same structure inconsistently. Nothing suggests tampering. What is the likely explanation?",
+    "options": [
+      "The capture file was altered after hashing, so its recorded digest no longer matches",
+      "The capture tool failed, so the whole memory image must be thrown away",
+      "The examiner wrote the output to the suspect disk and corrupted it",
+      "Memory changed while the capture ran, so its parts reflect different moments"
+    ],
+    "correct": 3,
+    "explanation": "This is smear: a capture of a running system takes time, and pages read at different moments can disagree. It is a property of capturing a moving source, not proof of tool failure or tampering.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague cites a NIST CFTT report on a disk-imaging tool as proof that the tool is 'certified' for all casework. How should you respond?",
+    "options": [
+      "The report describes one version's behaviour in specific tests, not a certification",
+      "CFTT reports are certifications, but only for the version number they name",
+      "CFTT reports apply only to US cases, so they are irrelevant in India",
+      "CFTT tests live acquisition tools only, not tools for disk imaging"
+    ],
+    "correct": 0,
+    "explanation": "CFTT publishes test methods and reports on how particular tool versions behaved in particular test cases. That is evidence, not certification, and it does not replace the laboratory's own verification.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Kestrel Freight's storage array serves several departments, and its member disks only make sense once the array assembles them. Why might the team prefer a targeted live logical copy over imaging each disk?",
+    "options": [
+      "Member disks of an array cannot be read through any kind of write blocker",
+      "A logical copy includes unallocated space, which separate disk images omit",
+      "Disk images need reassembly, and powering off may be outside their authority",
+      "Live logical copies are repeatable, so they can be checked against the source"
+    ],
+    "correct": 2,
+    "explanation": "Individual array members need reconstruction before they are meaningful, and a shared production array may be one the examiner has no authority to power off. A logical copy excludes unallocated space and is not repeatable, so those limits must be recorded.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A running workstation is in scope for an intrusion and may be taken offline after hours. Which order of work is most defensible?",
+    "options": [
+      "Image the disk statically first, then boot it again to capture memory",
+      "Capture in-scope volatile data first, then make a documented shutdown and image",
+      "Shut it down gracefully, then recover memory contents from the disk image",
+      "Capture memory and stop, because the disk can be examined while running"
+    ],
+    "correct": 1,
+    "explanation": "Volatile evidence is lost at power-off, so it comes first; the disk is then imaged statically after a recorded shutdown. Booting again later cannot recover the original memory state.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why must a live acquisition record give the time of every examiner action?",
+    "options": [
+      "Times are required so that the capture's hash can be calculated",
+      "Without times, a write blocker cannot be matched to the source",
+      "Recording every time is what makes a live acquisition repeatable in court",
+      "So the examiner's footprint can later be told apart from prior activity"
+    ],
+    "correct": 3,
+    "explanation": "Live tools leave processes, files and log entries. Timed records let an analyst say which traces were the examiner's. They do not make a live acquisition repeatable; nothing can.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Months after a case, an opposing expert asks to reproduce the acquisition. One item is a static disk image whose original disk is still in the evidence store, the other a live memory capture. What can honestly be offered?",
+    "options": [
+      "The disk can be re-read and compared; the memory file can only be re-hashed",
+      "Both can be re-collected from the original systems and their digests compared again",
+      "Neither can be checked, because both acquisitions are now months old",
+      "The memory file can be re-read from source; the disk cannot be re-imaged"
+    ],
+    "correct": 0,
+    "explanation": "A preserved static source can be read again and its digest compared. A live capture cannot be repeated; the expert can confirm only that the output file still matches its recorded digest.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Transcript section 3 records 'size 16777216 bytes' next to the image digest. What does the size add for a reviewer?",
+    "options": [
+      "It shows source and image hold identical bytes without needing the digest",
+      "A quick completeness check against the expected source size",
+      "It replaces the need to compare the full 64-character digest",
+      "It shows the image was made through a hardware write blocker"
+    ],
+    "correct": 1,
+    "explanation": "16,777,216 bytes is exactly 16 MiB, and comparing it with the expected source size quickly reveals a truncated image. Equal size does not mean equal content, so it never replaces the full digest comparison.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A live logical copy of a mounted encrypted volume is made because no recovery key exists. Which limitation belongs in the record?",
+    "options": [
+      "The copy is still ciphertext and will need the volume key before anyone can read it",
+      "The copy cannot be hashed because its source was encrypted at rest",
+      "It holds files as the OS presented them, without deleted or unallocated data",
+      "It includes the whole physical disk, so its size will exceed the volume"
+    ],
+    "correct": 2,
+    "explanation": "A logical copy contains the decrypted files the running operating system shows, but not deleted entries or unallocated space. It is readable without the key, which is why it was taken, and it can be hashed like any output file.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A live-capture record notes 'workstation clock compared with reference clock: not recorded'. Why does this matter later?",
+    "options": [
+      "The memory capture's digest depends on the clock and will now be wrong",
+      "The shutdown method cannot be chosen until the clock has been checked",
+      "A missing clock check makes the capture inadmissible in all Indian courts",
+      "Timeline work cannot correct the system's timestamps to real time"
+    ],
+    "correct": 3,
+    "explanation": "Without a recorded offset, analysts cannot correct the host's timestamps against real time when building timelines. The digest does not depend on the clock, and the lesson gives no admissibility guarantee either way.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "While making an authorised live copy of a finance share, a specialist notices a mapped personal cloud folder belonging to the user that is not named in the scope. What should they do?",
+    "options": [
+      "Leave it uncollected, record it and ask the authorising party about scope",
+      "Copy it now, since volatile access may vanish once the system is shut down",
+      "Copy it but leave it out of the record until scope is confirmed later",
+      "Copy only the file names, because metadata never needs authorisation"
+    ],
+    "correct": 0,
+    "explanation": "Live acquisition is minimal and bounded by written scope. Material outside scope is noted and referred to the authorising party, not collected on the specialist's own judgement or hidden from the record.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which evidence survives a power-off and can still be found in a static disk image?",
+    "options": [
+      "Active network connections to remote hosts at the moment of seizure",
+      "Deleted file entries and unallocated space on the disk",
+      "The volume key held in memory for a mounted encrypted disk",
+      "The list of processes and logged-on sessions that were running"
+    ],
+    "correct": 1,
+    "explanation": "Deleted entries and unallocated space are stored on the media, so a sector-level static image captures them. Connections, in-memory keys, processes and sessions exist only while the system runs.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Following the lesson's decision graph, a running system has no volatile or unlocked data in scope and may be taken offline. Which route applies?",
+    "options": [
+      "Live capture by a specialist, then a live logical acquisition",
+      "Live logical acquisition, because the system was found running",
+      "Documented shutdown, then dead acquisition via write blocker",
+      "No acquisition, since nothing volatile is in the defined scope"
+    ],
+    "correct": 2,
+    "explanation": "The 'no' branch of the volatile question leads to 'Can it be taken offline?', and 'yes' leads through a documented shutdown to a static image. Live logical acquisition is the route only when the system cannot be taken offline.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The transcript hashes the stream during acquisition (section 2) and the stored file afterwards (section 3). Why keep both values?",
+    "options": [
+      "The stream hash is SHA-256 and the file hash is MD5, so both digest formats are covered",
+      "The file hash proves the source was still; the stream hash proves it moved",
+      "Keeping two equal hashes doubles the collision resistance of SHA-256",
+      "One fixes the bytes read, the other the bytes stored; agreement shows a clean write"
+    ],
+    "correct": 3,
+    "explanation": "The stream digest describes what was read from the source and the file digest describes what reached storage, so their agreement shows nothing was lost or altered in writing. Both are SHA-256, and repeating a hash adds no collision resistance.",
+    "lesson": 5,
+    "difficulty": "hard"
+  }
+]

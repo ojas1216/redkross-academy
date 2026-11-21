@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An analyst connects a seized drive directly to a workstation to read its volume label, disconnects it, then images it through a hardware blocker. The source and image SHA-256 values match. What can the matching values establish?",
+    "options": [
+      "The image matches the drive as read during imaging, but not the drive's state before the direct connection",
+      "The direct connection made no changes, because any write would have produced a mismatch between the values",
+      "The drive is unchanged since seizure, provided the blocker's firmware appears in a published test report",
+      "Nothing useful, because any direct connection makes the later image unusable and it must be discarded"
+    ],
+    "correct": 0,
+    "explanation": "Both hashes were taken after the direct connection, so they agree only about the drive's later state. A write before the first hash is already part of the hashed state, so no mismatch would appear. The image is still usable if the connection is declared.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague proposes mounting an evidence volume read-only on a Linux workstation instead of using a write blocker. Why is this not equivalent protection?",
+    "options": [
+      "Read-only mounting is honoured only for NTFS volumes, so ext4 and FAT volumes on the same disk would still receive writes",
+      "Read-only mounting blocks every write, but the kernel's reads during mounting always change the device's hash value",
+      "It is a file-system instruction: a journal may still be replayed, and other programs can open the raw device",
+      "It gives identical protection to a blocker, and the only difference is that it is slower on large evidence drives"
+    ],
+    "correct": 2,
+    "explanation": "A read-only mount governs one file-system driver, not the device, so journal replay and raw-device access remain possible. Reading unchanged bytes alone leaves their digest unchanged.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An intake note says an SD card was 'write-protected by its lock tab' while it was imaged in a desktop card reader. What is the problem with this note?",
+    "options": [
+      "The lock tab protects only the card's first partition, so any later partitions were exposed",
+      "The tab is a signal the reader or host is expected to honour; the card does not enforce it",
+      "The lock tab disables reads as well as writes, so the resulting image would contain only zeros",
+      "The tab is enforced by the card, but only while the card is powered from a hardware blocker"
+    ],
+    "correct": 1,
+    "explanation": "The lock tab is a mechanical signal sensed by the slot, so the protection depends on the reader and host. The note names no tested control. The tab does not block reads.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Design A forwards only the commands on a list of known read-only commands. Design B forwards everything except the commands on a list of known modifying commands. A drive receives a vendor-specific command that neither list mentions. What happens?",
+    "options": [
+      "Both designs forward it, because unlisted commands are treated as status queries by default",
+      "Design A forwards it and Design B stops it, since B was written with modifying commands in mind",
+      "Both designs stop it, because the host rejects any command that is missing from a blocker's list",
+      "Design A stops it and Design B forwards it, so only Design A fails closed"
+    ],
+    "correct": 3,
+    "explanation": "An allow-list stops anything it does not recognise, while a block-list passes anything it does not recognise. Option B reverses the two behaviours.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Your laboratory's bridge runs firmware 2.4.1. The NIST CFTT report you hold for that model describes firmware 2.3.0. Which statement is most defensible in your notes?",
+    "options": [
+      "The CFTT report certifies the model, so the firmware difference does not need to be mentioned",
+      "Firmware updates only add features, so the report covers 2.4.1 if the vendor confirms the change",
+      "The report describes 2.3.0; record the difference and rely on a recorded pre-use check of 2.4.1",
+      "The unit cannot be used at all until CFTT publishes a new report that covers firmware 2.4.1"
+    ],
+    "correct": 2,
+    "explanation": "A CFTT report describes the item and version that were tested. It is not a certification. Stating the difference and recording your own check is defensible. A new report is not a precondition for use.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In a pre-use check, reference media is hashed, attached through the blocker exactly as in casework, then re-hashed, and the two values are identical. What does this result support?",
+    "options": [
+      "Under those conditions, the blocker let no change reach the reference media",
+      "The blocker will stop every possible modifying command on any attached drive",
+      "The blocker is now validated, so no independent test report is needed for it",
+      "Any evidence imaged that day is legally protected from integrity challenges"
+    ],
+    "correct": 0,
+    "explanation": "The check covers the conditions that were exercised. It cannot prove that every command is blocked, which is why it complements independent testing rather than replacing it.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An SSD is imaged through a tested blocker. The source hash taken before imaging differs from one taken afterwards, while the image verifies against its stream hash. What is the best first interpretation?",
+    "options": [
+      "The blocker failed during imaging, so the image must be discarded and the unit withdrawn for repair",
+      "Someone altered the evidence during imaging, so the custody record must be reopened as a breach",
+      "The stream hash is unreliable, because a correct acquisition always reproduces the first source hash",
+      "Unresolved: record both values and consider drive-internal activity before blaming the blocker"
+    ],
+    "correct": 3,
+    "explanation": "An SSD can change state internally once powered, and nothing yet points to a write. Concluding that the blocker failed skips the evidence. The image remains a verified copy of what was read.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the kit transcript, step 1 hashes suspect.dev and steps 2 to 4 hash the stream, the image and the working copy. Which record does the transcript not contain?",
+    "options": [
+      "A SHA-256 value for the image file after it was written to disk",
+      "A second hash of suspect.dev taken after the acquisition finished",
+      "A size check showing how many bytes the image file contains",
+      "A demonstration that a one-byte change alters the SHA-256 value"
+    ],
+    "correct": 1,
+    "explanation": "Steps 3 and 5 cover the image hash, the size and the one-byte change, but no post-acquisition source hash appears. A receipt must not claim one.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The transcript reports 'evidence.dd working.dd differ: char 100001, line 1' after a change was made at offset 100000. Why do the two numbers differ by one?",
+    "options": [
+      "The change shifted every later byte in the working copy by one position",
+      "cmp skips the first byte of each file because it treats it as a header",
+      "cmp counts bytes from 1, while the offset counts from 0",
+      "The MD5 step appended one byte to the image before the comparison"
+    ],
+    "correct": 2,
+    "explanation": "cmp numbers bytes from one, so 0-based offset 100000 is byte 100001. cmp reports the first position that differs, so any later shifting could not explain an off-by-one at the first difference.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A tester finds that a blocker forwards trim (deallocate) commands to an attached SSD, although its documentation lists only reads, identification and status queries as forwarded. Why is this a significant finding?",
+    "options": [
+      "Trim can change what later reads of those blocks return, so it is a modifying command",
+      "Trim is a read-side optimisation, so forwarding it affects only the acquisition speed",
+      "Trim matters only on magnetic disks, where it rewrites the affected sectors at once",
+      "Trim is harmless during imaging and becomes risky only after the drive is unpowered"
+    ],
+    "correct": 0,
+    "explanation": "Trim tells the drive that blocks are unused, which can change what later reads return, so a blocker must treat it as modifying. It is not a read optimisation.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A laboratory relies on a software write blocker on its imaging host. The host's operating system has just been updated. What should happen before the next case?",
+    "options": [
+      "Nothing, because a software blocker's behaviour depends only on its own version number",
+      "Repeat the pre-use check, since protection depends on the host build as well as the software",
+      "Switch the software to read-write briefly so that it can re-register with the updated system",
+      "Replace it with read-only mounting, which operating-system updates do not affect"
+    ],
+    "correct": 1,
+    "explanation": "A software blocker's protection depends on the host's version and configuration, so an update calls for a fresh recorded check. Read-only mounting is not a substitute for a blocker.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A receipt reads: 'Bridge in RW at connection; switched to RO before imaging.' The image verified. What is the consequence for the report?",
+    "options": [
+      "None, because imaging took place in read-only mode and the image hash verified",
+      "The image is invalid and must be destroyed under the laboratory's procedure",
+      "Only the destination drive was at risk, since RW mode governs the output ports",
+      "The source was unprotected when the host first saw it; declare that gap"
+    ],
+    "correct": 3,
+    "explanation": "The host's first contact with the drive happened in read-write mode, before any hash. That window is unprotected and must be declared. The verified image is not invalid, but it cannot cover the window.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which risk does a correctly configured, read-only write blocker on the source drive do nothing to reduce?",
+    "options": [
+      "Wiping the wrong destination disk while preparing media",
+      "Operating-system housekeeping writes when the source volume is mounted",
+      "A trim command from the host reaching the source solid-state drive",
+      "An indexing service updating file-system metadata on the source volume"
+    ],
+    "correct": 0,
+    "explanation": "The blocker protects only the source path. Destination mistakes are prevented by labelling and identity checks. The other three are host actions that the blocker stops.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a pre-use check, the host's log shows a write to the reference media as 'completed successfully', yet the reference hash is unchanged afterwards. What is the most careful reading?",
+    "options": [
+      "The blocker leaked the write, and the unchanged hash is only a quirk of the particular reference media being used",
+      "The host log is authoritative, so the reference media hash must have been miscalculated during the check",
+      "How a refused write appears to the host varies by product; the unchanged hash is the result",
+      "The write went to the blocker's internal cache, which will flush it to the drive at the next power cycle"
+    ],
+    "correct": 2,
+    "explanation": "Products differ in how they report a stopped command, so the test result is the media's hash, not the host's log. Nothing supports the claim that the write was cached.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should the drive's model, serial number and reported capacity be recorded from the blocker's pass-through information during acquisition?",
+    "options": [
+      "Because the blocker generates its own serial number for each drive that it protects",
+      "Because capacity can be read only through a blocker and never from the drive's label",
+      "Because recording them replaces the need to record a hash of the source device",
+      "It ties the image to the physical item and lets capacity be checked against the specification"
+    ],
+    "correct": 3,
+    "explanation": "Relayed identity links the receipt to the item and exposes capacity differences that should be escalated. Blockers relay identity rather than generating it.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A drive with known bad sectors is imaged twice through the same tested blocker, and the two images differ in a few sectors. What should the examiner conclude first?",
+    "options": [
+      "The blocker forwarded writes during the second pass and must be withdrawn from use immediately",
+      "Unstable reads from failing media can explain it; record the affected sectors and both results",
+      "The first image was corrupted in transit, so only the second image should be kept as evidence",
+      "The drive has been tampered with since seizure, which must be reported as an integrity breach"
+    ],
+    "correct": 1,
+    "explanation": "A degrading drive can return different data on different reads, and that falls outside the blocker's control. Blaming the blocker ignores the most likely cause.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An incident needs evidence from a production database server that cannot be shut down. Where does a write blocker fit?",
+    "options": [
+      "There is no blocking point; defend the work with a record of each action and its expected footprint",
+      "A software blocker installed on the running server makes the live collection equivalent to a dead acquisition",
+      "A hardware blocker can be inserted into the server's live storage path without interrupting the service",
+      "It is unnecessary, because a live system changes constantly and so its handling does not need recording"
+    ],
+    "correct": 0,
+    "explanation": "A running system has no interface where blocking can sit, so documentation carries the defence. A software blocker cannot turn live collection into dead acquisition.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The transcript's last step prints an MD5 value labelled 'legacy compatibility only'. How should an acquisition receipt use it?",
+    "options": [
+      "As the primary verification value, since MD5 is shorter and easier to compare by eye",
+      "As a replacement for SHA-256 whenever the image is shared with another laboratory",
+      "As a secondary value for systems that need it, with SHA-256 as the verification value",
+      "As proof that the write blocker worked, since the MD5 was computed after acquisition"
+    ],
+    "correct": 2,
+    "explanation": "The transcript itself labels MD5 as compatibility only, and SHA-256 remains the verification value. A hash of the image says nothing about the blocker.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A fictional receipt gives the image SHA-256 ending '...a60f12', while the original transcript shows '...a60f21'. What should the reviewer do?",
+    "options": [
+      "Treat the image as altered and start a new acquisition from the source drive at once",
+      "Correct the receipt quietly to match the transcript, since the error is clearly a typo",
+      "Accept the receipt, since the first sixty-two characters match and collisions are rare",
+      "Record the discrepancy, re-verify against the original record, then amend it openly"
+    ],
+    "correct": 3,
+    "explanation": "Records that disagree must be resolved and the amendment made visibly. Silent correction hides the error, and partial matching proves nothing.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does a receipt record the write blocker's serial number and firmware version rather than only its make and model?",
+    "options": [
+      "Because serial numbers are required by every court before it considers electronic evidence",
+      "To link the case to the specific unit and firmware whose pre-use check is on file",
+      "Because units of the same model always behave differently and cannot be compared",
+      "So the vendor can confirm remotely that the unit was in read-only mode at the time"
+    ],
+    "correct": 1,
+    "explanation": "Checks and test reports apply to a specific unit and firmware, so the receipt must identify both. The court-requirement option is an invented legal claim.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A fully encrypted laptop drive is imaged through a write blocker. What has the blocker contributed?",
+    "options": [
+      "It preserved the encrypted data as stored; reading it depends on lawful access to keys",
+      "It decrypted the volume transparently, because blockers relay data at the file-system level",
+      "It prevented a usable image, because encrypted drives reject reads sent through forensic bridges",
+      "It made the image unverifiable, because ciphertext cannot produce a stable hash value"
+    ],
+    "correct": 0,
+    "explanation": "Blocking works on commands, not file systems, and it preserves the stored ciphertext exactly. Ciphertext hashes as reliably as any other data.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the kit transcript, the pre-acquisition source hash, the stream hash and the image hash all match. Which claim does this support?",
+    "options": [
+      "No write reached the source at any time before or during the acquisition",
+      "The source has been shown to be unchanged since it was first seized",
+      "The write blocker used for the acquisition behaved correctly for every command",
+      "The image holds the same bytes that were read from the source at that time"
+    ],
+    "correct": 3,
+    "explanation": "The matching values show that the copy is faithful to what was read. They say nothing about earlier states, and the transcript involved no blocker at all.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An NVMe drive arrives, but the laboratory's bridge supports only SATA and SAS. A colleague offers a consumer NVMe-to-USB enclosure plugged into the bridge's USB device port, a combination nobody has tested. What is the sound choice?",
+    "options": [
+      "Use the enclosure, since the bridge blocks writes on its USB port whatever device sits behind it",
+      "Connect the drive directly and rely on hashing before and after imaging to show no change",
+      "Use an NVMe-capable configuration that has passed a pre-use check, or wait and record why",
+      "Use the enclosure, then also enable read-only mounting on the host as a second layer of safety"
+    ],
+    "correct": 2,
+    "explanation": "Protection must be shown for the exact configuration, and this chain is untested. Hashing cannot reveal writes made before the first hash.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which sentence is most defensible in an acquisition report?",
+    "options": [
+      "The NIST-certified write blocker guaranteed that the evidence could not have been altered.",
+      "The source was attached via bridge WB-07, firmware 2.4.1, which passed a pre-use check that day.",
+      "Write blocking was used throughout, so the evidence is forensically sound and admissible in court.",
+      "Because a hardware write blocker was used, no further verification of the image was required."
+    ],
+    "correct": 1,
+    "explanation": "The defensible sentence states what was used and which check supports it, without guarantees. CFTT does not certify tools, and admissibility is not the examiner's to promise.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A receipt records 'pre-acquisition source SHA-256 at 10:39' and 'evidence connected via blocker at 10:42'. What should a reviewer flag?",
+    "options": [
+      "The source cannot be hashed before it is connected, so one of the times is wrong",
+      "The three-minute gap shows the blocker warming up and is not a concern for review",
+      "Nothing, because source hashes are normally computed before the drive is connected",
+      "The receipt should give times in UTC only, so all of its entries must be disregarded"
+    ],
+    "correct": 0,
+    "explanation": "A hash requires reading the connected device, so this order is impossible and must be resolved. Using a local time zone is not an error if it is stated.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

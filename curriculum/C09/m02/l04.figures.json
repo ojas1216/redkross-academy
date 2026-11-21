@@ -1,0 +1,173 @@
+{
+  "C09-M02-L04-F1": {
+    "title": "Where things sit inside an E01 image",
+    "caption": "The main sections of an E01 image from left to right: added structure around the compressed media chunks, with the stored media hash near the end.",
+    "alt": "Row of seven boxes. File header (slate, every segment): signature and segment number. header / header2 (violet, first segment): case metadata, compressed. volume (blue, first segment): sector size, sector count, chunk size. sectors (orange, widest, data segments): media data as 32 KiB chunks. table / table2 (blue, data segments): chunk offsets, two copies. hash / digest (dark, last segment): stored media MD5, SHA-1 in later writers. done / next (slate): done closes the last segment, next ends the others. Note: only the orange box holds source bytes, so the hash of a .E01 file is never the media hash.",
+    "type": "segments",
+    "segments": [
+      {
+        "label": "File header",
+        "sub": "signature + segment no.",
+        "top": "every segment",
+        "w": 1,
+        "tone": "slate"
+      },
+      {
+        "label": "header / header2",
+        "sub": "case metadata, compressed",
+        "top": "first segment",
+        "w": 1.2,
+        "tone": "violet"
+      },
+      {
+        "label": "volume",
+        "sub": "sector size, count, chunk size",
+        "top": "first segment",
+        "w": 1.2,
+        "tone": "blue"
+      },
+      {
+        "label": "sectors",
+        "sub": "media data as 32 KiB chunks",
+        "top": "data segments",
+        "w": 2.2,
+        "tone": "orange"
+      },
+      {
+        "label": "table / table2",
+        "sub": "chunk offsets, two copies",
+        "top": "data segments",
+        "w": 1.2,
+        "tone": "blue"
+      },
+      {
+        "label": "hash / digest",
+        "sub": "media MD5 (+ SHA-1)",
+        "top": "last segment",
+        "w": 1.1,
+        "tone": "dark"
+      },
+      {
+        "label": "done / next",
+        "sub": "done: last; next: others",
+        "top": "segment end",
+        "w": 1,
+        "tone": "slate"
+      }
+    ],
+    "note": "Only the orange box holds source bytes, so the hash of a .E01 file is never the media hash."
+  },
+  "C09-M02-L04-F2": {
+    "title": "Which hash may be compared with the acquisition record",
+    "caption": "Choosing a valid comparison method for raw and E01 images, and the common mistake that produces a meaningless mismatch.",
+    "alt": "Decision graph. Dark start node: Compare with recorded media hash. It leads to two blue nodes: Raw image (single or split) and E01 segment set. Raw leads to green Hash the file(s) in order. E01 leads to green Decode chunks, hash stream, and by a dashed arrow labelled common mistake to red Hash a .E01 file directly, which leads only to slate Not comparable. Both green method nodes lead to a decision node, Same as the receipt value?, whose yes branch reaches green Values match and whose no branch reaches orange Values differ, whose sub-label says check value, set and order, then escalate and record.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      {
+        "id": "rec",
+        "label": "Compare with recorded media hash",
+        "sub": "value on the receipt",
+        "tone": "dark"
+      },
+      {
+        "id": "raw",
+        "label": "Raw image (single or split)",
+        "tone": "blue"
+      },
+      {
+        "id": "e01",
+        "label": "E01 segment set",
+        "tone": "blue"
+      },
+      {
+        "id": "hr",
+        "label": "Hash the file(s) in order",
+        "sub": "whole stream, pieces joined",
+        "tone": "green"
+      },
+      {
+        "id": "he",
+        "label": "Decode chunks, hash stream",
+        "sub": "tool verify or exported stream",
+        "tone": "green"
+      },
+      {
+        "id": "bad",
+        "label": "Hash a .E01 file directly",
+        "sub": "container hash",
+        "tone": "red"
+      },
+      {
+        "id": "nc",
+        "label": "Not comparable",
+        "sub": "proves nothing either way",
+        "tone": "slate"
+      },
+      {
+        "id": "cmp",
+        "label": "Same as the receipt value?",
+        "kind": "decision"
+      },
+      {
+        "id": "ok",
+        "label": "Values match",
+        "sub": "copy holds the recorded stream",
+        "tone": "green"
+      },
+      {
+        "id": "diff",
+        "label": "Values differ",
+        "sub": "check value, set and order, then escalate and record",
+        "tone": "orange"
+      }
+    ],
+    "edges": [
+      {
+        "from": "rec",
+        "to": "raw"
+      },
+      {
+        "from": "rec",
+        "to": "e01"
+      },
+      {
+        "from": "raw",
+        "to": "hr"
+      },
+      {
+        "from": "e01",
+        "to": "he"
+      },
+      {
+        "from": "e01",
+        "to": "bad",
+        "label": "common mistake",
+        "dashed": true
+      },
+      {
+        "from": "bad",
+        "to": "nc"
+      },
+      {
+        "from": "hr",
+        "to": "cmp"
+      },
+      {
+        "from": "he",
+        "to": "cmp"
+      },
+      {
+        "from": "cmp",
+        "to": "ok",
+        "label": "yes"
+      },
+      {
+        "from": "cmp",
+        "to": "diff",
+        "label": "no"
+      }
+    ],
+    "note": "Compare like with like: only a media hash can be compared with a media hash."
+  }
+}

@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In the C09 transcript, stage 2 hashes the stream during acquisition and stage 3 hashes evidence.dd on disk. Both give the same SHA-256 value. What does stage 3 add?",
+    "options": [
+      "It proves the source device was not altered while it was being read",
+      "It removes the need to record the image size in the case notes",
+      "It confirms the stored file holds the bytes hashed in transit",
+      "It shows the image would still verify after conversion to E01"
+    ],
+    "correct": 2,
+    "explanation": "Stage 2 covers the bytes as they passed through the stream; stage 3 shows those same bytes actually reached storage intact. It says nothing about whether the source changed, which would need a re-hash of the source.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A trainee changed one byte of working.dd at zero-based offset 100000, and cmp then reported 'differ: char 100001'. Why do the two numbers differ by one?",
+    "options": [
+      "cmp counts bytes from 1, while the offset was counted from 0",
+      "The edit spilled into the following byte when the file was saved",
+      "cmp treats the first byte of any file as a header and skips it",
+      "SHA-256 block processing shifts the position that cmp reports"
+    ],
+    "correct": 0,
+    "explanation": "The offset 100000 is zero-based; cmp numbers bytes starting at 1, so the same byte is reported as char 100001. Nothing spilled over, and the hash has no influence on cmp's output.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a one-byte edit, the working copy's digest changed from e3a74e55... to 16d816db.... A colleague concludes that much of the file must have changed. What is the best response?",
+    "options": [
+      "Agree, because each hex character of a digest maps to one region of the file",
+      "Disagree; any change, however small, is expected to give an unrelated digest",
+      "Agree only if the size also changed, because the digest encodes the length",
+      "Disagree; the values differ because MD5 and SHA-256 output were mixed up"
+    ],
+    "correct": 1,
+    "explanation": "The avalanche effect makes a one-byte edit and a total replacement equally different in digest terms, so the digest cannot measure how much changed. Digest characters do not map to file regions.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "No practical second-preimage attack on MD5 is known. Why does the lab still avoid MD5 as its primary integrity value?",
+    "options": [
+      "MD5 cannot be computed reliably for image files larger than about 4 GiB in size",
+      "MD5 output varies depending on the operating system that runs it",
+      "SHA-256 is always faster, so large images can be verified in much less time",
+      "Practical collisions let someone prepare two different files sharing a digest"
+    ],
+    "correct": 3,
+    "explanation": "A party who controls data before it is collected could exploit MD5 collisions to hand over one version and later produce another with the same digest. MD5 has no size limit and is deterministic on every platform.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A partner organisation sends an image with a receipt that gives only an MD5 value. Your procedure uses SHA-256. What should you do?",
+    "options": [
+      "Reject the item, because an MD5-only receipt cannot be checked by your lab at all",
+      "Compute only MD5, so every later comparison stays like-for-like",
+      "Verify against their MD5, then compute and record SHA-256 for later checks",
+      "Replace their MD5 on the receipt with SHA-256 so one algorithm is used"
+    ],
+    "correct": 2,
+    "explanation": "Their MD5 is the only link to what they sent, so you verify against it, and you add a SHA-256 reference for your own custody. Overwriting their value would destroy the original record.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Get-FileHash prints a SHA-256 value in upper case, and the receipt has it in lower case. Every character agrees apart from letter case. How should the reviewer record this?",
+    "options": [
+      "As a match, because hexadecimal case carries no meaning; note it",
+      "As a mismatch, because upper-case output signals a different algorithm",
+      "As inconclusive until sha256sum is run, since PowerShell values differ",
+      "As a mismatch to be fixed by rehashing the file saved as lower-case text"
+    ],
+    "correct": 0,
+    "explanation": "Upper-case and lower-case hexadecimal represent the same number, so the values are equal. PowerShell simply prints upper case while most Unix tools print lower case.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Each image folder on a shared drive holds a .sha256 file written at acquisition, and the values are recorded nowhere else. Several staff can edit the folder. What is the main weakness?",
+    "options": [
+      "The .sha256 file may be included in later digests of the image itself",
+      "Anyone able to alter an image could also alter the digest stored beside it",
+      "The stored digest will slowly drift as the file system updates access timestamps",
+      "Keeping the files together will stop the share's backups from restoring"
+    ],
+    "correct": 1,
+    "explanation": "A reference value is only useful if it is protected independently of the data it describes. Hashing a file reads its content, not the folder or its timestamps, so the digest does not drift.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An examiner hashes a running system's mounted data volume twice, a minute apart, and gets two different SHA-256 values. What is the most likely explanation?",
+    "options": [
+      "The hashing tool is defective and should be withdrawn from service at once",
+      "SHA-256 mixes in the current time, so repeated runs never agree",
+      "Copy-on-write volumes return random data to any reading process",
+      "The volume changed between the reads because the system kept writing"
+    ],
+    "correct": 3,
+    "explanation": "A live, mounted volume keeps changing, so each read hashes different bytes. SHA-256 is deterministic and uses no time input; the digest of the captured file becomes the reference instead.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A received copy of evidence.dd fails verification against the receipt, and its size is smaller than the recorded 16,777,216 bytes. What is the best interpretation and action?",
+    "options": [
+      "The original acquisition was flawed, so the item must be withdrawn",
+      "A SHA-256 collision has occurred, so the lab must change algorithm",
+      "This copy is incomplete; check the master and recopy from a verified copy",
+      "The receipt's size was mistyped, so its digest value should be updated to match"
+    ],
+    "correct": 2,
+    "explanation": "A shorter file points to an interrupted or failed transfer of that copy. The verified master is the source of a replacement, and no record should be altered.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A working copy's recomputed SHA-256 equals the value on the acquisition receipt. Which statement does this support?",
+    "options": [
+      "The copy holds the same bytes as when the reference value was recorded",
+      "The data was acquired lawfully and within the authorised scope",
+      "The files inside the image are genuine records of user activity",
+      "The imaging tool read every sector of the source drive correctly and completely"
+    ],
+    "correct": 0,
+    "explanation": "A match shows sameness of bytes from the reference point onward. Lawfulness, authenticity of content and the tool's handling of the source need separate records.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During triage of a workstation image, an analyst wants to set aside standard operating-system and application files. Which use of hashing fits this task?",
+    "options": [
+      "Fuzzy hashing every file to find any version of the operating system",
+      "Matching file digests against a known-file reference set such as the NSRL",
+      "Comparing the whole-image digest with that of the vendor's install media",
+      "Hashing the system volume and excluding it whenever it equals a clean build"
+    ],
+    "correct": 1,
+    "explanation": "File-level digests matched against a known-file set identify catalogued files so they can be set aside. A whole-image or whole-volume digest will never equal a clean build once the system has been used.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two report drafts recovered from an image differ by one paragraph. The analyst wants evidence that they are versions of the same document. Which approach fits?",
+    "options": [
+      "Compare SHA-256 values, since digests sharing many digits show similarity",
+      "Use MD5, because its weaker design keeps the digests of similar inputs close",
+      "Compare file sizes, since equal sizes show the drafts are the same document",
+      "Use a similarity method such as fuzzy hashing rather than an integrity hash"
+    ],
+    "correct": 3,
+    "explanation": "Integrity hashes, including MD5, deliberately give unrelated values for near-identical inputs. Similarity methods such as context-triggered piecewise hashing are designed for this question.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague cites a NIST CFTT report for a hashing tool in a draft report. Which use of the report is defensible?",
+    "options": [
+      "Stating that every later release of the tool is covered by the same report",
+      "Stating that the report certifies the tool for court use in every country",
+      "Describing how that version behaved in the stated tests, with those limits",
+      "Stating that the lab no longer needs to check its own hashing procedure"
+    ],
+    "correct": 2,
+    "explanation": "CFTT reports describe how specific tool versions behaved in specific tests. They are not certificates for other versions or configurations and do not replace the lab's own checks.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should an evidence receipt record the size in bytes as well as the SHA-256 digest?",
+    "options": [
+      "Size helps diagnose a mismatch, such as a truncated or appended copy",
+      "The digest is valid only when the size is a multiple of 512 bytes",
+      "SHA-256 cannot tell apart files whose sizes differ by under one block",
+      "The size lets the examiner recompute the digest without the file"
+    ],
+    "correct": 0,
+    "explanation": "A size difference quickly separates truncation or appended data from in-place change. SHA-256 works on any length, detects every difference and always needs the data itself.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Stage 2 of the transcript writes the image and computes its hash in one pass. What is the advantage, and what still has to be done?",
+    "options": [
+      "It shows the source was unchanged, so hashing the source becomes optional",
+      "It avoids an extra read of the source, but the written file is still verified",
+      "It embeds the digest inside the image, so all later checks happen automatically",
+      "It guarantees that damaged sectors returned the same data on every read"
+    ],
+    "correct": 1,
+    "explanation": "Hashing the stream saves a separate read pass, but it covers what was read, not what was stored. That is why stage 3 hashes the image file. A raw image does not embed its digest.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the transcript verify working.dd in stage 4 before any analysis begins?",
+    "options": [
+      "To give the working copy its own new reference value for the report",
+      "To check that the legacy MD5 value still agrees with the image",
+      "To show that the source device was still connected and readable",
+      "To confirm that analysis starts from bytes identical to the image"
+    ],
+    "correct": 3,
+    "explanation": "Each derived copy is verified against the reference before anyone relies on it. The working copy is compared with the existing reference rather than given a new one.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An examiner computes the MD5 of an E01 container file and compares it with the MD5 acquisition hash recorded inside that container. The values differ. What is the most likely reason?",
+    "options": [
+      "The container is corrupt, because the two values must always agree",
+      "The tool rewrites its internal hash on every open, so the stored value drifts",
+      "The container file adds structure and compression around the media data",
+      "The recorded hash covers only the first segment of the container"
+    ],
+    "correct": 2,
+    "explanation": "The internal value covers the acquired media data, while the file digest covers headers, metadata and compressed content as well. Always state which of the two a value refers to.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The only copy of an image file is lost. A manager asks whether the SHA-256 value on the receipt can be used to rebuild it. What is the correct reply?",
+    "options": [
+      "No; a digest is one-way and far shorter than the data, so it cannot restore it",
+      "Yes, provided the tool that produced the digest and its key are still available",
+      "Only for raw images, because compressed formats discard the detail required",
+      "Yes, but only when both the MD5 and SHA-256 values were recorded for it"
+    ],
+    "correct": 0,
+    "explanation": "Hashing is not encryption and uses no key. A 64-character digest cannot contain 16 MiB or more of data, so recovery depends on other copies.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After a verification failure, a colleague proposes recomputing the digest and replacing the receipt value 'so the paperwork is consistent'. Why is this wrong?",
+    "options": [
+      "Only the examiner who acquired the item may edit any value on a receipt",
+      "It erases the record that a change occurred, which the case must explain",
+      "The replacement value would need a different algorithm before it is accepted",
+      "Receipt values become read-only once the case file has been exported"
+    ],
+    "correct": 1,
+    "explanation": "The discrepancy is itself a fact that has to be investigated and documented. Overwriting the reference hides it, whoever does the editing.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An image has already been hashed and its value recorded. Which kind of attack would let someone substitute a different file that still verifies?",
+    "options": [
+      "A collision attack, which finds any pair of inputs that share one digest",
+      "A preimage attack, which recovers the image from its digest",
+      "A length-extension attack, which appends data and keeps the digest",
+      "A second-preimage attack, which matches the digest of a given input"
+    ],
+    "correct": 3,
+    "explanation": "Matching the digest of a specific existing input is a second-preimage attack. A collision attack needs control of both inputs before hashing, and length extension produces a different digest.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A lab keeps a manifest file listing digests and file names. What does running sha256sum in check mode (-c) against that manifest do?",
+    "options": [
+      "Writes freshly computed digests for each listed file back into the manifest",
+      "Compares each listed file's size in bytes with a size held in the manifest",
+      "Recomputes each listed file's digest and reports whether it matches",
+      "Checks a signature on the manifest before it hashes any of the files"
+    ],
+    "correct": 2,
+    "explanation": "Check mode reads each digest and file name, recomputes the digest and reports the result. It does not authenticate the manifest, which is why the manifest is compared with the receipt first.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The 16 MiB image in the transcript was also hashed in 1 MiB pieces at acquisition. Its whole-image digest later fails. What do the piece digests add?",
+    "options": [
+      "They show which 1 MiB regions changed, narrowing the investigation",
+      "They allow the original bytes of changed regions to be recalculated",
+      "They establish whether the change was accidental or deliberate",
+      "They replace the whole-image digest as the reference for reports"
+    ],
+    "correct": 0,
+    "explanation": "Piecewise digests locate changed regions, sixteen pieces in this case. Like any digest, they cannot recreate data, and they say nothing about intent.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A lab's acquisition procedure, written before the 2017 SHA-1 collision, names SHA-1 as its verification algorithm. How should the lab apply it today?",
+    "options": [
+      "Use only the algorithm it names, because a written procedure fixes the choice",
+      "Keep its integrity principle and choose algorithms in light of later results",
+      "Disregard the procedure, since anything written before 2017 is obsolete",
+      "Drop hashing and rely on file size checks until the procedure is reissued"
+    ],
+    "correct": 1,
+    "explanation": "The principle of computing and comparing digests still holds; only the algorithm choice needs to follow later cryptanalysis. Discarding the procedure or hashing altogether loses the control.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Before imaging, a failing source drive gives a different SHA-256 on its second read, and the imaging tool logs read errors over a small range of sectors. What should the notes contain?",
+    "options": [
+      "That the first value was invalid and has been replaced by the second",
+      "That the tool is unreliable and its log is excluded from the case file",
+      "Nothing further, since source digests are optional once an image verifies",
+      "Both values, the logged errors, and which value the image is compared with"
+    ],
+    "correct": 3,
+    "explanation": "Both observations and the read errors are facts that the case must explain. The image digest then becomes the reference for later copies, but it cannot show that the unreadable sectors were captured.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Stage 6 of the transcript computes an MD5 value for evidence.dd after its SHA-256 value. Why is it there?",
+    "options": [
+      "MD5 detects single-byte edits that SHA-256 can sometimes miss in large files",
+      "MD5 is the stronger check and so becomes the primary reference",
+      "It gives a value that older tools or partners' records can compare",
+      "It checks that the SHA-256 implementation computed correctly"
+    ],
+    "correct": 2,
+    "explanation": "The transcript labels MD5 as legacy compatibility only. It is weaker than SHA-256, and a value from a different algorithm cannot test a SHA-256 implementation.",
+    "lesson": 3,
+    "difficulty": "medium"
+  }
+]

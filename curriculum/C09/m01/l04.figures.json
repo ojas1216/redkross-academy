@@ -1,0 +1,50 @@
+{
+  "C09-M01-L04-F1": {
+    "title": "Where Indian law meets the lab's records",
+    "caption": "Each stage of an evidence item's life, the instrument most relevant to it, and the lab record that instrument relies on.",
+    "alt": "Table with columns Stage, Instrument and Record the lab must hold. Readiness (slate): CERT-In Directions 2022; retained logs and synchronised clocks. Search and seizure (blue): BNSS 2023, Sections 105 and 176; seizure list, video, receipt and photos. Acquisition and examination (green): lab practice under the IT Act framework; hash with algorithm, tool and version, notes. Expert opinion (violet): BSA expert opinion and IT Act Section 79A; method, limits, facts separated from opinion. Production in court (orange): BSA Section 63 and the Schedule certificate; Part A and Part B citing the acquisition hash.",
+    "type": "table",
+    "columns": ["Stage", "Instrument", "Record the lab must hold"],
+    "rowTones": ["slate", "blue", "green", "violet", "orange"],
+    "rows": [
+      ["Readiness", "CERT-In Directions, 2022", "Retained logs; synchronised clocks"],
+      ["Search and seizure", "BNSS 2023, ss. 105, 176", "Seizure list, video, receipt, photos"],
+      ["Acquisition, examination", "IT Act framework; lab procedure", "Hash and algorithm; tool, version; notes"],
+      ["Expert opinion", "BSA expert opinion; IT Act s. 79A", "Method, limits; facts apart from opinion"],
+      ["Production in court", "BSA s. 63 and Schedule", "Parts A and B citing the acquisition hash"]
+    ],
+    "note": "The certificate's hash must be the hash recorded at acquisition, traceable through custody."
+  },
+  "C09-M01-L04-F2": {
+    "title": "India's electronic-evidence framework before and after 1 July 2024",
+    "caption": "The earlier provisions that older judgments and procedures cite, beside the provisions now in force.",
+    "alt": "Two-column comparison with vs between them. Before 1 July 2024: Indian Evidence Act 1872; Section 65B certificate; CrPC 1973 for search and seizure; Anvar (2014) and Arjun Panditrao (2020) on the certificate; Section 65A special rules for electronic records. From 1 July 2024: Bharatiya Sakshya Adhiniyam 2023; Section 63 with the Schedule certificate, Parts A and B; hash value and algorithm on the certificate; BNSS 2023 with audio-video recording of search and seizure; forensic expert at the scene for serious offences.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Before 1 July 2024",
+        "tone": "slate",
+        "items": [
+          "Indian Evidence Act, 1872",
+          "Section 65B certificate",
+          "CrPC, 1973 for search and seizure",
+          "Anvar (2014), Arjun Panditrao (2020) on the certificate",
+          "Section 65A: special rules for electronic records"
+        ]
+      },
+      {
+        "title": "From 1 July 2024",
+        "tone": "blue",
+        "items": [
+          "Bharatiya Sakshya Adhiniyam, 2023",
+          "Section 63 with Schedule certificate, Parts A and B",
+          "Hash value and algorithm on the certificate",
+          "BNSS, 2023: audio-video record of search and seizure",
+          "Forensic expert at the scene for serious offences"
+        ]
+      }
+    ],
+    "note": "Which framework governs a matter that straddles the change is a question for counsel."
+  }
+}

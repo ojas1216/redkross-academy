@@ -1,0 +1,37 @@
+{
+  "C09-M01-L05-F1": {
+    "title": "The custody lifecycle: one record per stage",
+    "caption": "The eight stages an evidence item passes through, from identification to final disposition, and the record each stage produces.",
+    "alt": "Top-to-bottom flow of eight rounded boxes: Identify and document in place (photos and scene notes); Collect and label (item number and description); Package and seal (tamper-evident seal number); Issue evidence receipt (signed by collector and witness); Transfer and log each hand-over (both custodians sign); Secure storage (access-logged evidence store); Examine a verified copy (hash checked before and after); Return, retain or dispose (authorised and recorded). A note says every arrow is a hand-over or change of state that must appear in the custody log.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Identify and document in place", "sub": "photos and scene notes", "tone": "slate" },
+      { "label": "Collect and label", "sub": "item number and description", "tone": "blue" },
+      { "label": "Package and seal", "sub": "tamper-evident seal number", "tone": "blue" },
+      { "label": "Issue evidence receipt", "sub": "signed by collector and witness", "tone": "orange" },
+      { "label": "Transfer and log each hand-over", "sub": "both custodians sign", "tone": "orange" },
+      { "label": "Secure storage", "sub": "access-logged evidence store", "tone": "violet" },
+      { "label": "Examine a verified copy", "sub": "hash checked before and after", "tone": "green" },
+      { "label": "Return, retain or dispose", "sub": "authorised and recorded", "tone": "dark" }
+    ],
+    "note": "Every arrow is a hand-over or change of state that must appear in the custody log."
+  },
+  "C09-M01-L05-F2": {
+    "title": "Reading a custody log: links that hold and links that break",
+    "caption": "Six entries from the fictional custody log for laptop KF-031-E01, with two defects a reviewer must raise.",
+    "alt": "Table with columns #, Date, time (IST), Released by, Received by, and Purpose and seal. Row 1, green: 14 Mar 10:42, on site desk 3B, A. Rao, collected with seal KS-4471. Row 2, green: 14 Mar 17:05, A. Rao, P. Iyer at the store, lodged with KS-4471 intact. Row 3, green: 16 Mar 09:30, P. Iyer, S. Menon, imaging, resealed KS-4490. Row 4, red: 16 Mar 16:15, S. Menon, P. Iyer, returned with seal recorded as KS-4471, contradicting row 3. Row 5, slate: 18 Mar 14:00, P. Iyer, S. Menon, re-check of serial. Row 6, red: 23 Mar 11:10, J. Das, P. Iyer, returned with unexplained seal KS-4502 and no transfer from S. Menon to J. Das. A note says entries 4 and 6 must be raised and neither is fixed by editing the log afterwards.",
+    "type": "table",
+    "columns": ["#", "Date, time (IST)", "Released by", "Received by", "Purpose and seal"],
+    "rowTones": ["green", "green", "green", "red", "slate", "red"],
+    "rows": [
+      ["1", "14 Mar 10:42", "On site, desk 3B", "A. Rao", "Collected; seal KS-4471"],
+      ["2", "14 Mar 17:05", "A. Rao", "P. Iyer (store)", "Lodged; KS-4471 intact"],
+      ["3", "16 Mar 09:30", "P. Iyer (store)", "S. Menon", "Imaging; resealed KS-4490"],
+      ["4", "16 Mar 16:15", "S. Menon", "P. Iyer (store)", "Returned; seal \"KS-4471\" ?"],
+      ["5", "18 Mar 14:00", "P. Iyer (store)", "S. Menon", "Re-check of serial"],
+      ["6", "23 Mar 11:10", "J. Das", "P. Iyer (store)", "Returned; seal KS-4502 ?"]
+    ],
+    "note": "Entries 4 and 6 must be raised in writing; neither is fixed by editing the log afterwards."
+  }
+}

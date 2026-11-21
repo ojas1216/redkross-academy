@@ -1,0 +1,327 @@
+[
+  {
+    "q": "An examiner says: \"The image hash matches the value recorded at acquisition, so the chain of custody for the laptop is complete.\" What is the main flaw in this statement?",
+    "options": [
+      "SHA-256 values cannot be compared across different days, so the match is meaningless",
+      "The hash should have been taken from the laptop itself rather than from the image file",
+      "A hash shows the data is unchanged; it cannot show who held the device or where it was",
+      "The statement is correct, because a matching hash removes any need for transfer records"
+    ],
+    "correct": 2,
+    "explanation": "A hash is an integrity check on data at two moments. Continuity of the physical item (holders, locations, seal states) is shown only by the custody record. Rehashing unchanged bytes with the same algorithm reproduces the same value.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Entry 3 of a custody log shows the item received by S. Menon. Entry 4 shows the item released by J. Das to the evidence store. What should a reviewer conclude first?",
+    "options": [
+      "There is a continuity gap: no entry records S. Menon handing the item to J. Das",
+      "The log is acceptable because both people work in the same forensic team",
+      "J. Das must have altered the item, so it should be excluded from the case",
+      "Entry 4 should be rewritten so that it shows S. Menon as the releasing custodian"
+    ],
+    "correct": 0,
+    "explanation": "Each receiving custodian must become the next releasing custodian. A missing hand-over is a gap to raise and investigate, not proof of tampering, and earlier entries must never be rewritten.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A collector seizes a laptop that is powered off. The receipt template has a \"Hash\" field. What is the best entry?",
+    "options": [
+      "Leave it blank, since a hash will be added later once the drive is imaged",
+      "Copy the hash from the most recent backup of the laptop held by IT",
+      "Power the laptop on briefly and compute a hash of the user's documents folder",
+      "Write \"None taken at collection (device not powered on)\" with the reason"
+    ],
+    "correct": 3,
+    "explanation": "Fields should be completed honestly rather than left blank, so a reviewer knows the omission was deliberate. Powering on the device would change it, and a backup hash describes different data.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team collects a laptop, a USB drive and a phone from one desk and records all three on a single receipt under one item number. Why is this a problem?",
+    "options": [
+      "Receipts may only describe one item per page under most published evidence procedures",
+      "The items may follow different paths, and one number cannot record each path",
+      "Phones must always be receipted by a different person from computers",
+      "A single receipt prevents the witness from signing for each item separately"
+    ],
+    "correct": 1,
+    "explanation": "If the drive is imaged on a different day by a different examiner, its transfers cannot be separated from the laptop's. One item, one number, one receipt keeps each chain traceable.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An examiner opens a sealed evidence bag to image a drive. Which handling of the seal best preserves the record?",
+    "options": [
+      "Peel the existing seal carefully so it can be reapplied after imaging",
+      "Cut through the seal strip, discard it, and note \"bag opened\" in the log",
+      "Cut the bag away from the old seal, keep it, reseal with a new number, log both",
+      "Leave the bag unsealed while it is inside the lab, then reseal it before storage"
+    ],
+    "correct": 2,
+    "explanation": "Keeping the original seal intact and recording both old and new seal numbers shows exactly when and how the bag was accessed. Peeling and reapplying defeats the purpose of a tamper-evident seal.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A log entry reads: \"14 Mar 17:05, lodged in store.\" The imaging tool reports acquisition at \"14 Mar 11:50\" without a zone. The examiner insists imaging happened after lodging. What is the most likely explanation to check first?",
+    "options": [
+      "The imaging tool clock is faulty and its timestamps should be ignored",
+      "The log entry was backfilled and its time cannot be trusted at all",
+      "The tool reports UTC while the log is in IST, which is UTC+05:30",
+      "The laptop was imaged twice and the first image was not recorded"
+    ],
+    "correct": 2,
+    "explanation": "Mixed time zones are a common cause of apparent contradictions. Note that 11:50 UTC is 17:20 IST, after the 17:05 lodging, so the zone should be checked before assuming any error. Every form should state its time zone.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A forensic image is created from laptop KF-031-E01. How should good practice treat the image in the custody record?",
+    "options": [
+      "As a derived item with its own number, linked to E01, whose record starts at creation",
+      "As a page attached to E01's receipt, sharing E01's item number and seal number",
+      "As outside custody, because only physical items such as devices and media need custody records",
+      "As a replacement for E01, so E01's own custody record can then be closed"
+    ],
+    "correct": 0,
+    "explanation": "The image did not exist at collection and follows its own path on evidence storage. It needs its own number, parent link, creator, time and hash. The physical laptop's custody continues separately.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During review, a custodian realises they wrote the wrong seal number in yesterday's entry. Which correction is appropriate on a paper log?",
+    "options": [
+      "Use correction fluid on the wrong number and then write the right one neatly over the top",
+      "Rewrite the whole page cleanly and shred the original to avoid confusion",
+      "Leave the error, since any change to a log makes the whole log unusable",
+      "Strike through once so it stays readable, then initial, date and add the right value"
+    ],
+    "correct": 3,
+    "explanation": "Corrections must add information without hiding the original. A single readable strike-through with initials and date shows what changed and when. Leaving a known error uncorrected is also poor practice.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A mailbox export is downloaded from a cloud admin console and saved to the evidence share. Which first custody entry most strengthens it?",
+    "options": [
+      "A screenshot of the evidence share folder showing the file's size and name",
+      "An email from the mailbox owner confirming they agree with the export",
+      "Source system, account used, exporter, time, method and the file hash taken at once",
+      "A note that the file was later opened by the examiner and appeared complete and readable"
+    ],
+    "correct": 2,
+    "explanation": "Digital-only evidence begins custody at export. Recording where it came from, how, by whom and its immediate hash links the file on the share to the source. A later screenshot cannot show what the file was at export.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement best describes what a custody record can and cannot establish?",
+    "options": [
+      "It shows the item is what it claims to be and how it was handled, not what the data means",
+      "It establishes that the evidence will be admissible, provided every entry is signed",
+      "It proves the employee who used the device is responsible for the files found on it",
+      "It replaces the examiner's notes, since it already records everything that was done to the item"
+    ],
+    "correct": 0,
+    "explanation": "Custody supports continuity and integrity. Admissibility and responsibility are decided by others on wider grounds, and examination notes record analytical work the custody log does not.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A receipt describes an item as \"silver laptop, collected from second floor\". The office has forty similar laptops. Which change most improves the description?",
+    "options": [
+      "Add the collector's employee number and the department's cost centre",
+      "Add asset tag, serial number, a visible physical mark and the exact desk",
+      "Add the time the laptop was last used, taken from the user's statement",
+      "Add the words \"identified by investigator\" with the investigator's signature"
+    ],
+    "correct": 1,
+    "explanation": "Two independent identifiers plus a physical mark and precise location make confusion with another laptop unlikely. A signature or employee number does not distinguish the item itself.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Entry 3 records a reseal from KS-4471 to KS-4490. Entry 4, the return to store, records seal KS-4471. What is the most useful next step?",
+    "options": [
+      "Treat the item as compromised and stop all work on its forensic image",
+      "Amend entry 4 to KS-4490 since the reseal in entry 3 is clearly documented",
+      "Accept entry 4 as written, because the store custodian signed it as correct",
+      "Inspect the bag and store register, then record the result in a dated memo"
+    ],
+    "correct": 3,
+    "explanation": "The discrepancy could be clerical or substantive. Inspecting the actual bag and the independent register settles which, and a memo documents the outcome without altering the original entry.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A laptop's drive was imaged and hashed on day 3. A five-day custody gap for the physical laptop appears from day 5. Which statement is most accurate?",
+    "options": [
+      "The image analysis is unaffected, and the laptop's handling after day 5 is also fully proven by the hash",
+      "Both the image and the laptop must be discarded because custody has been broken",
+      "The image can still be verified against its day-3 hash; the laptop after day 5 is open to question",
+      "The gap can be closed by computing a new hash of the laptop drive and comparing it"
+    ],
+    "correct": 2,
+    "explanation": "The image's hash links the analysed data to the day-3 acquisition, but nothing shows what happened to the physical device during the gap. A new hash cannot recreate missing custody entries for those days.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does good practice keep both a label that travels with the item and a separate store register?",
+    "options": [
+      "So the label can be updated quickly and the register filled in at month end",
+      "So independent records can be compared and silent edits become detectable",
+      "So the store custodian does not need to sign transfers on the item label",
+      "So the item label can be discarded once the register entry is complete"
+    ],
+    "correct": 1,
+    "explanation": "Paired records only help if both are kept contemporaneously. Someone falsifying custody would have to alter both consistently, so cross-checking them is a detection control.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer finds that several custody entries were completed from memory four days after the events, with no note saying so. What is the central problem?",
+    "options": [
+      "The entries look contemporaneous but were not, which misleads anyone relying on them",
+      "Entries completed from memory are always inaccurate and must therefore be deleted from the log",
+      "Custody entries may only be written by the store custodian, not by examiners",
+      "Four days exceeds the statutory deadline for completing a custody record"
+    ],
+    "correct": 0,
+    "explanation": "Late entries are not automatically wrong, but presenting them as contemporaneous is misleading. They should be marked as late, with the date written and the basis for them. The deadline option invents a rule.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "On evidence storage, which configuration best plays the role a tamper-evident seal plays for a physical bag?",
+    "options": [
+      "A shared folder that every analyst can edit, backed up nightly to tape",
+      "Storing the image inside a password-protected archive emailed to the case lead",
+      "Keeping the image on the examiner's laptop so only one person has access",
+      "Named access with logging, write-once or retention lock, and a recorded hash"
+    ],
+    "correct": 3,
+    "explanation": "Recorded hashes show whether data changed; access logging shows who touched it; retention lock prevents overwriting. A single laptop or emailed archive offers neither independent logging nor controlled access.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A custody log shows initials \"AR\", \"PI\" and \"SM\" with no names anywhere in the case file. Why does a reviewer raise this?",
+    "options": [
+      "Initials are never permitted on custody documents under any procedure",
+      "The initials take too little space and make the log hard to read",
+      "Without a register mapping initials to people, the holders cannot be identified later",
+      "Initials suggest that the custodians were never trained to complete custody forms properly"
+    ],
+    "correct": 2,
+    "explanation": "The \"who\" question must be answerable years later. Initials can work on a bag label if a signature register maps them to full names and roles; without that, identity is lost.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which threat is a cross-check of the custody log against the storage system's access log best placed to reveal?",
+    "options": [
+      "An analyst accessing a derived image without a matching custody or examination entry",
+      "A collector misjudging the order of volatility when the device was still powered on",
+      "A witness who signed the receipt but disagrees with the description months later",
+      "A hashing tool that silently produced an incorrect digest at the time the image was acquired"
+    ],
+    "correct": 0,
+    "explanation": "Access-log entries without matching custody or examination records indicate unrecorded handling. The other problems are not visible in a comparison of these two logs.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A transfer entry lists both custodians, date, time and seal state, but the purpose column is blank. Why does this matter to a reviewer?",
+    "options": [
+      "A blank purpose makes the transfer invalid, so the item leaves custody",
+      "Without a purpose, the reviewer cannot tell whether the access was authorised or expected",
+      "Purpose is only required for transfers outside the organisation, so here it does not matter at all",
+      "The purpose column is used by the store to calculate how long the item may be kept"
+    ],
+    "correct": 1,
+    "explanation": "The \"why\" of each transfer lets a reviewer match it to planned work such as imaging or second review. An unexplained access is a red flag to follow up, though not an automatic invalidation.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In an offline review of a USB drive's custody packet, every entry links and the seal change is explained, but imaging ended at 11:05 and the return was logged at 12:40. What should the review say?",
+    "options": [
+      "That custody is broken and the image must be recreated from the drive",
+      "Nothing, because time between imaging and return is never relevant to custody",
+      "That continuity is shown, with a query asking the examiner's notes to cover 11:05-12:40",
+      "That the examiner probably copied the drive's data during the time that is not accounted for"
+    ],
+    "correct": 2,
+    "explanation": "The item stayed with a recorded custodian, so continuity holds, but unexplained time should be queried and covered by notes (for example, verification and resealing). Speculating about misconduct goes beyond the evidence.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A courier service carries a sealed evidence box between two offices. How should the courier appear in the custody record?",
+    "options": [
+      "Not at all, because the box remained sealed during the journey",
+      "Only on the courier's own delivery note, which replaces the custody entry",
+      "As part of the sending custodian's entry, since the sender remains responsible",
+      "As a custodian, with hand-over and receipt entries including seal condition"
+    ],
+    "correct": 3,
+    "explanation": "Anyone holding the item is a custodian for that period. The sealed state is recorded at each end, but the courier's possession must still appear in the chain.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team proposes skipping in-place photographs to save time, planning to photograph each item once it reaches the lab. What is lost?",
+    "options": [
+      "The record of position, connections and screen state, which cannot be recreated later",
+      "Nothing important, since lab photographs show the item in better lighting",
+      "The ability to compute hash values, since hashes depend on scene photographs",
+      "The witness's right to sign the receipt, which in most procedures requires photographs to be taken first"
+    ],
+    "correct": 0,
+    "explanation": "Records made at identification capture context that disappears once an item is moved. Lab photographs document condition later but not where or how the item was found.",
+    "lesson": 5,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which description best matches the separation-of-duties control for an evidence store?",
+    "options": [
+      "Each examiner keeps a personal locker for their own cases to avoid mix-ups",
+      "The collector is not the only person able to access the store holding the items",
+      "Only the case lead may sign custody forms, so that responsibility is not divided",
+      "Physical and digital evidence are kept by different departments for each case"
+    ],
+    "correct": 1,
+    "explanation": "If one person can collect, store and retrieve items alone, a substitution would leave no independent trace. Separating these roles makes the store register an independent check.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A custody gap cannot be closed from anyone's memory. What should the final written record contain?",
+    "options": [
+      "A best estimate of the missing entries, written so the log reads continuously",
+      "A statement that the item is unreliable and should not be used for any purpose",
+      "A blank space left in the log so that later information can be added there",
+      "A dated memo of what is known, what is not, and which checks were made"
+    ],
+    "correct": 3,
+    "explanation": "An explained gap can be weighed by the decision-maker. Invented entries mislead, and declaring the item unusable is a judgement for others, not the custody reviewer.",
+    "lesson": 5,
+    "difficulty": "hard"
+  },
+  {
+    "q": "At the close of a matter, IT asks for a laptop back for reissue. What must the custody record show for this final stage?",
+    "options": [
+      "Only the date the laptop left the store, since the case is now closed",
+      "Who authorised the return, to whom it went, when, and the item's condition",
+      "A new hash of the laptop drive, to prove it matches the original image",
+      "A statement from IT that the laptop will be wiped before reissue to staff"
+    ],
+    "correct": 1,
+    "explanation": "Final disposition closes the chain with its authority and execution. A new hash adds nothing to the closing record, and IT's plans after receipt are its own record, not custody of the evidence.",
+    "lesson": 5,
+    "difficulty": "hard"
+  }
+]

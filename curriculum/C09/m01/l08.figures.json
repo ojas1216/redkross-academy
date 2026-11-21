@@ -1,0 +1,50 @@
+{
+  "C09-M01-L08-F1": {
+    "title": "Training lab zones: evidence moves one way",
+    "caption": "How a synthetic evidence item moves from intake to report in the isolated training workstation, with every move verified by digest or recorded in the case log.",
+    "alt": "Graph of nine rounded boxes. Course kit plus intake receipt (slate) points to 00_receipts intake check (violet), which points to 01_originals read-only (dark) with the label 'store if digests match'. 01_originals points to 02_working copies (blue) with the label 'copy, then verify'. 02_working copies points to Analysis tools (orange) with the label 'open copy only'. Isolated analysis VM (slate, no network, no shared folders) points to Analysis tools with the label 'hosts'. Analysis tools points to 03_exports (green) with the label 'produce'. 03_exports points to 05_reports (green) with the label 'cite digest'. Dashed arrows run from the intake check, the analysis tools and the exports into 04_notes case log (violet), labelled 'receipt', 'versions, steps' and 'export digests'. No arrow leads back into 01_originals.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "k", "label": "Course kit + intake receipt", "sub": "synthetic files, stated digests", "tone": "slate" },
+      { "id": "i", "label": "00_receipts: intake check", "sub": "digest recomputed and compared", "tone": "violet" },
+      { "id": "o", "label": "01_originals (read-only)", "sub": "never opened by analysis tools", "tone": "dark" },
+      { "id": "w", "label": "02_working copies", "sub": "re-hashed after every copy", "tone": "blue" },
+      { "id": "v", "label": "Isolated analysis VM", "sub": "no network, no shared folders", "tone": "slate" },
+      { "id": "t", "label": "Analysis tools", "sub": "versions in 06_tools inventory", "tone": "orange" },
+      { "id": "e", "label": "03_exports", "sub": "each export hashed and logged", "tone": "green" },
+      { "id": "r", "label": "05_reports", "sub": "cite digests and tool versions", "tone": "green" },
+      { "id": "n", "label": "04_notes: case log", "sub": "UTC, contemporaneous", "tone": "violet" }
+    ],
+    "edges": [
+      { "from": "k", "to": "i", "label": "deliver" },
+      { "from": "i", "to": "o", "label": "store if digests match" },
+      { "from": "o", "to": "w", "label": "copy, then verify" },
+      { "from": "w", "to": "t", "label": "open copy only" },
+      { "from": "v", "to": "t", "label": "hosts" },
+      { "from": "t", "to": "e", "label": "produce" },
+      { "from": "e", "to": "r", "label": "cite digest" },
+      { "from": "i", "to": "n", "label": "receipt", "dashed": true },
+      { "from": "t", "to": "n", "label": "versions, steps", "dashed": true },
+      { "from": "e", "to": "n", "label": "export digests", "dashed": true }
+    ],
+    "note": "Nothing is ever written back to 01_originals; analysis happens only on verified copies."
+  },
+  "C09-M01-L08-F2": {
+    "title": "What each transcript step proves about your lab",
+    "caption": "The six steps of the original C09 acquisition transcript, mapped to the verification behaviour a prepared workstation must reproduce.",
+    "alt": "Table with columns Step, Transcript result, What it confirms and Lab-setup check. Row 1 (blue): e3a74e55... suspect.dev; reference value recorded first; intake digest routine works. Row 2 (blue): e3a74e55... stream; bytes in transit equal the source; one-pass hashing works. Row 3 (blue): e3a74e55... and 16777216 bytes; stored file matches, 16 MiB; writes to storage are faithful. Row 4 (green): e3a74e55... working.dd; working copy is identical; copy-and-verify routine works. Row 5 (red): 16d816db... and differ at char 100001; a one-byte change is detected; checks really fail on change. Row 6 (slate): 93308050... MD5; legacy identifier only; keep SHA-256 as primary.",
+    "type": "table",
+    "columns": ["Step", "Transcript result", "What it confirms", "Lab-setup check"],
+    "rowTones": ["blue", "blue", "blue", "green", "red", "slate"],
+    "rows": [
+      ["1 Source", "e3a74e55… suspect.dev", "Reference recorded first", "Intake digest routine works"],
+      ["2 Stream", "e3a74e55… (stream)", "Bytes in transit = source", "One-pass hashing works"],
+      ["3 Image", "e3a74e55… 16777216 B", "Stored file matches; 16 MiB", "Writes to storage faithful"],
+      ["4 Working", "e3a74e55… working.dd", "Working copy identical", "Copy-and-verify works"],
+      ["5 Change", "16d816db…; char 100001", "One-byte change detected", "Checks really fail"],
+      ["6 MD5", "93308050… evidence.dd", "Legacy identifier only", "Keep SHA-256 primary"]
+    ],
+    "note": "Digests are shortened to eight characters here only; always compare all 64."
+  }
+}

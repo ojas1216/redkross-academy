@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In the kit transcript, the stage 3 SHA-256 of evidence.dd equals the stage 1 value for suspect.dev. Which property of the raw format makes that comparison meaningful?",
+    "options": [
+      "The raw writer embeds the stage 1 digest in a footer that the hash routine reads back",
+      "SHA-256 ignores trailing zeroed sectors, so any image of the same device gives the same value",
+      "The file holds only the media stream, so hashing the file hashes the stream",
+      "Raw images are stored compressed, and decompressing them restores the source digest"
+    ],
+    "correct": 2,
+    "explanation": "A complete single-file raw image is the media stream byte for byte, so its file hash is the media hash. Raw images have no footer or embedded digest, and SHA-256 hashes every byte, including zeros.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An intake technician computes the SHA-256 of HLF031-03.E01, the first of seven segment files, and finds it differs from the media SHA-256 on the receipt. What may they conclude at this point?",
+    "options": [
+      "Nothing yet: a segment file's hash cannot be compared with a media hash",
+      "The image was altered in transit, so the item should be quarantined and the sender told of tampering",
+      "The receipt is wrong, because an E01 image can only record MD5 and so no SHA-256 value can exist",
+      "SHA-256 is unsuitable for E01, so the check should be repeated with MD5 on the same .E01 file"
+    ],
+    "correct": 0,
+    "explanation": "The hash of a .E01 file covers structure, metadata and compressed chunks, so it never equals the media hash. Reporting alteration is the false alarm the lesson warns about; the valid check decodes all segments and hashes the stream.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A split raw image arrives as .001 to .004 with one whole-stream SHA-256 on the receipt. Which computed value can be compared with that receipt value?",
+    "options": [
+      "The SHA-256 of .001, since the first piece carries the identifying header for the stream",
+      "The four per-piece SHA-256 values combined by adding them together modulo 2^256",
+      "The SHA-256 of the largest piece, because it holds most of the media stream",
+      "One SHA-256 over all four pieces read consecutively in their correct order"
+    ],
+    "correct": 3,
+    "explanation": "The pieces have no headers; joined in order they are the stream, and only the hash of that whole stream matches the source. Per-piece digests cannot be combined arithmetically into a whole-stream digest.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson recommend recording per-piece hashes for a split raw image as well as the whole-stream hash?",
+    "options": [
+      "They let a court accept each piece as a separate exhibit",
+      "If the whole-stream check fails after a transfer, they show which piece is damaged",
+      "They replace the whole-stream hash once the pieces have been archived to tape",
+      "They make it possible to rebuild a missing piece from the hashes of the other pieces"
+    ],
+    "correct": 1,
+    "explanation": "Per-piece hashes localise a failure to one piece. A hash cannot reconstruct data, and it never replaces the whole-stream value used to compare with the source.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A raw image contains a long run of zero bytes in the middle of a volume, and its acquisition log has been lost. What can be said about that run?",
+    "options": [
+      "It must be filler for unreadable sectors, since real disks never hold aligned zero runs",
+      "Nothing definite: genuinely zeroed sectors and error filler look the same in a raw file",
+      "It was genuine data, because raw acquisition always stops at the first unreadable sector",
+      "It can be classified by reading the error map stored in the raw file's header"
+    ],
+    "correct": 1,
+    "explanation": "A raw file has no field to mark unreadable sectors, and filler is often zeros, so only the log could tell the two apart. Raw images have no header, and zeroed regions are common on real disks.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Every chunk of an archived E01 image passes its Adler-32 check. Why does that not show that nobody deliberately altered the media data?",
+    "options": [
+      "Adler-32 is computed once over the whole image, so it cannot see individual chunks",
+      "Adler-32 is applied only to the stored hash section, never to the chunks of media data",
+      "The checksums are kept on the receipt rather than in the file, so they may be stale",
+      "It is not cryptographic, so whoever alters a chunk can simply recompute its checksum"
+    ],
+    "correct": 3,
+    "explanation": "Adler-32 detects accidental damage and localises it to a chunk, but it offers no resistance to deliberate change. It is per chunk and stored in the image, not on the receipt.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An archived E01 image verifies successfully: the recomputed media MD5 equals the value stored in the image. What does this result establish by itself?",
+    "options": [
+      "That the stream decodes now to the stored value, not that the stored value is original",
+      "That the image is identical to the source device as it was when seized",
+      "That no one has opened or copied the image since acquisition",
+      "That the header fields, such as examiner and case number, are accurate"
+    ],
+    "correct": 0,
+    "explanation": "The stored hash lives inside the file it describes, so anyone able to rewrite the file could rewrite it. Comparing with the out-of-band receipt is what ties the image to the acquisition.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An E01 header shows case number KDL-2026-141, while the receipt and the media hashes both point to case KDL-2026-114. What is the right intake action?",
+    "options": [
+      "Treat the image as fabricated and exclude it from the case",
+      "Edit the header field to match the receipt so that the records agree before analysis starts",
+      "Record the discrepancy and have it explained before analysis begins",
+      "Ignore it, because header fields are typed by people and carry no weight at all"
+    ],
+    "correct": 2,
+    "explanation": "Header metadata is self-declared, so a mismatch is not proof of anything but must be recorded and explained. Editing the header would create a new, undocumented version of the exhibit.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A seven-segment E01 set is delivered without its last file, .E07. What is the most serious consequence?",
+    "options": [
+      "None: the image opens normally because every segment holds a full copy of the tables",
+      "Only the case metadata is lost, since header sections are kept in the final segment",
+      "The first segment's signature becomes invalid, so no segment can be opened at all",
+      "The final media data, and typically the stored hash and closing section, are absent"
+    ],
+    "correct": 3,
+    "explanation": "The last segment carries the remaining chunks and normally the hash/digest and done sections, so the image can neither be complete nor verify itself. Header sections sit in the first segment, not the last.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A laboratory must store an E01 image of a fully encrypted 2 TB disk. How should it plan the storage?",
+    "options": [
+      "Plan for close to 2 TB, because encrypted data looks random and barely compresses",
+      "Plan for about half, since E01's zlib compression roughly halves any input",
+      "Plan for under 100 GB, because an E01 image stores only allocated sectors",
+      "Plan for about a quarter, because E01 removes the repeated blocks encryption creates"
+    ],
+    "correct": 0,
+    "explanation": "Compression ratios follow content: encrypted data hardly shrinks. E01 of a full device stores the whole media stream, not only allocated sectors, and there is no fixed ratio.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two E01 images of the same disk were made with different compression levels and segment sizes. How should their hashes relate?",
+    "options": [
+      "Container and media hashes both differ, so one of the acquisitions must be faulty",
+      "Container hashes match and media hashes differ, reflecting the different chunk layouts",
+      "Container hashes differ, while the media hashes should be identical",
+      "Both kinds match, because EWF compression is lossless and fully deterministic"
+    ],
+    "correct": 2,
+    "explanation": "Container hashes depend on settings, metadata and tool version, while lossless storage of the same stream gives the same media hash. Lossless compression does not make the container bytes identical across settings.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Stage 5 of the transcript changes a byte 'at offset 100000', and the byte comparison reports 'char 100001'. What is the most likely explanation?",
+    "options": [
+      "The edit shifted all of the following data along by one position",
+      "The heading likely counts from zero, while the comparison counts bytes from one",
+      "The comparison found a second, unplanned change one byte after the intended edit position",
+      "The comparison reports a line-based position, so it adds one because of line 1"
+    ],
+    "correct": 1,
+    "explanation": "Both numbers fit one byte described in two numbering schemes; the lesson notes the transcript does not state the heading's convention. The image size was not changed and 'line 1' only means no newline byte came earlier.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A recipient's tools read raw images only, so an examiner will convert an E01 image to raw. What should be done before or during the conversion?",
+    "options": [
+      "Export the header fields into a sidecar, because the raw copy cannot carry them",
+      "Delete the E01 set as soon as the raw copy exists, to avoid two masters of one exhibit",
+      "Re-hash the .E01 files and record those values as the raw image's media hash",
+      "Nothing extra, since the raw writer copies the case metadata into its own header"
+    ],
+    "correct": 0,
+    "explanation": "Raw has no place for metadata, so the header fields must be preserved in the sidecar. The original is kept until the new copy verifies against the acquisition media hash, and .E01 file hashes are container hashes.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A raw image acquired in 2023 was converted to E01 in 2026, and the E01 header shows a 2026 acquisition date. How should this be read?",
+    "options": [
+      "As evidence that the original acquisition was repeated in 2026",
+      "As tampering, because a conversion always keeps the original acquisition date",
+      "As a fault in the raw image's own metadata header during the conversion",
+      "As the conversion date; the case log must show the 2023 acquisition"
+    ],
+    "correct": 3,
+    "explanation": "The new header describes the conversion that created it, so the case log must preserve the real acquisition date. Raw images have no metadata header to supply a date.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A colleague asks you to verify an L01 file of selected mailbox files against the whole-disk SHA-256 recorded for the device. What is the correct response?",
+    "options": [
+      "Hash the L01 file and compare that value with the device's whole-disk value",
+      "Decode the L01 chunks into one stream and compare that stream's hash with the device value",
+      "Explain that it holds selected files, not the media stream, so no such comparison exists",
+      "Convert it to E01 first, after which its stored hash will match the device value"
+    ],
+    "correct": 2,
+    "explanation": "A logical evidence file contains chosen items and their metadata, not the device's media stream, so it cannot be checked against a whole-device hash. Converting it does not add the missing sectors.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A receipt lists five raw pieces: four of 1,073,741,824 bytes and one of 536,870,912 bytes. The drive holds .001, .002, .003 and .005, totalling 3,758,096,384 bytes. What follows?",
+    "options": [
+      "Pad the gap with zeros so the length matches, then hash all five positions in order",
+      "One full 1,073,741,824-byte piece, .004, is missing, so the stream cannot yet be verified",
+      "The last piece is truncated, because the delivered total is not a whole number of pieces",
+      "Hash the four delivered pieces in order; a match with the receipt confirms the set"
+    ],
+    "correct": 1,
+    "explanation": "The expected total is 4,831,838,208 bytes, so exactly 1,073,741,824 bytes are absent and the names show .004 is missing. The total is not a multiple only because .005 is legitimately shorter, and padding would fabricate data.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Laboratory policy requires a SHA-256 media hash, but the acquiring tool's E01 output stores only MD5 and SHA-1. What satisfies the policy?",
+    "options": [
+      "Accept the stored SHA-1, since SHA-1 and SHA-256 come from the same family",
+      "Hash each .E01 segment file with SHA-256 and record those as the media value",
+      "Record only MD5, which is the format's native hash and therefore authoritative",
+      "Compute SHA-256 over the decoded media stream and record it in the sidecar"
+    ],
+    "correct": 3,
+    "explanation": "The SHA-256 must be computed over the media stream, then kept outside the image. Segment file hashes are container hashes, and SHA-1 is a different algorithm with published collisions.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A NIST CFTT test report exists for one version of an imaging tool. Your laboratory runs a later version. What does the report tell you about your version?",
+    "options": [
+      "It reports results for the tested version and specification; it does not certify yours",
+      "It approves the tool family, so every later version counts as validated",
+      "It is a legal ruling, so results from your version are admissible in Indian courts",
+      "Nothing, because the CFTT programme tests only hardware write blockers"
+    ],
+    "correct": 0,
+    "explanation": "CFTT publishes test results for specific tool versions against its specifications and does not certify tools in general or decide admissibility. Its test specifications cover more than write blockers.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After copying an E01 segment set to archive storage, which quick check shows that the files arrived intact without using forensic software?",
+    "options": [
+      "Compare a SHA-256 of each segment with the media SHA-256 on the receipt",
+      "Open the first segment in a hex viewer and confirm that the signature is intact",
+      "Compare each segment file's hash before and after the copy",
+      "Compare total file sizes, which reveals any change made inside a segment"
+    ],
+    "correct": 2,
+    "explanation": "Container hashes per file answer the transfer question. Comparing a segment hash with the media hash is meaningless, and sizes or signatures miss same-length changes.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A 500 GB laptop disk is fully encrypted, storage is plentiful, and the external reviewer's tool reads raw images only. Which format choice is best reasoned?",
+    "options": [
+      "E01, because only E01 carries a stored hash that the reviewer can rely on",
+      "Raw, since compression gains little on encrypted data and the reviewer needs raw",
+      "L01, since a logical file is smaller and avoids sending the whole disk",
+      "E01 at maximum compression, since encrypted data compresses well at high levels"
+    ],
+    "correct": 1,
+    "explanation": "E01's space advantage disappears for encrypted data and the recipient needs raw. A stored hash is a record, not a seal, and the authoritative media hash belongs outside the image anyway.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Suppose the evidence.dd stream from the transcript were stored as an E01 image. Which MD5 value should that image verify to?",
+    "options": [
+      "The MD5 of the .E01 file itself, which will not appear anywhere in the transcript",
+      "e3a74e55ea5520102b3b9458e4fd1eee, the first 32 hex digits of the stage 1 value",
+      "No value can be predicted, because E01 stores its own hash of the compressed chunks",
+      "9330805010f0e235779d131b854f2295, the stage 6 MD5 of evidence.dd"
+    ],
+    "correct": 3,
+    "explanation": "evidence.dd is the media stream, so its MD5 is the stream's MD5, which a correct E01 stores and verifies to. The E01 stored hash covers the decoded stream, not the compressed chunks, and truncating SHA-256 does not give MD5.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What do the table sections of an E01 image make possible during analysis?",
+    "options": [
+      "Jumping to any media offset and decoding only the chunk that holds it",
+      "Recording an MD5 for each chunk so tampering can be located cryptographically",
+      "Keeping a second, uncompressed copy of the case metadata",
+      "Listing unreadable sectors so analysis tools skip them automatically"
+    ],
+    "correct": 0,
+    "explanation": "Tables record where each chunk starts, which gives random access across a compressed image. Unreadable sectors belong in the error section, and chunks carry Adler-32, not MD5.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A laboratory plans to send an encrypted Ex01 image to a partner whose tools are known to read E01. What should it confirm before dispatch?",
+    "options": [
+      "That the partner's tool computes Adler-32, which Ex01 needs for decryption",
+      "Nothing, since every E01 reader also reads Ex01 because both share one signature",
+      "That the partner's tools support Ex01, because not every E01 reader does",
+      "That the partner will convert it to L01, as encrypted evidence must be logical"
+    ],
+    "correct": 2,
+    "explanation": "Ex01 is a newer format and not every tool that reads E01 reads Ex01, so compatibility must be checked first. Adler-32 is a chunk checksum with no role in decryption.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Could the file system timestamps of a raw image file serve as the record of when it was acquired?",
+    "options": [
+      "Yes, because raw writers set the file's creation time to the acquisition start",
+      "No: copying or restoring the file can change them, so the log and receipt hold the record",
+      "Yes, provided the image's SHA-256 still matches the value recorded on the receipt at acquisition",
+      "No, because raw image files carry no timestamps on any file system"
+    ],
+    "correct": 1,
+    "explanation": "File system timestamps describe the file's handling on that storage and change with copying or restoring; the acquisition time belongs in the log, notes and receipt. A matching hash says nothing about timestamps.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An intake form wrongly states 'evidence altered in transit' after a container hash was compared with a media hash. How should the entry be corrected?",
+    "options": [
+      "Delete the note so that the intake form shows only accurate statements",
+      "Overwrite it with the correct finding and initial the change",
+      "Leave it uncorrected, since any change to an intake form breaks custody",
+      "Add a dated correction explaining the error and leave the original visible"
+    ],
+    "correct": 3,
+    "explanation": "Records are corrected by dated addition, not erasure, so the history of what was written stays visible. Leaving a known error uncorrected is not required for custody and misleads later readers.",
+    "lesson": 4,
+    "difficulty": "hard"
+  }
+]

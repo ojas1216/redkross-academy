@@ -1,0 +1,76 @@
+{
+  "C09-M02-L02-F1": {
+    "title": "What a write blocker forwards, stops and relays",
+    "caption": "A read and an identification query pass through unaltered; a modifying command stops at the blocker.",
+    "alt": "Sequence diagram with three lanes: examiner host, hardware write blocker and evidence drive. The host sends a read of a sector range; the blocker forwards it; the drive returns sector data; the blocker returns the same data unaltered. The host then sends a write, trim or erase command; the blocker does not forward it and replies to the host with a refusal whose form varies by product. Finally the host sends an identify and capacity query; the blocker forwards it; the drive returns model, serial and reported capacity; the blocker relays them unaltered.",
+    "type": "sequence",
+    "actors": [
+      { "id": "h", "label": "Examiner host", "sub": "OS + acquisition software", "tone": "blue" },
+      { "id": "b", "label": "Hardware write blocker", "sub": "firmware decides per command", "tone": "green" },
+      { "id": "d", "label": "Evidence drive", "sub": "protected device", "tone": "dark" }
+    ],
+    "messages": [
+      { "from": "h", "to": "b", "label": "Read sectors (LBA range)" },
+      { "from": "b", "to": "d", "label": "Read forwarded" },
+      { "from": "d", "to": "b", "label": "Sector data", "dashed": true },
+      { "from": "b", "to": "h", "label": "Same data, unaltered", "dashed": true },
+      { "from": "h", "to": "b", "label": "Write / trim / erase command" },
+      { "from": "b", "to": "h", "label": "Refused: form varies by product", "dashed": true },
+      { "from": "h", "to": "b", "label": "Identify / capacity query" },
+      { "from": "b", "to": "d", "label": "Query forwarded" },
+      { "from": "d", "to": "b", "label": "Model, serial, reported capacity", "dashed": true },
+      { "from": "b", "to": "h", "label": "Relayed unaltered", "dashed": true }
+    ],
+    "note": "The modifying command never reaches the evidence drive; reads and identity pass through unchanged."
+  },
+  "C09-M02-L02-F2": {
+    "title": "The boundary of \"write-blocked\"",
+    "caption": "What a source write blocker controls, set against acquisition risks that need other records.",
+    "alt": "Comparison with two columns separated by vs. Left, green, Controlled by the blocker: host write commands to the source; trim, deallocate and erase commands; firmware download and configuration changes; operating-system mounting and housekeeping writes; relaying identity and read data intact. Right, orange, Outside its control: SSD controller background maintenance; unstable reads from failing media; capacity not reported by the device; writes to the destination drive; changes before the blocker was attached; live memory, network shares and cloud sources.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Controlled by the blocker",
+        "tone": "green",
+        "items": [
+          "Host write commands to the source",
+          "Trim / deallocate and erase commands",
+          "Firmware download and config changes",
+          "OS mounting and housekeeping writes",
+          "Relaying identity and read data intact"
+        ]
+      },
+      {
+        "title": "Outside its control",
+        "tone": "orange",
+        "items": [
+          "SSD controller background maintenance",
+          "Unstable reads from failing media",
+          "Capacity not reported by the device",
+          "Writes to the destination drive",
+          "Changes before the blocker was attached",
+          "Live memory, network shares, cloud"
+        ]
+      }
+    ],
+    "note": "\"Write-blocked\" answers one question about the source; record the others separately."
+  },
+  "C09-M02-L02-F3": {
+    "title": "Acquisition-day routine for a write blocker",
+    "caption": "Prove the unit, set the mode, then connect the evidence, leaving a record at every step.",
+    "alt": "Top-to-bottom flow of seven steps: check the tool register for serial, firmware and last pre-use check; pre-use check on reference media with hash before, connection as in casework and hash after; set and record read-only mode before the evidence drive is connected; connect evidence through the blocker noting power-on time; record pass-through identity of model, serial and reported capacity; acquire and hash, verifying the image against the stream hash; complete the receipt and custody entry, including anything that went wrong.",
+    "type": "flow",
+    "dir": "TB",
+    "steps": [
+      { "label": "Check the tool register", "sub": "serial, firmware, last pre-use check", "tone": "slate" },
+      { "label": "Pre-use check on reference media", "sub": "hash before, connect as in casework, hash after", "tone": "violet" },
+      { "label": "Set and record read-only mode", "sub": "before the evidence drive is connected", "tone": "green" },
+      { "label": "Connect evidence through blocker", "sub": "power-on time noted", "tone": "blue" },
+      { "label": "Record pass-through identity", "sub": "model, serial, reported capacity", "tone": "blue" },
+      { "label": "Acquire and hash", "sub": "verify the image against the stream hash", "tone": "orange" },
+      { "label": "Complete receipt and custody entry", "sub": "including anything that went wrong", "tone": "dark" }
+    ],
+    "note": "Every step leaves a record; a missing record is a gap a reviewer will find."
+  }
+}

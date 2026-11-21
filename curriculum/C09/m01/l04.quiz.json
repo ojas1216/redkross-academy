@@ -1,0 +1,327 @@
+[
+  {
+    "q": "From which date did the Bharatiya Sakshya Adhiniyam and the Bharatiya Nagarik Suraksha Sanhita come into force?",
+    "options": [
+      "1 January 2024, together with the DPDP Act's rules",
+      "1 July 2024, replacing the Evidence Act and the CrPC",
+      "28 April 2022, alongside the CERT-In Directions",
+      "15 August 2023, on the day both Acts received assent"
+    ],
+    "correct": 1,
+    "explanation": "The BSA and BNSS came into force on 1 July 2024, replacing the Indian Evidence Act, 1872 and the Code of Criminal Procedure, 1973. The CERT-In Directions date from 2022.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which BSA provision is the successor to the Section 65B certificate of the old Evidence Act?",
+    "options": [
+      "Section 57, on primary evidence and proper custody",
+      "Section 61, on the admissibility of electronic records",
+      "Section 79A, on Examiners of Electronic Evidence",
+      "Section 63, with the certificate in the BSA Schedule"
+    ],
+    "correct": 3,
+    "explanation": "Section 63 deals with the admissibility of electronic records produced as evidence and is accompanied by the Schedule certificate. Section 79A belongs to the IT Act, not the BSA.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The BSA Schedule certificate has two parts. Who completes each part?",
+    "options": [
+      "Part A by the party producing the record; Part B by an expert",
+      "Part A by the investigating officer; Part B by the magistrate",
+      "Part A by the forensic lab; Part B by the opposing counsel",
+      "Part A by CERT-In; Part B by the device's manufacturer"
+    ],
+    "correct": 0,
+    "explanation": "Part A is completed by the party producing the electronic record, typically the person responsible for the device; Part B is completed by an expert.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which technical detail does the BSA Schedule certificate ask for that directly depends on the lab's acquisition record?",
+    "options": [
+      "The examiner's academic qualifications and years of experience",
+      "The make of write blocker used to connect the original device",
+      "The hash value of the electronic record and the algorithm used",
+      "The full list of files found in the device's unallocated space"
+    ],
+    "correct": 2,
+    "explanation": "The certificate asks for the hash value and algorithm. That value must be the one recorded at acquisition and traceable through custody to the item.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The certificate for image KF-031-E01-D1 cites a SHA-256 value. What makes that value meaningful rather than a formality?",
+    "options": [
+      "It was computed with the newest available hashing tool on the day of the hearing",
+      "It traces, through the acquisition notes and custody log, to the item and moment it describes",
+      "It was computed by the expert who signs Part B, independently of the lab's own acquisition records",
+      "It matches the hash of the original laptop's operating-system installation media"
+    ],
+    "correct": 1,
+    "explanation": "A hash proves identity only between the objects and moments it compares. Its value as evidence comes from the documented chain linking it to the acquisition and the item.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Under the explanations to BSA Section 57, when is an electronic record produced from proper custody treated as primary evidence?",
+    "options": [
+      "Only when an Examiner of Electronic Evidence has certified it in writing",
+      "Only when it was seized by police with audio-video recording of the seizure",
+      "Whenever it is printed and signed by the person who created the record",
+      "Unless it is disputed"
+    ],
+    "correct": 3,
+    "explanation": "The explanation treats an electronic or digital record produced from proper custody as primary evidence unless it is disputed. Custody records help show proper custody.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does BNSS Section 105 require when police conduct a search or take possession of property?",
+    "options": [
+      "Audio-video electronic recording of the process, including preparing the seizure list",
+      "A forensic image of every seized device within twenty-four hours of the seizure",
+      "Written consent from the owner of each seized device before it is removed",
+      "A certificate under BSA Section 63 prepared for every seized item at the time of the seizure itself"
+    ],
+    "correct": 0,
+    "explanation": "Section 105 requires the search or seizure, including the list of seized items and its signing by witnesses, to be recorded by audio-video means, preferably a mobile phone, and forwarded to the magistrate.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Under BNSS Section 176(3), when must a forensic expert visit the crime scene?",
+    "options": [
+      "In every case involving a computer, phone or other electronic device",
+      "Only when the accused requests an independent forensic examination",
+      "For offences punishable with imprisonment of seven years or more",
+      "Only for offences under the Information Technology Act, 2000"
+    ],
+    "correct": 2,
+    "explanation": "Section 176(3) applies to offences punishable with seven years or more, with the process videographed. States have time to build the necessary facilities, so practice may vary.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does Section 79A of the IT Act provide for?",
+    "options": [
+      "Mandatory six-hour reporting of cyber incidents to CERT-In",
+      "Notification by the Central Government of Examiners of Electronic Evidence",
+      "Penalties for unauthorised access to a computer system or network",
+      "The form of the certificate that must accompany electronic records produced as evidence in court"
+    ],
+    "correct": 1,
+    "explanation": "Section 79A lets the Central Government notify bodies or departments as Examiners of Electronic Evidence. Incident reporting comes from CERT-In Directions, and the certificate from the BSA.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which set of requirements comes from the CERT-In Directions of 28 April 2022?",
+    "options": [
+      "Report specified incidents within 6 hours, keep logs for 180 days in India, and sync clocks to NIC or NPL NTP",
+      "Report incidents within 72 hours, keep logs for one year anywhere, and sync clocks to any public NTP server",
+      "Report incidents within 24 hours, keep backups for 90 days, and encrypt all logs with approved algorithms",
+      "Report incidents to the police first, keep logs until each case closes, and record clocks only during incidents"
+    ],
+    "correct": 0,
+    "explanation": "The Directions require six-hour reporting of specified incidents, a rolling 180 days of logs kept within Indian jurisdiction, and clock synchronisation with NIC or NPL NTP servers or servers traceable to them.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson treat clock synchronisation under the CERT-In Directions as a forensic matter?",
+    "options": [
+      "Because unsynchronised clocks make electronic records inadmissible in Indian courts",
+      "Because CERT-In examiners refuse to review logs from unsynchronised systems",
+      "Because synchronised clocks make timelines from different systems comparable without guesswork",
+      "Because the BSA certificate requires the clock offset of every system in the organisation to be stated"
+    ],
+    "correct": 2,
+    "explanation": "Synchronised clocks let examiners align events across systems. The lesson does not claim that unsynchronised clocks make evidence inadmissible; that would be a legal conclusion.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Kestrel's investigation was internal for two weeks before a police complaint was filed. What is the main lesson for its records?",
+    "options": [
+      "Internal records are irrelevant once the police begin their own investigation",
+      "Internal records should be rewritten in police format before the hand-over",
+      "Internal records can be completed from memory once the complaint is filed",
+      "Internal evidence should be handled from the start as if it may reach a court"
+    ],
+    "correct": 3,
+    "explanation": "Internal matters often become legal ones, and contemporaneous records cannot be created afterwards. Rewriting records would undermine them.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the Kestrel hand-over, why does the lab not complete the Section 63 certificate itself?",
+    "options": [
+      "Because only the police may complete certificates for internal evidence",
+      "Because the certificate is signed by the responsible person and the expert, so the lab supplies the facts",
+      "Because certificates are needed only for evidence seized under BNSS Section 105",
+      "Because a lab that has examined the device is disqualified from contributing to any part of the certificate"
+    ],
+    "correct": 1,
+    "explanation": "The people who sign Parts A and B vouch for its contents. The lab's role is to supply accurate, documented facts so that they can do so truthfully.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The firewall export E-04 reached the lab without a manifest. How should the hand-over note treat it?",
+    "options": [
+      "Record that its integrity anchor is the lab's intake hash, not a hash taken at source",
+      "Omit E-04 from the hand-over, since items without manifests cannot be produced",
+      "Ask IT operations to generate a manifest now and backdate it to the export",
+      "Describe E-04 as verified at source in the note, because the lab hashed it immediately on arrival"
+    ],
+    "correct": 0,
+    "explanation": "The limitation is stated honestly so that nobody assumes source verification. Backdating would be fabrication, and omission hides relevant evidence.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In two Supreme Court cases on the old Section 65B, Anvar P.V. (2014) and Arjun Panditrao (2020), what did the Court hold about the certificate?",
+    "options": [
+      "That a certificate was optional when the original device was unavailable",
+      "That certificates were required only for evidence from government computers",
+      "That the certificate was a condition for admitting secondary electronic evidence",
+      "That hash values were mandatory in every certificate under Section 65B"
+    ],
+    "correct": 2,
+    "explanation": "Both judgments treated the 65B(4) certificate as a condition for admitting secondary electronic evidence. How the BSA provisions are applied now is a question for counsel.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An old Kestrel procedure tells staff to 'attach a 65B certificate'. What does the lesson recommend?",
+    "options": [
+      "Keep the procedure unchanged, because courts still use the old section numbers",
+      "Delete the step, because certificates are no longer needed under the BSA",
+      "Replace it with a reference to BNSS Section 105, which now covers certificates for all seized electronic records",
+      "Update it to refer to the current provision, record the change and have counsel confirm the wording"
+    ],
+    "correct": 3,
+    "explanation": "Out-of-date templates may omit fields such as the hash algorithm. The update is recorded and checked by the legal adviser, since it concerns legal wording.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement about the DPDP Act and forensic work matches the lesson?",
+    "options": [
+      "The Act does not apply to any data processed during an internal investigation",
+      "The Act has exemptions for investigation, but their application is a legal question, and minimisation is good practice regardless",
+      "The Act requires every person whose data appears in an image to give consent before any examination begins, without exception",
+      "The Act requires all forensic images to be deleted within 30 days of acquisition"
+    ],
+    "correct": 1,
+    "explanation": "Exemptions exist, including for prevention, detection, investigation or prosecution of offences, but their scope for a given organisation is for counsel. Minimisation protects people and the investigation either way.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which practice best applies data minimisation to the Kestrel laptop image?",
+    "options": [
+      "Examine only what the authorised scope requires and keep unrelated personal data out of the report",
+      "Delete every personal file from the working copy before analysis begins",
+      "Share the full image with every interested department so nothing is missed",
+      "Copy all personal messages into an appendix of the report so that the court can see the full context"
+    ],
+    "correct": 0,
+    "explanation": "Minimisation limits examination, access and reporting to the scope. Deleting files from a working copy alters evidence, and broad sharing or copying expands exposure.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Under the BNSS, a court or police officer may require a person to produce a document or other thing, expressly including digital evidence. How should an organisation respond to such a requirement?",
+    "options": [
+      "Send the original device immediately to avoid any appearance of delay",
+      "Ignore it until a Section 63 certificate has been issued by the police",
+      "Route it through the legal adviser and produce a verified, documented copy",
+      "Ask the lab to decide which records are relevant and send those only"
+    ],
+    "correct": 2,
+    "explanation": "Production requests are legal processes. The legal adviser manages the response, and the lab provides a verified copy with its records.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson say a strong acquisition with a weak record is legally weaker than a modest acquisition with a complete record?",
+    "options": [
+      "Because courts check evidence through records such as certificates, custody logs and notes",
+      "Because modest acquisitions are faster to complete and so leave much less room for human error",
+      "Because Indian courts prefer logical copies to full physical images",
+      "Because complete records automatically make the evidence admissible"
+    ],
+    "correct": 0,
+    "explanation": "Legal instruments test evidence indirectly through its records. Complete records do not guarantee admissibility, which is for the court, but they remove grounds for challenge.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which of these decisions belongs to counsel and the court rather than to the forensic lab?",
+    "options": [
+      "Which hash algorithm to record at acquisition",
+      "Whether a particular electronic record is admissible",
+      "How to word a fact so that it is separate from an opinion",
+      "Which custody log entries need a dated correction memorandum"
+    ],
+    "correct": 1,
+    "explanation": "Admissibility is a legal decision. The lab controls the quality of its records, methods and wording.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A Kestrel custody log is kept on a shared drive that any employee can edit. Why is this a legal as well as a security concern?",
+    "options": [
+      "Because shared drives are prohibited for evidence records under the IT Act",
+      "Because the CERT-In Directions require custody logs to be held by CERT-In",
+      "Because the BSA requires all custody logs to be printed and signed in ink by each custodian",
+      "Because anyone could have altered it, which invites a challenge to the record itself"
+    ],
+    "correct": 3,
+    "explanation": "Evidence records are evidence too. Uncontrolled edit access lets the other side question whether the record was altered. Access controls and hashes on the record defend against this.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In Figure 1, which record links the 'Acquisition, examination' row to the 'Production in court' row?",
+    "options": [
+      "The video recording of the seizure made under BNSS Section 105",
+      "The organisation's CERT-In incident report submitted within six hours",
+      "The hash value and algorithm recorded at acquisition and cited on the certificate",
+      "The list of unrelated personal data kept in the minimisation record"
+    ],
+    "correct": 2,
+    "explanation": "The hash recorded during acquisition reappears in Parts A and B of the certificate, which is why it must be recorded with its algorithm and traced through custody.",
+    "lesson": 4,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A matter began before 1 July 2024 and is heard after it. Which law governs the electronic evidence?",
+    "options": [
+      "Always the BSA, because new procedural law applies to every pending case",
+      "Always the old Evidence Act, because the conduct occurred before the change",
+      "Whichever law the forensic lab's procedure manual refers to",
+      "A question for counsel and the court; the lab keeps records that satisfy either"
+    ],
+    "correct": 3,
+    "explanation": "Transitional questions are legal questions. The lab's job is unchanged: records that let either certificate be completed truthfully.",
+    "lesson": 4,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does BSA Section 61 say about electronic records?",
+    "options": [
+      "That electronic records may be produced in court only with an accompanying certificate issued by CERT-In",
+      "That admissibility shall not be denied on the sole ground that a record is electronic or digital",
+      "That electronic records are secondary evidence unless printed and signed",
+      "That electronic records older than 180 days are presumed to be unreliable"
+    ],
+    "correct": 1,
+    "explanation": "Section 61 states that the admissibility of a record shall not be denied merely because it is electronic or digital. Other rules, including Section 63, still govern how it is proved.",
+    "lesson": 4,
+    "difficulty": "medium"
+  }
+]

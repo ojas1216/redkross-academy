@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A case owner authorises two invoice versions. Which decision comes first?",
+    "options": [
+      "Hash the largest accessible disk.",
+      "Create an identical working copy of every available partition.",
+      "Define the source and selection covered by the authority.",
+      "Set the final report title before choosing the time window."
+    ],
+    "correct": 2,
+    "explanation": "The question and its authorised boundary determine whether a proposed collection is appropriate.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What does a stored raw image most directly represent?",
+    "options": [
+      "The bytes supplied for the selected address range.",
+      "Every byte ever present on the underlying physical medium.",
+      "Every historical physical byte.",
+      "A journal of all user actions."
+    ],
+    "correct": 0,
+    "explanation": "The source interface and selected extent determine what enters the recorded byte stream.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which record best distinguishes file-level from volume-level acquisition?",
+    "options": [
+      "The cryptographic algorithm named in the final receipt.",
+      "The brand of the destination drive used by the examiner.",
+      "The original calendar date of the earliest retained file.",
+      "How the acquisition selected its input bytes."
+    ],
+    "correct": 3,
+    "explanation": "Two items described as logical images may use very different selection methods.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which question is best answered first from a document service revision history?",
+    "options": [
+      "Who personally made the edit?",
+      "Which retained version changed the bank-account field?",
+      "Which person was sitting at the laptop during the edit?",
+      "Which encrypted storage blocks contain the offline cache?"
+    ],
+    "correct": 1,
+    "explanation": "A revision history can identify retained changes while personal attribution needs other evidence.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An image matches a receipt but the wrong volume was selected. What follows?",
+    "options": [
+      "Matching digests establish that the source authority was fulfilled.",
+      "The verified stream still represents the wrong scope.",
+      "The omitted partition is known.",
+      "The full scope was met."
+    ],
+    "correct": 1,
+    "explanation": "Integrity of the produced stream cannot establish that the operator selected the intended source.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why might two valid captures from an encrypted laptop differ?",
+    "options": [
+      "A valid bitwise acquisition must always return identical plaintext.",
+      "The two digests should match once the source file names match.",
+      "All valid captures show plaintext.",
+      "They used different views of the stored data."
+    ],
+    "correct": 3,
+    "explanation": "An unlocked file interface and underlying encrypted sectors return different representations.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What does a matching digest for the master and working copy support?",
+    "options": [
+      "Their compared byte streams agree at verification.",
+      "The computer clock was correct during the original invoice edit.",
+      "The stored file came from the person named in its metadata.",
+      "The source selection included every relevant invoice version."
+    ],
+    "correct": 0,
+    "explanation": "A digest comparison addresses byte integrity for specified objects at the time of comparison.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A report shows 16,777,216 bytes. Which description is exact?",
+    "options": [
+      "16 million bytes exactly.",
+      "16 million bytes.",
+      "16 MiB.",
+      "16 MiB of recovered documents."
+    ],
+    "correct": 2,
+    "explanation": "One mebibyte is 1,048,576 bytes and the size alone says nothing about content.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What extra question does reading the destination again answer?",
+    "options": [
+      "Did the case owner authorise a capture of this particular source?",
+      "Was the original invoice edited by its directory account owner?",
+      "Did the stored result retain the bytes expected?",
+      "Was the collection authorised?"
+    ],
+    "correct": 2,
+    "explanation": "Reading back the destination tests the stored copy independently of a digest calculated during transfer.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A tool reports the first difference at character 100001. Which zero-based offset is that?",
+    "options": [
+      "100000.",
+      "100001.",
+      "99999, because numbering begins one byte before the file.",
+      "It cannot be determined even if the numbering conventions are known."
+    ],
+    "correct": 0,
+    "explanation": "Converting a one-based position to a zero-based offset requires subtracting one.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should an examiner interpret the changed working-copy digest in the fixture?",
+    "options": [
+      "Treat the preserved master as altered without checking it.",
+      "Replace the recorded source digest with the working-copy value.",
+      "Replace the expected digest.",
+      "Record a discrepancy in that derivative."
+    ],
+    "correct": 3,
+    "explanation": "The observed change involves the derivative and does not establish an alteration to the original.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which result identifies the location of the changed byte?",
+    "options": [
+      "The opening characters of the new SHA-256 value.",
+      "The separate byte comparison.",
+      "The destination name assigned during the acquisition.",
+      "The SHA-256 prefix."
+    ],
+    "correct": 1,
+    "explanation": "A digest mismatch signals a difference but does not provide its location.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A tool substitutes zeros for two unreadable sectors. What must accompany the image?",
+    "options": [
+      "A new checksum only.",
+      "The affected addresses and the handling recorded by the tool.",
+      "A claim that the entire copy failed despite all other readable regions.",
+      "A new expected digest computed only after deleting the acquisition log."
+    ],
+    "correct": 1,
+    "explanation": "The stored zero pattern cannot by itself identify which regions the tool could not read.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement fits a verified image with two documented unreadable regions?",
+    "options": [
+      "Every address in the source yielded the exact bytes now in storage.",
+      "The whole source was recovered.",
+      "Every source zero was read.",
+      "The stored output verifies, with gaps in source coverage."
+    ],
+    "correct": 3,
+    "explanation": "A verified copy of a produced stream can contain documented substitutions for unavailable source bytes.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An export contains only the current version. Which report wording is justified?",
+    "options": [
+      "The supplied export contains no earlier version.",
+      "No previous version existed anywhere in the organisation.",
+      "The previous version was deliberately deleted by the file owner.",
+      "The local synchronisation client never stored an earlier version."
+    ],
+    "correct": 0,
+    "explanation": "The result describes the observed selection and does not establish the history of other sources.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why retain an acquisition log when the output has a digest?",
+    "options": [
+      "It reconstructs lost bytes.",
+      "The log makes additional scope approval unnecessary for later cases.",
+      "The log documents collection decisions and read errors.",
+      "The log proves that the assigned user personally edited the invoice."
+    ],
+    "correct": 2,
+    "explanation": "The digest records a property of bytes while the log describes how they were obtained.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which timing detail belongs in a defensible receipt?",
+    "options": [
+      "Only the time at which the examiner finished writing the report.",
+      "The report completion date only.",
+      "Original time values and their time zones.",
+      "A single rounded local time."
+    ],
+    "correct": 2,
+    "explanation": "Receipt, acquisition and modification are different events that can be recorded on different clocks.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The investigator needs evidence outside the authorised boundary. What is the next step?",
+    "options": [
+      "Request authority for the additional source.",
+      "Collect it under the old approval because the device is at hand.",
+      "Use a separate destination to treat the source as already authorised.",
+      "Collect under the old approval."
+    ],
+    "correct": 0,
+    "explanation": "A technical opportunity to read more evidence does not expand the documented case authority.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The captured directory has no old register. Which follow-up best tests local-only changes?",
+    "options": [
+      "Conclude that the final cloud revision always matches every endpoint.",
+      "Identify the author by comparing the directory and file names alone.",
+      "Treat the absence of older files as evidence of deliberate deletion.",
+      "Check whether an authorised synchronisation history exists."
+    ],
+    "correct": 3,
+    "explanation": "A separate record may establish what the selected export cannot show about synchronisation.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two receipts name image.dd. What should a reviewer seek before comparing them?",
+    "options": [
+      "Proof that the base file names are spelled identically on both receipts.",
+      "Case identifiers and their links to each source.",
+      "The last access dates alone.",
+      "The base file names alone."
+    ],
+    "correct": 1,
+    "explanation": "Names can repeat across folders or cases, so establish exactly which objects the receipts identify.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which item belongs in the scope description of a volume image?",
+    "options": [
+      "The last person physically present when the evidence was discussed.",
+      "The selected volume and its readable address range.",
+      "The working directory of the person who later drafted the narrative.",
+      "The selected hashing algorithm."
+    ],
+    "correct": 1,
+    "explanation": "The address range helps another examiner understand the boundary of the acquired material.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A valid source digest and a destination digest differ. What should happen first?",
+    "options": [
+      "Replace the expected digest.",
+      "Attribute deliberate tampering to the last person in the custody record.",
+      "Discard the master and keep only the working copy that investigators used.",
+      "Preserve both results and verify what was compared."
+    ],
+    "correct": 3,
+    "explanation": "A mismatch calls for checking source identity, method and custody before drawing conclusions.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why can a live acquisition need a start time and a finish time?",
+    "options": [
+      "Its source can change during the read.",
+      "Its end time always reveals the exact moment of every source change.",
+      "Its two timestamps remove the need to document errors and exclusions.",
+      "It proves the source stayed still."
+    ],
+    "correct": 0,
+    "explanation": "A changing source may contribute bytes from different moments in the collection interval.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A working copy still matches the expected digest but the stored master does not. Which claim is premature?",
+    "options": [
+      "The master needs a new independent read from its documented location.",
+      "The expected digest should be checked against the correct case item.",
+      "The stored master was deliberately tampered with.",
+      "A fresh read is warranted."
+    ],
+    "correct": 2,
+    "explanation": "Mismatch warrants investigation and does not establish deliberate alteration or a responsible individual.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement best closes the fictional invoice acquisition decision?",
+    "options": [
+      "The account identifies the editor.",
+      "A byte-identical copy removes uncertainty about missing service revisions.",
+      "The retained revisions can show a field change within their scope.",
+      "The device image can prove every event outside the authorised time period."
+    ],
+    "correct": 2,
+    "explanation": "A scoped conclusion connects the evidence to the question while leaving unsupported attribution open.",
+    "lesson": 1,
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "C09-M02-L01-F1": {
+    "type": "flow",
+    "dir": "TB",
+    "title": "From authorised scope to a verified review copy",
+    "alt": "Four stages show scope approval, the acquisition read, verification of the preserved master, and derivation of the review copy.",
+    "caption": "Use a source identifier and extent to define the comparison, then verify each stored copy independently.",
+    "steps": [
+      {
+        "label": "Choose the source and scope",
+        "sub": "Case question, authority and extent",
+        "tone": "slate"
+      },
+      {
+        "label": "Read the selected range",
+        "sub": "Interface, byte count and errors",
+        "tone": "blue"
+      },
+      {
+        "label": "Verify the preserved master",
+        "sub": "Read back and compare digests",
+        "tone": "amber"
+      },
+      {
+        "label": "Derive a working copy",
+        "sub": "Record its parent and verification",
+        "tone": "green"
+      }
+    ]
+  }
+}

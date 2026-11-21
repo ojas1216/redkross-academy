@@ -1,0 +1,327 @@
+[
+  {
+    "q": "The web01 authentication log shows 'Accepted publickey for deploy from 172.31.0.20'. Which statement stays within what that line proves?",
+    "options": [
+      "A client holding the deploy account's private key authenticated from 172.31.0.20",
+      "The engineer responsible for deployments logged in to web01 from the build server",
+      "Someone stole the deploy key, because public-key logins are rarely used on web01",
+      "The deploy account was compromised and used to copy the customer list out of Tamarind"
+    ],
+    "correct": 0,
+    "explanation": "The line proves an authentication by a holder of the key from that address. Naming a person, inferring theft or linking it to exfiltration each needs further, independent evidence.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which kind of question is digital forensic evidence usually least able to answer on its own?",
+    "options": [
+      "When a file was last written according to the file system",
+      "Which network address an authenticated session came from",
+      "Why a person chose to copy a particular file",
+      "How a scheduled job placed a file in a directory"
+    ],
+    "correct": 2,
+    "explanation": "Traces are strong on what, when, where and how, weaker on who and usually silent on why. Intent is weighed by investigators and decision-makers using all the evidence.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An incident lead reboots a server to stop a suspicious process before anyone captures memory. In forensic terms, what is the main cost of that decision?",
+    "options": [
+      "The disk image will no longer hash to the same value as before the reboot",
+      "Volatile evidence such as memory contents and live connections is destroyed",
+      "The chain of custody for the server is broken and cannot be restarted",
+      "The server's logs become inadmissible because the system state was changed during the incident"
+    ],
+    "correct": 1,
+    "explanation": "A reboot destroys volatile state. It does not by itself break custody or make logs unusable, and no image hash existed before the reboot to compare with.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Under the lesson's integrity model, on which object should analysis tools be run?",
+    "options": [
+      "The original device, so that the examiner sees the evidence exactly as found",
+      "The forensic image, because its hash already matches the source",
+      "Whichever copy is fastest, provided it is hashed after the analysis",
+      "A working copy whose hash has been verified against the image"
+    ],
+    "correct": 3,
+    "explanation": "Working copies are examined so that the image stays a fixed reference and the original stays sealed. If a tool alters a working copy, a fresh one is made from the image.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A working copy's hash no longer matches the image after an analysis tool ran. What does the integrity model say to do?",
+    "options": [
+      "Discard that working copy, make a fresh one from the image and verify it",
+      "Re-acquire the original device, because the image itself may now be unreliable too",
+      "Record the new hash as the image hash so that later checks will match",
+      "Continue the analysis, because only the original's integrity matters"
+    ],
+    "correct": 0,
+    "explanation": "The image was never touched, so a new verified working copy restores a faithful starting point. Re-acquisition is unnecessary, and replacing the recorded hash would destroy the reference.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Two SHA-256 values match: one recorded for the web01 disk at acquisition, one computed on the image today. What does the match establish?",
+    "options": [
+      "That the disk was not altered by anyone before the acquisition began",
+      "That the acquisition captured every relevant artefact on the server",
+      "That the image is bit-for-bit identical to the disk as it was read",
+      "That the findings drawn from the image are correct interpretations"
+    ],
+    "correct": 2,
+    "explanation": "A hash match proves identity between the two objects at the moments each was hashed. It says nothing about the source's history before acquisition, completeness of scope or interpretation.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which of these is a fact rather than an inference or an opinion?",
+    "options": [
+      "The connection came from the build server, since that address belongs to it",
+      "The log contains an accepted public-key authentication for deploy at 05:51:40 UTC",
+      "The copy is more consistent with the backup job than with an external actor reaching web01",
+      "The deploy key was probably shared among several members of the team"
+    ],
+    "correct": 1,
+    "explanation": "A fact is a direct, reproducible observation. Mapping an address to a server is an inference resting on the inventory; weighing explanations is an opinion; 'probably shared' is speculation.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A report says the connection 'came from the build server' because 172.31.0.20 is the build server's address in the network inventory. What must accompany that inference?",
+    "options": [
+      "A screenshot of the build server's desktop captured at the exact time of the connection",
+      "The name of the employee who normally administers the build server",
+      "A second examiner's signature confirming that the address is correct",
+      "The reasoning and the assumption that the inventory was accurate on that date"
+    ],
+    "correct": 3,
+    "explanation": "Inferences need their reasoning and the assumptions that would break them. If the address was reassigned, the inference fails, so the dependency on the inventory must be stated.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement best describes repeatability in the forensic sense?",
+    "options": [
+      "Every examiner will reach the same overall interpretation of a case",
+      "Another competent examiner following the documented method obtains the same observations",
+      "A tool produces identical output each time it runs on the same machine",
+      "The investigation can be repeated later on the live system itself if anyone needs to check it"
+    ],
+    "correct": 1,
+    "explanation": "Repeatability concerns factual observations reproduced by someone else following the record. Interpretations may legitimately differ, and live systems change, so they cannot be re-examined in the same state.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the course treat minimal intrusion as 'touch it deliberately, minimally and on the record' rather than 'never touch a live system'?",
+    "options": [
+      "Because powering off can destroy more evidence than a careful live collection would change",
+      "Because live systems are not covered by any forensic guidance or standard",
+      "Because modern tools no longer leave any footprint on a running system",
+      "Because courts now refuse any evidence that was collected from a system after it was powered off"
+    ],
+    "correct": 0,
+    "explanation": "Shutting down loses memory, connections and sessions. Live collection changes the system too, so the principle is to choose the least-changing method and record its footprint.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Two browser-history tools report different visit counts for the same search term. Which response reflects the competence principle?",
+    "options": [
+      "Report the higher count, because under-reporting is the greater risk",
+      "Report the count from the tool with the larger market share",
+      "Average the two counts and add a note that forensic tools sometimes disagree with each other",
+      "Test both tools on data with a known answer and verify the artefact directly"
+    ],
+    "correct": 3,
+    "explanation": "Competence means understanding what each tool measures and validating it against known data, then cross-checking the underlying artefact. Choosing or averaging figures does not resolve the error.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "While examining web01, the examiner finds evidence pointing away from the deploy account. What does the objectivity principle require?",
+    "options": [
+      "Mention it only if the commissioning manager specifically asks about alternative explanations",
+      "Report it with the same care as evidence supporting the working theory",
+      "Leave it out unless it conclusively disproves the main hypothesis",
+      "Pass it informally to the account holder's representative"
+    ],
+    "correct": 1,
+    "explanation": "The examiner's duty is to the facts. Exculpatory findings belong in the report; omitting them undermines the examination when they are later discovered.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which ACPO principle is most directly about allowing an independent third party to repeat the work?",
+    "options": [
+      "No action taken by investigators should change data that may later be relied upon in court",
+      "A person accessing original data must be competent to do so",
+      "An audit trail of all processes applied to the evidence must be kept",
+      "The officer in charge is responsible for compliance with the law"
+    ],
+    "correct": 2,
+    "explanation": "The audit-trail principle exists so that an independent third party can examine the processes and achieve the same result. The others concern non-alteration, competence and responsibility.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At the start of the web01 examination, why should the examiner write down H3 (a misconfigured backup job) alongside H1 (external theft)?",
+    "options": [
+      "So that each hypothesis can be tested by an observation that could rule it out",
+      "Because reports must always list exactly three competing hypotheses",
+      "Because the innocent explanation is the default conclusion in forensic reports",
+      "So that the report can cite H3 if H1 later turns out to be hard to prove"
+    ],
+    "correct": 0,
+    "explanation": "Listing alternatives is how objectivity is practised: each predicts different traces, and the examiner looks for the observations that separate them. No hypothesis is a default conclusion.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "H3 predicts that the customer-list copy was written by a scheduled job. Which observation would most strongly count against H3?",
+    "options": [
+      "The backup job's configuration names the backup directory as its target",
+      "The file's creation time matches no scheduled task, but does match an interactive shell session",
+      "The server's outbound flow records show no transfer of comparable size",
+      "The file has exactly the same size as the customer list held in the production database"
+    ],
+    "correct": 1,
+    "explanation": "A creation time tied to an interactive session rather than any scheduled task contradicts H3's prediction. The other observations are consistent with H3 or neutral.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the forensic process figure, why does the loop return from Analyse to Examine rather than to Identify?",
+    "options": [
+      "Because identification is complete once the first evidence has been collected",
+      "Because looping back to the identification stage would break the chain of custody for the items",
+      "Because new questions are usually answered by extracting more from evidence already held",
+      "Because the analysis stage cannot request any new evidence sources at all"
+    ],
+    "correct": 2,
+    "explanation": "Most new questions are answered by examining preserved material further. New sources can still be identified, but the typical loop is analysis sending the examiner back to extract more.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson say preservation decisions belong in the first hour of an incident?",
+    "options": [
+      "Because formal guidance sets a fixed one-hour deadline for preservation",
+      "Because evidence lost before preservation cannot be recovered at the analysis stage",
+      "Because hashes can only be computed while the incident is still active",
+      "Because custody records must be opened before anyone outside the response team is told"
+    ],
+    "correct": 1,
+    "explanation": "Later stages can only work with what earlier stages kept. Rotation, reboots and clean-up remove traces early, so preservation must be decided before them, not after scoping meetings.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At 06:10 the on-call engineer wants to delete the stray customer-list copy to reduce exposure. Which action best balances risk and evidence?",
+    "options": [
+      "Delete it at once, then note the deletion in the incident ticket afterwards",
+      "Move it to a personal folder so that it is out of the web-accessible directory",
+      "Leave it accessible until a forensic image of the whole server is complete",
+      "Restrict access to the directory, record the file's details and leave it in place"
+    ],
+    "correct": 3,
+    "explanation": "Restricting access removes the exposure while keeping the file and its metadata. Deleting or moving destroys or alters evidence, and leaving it exposed ignores the business risk.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What makes a note 'contemporaneous' in the documentation principle?",
+    "options": [
+      "It is written at the time of the action, not reconstructed from memory later",
+      "It is typed into a case-management system rather than written on paper",
+      "It is countersigned by a second examiner before the end of the shift in which it was written",
+      "It records only the final conclusions rather than every intermediate step"
+    ],
+    "correct": 0,
+    "explanation": "Contemporaneous means recorded as the work happens. The medium and countersignatures are separate matters, and notes should record steps, not just conclusions.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why are the seven working principles described as one system rather than seven separate rules?",
+    "options": [
+      "Because a breach of any one principle automatically makes all evidence inadmissible",
+      "Because each principle depends on others, as hashes prove integrity only if documented and custody is continuous",
+      "Because standards bodies require all seven principles to be signed off together at case closure",
+      "Because the principles were all published together in the ACPO guide"
+    ],
+    "correct": 1,
+    "explanation": "The principles reinforce each other: integrity depends on documentation and custody, repeatability on documentation, objectivity on competence. Admissibility is not automatic, and ACPO has four principles.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A finding in the web01 report cites the working copy by its hash. What does this allow a defence expert to do?",
+    "options": [
+      "Examine the original disk without any further custody records",
+      "Accept the finding without checking it, because the hash proves it",
+      "Obtain the image, verify it against the recorded values and examine the same bytes",
+      "Recompute the finding independently using a different and stronger hash algorithm instead"
+    ],
+    "correct": 2,
+    "explanation": "Citing copies by hash makes the work checkable: the expert can verify that they hold identical data and test the finding. A hash does not prove an interpretation correct.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How do the priorities of incident response and forensics typically conflict?",
+    "options": [
+      "Responders want broad log collection, while examiners want as little data as possible",
+      "Responders prefer powered-off systems for speed, while examiners insist on live analysis wherever possible",
+      "Responders favour documentation, while examiners favour speed above all else",
+      "Responders prioritise stopping harm quickly, while examiners prioritise preserving what happened"
+    ],
+    "correct": 3,
+    "explanation": "IR aims to contain and restore; forensics aims at accuracy and defensibility. Mature teams take IR decisions with evidence in mind rather than letting either extreme win.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The examiner finds no outbound transfer in the flow records but knows some traffic bypasses the monitored gateway. How should the report express this?",
+    "options": [
+      "State that no data left the organisation at all, because the flow records show no transfer of that size",
+      "State that no comparable transfer appears in the monitored flow records, and name the coverage limit",
+      "Omit the flow records, because incomplete sources cannot support any finding",
+      "State that exfiltration probably occurred through an unmonitored path"
+    ],
+    "correct": 1,
+    "explanation": "A negative finding is bounded by the source's coverage. The report should state exactly what the source shows and its limit, without claiming certainty or speculating beyond it.",
+    "lesson": 1,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which pre-incident measure does most to make a question like 'did the customer list leave?' answerable later?",
+    "options": [
+      "Centralised logs and flow records retained longer than typical attacker dwell times",
+      "Configuring servers to delete temporary files every night so that there is less clutter to search",
+      "Rebuilding servers from images weekly so that attackers cannot persist",
+      "Restricting forensic tools to the security team's laptops only"
+    ],
+    "correct": 0,
+    "explanation": "Retained, centralised telemetry survives local log clearing and outlasts dwell time. Nightly deletion and frequent rebuilds remove traces, and tool placement does not create evidence.",
+    "lesson": 1,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A draft report says 'the user deliberately exfiltrated the file'. Which revision follows the lesson's guidance?",
+    "options": [
+      "The user probably exfiltrated the file, given the available evidence",
+      "The file was likely taken deliberately, although intent cannot be fully proven from the logs alone",
+      "The account appears to have been used maliciously by its owner",
+      "The file was downloaded by a client using the deploy credentials at 05:51:40 UTC"
+    ],
+    "correct": 3,
+    "explanation": "The revision states what the evidence shows: an account, a time and an action. Hedged versions still assert intent or attribute the act to a person, which the traces cannot establish.",
+    "lesson": 1,
+    "difficulty": "hard"
+  }
+]

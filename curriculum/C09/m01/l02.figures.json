@@ -1,0 +1,45 @@
+{
+  "C09-M01-L02-F1": {
+    "title": "Evidence classes in the Kestrel Freight intake",
+    "caption": "Each evidence class has a different stability and a different earliest integrity anchor, shown against the fictional Kestrel items.",
+    "alt": "Table with four columns: Class, Kestrel example, Stability and First integrity anchor. Physical item: E-01 laptop and E-02 USB drive, stable while sealed, anchored by seal number and photos. Physical document: E-05 printed spreadsheet, stable but fragile to handling, anchored by envelope and intake note. Provider export: E-03 mailbox archive, fixed at export time, anchored by the provider manifest hash. Provider export with no manifest: E-04 firewall CSV, fixed at export time, anchored only by the lab hash at intake. Full device image: a future image of E-01, fixed once verified, anchored by the hash at acquisition. Volatile state: none, because the laptop arrived powered off; lost at power-off; not available. Derived artefact: parsed timelines and extracts, recreatable from source, anchored by tool, version and source hash.",
+    "type": "table",
+    "columns": ["Class", "Kestrel example", "Stability", "First integrity anchor"],
+    "rowTones": ["slate", "slate", "blue", "orange", "green", "red", "violet"],
+    "rows": [
+      ["Physical item", "E-01 laptop, E-02 USB drive", "Stable while sealed", "Seal number + photos"],
+      ["Physical document", "E-05 printed spreadsheet", "Stable; fragile to handling", "Envelope + intake note"],
+      ["Provider export", "E-03 mailbox archive", "Fixed at export time", "Provider manifest hash"],
+      ["Provider export, no manifest", "E-04 firewall CSV", "Fixed at export time", "Lab hash at intake only"],
+      ["Full device image", "Future image of E-01", "Fixed once verified", "Hash at acquisition"],
+      ["Volatile state", "None: laptop arrived off", "Lost at power-off", "Not available"],
+      ["Derived artefact", "Parsed timeline, extracts", "Recreatable from source", "Tool, version, source hash"]
+    ],
+    "note": "The first integrity anchor sets how far back the lab can vouch for an item's state."
+  },
+  "C09-M01-L02-F2": {
+    "title": "One lab source, several generations: the acquisition transcript",
+    "caption": "The course transcript as a provenance graph: each generation is linked to the forensic copy by the check recorded for it.",
+    "alt": "Graph. suspect.dev, the source as labelled, has a solid arrow to evidence.dd, the forensic copy with SHA-256 e3a74e55...0f21 and 16,777,216 bytes, labelled stream hash matches source. evidence.dd has a solid arrow to working.dd, labelled copy verified: SHA-256 matches. working.dd has a solid arrow to working.dd after edit, SHA-256 16d816db...7f2c, labelled one byte changed at offset 100000. A dashed arrow from working.dd after edit to evidence.dd is labelled byte compare: differ at char 100001. A dashed arrow from evidence.dd to an MD5 digest node, 9330...2295, legacy compatibility only. A dashed arrow from working.dd to a derived artefacts node, which is the lesson's addition and not in the transcript.",
+    "type": "graph",
+    "dir": "LR",
+    "fixedDir": true,
+    "nodes": [
+      {"id": "src", "label": "suspect.dev", "sub": "source as labelled in transcript", "tone": "slate"},
+      {"id": "img", "label": "evidence.dd", "sub": "forensic copy · e3a74e55…0f21 · 16,777,216 bytes", "tone": "dark"},
+      {"id": "wk", "label": "working.dd", "sub": "working copy · same SHA-256", "tone": "blue"},
+      {"id": "mod", "label": "working.dd after edit", "sub": "SHA-256 16d816db…7f2c", "tone": "red"},
+      {"id": "md5", "label": "MD5 digest", "sub": "9330…2295 · legacy compatibility only", "tone": "slate"},
+      {"id": "der", "label": "Derived artefacts", "sub": "lesson addition, not in transcript", "tone": "violet"}
+    ],
+    "edges": [
+      {"from": "src", "to": "img", "label": "stream hash matches source"},
+      {"from": "img", "to": "wk", "label": "copy verified: SHA-256 matches"},
+      {"from": "wk", "to": "mod", "label": "1 byte changed at offset 100000"},
+      {"from": "mod", "to": "img", "label": "byte compare: differ at char 100001", "dashed": true},
+      {"from": "img", "to": "md5", "label": "second digest", "dashed": true},
+      {"from": "wk", "to": "der", "label": "analysis output", "dashed": true}
+    ],
+    "note": "A digest match links a generation to its anchor; it does not show the right source was chosen or unaltered before the first hash."
+  }
+}

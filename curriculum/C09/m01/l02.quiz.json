@@ -1,0 +1,327 @@
+[
+  {
+    "q": "Kestrel IT operations hands over a firewall CSV (E-04) with no hash or manifest. The lab computes its SHA-256 at intake at 16:40 IST. What can the lab later say on the strength of that value alone?",
+    "options": [
+      "The CSV is the complete and unaltered output of the firewall for 11 to 12 March",
+      "The CSV has not changed since export, because CSV files cannot be edited without trace",
+      "The file has not changed since intake; its earlier history must come from the exporter",
+      "Nothing useful, because a hash only has value when it is computed by the data's provider"
+    ],
+    "correct": 2,
+    "explanation": "A hash taken at intake anchors the item's state from intake onwards. Completeness and pre-intake history depend on IT operations, who exported it. The 'complete and unaltered output' option claims far more than the lab observed.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The SHA-256 of the received mailbox archive (E-03) matches the value on the provider's export manifest. Which statement is best supported?",
+    "options": [
+      "The lab holds the file the provider says it exported; the export filter may still have missed relevant mail",
+      "The pricing-team mailbox held no other relevant messages for the period, because the provider's export is a full copy of the mailbox",
+      "The provider's mail platform is shown to have been free of tampering throughout March 2026",
+      "The match proves that every message in the archive was sent by the account holder"
+    ],
+    "correct": 0,
+    "explanation": "The match ties the lab copy to the provider's export. It says nothing about what the export's filter left out, about the platform's integrity, or about who wrote the messages.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In section 5 of the course transcript, one byte of working.dd is changed at offset 100000, yet the comparison reports 'differ: char 100001'. Why?",
+    "options": [
+      "The change also moved the next byte, so the comparison reports the second altered position",
+      "The comparison skips the first byte of every file because it holds a header",
+      "SHA-256 works on blocks, so the reported position is rounded up to the next unit",
+      "Offsets count from zero, while the comparison numbers bytes starting at one"
+    ],
+    "correct": 3,
+    "explanation": "Offset 100000 is the 100,001st byte when counting from one, which is how the byte comparison reports positions. Hashing plays no part in the reported position.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the transcript, sections 2 and 3 both show e3a74e55…0f21 for evidence.dd. What does section 3 add that section 2 does not?",
+    "options": [
+      "It proves the source suspect.dev was not modified before section 1 was run",
+      "It re-reads the stored file, showing what is at rest matches what was read",
+      "It converts the stream digest into a format a court will accept as an image hash",
+      "Nothing; section 3 repeats section 2 so that a second examiner can sign it"
+    ],
+    "correct": 1,
+    "explanation": "Section 2 hashes the stream as it was written; section 3 hashes the file as stored, confirming the write. Neither can speak to the source's state before section 1.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Section 6 of the transcript records an MD5 value for evidence.dd. How should that value be treated in the case record?",
+    "options": [
+      "As the primary value, since a shorter digest is quicker for others to compare",
+      "As a secondary value kept for older records; SHA-256 stays the primary integrity value",
+      "As proof that the image is genuine, because two different algorithms now agree with each other",
+      "As redundant, so it should be deleted from the record to avoid confusing the reader"
+    ],
+    "correct": 1,
+    "explanation": "The transcript labels MD5 'legacy compatibility only'. MD5 has known practical collisions, so it supports compatibility, not primary integrity. Two digests agreeing still only show bit-identity.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The Kestrel question is whether the spreadsheet left the company network. The analyst's plan covers only files on laptop E-01. Using source-based classification, what is the most significant gap?",
+    "options": [
+      "Embedded document properties inside the spreadsheet have not yet been listed",
+      "The laptop's own operating-system logs have not been scheduled for parsing",
+      "The printed copy E-05 has not been compared line by line with the digital spreadsheet",
+      "Network-side records held elsewhere, such as firewall, proxy or mail platform logs"
+    ],
+    "correct": 3,
+    "explanation": "SP 800-86's sources include network traffic and applications, which are often held off the endpoint. Records of data leaving the network are most likely there, not in the laptop's files.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Laptop E-01 arrived powered off. A draft report later states which programs were running when the leak occurred. What is the problem?",
+    "options": [
+      "No memory or running state from before shutdown was available, so that claim needs other support",
+      "Running programs must always be inferred from the disk image, which has not been made yet",
+      "The claim is acceptable provided the laptop is switched on again in the lab so the examiner can confirm which programs start up",
+      "The receipt should have listed the running programs at intake for the claim to stand"
+    ],
+    "correct": 0,
+    "explanation": "Volatile state is lost at power-off, and the receipt recorded that state. Switching the laptop on would change evidence and would not show what ran earlier.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An HR manager forwards a screenshot of a chat message apparently sent by the employee. How should the lab classify and handle it?",
+    "options": [
+      "As the original record, since it shows the message exactly as the employee saw it",
+      "As system-generated evidence, so it can be relied on without further corroboration",
+      "As a derived presentation kept as a received item; seek the native record within scope",
+      "As inadmissible material that should be returned to HR without being logged"
+    ],
+    "correct": 2,
+    "explanation": "A screenshot is a rendering of a record, without its metadata. It is kept and logged as received, and the native message is requested through the authorised route. Discarding it loses a received item.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The pricing spreadsheet's 'author' property names the suspected employee. What is the soundest reading?",
+    "options": [
+      "It identifies who typed the figures, because the field is written by the operating system",
+      "It is unreliable and should be excluded, because document properties are user-editable",
+      "It proves the file was last saved on laptop E-01, since the name matches its user",
+      "It is application metadata from a configured name; treat it as a lead to corroborate"
+    ],
+    "correct": 3,
+    "explanation": "The application writes the author field from a configured user name, which can be inherited or edited. It is a hybrid record: neither an identification nor something to discard.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An analyst produces a timeline CSV by parsing a working copy of the laptop image. What must the record of that CSV include for it to be checkable?",
+    "options": [
+      "The source item and its hash, plus the tool, version and settings used",
+      "A screenshot of the tool's display at the moment the CSV was produced",
+      "A fresh SHA-256 of the CSV only, since the CSV is now the evidence item",
+      "The analyst's signature and the date, which together establish the CSV's provenance"
+    ],
+    "correct": 0,
+    "explanation": "A derived artefact is trustworthy through its verified source and recorded process, which let a second examiner re-create it. Hashing the CSV alone fixes the output but not how it was made.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "To limit personal data, the team considers a targeted collection of named folders instead of a full image of E-01. What is the main trade-off?",
+    "options": [
+      "Targeted collection cannot be hashed, so integrity can no longer be demonstrated",
+      "There is none, provided the folder list was agreed with the authorising party",
+      "Less data and intrusion, but no later answers about content it never captured",
+      "A full image avoids all privacy obligations, since it is only kept within the lab"
+    ],
+    "correct": 2,
+    "explanation": "Targeted collections reduce volume and intrusion but cannot answer questions about data they did not capture, such as deleted content. Both approaches can be hashed and both carry privacy duties.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The receipt describes E-02 as 'marked 32 GB' rather than '32 GB drive'. Why is that wording preferred?",
+    "options": [
+      "Capacities above 16 GB must be measured before any receipt can be signed",
+      "The marking is an observed label; the capacity the device reports is set at acquisition",
+      "Flash drives always hold less than their label states, so writing '32 GB drive' would put a false statement on the receipt",
+      "It allows the lab to replace the drive later with one of the same marking"
+    ],
+    "correct": 1,
+    "explanation": "A receipt records observations. The reported capacity is established when the drive is acquired and may differ from the label. The other options invent rules or misstate the reason.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Messages in E-03 suggest the employee also used a personal phone, which the receipt records as outside scope. What should the examiner do?",
+    "options": [
+      "Record the observation and refer the scope question to the authorising party",
+      "Ask the employee to hand over the phone, since the messages make it relevant",
+      "Ignore the phone entirely and leave the observation out of the notes",
+      "Request the phone's backups from the employee's personal cloud account directly"
+    ],
+    "correct": 0,
+    "explanation": "Extending collection is a scope decision for the authorising party. The examiner records what was seen and does not improvise collection, nor hide the observation.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Firewall CSV E-04 has timestamps with no time-zone marker, and the receipt is written in IST. What should happen before correlating the two?",
+    "options": [
+      "Assume IST, because the firewall is physically located in the Pune office",
+      "Subtract five and a half hours, because network devices always log in UTC",
+      "Correlate by order of events only, since absolute times are not needed",
+      "Confirm the export's time basis and the device clock with the exporter"
+    ],
+    "correct": 3,
+    "explanation": "The time basis of a provider export must be established from the source, not assumed. Either assumption could misplace events by 5 h 30 min; ordering alone fails across systems.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A USB connection record on the laptop was central in the Kestrel case. In a different case, the same type of record is ignored. Which concept explains this?",
+    "options": [
+      "Records of this type are only valid when the USB drive itself is also seized",
+      "System-generated records lose evidential weight after a fixed retention period",
+      "An artefact becomes evidence only when it is relevant to a question in the case",
+      "Only artefacts found in unallocated space are treated as evidence in practice"
+    ],
+    "correct": 2,
+    "explanation": "An artefact is a trace; it becomes evidence relative to the case's questions. The other options invent rules about validity or weight.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lab keep printout E-05 in its own sealed envelope instead of scanning it and discarding the paper?",
+    "options": [
+      "A scan would carry the original spreadsheet's file metadata, which would duplicate E-03",
+      "It is a physical item that may matter to other examinations, and no scan replaces it",
+      "Paper documents are the strongest evidence type and outrank any digital record",
+      "Scanning would change its hash, so the printout could no longer be verified"
+    ],
+    "correct": 1,
+    "explanation": "The printout is physical evidence in its own right and may be needed by other disciplines. It carries none of the file's metadata, and paper has no hash; its anchor is the envelope and intake note.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The provider re-zips the same mailbox messages and the new archive's SHA-256 differs from E-03's manifest value. What is the most likely explanation?",
+    "options": [
+      "The messages must have been altered, because identical content always gives the same archive hash",
+      "SHA-256 is unreliable for archives, so MD5 should be used for compressed files instead",
+      "The lab's copy of E-03 has been corrupted and should be replaced with the new archive",
+      "The hash covers the container's bytes, which can change on re-packing; record which object was hashed"
+    ],
+    "correct": 3,
+    "explanation": "An archive hash covers the container, whose bytes depend on packing details such as stored times and compression. The contents may be unchanged; compare at the level that was hashed.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague says the matching SHA-256 values prove evidence.dd is authentic. What is the most accurate correction?",
+    "options": [
+      "A match shows bit-identity with what was hashed earlier, not that the source was the right one or unaltered before",
+      "A match proves authenticity only if the MD5 value in section 6 also matches, since two algorithms together rule out every alteration",
+      "A match is meaningless unless the hash was computed on the original hardware",
+      "A match proves authenticity, but only for images smaller than 16 MiB"
+    ],
+    "correct": 0,
+    "explanation": "A digest match is strong evidence that two sets of bits are identical. It cannot show that the right source was chosen or that the source was unaltered before section 1.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A vendor points to a NIST CFTT report on its imaging tool. How should the lab treat that report?",
+    "options": [
+      "As certification that any version of the tool may be used without further checks",
+      "As irrelevant, because CFTT only tests tools used by government agencies",
+      "As a record of how a tested version behaved; the lab still checks its own version and setup",
+      "As a legal guarantee that images made with the tool will be admitted in Indian courts"
+    ],
+    "correct": 2,
+    "explanation": "CFTT reports describe how a particular tool version behaved under test. They are not certifications or legal guarantees, and they do not replace the lab's checks of its own configuration.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which pair of Kestrel items, if they agree, gives the strongest corroboration that the spreadsheet was copied to removable media?",
+    "options": [
+      "Two transfer copies of the firewall CSV that have identical SHA-256 values",
+      "A USB attachment record on the laptop and the spreadsheet found on drive E-02",
+      "The forensic copy and the working copy of the laptop image matching each other",
+      "The mailbox archive hash and the value printed on the export manifest"
+    ],
+    "correct": 1,
+    "explanation": "The host record and the drive's contents are independent sources recording related facts. The other pairs are copies of one source agreeing with each other, which confirms copying only.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The team decides that the perimeter firewall's own log store can wait until next month, because logs are non-volatile. What is the main risk in that plan?",
+    "options": [
+      "None, because non-volatile records survive power loss and remain available indefinitely",
+      "The firewall export E-04 already contains every record, so later requests add nothing",
+      "Requesting firewall logs is outside any internal investigation's authorised scope",
+      "Rotation or retention limits may delete the records first; ask the holder to preserve them early"
+    ],
+    "correct": 3,
+    "explanation": "Persistent does not mean permanent: logs rotate and retention settings delete old records. Preservation should be requested early within scope. E-04 is a filtered export, not the whole store.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "File-system timestamps on the spreadsheet in E-02 disagree with the modification date in its embedded document properties. What is the best first response?",
+    "options": [
+      "Treat both as facts written by different layers, and explain the difference",
+      "Prefer the file-system timestamps, since the operating system cannot be wrong",
+      "Prefer the embedded properties, since they travel with the file between systems",
+      "Discard both, because conflicting metadata shows the file has been tampered with"
+    ],
+    "correct": 0,
+    "explanation": "Embedded and file-system metadata are written at different moments by different layers, and copying or editing commonly makes them diverge. The disagreement is data to explain.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The mailbox export E-03 covers 1 to 12 March. The investigation now needs to know whether pricing files were emailed in February. What follows?",
+    "options": [
+      "E-03 already shows nothing was emailed in February, because no February messages appear anywhere in the archive",
+      "The lab may log in to the mail platform to search February itself",
+      "E-03 cannot answer it; request a new export, if February is within the authorised scope",
+      "February can be inferred from March traffic patterns in the firewall CSV"
+    ],
+    "correct": 2,
+    "explanation": "An export answers only what its filter allowed. Absence from a March export says nothing about February, and the lab does not access provider systems outside the authorised route.",
+    "lesson": 2,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which control most directly lets the lab detect an accidental write to a working copy of the laptop image, as illustrated in section 5 of the transcript?",
+    "options": [
+      "Keeping the working copy on an encrypted volume that only the case analyst can open",
+      "Re-hashing the working copy after tool use and comparing it with the forensic copy's value",
+      "Renaming the working copy with the case number so it cannot be confused with other files",
+      "Storing an MD5 value as well, because MD5 is more sensitive to single-byte changes"
+    ],
+    "correct": 1,
+    "explanation": "Re-verification against the anchor exposes any change, as the one-byte edit in section 5 shows. Encryption and naming control access and confusion, not detection; MD5 is no more sensitive.",
+    "lesson": 2,
+    "difficulty": "medium"
+  },
+  {
+    "q": "How does this lesson use the SWGDE Best Practices for Computer Forensic Acquisition?",
+    "options": [
+      "As a step-by-step procedure that every acquisition in this course must follow word for word",
+      "As a legal standard whose use guarantees the admissibility of any resulting image",
+      "As a list of tested tools that the course recommends for laptop acquisition",
+      "As guidance for the general point that acquisition is planned, documented and verified"
+    ],
+    "correct": 3,
+    "explanation": "The lesson relies on SWGDE only for that general point and directs learners to the current version for specifics. Best-practice guidance is not a legal guarantee or a tool list.",
+    "lesson": 2,
+    "difficulty": "medium"
+  }
+]

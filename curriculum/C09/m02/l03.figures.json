@@ -1,0 +1,46 @@
+{
+  "C09-M02-L03-F1": {
+    "title": "Hash checkpoints in the C09 acquisition transcript",
+    "caption": "The six transcript stages, the object hashed at each and how its digest compares with the source reference value.",
+    "alt": "Table with columns Stage, Object hashed, Digest begins and Outcome. Row 1, dark: suspect.dev source, e3a74e55, reference value. Rows 2 to 4, green: evidence.dd stream, evidence.dd file of 16,777,216 bytes, and working.dd, each beginning e3a74e55 and equal to the reference. Row 5, red: working.dd after a one-byte edit, beginning 16d816db, differs, cmp reports char 100001. Row 6, slate: evidence.dd MD5, beginning 93308050, a different algorithm that is not compared with the SHA-256 rows.",
+    "type": "table",
+    "columns": ["Stage", "Object hashed", "Digest begins", "Outcome"],
+    "rowTones": ["dark", "green", "green", "green", "red", "slate"],
+    "rows": [
+      ["1", "suspect.dev (source)", "e3a74e55", "Reference value"],
+      ["2", "evidence.dd stream", "e3a74e55", "Equals reference"],
+      ["3", "evidence.dd file", "e3a74e55", "Equals; 16,777,216 bytes"],
+      ["4", "working.dd", "e3a74e55", "Equals; analysis may start"],
+      ["5", "working.dd after edit", "16d816db", "Differs; cmp char 100001"],
+      ["6", "evidence.dd (MD5)", "93308050", "Other algorithm; not compared"]
+    ],
+    "note": "Prefixes are for reading the figure only; a real verification compares all 64 characters."
+  },
+  "C09-M02-L03-F2": {
+    "title": "Responding to a hash mismatch",
+    "caption": "A fixed order of checks that moves from the commonest explanation to the most serious, without altering any record.",
+    "alt": "Decision graph. Red start node: recomputed digest does not equal the record. It leads to the violet question Like-for-like comparison? If not comparable, the slate outcome Transcription or format error: fix the comparison and note it. If a true mismatch, the violet question Size equals record? If size differs, the orange outcome Incomplete or damaged copy: recopy from the verified master. If size is equal, the violet question Master copy still matches? If the master matches, the orange outcome Only this copy altered: quarantine it and make a new copy. If the master differs, the dark outcome Master no longer matches: stop, preserve and escalate.",
+    "type": "graph",
+    "dir": "TB",
+    "nodes": [
+      { "id": "m", "label": "Recomputed digest ≠ record", "sub": "stop using this copy", "tone": "red" },
+      { "id": "c", "label": "Like-for-like comparison?", "sub": "algorithm, full value, case", "tone": "violet", "kind": "decision" },
+      { "id": "t", "label": "Transcription or format error", "sub": "fix the comparison; note it", "tone": "slate" },
+      { "id": "s", "label": "Size equals record?", "sub": "bytes, not rounded units", "tone": "violet", "kind": "decision" },
+      { "id": "p", "label": "Incomplete or damaged copy", "sub": "recopy from verified master", "tone": "orange" },
+      { "id": "o", "label": "Master copy still matches?", "sub": "re-verify the archived image", "tone": "violet", "kind": "decision" },
+      { "id": "w", "label": "Only this copy altered", "sub": "quarantine it; make a new copy", "tone": "orange" },
+      { "id": "r", "label": "Master no longer matches", "sub": "stop, preserve, escalate", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "m", "to": "c" },
+      { "from": "c", "to": "t", "label": "not comparable" },
+      { "from": "c", "to": "s", "label": "true mismatch" },
+      { "from": "s", "to": "p", "label": "size differs" },
+      { "from": "s", "to": "o", "label": "size equal" },
+      { "from": "o", "to": "w", "label": "master matches" },
+      { "from": "o", "to": "r", "label": "master differs" }
+    ],
+    "note": "Never overwrite a recorded value to make it match; every finding goes into the case notes."
+  }
+}

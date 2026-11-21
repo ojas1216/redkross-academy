@@ -1,0 +1,31 @@
+{
+  "C09-M01-L01-F1": {
+    "title": "The forensic process, with analysis looping back to examination",
+    "caption": "Six dependent stages from identification to presentation; analysis returns to examination whenever the evidence does not yet separate the hypotheses.",
+    "alt": "Left-to-right flow of six boxes: Identify, Preserve, Collect, Examine, Analyse, Present, each with a short sub-label. A labelled loop runs from Analyse back to Examine: new question, extract more.",
+    "type": "flow",
+    "dir": "LR",
+    "steps": [
+      { "label": "Identify", "sub": "where traces may exist", "tone": "slate" },
+      { "label": "Preserve", "sub": "stop change or loss", "tone": "blue" },
+      { "label": "Collect", "sub": "verified copies", "tone": "blue" },
+      { "label": "Examine", "sub": "extract artefacts", "tone": "violet" },
+      { "label": "Analyse", "sub": "test every hypothesis", "tone": "orange" },
+      { "label": "Present", "sub": "findings and limits", "tone": "green" }
+    ],
+    "loop": { "label": "new question: extract more", "from": 4, "to": 3 }
+  },
+  "C09-M01-L01-F2": {
+    "title": "The integrity model: four layers, each checked against the one above",
+    "caption": "The original stays sealed, the image is the fixed reference, examination happens on working copies, and every finding cites the copy it came from.",
+    "alt": "Four stacked layers joined by downward arrows. Original evidence: sealed, under custody, handled as little as possible. Forensic image: bit-for-bit copy, hash equals the source hash recorded at acquisition. Working copy: the only layer examined, hash equals the image hash. Findings: each cites the working copy and the artefact it came from.",
+    "type": "layers",
+    "arrows": true,
+    "layers": [
+      { "label": "Original evidence", "sub": "sealed, under custody, handled as little as possible", "tone": "dark" },
+      { "label": "Forensic image", "sub": "bit-for-bit copy; hash = source hash at acquisition", "tone": "blue" },
+      { "label": "Working copy", "sub": "the only layer examined; hash = image hash", "tone": "green" },
+      { "label": "Findings", "sub": "each cites the working copy and the artefact", "tone": "orange" }
+    ]
+  }
+}

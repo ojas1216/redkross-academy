@@ -1,0 +1,327 @@
+[
+  {
+    "q": "According to the lesson, which three forces shorten the life of digital evidence?",
+    "options": [
+      "Encryption, compression and deduplication applied by the storage layer",
+      "Loss of power, normal system churn and interaction by people or tools",
+      "Hashing, imaging and copying performed during the acquisition stage",
+      "Log forwarding, backup jobs and time synchronisation on the network"
+    ],
+    "correct": 1,
+    "explanation": "Volatility is expected lifetime under power loss, churn (recycling, rotation, expiry) and interaction (tools, users and attackers). The other lists are activities, not the forces the lesson names.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "In the RFC 3227 example order, which layer sits immediately below 'routing table, ARP cache, process table, kernel statistics, memory'?",
+    "options": [
+      "Disk, including swap and hibernation files",
+      "Remote logging and monitoring data",
+      "Temporary file systems",
+      "Physical configuration and network topology"
+    ],
+    "correct": 2,
+    "explanation": "The RFC's example lists registers and cache; routing, ARP, process table, kernel statistics and memory; temporary file systems; disk; remote logging; physical configuration; and archival media.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson call the RFC 3227 list an example rather than a fixed algorithm?",
+    "options": [
+      "Because the real lifetime of each source on the system in front of you decides the order",
+      "Because the RFC was withdrawn and replaced by a newer, stricter ordering in later forensic standards",
+      "Because modern operating systems no longer keep any evidence in volatile memory",
+      "Because the order applies only to Unix systems and not to Windows or cloud workloads"
+    ],
+    "correct": 0,
+    "explanation": "The RFC itself calls the list an example for a typical system. An hourly log rotation or short cloud retention can move a low-volatility source forward.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Remote SIEM logs are low in the volatility order. Why should a responder still act on them on day one?",
+    "options": [
+      "Because an attacker on the host can usually reach and delete the central logs within a few minutes",
+      "Because SIEM logs must be collected before memory to keep the RFC order intact",
+      "Because remote logs lose their timestamps once the local system is powered off",
+      "Because retention schedules delete them, so a preservation hold must be placed early"
+    ],
+    "correct": 3,
+    "explanation": "Remote logs are usually beyond the attacker's reach but expire on a schedule. A hold placed in parallel by a colleague costs nothing on the suspect system.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does RFC 3227 warn against trusting the programs on the system under examination?",
+    "options": [
+      "Because built-in programs are usually too slow to collect volatile data in time",
+      "Because an attacker may have replaced or hooked them so that they hide activity",
+      "Because built-in programs cannot write their output to external media at all",
+      "Because using them automatically breaks the chain of custody for the host"
+    ],
+    "correct": 1,
+    "explanation": "On a compromised host, system utilities may be altered to conceal processes or connections. Trusted tools from protected media, or collection from outside the guest, avoid this.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A technician proposes a full anti-virus scan of a suspect server 'to see what is there' before imaging. What is the main forensic objection?",
+    "options": [
+      "The scan will encrypt the disk and make imaging impossible afterwards",
+      "The scan will capture memory and so duplicate the responder's own work",
+      "A scan that opens every file can rewrite access times across the disk",
+      "Anti-virus software is not permitted on systems under investigation"
+    ],
+    "correct": 2,
+    "explanation": "RFC 3227 warns against programs that change the access time of all files. Broad sweeps erase part of the timeline; imaging reads the device without opening each file.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What risk does RFC 3227 associate with simply disconnecting a compromised system from the network?",
+    "options": [
+      "A deadman switch may destroy evidence when the attacker's connection drops",
+      "The system clock immediately loses synchronisation and becomes unusable",
+      "Disconnection always triggers a graceful shutdown on modern operating systems",
+      "The ARP cache becomes impossible to read without a live network connection"
+    ],
+    "correct": 0,
+    "explanation": "The RFC notes that disconnecting or filtering may trigger a deadman switch. Isolation should be deliberate, recorded and preferably done after volatile collection.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "web01 reports 06:31:12 when a trusted UTC reference shows 06:29:40. How should this be handled?",
+    "options": [
+      "Ignore it, because offsets under five minutes have no forensic significance",
+      "Correct the server clock immediately so that later timestamps are accurate",
+      "Record a 92-second fast offset and state in the report whether times were corrected",
+      "Discard all of web01's timestamps, because the clock has now been shown to be unreliable"
+    ],
+    "correct": 2,
+    "explanation": "The offset is recorded against the reference and applied, or explicitly not applied, in the timeline. Changing the clock alters evidence, and the timestamps remain usable once the offset is known.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why should the clock offset be recorded before the system is rebooted or resynchronised?",
+    "options": [
+      "Because rebooting resets every file timestamp on the disk to the time at which the system restarted",
+      "Because a time service may quietly correct the clock and erase the evidence of the offset",
+      "Because the offset can only be measured while the system's memory is intact",
+      "Because the clock offset is stored in the ARP cache, which clears on reboot"
+    ],
+    "correct": 1,
+    "explanation": "Synchronisation or a reboot can correct the clock, losing the record of how wrong it was. A recently changed clock may itself explain otherwise impossible events.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A laptop is found running and unlocked with full-disk encryption, and no recovery key is known. Which option in the lesson's table is most strongly favoured?",
+    "options": [
+      "Hard power-off, because it freezes the disk exactly at its last write",
+      "Graceful shutdown, because it flushes cached writes before power is lost",
+      "Hibernation, because it saves memory to disk while protecting the volume",
+      "Capture memory first, then decide how to stop or isolate the machine"
+    ],
+    "correct": 3,
+    "explanation": "The volume key lives in memory while the disk is unlocked. Any shutdown first may leave only ciphertext if no recovery key exists, so memory capture comes first.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "What is the main trade-off between a graceful shutdown and a hard power-off?",
+    "options": [
+      "Graceful shutdown lets shutdown scripts and the OS write to disk; power-off can lose cached writes",
+      "Graceful shutdown keeps memory intact for later capture; a hard power-off erases both memory and disk",
+      "A hard power-off preserves encryption keys; a graceful shutdown always deletes them",
+      "A hard power-off is permitted only by courts; a graceful shutdown needs no record"
+    ],
+    "correct": 0,
+    "explanation": "Both lose memory. The difference is whether the OS writes on the way down (and runs scripts) or whether unwritten cached data is lost. Neither is better in general.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How does a hypervisor snapshot that includes memory help with the RFC's warning about untrusted programs?",
+    "options": [
+      "It removes the need to record the collection in the case notes",
+      "It encrypts the guest's memory so that the attacker cannot read it",
+      "It collects the evidence from outside the suspect operating system",
+      "It converts all volatile data into non-volatile data inside the guest"
+    ],
+    "correct": 2,
+    "explanation": "The snapshot is taken by the hypervisor without running tools in the guest, so it does not depend on the suspect OS reporting truthfully. It still needs documentation.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Some cloud platforms keep their default event history for about 90 days unless it is exported. What does this imply for a responder?",
+    "options": [
+      "Cloud logs can be left until the end of the investigation, as 90 days is ample",
+      "A preservation export is urgent, even though nothing on the instance is touched",
+      "The instance must be shut down quickly so that its cloud logs are not overwritten",
+      "Cloud logs belong in the archival media layer and should be collected last"
+    ],
+    "correct": 1,
+    "explanation": "Cloud provider logs are remote logging data with a retention clock. Investigations often begin weeks after the activity, so exporting early is the urgent action.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the web01 collection plan, why are the memory snapshot and the SIEM export done at the same time?",
+    "options": [
+      "Because the RFC order requires remote logs to be collected before disk images",
+      "Because the SIEM export must contain the memory snapshot's hash to be valid",
+      "Because exporting SIEM data first would overwrite part of web01's memory",
+      "Because different people do them and the export does not touch the server"
+    ],
+    "correct": 3,
+    "explanation": "Parallel work by different people lets a team follow the order without letting lower layers expire. The SIEM export has no footprint on web01.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement about the top layer, registers and cache, matches the lesson?",
+    "options": [
+      "Responders rarely collect it directly; whatever survives is what spills into memory",
+      "Responders should capture it first with a dedicated register-dump tool on arrival",
+      "It survives a graceful shutdown but is erased by a hard power-off of the system under examination",
+      "It is the most important layer for proving which user account ran a process"
+    ],
+    "correct": 0,
+    "explanation": "CPU registers and cache change constantly and cannot meaningfully be read from outside the current context. Their position reminds responders that some evidence is gone before they arrive.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On many Linux systems /tmp is a tmpfs mount. What does that mean for its evidence?",
+    "options": [
+      "It survives reboots, because tmpfs is written through to the disk every minute",
+      "It is held in memory and disappears at reboot unless collected while running",
+      "It is protected from deletion, because only the kernel can write to tmpfs",
+      "It is automatically copied to the system log when the machine shuts down"
+    ],
+    "correct": 1,
+    "explanation": "tmpfs is memory-backed, so its contents are lost at reboot. That is why temporary file systems sit just below memory in the order and why attackers like them.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why is the dividing line between memory and disk the most important line in the volatility stack?",
+    "options": [
+      "Because only data below the line can be hashed with SHA-256 for verification",
+      "Because data above the line is always irrelevant to the investigation questions and need not be kept, so the decision is simple",
+      "Because everything above it exists only while the system runs, which frames the live versus dead decision",
+      "Because the RFC requires two different examiners on either side of the line"
+    ],
+    "correct": 2,
+    "explanation": "Above the line, evidence depends on power; at and below it, evidence survives power-off. That boundary is where the decision about live collection or shutdown sits.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team relies on the suspect host's own logs, and the attacker clears them. Which preparation would have limited the damage most?",
+    "options": [
+      "Configuring the host to rotate its local logs every hour instead of daily",
+      "Disabling logging on the host so that the attacker gains nothing from it",
+      "Running a weekly full anti-virus scan of the host to detect log tampering",
+      "Forwarding logs off the host to central storage before any incident occurs"
+    ],
+    "correct": 3,
+    "explanation": "Forwarding moves evidence down the stack into remote logging, which the attacker on the host usually cannot reach. Faster rotation and disabled logging make matters worse.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why do some attackers keep their tools only in memory and temporary locations?",
+    "options": [
+      "Because memory-only tools run faster than tools stored on disk",
+      "Because they expect responders to reboot or power off, destroying those traces",
+      "Because temporary locations are excluded from every forensic image by design",
+      "Because operating systems forbid antivirus from scanning temporary directories"
+    ],
+    "correct": 1,
+    "explanation": "Attackers exploit the habit of pulling the plug. Playbooks that default to memory capture for suspected intrusions remove that advantage.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Hibernation writes memory into a file on disk. Which limitation does the lesson highlight?",
+    "options": [
+      "It overwrites part of the disk and, on encrypted volumes, leaves the copy behind encryption",
+      "It deletes the page file, so none of the swapped-out memory can ever be recovered",
+      "It is identical to a full memory capture and therefore needs no further documentation by the responder",
+      "It sends the memory contents to the vendor's cloud, which breaks custody"
+    ],
+    "correct": 0,
+    "explanation": "The hibernation file preserves some memory, but writing it overwrites disk areas, and on an encrypted volume it is unreadable without the key.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An ARP cache entry links an IP address to a neighbour's MAC address. Why is it collected early?",
+    "options": [
+      "Because ARP entries are copied to the disk only when the system shuts down",
+      "Because ARP entries are needed to calculate the disk image's hash value",
+      "Because ARP entries typically expire within minutes even without any interaction",
+      "Because the ARP cache is the only record of which user was logged in"
+    ],
+    "correct": 2,
+    "explanation": "Normal churn ages out ARP entries within minutes, so they decay even if nobody touches the system. They show which neighbouring hosts the system has been talking to.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Containment must happen immediately because ransomware is actively encrypting shares. What does the lesson say about the evidence lost?",
+    "options": [
+      "Containment must wait until every volatile layer has been fully collected",
+      "The lost layers do not matter, because ransomware cases are never prosecuted",
+      "Containment may come first, and the layers given up are recorded as a known consequence",
+      "The responder should delay containment and seek written legal approval before touching any system"
+    ],
+    "correct": 2,
+    "explanation": "Harm can justify acting before collection. The principle is that the decision and what was lost are recorded, not that preservation always wins.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the practical exercise, the meeting-room laptop is connected to office Wi-Fi. Which first step fits the lesson?",
+    "options": [
+      "Disconnect the Wi-Fi immediately so that no attacker can reach the laptop",
+      "Record the screen, time and clock, and check encryption and recovery-key status",
+      "Run a full anti-virus scan to see whether any malware is present first",
+      "Shut the laptop down gracefully so that its encryption protects the data"
+    ],
+    "correct": 1,
+    "explanation": "Recording the situation and checking encryption come before any change. Reflexive disconnection, broad scans and shutdown each risk destroying evidence.",
+    "lesson": 3,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why are backups collected last in the RFC order, yet still valuable?",
+    "options": [
+      "Because they are in no danger, but they show earlier states that help date a change",
+      "Because they are always encrypted and need a specialist to read them later",
+      "Because they hold the only copy of the system's memory at the time of the event",
+      "Because the RFC forbids collecting backups until the disk has been imaged twice"
+    ],
+    "correct": 0,
+    "explanation": "Archival media are designed to last, so there is no urgency. Their value is in earlier system states, which help establish when a file or change first appeared.",
+    "lesson": 3,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Physical configuration rarely changes on its own. Why is it still recorded at the scene?",
+    "options": [
+      "Because cabling and switch-port details are needed to compute the disk image's hash value later on",
+      "Because it is the only layer the RFC requires to be signed by two witnesses",
+      "Because physical configuration determines which file system the disk uses",
+      "Because it is needed to interpret other evidence and is easily disturbed by moving equipment"
+    ],
+    "correct": 3,
+    "explanation": "How a system is connected explains network evidence and attached devices. It changes only when someone changes it, which is exactly what moving equipment does, so photographs and diagrams preserve it.",
+    "lesson": 3,
+    "difficulty": "hard"
+  }
+]

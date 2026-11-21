@@ -1,0 +1,327 @@
+[
+  {
+    "q": "In the original C09 transcript, step 2 reports the same SHA-256 for the evidence.dd stream as step 1 reports for suspect.dev. What does that equality establish on its own?",
+    "options": [
+      "That the image file stored on disk is identical to the source, so step 3 is redundant",
+      "That the acquisition tool has been formally validated for use on this workstation",
+      "That the bytes passing through the pipeline were the same bytes as the source",
+      "That suspect.dev is a complete and accurate copy of the original physical device"
+    ],
+    "correct": 2,
+    "explanation": "The stream digest covers the data in transit. Whether the file written to storage is faithful is a separate question, which step 3 answers by hashing the stored file. That is why step 3 is not redundant.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A trainee asks why the transcript hashes evidence.dd again in step 3 when step 2 already produced a matching digest during acquisition. Which answer is best?",
+    "options": [
+      "Step 3 checks the file as it sits on storage, separately from the write that created it",
+      "Step 3 uses a stronger algorithm than step 2, so it supersedes the earlier value",
+      "Step 3 is needed only because the stream digest omits the final partial block of data",
+      "Step 3 exists to measure the time taken to read the image back for the case log"
+    ],
+    "correct": 0,
+    "explanation": "Step 2 hashes the stream while it is written. Step 3 rereads the stored file and confirms that the write to storage was faithful. Both steps use SHA-256, so the second check is not about a stronger algorithm.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The transcript changes one byte at offset 100000, and the comparison then reports 'differ: char 100001'. How should an examiner reconcile the two numbers?",
+    "options": [
+      "The comparison found a second change one byte after the one that was intended",
+      "The change spread across two bytes because of how the editor wrote the file",
+      "The offset is in hexadecimal while the comparison reports a decimal position",
+      "Offsets count from zero and the comparison counts from one, so it is one byte"
+    ],
+    "correct": 3,
+    "explanation": "Offset 100000 counted from zero is the 100,001st byte counted from one, so both numbers name the same byte. Nothing in the transcript suggests hexadecimal or a second change.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After the one-byte edit, working.dd hashes to 16d816db... instead of e3a74e55.... What can the digest comparison alone tell the examiner?",
+    "options": [
+      "Roughly how many bytes changed, because larger edits move the digest further",
+      "That the content differs, but not where it differs or how much of it changed",
+      "Which region of the file changed, read from the first characters that differ",
+      "Whether the change was accidental or deliberate, from the pattern of the digest"
+    ],
+    "correct": 1,
+    "explanation": "A cryptographic digest only shows equal or not equal. Location needs a byte comparison, as in step 5's second line. The distance between digests carries no information about the size of a change.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A second training item arrives with a receipt that lists only an MD5 value. What does the lesson recommend at intake?",
+    "options": [
+      "Compare the MD5 with the receipt, also compute SHA-256, and use SHA-256 as the main reference from then on",
+      "Reject the item outright, because an MD5 value provides no useful identification of a file",
+      "Accept the MD5 match as the lab's only integrity record, because the supplier chose the algorithm",
+      "Ask the supplier to edit the original receipt so that it shows a SHA-256 value instead"
+    ],
+    "correct": 0,
+    "explanation": "The MD5 value is the only stated reference, so compare it. Then record SHA-256 for new work, because MD5 is not collision-resistant. Rejecting the item is wrong because an MD5 match still identifies a file against an older record.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A receipt describes an item as '16 MB', but the stored file is 16,777,216 bytes and its SHA-256 matches the stated digest. What is the correct handling?",
+    "options": [
+      "Record a size mismatch and treat the item as changed until the supplier re-sends it",
+      "Overwrite the size on the receipt with the exact byte count so the record is accurate",
+      "Add a dated amendment giving the exact byte count, since the size is 16 MiB in binary units",
+      "Ignore the wording entirely, because file size never appears in a defensible evidence record"
+    ],
+    "correct": 2,
+    "explanation": "16,777,216 bytes is 16 MiB, and the matching digest shows the data is unchanged. The description is imprecise, so add an amendment and keep the original wording. Overwriting the receipt destroys the record.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A supplier's receipt shows a SHA-256 digest in uppercase copied from PowerShell, and the lab's Linux tool prints the same value in lowercase. What should the examiner record?",
+    "options": [
+      "A mismatch, because a digest must be reproduced exactly as the supplier wrote it",
+      "A match, after comparing all 64 characters without regard to case, noting each tool",
+      "A provisional match, pending a third tool that prints digests in mixed case",
+      "A match, after comparing the first and last eight characters, which is the usual test"
+    ],
+    "correct": 1,
+    "explanation": "Hexadecimal digits are not case-sensitive, so the values are equal if all 64 characters agree when case is ignored. Comparing only the ends is not a comparison.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Partway through an exercise, a re-check of working.dd no longer matches the original. The original in 01_originals still matches its receipt. What is the best next step?",
+    "options": [
+      "Re-hash the changed copy until it matches, because a single mismatch is often a transient read error",
+      "Replace the original with the working copy, since the copy reflects the most recent and most complete examination state",
+      "Continue the analysis on the changed copy and add a footnote to the final report about it",
+      "Record the observation, stop using that copy, make a new verified copy from the original and look for the cause"
+    ],
+    "correct": 3,
+    "explanation": "The original is intact, so the copy can be thrown away and remade from it. The event is recorded, and the cause, such as a tool that writes to files it opens, is investigated. Re-hashing until the value matches hides a real problem.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague says that because a hashing tool reported matching digests on the lab's known data, the tool is now 'validated' for casework. Why is that wrong?",
+    "options": [
+      "Validation is only possible on Windows workstations, and the lab uses a Linux VM",
+      "A known-answer check needs at least three independent tools before it counts",
+      "A local known-answer check shows one routine behaved as expected; formal testing is separate and version-specific",
+      "Matching digests on known data say nothing at all about how the hashing routine behaves on any input, including the lab's own test files"
+    ],
+    "correct": 2,
+    "explanation": "The local check makes a narrow claim about this workstation, date and version. Programmes such as NIST CFTT test specific versions against written specifications. The local check is still evidence about the routine, so it is not worthless.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A team relies on the read-only attribute on 01_originals as its only integrity control. What is the main weakness?",
+    "options": [
+      "Any user or process with enough rights can remove the flag, so digests are still needed to detect change",
+      "The read-only attribute changes every file's stored digest, so all originals no longer match their intake receipts",
+      "Read-only files cannot be copied, so working copies can never be made from originals",
+      "The attribute encrypts the files, so examiners lose access if the key is misplaced"
+    ],
+    "correct": 0,
+    "explanation": "The flag reduces accidental writes but cannot prevent or reveal deliberate ones. Digests detect change. Setting the flag does not alter file content, so it does not change digests.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A trainee proposes using the VM's clean-baseline snapshot as the backup copy of the evidence store. What is the problem?",
+    "options": [
+      "Snapshots can only be taken while the VM is connected to a network, which breaks isolation",
+      "A snapshot preserves the analysis environment; evidence integrity rests on originals, receipts and digests",
+      "Snapshots compress data in a lossy way, so restored evidence would fail its digest check",
+      "A snapshot taken after tool installation is itself a forensic image and must be logged as an evidence item"
+    ],
+    "correct": 1,
+    "explanation": "The snapshot exists to return the workstation to a known configuration. Evidence is preserved and verified through the original, its receipt and its digest, not through the environment's recovery point.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer finds that the host's cloud-storage client has been syncing the folder that contains 01_originals. Which response fits the lesson?",
+    "options": [
+      "Leave the sync running, because the cloud copy adds an off-site backup of all the evidence",
+      "Delete the cloud copy and carry on, since synthetic data creates no recordable issue",
+      "Re-hash only the files modified most recently, as older files are unlikely to be affected",
+      "Stop the sync, record it, re-verify every original against its receipt and move the store"
+    ],
+    "correct": 3,
+    "explanation": "The sync was an uncontrolled path for change and exposure. Every original needs re-verification, not just recent files. Treating synthetic data as needing no record would hide a process failure that matters with real data.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson set the analysis VM to UTC and record the displayed time next to a reference time at the start of each session?",
+    "options": [
+      "UTC makes timestamps in evidence files more accurate than their local-time originals",
+      "UTC is required before a hashing tool will compute a SHA-256 digest correctly",
+      "One reference zone avoids conversion errors, and recording drift means the clock's error is known",
+      "Recording the reference time lets the examiner correct the evidence files' own embedded timestamps later"
+    ],
+    "correct": 2,
+    "explanation": "Writing notes in UTC removes errors from converting between zones, and logging drift makes the workstation clock's error known. Neither changes the timestamps inside evidence, and hashing does not depend on the time zone.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "At review, a senior examiner asks which version of a parser produced an export cited in a report. Which inventory field answers this most directly?",
+    "options": [
+      "The install date alone, because versions can always be inferred from release calendars",
+      "The exact version string as reported by the tool itself, recorded in 06_tools",
+      "The official project name, because each project ships only one supported version",
+      "The digest of the export file, because it encodes the version of the producing tool"
+    ],
+    "correct": 1,
+    "explanation": "The inventory records the version string the tool reports, and the export log links each export to the tool and version that produced it. An export's digest identifies its content, not the producing tool.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Midway through an examination, a tool offers an update. What sequence does the lesson recommend?",
+    "options": [
+      "Pause or finish, update in a recorded staging step, update the inventory, repeat the known-answer check, then snapshot",
+      "Accept the update immediately so that the remaining results come from the newest available version",
+      "Decline every update for the whole life of the lab, because changing any tool invalidates all earlier case results",
+      "Update quietly and re-run only the steps that failed, since passing steps are unaffected by versions"
+    ],
+    "correct": 0,
+    "explanation": "Upgrading mid-examination without a record mixes versions without anyone knowing. The staged, recorded upgrade with a repeated check keeps the results traceable. Refusing all updates forever is not what the lesson requires.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A. Rao notices a typo in a receipt's 'Received by' field a day after intake. What is the correct way to fix it?",
+    "options": [
+      "Edit the field in place and re-save the receipt so that only one version exists",
+      "Create a fresh receipt with today's date and delete the earlier one from 00_receipts",
+      "Leave the typo, because receipts must never be changed in any way after signing",
+      "Add a dated amendment stating the correction and keep the original entry readable"
+    ],
+    "correct": 3,
+    "explanation": "Corrections are added as amendments, so both the error and the fix stay visible. Overwriting or deleting the receipt destroys the record, and refusing to correct it at all leaves a known error in place.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does transcript step 1 hash suspect.dev before any acquisition happens?",
+    "options": [
+      "Hashing first warms the disk cache, so the later acquisition runs faster",
+      "The acquisition tool refuses to run until a source digest has been stored on disk first",
+      "It gives a reference value that does not depend on the acquisition it will check",
+      "Step 1 produces the MD5 value that the legacy compatibility step requires"
+    ],
+    "correct": 2,
+    "explanation": "An independent reference taken before copying lets the later stream, image and copy digests be judged against something the acquisition did not produce. The MD5 line appears separately in step 6.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A learner needs a new viewer later in the course, but the analysis VM is disconnected. Which approach keeps the lab consistent?",
+    "options": [
+      "Reconnect in a recorded staging step, verify the installer digest, update the inventory, disconnect and snapshot",
+      "Copy the installer in through a shared folder from the host, since that keeps the guest network off",
+      "Install the viewer on the host instead and open the working copies from there through the clipboard",
+      "Leave the network connected for the rest of the course, because synthetic evidence carries no risk of any kind"
+    ],
+    "correct": 0,
+    "explanation": "The lesson's pattern is to stage, verify, record, isolate and snapshot. Shared folders and the clipboard are exactly the unrecorded paths the setup disables, even though they keep the guest network off.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the case folder layout, from which folder should analysis tools open files?",
+    "options": [
+      "01_originals, because analysis should look at the most authentic copy available",
+      "02_working, because those copies are verified against the original and can be remade",
+      "03_exports, because those files have already been hashed and logged for the report",
+      "00_receipts, because the receipt identifies which bytes the examiner may rely on"
+    ],
+    "correct": 1,
+    "explanation": "Tools open only verified working copies, so originals are never at risk from tools that write to the files they open. Exports are outputs of analysis, not its inputs.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A learner's own kit generates suspect.dev afresh, and its step 1 SHA-256 differs from the original transcript's e3a74e55.... How should the learner judge their setup?",
+    "options": [
+      "As failed, because every workstation must reproduce the published digest exactly",
+      "As failed, until the digest is recomputed with MD5 and that value matches step 6",
+      "As passed, because any SHA-256 output of the correct length shows the routine works",
+      "By whether their own steps 2 to 4 equal their own step 1 and their own step 5 differs"
+    ],
+    "correct": 3,
+    "explanation": "A freshly generated file can have different content, so its digest can differ. The test is internal consistency plus a detected change. A digest of the right length on its own proves nothing.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a one-character edit to a scratch file, the learner's 'sha256sum -c manifest.sha256' still reports every file as matching. What is the most likely explanation?",
+    "options": [
+      "SHA-256 ignores changes smaller than one block, so a single character goes undetected",
+      "The manifest check only compares file sizes, which a one-character change keeps the same",
+      "The edit was not saved, or the check is reading a different file from the one edited",
+      "The -c option checks manifest syntax only and never recomputes the files' digests"
+    ],
+    "correct": 2,
+    "explanation": "With -c, sha256sum recomputes each listed file's digest, and SHA-256 detects a single changed byte. So a still-passing check points to an unsaved edit or the wrong file, which is the lesson's troubleshooting advice.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A trainee wants to practise on an image of a friend's old laptop, with the friend's verbal agreement. What does the lesson's scope require?",
+    "options": [
+      "Proceed if the friend agrees in writing and the image is deleted when the exercise ends",
+      "Do not use it; this lab uses only synthetic kit data and your own scratch files",
+      "Proceed if the image is encrypted at rest on the analysis VM's dedicated storage",
+      "Proceed if all personal data is removed with a viewer before analysis begins"
+    ],
+    "correct": 1,
+    "explanation": "The scope statement limits the lab to the course kit's synthetic material and the learner's own files, so no one else's personal data is involved. Encryption or written agreement does not change that scope.",
+    "lesson": 8,
+    "difficulty": "medium"
+  },
+  {
+    "q": "What is the main purpose of running the manifest check twice, once before and once after a deliberate one-character change?",
+    "options": [
+      "To show that the routine reports a match on unchanged data and a failure on changed data",
+      "To measure how long hashing takes, so that acquisition times can be estimated later",
+      "To produce two independent digests that together form a stronger, combined integrity value",
+      "To create the reference values that the course kit compares against at the end"
+    ],
+    "correct": 0,
+    "explanation": "A routine that has never been seen to fail cannot be trusted when it reports success. The second run mirrors transcript step 5. Two SHA-256 runs do not combine into a stronger digest.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An intake digest matches the supplier's stated value exactly. Which conclusion goes beyond what the match supports?",
+    "options": [
+      "The stored file is identical to what the supplier hashed when stating the value",
+      "No change occurred to the item between the supplier's hash and the intake hash",
+      "The file is a complete and accurate copy of the device it was said to come from",
+      "The file can now be stored as an original and then used to make verified working copies"
+    ],
+    "correct": 2,
+    "explanation": "A digest shows that the file matches whatever was hashed. Whether that was the right or complete source depends on the supplier's own records. The other three conclusions follow from the match.",
+    "lesson": 8,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A manager asks whether the lab's receipts, inventory and UTC case log mean that the evidence will be accepted in court in India. What is the accurate answer?",
+    "options": [
+      "Yes, because a SHA-256 match is treated as conclusive proof of integrity in every Indian court",
+      "Yes, provided that the lab setup follows NIST SP 800-86 phase by phase without deviation",
+      "No, because records made by trainees cannot be used in any later legal process at all",
+      "They support the legal process covered in Lesson 4, but no lab setup can guarantee acceptance"
+    ],
+    "correct": 3,
+    "explanation": "Good records supply what a legal process relies on, but acceptance is decided by the court. Following SP 800-86 is guidance, not a guarantee, and trainee records are not barred from later use.",
+    "lesson": 8,
+    "difficulty": "hard"
+  }
+]

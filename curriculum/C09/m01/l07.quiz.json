@@ -1,0 +1,327 @@
+[
+  {
+    "q": "You are examining the Saffron Ledger laptop image under an authorisation limited to Q4 pricing documents and mail from 1 to 15 October 2026. A folder you open turns out to hold scanned hospital reports. What should you do next?",
+    "options": [
+      "Skim the reports quickly to confirm they contain nothing about pricing, then move on",
+      "Copy the folder into your working notes so a reviewer can later confirm it was irrelevant",
+      "Stop viewing it, record its path in your notes and ask the case lead for a written decision",
+      "Carry on examining it, because every file on an authorised image falls within the exhibit's scope"
+    ],
+    "correct": 2,
+    "explanation": "The folder is outside the authorised data types, so restraint applies: stop, record the location and get a written decision. Skimming it to check relevance is still viewing out-of-scope personal data.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A file's timestamp falls on the edge of the authorised date range and you cannot tell whether it is relevant. Under the approach taught in this lesson, how should it be treated?",
+    "options": [
+      "As out of scope: stop, note the location and ask in writing",
+      "As in scope, since borderline items are covered by the spirit of the authorisation",
+      "As in scope for examination, but left out of the report unless it proves relevant",
+      "As your own call on relevance, with the reasoning recorded once the work is complete"
+    ],
+    "correct": 0,
+    "explanation": "The lesson groups 'unsure' with 'no'. Uncertainty is resolved by a written decision, not by the examiner widening scope on their own judgement and justifying it afterwards.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The C09 transcript heading reads '== 5. one-byte change in working copy at offset 100000' and the comparison line reads 'evidence.dd working.dd differ: char 100001, line 1'. Which reading is correct?",
+    "options": [
+      "Two different bytes changed, one at offset 100000 and one at 100001, so the alteration spans two bytes",
+      "The comparison found an inserted byte, so the working copy is now one byte longer than the image",
+      "The heading and the comparison disagree, so the transcript is unreliable and should not be cited",
+      "Both refer to the same byte; the comparison counts from 1 while the offset counts from 0"
+    ],
+    "correct": 3,
+    "explanation": "A zero-based offset of 100000 is byte number 100001 when counting starts at 1. Nothing in the transcript indicates an insertion or a second changed byte.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "In the transcript, working.dd's SHA-256 changes to 16d816db...7f2c in step 5. Which conclusion does the transcript support?",
+    "options": [
+      "The image evidence.dd now also hashes to 16d816db...7f2c, because the working copy was derived from it",
+      "The change was made to working.dd, so the digest that changed is the working copy's, not evidence.dd's",
+      "The image must be re-acquired from the source, because any change to a copy invalidates the original",
+      "The image can no longer be relied on, because MD5 is the only digest recorded for it after step 5"
+    ],
+    "correct": 1,
+    "explanation": "Step 5 alters only the working copy; evidence.dd's SHA-256 was recorded in step 3. A copy being changed does not change the file it was copied from, and the step 6 MD5 is labelled legacy-only rather than being the sole record.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "During analysis you realise a tool wrote to your working copy. Which sequence is the ethical response?",
+    "options": [
+      "Make a fresh copy from the image, delete the altered copy and its notes, then continue as before",
+      "Record the time and both digests, re-derive a verified copy, check dependent findings and report it",
+      "Continue with the altered copy, since only one byte changed and the image itself is still intact",
+      "Re-acquire the original source to obtain a new image, then restart the whole examination from scratch"
+    ],
+    "correct": 1,
+    "explanation": "The error is recorded, the copy is replaced from the verified image, affected findings are checked and the report says what happened. Silently replacing the copy and deleting notes is concealment.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Your acquisition record holds both a SHA-256 value and an MD5 value that the transcript labels 'legacy compatibility only'. How should the report present them?",
+    "options": [
+      "Present the MD5 as the primary check, because more tools display MD5 values than SHA-256 ones",
+      "Omit the MD5 entirely, since recording a weaker digest undermines the stronger one in the report",
+      "Present both as equally strong confirmation that the image is identical to its source device",
+      "Report the SHA-256 relied on and label the MD5 as recorded for legacy compatibility only"
+    ],
+    "correct": 3,
+    "explanation": "Accurate labelling avoids implying more assurance than the record offers. Omitting a value that was recorded would make the report less complete, not more honest.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "The requester's theory is that one employee leaked Q4_pricing.xlsx. You find the file was on a departmental share readable by about forty staff throughout the period. What should happen to this finding?",
+    "options": [
+      "Report it in the findings, since it supports another route by which the file could have left",
+      "Leave it out, because the requester asked only about the named employee's laptop image",
+      "Mention it to the requester orally but keep it out of the written report to avoid confusion",
+      "Include it only if further work proves one of the other forty staff actually sent the file out"
+    ],
+    "correct": 0,
+    "explanation": "This is exculpatory material that bears on the authorised question, so omitting it changes the meaning of the report. It does not have to prove another person's guilt to be relevant.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A draft report contains the sentence 'The file was probably copied from the shared drive.' How should it be classified and handled?",
+    "options": [
+      "As an observation, because it describes a file location that can be seen directly in the image",
+      "As an opinion about intent, which a forensic report should never contain under any circumstances",
+      "As an inference, presented together with the artefacts it rests on",
+      "As a fact, provided the examiner is experienced and has seen many similar cases before"
+    ],
+    "correct": 2,
+    "explanation": "'Probably copied' goes beyond what is directly observed, so it is an inference and must show its basis. It says nothing about anyone's intent, so it is not an opinion about intent.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A published CFTT test report covers version 4.1 of an imaging tool. You used version 5.0. What can the report support in your write-up?",
+    "options": [
+      "That version 5.0 is validated, because later releases inherit the test results of earlier ones",
+      "That the tool is certified for court use in India, provided the report is attached as an annexure",
+      "Nothing at all, because published test reports must never be mentioned in forensic documentation",
+      "Only how 4.1 behaved in its test cases; record 5.0 and state the checks you ran yourself"
+    ],
+    "correct": 3,
+    "explanation": "A test report describes a named version against named test cases. It says nothing direct about another version or your configuration, and it is not a court certification. Citing it accurately for what it covers is acceptable.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Counsel asks you to add 'The tool is forensically validated and the findings are conclusive.' Which replacement is supported by the lesson's acquisition record?",
+    "options": [
+      "The tool is widely used by practitioners and is therefore accepted as forensically validated",
+      "Tool and version are recorded; the image's SHA-256 matched the value recorded for the source",
+      "The tool is forensically validated in our lab, and the findings are conclusive beyond reasonable doubt",
+      "The findings are conclusive, since the tool is the same one relied on in many previous cases"
+    ],
+    "correct": 1,
+    "explanation": "The replacement ties each claim to a record: a named version and a recorded digest match. Popularity or past use is unnamed authority, not evidence about this examination.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "On opening a new case file you see that the second custodian is a former flatmate. What should you do?",
+    "options": [
+      "Disclose the tie before doing any work and let the case lead decide whether you continue",
+      "Continue, since a flatmate is not a relative, and mention the connection in the final report",
+      "Withdraw quietly and give a workload reason, so the custodian's privacy is not compromised",
+      "Continue, but ask a colleague to review only the findings that concern that particular custodian"
+    ],
+    "correct": 0,
+    "explanation": "A tie that could reasonably appear to affect judgement is disclosed before work starts, and someone else decides. Withdrawing with a false reason trades one ethical failure for another.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which of these requests from a requester is a legitimate one for an examiner to act on?",
+    "options": [
+      "Rewording the conclusion to name the employee, since the requester knows the background best",
+      "Removing a limitation paragraph that the requester feels weakens the report's overall impact",
+      "Testing whether a second account could explain the same artefacts before release",
+      "Stating that the employee acted deliberately, as the requester holds separate HR evidence"
+    ],
+    "correct": 2,
+    "explanation": "A requester may ask for an additional hypothesis to be tested; that improves objectivity. Dictating a conclusion, removing limitations or asserting intent from outside the evidence are not legitimate.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Fictional receipt SL-RCPT-2026-014 records a SHA-256 for evidence.dd ending '...0f12'. The transcript records the same file's value ending '...0f21', and every other character matches. What conclusion is justified at this point?",
+    "options": [
+      "The image has been altered since acquisition and must be treated as compromised evidence",
+      "The receipt is simply wrong, so it can be replaced with a new copy carrying the right value",
+      "A transcription error is likely, but only a recorded re-verification of the image settles it",
+      "Two characters out of sixty-four differ, so the values can be treated as matching in practice"
+    ],
+    "correct": 2,
+    "explanation": "A transposed pair points to a copying error, but that is an inference until the examiner re-verifies and records the result. Any difference at all means the values do not match.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Re-verification confirms that the receipt's digest was mistyped. How should the receipt be corrected?",
+    "options": [
+      "Add a dated, signed annotation giving both values and the re-verification result, keeping the original intact",
+      "Issue a fresh receipt carrying the correct digest and file the original one away separately",
+      "Correct the digest on the original receipt neatly so that the custody record reads consistently",
+      "Record the right value in your own notes only, since the receipt belongs to the evidence officer"
+    ],
+    "correct": 0,
+    "explanation": "An open correction lets a reviewer see both values and why one is right. A replacement receipt or an overwritten value hides the history of the record.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A receipt lists an authorisation reference, a signatory and a scope with dates. Before examining the exhibit, what else should the examiner confirm?",
+    "options": [
+      "Nothing further, because a receipt quoting an authorisation reference is itself the authorisation",
+      "Only that the item size on the receipt matches the size recorded in the acquisition transcript",
+      "That the custodian confirms verbally that the receipt's summary of the scope is accurate",
+      "That the authorisation document is in the case file and says what the receipt claims"
+    ],
+    "correct": 3,
+    "explanation": "A receipt summarises an authorisation; it is not the authorisation. The size check is useful but answers a different question, and a custodian's verbal view does not set scope.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The investigation policy says nothing about personal cloud-sync folders, and one is present on the image. How should that silence be read?",
+    "options": [
+      "As leaving it to the examiner to decide, provided the reasons are noted afterwards",
+      "As not being permission; seek a written decision before examining that folder",
+      "As meaning the law alone applies, so anything lawful may be examined without asking",
+      "As excluding the folder permanently, so it can never be examined in this case"
+    ],
+    "correct": 1,
+    "explanation": "Policy silence is not permission, and it is not a permanent bar either. The gap is closed by a written decision from the case lead and, where needed, legal counsel.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An out-of-scope item appears to indicate a risk of serious harm. Compared with ordinary private material, what changes in the examiner's response?",
+    "options": [
+      "Browsing continues to establish how serious it is, so that escalation rests on the full facts",
+      "The material is copied to removable media so that it can be handed to the case lead directly",
+      "Nothing changes; it is treated as private material and raised at the next weekly case review",
+      "Restraint still applies, but escalation under policy with legal advice happens the same day"
+    ],
+    "correct": 3,
+    "explanation": "Urgency changes, restraint does not. Further browsing or private copies add risk for everyone, and waiting for a routine review ignores the urgency.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which control most directly lets a supervisor detect an examiner browsing exhibits outside their assignment?",
+    "options": [
+      "Access logging on the evidence repository, showing who opened which exhibits and when",
+      "Hash verification of each image, which shows whether any examiner looked at a given file",
+      "Peer review of the final report's wording, which reveals every item the examiner opened",
+      "Write-blocking on the examination workstation, which records each file an examiner views"
+    ],
+    "correct": 0,
+    "explanation": "Access logs record who opened what. A digest shows whether content changed, not who viewed it, and a report only shows what the examiner chose to write.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Peer review is described as the main detective control for overclaiming and omissions. Under what condition does it actually perform that role?",
+    "options": [
+      "When the reviewer reads only the executive summary, so they are not swayed by technical detail",
+      "When the reviewer checks the report against the examiner's notes and the evidence itself",
+      "When the reviewer focuses on spelling, tone and layout, leaving the substance to the examiner",
+      "When the reviewer is the requester, who knows best which findings matter for the decision"
+    ],
+    "correct": 1,
+    "explanation": "An omission can only be detected by comparing the report with what the notes and evidence contain. A style-only review cannot see what was left out.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "The case also needs a mobile device extraction, which you have never been trained to perform. What is the competent response?",
+    "options": [
+      "Attempt it using an online tutorial, then describe the result as an expert finding",
+      "Skip the mobile device and say nothing, since the laptop findings answer the question",
+      "Say so, and arrange for a qualified examiner or state the limitation in writing",
+      "Attempt it and add a general disclaimer that results from any tool can vary slightly"
+    ],
+    "correct": 2,
+    "explanation": "Competence means doing only work you are equipped for and saying so otherwise. A general disclaimer does not cure a confident report from beyond your skill, and silence hides a gap.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Why does the lesson recommend writing down competing hypotheses at the very start of an examination?",
+    "options": [
+      "Each predicts different artefacts, so the examination can test them and rule alternatives out",
+      "It lets the examiner choose the most likely culprit early and focus the search on that person",
+      "It satisfies a disclosure rule requiring every hypothesis to be printed in the final report",
+      "It shortens the work, since only artefacts matching the first hypothesis need to be collected"
+    ],
+    "correct": 0,
+    "explanation": "Competing hypotheses make the search capable of disconfirming the requester's theory. Focusing early on one culprit is the confirmation bias the practice is meant to prevent.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An examiner correctly stopped viewing an out-of-scope folder but wrote nothing about it in the case notes. What is the main weakness?",
+    "options": [
+      "None, because restraint is what matters and records only add administrative burden",
+      "The image's digest no longer covers the folder, so its integrity can no longer be shown",
+      "The folder becomes inadmissible because it was not examined when first encountered",
+      "The restraint happened, but nobody can later show that it did or why"
+    ],
+    "correct": 3,
+    "explanation": "The log is what makes the decision demonstrable to a reviewer. Not examining a folder has no effect on the image's digest.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which statement best captures the practical benefit of data minimisation in an examination?",
+    "options": [
+      "It makes the examination faster, which is the main purpose stated in the DPDP Act 2023",
+      "Material never extracted from the image cannot leak from working notes or exports",
+      "It removes any need to retain the evidence image once the report has been issued",
+      "It means personal data found within scope can be left out of the findings altogether"
+    ],
+    "correct": 1,
+    "explanation": "Exporting only what the question needs limits what can be exposed later. It does not override retention duties or justify omitting in-scope findings.",
+    "lesson": 7,
+    "difficulty": "medium"
+  },
+  {
+    "q": "After you stop viewing an out-of-scope item and log its path, the case lead later authorises its examination. What is the evidential position?",
+    "options": [
+      "The item is lost unless a copy was exported before stopping, which is why exports are routine",
+      "The image must be re-hashed so that its digest includes the item now that scope is decided",
+      "The image and its verified digest are unchanged, and the logged path lets an authorised examiner find it",
+      "The item was excluded from the image's digest when marked out of scope, so it must be re-acquired"
+    ],
+    "correct": 2,
+    "explanation": "Stopping changes nothing in the image. The verified digest always covered the whole image, and the logged path lets later authorised work locate the item, so restraint costs nothing evidentially.",
+    "lesson": 7,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A colleague from another case asks to see 'the funny photos' on your exhibit. The photos are within your case's scope, and the colleague promises not to copy them. What is the right response?",
+    "options": [
+      "Show them, since the photos are in scope and the colleague also works in the forensic unit",
+      "Show them only on the examination workstation, so no copy leaves the controlled case storage",
+      "Show them provided the case lead is told afterwards, so that the viewing appears in the notes",
+      "Refuse, because viewing outside the case purpose breaches confidentiality whatever the content"
+    ],
+    "correct": 3,
+    "explanation": "Scope permits viewing for the case's purpose by those who need to know; it does not cover a colleague's curiosity. Keeping the viewing on a controlled workstation prevents copying but does not make the purpose legitimate.",
+    "lesson": 7,
+    "difficulty": "hard"
+  }
+]

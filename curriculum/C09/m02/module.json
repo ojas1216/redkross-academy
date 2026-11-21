@@ -1,0 +1,92 @@
+{
+  "course": "C09",
+  "module": 2,
+  "title": "Acquisition",
+  "description": "Choose, document and verify proportionate digital evidence acquisitions. Compare the source interface, addressable extent and stored result using the C09 file-based fixtures.",
+  "lessons": [
+    {
+      "n": 1,
+      "title": "Imaging concepts",
+      "summary": "Choose an acquisition boundary and interpret a verification receipt for a synthetic source, master and review copy.",
+      "objectives": [
+        "Distinguish device, volume and file-level acquisition boundaries.",
+        "Interpret the supplied C09 acquisition transcript and explain the limits of matching hashes.",
+        "Write an acquisition receipt that identifies scope, errors, excluded evidence and the verification method."
+      ],
+      "minutes": 50
+    },
+    {
+      "n": 2,
+      "title": "Write blockers",
+      "summary": "How hardware and software write blockers protect a source device during acquisition, what they cannot protect, and how a laboratory tests and records a specific unit before relying on it.",
+      "objectives": [
+        "Explain how a write blocker forwards, stops and relays commands at the storage interface",
+        "Distinguish hardware and software write blockers from read-only mounting and media lock switches",
+        "Identify acquisition risks that lie outside a write blocker's control",
+        "Plan and record a pre-use check of a specific blocker unit and firmware",
+        "Review a fictional acquisition receipt against the original kit transcript and report discrepancies"
+      ],
+      "minutes": 60
+    },
+    {
+      "n": 3,
+      "title": "Hashing",
+      "summary": "How cryptographic hashes verify forensic images and copies, what a matching digest does and does not establish, and how to record values and handle mismatches without altering the record.",
+      "objectives": [
+        "Explain preimage, second-preimage and collision resistance and why they rule out MD5 and SHA-1 as primary values",
+        "Interpret the hash checkpoints in the C09 acquisition transcript, including the one-byte mismatch",
+        "Distinguish what a matching digest establishes from what needs separate records",
+        "Apply a fixed mismatch procedure that preserves the original record",
+        "Perform and document offline file-based verification of an image or copy"
+      ],
+      "minutes": 70
+    },
+    {
+      "n": 4,
+      "title": "E01 and raw formats",
+      "summary": "How raw (dd) and Expert Witness (E01) images store the same media stream differently, and why only a media hash, never a container hash, can be compared with the acquisition record.",
+      "objectives": [
+        "Distinguish the media stream from the container for raw, split raw and E01 images",
+        "Explain the main E01 sections, chunking, compression and checksums, and what each can and cannot prove",
+        "Select the correct verification method for a given format and recognise a container-versus-media hash false alarm",
+        "Interpret the kit's raw acquisition transcript and reason about an E01 of the same stream without inventing output",
+        "Justify a format choice and document conversions as new, separately verified copies"
+      ],
+      "minutes": 70
+    },
+    {
+      "n": 5,
+      "title": "Live vs dead acquisition",
+      "summary": "How to choose between acquiring a system while running or powered off, what each mode preserves and destroys, why a hash proves different things in each, and how to review the acquisition record that justifies the choice.",
+      "objectives": [
+        "Compare dead and live acquisition by repeatability, coverage, examiner footprint and dependence on the suspect operating system",
+        "Explain why a live capture's digest protects only the output file while a static image's digest can be compared with the source",
+        "Apply a documented decision path covering power state, volatile data in scope, shutdown method and systems that cannot go offline",
+        "Interpret the original static-acquisition transcript and identify what it can and cannot show",
+        "Review fictional acquisition records for overstated integrity claims, missing limitations and missing clock references"
+      ],
+      "minutes": 75
+    },
+    {
+      "n": 6,
+      "title": "Verification",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 7,
+      "title": "Storage",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    },
+    {
+      "n": 8,
+      "title": "Acquisition lab",
+      "summary": "",
+      "objectives": [],
+      "minutes": 0
+    }
+  ]
+}

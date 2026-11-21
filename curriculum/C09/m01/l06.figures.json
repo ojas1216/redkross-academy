@@ -1,0 +1,53 @@
+{
+  "C09-M01-L06-F1": {
+    "title": "Anatomy of a case file",
+    "caption": "The eight kinds of record that make up one case file, each answering a different reviewer question.",
+    "alt": "Tree diagram. The root box, Case file KF-2026-031 (one matter, one file), has arrows to eight child boxes: Authorisation and scope (instruction and scope changes); Evidence register (items and derived items); Custody records (receipts and transfer logs); Contemporaneous notes (running first-person account); Examination log (one row per step, tool and version); Decision log (choices, reasons, approvals); Communications record (who was told what, when); Drafts and review (versioned drafts, peer review). A note says a missing record type is a gap a reviewer will notice.",
+    "type": "tree",
+    "root": { "label": "Case file KF-2026-031", "sub": "one matter, one file", "tone": "dark" },
+    "children": [
+      { "label": "Authorisation and scope", "sub": "instruction and scope changes", "tone": "violet" },
+      { "label": "Evidence register", "sub": "items and derived items", "tone": "blue" },
+      { "label": "Custody records", "sub": "receipts and transfer logs", "tone": "blue" },
+      { "label": "Contemporaneous notes", "sub": "running first-person account", "tone": "orange" },
+      { "label": "Examination log", "sub": "one row per step, tool and version", "tone": "orange" },
+      { "label": "Decision log", "sub": "choices, reasons, approvals", "tone": "violet" },
+      { "label": "Communications record", "sub": "who was told what, when", "tone": "slate" },
+      { "label": "Drafts and review", "sub": "versioned drafts, peer review", "tone": "green" }
+    ],
+    "perRow": 4,
+    "note": "Every record type cross-references item numbers; a missing type is a gap a reviewer will notice."
+  },
+  "C09-M01-L06-F2": {
+    "title": "The same session, noted weakly and noted well",
+    "caption": "Five entries from one examination session on the USB working copy, written as a hurried note and as a reviewable note.",
+    "alt": "Two-column comparison with vs between them. Weak note, red: Looked at the USB image; Opened it, all fine; Found the spreadsheet, he copied it; Some time in the afternoon; Messed up export, redid it. Strong note, green: 14:12 IST verified E02-D1 working-copy hash, match; 14:15 opened in approved viewer, version logged; 14:31 observed pricing_Q1.xlsx in Exports, no inference on who copied it; 14:36 screenshot SS004 of file properties, hashed; 14:40 export X1 saved to wrong folder, kept, X2 saved, both logged. A note says a strong note is timed, specific, repeatable and honest about mistakes.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Weak note",
+        "tone": "red",
+        "items": [
+          "Looked at the USB image",
+          "Opened it, all fine",
+          "Found the spreadsheet, he copied it",
+          "Some time in the afternoon",
+          "Messed up export, redid it"
+        ]
+      },
+      {
+        "title": "Strong note",
+        "tone": "green",
+        "items": [
+          "14:12 IST Verified E02-D1 working-copy hash: match",
+          "14:15 Opened in approved viewer (version logged)",
+          "14:31 Observed pricing_Q1.xlsx in Exports; no inference on who copied it",
+          "14:36 Screenshot SS004 of file properties, hashed",
+          "14:40 Export X1 in wrong folder: kept; X2 saved; both logged"
+        ]
+      }
+    ],
+    "note": "A strong note is timed, specific, repeatable and honest about mistakes, and it never concludes about a person."
+  }
+}

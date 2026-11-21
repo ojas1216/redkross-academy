@@ -1,0 +1,327 @@
+[
+  {
+    "q": "A colleague argues that detailed working notes are unnecessary because the final report will contain everything a reader needs. What is the strongest reply?",
+    "options": [
+      "Reports are only read by managers, so the notes are the only record anyone technical will ever open",
+      "The report is built from the notes and checked against them; without notes it cannot be traced",
+      "Working notes are required so that the examiner can be paid for the hours spent on the case",
+      "Reports must be shorter than notes by policy, so detail removed from the report has to go somewhere"
+    ],
+    "correct": 1,
+    "explanation": "Notes are the working record underneath the report. A reviewer checks findings by tracing them back to notes; a report with nothing beneath it cannot be verified. The other options rely on invented rules or side issues.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which property of documentation most directly allows another competent examiner to repeat the work and reach the same observations?",
+    "options": [
+      "Writing the notes in formal prose so they read like a finished report",
+      "Recording the examiner's overall impression of the case at each session",
+      "Keeping the notes private to the examiner until the report is approved",
+      "Recording item number, tool and version, action, inputs and outputs for each step"
+    ],
+    "correct": 3,
+    "explanation": "Reproducibility needs enough detail to repeat each step exactly on the same item with the same tool version. Style, impressions and secrecy do not make work repeatable.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A note reads: \"Suspect copied pricing_Q1.xlsx to the drive on 9 March.\" How should it be rewritten in working notes?",
+    "options": [
+      "Record the observed file and timestamps, then a labelled inference with its basis, and no statement about who copied it",
+      "Leave it as written, because the timestamps support the date and the suspect is already named in the complaint",
+      "Replace \"suspect\" with the employee's full name so that the statement is precise enough to be relied on",
+      "Move the sentence into the decision log, since it describes a conclusion the examiner has reached"
+    ],
+    "correct": 0,
+    "explanation": "Observation, inference and conclusions about people must be separated. The date is an inference to be labelled with its basis; identity of the person is not an observation and belongs to the decision-maker. The decision log records choices, not conclusions.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "An examiner keeps electronic notes in an ordinary word-processor file saved over itself every evening. What is the main weakness?",
+    "options": [
+      "Electronic notes are never acceptable in forensic work, only bound paper notebooks",
+      "Word-processor files cannot hold timestamps, so the entries will lack times",
+      "There is no history, so nobody can show what the notes said on an earlier date",
+      "The file format is too large to store alongside the evidence in the case file"
+    ],
+    "correct": 2,
+    "explanation": "Electronic notes are acceptable if history is preserved, for example by an audit-trailed system or version control. A file overwritten daily can be changed silently and cannot demonstrate its earlier state.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Midway through a session the search tool crashes. The examiner restarts it and continues. What must the notes record to keep the results reviewable?",
+    "options": [
+      "Nothing, because crashes are routine and including them makes the notes look unprofessional",
+      "Only the final search results, since the restarted run supersedes any partial earlier output",
+      "A recommendation that the tool vendor be contacted, filed in the communications record",
+      "The crash, the time, whether the search was rerun from the start and whether results differed"
+    ],
+    "correct": 3,
+    "explanation": "A reviewer must be able to judge whether results are complete. Recording the failure and its consequences supports that; omitting failures makes the record look cleaner but less credible.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A reviewer notices that laptop browser history was not examined, and the notes are silent on why. Why is this a problem even if skipping it was correct?",
+    "options": [
+      "Every artefact on every item must always be examined, so the omission itself is an error",
+      "An unrecorded omission invites the suggestion that relevant evidence was ignored",
+      "The custody record for the laptop becomes invalid if any artefact goes unexamined",
+      "Browser history is the most reliable artefact, so it should always be examined first"
+    ],
+    "correct": 1,
+    "explanation": "Decisions not to act are part of the work and need recorded reasons and approvals, such as a scope amendment. Not examining something is often right; being unable to say why is the weakness.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "During a call, the case lead agrees to extend the date range of a search. What is the best way to document this?",
+    "options": [
+      "Record the call in the communications record and decision log, then confirm it by email filed in the case file",
+      "Rely on the call, since verbal approval from the case lead has the same weight as written approval",
+      "Note the new date range in the examination log only, as that is where the search itself is recorded",
+      "Wait until the report is written and mention the extension in its scope section"
+    ],
+    "correct": 0,
+    "explanation": "Scope changes govern what work is permitted, so they belong in the decision and communications records with written confirmation in the authorisation section. Leaving it to memory or the report loses the timing.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which statement is an observation rather than an inference or a conclusion?",
+    "options": [
+      "The file was probably copied to the drive shortly before the employee resigned",
+      "The employee was likely the only person with access to the shared drive",
+      "A file named pricing_Q1.xlsx is present in folder Exports on item E02-D1",
+      "The timestamps indicate that the file was opened on the drive at least once"
+    ],
+    "correct": 2,
+    "explanation": "Presence of a named file at a path on a numbered item is directly seen and repeatable. The other statements interpret timestamps or access, which requires stated reasoning and labelling.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A manager tells the examiner by phone that the USB drive is shared by the whole team. How should this appear in the notes?",
+    "options": [
+      "As a finding, because the manager has direct knowledge of how the team uses the drive",
+      "Not at all, because statements from staff are outside the scope of a forensic examination",
+      "As an inference about access, labelled with the examiner's own assessment of how likely it is",
+      "As information received: time, who said it, how, and the substance, confirmed in writing"
+    ],
+    "correct": 3,
+    "explanation": "Information from others is useful context but is not an observation of the evidence. Recording it as received, attributed and confirmed keeps it distinct from what the examiner saw.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does good practice record the tool version, not just the tool name, in the examination log?",
+    "options": [
+      "Different versions can extract different results, so a repeat needs the same version",
+      "Tool vendors require the version to be cited whenever their output is used in a case",
+      "The version number is needed to calculate the hash of the tool's output files",
+      "Older tool versions are inadmissible, so the version shows the tool was up to date"
+    ],
+    "correct": 0,
+    "explanation": "Parsers and analysers change between releases; a reviewer repeating a step with another version may get different output and needs to know that. The other options invent requirements.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An examiner saved an export to the wrong folder, deleted it, and saved a fresh copy in the right place. What should have happened instead?",
+    "options": [
+      "Deleting it was correct, provided the deletion took place before the end of the session",
+      "Keep the mistaken export, save the new one, and log both with names and locations",
+      "Move the mistaken export to the right folder and rename it so that only one copy exists",
+      "Ask a colleague to delete the mistaken export so that a second person witnesses the deletion"
+    ],
+    "correct": 1,
+    "explanation": "Deleting outputs makes the output folder inconsistent with what happened and destroys a record. Keeping and logging both preserves integrity and shows the mistake honestly.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A reviewer wants to test whether a case file supports its findings without reading every page. Which approach best does this?",
+    "options": [
+      "Count the pages of notes per day and compare the total with the time recorded for the case",
+      "Read the report's executive summary and confirm it agrees with the case lead's expectations",
+      "Pick a few findings and trace each back through the notes to an observation on a numbered item",
+      "Check that every page of the notes has been initialled, since signatures prove completeness"
+    ],
+    "correct": 2,
+    "explanation": "Tracing findings back to specific observations on specific items tests the link between report and evidence. Page counts, signatures and agreement with expectations do not test support.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which part of the case file should a reviewer normally read first, and why?",
+    "options": [
+      "The examination log, because it lists every action and is the quickest to scan",
+      "The drafts, because they show how the conclusions developed over time",
+      "The communications record, because it shows who influenced the examiner",
+      "Authorisation and scope, because all other work is judged against it"
+    ],
+    "correct": 3,
+    "explanation": "The reviewer first needs to know what work was allowed and which questions were asked; only then can actions, decisions and findings be judged as in or out of scope.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "An examiner writes notes from memory at the end of a two-day examination and presents them as if written during the work. What is the most serious consequence?",
+    "options": [
+      "The notes appear contemporaneous but are not, which misleads anyone weighing them",
+      "Notes from memory always contain errors, so every finding must now be withdrawn",
+      "The examination log becomes unnecessary because the notes now duplicate it",
+      "The custody record must be reopened, since it no longer matches the notes"
+    ],
+    "correct": 0,
+    "explanation": "Late notes are weaker but can be honest if marked as such. Presenting them as contemporaneous misrepresents their reliability. The other options overstate or misplace the consequence.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "How should screenshots taken during an examination be handled so they remain usable documentation?",
+    "options": [
+      "Keep them on the examiner's desktop until the report is drafted, then copy the useful ones in",
+      "Name each by case, item and sequence, note it when taken, store it in the file with a hash",
+      "Embed them only in the final report, since screenshots are presentation material, not records",
+      "Save them in a shared team folder so that colleagues can reuse them for other similar cases"
+    ],
+    "correct": 1,
+    "explanation": "Traceable naming, a note entry at capture and hashed storage in the case file make each screenshot attributable and checkable. Desktop or shared-folder storage loses control and context.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A working hypothesis is that the file arrived on the drive on 9 March. Which note entry best supports later review of this hypothesis?",
+    "options": [
+      "\"Hypothesis confirmed by timestamps\" with no further detail, to keep the notes concise",
+      "A list of every file on the drive with its timestamps, without any comment on the hypothesis",
+      "A statement of the examiner's confidence as a percentage, with the reviewer's initials",
+      "What was observed, what is inferred, and what evidence would change the examiner's view"
+    ],
+    "correct": 3,
+    "explanation": "Recording the observations, the inference and the evidence that would contradict it lets a reviewer test the reasoning. A bare \"confirmed\" or a number hides the basis.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which pair of case-file records most directly answers the reviewer question \"why was this done and was it allowed?\"",
+    "options": [
+      "Evidence register and custody records",
+      "Contemporaneous notes and examination log",
+      "Decision log and authorisation and scope",
+      "Communications record and drafts and review"
+    ],
+    "correct": 2,
+    "explanation": "The decision log records reasons and approvals for choices; the authorisation section records what was permitted. The register and custody records are about items, and the notes and log record actions and observations.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A team stores notes in personal notebooks, screenshots on desktops and decisions in chat messages, planning to assemble a case file at the end. What is the main risk?",
+    "options": [
+      "Records are scattered outside the file's controls and some will be lost or unattributable",
+      "Chat messages are automatically deleted after the case closes under most retention policies",
+      "Personal notebooks cannot be used because only electronic notes preserve version history",
+      "The final report will be longer than necessary because too many records will be included"
+    ],
+    "correct": 0,
+    "explanation": "Records created outside the case file escape its access controls and history, and assembling them later risks gaps and uncertain authorship. Bound paper notebooks are acceptable; the other options invent rules.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Why does the lesson treat a case file as a sensitive asset in its own right?",
+    "options": [
+      "Because it contains the original evidence devices, which must be physically protected",
+      "Because it gathers personal data and findings about named people in one place",
+      "Because case files are always published once the investigation has been closed",
+      "Because notes in the file can be used to recreate the incident on a live system"
+    ],
+    "correct": 1,
+    "explanation": "Concentrated personal data, business information and findings about individuals create disclosure and alteration risks, so access is restricted and logged. Devices are held in the evidence store, not the file.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A peer reviewer leaves five comments on a draft finding. The examiner fixes three and disagrees with two. How should the case file reflect this?",
+    "options": [
+      "Record only the three accepted comments, since rejected comments did not change the finding",
+      "Delete the comments once addressed, so the case file contains only the final agreed version",
+      "Record all five, how each was resolved and the reasons for disagreeing, with reviewer and date",
+      "Ask the reviewer to withdraw the two disputed comments so that the review shows full agreement"
+    ],
+    "correct": 2,
+    "explanation": "The review record shows who checked what and how every comment was resolved, including reasoned disagreement. Removing or suppressing comments hides the quality-control history.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "After a case is closed and locked, the examiner realises a screenshot was never logged. What is the correct way to add it?",
+    "options": [
+      "Unlock the file, insert the entry at the original time, and lock it again",
+      "Leave it out, since a closed file must never receive any new information",
+      "Replace the closing record with a new one that includes the screenshot",
+      "Add a dated, attributed addendum explaining what is added and why"
+    ],
+    "correct": 3,
+    "explanation": "Later additions are made as dated, attributed addenda so the history stays visible. Inserting an entry at the original time misrepresents when it was written.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "Which control is most effective at detecting examination work that was done but never recorded?",
+    "options": [
+      "Comparing the examination log against tool logs and storage access logs for the case",
+      "Requiring examiners to initial every page of their notes at the end of each day",
+      "Asking examiners to confirm in the report that all work has been documented",
+      "Limiting the number of screenshots each examiner may take during a session"
+    ],
+    "correct": 0,
+    "explanation": "Independent system records show activity regardless of what the examiner wrote; mismatches reveal unrecorded work. Initials and self-declarations rely on the examiner's own record.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "A note says only \"Hash fine.\" What specific information is missing for a reviewer to rely on it?",
+    "options": [
+      "The name of the person who first proposed using hashes in the organisation's procedure",
+      "Which item was hashed, which recorded value it was compared with, the algorithm and result",
+      "The hash value of the examiner's own notes file at the end of the session for comparison",
+      "A screenshot of the hashing tool's settings page together with the tool's licence details"
+    ],
+    "correct": 1,
+    "explanation": "A verification is only checkable if the note says what was compared with what, using which algorithm, and the outcome. The other details do not establish that the right data was verified.",
+    "lesson": 6,
+    "difficulty": "medium"
+  },
+  {
+    "q": "A trainee writes in working notes: \"Strong evidence the employee is guilty of a data breach.\" Which response best reflects good documentation practice?",
+    "options": [
+      "Keep it, but move it to the top of the notes so the reviewer sees the key point first",
+      "Keep it, provided the trainee's supervisor countersigns the entry on the same day",
+      "Strike it through once, initialled and dated, and record the underlying observations instead",
+      "Erase it fully so that the notes contain no trace of an inappropriate conclusion"
+    ],
+    "correct": 2,
+    "explanation": "Guilt and legal characterisation belong to decision-makers, so the entry should not stand as a working-note conclusion. It is corrected by a readable strike-through, never erased, and replaced with observations.",
+    "lesson": 6,
+    "difficulty": "hard"
+  },
+  {
+    "q": "Which header best opens a session of contemporaneous notes?",
+    "options": [
+      "\"Continued from yesterday\" followed by the examiner's initials",
+      "The case name and a summary of the findings expected by the case lead",
+      "The examiner's name and the tools that are planned for the session",
+      "Date, time zone, case number, item number being worked on and examiner"
+    ],
+    "correct": 3,
+    "explanation": "The header must let any entry be placed in time, tied to a specific item and case, and attributed. Expected findings do not belong in notes, and \"continued\" leaves context undefined.",
+    "lesson": 6,
+    "difficulty": "medium"
+  }
+]

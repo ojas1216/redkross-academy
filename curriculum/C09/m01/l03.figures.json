@@ -1,0 +1,33 @@
+{
+  "C09-M01-L03-F1": {
+    "title": "The RFC 3227 example order of volatility",
+    "caption": "Seven layers from most volatile (top) to least volatile (bottom); everything above Disk exists only while the system runs.",
+    "alt": "Stack of seven layers, most volatile at the top. Registers, cache: nanoseconds, rarely collectable (red). Routing, ARP, process table, kernel stats, memory: lost at power-off, live collection (red). Temporary file systems: tmpfs, /tmp, /dev/shm (orange). Disk: survives reboot, image it (blue). Remote logging and monitoring: SIEM, syslog, EDR, cloud audit (violet). Physical configuration, topology: cabling, ports, VLANs (slate). Archival media: backups, tapes, snapshots (green).",
+    "type": "layers",
+    "layers": [
+      { "label": "Registers, cache", "sub": "nanoseconds; rarely collectable", "tone": "red" },
+      { "label": "Routing, ARP, process table, kernel stats, memory", "sub": "lost at power-off; live collection", "tone": "red" },
+      { "label": "Temporary file systems", "sub": "tmpfs, /tmp, /dev/shm", "tone": "orange" },
+      { "label": "Disk", "sub": "survives reboot; image it", "tone": "blue" },
+      { "label": "Remote logging and monitoring", "sub": "SIEM, syslog, EDR, cloud audit", "tone": "violet" },
+      { "label": "Physical configuration, topology", "sub": "cabling, ports, VLANs", "tone": "slate" },
+      { "label": "Archival media", "sub": "backups, tapes, snapshots", "tone": "green" }
+    ]
+  },
+  "C09-M01-L03-F2": {
+    "title": "Handling a running machine: what each option keeps and loses",
+    "caption": "Five options compared by memory, disk and encryption state, with the main risk each one carries.",
+    "alt": "Table with columns Option, Memory, Disk, Encryption, Main risk. Keep running and isolate (orange): kept; keeps changing; stays open; attacker notices or deadman switch. Capture memory, then decide (green): captured; small tool footprint; key likely in capture; footprint must be recorded. Graceful shutdown (red): lost; OS writes on the way down; locked; shutdown scripts destroy evidence. Hard power-off (red): lost; frozen at last write; locked; cached writes lost. Hibernate (orange): written to hiberfile; part overwritten by hiberfile; locked at rest; depends on resume.",
+    "type": "table",
+    "columns": ["Option", "Memory", "Disk", "Encryption", "Main risk"],
+    "rowTones": ["orange", "green", "red", "red", "orange"],
+    "rows": [
+      ["Keep running, isolate", "Kept", "Keeps changing", "Stays open", "Attacker notices; deadman switch"],
+      ["Capture memory, then decide", "Captured", "Small tool footprint", "Key likely in capture", "Footprint to record"],
+      ["Graceful shutdown", "Lost", "OS writes on the way down", "Locked", "Shutdown scripts wipe traces"],
+      ["Hard power-off", "Lost", "Frozen at last write", "Locked", "Cached writes lost"],
+      ["Hibernate", "Written to hiberfile", "Part overwritten", "Locked at rest", "Depends on resume"]
+    ],
+    "note": "No option leaves every layer untouched; record what was given up and why."
+  }
+}

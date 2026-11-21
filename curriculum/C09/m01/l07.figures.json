@@ -1,0 +1,64 @@
+{
+  "C09-M01-L07-F1": {
+    "title": "Out-of-scope or uncertain item: stop, decide, log",
+    "caption": "How an examiner handles an item met during authorised work, with uncertainty treated as out of scope and every path ending in a logged decision.",
+    "alt": "Decision graph. An item met during examination leads to the question 'Inside written authorisation?'. Yes leads to 'Examine and record', which leads to 'Decision logged in case notes'. No or unsure leads to 'Stop viewing the item', then to the question 'Risk of serious harm or crime?'. Yes leads to 'Escalate under policy' with the case lead and legal advice the same day; no leads to 'Request a scope decision' with a written answer before work resumes. Both lead to 'Decision logged in case notes'.",
+    "type": "graph",
+    "dir": "TB",
+    "fixedDir": true,
+    "nodes": [
+      { "id": "item", "label": "Item met during examination", "sub": "file, message or artefact", "tone": "slate" },
+      { "id": "scope", "label": "Inside written authorisation?", "sub": "case scope, data types, dates", "tone": "violet" },
+      { "id": "exam", "label": "Examine and record", "sub": "notes: what, where, why relevant", "tone": "green" },
+      { "id": "stop", "label": "Stop viewing the item", "sub": "note the path; view nothing further", "tone": "orange" },
+      { "id": "harm", "label": "Risk of serious harm or crime?", "tone": "violet" },
+      { "id": "esc", "label": "Escalate under policy", "sub": "case lead and legal advice, same day", "tone": "red" },
+      { "id": "req", "label": "Request a scope decision", "sub": "written answer before work resumes", "tone": "blue" },
+      { "id": "log", "label": "Decision logged in case notes", "tone": "dark" }
+    ],
+    "edges": [
+      { "from": "item", "to": "scope" },
+      { "from": "scope", "to": "exam", "label": "yes" },
+      { "from": "scope", "to": "stop", "label": "no or unsure" },
+      { "from": "stop", "to": "harm" },
+      { "from": "harm", "to": "esc", "label": "yes" },
+      { "from": "harm", "to": "req", "label": "no" },
+      { "from": "exam", "to": "log" },
+      { "from": "esc", "to": "log" },
+      { "from": "req", "to": "log" }
+    ],
+    "note": "Curiosity and helpfulness are not grounds for widening scope; ask in writing."
+  },
+  "C09-M01-L07-F2": {
+    "title": "Overclaiming versus defensible report wording",
+    "caption": "Five common overclaims set against statements tied to a recorded value, a named version or a stated limitation.",
+    "alt": "Two-column comparison with 'vs' between them. Red column 'Overclaiming': the image is a perfect copy; the tool is court-validated; the working copy was untouched; the user downloaded the file; MD5 confirms integrity. Green column 'Defensible statement': SHA-256 of evidence.dd matched the source value e3a74e55...0f21; tool and version recorded, own verification checks listed; working copy altered at offset 100000 and replaced from the verified image; file present in the profile, who acted is not established; MD5 recorded for legacy compatibility only, SHA-256 relied on.",
+    "type": "compare",
+    "vs": true,
+    "columns": [
+      {
+        "title": "Overclaiming",
+        "tone": "red",
+        "items": [
+          "\"The image is a perfect copy\"",
+          "\"The tool is court-validated\"",
+          "\"The working copy was untouched\"",
+          "\"The user downloaded the file\"",
+          "\"MD5 confirms integrity\""
+        ]
+      },
+      {
+        "title": "Defensible statement",
+        "tone": "green",
+        "items": [
+          "SHA-256 of evidence.dd matched the source value e3a74e55…0f21",
+          "Tool and version recorded; own verification checks listed",
+          "Working copy altered at offset 100000; replaced from verified image",
+          "File present in the profile; who acted is not established",
+          "MD5 recorded for legacy compatibility only; SHA-256 relied on"
+        ]
+      }
+    ],
+    "note": "Replace authority with evidence: a recorded value, a named version or an explicit limitation."
+  }
+}
