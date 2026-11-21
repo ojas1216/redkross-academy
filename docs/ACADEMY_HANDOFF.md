@@ -207,3 +207,11 @@ trimmed; (d) the v1 rebuild queue as already planned.
 ## 21 November, Claude: ANTIGRAVITY.md onboarding file
 
 A new developer, working with the Antigravity editor, joins the project. The root file `ANTIGRAVITY.md` is their single starting point: stack, run and test commands, repository map, rules, done and remaining work with file pointers and acceptance checks. Keep it current when priorities change.
+
+## 21 November, Claude: developer repository compared (Atharv-design/redkross-academy)
+
+Its `main` (c81dd28, 14 November) is already contained in ours. The five 14 November fixes were replayed here (feb78cf, d780538, 6ed813b, 5c269c3 adapted, dcc1488), and `atharv-backup` is older. There is no shared git history. Of the 1,160 differing files, ours is the newer version in every case checked. The 110 old C08 lesson files that exist only there were deleted on purpose.
+
+**Security:** that repository is PUBLIC and its history contains a Neon password, Firebase keys and an apparent Resend key. The owner must rotate them and make it private or archive it. Our repository is also public; its history is scrubbed, and only the public Firebase web key remains.
+
+ANTIGRAVITY.md section 0 now explains how to combine: clone this repository, bring over later work with format-patch and `git am -3`, keep our version for the listed files, never use `--allow-unrelated-histories`, and open a pull request.

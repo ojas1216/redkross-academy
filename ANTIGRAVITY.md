@@ -1,6 +1,6 @@
 # ANTIGRAVITY.md: start here
 
-This file is for the developer joining RedKross Academy, and for the AI agent working in their editor (Antigravity). It is meant to be enough to start work without reading the whole repository. Last updated: 21 November 2026.
+This file is for the developer joining RedKross Academy, and for the AI agent working in their editor (Antigravity). It is meant to be enough to start work without reading the whole repository. Last updated: 21 November 2026. **If you are combining your earlier repository with this one, read section 0 first.**
 
 Longer references, only when needed:
 - `docs/FUTURE_PLAN.md`: product plan, token and credit decisions, recommendations
@@ -8,6 +8,80 @@ Longer references, only when needed:
 - `curriculum/PROGRESS.md`: course rebuild tracker
 - `curriculum/AUTHORING_GUIDE.md`: rules for writing lessons
 - `curriculum/DIAGRAM_SPECS.md`: rules for diagrams
+
+---
+
+## 0. Combining your repo with this one: read first
+
+**This repository (`ojas1216/redkross-academy`) is the base from now on.** Do not merge the old developer repository (`Atharv-design/redkross-academy`) into it.
+
+### What was compared (21 November 2026)
+
+| | Developer repo (`Atharv-design`) | This repo (`ojas1216`) |
+| --- | --- | --- |
+| Latest commit | `c81dd28`, 14 November 23:58: "fix(catalog): retain full courses catalog…" | `cfced35` and later (21 November) |
+| Your 14 November fixes | — | **Already included**, replayed as commits: `feb78cf` (Vercel 12-function limit), `d780538` (figures and C04), `6ed813b` (dashboard), `5c269c3` (CBT exam and dev orchestration, adapted), `dcc1488` (catalog and routing) |
+| Branch `atharv-backup` (`bcd94ea`, 12 November) | Older than `main` | Nothing new in it |
+| Shared git history | **None.** This repo starts from a snapshot ("Baseline: academy as received 2026-11-13"), so git sees the two as unrelated. | |
+| Files that differ | 1,160, and **in every case checked, this repo's version is the newer one** | |
+| Files only in your repo | 110 old C08 lesson files (`public/course-content/crs_cyber_soc_08/*`) | Deleted on purpose: C08 was rebuilt as v2 |
+| Secrets in history | **Yes:** a Neon database password, Firebase keys and what looks like a Resend API key, in a public repository | Scrubbed. Only the public Firebase web key remains. |
+
+### What a plain merge would break
+
+These are files where your old copy would overwrite later work. **In every one of them, keep this repo's version:**
+
+| Area | Files | Why |
+| --- | --- | --- |
+| Psychology | `src/pages/public/PsychologyCourseDetailPage.jsx`, `PsychologyAcademyPage.jsx`, `src/services/db/psychologyCourses.js` | About 1,200 lines of invented clinical exams and accreditation claims were removed, and checked content was integrated. Your copy would bring the false claims back. |
+| Course pages and data | `src/pages/public/CyberCourseDetailPage.jsx`, `CourseDetailPage.jsx`, `CyberAcademyPage.jsx`, `HomePage.jsx`, `src/services/db/cyberCourses.js`, `src/components/common/AcademyOfferSection.jsx`, `DonationSection.jsx` | All courses free, Academy credits, bundles coming soon, donations, C01 renamed lessons, no STRIDE claim |
+| Exams | `api/_lib/courseRegistry.js` | Never serves a repeated question; server-only answer keys |
+| Question banks | `src/services/db/questionBanks/*`, `src/services/db/course03/quizzes/*`, `curriculum/legacy_banks/*` | Rebuilt as distinct questions. Your 200-question copies repeat the same question inside one exam. |
+| Course content | `src/services/db/curriculum/module3.js`, `module4.js`, `src/services/db/course03/modules/*`, `public/course-content/**`, `public/assets/courses/**`, `src/services/db/library/libraryCourses.generated.js`, `api/_data/library/*`, `curriculum/**` | C01 renamed lessons, C03 duplicate introduction removed, C08 v2, C09 v2, designed diagrams. Generated files come from the build scripts, never from a merge. |
+| Accounts, mail, wallet | `api/_auth.js`, `api/auth.js`, `api/_mail.js`, `api/wallet.js`, `api/_lib/access.js`, `api/_lib/learning.js`, `api/enrol.js`, `api/_redeem.js`, `api/progress.js` | Email sign-up, access and wallet review |
+| Tests and config | `tests/*`, `vercel.json` (includes the `/api/account-email` rewrite), `.gitignore`, `.env.example` (adds `VITE_DONATION_*`), `package.json`, `scripts/import_library_courses.mjs` | Tests expect the new behaviour; the importer now sets every course to free |
+
+### How to combine safely
+
+1. **Start from this repo:**
+   ```bash
+   git clone https://github.com/ojas1216/redkross-academy.git
+   ```
+   Work on a branch, for example `git checkout -b atharv/<feature>`.
+2. **Bring over only work done after 14 November 23:58** that is not on GitHub yet. In your old local clone:
+   ```bash
+   git format-patch c81dd28..HEAD -o ../my-patches
+   ```
+   Then in the new clone:
+   ```bash
+   git am -3 ../my-patches/*.patch
+   ```
+   For a handful of files, copying them by hand is fine.
+3. **Resolve conflicts in favour of this repo** for every file in the table above, then re-apply your own change on top by hand.
+4. **Never do any of the following.** Each one either overwrites the newer work or brings the leaked secrets into this repository's history.
+   - `git merge --allow-unrelated-histories`
+   - pushing the old repository's history here
+   - force-pushing `main`
+   - restoring `public/course-content/crs_cyber_soc_08/*`
+   - re-running the old bank scripts (rule 5 below)
+5. **Run all four checks** in section 2 (`npm test`, `npm run test:api` on a fresh database, `npm run build`, `npm run audit:bundle`).
+6. **Open a pull request** into `main`. Do not push straight to it. Add a dated line to `docs/ACADEMY_HANDOFF.md`.
+
+### Action needed on the old repository (owner)
+
+- **Rotate now:**
+  - the Neon database password
+  - the Resend key
+  - any other key in the old repository's history
+
+  It is **public**, so those values are readable by anyone. Rotation is already a launch blocker (6.7). This raises its urgency.
+- Then make `Atharv-design/redkross-academy` private, or archive it, so nobody keeps working on the old base.
+
+### Your local `AGENTS.md`
+
+Your old repository ignores `AGENTS.md` in git, so it is a local file. Keep it local. Add one line at its top:
+
+> Read ANTIGRAVITY.md in the repository root first, and follow its rules.
 
 ---
 
