@@ -203,3 +203,7 @@ trimmed; (d) the v1 rebuild queue as already planned.
   rk_test (schema + all migrations). Pre-existing, unrelated: tests/challenger_m2_stress_test.mjs
   reads a hard-coded path from another machine.
 - Optional later: C02 M1/M5-M8 banks are partly templated (still serve 20 distinct per exam).
+
+## 21 November, Claude: ANTIGRAVITY.md onboarding file
+
+A new developer, working with the Antigravity editor, joins the project. The root file `ANTIGRAVITY.md` is their single starting point: stack, run and test commands, repository map, rules, done and remaining work with file pointers and acceptance checks. Keep it current when priorities change.
